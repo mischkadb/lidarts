@@ -56,4 +56,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    import lidarts.models
+
     return app
