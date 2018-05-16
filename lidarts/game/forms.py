@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired
 game_types = [('170', '170'), ('301', '301'), ('501', '501')]
 opponents = [('computer', 'Computer'), ('user', 'User')]
 starter = [('me', 'Me'), ('opoonent', 'Opponent'), ('clostest', 'Closest to Bullseye')]
-bo_choice = [(str(x), str(x)) for x in range(1,30)]
+bo_choice = [(str(x), str(x)) for x in range(1, 30)]
 
 
 class CreateX01GameForm(FlaskForm):

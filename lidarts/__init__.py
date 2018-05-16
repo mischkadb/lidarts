@@ -60,5 +60,6 @@ def create_app(test_config=None):
         pass
 
     import lidarts.models
+    import lidarts.socket.game_handler
 
     return app

@@ -12,3 +12,8 @@ def create(mode='x01'):
     else:
         pass
     return render_template('game/create_X01.html', form=form)
+
+
+@bp.route('/game')
+def game():
+    return render_template('game/game.html')
