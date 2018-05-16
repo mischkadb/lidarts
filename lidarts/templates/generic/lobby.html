@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block app_content %}
+<div class="row justify-content-center">
+    <div class="col-sm-8">
+        <h1>Lobby</h1>
+    </div>
+</div>
+
+<div class="row justify-content-center align-items-center">
+    <div class="col-sm-3">
+        <a href="{{ url_for('game.create') }}">
+            <div class="card text-center text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-text">X01</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-3">
+        <a href="#">
+            <div class="card text-center text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-text">Cricket (WIP)</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-3">
+        <a href="#">
+            <div class="card text-center text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-text">Other (WIP)</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

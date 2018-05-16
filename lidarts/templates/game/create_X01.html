@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Create Game{% endblock %}
+
+{% block app_content %}
+<div class="row justify-content-center mb-4">
+    <div class="col-sm-4">
+        <h1>Create Game</h1>
+    </div>
+</div>
+<div class="row justify-content-center mb-4">
+    <div class="col-sm-2">
+        <p>Game Mode:</p>
+    </div>
+    <div class="col-sm-2">
+        <div class="dropdown show">
+            <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                X01
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="gameModeDropdown">
+                <a class="dropdown-item" href="{{ url_for('game.create') }}/x01">X01</a>
+                <a class="dropdown-item" href="#">Cricket</a>
+            </div>
+        </div>
+    </div>
+</div>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            <p>{{ form.type.label }}:</p>
+        </div>
+        <div class="col-sm-2">
+                {{ form.type }}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            <p>{{ form.opponent.label }}:</p>
+        </div>
+        <div class="col-sm-2">
+                {{ form.opponent }}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            <p>{{ form.starter.label }}:</p>
+        </div>
+        <div class="col-sm-2">
+                {{ form.starter }}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            <p>{{ form.bo_sets.label }}:</p>
+        </div>
+        <div class="col-sm-2">
+                {{ form.bo_sets }}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+            <p>{{ form.bo_legs.label }}:</p>
+        </div>
+        <div class="col-sm-2">
+                {{ form.bo_legs }}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-2">
+                {{ form.submit }}
+        </div>
+    </div>
+
+</form>
+</div>
+</div>
+
+
+
+
+{% endblock %}
