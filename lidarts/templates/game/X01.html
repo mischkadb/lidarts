@@ -46,7 +46,7 @@
 </div>
 <div class="row justify-content-center align-items-center">
     <div class="col-sm-4">
-        <form class="text-center" id="score_input" method="POST" action="">
+        <form class="text-center" id="score_input" method="POST" action="" autocomplete="off">
             {{ form.hidden_tag() }}
             {{ form.score_value(size=4, class="text-center") }}
             <p class="text-center">{{ form.submit() }}</p>
