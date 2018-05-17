@@ -24,8 +24,12 @@ $(document).ready(function() {
         $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
     });
     socket.on('score_response', function(msg) {
-        $('#score1').html(msg.score1);
-        $('#score2').html(msg.score2);
+        $('#p1_score').html(msg.p1_score);
+        $('#p2_score').html(msg.p2_score);
+        $('#p1_sets').html(msg.p1_sets);
+        $('#p2_sets').html(msg.p2_sets);
+        $('#p1_legs').html(msg.p1_legs);
+        $('#p2_legs').html(msg.p2_legs);
     });
     // Handlers for the different forms in the page.
     // These accept data from the user and send it to the server in a
