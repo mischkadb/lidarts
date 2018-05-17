@@ -12,8 +12,9 @@ $(document).ready(function() {
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
+    var flaskData = $('#my-data').data();
     socket.on('connect', function() {
-        socket.emit('my_event', {data: 'I\'m connected!'});
+        socket.emit('init', {hashid: flaskData['hashid'] });
     });
     // Event handler for server sent data.
     // The callback function is invoked whenever the server emits data
@@ -29,8 +30,23 @@ $(document).ready(function() {
     // Handlers for the different forms in the page.
     // These accept data from the user and send it to the server in a
     // variety of ways
-    $('form#score').submit(function(event) {
-        socket.emit('send_score', {score: $('#score_value').val()});
+    var validation_url = $('#validation_url').data();
+    var score_errors = [];
+    $('form#score_input').submit(function(event) {
+        $('#score_error').text('');
+        $.post(
+            validation_url,
+            $("#score_input").serialize(),
+            function (errors) {
+                score_errors = errors
+                if (jQuery.isEmptyObject(score_errors)) {
+                    socket.emit('send_score', {score: $('#score_value').val(), hashid: flaskData['hashid']});
+                } else {
+                    $('#score_error').text(score_errors['score_value'][0]);
+                }
+                $('input[name=score_value]').val('');
+
+            });
         return false;
     });
 

@@ -1,11 +1,22 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import IntegerField, SelectField, SubmitField
+from wtforms.validators import DataRequired, NumberRange, ValidationError
 
 game_types = [('170', '170'), ('301', '301'), ('501', '501')]
 opponents = [('computer', 'Computer'), ('user', 'User')]
 starter = [('me', 'Me'), ('opoonent', 'Opponent'), ('clostest', 'Closest to Bullseye')]
 bo_choice = [(str(x), str(x)) for x in range(1, 30)]
+
+
+def bogey_check(form, field):
+    bogey_numbers = [179, 178, 176, 175, 173, 172, 169]
+    if field.data in bogey_numbers:
+        raise ValidationError('Bogey number.')
+
+
+class ScoreForm(FlaskForm):
+    score_value = IntegerField('Score', validators=[DataRequired(), NumberRange(min=0, max=180), bogey_check])
+    submit = SubmitField('Submit score')
 
 
 class CreateX01GameForm(FlaskForm):
