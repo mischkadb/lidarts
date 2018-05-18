@@ -46,6 +46,9 @@ def create_app(test_config=None):
     from lidarts.game import bp as game_bp
     app.register_blueprint(game_bp)
 
+    from lidarts.profile import bp as profile_bp
+    app.register_blueprint(profile_bp)
+
     # Load test config if we are in testing mode
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
