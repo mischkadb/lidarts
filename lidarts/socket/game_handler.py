@@ -1,5 +1,5 @@
 from flask import session, request, jsonify
-from flask_socketio import emit
+from flask_socketio import emit, join_room, leave_room
 from lidarts import socketio, db
 from lidarts.models import Game
 import math
@@ -89,10 +89,10 @@ def send_score(message):
     session['receive_count'] = session.get('receive_count', 0) + 1
     emit('score_response',
          {'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
-          'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs}, broadcast=True)
+          'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs}, room=game.hashid, broadcast=True)
     if game.completed:
-        print('emit completed')
-        emit('game_completed', broadcast=True)
+        emit('game_completed', room=game.hashid, broadcast=True)
+        leave_room(game.hashid)
 
 
 @socketio.on('connect', namespace='/game')
@@ -103,8 +103,10 @@ def connect():
 @socketio.on('init', namespace='/game')
 def init(message):
     game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
+    join_room(game.hashid)
     emit('score_response', {'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
-                            'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs})
+                            'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
+         room=game.hashid)
 
 
 @socketio.on('disconnect', namespace='/game')

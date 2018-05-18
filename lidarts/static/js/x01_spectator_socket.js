@@ -30,7 +30,6 @@ $(document).ready(function() {
     });
     socket.on('game_completed', function() {
         console.log('Game completed')
-        $('#score_input').hide()
         $('#confirm_completion').show()
     });
 

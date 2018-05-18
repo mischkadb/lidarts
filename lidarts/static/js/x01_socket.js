@@ -54,7 +54,6 @@ $(document).ready(function() {
                     $('#score_error').text(score_errors['score_value'][0]);
                 }
                 $('input[name=score_value]').val('');
-
             });
         return false;
     });
