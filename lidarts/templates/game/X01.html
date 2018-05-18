@@ -58,6 +58,7 @@
         </form>
         <form class="text-center" id="confirm_completion" method="POST" action="" {% if not game.completed %} style="display: none" {% endif %}>
             <p>Game is completed.</p>
+            <a href="{{ url_for('game.start', hashid=game.hashid) }}">Game overview</a>
         </form>
     </div>
 </div>
