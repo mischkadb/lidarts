@@ -30,6 +30,7 @@ $(document).ready(function() {
         $('#p2_sets').html(msg.p2_sets);
         $('#p1_legs').html(msg.p1_legs);
         $('#p2_legs').html(msg.p2_legs);
+        $('div.player_turn').toggleClass('bg-dark text-white');
     });
     socket.on('game_completed', function() {
         console.log('Game completed')

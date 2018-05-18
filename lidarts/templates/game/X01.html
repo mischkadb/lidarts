@@ -17,37 +17,31 @@
 {% block app_content %}
 
 <div class="row justify-content-center align-items-center">
-    <div class="col-sm-3 text-center">
-        <h5>{{ game.player1_name }}</h5>
-    </div>
-    <div class="col-sm-3 text-center">
-        <h5>{{ game.player2_name }}</h5>
-    </div>
-</div>
-<div class="row justify-content-center align-items-center">
-    <div class="col-sm-3 text-center">
-        <p>Sets: <span id="p1_sets"></span> Legs: <span id="p1_legs"></span></p>
-    </div>
-    <div class="col-sm-3 text-center">
-        <p>Sets: <span id="p2_sets"></span> Legs: <span id="p2_legs"></span></p>
-    </div>
-</div>
-<div class="row justify-content-center align-items-center">
-    <div class="col-sm-3">
-        <div class="card text-center text-white bg-info">
-            <div class="card-body">
-                <h5 id="p1_score" class="card-text"></h5>
+    <div class="card col-sm-3 text-center {% if not game.p1_next_turn %}bg-dark text-white{% endif %} player_turn" id="p1_turn">
+        <div class="card-body">
+            <h5>{{ game.player1_name }}</h5>
+            <p>Sets: <span id="p1_sets"></span> Legs: <span id="p1_legs"></span></p>
+            <div class="card text-center text-white bg-info">
+                <div class="card-body">
+                    <h5 id="p1_score" class="card-text"></h5>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-3">
-        <div class="card text-center text-white bg-info">
-            <div class="card-body">
-                <h5 id="p2_score" class="card-text"></h5>
+
+    <div class="card col-sm-3 text-center {% if game.p1_next_turn %}bg-dark text-white{% endif %} player_turn" id="p2_turn">
+        <div class="card-body">
+            <h5>{{ game.player2_name }}</h5>
+            <p>Sets: <span id="p2_sets"></span> Legs: <span id="p2_legs"></span></p>
+            <div class="card text-center text-white bg-info">
+                <div class="card-body">
+                    <h5 id="p2_score" class="card-text"></h5>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="row justify-content-center align-items-center">
     <div class="col-sm-4">
         <form class="text-center" id="score_input" method="POST" action="" autocomplete="off" {% if game.completed or not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
