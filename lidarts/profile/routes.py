@@ -1,9 +1,10 @@
 from flask import render_template
 from lidarts.profile import bp
-from lidarts.models import User
+from lidarts.models import User, Game
 
 
 @bp.route('/@/<username>')
 def overview(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('profile/overview.html', user=user)
+    games = Game.query.filter((Game.player1 == user.id) | (Game.player2 == user.id)).all()
+    return render_template('profile/overview.html', user=user, games=games)
