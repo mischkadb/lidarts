@@ -33,11 +33,6 @@ def create(mode='x01'):
     return render_template('game/create_X01.html', form=form)
 
 
-@bp.route('/game')
-def game():
-    return render_template('game/game.html')
-
-
 @bp.route('/<hashid>')
 def start(hashid):
     form = ScoreForm()
@@ -51,7 +46,10 @@ def start(hashid):
         game_dict['player2_name'] = get_name_by_id(game.player2)
     else:
         game_dict['player2_name'] = 'Guest'
-    return render_template('game/X01.html', game=game_dict, form=form)
+    if game.completed:
+        return render_template('game/X01_completed.html', game=game_dict, form=form)
+    else:
+        return render_template('game/X01.html', game=game_dict, form=form)
 
 
 @bp.route('/validate_score', methods=['POST'])
