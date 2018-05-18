@@ -33,9 +33,9 @@ $(document).ready(function() {
         $('div.player_turn').toggleClass('bg-dark text-white');
     });
     socket.on('game_completed', function() {
-        console.log('Game completed')
-        $('#score_input').hide()
-        $('#confirm_completion').show()
+        $('div.player_turn').removeClass('bg-dark text-white');
+        $('#score_input').hide();
+        $('#confirm_completion').show();
     });
     // Handlers for the different forms in the page.
     // These accept data from the user and send it to the server in a
