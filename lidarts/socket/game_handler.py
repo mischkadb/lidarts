@@ -3,6 +3,7 @@ from flask_socketio import emit, join_room, leave_room
 from lidarts import socketio, db
 from lidarts.models import Game
 import math
+from datetime import datetime
 
 
 def player_to_dict(game, player1):
@@ -67,12 +68,16 @@ def process_score(hashid, score_value):
             game.p2_score = game.type
     elif player_dict['p_score'] - score_value < 0:
         pass
+    # Double/Master out: score cannot drop to 1
+    elif game.out_mode in ['do', 'mo'] and player_dict['p_score'] - score_value == 1:
+        pass
     else:
         player_dict['p_score'] -= score_value
 
     game = game_from_dict(game, player_dict)
     if game.completed:
         process_game_win(game)
+        game.end = datetime.now()
     else:
         game.p1_next_turn = not game.p1_next_turn
     db.session.commit()

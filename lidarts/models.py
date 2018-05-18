@@ -47,6 +47,8 @@ class Game(db.Model):
     match_json = db.Column(db.JSON)
     in_mode = db.Column(db.String(15))
     out_mode = db.Column(db.String(15))
+    begin = db.Column(db.DateTime)
+    end = db.Column(db.DateTime)
 
     def set_hashid(self):
         hashids = Hashids(min_length=8)

@@ -5,6 +5,7 @@ from lidarts.models import Game
 from lidarts import db
 from lidarts.game.utils import get_name_by_id
 from flask_login import current_user
+from datetime import datetime
 
 
 @bp.route('/create', methods=['GET', 'POST'])
@@ -23,7 +24,8 @@ def create(mode='x01'):
                     bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
                     p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
                     p1_score=int(form.type.data), p2_score=int(form.type.data),
-                    in_mode=form.in_mode.data, out_mode=form.out_mode.data)
+                    in_mode=form.in_mode.data, out_mode=form.out_mode.data,
+                    begin=datetime.now())
         game.p1_next_turn = form.starter.data == 'me'
         db.session.add(game)
         db.session.commit()
@@ -56,5 +58,4 @@ def start(hashid):
 def validate_score():
     form = ScoreForm(request.form)
     result = form.validate()
-    print(form.errors)
     return jsonify(form.errors)
