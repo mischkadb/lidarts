@@ -46,11 +46,16 @@
 </div>
 <div class="row justify-content-center align-items-center">
     <div class="col-sm-4">
-        <form class="text-center" id="score_input" method="POST" action="" autocomplete="off">
+        <form class="text-center" id="score_input" method="POST" action="" autocomplete="off"
+            {% if game.completed %} style="display: none" {% endif %}>
             {{ form.hidden_tag() }}
             {{ form.score_value(size=4, class="text-center") }}
             <p class="text-center">{{ form.submit() }}</p>
             <p class="text-center" id="score_error" style="color: red;"></p>
+        </form>
+        <form class="text-center" id="confirm_completion" method="POST" action=""
+              {% if not game.completed %} style="display: none" {% endif %}>
+            <p>Game is completed.</p>
         </form>
     </div>
 </div>

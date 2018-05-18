@@ -31,6 +31,11 @@ $(document).ready(function() {
         $('#p1_legs').html(msg.p1_legs);
         $('#p2_legs').html(msg.p2_legs);
     });
+    socket.on('game_completed', function() {
+        console.log('Game completed')
+        $('#score_input').hide()
+        $('#confirm_completion').show()
+    });
     // Handlers for the different forms in the page.
     // These accept data from the user and send it to the server in a
     // variety of ways
