@@ -15,7 +15,11 @@ def create(mode='x01'):
     else:
         pass
     if form.validate_on_submit():
-        game = Game(player1=current_user.id, player2=None, type=form.type.data,
+        player1 = None
+        player2 = None
+        if current_user.is_authenticated:
+            player1 = current_user.id
+        game = Game(player1=player1, player2=player2, type=form.type.data,
                     bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
                     p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
                     p1_score=int(form.type.data), p2_score=int(form.type.data),
@@ -47,11 +51,7 @@ def start(hashid):
         game_dict['player2_name'] = get_name_by_id(game.player2)
     else:
         game_dict['player2_name'] = 'Guest'
-    print(current_user.id)
-    if current_user.is_authenticated and current_user.id == game.player1:
-        return render_template('game/X01.html', game=game_dict, form=form)
-    else:
-        return redirect(url_for('generic.lobby'))
+    return render_template('game/X01.html', game=game_dict, form=form)
 
 
 @bp.route('/validate_score', methods=['POST'])

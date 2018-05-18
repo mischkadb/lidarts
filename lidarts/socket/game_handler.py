@@ -89,10 +89,10 @@ def send_score(message):
     session['receive_count'] = session.get('receive_count', 0) + 1
     emit('score_response',
          {'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
-          'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs})
+          'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs}, broadcast=True)
     if game.completed:
         print('emit completed')
-        emit('game_completed')
+        emit('game_completed', broadcast=True)
 
 
 @socketio.on('connect', namespace='/game')
