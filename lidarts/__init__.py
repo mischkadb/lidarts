@@ -24,8 +24,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='devonlynoproduction',
-        SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL') or
-                                'sqlite:///' + os.path.join(basedir, 'lidarts.db'),
+        SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL'),
         SQLALCHEMY_TRACK_MODIFICATIONS=False
     )
 
