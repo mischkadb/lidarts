@@ -1,19 +1,6 @@
 {% extends "base.html" %}
 {% block title %}X01{% endblock %}
 
-{% block head %}
-<meta id="my-data" data-hashid="{{ game.hashid }}">
-<meta id="validation_url" data-url="{{ url_for('game.validate_score') }}">
-
-<script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
-{% if current_user.id == game.player1 or current_user.id == game.player2 %}
-<script type="text/javascript" src="/static/js/x01_socket.js"></script>
-{% else %}
-<script type="text/javascript" src="/static/js/x01_spectator_socket.js"></script>
-{% endif %}
-{% endblock %}
-
 {% block app_content %}
 
 <div class="row justify-content-center align-items-center">
@@ -57,7 +44,15 @@
     </div>
 </div>
 
+{% endblock %}
 
+{% block scripts %}
+<meta id="my-data" data-hashid="{{ game.hashid }}">
+<meta id="validation_url" data-url="{{ url_for('game.validate_score') }}">
 
-
+{% if current_user.id == game.player1 or current_user.id == game.player2 %}
+<script type="text/javascript" src="/static/js/x01_socket.js"></script>
+{% else %}
+<script type="text/javascript" src="/static/js/x01_spectator_socket.js"></script>
+{% endif %}
 {% endblock %}
