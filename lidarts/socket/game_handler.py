@@ -4,6 +4,7 @@ from lidarts import socketio, db
 from lidarts.models import Game
 import math
 from datetime import datetime
+import json
 
 
 def player_to_dict(game, player1):
@@ -17,10 +18,12 @@ def player_to_dict(game, player1):
         player_dict['p_score'] = game.p1_score
         player_dict['p_legs'] = game.p1_legs
         player_dict['p_sets'] = game.p1_sets
+        player_dict['o_legs'] = game.p2_legs
     else:
         player_dict['p_score'] = game.p2_score
         player_dict['p_legs'] = game.p2_legs
         player_dict['p_sets'] = game.p2_sets
+        player_dict['o_legs'] = game.p1_legs
     return player_dict
 
 
@@ -29,10 +32,12 @@ def game_from_dict(game, player_dict):
         game.p1_score = player_dict['p_score']
         game.p1_legs = player_dict['p_legs']
         game.p1_sets = player_dict['p_sets']
+        game.p2_legs = player_dict['o_legs']
     else:
         game.p2_score = player_dict['p_score']
         game.p2_legs = player_dict['p_legs']
         game.p2_sets = player_dict['p_sets']
+        game.p1_legs = player_dict['o_legs']
     game.completed = player_dict['completed']
     return game
 
@@ -41,7 +46,7 @@ def process_game_win(game):
     pass
 
 
-def process_leg_win(player_dict):
+def process_leg_win(player_dict, match_json, current_values):
     # draw not implemented
     legs_for_set = math.ceil(player_dict['bo_legs'] / 2)
     sets_for_match = math.ceil(player_dict['bo_sets'] / 2)
@@ -50,31 +55,52 @@ def process_leg_win(player_dict):
     if player_dict['p_legs'] == 0:
         player_dict['p_sets'] += 1
         if player_dict['p_sets'] == sets_for_match:
+            if player_dict['bo_sets'] == 1:
+                player_dict['p_legs'] = math.ceil(player_dict['bo_legs'] / 2)
             player_dict['completed'] = True
             player_dict['p_score'] = 0
-    return player_dict
+        else:
+            player_dict['o_legs'] = 0
+            current_values['set'] = str(int(current_values['set']) + 1)
+            current_values['leg'] = '1'
+            match_json[current_values['set']] = {current_values['leg']: {'1': [], '2': []}}
+    else:
+        current_values['leg'] = str(int(current_values['leg']) + 1)
+        match_json[current_values['set']][current_values['leg']] = {'1': [], '2': []}
+
+    return player_dict, match_json, current_values
 
 
 def process_score(hashid, score_value):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
+    match_json = json.loads(game.match_json)
     if game.completed:
         return game
+    current_values = {
+        'set': str(game.p1_sets + game.p2_sets + 1),
+        'leg': str(game.p1_legs + game.p2_legs + 1),
+        'player': '1' if game.p1_next_turn is True else '2'
+    }
+    print(match_json)
     player_dict = player_to_dict(game, game.p1_next_turn)
-
     if player_dict['p_score'] - score_value == 0:
-        player_dict = process_leg_win(player_dict)
+        match_json[current_values['set']][current_values['leg']][current_values['player']].append(score_value)
+        player_dict, match_json, current_values = process_leg_win(player_dict, match_json, current_values)
         if not player_dict['completed']:
             game.p1_score = game.type
             game.p2_score = game.type
     elif player_dict['p_score'] - score_value < 0:
-        pass
+        match_json[current_values['set']][current_values['leg']][current_values['player']].append(0)
     # Double/Master out: score cannot drop to 1
     elif game.out_mode in ['do', 'mo'] and player_dict['p_score'] - score_value == 1:
-        pass
+        match_json[current_values['set']][current_values['leg']][current_values['player']].append(0)
     else:
         player_dict['p_score'] -= score_value
+        print(current_values)
+        match_json[current_values['set']][current_values['leg']][current_values['player']].append(score_value)
 
     game = game_from_dict(game, player_dict)
+    game.match_json = json.dumps(match_json)
     if game.completed:
         process_game_win(game)
         game.end = datetime.now()
@@ -91,7 +117,7 @@ def send_score(message):
     hashid = message['hashid']
     score_value = int(message['score'])
     game = process_score(hashid, score_value)
-    session['receive_count'] = session.get('receive_count', 0) + 1
+    #session['receive_count'] = session.get('receive_count', 0) + 1
     emit('score_response',
          {'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
           'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs}, room=game.hashid, broadcast=True)

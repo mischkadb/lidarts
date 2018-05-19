@@ -17,36 +17,47 @@
         <h5>{{ game.player2_name }}</h5>
     </div>
 </div>
+{% if game.bo_sets > 1 %}
 <div class="row justify-content-center align-items-center">
     <div class="col-sm-3 text-center">
-        <p>Sets: <span id="p1_sets">{{ game.p1_sets }}</span> Legs: <span id="p1_legs">{{ game.p1_legs }}</span></p>
+
+        <p>Sets: <span id="p1_sets">{{ game.p1_sets }}</span></p>
     </div>
     <div class="col-sm-3 text-center">
-        <p>Sets: <span id="p2_sets">{{ game.p2_sets }}</span> Legs: <span id="p2_legs">{{ game.p1_legs }}</span></p>
+        <p>Sets: <span id="p2_sets">{{ game.p2_sets }}</span></p>
     </div>
 </div>
+{% else %}
 <div class="row justify-content-center align-items-center">
-    <div class="col-sm-3">
-        <div class="card text-center text-white bg-info">
-            <div class="card-body">
-                <h5 id="p1_score" class="card-text">{{ game.p1_score }}</h5>
-            </div>
-        </div>
+    <div class="col-sm-3 text-center">
+
+        <p>Legs: <span id="p1_legs">{{ game.p1_legs }}</span></p>
     </div>
-    <div class="col-sm-3">
-        <div class="card text-center text-white bg-info">
-            <div class="card-body">
-                <h5 id="p2_score" class="card-text">{{ game.p2_score }}</h5>
-            </div>
-        </div>
+    <div class="col-sm-3 text-center">
+        <p>Legs: <span id="p2_legs">{{ game.p2_legs }}</span></p>
     </div>
 </div>
+{% endif %}
 <div class="row justify-content-center align-items-center">
     <div class="col-sm-4 text-center">
         <p>Begin: {{ game.begin }}</p>
         <p>End: {{ game.end }}</p>
     </div>
 </div>
-
+<div class="row justify-content-center">
+    <div class="col-sm-6 text-center">
+    {% for set in match_json %}
+        {% for leg in match_json[set] %}
+            <p> Set: {{ set }} Leg: {{ leg }}
+            {% for player in match_json[set][leg] %}
+                <span class="{% if (match_json[set][leg][player] |sum == game.type |int) %}bg-success{% endif %}">
+                Player {{ player }}: {{ match_json[set][leg][player] }}
+                </span>
+            {% endfor %}
+            </p>
+        {% endfor %}
+    {% endfor %}
+    </div>
+</div>
 
 {% endblock %}

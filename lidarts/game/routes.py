@@ -6,6 +6,7 @@ from lidarts import db
 from lidarts.game.utils import get_name_by_id
 from flask_login import current_user
 from datetime import datetime
+import json
 
 
 @bp.route('/create', methods=['GET', 'POST'])
@@ -20,12 +21,13 @@ def create(mode='x01'):
         player2 = None
         if current_user.is_authenticated:
             player1 = current_user.id
+        match_json = json.dumps({1: {1: {1: [], 2: []}}})
         game = Game(player1=player1, player2=player2, type=form.type.data,
                     bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
                     p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
                     p1_score=int(form.type.data), p2_score=int(form.type.data),
                     in_mode=form.in_mode.data, out_mode=form.out_mode.data,
-                    begin=datetime.now())
+                    begin=datetime.now(), match_json=match_json)
         game.p1_next_turn = form.starter.data == 'me'
         db.session.add(game)
         db.session.commit()
@@ -48,8 +50,9 @@ def start(hashid):
         game_dict['player2_name'] = get_name_by_id(game.player2)
     else:
         game_dict['player2_name'] = 'Guest'
+    match_json = json.loads(game.match_json)
     if game.completed:
-        return render_template('game/X01_completed.html', game=game_dict, form=form)
+        return render_template('game/X01_completed.html', game=game_dict, form=form, match_json=match_json)
     else:
         return render_template('game/X01.html', game=game_dict, form=form)
 
