@@ -3,21 +3,23 @@ from wtforms import IntegerField, SelectField, SubmitField
 from wtforms.validators import DataRequired, NumberRange, ValidationError
 
 game_types = [('170', '170'), ('301', '301'), ('501', '501')]
-opponents = [('computer', 'Computer'), ('user', 'User')]
-starter = [('me', 'Me'), ('opoonent', 'Opponent'), ('clostest', 'Closest to Bullseye')]
+opponents = [('local', 'Local'), ('online', 'Online')]
+starter = [('me', 'Me'), ('opponent', 'Opponent')]
 bo_choice = [(str(x), str(x)) for x in range(1, 30)]
 in_choice = [('si', 'Straight In'), ('di', 'Double In')]
-out_choice = [('do', 'Double Out'), ('so', 'Single Out'), ('mo', 'Masters Out')]
+out_choice = [('do', 'Double Out'), ('so', 'Single Out'), ('mo', 'Master Out')]
 
 
-def bogey_check(form, field):
-    bogey_numbers = [179, 178, 176, 175, 173, 172, 169]
-    if field.data in bogey_numbers:
+def impossible_numbers_check(form, field):
+    impossible_numbers = [179, 178, 176, 175, 173, 172, 169]
+    if field.data in impossible_numbers:
         raise ValidationError('Invalid number.')
 
 
 class ScoreForm(FlaskForm):
-    score_value = IntegerField('Score', validators=[DataRequired(), NumberRange(min=0, max=180), bogey_check])
+    score_value = IntegerField('Score', validators=[DataRequired(),
+                                                    NumberRange(min=0, max=180),
+                                                    impossible_numbers_check])
     submit = SubmitField('Submit score')
 
 
