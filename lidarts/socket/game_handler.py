@@ -18,7 +18,7 @@ def player_to_dict(game, player1):
         'bo_legs': game.bo_legs,
         'bo_sets': game.bo_sets,
         'type': game.type,
-        'completed': game.completed
+        'status': game.status
     }
     if player1:
         player_dict['p_score'] = game.p1_score
@@ -48,7 +48,7 @@ def game_from_dict(game, player_dict):
         game.p2_sets = player_dict['p_sets']
         game.p1_legs = player_dict['o_legs']
         game.p1_sets = player_dict['o_sets']
-    game.completed = player_dict['completed']
+    game.status = player_dict['status']
     return game
 
 
@@ -67,7 +67,7 @@ def process_leg_win(player_dict, match_json, current_values):
             # leg score is needed if best of 1 set
             if player_dict['bo_sets'] == 1:
                 player_dict['p_legs'] = math.ceil(player_dict['bo_legs'] / 2)
-            player_dict['completed'] = True
+            player_dict['status'] = 'completed'
             player_dict['p_score'] = 0  # end score 0 looks nicer
         else:  # match not over, new set
             player_dict['o_legs'] = 0
@@ -81,11 +81,11 @@ def process_leg_win(player_dict, match_json, current_values):
             player_dict['o_sets'] += 1
             # check if a player won the match
             if player_dict['p_sets'] == sets_for_match or player_dict['o_sets'] == sets_for_match:
-                player_dict['completed'] = True
+                player_dict['status'] = 'completed'
                 player_dict['p_score'] = 0
             # check if match is drawn - redundant atm, could be merged with game win
             elif set_draw_possible and (player_dict['p_sets'] == player_dict['o_sets'] == (player_dict['bo_sets'] / 2)):
-                player_dict['completed'] = True
+                player_dict['status'] = 'completed'
                 player_dict['p_score'] = 0
             # no one won the match, new set
             else:
@@ -104,7 +104,7 @@ def process_leg_win(player_dict, match_json, current_values):
 def process_score(hashid, score_value):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
     match_json = json.loads(game.match_json)
-    if game.completed:
+    if game.status == 'completed':
         return game
 
     new_leg_starter = 0  # used for leg starting player
@@ -120,7 +120,7 @@ def process_score(hashid, score_value):
             if player1_started_leg(match_json[current_values['set']][current_values['leg']]) else '1'
         match_json[current_values['set']][current_values['leg']][current_values['player']].append(score_value)
         player_dict, match_json, current_values = process_leg_win(player_dict, match_json, current_values)
-        if not player_dict['completed']:
+        if not player_dict['status'] == 'completed':
             game.p1_score = game.type
             game.p2_score = game.type
     elif player_dict['p_score'] - score_value < 0:
@@ -134,7 +134,7 @@ def process_score(hashid, score_value):
 
     game = game_from_dict(game, player_dict)
     game.match_json = json.dumps(match_json)
-    if game.completed:
+    if game.status == 'completed':
         game.end = datetime.now()
     elif new_leg_starter:
         game.p1_next_turn = True if new_leg_starter == '1' else False
@@ -160,7 +160,7 @@ def send_score(message):
          {'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
           'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs,
           'p1_next_turn': game.p1_next_turn}, room=game.hashid, broadcast=True)
-    if game.completed:
+    if game.status == 'completed':
         emit('game_completed', room=game.hashid, broadcast=True)
         leave_room(game.hashid)
 

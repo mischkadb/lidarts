@@ -26,7 +26,7 @@ def create(mode='x01'):
                     p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
                     p1_score=int(form.type.data), p2_score=int(form.type.data),
                     in_mode=form.in_mode.data, out_mode=form.out_mode.data,
-                    begin=datetime.now(), match_json=match_json)
+                    begin=datetime.now(), match_json=match_json, status='challenged')
         game.p1_next_turn = form.starter.data == 'me'
         db.session.add(game)
         db.session.commit()
@@ -40,9 +40,10 @@ def create(mode='x01'):
 def start(hashid):
     form = ScoreForm()
     game = Game.query.filter_by(hashid=hashid).first_or_404()
-    if not game.started and current_user.is_authenticated and current_user.id != game.player1 and not game.player2:
+    if not game.status == 'started' and current_user.is_authenticated \
+            and current_user.id != game.player1 and not game.player2:
         game.player2 = current_user.id
-        game.started = True
+        game.status = 'started'
         db.session.commit()
         start_game(hashid)
     game_dict = game.as_dict()
@@ -51,9 +52,9 @@ def start(hashid):
     if game.player2:
         game_dict['player2_name'] = get_name_by_id(game.player2)
     match_json = json.loads(game.match_json)
-    if not game.started:
+    if game.status == 'challenged':
         return render_template('game/wait.html', game=game_dict)
-    if game.completed:
+    if game.status == 'completed':
         return render_template('game/X01_completed.html', game=game_dict, form=form, match_json=match_json)
     else:
         return render_template('game/X01.html', game=game_dict, form=form)

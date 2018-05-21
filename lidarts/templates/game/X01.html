@@ -31,13 +31,13 @@
 
 <div class="row justify-content-center align-items-center">
     <div class="col-sm-4">
-        <form class="text-center" id="score_input" method="POST" action="" autocomplete="off" {% if game.completed or not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
+        <form class="text-center" id="score_input" method="POST" action="" autocomplete="off" {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
             {{ form.hidden_tag() }}
             {{ form.score_value(size=4, class="text-center") }}
             <p class="text-center">{{ form.submit() }}</p>
             <p class="text-center" id="score_error" style="color: red;"></p>
         </form>
-        <form class="text-center" id="confirm_completion" method="POST" action="" {% if not game.completed %} style="display: none" {% endif %}>
+        <form class="text-center" id="confirm_completion" method="POST" action="" {% if not game.status == 'completed' %} style="display: none" {% endif %}>
             <p>Game is completed.</p>
             <a href="{{ url_for('game.start', hashid=game.hashid) }}">Game overview</a>
         </form>
