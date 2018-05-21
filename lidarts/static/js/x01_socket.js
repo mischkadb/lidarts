@@ -48,6 +48,7 @@ $(document).ready(function() {
     // These accept data from the user and send it to the server in a
     // variety of ways
     var validation_url = $('#validation_url').data();
+    var user_id = $('#user_id').data();
     var score_errors = [];
     $('form#score_input').submit(function(event) {
         $('#score_error').text('');
@@ -57,7 +58,8 @@ $(document).ready(function() {
             function (errors) {
                 score_errors = errors
                 if (jQuery.isEmptyObject(score_errors)) {
-                    socket.emit('send_score', {score: $('#score_value').val(), hashid: flaskData['hashid']});
+                    socket.emit('send_score', {score: $('#score_value').val(), hashid: flaskData['hashid'],
+                    user_id: user_id['id']});
                 } else {
                     $('#score_error').text(score_errors['score_value'][0]);
                 }

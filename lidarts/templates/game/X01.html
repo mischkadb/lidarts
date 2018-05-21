@@ -49,6 +49,7 @@
 {% block scripts %}
 <meta id="my-data" data-hashid="{{ game.hashid }}">
 <meta id="validation_url" data-url="{{ url_for('game.validate_score') }}">
+<meta id="user_id" data-id="{{ current_user.id }}">
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
 <script type="text/javascript" src="/static/js/x01_socket.js"></script>

@@ -42,6 +42,7 @@ class Game(db.Model):
     p1_score = db.Column(db.Integer)
     p2_score = db.Column(db.Integer)
     p1_next_turn = db.Column(db.Boolean)
+    started = db.Column(db.Boolean)
     completed = db.Column(db.Boolean)
     type = db.Column(db.Integer)
     match_json = db.Column(db.JSON)

@@ -4,6 +4,7 @@ from lidarts.game.forms import CreateX01GameForm, ScoreForm
 from lidarts.models import Game
 from lidarts import db
 from lidarts.game.utils import get_name_by_id
+from lidarts.socket.game_handler import start_game
 from flask_login import current_user
 from datetime import datetime
 import json
@@ -17,10 +18,8 @@ def create(mode='x01'):
     else:
         pass
     if form.validate_on_submit():
-        player1 = None
+        player1 = current_user.id if current_user.is_authenticated else None
         player2 = None
-        if current_user.is_authenticated:
-            player1 = current_user.id
         match_json = json.dumps({1: {1: {1: [], 2: []}}})
         game = Game(player1=player1, player2=player2, type=form.type.data,
                     bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
@@ -41,16 +40,19 @@ def create(mode='x01'):
 def start(hashid):
     form = ScoreForm()
     game = Game.query.filter_by(hashid=hashid).first_or_404()
+    if not game.started and current_user.is_authenticated and current_user.id != game.player1 and not game.player2:
+        game.player2 = current_user.id
+        game.started = True
+        db.session.commit()
+        start_game(hashid)
     game_dict = game.as_dict()
     if game.player1:
         game_dict['player1_name'] = get_name_by_id(game.player1)
-    else:
-        game_dict['player1_name'] = 'Guest'
     if game.player2:
         game_dict['player2_name'] = get_name_by_id(game.player2)
-    else:
-        game_dict['player2_name'] = 'Guest'
     match_json = json.loads(game.match_json)
+    if not game.started:
+        return render_template('game/wait.html', game=game_dict)
     if game.completed:
         return render_template('game/X01_completed.html', game=game_dict, form=form, match_json=match_json)
     else:
