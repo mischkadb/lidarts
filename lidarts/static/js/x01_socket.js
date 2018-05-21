@@ -30,10 +30,17 @@ $(document).ready(function() {
         $('#p2_sets').html(msg.p2_sets);
         $('#p1_legs').html(msg.p1_legs);
         $('#p2_legs').html(msg.p2_legs);
-        $('div.player_turn').toggleClass('bg-dark text-white');
+        if (msg.p1_next_turn) {
+            $('#p1_turn').addClass('bg-dark text-white');
+            $('#p2_turn').removeClass('bg-dark text-white');
+        } else {
+            $('#p1_turn').removeClass('bg-dark text-white');
+            $('#p2_turn').addClass('bg-dark text-white');
+        }
     });
     socket.on('game_completed', function() {
-        $('div.player_turn').removeClass('bg-dark text-white');
+        $('#p1_turn').removeClass('bg-dark text-white');
+        $('#p2_turn').removeClass('bg-dark text-white');
         $('#score_input').hide();
         $('#confirm_completion').show();
     });
