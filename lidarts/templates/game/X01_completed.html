@@ -6,14 +6,16 @@
 
 <div class="row justify-content-center align-items-center">
     <div class="col-sm-4 text-center">
-        <h1>Winner: {% if game.p1_sets > game.p2_sets %}{{ game.player1_name }} {% else %} {{ game.player2_name }}{% endif %}</h1>
+        {% if game.p1_sets == game.p2_sets %}<h1>Draw.</h1>
+        {% else %}<h1>Winner: {% if game.p1_sets > game.p2_sets %}{{ game.player1_name }} {% else %} {{ game.player2_name }}{% endif %}</h1>
+        {% endif %}
     </div>
 </div>
 <div class="row justify-content-center align-items-center">
-    <div class="col-sm-3 text-center {% if game.p1_sets > game.p2_sets %}bg-success{% else %}bg-danger{% endif %}">
+    <div class="col-sm-3 text-center {% if game.p1_sets > game.p2_sets %}bg-success{% elif game.p1_sets < game.p2_sets %}bg-danger{% else %}bg-warning{% endif %}">
         <h5>{{ game.player1_name }}</h5>
     </div>
-    <div class="col-sm-3 text-center {% if game.p1_sets < game.p2_sets %}bg-success{% else %}bg-danger{% endif %}">
+    <div class="col-sm-3 text-center {% if game.p1_sets < game.p2_sets %}bg-success{% elif game.p1_sets > game.p2_sets %}bg-danger{% else %}bg-warning{% endif %}">
         <h5>{{ game.player2_name }}</h5>
     </div>
 </div>
