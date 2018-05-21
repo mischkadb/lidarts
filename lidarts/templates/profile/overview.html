@@ -6,7 +6,8 @@
     <div class="col-sm-8">
         <h2>{{ user.username }}'s profile</h2>
         {% for game in games %}
-        <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ game.type }} vs. {{ game.player2 }} - {{ game.p1_sets }}:{{ game.p2_sets }}
+        <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ game.type }} vs. {{ game.player2 }} -
+            {% if game.bo_sets > 1 %}Sets: {{ game.p1_sets }}:{{ game.p2_sets }}{% else %}Legs: {{ game.p1_legs }}:{{ game.p2_legs }}{% endif %}
         {%- if not game.completed %} (in progress){% endif %}</a></p>
         {% endfor %}
     </div>
