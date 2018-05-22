@@ -23,10 +23,22 @@ def create_app(test_config=None):
     # Create Flask app with a default config
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY=os.environ.get('SECRET_KEY'),
-        SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL'),
+        SECRET_KEY=None,
+        SQLALCHEMY_DATABASE_URI='postgres:///lidarts_db',
         SQLALCHEMY_TRACK_MODIFICATIONS=False
     )
+
+    # Load test config if we are in testing mode
+    if test_config is None:
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        app.config.from_mapping(test_config)
+
+    # ensure the instance folder exists
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
 
     # Initialize Flask extensions
     db.init_app(app)
@@ -48,18 +60,6 @@ def create_app(test_config=None):
 
     from lidarts.profile import bp as profile_bp
     app.register_blueprint(profile_bp)
-
-    # Load test config if we are in testing mode
-    if test_config is None:
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        app.config.from_mapping(test_config)
-
-    # ensure the instance folder exists
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
 
     import lidarts.models
     import lidarts.socket.game_handler
