@@ -1,0 +1,4 @@
+graft lidarts/static
+graft lidarts/templates
+graft migrations
+global-exclude *.pyc
