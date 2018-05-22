@@ -64,7 +64,7 @@ def test_login(client, db_session):
     user = User(username=username, email='test@test.de')
     user.set_password(password)
     db_session.add(user)
-    db_session.commit
+    db_session.commit()
 
     # test that viewing the page renders without template errors
     assert client.get('/login').status_code == 200
