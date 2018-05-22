@@ -1,7 +1,7 @@
 import pytest
 import os
 import sqlalchemy as sa
-from lidarts import create_app, db as _db
+from lidarts import create_app, db as _db, socketio
 from lidarts.models import User, Game
 from datetime import datetime
 import json
@@ -35,6 +35,11 @@ def client(app):
 
 
 @pytest.fixture(scope='function')
+def socket_client(app):
+    return socketio.test_client(app, namespace='/game')
+
+
+@pytest.fixture(scope='function')
 def user(db_session):
     user = User(username='test', email='test@test.de')
     user.set_password('passwd')
@@ -62,6 +67,8 @@ def game(db_session, user, user2):
                 in_mode='si', out_mode='do',
                 begin=datetime.now(), match_json=match_json, status='started')
     game.p1_next_turn = True
+    db_session.add(user)
+    db_session.add(user2)
     db_session.add(game)
     db_session.commit()
     game.set_hashid()
