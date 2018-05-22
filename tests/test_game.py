@@ -9,14 +9,9 @@ def create_game(client, type, opponent, starter, bo_sets, bo_legs, in_mode, out_
     ), follow_redirects=True)
 
 
-def test_create_game_local(client, app, db_session):
+def test_create_game_local(client, app, db_session, user):
     # test that viewing the page renders without template errors
     assert client.get('/game/create').status_code == 200
-
-    user = User(username='test', email='test@test.de')
-    user.set_password('passwd')
-    db_session.add(user)
-    db_session.commit()
 
     login(client, user.username, 'passwd')
 
@@ -29,14 +24,9 @@ def test_create_game_local(client, app, db_session):
     assert b'Local Guest' in response.data
 
 
-def test_create_game_online(client, app, db_session):
+def test_create_game_online(client, app, db_session, user, user2):
     # test that viewing the page renders without template errors
     assert client.get('/game/create').status_code == 200
-
-    user = User(username='test', email='test@test.de')
-    user.set_password('passwd')
-    db_session.add(user)
-    db_session.commit()
 
     login(client, user.username, 'passwd')
 
@@ -45,10 +35,17 @@ def test_create_game_online(client, app, db_session):
 
     game = Game.query.first()
     assert game.player1 is not None
-
+    assert game.status == 'challenged'
     assert b'Waiting for player 2...' in response.data
 
+    client2 = app.test_client()
 
+    login(client2, user2.username, 'passwd')
+
+    response = client2.get('/game/' + game.hashid)
+    assert game.status == 'started'
+    assert game.player1 == user.id and game.player2 == user2.id
+    assert response.status_code == 200
 
 
 

@@ -56,15 +56,9 @@ def logout(client):
     return client.get('/logout', follow_redirects=True)
 
 
-def test_login(client, db_session):
+def test_login(client, db_session, user):
     username = 'test'
     password = 'passwd'
-
-    # create a dummy user
-    user = User(username=username, email='test@test.de')
-    user.set_password(password)
-    db_session.add(user)
-    db_session.commit()
 
     # test that viewing the page renders without template errors
     assert client.get('/login').status_code == 200
