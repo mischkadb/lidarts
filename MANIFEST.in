@@ -1,4 +1,7 @@
+include LICENSE
 graft lidarts/static
 graft lidarts/templates
+graft lidarts/socket
 graft migrations
+graft tests
 global-exclude *.pyc
