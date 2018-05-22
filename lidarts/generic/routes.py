@@ -5,6 +5,7 @@ from lidarts.generic import bp
 
 @bp.route('/')
 def index():
+    # logged in users do not need the index page
     if current_user.is_authenticated:
         return redirect(url_for('generic.lobby'))
     return render_template('generic/index.html')

@@ -8,11 +8,13 @@ from lidarts.models import User
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
+    # make sure logged in users cannot access the login page again
     if current_user.is_authenticated:
         return redirect(url_for('generic.lobby'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
+        # incorrect username or password handling
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password.')
             return redirect(url_for('auth.login'))
@@ -25,11 +27,13 @@ def login():
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
+    # logged in users should not come here
     if current_user.is_authenticated:
         return redirect(url_for('generic.lobby'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
+        # password hashing
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()

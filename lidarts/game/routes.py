@@ -4,7 +4,7 @@ from lidarts.game.forms import CreateX01GameForm, ScoreForm
 from lidarts.models import Game
 from lidarts import db
 from lidarts.game.utils import get_name_by_id
-from lidarts.socket.game_handler import start_game
+from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user
 from datetime import datetime
 import json
@@ -16,7 +16,7 @@ def create(mode='x01'):
     if mode == 'x01':
         form = CreateX01GameForm()
     else:
-        pass
+        pass  # no other game modes yet
     if form.validate_on_submit():
         player1 = current_user.id if current_user.is_authenticated else None
         if current_user.is_authenticated and form.opponent.data == 'local':
@@ -34,7 +34,7 @@ def create(mode='x01'):
                     begin=datetime.now(), match_json=match_json, status=status)
         game.p1_next_turn = form.starter.data == 'me'
         db.session.add(game)
-        db.session.commit()
+        db.session.commit()  # needed to get a game id for the hashid
         game.set_hashid()
         db.session.commit()
         return redirect(url_for('game.start', hashid=game.hashid))
@@ -43,30 +43,39 @@ def create(mode='x01'):
 
 @bp.route('/<hashid>')
 def start(hashid):
-    form = ScoreForm()
     game = Game.query.filter_by(hashid=hashid).first_or_404()
-    if not game.status == 'started' and current_user.is_authenticated \
+    # check if we found an opponent, logged in users only
+    if game.status == 'challenged' and current_user.is_authenticated \
             and current_user.id != game.player1 and not game.player2:
         game.player2 = current_user.id
         game.status = 'started'
         db.session.commit()
+        # signal the waiting player and spectators
         start_game(hashid)
+
     game_dict = game.as_dict()
     if game.player1:
         game_dict['player1_name'] = get_name_by_id(game.player1)
     if game.player2:
+        # Local Guest needs his own 'name'
         game_dict['player2_name'] = get_name_by_id(game.player2) if game.player1 != game.player2 else 'Local Guest'
     match_json = json.loads(game.match_json)
+
+    # for player1 and spectators while waiting
     if game.status == 'challenged':
         return render_template('game/wait.html', game=game_dict)
+    # for everyone if the game is completed
     if game.status == 'completed':
-        return render_template('game/X01_completed.html', game=game_dict, form=form, match_json=match_json)
+        return render_template('game/X01_completed.html', game=game_dict, match_json=match_json)
+    # for running games
     else:
+        form = ScoreForm()
         return render_template('game/X01.html', game=game_dict, form=form)
 
 
 @bp.route('/validate_score', methods=['POST'])
 def validate_score():
+    # validating the score input from users
     form = ScoreForm(request.form)
     result = form.validate()
     return jsonify(form.errors)

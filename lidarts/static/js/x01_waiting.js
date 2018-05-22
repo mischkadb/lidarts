@@ -1,9 +1,5 @@
 $(document).ready(function() {
-    // Use a "/test" namespace.
-    // An application can open a connection on multiple namespaces, and
-    // Socket.IO will multiplex all those connections on a single
-    // physical channel. If you don't care about multiple channels, you
-    // can set the namespace to an empty string.
+    // namespace for the game handling
     namespace = '/game';
     // Connect to the Socket.IO server.
     // The connection URL has the following format:
@@ -12,15 +8,22 @@ $(document).ready(function() {
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
-    var flaskData = $('#my-data').data();
+    var hashid = $('#hash_id').data();
     socket.on('connect', function() {
-        socket.emit('init_waiting', {hashid: flaskData['hashid'] });
+        socket.emit('init', {hashid: hashid['hashid'] });
     });
-    // Event handler for server sent data.
-    // The callback function is invoked whenever the server emits data
-    // to the client. The data is then displayed in the "Received"
-    // section of the page.
+    // Event handler for game start when a second player has accepted
     socket.on('start_game', function() {
        location.reload();
     });
 });
+
+function copyLink() {
+   var copyText = document.getElementById("invitation_link");
+
+  /* Select the text field */
+  copyText.select();
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+}

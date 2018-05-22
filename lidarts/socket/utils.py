@@ -1,10 +1,8 @@
-from flask import request
-from flask_socketio import emit, join_room, leave_room
-from lidarts import socketio, db
+from lidarts import db
 from lidarts.models import Game
 import math
-from datetime import datetime
 import json
+from datetime import datetime
 
 
 def player1_started_leg(leg):
@@ -53,12 +51,19 @@ def game_from_dict(game, player_dict):
 
 
 def process_leg_win(player_dict, match_json, current_values):
+    # check if draws are possible
     set_draw_possible = (player_dict['bo_sets'] % 2) == 0
     leg_draw_possible = (player_dict['bo_legs'] % 2) == 0
+
+    # amount of legs/sets needed to win
     legs_for_set = (player_dict['bo_legs'] / 2) + 1 if leg_draw_possible else math.ceil(player_dict['bo_legs'] / 2)
     sets_for_match = (player_dict['bo_sets'] / 2) + 1 if set_draw_possible else math.ceil(player_dict['bo_sets'] / 2)
+
+    # leg count increase with check for set win
     player_dict['p_legs'] = (player_dict['p_legs'] + 1) % legs_for_set
+    # reset score to default value
     player_dict['p_score'] = player_dict['type']
+
     # check if player won set
     if player_dict['p_legs'] == 0:
         player_dict['p_sets'] += 1
@@ -74,6 +79,7 @@ def process_leg_win(player_dict, match_json, current_values):
             current_values['set'] = str(int(current_values['set']) + 1)
             current_values['leg'] = '1'
             match_json[current_values['set']] = {current_values['leg']: {'1': [], '2': []}}
+
     else:  # no new set unless drawn
         # check for drawn set
         if leg_draw_possible and (player_dict['p_legs'] == player_dict['o_legs'] == (player_dict['bo_legs'] / 2)):
@@ -104,40 +110,54 @@ def process_leg_win(player_dict, match_json, current_values):
 def process_score(hashid, score_value):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
     match_json = json.loads(game.match_json)
-    if game.status == 'completed':
+
+    if game.status != 'started':
         return game
 
-    new_leg_starter = 0  # used for leg starting player
     current_values = {
         'set': str(game.p1_sets + game.p2_sets + 1),
         'leg': str(game.p1_legs + game.p2_legs + 1),
         'player': '1' if game.p1_next_turn is True else '2'
     }
     player_dict = player_to_dict(game, game.p1_next_turn)
+    new_leg_starter = 0  # used for leg starting player
 
+    # check if leg was won
     if player_dict['p_score'] - score_value == 0:
+        # check who begins next leg
         new_leg_starter = '2'  \
             if player1_started_leg(match_json[current_values['set']][current_values['leg']]) else '1'
+        # add thrown score to match json object
         match_json[current_values['set']][current_values['leg']][current_values['player']].append(score_value)
+
+        # check for won sets, won match, update scores etc.
         player_dict, match_json, current_values = process_leg_win(player_dict, match_json, current_values)
+
+        # reset player scores to default
         if not player_dict['status'] == 'completed':
             game.p1_score = game.type
             game.p2_score = game.type
+    # check if busted
     elif player_dict['p_score'] - score_value < 0:
         match_json[current_values['set']][current_values['leg']][current_values['player']].append(0)
     # Double/Master out: score cannot drop to 1
     elif game.out_mode in ['do', 'mo'] and player_dict['p_score'] - score_value == 1:
         match_json[current_values['set']][current_values['leg']][current_values['player']].append(0)
+    # nothing special happened, just score
     else:
         player_dict['p_score'] -= score_value
         match_json[current_values['set']][current_values['leg']][current_values['player']].append(score_value)
 
+    # save everything back into the model object
     game = game_from_dict(game, player_dict)
     game.match_json = json.dumps(match_json)
+
     if game.status == 'completed':
         game.end = datetime.now()
+    # new leg
     elif new_leg_starter:
         game.p1_next_turn = True if new_leg_starter == '1' else False
+    # no new leg, other player's turn
     else:
         game.p1_next_turn = not game.p1_next_turn
     db.session.commit()
@@ -147,50 +167,3 @@ def process_score(hashid, score_value):
 def current_turn_user_id(hashid):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
     return game.player1 if game.p1_next_turn else game.player2
-
-
-@socketio.on('send_score', namespace='/game')
-def send_score(message):
-    if not message['score'] or int(message['user_id']) != current_turn_user_id(message['hashid']):
-        return
-    hashid = message['hashid']
-    score_value = int(message['score'])
-    game = process_score(hashid, score_value)
-    emit('score_response',
-         {'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
-          'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs,
-          'p1_next_turn': game.p1_next_turn}, room=game.hashid, broadcast=True)
-    if game.status == 'completed':
-        emit('game_completed', room=game.hashid, broadcast=True)
-        leave_room(game.hashid)
-
-
-@socketio.on('connect', namespace='/game')
-def connect():
-    print('Client connected', request.sid)
-
-
-@socketio.on('init', namespace='/game')
-def init(message):
-    game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
-    join_room(game.hashid)
-    emit('score_response', {'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
-                            'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs,
-                            'p1_next_turn': game.p1_next_turn},
-         room=game.hashid)
-
-
-@socketio.on('init_waiting', namespace='/game')
-def init_waiting(message):
-    game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
-    join_room(game.hashid)
-
-
-@socketio.on('start_game', namespace='/game')
-def start_game(hashid):
-    emit('start_game', room=hashid, broadcast=True, namespace='/game')
-
-
-@socketio.on('disconnect', namespace='/game')
-def disconnect():
-    print('Client disconnected', request.sid)

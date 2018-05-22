@@ -62,6 +62,6 @@ def create_app(test_config=None):
     app.register_blueprint(profile_bp)
 
     import lidarts.models
-    import lidarts.socket.game_handler
+    import lidarts.socket.X01_game_handler
 
     return app

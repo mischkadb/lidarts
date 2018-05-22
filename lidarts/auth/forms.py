@@ -21,11 +21,13 @@ class RegistrationForm(FlaskForm):
     ])
     submit = SubmitField('Register')
 
+    # usernames must be unique
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Username is already taken.')
 
+    # emails must be unique
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:

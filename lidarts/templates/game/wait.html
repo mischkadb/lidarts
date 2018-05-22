@@ -5,15 +5,19 @@
 {% block app_content %}
 
 <div class="row justify-content-center align-items-center">
-    <div class="col-sm-4 text-center">
+    <div class="col-sm-6 text-center">
         <p>Waiting for player 2...</p>
-        {% if not current_user.is_authenticated %}<p>You are not logged in. Log in to play in this game.</p>{% endif %}
+        {% if not current_user.is_authenticated %}<p>You are not logged in. Log in to play in this game.</p>
+        {% else %}Share this link to invite another player (must be logged in):
+        <input type="text" value="{{ request.url }}" id="invitation_link" class="form-control" readonly>
+        <button onclick="copyLink()" class="btn btn-dark">Copy text</button>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
-<meta id="my-data" data-hashid="{{ game.hashid }}">
+<meta id="hash_id" data-hashid="{{ game.hashid }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
 
 <script type="text/javascript" src="/static/js/x01_waiting.js"></script>

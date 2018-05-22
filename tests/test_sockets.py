@@ -1,4 +1,4 @@
-from lidarts.socket.game_handler import current_turn_user_id
+from lidarts.socket.X01_game_handler import current_turn_user_id
 from lidarts.models import User
 
 
