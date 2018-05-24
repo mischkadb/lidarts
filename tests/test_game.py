@@ -13,7 +13,7 @@ def test_create_game_local(client, app, db_session, user):
     # test that viewing the page renders without template errors
     assert client.get('/game/create').status_code == 200
 
-    login(client, user.username, 'passwd')
+    login(client, user.email, 'passwd')
 
     response = create_game(client, 170, 'local', 'me', 3, 3, 'si', 'do')
     assert response.status_code == 200
@@ -28,7 +28,7 @@ def test_create_game_online(client, app, db_session, user, user2):
     # test that viewing the page renders without template errors
     assert client.get('/game/create').status_code == 200
 
-    login(client, user.username, 'passwd')
+    login(client, user.email, 'passwd')
 
     response = create_game(client, 170, 'online', 'me', 3, 3, 'si', 'do')
     assert response.status_code == 200
@@ -40,7 +40,7 @@ def test_create_game_online(client, app, db_session, user, user2):
 
     client2 = app.test_client()
 
-    login(client2, user2.username, 'passwd')
+    login(client2, user2.email, 'passwd')
 
     response = client2.get('/game/' + game.hashid)
     assert game.status == 'started'

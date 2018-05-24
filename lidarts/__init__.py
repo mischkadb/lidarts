@@ -3,18 +3,18 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager
-from flask_mail import Mail
+from flask_security import Security, SQLAlchemyUserDatastore
 from flask_socketio import SocketIO
-from flask_babel import Babel
+from flask_mail import Mail
+from flask_babel import _, Babel
 from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 db = SQLAlchemy()
 migrate = Migrate()
-login = LoginManager()
 mail = Mail()
+security = Security()
 socketio = SocketIO()
 babel = Babel()
 
@@ -40,20 +40,23 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    from lidarts.models import User, Role
+    from lidarts.auth.forms import ExtendedLoginForm, ExtendedRegisterForm
+
     # Initialize Flask extensions
     db.init_app(app)
     migrate.init_app(app, db)
-    login.init_app(app)
     mail.init_app(app)
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    security.init_app(app, user_datastore,
+                      login_form=ExtendedLoginForm,
+                      register_form=ExtendedRegisterForm)
     socketio.init_app(app)
     babel.init_app(app)
 
     # Load all blueprints
     from lidarts.generic import bp as generic_bp
     app.register_blueprint(generic_bp)
-
-    from lidarts.auth import bp as auth_bp
-    app.register_blueprint(auth_bp)
 
     from lidarts.game import bp as game_bp
     app.register_blueprint(game_bp)

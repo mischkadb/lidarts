@@ -5,6 +5,7 @@ from lidarts import create_app, db as _db, socketio
 from lidarts.models import User, Game
 from datetime import datetime
 import json
+from flask_security.registerable import register_user
 
 
 @pytest.fixture(scope='session')
@@ -14,7 +15,12 @@ def app(request):
         'SQLALCHEMY_DATABASE_URI': 'postgres:///lidarts-testing',
         'SQLALCHEMY_TRACK_MODIFICATIONS': False,
         'TESTING': True,
-        'WTF_CSRF_ENABLED': False
+        'WTF_CSRF_ENABLED': False,
+
+        'SECURITY_REGISTERABLE': True,
+        'SECURITY_RECOVERABLE': True,
+        'SECURITY_CHANGEABLE': True,
+        'SECURITY_PASSWORD_SALT': '1234'
     }
 
     app = create_app(test_config)
@@ -41,8 +47,7 @@ def socket_client(app):
 
 @pytest.fixture(scope='function')
 def user(db_session):
-    user = User(username='test', email='test@test.de')
-    user.set_password('passwd')
+    user = register_user(username='test', email='test@test.de', password='passwd')
     db_session.add(user)
     db_session.commit()
     return user
@@ -50,12 +55,10 @@ def user(db_session):
 
 @pytest.fixture(scope='function')
 def user2(db_session):
-    user = User(username='test2', email='test2@test.de')
-    user.set_password('passwd')
+    user = register_user(username='test2', email='test2@test.de', password='passwd')
     db_session.add(user)
     db_session.commit()
     return user
-
 
 @pytest.fixture(scope='function')
 def game(db_session, user, user2):

@@ -1,34 +1,51 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Length, EqualTo, Email, ValidationError
+from wtforms import StringField, validators
+from wtforms.validators import DataRequired, ValidationError
 from lidarts.models import User
+from flask_security import LoginForm
+from flask_security.forms import Form, PasswordConfirmFormMixin, NextFormMixin,\
+    RegisterFormMixin, UniqueEmailFormMixin, NewPasswordFormMixin, ValidatorMixin
+from flask_babel import _, lazy_gettext
 
 
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Sign In')
+class Required(ValidatorMixin, validators.DataRequired):
+    pass
 
 
-class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
-    email = StringField('Email Address', validators=[DataRequired(), Length(min=6, max=50), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Repeat Password', validators=[
-        DataRequired(),
-        Length(min=6, max=50),
-        EqualTo('password', message='Passwords do not match.')
-    ])
-    submit = SubmitField('Register')
+class Length(ValidatorMixin, validators.Length):
+    pass
 
-    # usernames must be unique
-    def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user is not None:
-            raise ValidationError('Username is already taken.')
 
-    # emails must be unique
-    def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user is not None:
-            raise ValidationError('Email address is already in use.')
+username_required = Required('Username is required')
+username_validator = Length(min=3, max=20)
+
+
+def unique_username(form, field):
+    user = User.query.filter(User.username.ilike(field.data)).first()
+    if user is not None:
+        raise ValidationError('Username is already taken')
+
+
+class UniqueUsernameFormMixin():
+    username = StringField(
+        'Username',
+        validators=[username_required, username_validator, unique_username])
+
+
+class ExtendedConfirmRegisterForm(Form, RegisterFormMixin,
+                          UniqueEmailFormMixin, NewPasswordFormMixin, UniqueUsernameFormMixin):
+    pass
+
+
+class ExtendedRegisterForm(ExtendedConfirmRegisterForm, PasswordConfirmFormMixin, NextFormMixin):
+    pass
+
+
+class ExtendedLoginForm(LoginForm):
+    # hacked in username to use default email validation from flask-security
+    email = StringField(lazy_gettext('Username or Email Address'), validators=[DataRequired()])
+
+
+
+
+
+

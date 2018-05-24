@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block app_content %}
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
+<div class="row justify-content-center">
+    <div class="col-sm-4">
+        <h1>Sign In</h1>
+        <form action="{{ url_for_security('login') }}" method="post" name="login_user_form">
+            {{ login_user_form.hidden_tag() }}
+            {{ render_field_with_errors(login_user_form.email) }}
+            {{ render_field_with_errors(login_user_form.password) }}
+            {{ render_field_with_errors(login_user_form.remember) }}
+            {{ render_field(login_user_form.next) }}
+            {{ render_field(login_user_form.submit) }}
+        </form>
+        <p>Forgot your password? <a href="{{ url_for_security('forgot_password') }}">Request a new one.</a></p>
+        <p>New to lidarts? <a href="{{ url_for_security('register') }}">Register an account.</a></p>
+    </div>
+</div>
+
+
+{% endblock %}
