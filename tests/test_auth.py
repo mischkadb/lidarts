@@ -75,4 +75,7 @@ def test_login(client, db_session, user):
     response = login(client, username, password + 'x')
     assert b'Invalid username or password.' in response.data
 
+    response = login(client, username.upper(), password)
+    assert b'You successfully logged in.' in response.data
+
 

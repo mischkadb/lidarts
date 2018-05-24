@@ -13,14 +13,14 @@ def login():
         return redirect(url_for('generic.lobby'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter(User.username.ilike(form.username.data)).first()
         # incorrect username or password handling
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password.')
             return redirect(url_for('auth.login'))
         # remember_me is currently not implemented (easy though), see issue #3
         login_user(user, remember=False)
-        flash('Hello {}. You successfully logged in.'.format(form.username.data))
+        flash('Hello {}. You successfully logged in.'.format(user.username))
         return redirect(url_for('generic.index'))
     return render_template('auth/login.html', form=form)
 
