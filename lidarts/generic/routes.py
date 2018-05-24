@@ -1,6 +1,15 @@
 from flask import render_template, redirect, url_for
 from flask_login import current_user, login_required
+from lidarts import db
 from lidarts.generic import bp
+from datetime import datetime
+
+
+@bp.before_app_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
 
 
 @bp.route('/')

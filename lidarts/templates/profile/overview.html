@@ -5,6 +5,7 @@
 <div class="row text-center justify-content-center">
     <div class="col-sm-8">
         <h2>{{ user.username }}'s profile</h2>
+        {% if user.id != current_user.id %}<p>Last seen: {{ user.last_seen }}</p>{% endif %}
         <p><a href="{{ url_for_security('change_password') }}">Change password</a></p>
         {% for game in games %}
         <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ game.type }} vs. {{ game.player2 }} -

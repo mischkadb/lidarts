@@ -1,6 +1,7 @@
 from flask_security import UserMixin, RoleMixin
 from lidarts import db
 from hashids import Hashids
+from datetime import datetime
 
 
 # Define models
@@ -16,6 +17,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String(128))
     active = db.Column(db.Boolean)
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
