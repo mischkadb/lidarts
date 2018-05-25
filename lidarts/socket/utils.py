@@ -124,11 +124,12 @@ def process_score(hashid, score_value):
 
     # check if leg was won
     if player_dict['p_score'] - score_value == 0:
+        # add thrown score to match json object
+        match_json[current_values['set']][current_values['leg']][current_values['player']].append(score_value)
+
         # check who begins next leg
         new_leg_starter = '2'  \
             if player1_started_leg(match_json[current_values['set']][current_values['leg']]) else '1'
-        # add thrown score to match json object
-        match_json[current_values['set']][current_values['leg']][current_values['player']].append(score_value)
 
         # check for won sets, won match, update scores etc.
         player_dict, match_json, current_values = process_leg_win(player_dict, match_json, current_values)

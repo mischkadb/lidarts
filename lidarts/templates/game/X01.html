@@ -1,47 +1,135 @@
 {% extends "base.html" %}
 {% block title %}X01{% endblock %}
+{% block css %}<link href="{{ url_for('static',filename='css/x01.css') }}" rel="stylesheet">{% endblock %}
+
+{% block navbar %}<div class="mb-2" id="hide-keypad">Toggle Keypad</div> {% endblock %}
 
 {% block app_content %}
 
 <div class="row justify-content-center align-items-center">
-    <div class="card col-sm-3 text-center {% if not game.p1_next_turn %}bg-dark text-white{% endif %} player_turn" id="p1_turn">
-        <div class="card-body">
-            <h5>{{ game.player1_name }}</h5>
-            <p>Sets: <span id="p1_sets"></span> Legs: <span id="p1_legs"></span></p>
-            <div class="card text-center text-white bg-info">
-                <div class="card-body">
-                    <h5 id="p1_score" class="card-text"></h5>
+    <div class="col-sm-5">
+        <div class="card text-center player_turn" id="p1_turn_outer_card">
+            <div class="card-body">
+                <div class="card text-center text-light mb-1" id="p1_turn_name_card">
+                    <div class="card-body">
+                        <h3>{{ game.player1_name }}</h3>
+                    </div>
+                </div>
+
+                <div class="card text-center text-light" id="p1_turn_score_card">
+                    <div class="card-body">
+                        <h1 id="p1_score" class="card-text" style="font-weight: bold"></h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card col-sm-3 text-center {% if game.p1_next_turn %}bg-dark text-white{% endif %} player_turn" id="p2_turn">
-        <div class="card-body">
-            <h5>{{ game.player2_name }}</h5>
-            <p>Sets: <span id="p2_sets"></span> Legs: <span id="p2_legs"></span></p>
-            <div class="card text-center text-white bg-info">
-                <div class="card-body">
-                    <h5 id="p2_score" class="card-text"></h5>
+    <div class="col-sm-2 text-center bg-dark text-light d-none d-lg-block" style="padding-left: 0px; padding-right: 0px;">
+        <div class="row mb-3">
+            {% if game.bo_sets == 1 %}
+            <div class="col">Best of {{ game.bo_legs }} Legs</div>
+            {% else %}
+            <div class="col">Best of {{ game.bo_legs }} Sets</div>
+            {% endif %}
+        </div>
+        <div class="card bg-info">
+            <div class="card-body" style="padding-top: 10px; padding-bottom: 10px;">
+                <div class="row align-items-center mb-3">
+                    <div class="col-sm-3"><h4 class="card-text"><span id="p1_sets" style="font-weight:bold"></span></h4></div>
+                    <div class="col-sm-6">Sets</div>
+                    <div class="col-sm-3"><h4 class="card-text"><span id="p2_sets" style="font-weight:bold"></span></h4></div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-sm-3"><h4 class="card-text"><span id="p1_legs" style="font-weight:bold"></span></h4></div>
+                    <div class="col-sm-6">Legs</div>
+                    <div class="col-sm-3"><h4 class="card-text"><span id="p2_legs" style="font-weight:bold"></span></h4></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-5 d-none d-sm-block">
+        <div class="card text-center player_turn" id="p2_turn_outer_card">
+            <div class="card-body">
+                <div class="card text-center text-light mb-1" id="p2_turn_name_card">
+                    <div class="card-body">
+                        <h3>{{ game.player2_name }}</h3>
+                    </div>
+                </div>
+                <div class="card text-center text-light" id="p2_turn_score_card">
+                    <div class="card-body">
+                        <h1 id="p2_score" class="card-text" style="font-weight: bold"></h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row justify-content-center align-items-center">
-    <div class="col-sm-4">
+<div class="row justify-content-center align-items-start">
+    <div class="col-sm-4 mt-3" id="p1_current_leg">
+    </div>
+
+    <div class="col-sm-3 mt-3 d-none d-md-block">
+
         <form class="text-center" id="score_input" method="POST" action="" autocomplete="off" {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
-            {{ form.hidden_tag() }}
-            {{ form.score_value(size=4, class="text-center") }}
-            <p class="text-center">{{ form.submit() }}</p>
-            <p class="text-center" id="score_error" style="color: red;"></p>
+           {{ form.hidden_tag() }}
+            <div class="col-sm-6 offset-sm-3 d-flex align-items-center mb-2">
+            {{ form.score_value(class="bg-light text-center form-control form-control-lg border-secondary",
+                style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;") }}
+            </div>
+        <div id="input-keypad">
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+              <button type="button" id="button-1" class="btn btn-xl btn-secondary w-100 rounded-0">1</button>
+              <button type="button" id="button-2" class="btn btn-xl btn-secondary w-100">2</button>
+              <button type="button" id="button-3" class="btn btn-xl btn-secondary w-100 rounded-0">3</button>
+            </div>
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+              <button type="button" id="button-4" class="btn btn-xl btn-secondary w-100 rounded-0">4</button>
+              <button type="button" id="button-5" class="btn btn-xl btn-secondary w-100">5</button>
+              <button type="button" id="button-6" class="btn btn-xl btn-secondary w-100 rounded-0">6</button>
+            </div>
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+              <button type="button" id="button-7" class="btn btn-xl btn-secondary w-100 rounded-0">7</button>
+              <button type="button" id="button-8" class="btn btn-xl btn-secondary w-100">8</button>
+              <button type="button" id="button-9" class="btn btn-xl btn-secondary w-100 rounded-0">9</button>
+            </div>
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+              <button type="button" id="button-del" class="btn btn-xl btn-danger w-100 rounded-0"><i class="fas fa-times-circle" style="font-size: 2vb;"></i></button>
+              <button type="button" id="button-0" class="btn btn-xl btn-secondary w-100">0</button>
+              <button type="button" id="button-conf" class="btn btn-xl btn-success w-100 rounded-0"><i class="fas fa-check-circle" style="font-size: 2vb;"></i></button>
+            </div>
+        </div>
+
         </form>
         <form class="text-center" id="confirm_completion" method="POST" action="" {% if not game.status == 'completed' %} style="display: none" {% endif %}>
-            <p>Game is completed.</p>
+            <h4 class="text-light">Game is completed.</h4>
             <a href="{{ url_for('game.start', hashid=game.hashid) }}">Game overview</a>
         </form>
+
+
     </div>
+
+    <div class="col-sm-4 mt-3 d-none d-sm-block">
+        <p id="p2_current_leg"></p>
+    </div>
+</div>
+
+<div class="modal fade game-shot-modal" id="game-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+        <h2 class="text-center">Game Shot</h2>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade match-shot-modal" id="match-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+        <h2 class="text-center">Game Shot and the match</h2>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

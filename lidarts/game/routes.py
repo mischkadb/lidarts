@@ -70,7 +70,7 @@ def start(hashid):
     # for running games
     else:
         form = ScoreForm()
-        return render_template('game/X01.html', game=game_dict, form=form)
+        return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json)
 
 
 @bp.route('/validate_score', methods=['POST'])

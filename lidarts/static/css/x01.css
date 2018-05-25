@@ -1,0 +1,31 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: #343a40 !important;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+h2 {
+  font-size: 50px;
+}
+
+h3 {
+  font-size: 30px;
+}
+
+a.no-underline {
+  text-decoration: none;
+}
+
+.btn-xl {
+    padding: 10px 20px;
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+form .form-control:focus{
+  border-color: #ced4da;
+  box-shadow: none;
+}
