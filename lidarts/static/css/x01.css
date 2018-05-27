@@ -25,6 +25,22 @@ a.no-underline {
     border-radius: 10px;
 }
 
+.btn-rnd-tl {
+    border-top-left-radius: 5px !important;
+}
+
+.btn-rnd-tr {
+    border-top-right-radius: 5px !important;
+}
+
+.btn-rnd-bl {
+    border-bottom-left-radius: 5px !important;
+}
+
+.btn-rnd-br {
+    border-bottom-right-radius: 5px !important;
+}
+
 form .form-control:focus{
   border-color: #ced4da;
   box-shadow: none;

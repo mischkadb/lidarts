@@ -20,6 +20,11 @@ def index():
     return render_template('generic/index.html')
 
 
+@bp.route('/about')
+def about():
+    return render_template('generic/index.html')
+
+
 @bp.route('/lobby')
 @login_required
 def lobby():

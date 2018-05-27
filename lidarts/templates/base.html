@@ -29,36 +29,46 @@
 
 <body>
 {% block navbar %}
-    <div class="container mb-4">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{ url_for('generic.index') }}">Lidarts</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url_for('generic.index') }}">Lidarts</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% if current_user.is_anonymous %}
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.index') }}">{{ _('Home') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Watch') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Statistics') }}</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Lobby') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('game.create') }}">{{ _('Play') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Watch') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Chat') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Statistics') }}</a></li>
+                {% endif %}
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                <div class="btn-group" role="group" aria-label="Basic example">
                     {% if current_user.is_anonymous %}
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.index') }}">{{ _('Home') }}</a></li>
+                    <a href="{{ url_for_security('login') }}" class="btn btn-secondary" role="button">{{ _('Sign In') }}</a>
+                    <a href="{{ url_for_security('register') }}" class="btn btn-info" role="button">{{ _('Register') }}</a>
                     {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Lobby') }}</a></li>
+                    <a href="{{ url_for('profile.overview', username=current_user.username) | replace('%40', '@') }}"  class="btn btn-secondary" role="button">{{ _('Profile') }}</a></li>
+                    <a href="{{ url_for_security('logout') }}" class="btn btn-secondary" role="button">{{ _('Logout') }}</a>>
                     {% endif %}
-                </ul>
-                <ul class="navbar-nav navbar-right">
-                    {% if current_user.is_anonymous %}
-                        <li class="nav-item"><a href="{{ url_for_security('login') }}" class="btn btn-outline-light" role="button">{{ _('Sign In') }}</a></li>
-                        <li class="nav-item"><a href="{{ url_for_security('register') }}" class="btn btn-info" role="button">{{ _('Register') }}</a></li>
-                    {% else %}
-                        <li class="nav-item"><a href="{{ url_for('profile.overview', username=current_user.username) | replace('%40', '@') }}" class="btn btn-outline-light" role="button">{{ _('Profile') }}</a></li>
-                        <li class="nav-item"><a href="{{ url_for_security('logout') }}" class="btn btn-outline-light" role="button">{{ _('Logout') }}</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
+                </div>
+            </ul>
+        </div>
     </div>
+</nav>
 {% endblock %}
 
 {% block content %}
+    {% block jumbotron %}{% endblock %}
+
     <div class="container">
         {% with messages = get_flashed_messages() %}
             {% if messages %}

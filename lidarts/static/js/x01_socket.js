@@ -210,6 +210,7 @@ $(document).ready(function() {
                     $('#score_error').text(score_errors['score_value'][0]);
                 }
                 $('input[name=score_value]').val('');
+                $('#score_value_sm').val($('#score_value').val());
             });
         return false;
     });
@@ -268,46 +269,108 @@ $(document).keypress(function(e){
         else if (keyCode == 13) {
             $('form#score_input').submit();
         }
+        $('#score_value_sm').val($('#score_value').val());
     }
 });
 
 $('#button-1').click(function() {
         $('#score_value').val($('#score_value').val() + '1');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-2').click(function() {
         $('#score_value').val($('#score_value').val() + '2');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-3').click(function() {
         $('#score_value').val($('#score_value').val() + '3');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-4').click(function() {
         $('#score_value').val($('#score_value').val() + '4');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-5').click(function() {
         $('#score_value').val($('#score_value').val() + '5');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-6').click(function() {
         $('#score_value').val($('#score_value').val() + '6');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-7').click(function() {
         $('#score_value').val($('#score_value').val() + '7');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-8').click(function() {
         $('#score_value').val($('#score_value').val() + '8');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-9').click(function() {
         $('#score_value').val($('#score_value').val() + '9');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-0').click(function() {
         $('#score_value').val($('#score_value').val() + '0');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-del').click(function() {
         $('#score_value').val('');
+        $('#score_value_sm').val($('#score_value').val());
     })
 $('#button-conf').click(function() {
         $('form#score_input').submit();
     })
 
+
+$('#button-sm-1').click(function() {
+        $('#score_value').val($('#score_value').val() + '1');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-2').click(function() {
+        $('#score_value').val($('#score_value').val() + '2');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-3').click(function() {
+        $('#score_value').val($('#score_value').val() + '3');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-4').click(function() {
+        $('#score_value').val($('#score_value').val() + '4');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-5').click(function() {
+        $('#score_value').val($('#score_value').val() + '5');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-6').click(function() {
+        $('#score_value').val($('#score_value').val() + '6');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-7').click(function() {
+        $('#score_value').val($('#score_value').val() + '7');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-8').click(function() {
+        $('#score_value').val($('#score_value').val() + '8');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-9').click(function() {
+        $('#score_value').val($('#score_value').val() + '9');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-0').click(function() {
+        $('#score_value').val($('#score_value').val() + '0');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-del').click(function() {
+        $('#score_value').val('');
+        $('#score_value_sm').val($('#score_value').val());
+    })
+$('#button-sm-conf').click(function() {
+        $('form#score_input').submit();
+    })
+
 $('#hide-keypad').click(function() {
         $('#input-keypad').toggle();
+        $('#input-keypad-sm').toggle();
     })

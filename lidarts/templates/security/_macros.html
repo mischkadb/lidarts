@@ -1,0 +1,38 @@
+{% macro render_field_with_errors(field, class_to_use) %}
+  <p>
+    {{ field.label }} {{ field(class_=class_to_use, **kwargs)|safe }}
+    {% if field.errors %}
+      <ul>
+      {% for error in field.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  </p>
+{% endmacro %}
+
+{% macro render_input_with_errors(field) %}
+  <div class="form-group">
+        {{ field.label }} <br>
+        {{ field(_class="form-control",**kwargs)|safe }}
+  </div>
+    {% if field.errors %}
+    <ul>
+      {% for error in field.errors %}
+        <li style="color: red;">{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+{% endmacro %}
+
+{% macro render_checkbox(field) %}
+<div class="form-check">
+    {{ field(_class="form-check-input",**kwargs)|safe }}
+    {{ field.label(_class="form-check-label") }}
+
+</div>
+{% endmacro %}
+
+{% macro render_field(field, class_to_use) %}
+  <p>{{ field(class_=class_to_use, **kwargs)|safe }}</p>
+{% endmacro %}

@@ -2,97 +2,75 @@
 {% block title %}Create Game{% endblock %}
 
 {% block app_content %}
-<div class="row justify-content-center mb-4">
-    <div class="col-sm-4">
-        <h1>Create Game</h1>
+<div class="row justify-content-center">
+    <div class="col-sm-8 text-center">
+        <h1 class="mb-4">Create Game</h1>
     </div>
 </div>
-<div class="row justify-content-center mb-4">
-    <div class="col-sm-2 col-form-label">
-        <p>Game Mode:</p>
-    </div>
-    <div class="col-sm-2">
-        <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                X01
-            </a>
 
-            <div class="dropdown-menu" aria-labelledby="gameModeDropdown">
-                <a class="dropdown-item" href="{{ url_for('game.create') }}/x01">X01</a>
-                <a class="dropdown-item" href="#">Cricket</a>
+<div class="row justify-content-center d-flex h-100 mb-4">
+            <div class="col-sm-6 text-right align-self-center">
+                Game Mode:
+            </div>
+            <div class="col-sm-6 align-self-center">
+                <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        X01
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="gameModeDropdown">
+                        <a class="dropdown-item" href="{{ url_for('game.create') }}/x01">X01</a>
+                        <a class="dropdown-item" href="#">Cricket</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<form action="" method="post">
+
+<form action="" method="post" class="form-horizontal">
     {{ form.hidden_tag() }}
-    <div class="row justify-content-center">
-        <div class="col-sm-2">
-            <p>{{ form.type.label(class="col-form-label") }}:</p>
-        </div>
-        <div class="col-sm-2">
-            {{ form.type(class="custom-select") }}
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-sm-2">
-            <p>{{ form.opponent.label(class="col-form-label") }}:</p>
-        </div>
-        <div class="col-sm-2">
-            {{ form.opponent(class="custom-select") }}
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-sm-2">
-            <p>{{ form.starter.label(class="col-form-label") }}:</p>
-        </div>
-        <div class="col-sm-2">
-            {{ form.starter(class="custom-select") }}
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-sm-2">
-            <p>{{ form.bo_sets.label(class="col-form-label") }}:</p>
-        </div>
-        <div class="col-sm-2">
-            {{ form.bo_sets(class="custom-select") }}
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-sm-2">
-            <p>{{ form.bo_legs.label(class="col-form-label") }}:</p>
-        </div>
-        <div class="col-sm-2">
-            {{ form.bo_legs(class="custom-select") }}
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-sm-2">
-            <p>{{ form.in_mode.label(class="col-form-label") }}:</p>
-        </div>
-        <div class="col-sm-2">
-            {{ form.in_mode(class="custom-select") }}
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-sm-2">
-            <p>{{ form.out_mode.label(class="col-form-label") }}:</p>
-        </div>
-        <div class="col-sm-2">
-            {{ form.out_mode(class="custom-select") }}
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-sm-2">
-            {{ form.submit }}
-        </div>
-    </div>
 
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <p>{{ form.type.label(class="control-label") }}:
+                        {{ form.type(class="form-control custom-select") }}</p>
+
+                    <p>{{ form.opponent.label(class="col-form-label") }}:
+                        {{ form.opponent(class="custom-select") }}</p>
+
+                    <p>{{ form.starter.label(class="col-form-label") }}:
+                        {{ form.starter(class="custom-select") }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <p>{{ form.bo_sets.label(class="col-form-label") }}:
+                        {{ form.bo_sets(class="custom-select") }}</p>
+
+                    <p>{{ form.bo_legs.label(class="col-form-label") }}:
+                        {{ form.bo_legs(class="custom-select") }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 mb-sm-1">
+            <div class="card">
+                <div class="card-body">
+                    <p>{{ form.in_mode.label(class="col-form-label") }}:
+                        {{ form.in_mode(class="custom-select") }}</p>
+
+                    <p>{{ form.out_mode.label(class="col-form-label") }}:
+                        {{ form.out_mode(class="custom-select") }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6"></div>
+    </div>
+    <div class="row justify-content-center text-center">
+        <div class="col-sm-3">{{ form.submit(class="btn btn-lg btn-info") }}</div>
+    </div>
 </form>
-</div>
-</div>
-
-
 
 
 {% endblock %}

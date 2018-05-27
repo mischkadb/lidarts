@@ -1,8 +1,20 @@
 body {
-  font-family: 'Open Sans', sans-serif;
-  //background: #343a40 !important;
+  background: #e3e3e3;
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+body h1{
+  font-family: 'Open Sans', sans-serif !important;
 }
 
 a.no-underline {
   text-decoration: none;
+}
+
+.jumbotron {
+    background-color:#f4f4f4;
+}
+
+.div-inline{
+    display:inline-block;
 }

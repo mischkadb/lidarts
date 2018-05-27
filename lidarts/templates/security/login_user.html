@@ -2,20 +2,30 @@
 {% block title %}Login{% endblock %}
 
 {% block app_content %}
-{% from "security/_macros.html" import render_field_with_errors, render_field %}
+{% from "/security/_macros.html" import render_input_with_errors, render_field, render_checkbox %}
 <div class="row justify-content-center">
-    <div class="col-sm-4">
-        <h1>Sign In</h1>
-        <form action="{{ url_for_security('login') }}" method="post" name="login_user_form">
-            {{ login_user_form.hidden_tag() }}
-            {{ render_field_with_errors(login_user_form.email) }}
-            {{ render_field_with_errors(login_user_form.password) }}
-            {{ render_field_with_errors(login_user_form.remember) }}
-            {{ render_field(login_user_form.next) }}
-            {{ render_field(login_user_form.submit) }}
-        </form>
-        <p>Forgot your password? <a href="{{ url_for_security('forgot_password') }}">Request a new one.</a></p>
-        <p>New to lidarts? <a href="{{ url_for_security('register') }}">Register an account.</a></p>
+    <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-2 col-sm-8 offset-sm-1">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title mb-4">Sign In</h3>
+                <form action="{{ url_for_security('login') }}" method="post" name="login_user_form">
+                    {{ login_user_form.hidden_tag() }}
+                    {{ render_input_with_errors(login_user_form.email) }}
+                    {{ render_input_with_errors(login_user_form.password) }}
+                    {{ render_checkbox(login_user_form.remember) }}
+
+                    {{ render_field(login_user_form.next) }}
+                    <button type="submit" class="btn btn-info">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-3 mt-sm-5">
+        <p>No account yet?</p>
+        <p><a href="{{ url_for_security('register') }}" class="btn btn-secondary" role="button">{{ _('Sign Up') }}</a></p>
+        <p>Forgot your password?</p>
+        <p><a href="{{ url_for_security('forgot_password') }}" class="btn btn-secondary" role="button">{{ _('Reset password') }}</a></p>
+
     </div>
 </div>
 
