@@ -12,7 +12,7 @@ def send_score_response(game, old_score=0, broadcast=False):
     current_leg = str(len(match_json[str(len(match_json))]))
     p1_current_leg = match_json[current_set][current_leg]['1']
     p2_current_leg = match_json[current_set][current_leg]['2']
-    # stats
+    # various statistics for footer
     p1_leg_avg = round(sum(p1_current_leg) / len(p1_current_leg), 2) if len(p1_current_leg) else 0
     p2_leg_avg = round(sum(p2_current_leg) / len(p2_current_leg), 2) if len(p2_current_leg) else 0
 
@@ -124,10 +124,13 @@ def send_score(message):
     score_value = int(message['score'])
     game = Game.query.filter_by(hashid=hashid).first()
     match_json = json.loads(game.match_json)
+    # keep old score to display game shot if finish
     old_score = game.p1_score if game.p1_next_turn else game.p2_score
     old_set_count = len(match_json)
     old_leg_count = len(match_json[str(len(match_json))])
+
     game = process_score(hashid, score_value)
+    # check for match_json updates
     match_json = json.loads(game.match_json)
 
     if game.status == 'completed':
