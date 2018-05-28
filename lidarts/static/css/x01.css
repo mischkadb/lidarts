@@ -41,7 +41,30 @@ a.no-underline {
     border-bottom-right-radius: 5px !important;
 }
 
+.name_card_body_small{
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.score_card_body_small{
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.leg-set-card-small{
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
 form .form-control:focus{
   border-color: #ced4da;
   box-shadow: none;
+}
+
+.stats-table{
+    margin-bottom: 0px;
+}
+
+.stats-table td{
+    border:none;
 }

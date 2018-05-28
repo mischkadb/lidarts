@@ -12,26 +12,26 @@
 
 {% block app_content %}
 
-<div class="row justify-content-center align-items-center">
-    <div class="col-lg-5 col-sm-6">
-        <div class="card text-center player_turn" id="p1_turn_outer_card">
+<div class="row justify-content-center align-items-center text-light">
+    <div class="col-lg-5 col-md-6 d-none d-md-block">
+        <div class="card text-center bg-dark player_turn p1_turn_outer_card" id="p1_turn_outer_card">
             <div class="card-body">
-                <div class="card text-center text-light mb-1" id="p1_turn_name_card">
+                <div class="card text-center mb-1 p1_turn_name_card" id="p1_turn_name_card">
                     <div class="card-body">
                         <h3>{{ game.player1_name }}</h3>
                     </div>
                 </div>
 
-                <div class="card text-center text-light" id="p1_turn_score_card">
+                <div class="card text-center p1_turn_score_card" id="p1_turn_score_card">
                     <div class="card-body">
-                        <h1 id="p1_score" class="card-text" style="font-weight: bold"></h1>
+                        <h1 id="p1_score" class="card-text p1_score" style="font-weight: bold"></h1>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-2 text-center bg-dark text-light d-none d-lg-block" style="padding-left: 0px; padding-right: 0px;">
+    <div class="col-lg-2 text-center bg-dark d-none d-lg-block" style="padding-left: 0px; padding-right: 0px;">
         <div class="row mb-3">
             {% if game.bo_sets == 1 %}
             <div class="col">Best of {{ game.bo_legs }} Legs</div>
@@ -42,54 +42,82 @@
         <div class="card bg-info">
             <div class="card-body" style="padding-top: 10px; padding-bottom: 10px;">
                 <div class="row align-items-center mb-3">
-                    <div class="col-sm-3"><h4 class="card-text"><span id="p1_sets" style="font-weight:bold"></span></h4></div>
+                    <div class="col-sm-3"><h4 class="card-text p1_sets" style="font-weight:bold"></h4></div>
                     <div class="col-sm-6">Sets</div>
-                    <div class="col-sm-3"><h4 class="card-text"><span id="p2_sets" style="font-weight:bold"></span></h4></div>
+                    <div class="col-sm-3"><h4 class="card-text p2_sets" style="font-weight:bold"></h4></div>
                 </div>
                 <div class="row align-items-center">
-                    <div class="col-sm-3"><h4 class="card-text"><span id="p1_legs" style="font-weight:bold"></span></h4></div>
+                    <div class="col-sm-3"><h4 class="card-text p1_legs" style="font-weight:bold"></h4></div>
                     <div class="col-sm-6">Legs</div>
-                    <div class="col-sm-3"><h4 class="card-text"><span id="p2_legs" style="font-weight:bold"></span></h4></div>
+                    <div class="col-sm-3"><h4 class="card-text p2_legs" style="font-weight:bold"></h4></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-6 d-none d-md-block">
+        <div class="card text-center bg-dark player_turn p2_turn_outer_card" id="p2_turn_outer_card">
+            <div class="card-body">
+                <div class="card text-center text-light mb-1 p2_turn_name_card" id="p2_turn_name_card">
+                    <div class="card-body">
+                        <h3>{{ game.player2_name }}</h3>
+                    </div>
+                </div>
+                <div class="card text-center p2_turn_score_card" id="p2_turn_score_card">
+                    <div class="card-body">
+                        <h1 id="p2_score" class="card-text p2_score" style="font-weight: bold"></h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-5 col-sm-6">
-        <div class="card text-center player_turn" id="p2_turn_outer_card">
-            <div class="card-body">
-                <div class="card text-center text-light mb-1" id="p2_turn_name_card">
-                    <div class="card-body">
-                        <h3>{{ game.player2_name }}</h3>
-                    </div>
-                </div>
-                <div class="card text-center text-light" id="p2_turn_score_card">
-                    <div class="card-body">
-                        <h1 id="p2_score" class="card-text" style="font-weight: bold"></h1>
-                    </div>
-                </div>
+    <div class="col-6 d-md-none">
+        <div class="card text-center bg-dark mb-1 p1_turn_name_card" id="p1_turn_name_card_small">
+            <div class="card-body name_card_body_small">
+                <h3>{{ game.player1_name }}</h3>
+            </div>
+        </div>
+
+        <div class="card text-center p1_turn_score_card" id="p1_turn_score_card_small">
+            <div class="card-body score_card_body_small">
+                <h2 id="p1_score_small" class="card-text p1_score" style="font-weight: bold"></h2>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-6 d-md-none">
+        <div class="card text-center bg-dark mb-1 p2_turn_name_card" id="p2_turn_name_card_small">
+            <div class="card-body name_card_body_small">
+                <h3>{{ game.player2_name }}</h3>
+            </div>
+        </div>
+
+        <div class="card text-center p2_turn_score_card" id="p2_turn_score_card_small">
+            <div class="card-body score_card_body_small">
+                <h2 id="p2_score_small" class="card-text p2_score" style="font-weight: bold"></h2>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row justify-content-center align-items-start text-center mt-sm-2">
-    <div class="col-md-4 offset-md-1 col-sm-6 d-lg-none">
+<div class="row justify-content-center align-items-start text-center mt-2">
+    <div class="col-md-4 offset-md-1 col-6 d-lg-none">
         <div class="card bg-info text-light">
-            <div class="card-body" style="padding-top: 0px; padding-bottom: 0px">
+            <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
                 <div class="row">
-                    <div class="col-sm-6">Sets: <strong>{{ game.p1_sets }}</strong></div>
-                    <div class="col-sm-6">Legs: <strong>{{ game.p1_legs }}</strong></div>
+                    <div class="col-6">Sets: <strong class="p1_sets">{{ game.p1_sets }}</strong></div>
+                    <div class="col-6">Legs: <strong class="p1_legs">{{ game.p1_legs }}</strong></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4 offset-md-2 col-sm-6 d-lg-none">
+    <div class="col-md-4 offset-md-2 col-6 d-lg-none">
         <div class="card bg-info text-light">
-            <div class="card-body" style="padding-top: 0px; padding-bottom: 0px">
+            <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
                 <div class="row">
-                    <div class="col-sm-6">Sets: <strong>{{ game.p2_sets }}</strong></div>
-                    <div class="col-sm-6">Legs: <strong>{{ game.p2_legs }}</strong></div>
+                    <div class="col-6">Sets: <strong class="p2_sets">{{ game.p2_sets }}</strong></div>
+                    <div class="col-6">Legs: <strong class="p2_legs">{{ game.p2_legs }}</strong></div>
                 </div>
             </div>
         </div>
@@ -99,12 +127,12 @@
 </div>
 
 <div class="row justify-content-center align-items-start">
-    <div class="col-lg-4 col-md-4 col-sm-6 mt-3" id="p1_current_leg">
+    <div class="col-lg-4 col-md-4 col-6 mt-3" id="p1_current_leg">
     </div>
 
     <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block">
 
-        <form class="text-center" id="score_input" method="POST" action="" autocomplete="off" {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
+        <form class="text-center score_input" id="score_input" method="POST" action="" autocomplete="off" {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
         {{ form.hidden_tag() }}
         <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center mb-2">
             {{ form.score_value(class="bg-light text-center form-control form-control-lg border-secondary",
@@ -134,26 +162,135 @@
         </div>
 
         </form>
-        <form class="text-center" id="confirm_completion" method="POST" action="" {% if not game.status == 'completed' %} style="display: none" {% endif %}>
-        <h4 class="text-light">Game is completed.</h4>
-        <a href="{{ url_for('game.start', hashid=game.hashid) }}">Game overview</a>
+        <form class="text-center" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
+            <h4 class="text-light">Game is completed.</h4>
+            <a href="{{ url_for('game.start', hashid=game.hashid) }}">Game overview</a>
         </form>
 
 
     </div>
 
-    <div class="col-lg-4 col-md-4 col-sm-6 mt-3 d-none d-sm-block">
+    <div class="col-lg-4 col-md-4 col-6 mt-3">
         <p id="p2_current_leg"></p>
+    </div>
+</div>
+
+<div class="col-sm-12 justify-content-center d-md-none confirm_completion" {% if game.status != 'completed' %} style="display: none" {% endif %}>
+    <h4 class="text-light">Game is completed.</h4>
+    <a href="{{ url_for('game.start', hashid=game.hashid) }}">Game overview</a>
+</div>
+
+<div class="row fixed-bottom">
+    <div class="container">
+        <div class="row bg-secondary text-light">
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Leg Avg.</td>
+                        <td class="p1_leg_avg">{{ p1_leg_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>Match Avg.</td>
+                        <td class="p1_match_avg">{{ p1_match_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>First 9</td>
+                        <td class="p1_first9_avg">{{ p1_first9_avg }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>100+</td>
+                        <td class="p1_100">{{ p1_100 }}</td>
+                    </tr>
+                    <tr>
+                        <td>140+</td>
+                        <td class="p1_140">{{ p1_140 }}</td>
+                    </tr>
+                    <tr>
+                        <td>180</td>
+                        <td class="p1_180">{{ p1_180 }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Double %</td>
+                        <td class="p1_doubles">{{ p1_doubles }}</td>
+                    </tr>
+                    <tr>
+                        <td>High Finish</td>
+                        <td class="p1_high_finish">{{ p1_high_finish }}</td>
+                    </tr>
+                    <tr>
+                        <td>Short Leg</td>
+                        <td class="p1_short_leg">{{ p1_short_leg }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                                        <tr>
+                        <td>Leg Avg.</td>
+                        <td class="p2_leg_avg">{{ p2_leg_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>Match Avg.</td>
+                        <td class="p2_match_avg">{{ p2_match_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>First 9</td>
+                        <td class="p2_first9_avg">{{ p2_first9_avg }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>100+</td>
+                        <td class="p2_100">{{ p2_100 }}</td>
+                    </tr>
+                    <tr>
+                        <td>140+</td>
+                        <td class="p2_140">{{ p2_140 }}</td>
+                    </tr>
+                    <tr>
+                        <td>180</td>
+                        <td class="p2_180">{{ p2_180 }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Double %</td>
+                        <td class="p2_doubles">{{ p2_doubles }}</td>
+                    </tr>
+                    <tr>
+                        <td>High Finish</td>
+                        <td class="p2_high_finish">{{ p2_high_finish }}</td>
+                    </tr>
+                    <tr>
+                        <td>Short Leg</td>
+                        <td class="p2_short_leg">{{ p2_short_leg }}</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
     </div>
 </div>
 
 <div class="row fixed-bottom">
 
-    <div class="col-sm-12 d-md-none">
+    <div class="col-sm-12 d-md-none score_input">
 
-        <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center mb-2">
+        <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center">
             <input class="bg-light text-center form-control form-control-lg border-secondary" id="score_value_sm"
-                   style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;">
+                   style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;" readonly>
         </div>
         <div id="input-keypad1">
             <div class="btn-group d-flex" role="group" aria-label="Basic example">
@@ -177,9 +314,10 @@
                 <button type="button" id="button-sm-conf" class="btn btn-xl btn-success w-100 rounded-0" style="font-size: 25px;"><i class="fas fa-check-circle" ></i></button>
             </div>
         </div>
-
     </div>
 </div>
+
+
 
 <div class="modal fade game-shot-modal" id="game-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered">

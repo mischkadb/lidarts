@@ -12,11 +12,84 @@ def send_score_response(game, old_score=0, broadcast=False):
     current_leg = str(len(match_json[str(len(match_json))]))
     p1_current_leg = match_json[current_set][current_leg]['1']
     p2_current_leg = match_json[current_set][current_leg]['2']
+    # stats
+    p1_leg_avg = round(sum(p1_current_leg) / len(p1_current_leg), 2) if len(p1_current_leg) else 0
+    p2_leg_avg = round(sum(p2_current_leg) / len(p2_current_leg), 2) if len(p2_current_leg) else 0
+
+    p1_180 = 0
+    p2_180 = 0
+    p1_140 = 0
+    p2_140 = 0
+    p1_100 = 0
+    p2_100 = 0
+    p1_scores = []
+    p2_scores = []
+    p1_first9_scores = []
+    p2_first9_scores = []
+    p1_high_finish = 0
+    p2_high_finish = 0
+    p1_short_leg = 0
+    p2_short_leg = 0
+
+    for set in match_json:
+        for leg in match_json[set]:
+            if sum(match_json[set][leg]['1']) == game.type:
+                p1_short_leg = len(match_json[set][leg]['1'])*3 if p1_short_leg == 0 else p1_short_leg
+                p1_short_leg = len(match_json[set][leg]['1'])*3 \
+                    if len(match_json[set][leg]['1']) < p1_short_leg else p1_short_leg
+                p1_high_finish = match_json[set][leg]['1'][-1] \
+                    if match_json[set][leg]['1'][-1] > p1_high_finish else p1_high_finish
+
+            if sum(match_json[set][leg]['2']) == game.type:
+                p2_short_leg = len(match_json[set][leg]['2'])*3 if p2_short_leg == 0 else p2_short_leg
+                p2_short_leg = len(match_json[set][leg]['2'])*3 \
+                    if len(match_json[set][leg]['2']) < p2_short_leg else p2_short_leg
+                p2_high_finish = match_json[set][leg]['2'][-1] \
+                    if match_json[set][leg]['2'][-1] > p2_high_finish else p2_high_finish
+
+            for i, score in enumerate(match_json[set][leg]['1']):
+                p1_scores.append(score)
+                if i <= 3:
+                    p1_first9_scores.append(score)
+                if score == 180:
+                    p1_180 += 1
+                elif score >= 140:
+                    p1_140 += 1
+                elif score >= 100:
+                    p1_100 += 1
+
+            for i, score in enumerate(match_json[set][leg]['2']):
+                p2_scores.append(score)
+                if i <= 3:
+                    p2_first9_scores.append(score)
+                if score == 180:
+                    p2_180 += 1
+                elif score >= 140:
+                    p2_140 += 1
+                elif score >= 100:
+                    p2_100 += 1
+
+    p1_match_avg = round(sum(p1_scores) / len(p1_scores), 2) if p1_scores else 0
+    p2_match_avg = round(sum(p2_scores) / len(p2_scores), 2) if p2_scores else 0
+    p1_first9_avg = round(sum(p1_first9_scores)/len(p1_first9_scores),2) if p1_first9_scores else 0
+    p2_first9_avg = round(sum(p2_first9_scores)/len(p2_first9_scores), 2) if p2_first9_scores else 0
+
     emit('score_response',
          {'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
           'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs,
           'p1_next_turn': game.p1_next_turn, 'p1_current_leg': p1_current_leg,
-          'p2_current_leg': p2_current_leg, 'old_score': old_score},
+          'p2_current_leg': p2_current_leg, 'old_score': old_score,
+          'p1_leg_avg': p1_leg_avg, 'p2_leg_avg': p2_leg_avg,
+          'p1_match_avg': p1_match_avg, 'p2_match_avg': p2_match_avg,
+          'p1_first9_avg': p1_first9_avg, 'p2_first9_avg': p2_first9_avg,
+          'p1_100': p1_100, 'p2_100': p2_100,
+          'p1_140': p1_140, 'p2_140': p2_140,
+          'p1_180': p1_180, 'p2_180': p2_180,
+          #'p1_doubles': p1_doubles, 'p2_doubles': p2_doubles,
+          'p1_high_finish': p1_high_finish, 'p2_high_finish': p2_high_finish,
+          'p1_short_leg': p1_short_leg, 'p2_short_leg': p2_short_leg
+          },
+
          room=game.hashid, broadcast=broadcast)
 
 
