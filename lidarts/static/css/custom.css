@@ -18,3 +18,28 @@ a.no-underline {
 .div-inline{
     display:inline-block;
 }
+
+
+.bs-callout {
+    border-top-width: 5px;
+    border-radius: 5px;
+}
+
+.bs-callout-default {
+    border-top-color: #777;
+}
+.bs-callout-primary {
+    border-top-color: #428bca;
+}
+.bs-callout-success {
+    border-top-color: #5cb85c;
+}
+.bs-callout-danger {
+    border-top-color: #d9534f;
+}
+.bs-callout-warning {
+    border-top-color: #f0ad4e;
+}
+.bs-callout-info {
+    border-top-color: #5bc0de;
+}

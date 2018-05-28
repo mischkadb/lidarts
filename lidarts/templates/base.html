@@ -57,7 +57,7 @@
                     <a href="{{ url_for_security('register') }}" class="btn btn-info" role="button">{{ _('Register') }}</a>
                     {% else %}
                     <a href="{{ url_for('profile.overview', username=current_user.username) | replace('%40', '@') }}"  class="btn btn-secondary" role="button">{{ _('Profile') }}</a></li>
-                    <a href="{{ url_for_security('logout') }}" class="btn btn-secondary" role="button">{{ _('Logout') }}</a>>
+                    <a href="{{ url_for_security('logout') }}" class="btn btn-secondary" role="button">{{ _('Logout') }}</a>
                     {% endif %}
                 </div>
             </ul>

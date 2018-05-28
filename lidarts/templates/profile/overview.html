@@ -2,16 +2,56 @@
 {% block title %}Profile overview{% endblock %}
 
 {% block app_content %}
-<div class="row text-center justify-content-center">
-    <div class="col-sm-8">
-        <h2>{{ user.username }}'s profile</h2>
-        {% if user.id != current_user.id %}<p>Last seen: {{ user.last_seen }}</p>{% endif %}
-        <p><a href="{{ url_for_security('change_password') }}">Change password</a></p>
-        {% for game in games %}
-        <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ game.type }} vs. {{ game.player2 }} -
-            {% if game.bo_sets > 1 %}Sets: {{ game.p1_sets }}:{{ game.p2_sets }}{% else %}Legs: {{ game.p1_legs }}:{{ game.p2_legs }}{% endif %}
-        {%- if game.status == 'started'  %} (in progress){% endif %}</a></p>
-        {% endfor %}
+
+
+<div class="row justify-content-center">
+    <div class="col-md-4 col-xl-3">
+        <div class="card bg-light text-dark bs-callout bs-callout-info">
+            <div class="card-body">
+                <h5 class="card-title">Settings</h5>
+                <hr>
+                <p><a href="{{ url_for_security('change_password') }}" class="text-secondary">Change password</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-xl-3">
+        <div class="card bg-light text-dark  bs-callout bs-callout-warning">
+            <div class="card-body">
+                <h5 class="card-title">Recent games</h5>
+                <hr>
+                {% for game in games[:5] %}
+                <p class="text-secondary"><a href="{{ url_for('game.start', hashid=game.hashid) }}"
+                                             class="
+                                             {%- if game.status == 'started' %}text-started
+                                             {%- elif game.player1 != game.player2 and
+                                                    ((game.player1 == current_user.id and game.p1_sets > game.p2_sets)
+                                                    or (game.player2 == current_user.id and game.p2_sets > game.p1_sets))
+                                             %}text-success
+                                             {%- elif game.player1 != game.player2 and
+                                                    ((game.player1 == current_user.id and game.p1_sets < game.p2_sets)
+                                                    or (game.player2 == current_user.id and game.p2_sets < game.p1_sets))
+                                             %}text-danger
+                                             {%- elif game.p1_sets == game.p2_sets %}text-warning
+                                             {%- else %}text-secondary
+                                             {%- endif %}
+                                                ">vs.
+                    {%- if game.player1 != current_user.id %} {{ player_names[game.player1] }}
+                    {%- elif game.player2 != current_user.id %} {{ player_names[game.player2] }}
+                    {%- else %} local guest{% endif %}
+                    - [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
+                {% endfor %}
+                <a href="#" class="text-secondary">Full match list</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-xl-3">
+        <div class="card bg-light text-dark bs-callout bs-callout-danger">
+            <div class="card-body">
+                <h5 class="card-title">Statistics</h5>
+                <hr>
+            </div>
+        </div>
     </div>
 </div>
 
