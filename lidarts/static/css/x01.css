@@ -65,6 +65,14 @@ form .form-control:focus{
     margin-bottom: 0px;
 }
 
+.stats-table h3{
+    margin-bottom: 0px;
+}
+
+.stats-table h4{
+    margin-bottom: 0px;
+}
+
 .stats-table td{
     border:none;
 }

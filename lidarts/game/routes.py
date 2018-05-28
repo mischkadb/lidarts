@@ -42,7 +42,8 @@ def create(mode='x01'):
 
 
 @bp.route('/<hashid>')
-def start(hashid):
+@bp.route('/<hashid>/<theme>')
+def start(hashid, theme=None):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
     # check if we found an opponent, logged in users only
     if game.status == 'challenged' and current_user.is_authenticated \
@@ -70,6 +71,8 @@ def start(hashid):
     # for running games
     else:
         form = ScoreForm()
+        if theme:
+            return render_template('game/X01_stream.html', game=game_dict, form=form, match_json=match_json)
         return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json)
 
 

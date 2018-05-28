@@ -14,7 +14,11 @@ $(document).ready(function() {
     });
     socket.on('game_shot', function(msg) {
         $('#p1_current_leg').text('');
-        var p1_last_leg_sum  = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
+
+        var p1_last_leg_sum = 0;
+        if (msg.p1_last_leg.length > 0) {
+            p1_last_leg_sum = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
+        }
         $.each(msg.p1_last_leg, function( index, value ){
             if ( index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type) {
                 $('#p1_current_leg').prepend(
@@ -50,6 +54,12 @@ $(document).ready(function() {
                 )
             }
         });
+
+        $('.p1_sets').text(msg.p1_sets);
+        $('.p2_sets').text(msg.p2_sets);
+        $('.p1_legs').text(msg.p1_legs);
+        $('.p2_legs').text(msg.p2_legs);
+
         $('#game-shot-modal').modal('show');
         if (msg.p1_won) {
             var last_score = msg.type;
@@ -93,7 +103,7 @@ $(document).ready(function() {
                     }, 3000);
                 });
         } else {
-            $('.p2_score').html(msg.p2_score);
+            $('.p2_score').text(msg.p2_score);
         }
 
     });
@@ -120,12 +130,12 @@ $(document).ready(function() {
                 }
             });
         } else {
-            $('.p2_score').html(msg.p2_score);
+            $('.p2_score').text(msg.p2_score);
         }
-        $('.p1_sets').html(msg.p1_sets);
-        $('.p2_sets').html(msg.p2_sets);
-        $('.p1_legs').html(msg.p1_legs);
-        $('.p2_legs').html(msg.p2_legs);
+        $('.p1_sets').text(msg.p1_sets);
+        $('.p2_sets').text(msg.p2_sets);
+        $('.p1_legs').text(msg.p1_legs);
+        $('.p2_legs').text(msg.p2_legs);
 
         // statistics
         $('.p1_leg_avg').text(msg.p1_leg_avg);
@@ -198,6 +208,9 @@ $(document).ready(function() {
             $('.p2_turn_name_card').addClass('bg-dark border-0');
             $('.p2_turn_score_card').removeClass('bg-danger');
             $('.p2_turn_score_card').addClass('bg-secondary');
+
+            $('.p1_turn_incidator').html('<i class="fas fa-angle-left"></i>');
+            $('.p2_turn_incidator').html('');
         } else {
             $('.p1_turn_outer_card').removeClass('border-1 border-light');
             $('.p1_turn_outer_card').addClass('border-0');
@@ -211,12 +224,18 @@ $(document).ready(function() {
             $('.p2_turn_name_card').addClass('bg-secondary');
             $('.p2_turn_score_card').removeClass('bg-secondary');
             $('.p2_turn_score_card').addClass('bg-danger');
+
+            $('.p1_turn_incidator').html('');
+            $('.p2_turn_incidator').html('<i class="fas fa-angle-left"></i>');
         }
     });
     // Remove turn indicators when game is over and show link to game overview
     socket.on('game_completed', function(msg) {
         $('#p1_current_leg').text('');
-        var p1_last_leg_sum  = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
+        var p1_last_leg_sum = 0;
+        if (msg.p1_last_leg.length > 0) {
+            p1_last_leg_sum = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
+        }
         $.each(msg.p1_last_leg, function( index, value ){
             if ( index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type) {
                 $('#p1_current_leg').prepend(
@@ -253,9 +272,14 @@ $(document).ready(function() {
             }
         });
 
+        $('.p1_sets').text(msg.p1_sets);
+        $('.p2_sets').text(msg.p2_sets);
+        $('.p1_legs').text(msg.p1_legs);
+        $('.p2_legs').text(msg.p2_legs);
+
         $('#match-shot-modal').modal('show');
         if (msg.p1_won) {
-            jQuery({Counter: msg.p1_last_leg[msg.p1_last_leg.length-2]}).animate({Counter: -1}, {
+            jQuery({Counter: msg.p1_last_leg[msg.p1_last_leg.length-1]}).animate({Counter: -1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -270,8 +294,8 @@ $(document).ready(function() {
             $('.p1_score').html(msg.p1_score);
         }
         if (!msg.p1_won) {
-            jQuery({Counter: msg.p2_last_leg[msg.p2_last_leg.length-2]}).animate({Counter: -1}, {
-                duration: 1500,
+            jQuery({Counter: msg.p2_last_leg[msg.p2_last_leg.length-1]}).animate({Counter: -1}, {
+                duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p2_score').text(Math.ceil(this.Counter));

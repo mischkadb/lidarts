@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='lidarts',
-    version='0.3.0-beta',
+    version='0.3.0-02',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,

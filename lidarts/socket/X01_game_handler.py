@@ -137,22 +137,24 @@ def send_score(message):
         p2_last_leg = last_leg['2']
         p1_won = sum(p1_last_leg) == game.type
         emit('game_completed', {'p1_last_leg': p1_last_leg, 'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
-                                'type': game.type},
+                                'type': game.type, 'p1_sets': game.p1_sets,
+                                'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
              room=game.hashid, broadcast=True)
         leave_room(game.hashid)
 
     if old_set_count < len(match_json) or old_leg_count < len(match_json[str(len(match_json))]):
-        if len(match_json[str(len(match_json))]) == 1:
+        if len(match_json[str(len(match_json))]) == 1:  # new set
             last_set = match_json[str(len(match_json)-1)]
             last_leg = last_set[str(len(last_set))]
-        else:
+        else:  # no new set
             last_set = match_json[str(len(match_json))]
             last_leg = last_set[str(len(last_set)-1)]
         p1_last_leg = last_leg['1']
         p2_last_leg = last_leg['2']
         p1_won = sum(p1_last_leg) == game.type
         emit('game_shot', {'p1_last_leg': p1_last_leg, 'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
-                           'type': game.type},
+                           'type': game.type, 'p1_sets': game.p1_sets,
+                           'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
              room=game.hashid, broadcast=True)
     else:
         send_score_response(game, old_score, broadcast=True)
