@@ -19,7 +19,8 @@
             <div class="card-body">
                 <h5 class="card-title">Recent games</h5>
                 <hr>
-                {% for game in games[:5] %}
+                {% for game in games[:5] if game.status != 'challenged' %}
+
                 <p class="text-secondary"><a href="{{ url_for('game.start', hashid=game.hashid) }}"
                                              class="
                                              {%- if game.status == 'started' %}text-started
