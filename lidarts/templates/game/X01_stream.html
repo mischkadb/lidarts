@@ -48,7 +48,7 @@
 
     <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block">
 
-        <form class="text-center score_input" id="score_input" method="POST" action="" autocomplete="off" {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
+        <form class="text-center score_input" id="score_input" method="POST" action="" autocomplete="off">
         {{ form.hidden_tag() }}
         <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center mb-2">
             {{ form.score_value(class="bg-light text-center form-control form-control-lg border-secondary",

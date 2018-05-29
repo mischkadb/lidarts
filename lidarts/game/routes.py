@@ -3,7 +3,7 @@ from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm
 from lidarts.models import Game
 from lidarts import db
-from lidarts.game.utils import get_name_by_id
+from lidarts.game.utils import get_name_by_id, collect_statistics
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user
 from datetime import datetime
@@ -64,10 +64,11 @@ def start(hashid, theme=None):
 
     # for player1 and spectators while waiting
     if game.status == 'challenged':
-        return render_template('game/wait.html', game=game_dict)
+        return render_template('game/wait_for_opponent.html', game=game_dict)
     # for everyone if the game is completed
     if game.status == 'completed':
-        return render_template('game/X01_completed.html', game=game_dict, match_json=match_json)
+        statistics = collect_statistics(game, match_json)
+        return render_template('game/X01_completed.html', game=game_dict, match_json=match_json, stats=statistics)
     # for running games
     else:
         form = ScoreForm()

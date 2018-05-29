@@ -19,7 +19,6 @@ a.no-underline {
     display:inline-block;
 }
 
-
 .bs-callout {
     border-top-width: 5px;
     border-radius: 5px;
@@ -42,4 +41,50 @@ a.no-underline {
 }
 .bs-callout-info {
     border-top-color: #5bc0de;
+}
+
+.no-margin{
+    margin: 0px 0px 0px 0px;
+}
+
+.no-padding{
+    padding: 0px 0px 0px 0px !important;
+}
+
+.player_name_card{
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.player_name_card h1, h2, h3, h4, h5 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.td-leg-overview {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    min-width: 80px;
+}
+
+.leg-average {
+    font-size: 10px;
+    position: absolute;
+    bottom: -12px;
+    left: 1px;
+}
+
+.dart-count {
+    font-weight: bold;
+}
+
+.score-remain {
+    font-size: 10px;
+    position: absolute;
+    bottom: -12px;
+    right: 1px;
+}
+
+.bg-leg-win {
+    background-color: #33aa44;
 }
