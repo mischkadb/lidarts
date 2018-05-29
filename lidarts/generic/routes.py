@@ -51,12 +51,14 @@ def chat():
     form = ChatmessageForm()
     messages = Chatmessage.query.filter(Chatmessage.timestamp > (datetime.now() - timedelta(days=1))).all()
     user_names = {}
+    timestamps = {}
 
     for message in messages:
         user_names[message.author] = User.query.with_entities(User.username)\
                 .filter_by(id=message.author).first_or_404()[0]
 
-    return render_template('generic/chat.html', form=form, messages=messages, user_names=user_names)
+    return render_template('generic/chat.html', form=form, messages=messages,
+                           user_names=user_names)
 
 
 @bp.route('/validate_chat_message', methods=['POST'])

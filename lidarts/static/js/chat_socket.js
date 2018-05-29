@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var chatbox = document.getElementById("chatbox");
     chatbox.scrollTop = chatbox.scrollHeight;
+
     // namespace for the game handling
     namespace = '/chat';
     // Connect to the Socket.IO server.

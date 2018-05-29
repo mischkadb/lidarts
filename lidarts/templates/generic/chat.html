@@ -10,7 +10,7 @@
                 <div class="card bg-light">
                     <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
                         {% for message in messages %}
-                        <p><strong>{{ user_names[message.author] }}</strong> <small class="text-secondary">{{ message.timestamp }}</small><br>
+                        <p><strong>{{ user_names[message.author] }}</strong> <small class="text-secondary">{{ message.timestamp.strftime('%H:%M:%S') }}</small><br>
                         {{ message.message }}</p>
                         <hr>
                         {% endfor %}
@@ -29,7 +29,7 @@
         <div class="card bg-light text-dark">
             <div class="card-body">
                 <div class="card bg-light">
-                    <div class="card-body">
+                    <div class="card-body" id="online_players" style="height: 600px; overflow-y: scroll;">
                     </div>
                 </div>
             </div>
