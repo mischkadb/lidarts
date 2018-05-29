@@ -366,48 +366,47 @@ $(document).keypress(function(e){
     if (document.activeElement != score_input && document.activeElement != score_input_sm) {
         // 1
         if (keyCode == 49 || keyCode == 97) {
-            $('#score_value').val($('#score_value').val() + '1');
+            $('.score_value').val($('.score_value').val() + '1');
         }
         // 2
         else if (keyCode == 50 || keyCode == 98) {
-            $('#score_value').val($('#score_value').val() + '2');
+            $('.score_value').val($('.score_value').val() + '2');
         }
         // 3
         else if (keyCode == 51 || keyCode == 99) {
-            $('#score_value').val($('#score_value').val() + '3');
+            $('.score_value').val($('.score_value').val() + '3');
         }
         // 4
         else if (keyCode == 52 || keyCode == 100) {
-            $('#score_value').val($('#score_value').val() + '4');
+            $('.score_value').val($('.score_value').val() + '4');
         }
         // 5
         else if (keyCode == 53 || keyCode == 101) {
-            $('#score_value').val($('#score_value').val() + '5');
+            $('.score_value').val($('.score_value').val() + '5');
         }
         // 6
         else if (keyCode == 54 || keyCode == 102) {
-            $('#score_value').val($('#score_value').val() + '6');
+            $('.score_value').val($('.score_value').val() + '6');
         }
         // 7
         else if (keyCode == 55 || keyCode == 103) {
-            $('#score_value').val($('#score_value').val() + '7');
+            $('.score_value').val($('.score_value').val() + '7');
         }
         // 8
         else if (keyCode == 56 || keyCode == 104) {
-            $('#score_value').val($('#score_value').val() + '8');
+            $('.score_value').val($('.score_value').val() + '8');
         }
         // 9
         else if (keyCode == 57 || keyCode == 105) {
-            $('#score_value').val($('#score_value').val() + '9');
+            $('.score_value').val($('.score_value').val() + '9');
         }
         // 0
         else if (keyCode == 48 || keyCode == 96) {
-            $('#score_value').val($('#score_value').val() + '0');
+            $('.score_value').val($('.score_value').val() + '0');
         }
         else if (keyCode == 13) {
-            $('form#score_input').submit();
+            $('.score_input').submit();
         }
-        $('#score_value_sm').val($('#score_value').val());
     }
 });
 

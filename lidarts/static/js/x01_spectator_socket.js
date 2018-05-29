@@ -15,11 +15,14 @@ $(document).ready(function() {
     socket.on('game_shot', function(msg) {
         $('#p1_current_leg').text('');
 
+        // display old scores for a short time
         var p1_last_leg_sum = 0;
         if (msg.p1_last_leg.length > 0) {
             p1_last_leg_sum = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
         }
+        // display all single scores for player 1
         $.each(msg.p1_last_leg, function( index, value ){
+            // fade in latest score
             if ( index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type) {
                 $('#p1_current_leg').prepend(
                     '<div id="new_score_fadein">' +
@@ -36,8 +39,10 @@ $(document).ready(function() {
                 )
             };
         });
+        // display all single scores for player 2
         $('#p2_current_leg').text('');
         $.each(msg.p2_last_leg, function( index, value ){
+            // fade in latest score
             if ( index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type) {
                 $('#p2_current_leg').prepend(
                     '<div id="new_score_fadein">' +
@@ -55,17 +60,20 @@ $(document).ready(function() {
             }
         });
 
+        // show current leg and set scores
         $('.p1_sets').text(msg.p1_sets);
         $('.p2_sets').text(msg.p2_sets);
         $('.p1_legs').text(msg.p1_legs);
         $('.p2_legs').text(msg.p2_legs);
 
+        // popup for game shot
         $('#game-shot-modal').modal('show');
         if (msg.p1_won) {
             var last_score = msg.type;
             for (var i = 0; i < msg.p1_last_leg.length-1; i++) {
                 last_score -= msg.p1_last_leg[i] << 0;
             }
+            // score substraction animation
             jQuery({Counter: last_score}).animate({Counter: -1}, {
                 duration: 1000,
                 easing: 'swing',
@@ -76,6 +84,7 @@ $(document).ready(function() {
                     setTimeout(function() {
                      $('#game-shot-modal').modal('hide');
                     }, 1500);
+                    // move on after 3 seconds
                     setTimeout(function() {
                      socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
                     }, 3000);
@@ -88,6 +97,7 @@ $(document).ready(function() {
             for (var i = 0; i < msg.p2_last_leg.length-1; i++) {
                 last_score -= msg.p2_last_leg[i] << 0;
             }
+            // score substraction animation
             jQuery({Counter: last_score}).animate({Counter: -1}, {
                 duration: 1500,
                 easing: 'swing',
@@ -98,6 +108,7 @@ $(document).ready(function() {
                     setTimeout(function() {
                      $('#game-shot-modal').modal('hide');
                     }, 1500);
+                    // move on after 3 seconds
                     setTimeout(function() {
                      socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
                     }, 3000);
@@ -111,6 +122,7 @@ $(document).ready(function() {
     // Event handler for server sent score data
     socket.on('score_response', function(msg) {
         if ( !msg.p1_next_turn && msg.old_score > msg.p1_score) {
+            // score substraction animation
             jQuery({Counter: msg.old_score}).animate({Counter: msg.p1_score-1}, {
                 duration: 1000,
                 easing: 'swing',
@@ -122,6 +134,7 @@ $(document).ready(function() {
             $('.p1_score').html(msg.p1_score);
         }
         if ( msg.p1_next_turn && msg.old_score > msg.p2_score) {
+            // score substraction animation
             jQuery({Counter: msg.old_score}).animate({Counter: msg.p2_score-1}, {
                 duration: 1000,
                 easing: 'swing',
@@ -132,6 +145,8 @@ $(document).ready(function() {
         } else {
             $('.p2_score').text(msg.p2_score);
         }
+
+        // show current leg and set scores
         $('.p1_sets').text(msg.p1_sets);
         $('.p2_sets').text(msg.p2_sets);
         $('.p1_legs').text(msg.p1_legs);
@@ -312,4 +327,28 @@ $(document).ready(function() {
         $('.confirm_completion').show();
     });
 
+    // Handler for the score input form.
+    var validation_url = $('#validation_url').data();
+    var user_id = $('#user_id').data();
+    var score_errors = [];
+    $('form#score_input').submit(function(event) {
+        $('#score_error').text('');
+        $.post(
+            // Various errors that are caught if you enter something wrong.
+            validation_url,
+            $("#score_input").serialize(),
+            function (errors) {
+                score_errors = errors
+                if (jQuery.isEmptyObject(score_errors)) {
+                    socket.emit('send_score', {score: $('#score_value').val(), hashid: hashid['hashid'],
+                    user_id: user_id['id']});
+                } else {
+                    $('#score_error').text(score_errors['score_value'][0]);
+                }
+                $('input[name=score_value]').val('');
+            });
+        return false;
+    });
+
 });
+
