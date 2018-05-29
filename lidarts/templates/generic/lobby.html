@@ -2,39 +2,56 @@
 {% block title %}Login{% endblock %}
 
 {% block app_content %}
-<div class="row justify-content-center">
-    <div class="col-sm-8">
-        <h1>Lobby</h1>
-    </div>
-</div>
 
-<div class="row justify-content-center align-items-center">
-    <div class="col-sm-3">
-        <a href="{{ url_for('game.create') }}" class="no-underline">
-            <div class="card text-center text-white bg-info">
-                <div class="card-body">
-                    <h5 class="card-text">X01</h5>
-                </div>
+<div class="row justify-content-center">
+    <div class="col-md-4 col-xl-3">
+        <div class="card bg-light text-dark bs-callout bs-callout-info">
+            <div class="card-body">
+                <h5 class="card-title">Play</h5>
+                <hr>
+                <a href="{{ url_for('game.create') }}" class="no-underline">
+                    <div class="card bg-info text-light text-center">
+                        <div class="card-body">
+                            <h5 class="card-text">Create game</h5>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </a>
+        </div>
     </div>
-    <div class="col-sm-3">
-        <a href="#" class="no-underline">
-            <div class="card text-center text-white bg-info">
-                <div class="card-body">
-                    <h5 class="card-text">Cricket (WIP)</h5>
-                </div>
+    <div class="col-md-4 col-xl-3">
+        <div class="card bg-light text-dark bs-callout bs-callout-warning">
+            <div class="card-body">
+                <h5 class="card-title">Notifications</h5>
+                <hr>
+                <!-- GAMES IN PROGRESS -->
+                {% if games_in_progress %}
+                <p>Games in progress:</p>
+                {% for game in games_in_progress %}
+                <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">vs.
+                    {%- if game.player1 != current_user.id %} {{ player_names[game.player1] }}
+                    {%- elif game.player2 != current_user.id %} {{ player_names[game.player2] }}
+                    {%- else %} local guest{% endif %}
+                    - [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
+                {% endfor %}
+                <hr>
+                {% endif %}
+                <!-- NEW CHALLENGES -->
+                {% if challenges %}
+                <hr>
+                {% endif %}
+
             </div>
-        </a>
+        </div>
     </div>
-    <div class="col-sm-3">
-        <a href="#" class="no-underline">
-            <div class="card text-center text-white bg-info">
-                <div class="card-body">
-                    <h5 class="card-text">Other (WIP)</h5>
-                </div>
+    <div class="col-md-4 col-xl-3">
+        <div class="card bg-light text-dark bs-callout bs-callout-danger">
+            <div class="card-body">
+                <h5 class="card-title">Friends online</h5>
+                <hr>
+                {% if not friends_online %}None{% endif %}
             </div>
-        </a>
+        </div>
     </div>
 </div>
 

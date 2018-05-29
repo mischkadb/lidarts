@@ -3,7 +3,7 @@ from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm
 from lidarts.models import Game
 from lidarts import db
-from lidarts.game.utils import get_name_by_id
+from lidarts.game.utils import get_name_by_id, collect_statistics
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user
 from datetime import datetime
@@ -42,7 +42,8 @@ def create(mode='x01'):
 
 
 @bp.route('/<hashid>')
-def start(hashid):
+@bp.route('/<hashid>/<theme>')
+def start(hashid, theme=None):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
     # check if we found an opponent, logged in users only
     if game.status == 'challenged' and current_user.is_authenticated \
@@ -63,14 +64,17 @@ def start(hashid):
 
     # for player1 and spectators while waiting
     if game.status == 'challenged':
-        return render_template('game/wait.html', game=game_dict)
+        return render_template('game/wait_for_opponent.html', game=game_dict)
     # for everyone if the game is completed
     if game.status == 'completed':
-        return render_template('game/X01_completed.html', game=game_dict, match_json=match_json)
+        statistics = collect_statistics(game, match_json)
+        return render_template('game/X01_completed.html', game=game_dict, match_json=match_json, stats=statistics)
     # for running games
     else:
         form = ScoreForm()
-        return render_template('game/X01.html', game=game_dict, form=form)
+        if theme:
+            return render_template('game/X01_stream.html', game=game_dict, form=form, match_json=match_json)
+        return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json)
 
 
 @bp.route('/validate_score', methods=['POST'])

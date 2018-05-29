@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}X01{% endblock %}
+
+
+{% block app_content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-sm-8">
+        <div class="card">
+            <div class="card-body">
+                <p class="text-center">Waiting for player 2 </p>
+                <h1 class="text-center"><i class="fas fa-spinner fa-spin"></i></h1>
+
+                {% if not current_user.is_authenticated %}<p>You are not logged in. Log in to play in this game.</p>
+                {% else %}<p>Share this link to invite another player (must be logged in):</p>
+                <input type="text" value="{{ request.url }}" id="invitation_link" class="form-control mb-3" readonly>
+                <button onclick="copyLink()" class="btn btn-dark">Copy text</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% endblock %}
+
+    {% block scripts %}
+    <meta id="hash_id" data-hashid="{{ game.hashid }}">
+    <meta id="user_id" data-id="{{ current_user.id }}">
+
+    <script type="text/javascript" src="/static/js/x01_waiting.js"></script>
+    {% endblock %}

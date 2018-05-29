@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+{% block title %}X01{% endblock %}
+{% block css %}<link href="{{ url_for('static',filename='css/x01.css') }}" rel="stylesheet">{% endblock %}
+
+{% block navbar %}
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div id="hide-keypad">Toggle Keypad</div><a href="{{ url_for('generic.index') }}">Index</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block app_content %}
+
+
+<div class="row justify-content-center align-items-center mb-3">
+    <div class="col-12">
+        <table class="table table-sm bg-dark text-light stats-table d-flex text-center">
+            <tr class="">
+                <td class="text-left border border-right-0 border-secondary"><h4>First to {% if game.bo_sets == 1 %}{{ game.bo_legs }}
+                    {% else %}{{ game.bo_sets }}{% endif %}</h4></td>
+                <td class="border border-right-0 border-secondary" style="min-width: 70px; {% if game.bo_sets == 1 %}display:none;{% endif %}"><h4>Sets</h4></td>
+                <td class="border border-secondary" style="min-width: 70px"><h4>Legs</h4></td>
+                <td style="min-width: 70px"></td>
+                <td style="min-width: 50px"></td>
+            </tr>
+            <tr class="">
+                <td class="bg-light text-dark border border-secondary text-left"><h3>{{ game.player1_name }}</h3></td>
+                <td class="bg-danger border border-secondary" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h3 class="p1_sets"></h3></td>
+                <td class="bg-danger border border-secondary"><h3 class="p1_legs"></h3></td>
+                <td class="bg-danger border border-secondary"><h3 class="p1_score"></h3></td>
+                <td class=""><h3 class="p1_turn_incidator"></h3></td>
+            </tr>
+            <tr class="">
+                <td class="bg-light text-dark border border-secondary text-left"><h3>{{ game.player2_name }}</h3></td>
+                <td class="bg-danger border border-secondary" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h3 class="p2_sets"></h3></td>
+                <td class="bg-danger border border-secondary"><h3 class="p2_legs"></h3></td>
+                <td class="bg-danger border border-secondary"><h3 class="p2_score"></h3></td>
+                <td class=""><h3 class="p2_turn_incidator"></h3></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row justify-content-center align-items-start">
+    <div class="col-lg-4 col-md-4 col-6 mt-3" id="p1_current_leg">
+    </div>
+
+    <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block">
+
+        <form class="text-center score_input" id="score_input" method="POST" action="" autocomplete="off">
+        {{ form.hidden_tag() }}
+        <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center mb-2">
+            {{ form.score_value(class="bg-light text-center form-control form-control-lg border-secondary",
+            style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;") }}
+        </div>
+        <div id="input-keypad">
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                <button type="button" id="button-1" class="btn btn-xl btn-secondary w-100 rounded-0 btn-rnd-tl">1</button>
+                <button type="button" id="button-2" class="btn btn-xl btn-secondary w-100">2</button>
+                <button type="button" id="button-3" class="btn btn-xl btn-secondary w-100 rounded-0 btn-rnd-tr">3</button>
+            </div>
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                <button type="button" id="button-4" class="btn btn-xl btn-secondary w-100 rounded-0">4</button>
+                <button type="button" id="button-5" class="btn btn-xl btn-secondary w-100">5</button>
+                <button type="button" id="button-6" class="btn btn-xl btn-secondary w-100 rounded-0">6</button>
+            </div>
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                <button type="button" id="button-7" class="btn btn-xl btn-secondary w-100 rounded-0">7</button>
+                <button type="button" id="button-8" class="btn btn-xl btn-secondary w-100">8</button>
+                <button type="button" id="button-9" class="btn btn-xl btn-secondary w-100 rounded-0">9</button>
+            </div>
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                <button type="button" id="button-del" class="btn btn-xl btn-danger w-100 rounded-0 btn-rnd-bl" style="font-size: 25px;"><i class="fas fa-times-circle" ></i></button>
+                <button type="button" id="button-0" class="btn btn-xl btn-secondary w-100">0</button>
+                <button type="button" id="button-conf" class="btn btn-xl btn-success w-100 rounded-0 btn-rnd-br" style="font-size: 25px;"><i class="fas fa-check-circle" ></i></button>
+            </div>
+        </div>
+
+        </form>
+        <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
+            <h4 class="text-light">Game is completed.</h4>
+            <a href="{{ url_for('game.start', hashid=game.hashid) }}">Game overview</a>
+        </form>
+
+
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-6 mt-3">
+        <p id="p2_current_leg"></p>
+    </div>
+</div>
+
+<div class="col-sm-12 justify-content-center d-md-none confirm_completion" {% if game.status != 'completed' %} style="display: none" {% endif %}>
+    <h4 class="text-light">Game is completed.</h4>
+    <a href="{{ url_for('game.start', hashid=game.hashid) }}">Game overview</a>
+</div>
+
+<div class="row fixed-bottom">
+    <div class="container">
+        <div class="row bg-secondary text-light">
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Leg Avg.</td>
+                        <td class="p1_leg_avg">{{ p1_leg_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>Match Avg.</td>
+                        <td class="p1_match_avg">{{ p1_match_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>First 9</td>
+                        <td class="p1_first9_avg">{{ p1_first9_avg }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>100+</td>
+                        <td class="p1_100">{{ p1_100 }}</td>
+                    </tr>
+                    <tr>
+                        <td>140+</td>
+                        <td class="p1_140">{{ p1_140 }}</td>
+                    </tr>
+                    <tr>
+                        <td>180</td>
+                        <td class="p1_180">{{ p1_180 }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Double %</td>
+                        <td class="p1_doubles">{{ p1_doubles }}</td>
+                    </tr>
+                    <tr>
+                        <td>High Finish</td>
+                        <td class="p1_high_finish">{{ p1_high_finish }}</td>
+                    </tr>
+                    <tr>
+                        <td>Short Leg</td>
+                        <td class="p1_short_leg">{{ p1_short_leg }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Leg Avg.</td>
+                        <td class="p2_leg_avg">{{ p2_leg_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>Match Avg.</td>
+                        <td class="p2_match_avg">{{ p2_match_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>First 9</td>
+                        <td class="p2_first9_avg">{{ p2_first9_avg }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>100+</td>
+                        <td class="p2_100">{{ p2_100 }}</td>
+                    </tr>
+                    <tr>
+                        <td>140+</td>
+                        <td class="p2_140">{{ p2_140 }}</td>
+                    </tr>
+                    <tr>
+                        <td>180</td>
+                        <td class="p2_180">{{ p2_180 }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Double %</td>
+                        <td class="p2_doubles">{{ p2_doubles }}</td>
+                    </tr>
+                    <tr>
+                        <td>High Finish</td>
+                        <td class="p2_high_finish">{{ p2_high_finish }}</td>
+                    </tr>
+                    <tr>
+                        <td>Short Leg</td>
+                        <td class="p2_short_leg">{{ p2_short_leg }}</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row fixed-bottom">
+
+    <div class="col-sm-12 d-md-none score_input">
+
+        <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center">
+            <input class="bg-light text-center form-control form-control-lg border-secondary" id="score_value_sm"
+                   style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;" readonly>
+        </div>
+        <div id="input-keypad1">
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                <button type="button" id="button-sm-1" class="btn btn-xl btn-secondary w-100 rounded-0">1</button>
+                <button type="button" id="button-sm-2" class="btn btn-xl btn-secondary w-100">2</button>
+                <button type="button" id="button-sm-3" class="btn btn-xl btn-secondary w-100 rounded-0">3</button>
+            </div>
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                <button type="button" id="button-sm-4" class="btn btn-xl btn-secondary w-100 rounded-0">4</button>
+                <button type="button" id="button-sm-5" class="btn btn-xl btn-secondary w-100">5</button>
+                <button type="button" id="button-sm-6" class="btn btn-xl btn-secondary w-100 rounded-0">6</button>
+            </div>
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                <button type="button" id="button-sm-7" class="btn btn-xl btn-secondary w-100 rounded-0">7</button>
+                <button type="button" id="button-sm-8" class="btn btn-xl btn-secondary w-100">8</button>
+                <button type="button" id="button-sm-9" class="btn btn-xl btn-secondary w-100 rounded-0">9</button>
+            </div>
+            <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                <button type="button" id="button-sm-del" class="btn btn-xl btn-danger w-100 rounded-0" style="font-size: 25px;"><i class="fas fa-times-circle" ></i></button>
+                <button type="button" id="button-sm-0" class="btn btn-xl btn-secondary w-100">0</button>
+                <button type="button" id="button-sm-conf" class="btn btn-xl btn-success w-100 rounded-0" style="font-size: 25px;"><i class="fas fa-check-circle" ></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade game-shot-modal" id="game-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <h2 class="text-center">Game Shot</h2>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade match-shot-modal" id="match-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <h2 class="text-center">Game Shot and the match</h2>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<meta id="hash_id" data-hashid="{{ game.hashid }}">
+<meta id="validation_url" data-url="{{ url_for('game.validate_score') }}">
+<meta id="user_id" data-id="{{ current_user.id }}">
+
+{% if current_user.id == game.player1 or current_user.id == game.player2 %}
+<script type="text/javascript" src="/static/js/x01_socket.js"></script>
+{% else %}
+<script type="text/javascript" src="/static/js/x01_spectator_socket.js"></script>
+{% endif %}
+{% endblock %}

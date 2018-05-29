@@ -1,15 +1,23 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
 
-{% block app_content %}
-<div class="row justify-content-center">
-    <div class="col-sm-8">
-        <h1 class="mb-4">Welcome to lidarts.org</h1>
-        <p class="mb-4">lidarts is a free, <a href="https://github.com/mischkadb/lidarts" target="_blank">open source</a> website for online darts matches.</p>
+{% block jumbotron %}
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-4 mb-4">Welcome to lidarts.org! <span class="badge badge-danger">BETA</span></h1>
+        <p class="lead">lidarts.org is an <a href="https://github.com/mischkadb/lidarts">open-source</a>, forever free online darts website.</p>
+        <hr class="my-4">
+        <p class="mb-4">Lidarts.org is still in beta. It may be slow, unreliable or crash at any time. The website is actively worked on to add new features and improve the experience.</p>
+        <p class="lead">
+            <div class="btn-group btn-group-lg" role="group" aria-label="JumbotronButtons">
+                <a href="{{ url_for('generic.about') }}"  class="btn btn-secondary" role="button">{{ _('Learn more') }}</a></li>
+                <a href="{{ url_for_security('register') }}" class="btn btn-info" role="button">{{ _('Sign Up now') }}</a>
+            </div>
+        </p>
     </div>
 </div>
+{% endblock %}
 
-
-
+{% block app_content %}
 
 {% endblock %}
