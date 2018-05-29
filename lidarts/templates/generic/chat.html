@@ -8,9 +8,28 @@
         <div class="card bg-light text-dark">
             <div class="card-body">
                 <div class="card bg-light">
-                    <div class="card-body">
+                    <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
                         {% for message in messages %}
+                        <p><strong>{{ user_names[message.author] }}</strong> <small class="text-secondary">{{ message.timestamp }}</small><br>
+                        {{ message.message }}</p>
+                        <hr>
                         {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form id="message_input" method="POST" action="">
+            {{ form.hidden_tag() }}
+            {{ form.message(class="form-control") }}
+            {{ form.submit }}
+        </form>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card bg-light text-dark">
+            <div class="card-body">
+                <div class="card bg-light">
+                    <div class="card-body">
                     </div>
                 </div>
             </div>
@@ -19,6 +38,12 @@
 </div>
 
 
+{% endblock %}
 
+{% block scripts %}
+<meta id="validation_url" data-url="{{ url_for('generic.validate_chat_message') }}">
+<meta id="user_id" data-id="{{ current_user.id }}">
+
+<script type="text/javascript" src="/static/js/chat_socket.js"></script>
 
 {% endblock %}

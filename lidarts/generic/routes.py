@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, request, jsonify
 from flask_login import current_user, login_required
 from lidarts import db
 from lidarts.generic import bp
@@ -45,7 +45,7 @@ def lobby():
     return render_template('generic/lobby.html', games_in_progress=games_in_progress, player_names=player_names)
 
 
-@bp.route('/chat')
+@bp.route('/chat', methods=['GET', 'POST'])
 @login_required
 def chat():
     form = ChatmessageForm()
@@ -57,5 +57,14 @@ def chat():
                 .filter_by(id=message.author).first_or_404()[0]
 
     return render_template('generic/chat.html', form=form, messages=messages, user_names=user_names)
+
+
+@bp.route('/validate_chat_message', methods=['POST'])
+def validate_chat_message():
+    # validating the score input from users
+    form = ChatmessageForm(request.form)
+    result = form.validate()
+    print(form.errors)
+    return jsonify(form.errors)
 
 
