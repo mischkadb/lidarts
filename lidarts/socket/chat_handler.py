@@ -2,12 +2,22 @@ from flask import request
 from flask_socketio import emit
 from lidarts import socketio, db
 from lidarts.models import User, Chatmessage
-from datetime import datetime
+from datetime import datetime, timedelta
+
+
+def broadcast_online_players():
+    online_players_dict = {}
+    online_players = User.query.filter(User.last_seen > (datetime.now() - timedelta(minutes=5))).all()
+    for user in online_players:
+        online_players_dict[user.id] = user.username
+
+    emit('send_online_players', online_players_dict, broadcast=True, namespace='/chat')
 
 
 @socketio.on('connect', namespace='/chat')
 def connect():
     print('Client connected', request.sid)
+    broadcast_online_players()
 
 
 @socketio.on('broadcast_chat_message', namespace='/chat')

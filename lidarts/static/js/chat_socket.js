@@ -14,6 +14,16 @@ $(document).ready(function() {
     socket.on('connect', function () {
     });
 
+    socket.on('send_online_players', function (msg) {
+        $('#online_players').html('');
+        var user;
+        for (user in msg){
+            $('#online_players').append('<p><strong>' + msg[user] + '</strong></p>')
+        }
+
+    });
+
+
     socket.on('send_message', function (msg) {
         // allow 1px inaccuracy by adding 1
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
