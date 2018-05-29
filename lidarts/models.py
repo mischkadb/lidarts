@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(128))
     active = db.Column(db.Boolean)
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    active_sessions = db.Column(db.Integer, default=0)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
@@ -61,3 +62,11 @@ class Game(db.Model):
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+
+class Chatmessage(db.Model):
+    __tablename__ = 'chatmessages'
+    id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.Integer, db.ForeignKey('users.id'))
+    message = db.Column(db.String(500))
+    timestamp = db.Column(db.DateTime)

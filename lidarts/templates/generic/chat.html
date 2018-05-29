@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block app_content %}
+
+<div class="row justify-content-center">
+    <div class="col-sm-8">
+        <div class="card bg-light text-dark">
+            <div class="card-body">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        {% for message in messages %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

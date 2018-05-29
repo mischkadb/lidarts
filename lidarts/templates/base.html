@@ -45,7 +45,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Lobby') }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('game.create') }}">{{ _('Play') }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Watch') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Chat') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.chat') }}">{{ _('Chat') }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Statistics') }}</a></li>
                 {% endif %}
 
@@ -92,6 +92,8 @@
 
     <!-- socketio -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+
+    <script type="text/javascript" src="/static/js/base_socket.js"></script>
 {% block scripts %}
 {% endblock %}
 
