@@ -22,8 +22,14 @@ def overview(username):
             player_names[game.player2] = User.query.with_entities(User.username) \
                 .filter_by(id=game.player2).first_or_404()[0]
 
+    friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
+    friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)
+
+    friend_list = friend_query1.union(friend_query2).all()
+    friend_list = [r for (r,) in friend_list]
+
     return render_template('profile/overview.html', user=user, games=games,
-                           player_names=player_names,
+                           player_names=player_names, friend_list=friend_list,
                            is_online=(user.last_seen > datetime.now() - timedelta(minutes=5)))
 
 

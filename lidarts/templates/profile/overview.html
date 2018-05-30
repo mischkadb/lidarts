@@ -8,7 +8,9 @@
     <div class="col-auto mb-3">
         <div class="card bg-light text-dark">
             <div class="card-body">
-                <h3 class="card-text"> <i class="fas fa-circle" style=" font-size: 20px; {% if is_online %}color: #33aa44{% else %}color: #999999{% endif %}"></i> {{ user.username }}</h3>
+                <h3 class="card-text">
+                    <i class="fas fa-circle" style=" font-size: 20px; {% if is_online %}color: #33aa44" title="User is online{% else %}color: #999999" title="User is offline{% endif %}"></i>
+                    {{ user.username }} {% if user.id in friend_list %}<i class="fas fa-user-friends" title="User is your friend."></i>{% endif %}</h3>
             </div>
         </div>
     </div>
@@ -32,11 +34,12 @@
                 <h5 class="card-title"><i class="fas fa-users"></i> Interaction</h5>
                 <hr>
 
-                <p>
+                {% if user.id not in friend_list %}<p>
                 <form action="/send_friend_request/{{ user.id }}" method="post">
                     <a href="javascript:;" onclick="parentNode.submit();">Send friend request</a>
                     <input type="hidden" name="friend_request" value="{{ user.id }}">
                 </form></p>
+                {% endif %}
 
                 <p><a href="" class="text-secondary">Challenge to game</a></p>
 
