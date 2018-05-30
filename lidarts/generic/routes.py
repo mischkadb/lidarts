@@ -48,8 +48,21 @@ def lobby():
             player_names[friend_request.requesting_user_id] = User.query.with_entities(User.username) \
                 .filter_by(id=friend_request.requesting_user_id).first_or_404()[0]
 
+    # get online friends
+    friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
+    friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)
+    online_users = User.query.with_entities(User.id).filter(User.last_seen > datetime.now() - timedelta(minutes=5))
+
+    online_friend_list = friend_query1.union(friend_query2).intersect(online_users).all()
+    online_friend_list = [r for r, in online_friend_list]
+
+    for friend in online_friend_list:
+        if friend not in player_names:
+            player_names[friend] = User.query.with_entities(User.username) \
+                .filter_by(id=friend).first_or_404()[0]
+
     return render_template('generic/lobby.html', games_in_progress=games_in_progress, player_names=player_names,
-                           friend_requests=friend_requests)
+                           friend_requests=friend_requests, online_friend_list=online_friend_list)
 
 
 @bp.route('/chat', methods=['GET', 'POST'])
@@ -88,8 +101,10 @@ def send_friend_request(id):
 
     if not friendship:
         friendship_request = FriendshipRequest.query \
-            .filter(((FriendshipRequest.requesting_user_id == id) & (FriendshipRequest.receiving_user_id == current_user.id))
-                    | ((FriendshipRequest.receiving_user_id == id) & (FriendshipRequest.requesting_user_id == current_user.id))).first()
+            .filter(((FriendshipRequest.requesting_user_id == id)
+                     & (FriendshipRequest.receiving_user_id == current_user.id))
+                    | ((FriendshipRequest.receiving_user_id == id)
+                       & (FriendshipRequest.requesting_user_id == current_user.id))).first()
 
         if not friendship_request:
             friendship_request = FriendshipRequest(requesting_user_id=current_user.id, receiving_user_id=id)

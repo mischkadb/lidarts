@@ -60,11 +60,11 @@
                 <p>New friend requests</p>
                 {% for friend_request in friend_requests %}
                 <p id="element-friend-request-{{friend_request.requesting_user_id}}"><strong>{{ player_names[friend_request.requesting_user_id] }}</strong>
-                <span class="btn-group btn-group-sm text-right" role="group" aria-label="Accept or decline friend request" style="float: right">
+                    <span class="btn-group btn-group-sm text-right" role="group" aria-label="Accept or decline friend request" style="float: right">
                     <button class="btn btn-success button-accept-friend-request" id="button-accept-friend-request-{{friend_request.requesting_user_id}}" role="button"><i class="fas fa-check-circle"></i></button>
                     <button class="btn btn-danger button-decline-friend-request" id="button-decline-friend-request-{{friend_request.requesting_user_id}}" role="button"><i class="fas fa-times-circle"></i></button>
                 </span>
-                {% endfor %}
+                    {% endfor %}
                 <hr>
                 {% endif %}
 
@@ -76,7 +76,14 @@
             <div class="card-body">
                 <h5 class="card-title text-dark"><i class="fas fa-user-friends"></i> Friends online</h5>
                 <hr>
-                {% if not friends_online %}None{% endif %}
+                {% if not online_friend_list %}None
+                {% else %}
+                {% for friend in online_friend_list %}
+                <p><a href="{{ url_for('profile.overview', username=player_names[friend]) | replace('%40', '@') }}">
+                    <strong>{{ player_names[friend] }}</strong>
+                </a></p>
+                {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
