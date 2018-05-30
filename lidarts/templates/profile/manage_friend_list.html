@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Friend overview{% endblock %}
+
+{% block app_content %}
+
+
+
+<div class="row justify-content-center">
+    <div class="col-md-4 col-xl-4">
+        <div class="card bg-light text-dark bs-callout bs-callout-info">
+            <div class="card-body">
+                <h5 class="card-title">Friends</h5>
+                <hr>
+                {% for friend in friend_list %}
+                <p id="element-remove-friend-{{friend}}"><a href="{{ url_for('profile.overview', username=player_names[friend]) | replace('%40', '@') }}">
+                    <strong>{{ player_names[friend] }}</strong></a>
+                    <button class="btn btn-sm btn-danger button-remove-friend" id="button-remove-friend-{{friend}}" role="button" style="float:right"><i class="fas fa-times-circle"></i></button>
+                </p>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-xl-4">
+        <div class="card bg-light text-dark  bs-callout bs-callout-warning">
+            <div class="card-body">
+                <h5 class="card-title">Pending requests</h5>
+                <hr>
+                {% for request in pending_requests %}
+                <p id="element-remove-friend-request-{{request}}"><a href="{{ url_for('profile.overview', username=player_names[request]) | replace('%40', '@') }}">
+                    <strong>{{ player_names[request] }}</strong></a>
+                    <button class="btn btn-sm btn-danger button-remove-friend-request" id="button-remove-friend-request-{{request}}" role="button" style="float:right"><i class="fas fa-times-circle"></i></button>
+                </p>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<meta id="remove_friend_url" data-url="{{ url_for('generic.remove_friend') }}">
+<meta id="remove_friend_request_url" data-url="{{ url_for('generic.remove_friend_request') }}">
+
+
+<script type="text/javascript" src="/static/js/manage_friend_list.js"></script>
+{% endblock %}

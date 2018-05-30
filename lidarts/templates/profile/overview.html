@@ -23,7 +23,7 @@
                 <h5 class="card-title"><i class="fas fa-cog"></i> Preferences</h5>
                 <hr>
                 <p><a href="" class="text-secondary">Edit profile</a></p>
-                <p><a href="" class="text-secondary">Manage friend list</a></p>
+                <p><a href="{{ url_for('profile.manage_friend_list') }}" class="text-secondary">Manage friend list</a></p>
                 <p><a href="{{ url_for_security('change_password') }}" class="text-secondary">Change password</a></p>
                 <p><a href="" class="text-secondary">Set language</a></p>
 
@@ -31,10 +31,16 @@
                 {% else %}
                 <h5 class="card-title"><i class="fas fa-users"></i> Interaction</h5>
                 <hr>
-                <p><a href="" class="text-secondary">Add to friends</a></p>
-                <p><a href="" class="text-secondary">Challenge to game</a></p>
-                {% endif %}
 
+                <p>
+                <form action="/send_friend_request/{{ user.id }}" method="post">
+                    <a href="javascript:;" onclick="parentNode.submit();">Send friend request</a>
+                    <input type="hidden" name="friend_request" value="{{ user.id }}">
+                </form></p>
+
+                <p><a href="" class="text-secondary">Challenge to game</a></p>
+
+                {% endif %}
             </div>
         </div>
     </div>

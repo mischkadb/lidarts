@@ -35,9 +35,9 @@
         </div>
     </div>
     <div class="col-md-4 col-xl-3">
-        <div class="card bg-light text-dark bs-callout bs-callout-warning">
+        <div class="card bg-light text-secondary bs-callout bs-callout-warning">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-envelope"></i> Notifications</h5>
+                <h5 class="card-title text-dark"><i class="fas fa-envelope"></i> Notifications</h5>
                 <hr>
                 <!-- GAMES IN PROGRESS -->
                 {% if games_in_progress %}
@@ -55,14 +55,26 @@
                 {% if challenges %}
                 <hr>
                 {% endif %}
+                <!-- FRIEND REQUESTS -->
+                {% if friend_requests %}
+                <p>New friend requests</p>
+                {% for friend_request in friend_requests %}
+                <p id="element-friend-request-{{friend_request.requesting_user_id}}"><strong>{{ player_names[friend_request.requesting_user_id] }}</strong>
+                <span class="btn-group btn-group-sm text-right" role="group" aria-label="Accept or decline friend request" style="float: right">
+                    <button class="btn btn-success button-accept-friend-request" id="button-accept-friend-request-{{friend_request.requesting_user_id}}" role="button"><i class="fas fa-check-circle"></i></button>
+                    <button class="btn btn-danger button-decline-friend-request" id="button-decline-friend-request-{{friend_request.requesting_user_id}}" role="button"><i class="fas fa-times-circle"></i></button>
+                </span>
+                {% endfor %}
+                <hr>
+                {% endif %}
 
             </div>
         </div>
     </div>
     <div class="col-md-4 col-xl-3">
-        <div class="card bg-light text-dark bs-callout bs-callout-danger">
+        <div class="card bg-light text-secondary bs-callout bs-callout-danger">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-user-friends"></i> Friends online</h5>
+                <h5 class="card-title text-dark"><i class="fas fa-user-friends"></i> Friends online</h5>
                 <hr>
                 {% if not friends_online %}None{% endif %}
             </div>
@@ -73,4 +85,12 @@
 
 
 
+{% endblock %}
+
+{% block scripts %}
+<meta id="accept_url" data-url="{{ url_for('generic.accept_friend_request') }}">
+<meta id="decline_url" data-url="{{ url_for('generic.decline_friend_request') }}">
+
+
+<script type="text/javascript" src="/static/js/friend_requests.js"></script>
 {% endblock %}
