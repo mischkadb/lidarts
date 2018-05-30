@@ -69,6 +69,7 @@ def chat():
 
 
 @bp.route('/validate_chat_message', methods=['POST'])
+@login_required
 def validate_chat_message():
     # validating the score input from users
     form = ChatmessageForm(request.form)
@@ -78,6 +79,7 @@ def validate_chat_message():
 
 
 @bp.route('/send_friend_request/<id>', methods=['POST'])
+@login_required
 def send_friend_request(id):
     id = int(id)
     friendship = Friendship.query \
@@ -98,6 +100,7 @@ def send_friend_request(id):
 
 @bp.route('/accept_friend_request/')
 @bp.route('/accept_friend_request/<id>', methods=['POST'])
+@login_required
 def accept_friend_request(id):
     id = int(id)
     friendship_request = FriendshipRequest.query \
@@ -122,6 +125,7 @@ def accept_friend_request(id):
 
 @bp.route('/decline_friend_request/')
 @bp.route('/decline_friend_request/<id>', methods=['POST'])
+@login_required
 def decline_friend_request(id):
     id = int(id)
     friendship_request = FriendshipRequest.query \
@@ -142,6 +146,7 @@ def decline_friend_request(id):
 
 @bp.route('/remove_friend/')
 @bp.route('/remove_friend/<id>', methods=['POST'])
+@login_required
 def remove_friend(id):
     id = int(id)
     friendship = Friendship.query \
@@ -161,6 +166,7 @@ def remove_friend(id):
 
 @bp.route('/remove_friend_request/')
 @bp.route('/remove_friend_request/<id>', methods=['POST'])
+@login_required
 def remove_friend_request(id):
     id = int(id)
     friendship_request = FriendshipRequest.query \
