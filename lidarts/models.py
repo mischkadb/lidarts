@@ -22,8 +22,26 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
+    requested_rels = db.relationship(
+        'Relationship',
+        foreign_keys='relationships.requesting_user_id',
+        backref='requesting_user'
+    )
+    received_rels = db.relationship(
+        'Relationship',
+        foreign_keys='relationships.receiving_user_id',
+        backref='receiving_user'
+    )
+
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+
+class Relationship(db.Model):
+    __tablename__ = 'relationships'
+    requesting_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    receiving_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    status = db.Column(db.String(15))
 
 
 class Role(db.Model, RoleMixin):
