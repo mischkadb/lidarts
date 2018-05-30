@@ -54,6 +54,7 @@
 
 {% block scripts %}
 <meta id="validation_url" data-url="{{ url_for('generic.validate_chat_message') }}">
+<meta id="profile_url" data-url="{{ url_for('profile.overview') | replace('%40', '@') }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.js" crossorigin="anonymous"></script>

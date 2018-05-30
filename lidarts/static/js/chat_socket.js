@@ -12,6 +12,8 @@ $(document).ready(function() {
     //     http[s]://<domain>:<port>[/<namespace>]
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
+    var profile_url = $('#profile_url').data()['url'];
+
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
@@ -22,7 +24,7 @@ $(document).ready(function() {
         $('#online_players').html('');
         var user;
         for (user in msg){
-            $('#online_players').append('<p><strong><a href="" id="powertip-' + user + '" class="tooltips" data-powertip="">'
+            $('#online_players').append('<p><strong><a href="' + profile_url + msg[user] + '" id="powertip-' + user + '" class="tooltips" data-powertip="">'
                 + msg[user] + '</a></strong></p>');
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
             $('#powertip-' + user).data('powertip', '<table class="table table-sm text-center text-dark"><tr><td><i class="fas fa-circle" style="font-size: 10px; color: #33aa44"></i></td>' +

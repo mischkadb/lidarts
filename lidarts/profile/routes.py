@@ -4,6 +4,7 @@ from lidarts.models import User, Game
 from sqlalchemy import desc
 
 
+@bp.route('/@/')
 @bp.route('/@/<username>')
 def overview(username):
     player_names = {}
