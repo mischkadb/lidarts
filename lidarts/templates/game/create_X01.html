@@ -2,33 +2,41 @@
 {% block title %}Create Game{% endblock %}
 
 {% block app_content %}
-<div class="row justify-content-center">
-    <div class="col-sm-8 text-center">
-        <h1 class="mb-4">Create Game</h1>
-    </div>
-</div>
+<div class="row justify-content-center mb-2">
+    <div class="col-sm-6 text-center">
+        <div class="card">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <h1>Create Game</h1>
+                </div>
 
-<div class="row justify-content-center d-flex h-100 mb-4">
-            <div class="col-sm-6 text-right align-self-center">
-                Game Mode:
-            </div>
-            <div class="col-sm-6 align-self-center">
-                <div class="dropdown show">
-                    <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        X01
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="gameModeDropdown">
-                        <a class="dropdown-item" href="{{ url_for('game.create') }}/x01">X01</a>
-                        <a class="dropdown-item" href="#">Cricket</a>
+                <hr>
+
+                <div class="row justify-content-center text-secondary">
+                    <div class="col-sm-6 text-right align-self-center ">
+                        Game Mode:
+                    </div>
+                    <div class="col-sm-6 align-self-center text-left">
+                        <div class="dropdown show">
+                            <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                X01
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="gameModeDropdown">
+                                <a class="dropdown-item" href="{{ url_for('game.create') }}/x01">X01</a>
+                                <a class="dropdown-item" href="#">Cricket</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
 <form action="" method="post" class="form-horizontal">
     {{ form.hidden_tag() }}
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center text-secondary">
         <div class="col-md-4 col-sm-6">
             <div class="card">
                 <div class="card-body">
