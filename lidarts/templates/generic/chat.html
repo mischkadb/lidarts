@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/css/jquery.powertip.css" />
+{% endblock %}
+
 {% block app_content %}
 
 <div class="row justify-content-center">
@@ -24,7 +28,6 @@
             {{ form.submit }}
         </form>
     </div>
-
     <div class="col-sm-4">
         <div class="card bg-light text-dark">
             <div class="card-body">
@@ -36,7 +39,16 @@
         </div>
     </div>
 </div>
+<!-- HTML to write -->
+<a href="#" data-toggle="tooltip" title="Some tooltip text!">Hover over me</a>
 
+<!-- Generated markup by the plugin -->
+<div class="tooltip bs-tooltip-top" role="tooltip">
+  <div class="arrow"></div>
+  <div class="tooltip-inner">
+    Some tooltip text!
+  </div>
+</div>
 
 {% endblock %}
 
@@ -44,6 +56,9 @@
 <meta id="validation_url" data-url="{{ url_for('generic.validate_chat_message') }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-powertip/1.2.0/jquery.powertip.js" crossorigin="anonymous"></script>
+
 <script type="text/javascript" src="/static/js/chat_socket.js"></script>
+
 
 {% endblock %}

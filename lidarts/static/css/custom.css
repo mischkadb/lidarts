@@ -88,3 +88,22 @@ a.no-underline {
 .bg-leg-win {
     background-color: #33aa44;
 }
+
+#powerTip{
+    background-color: #f5f5f5 !important;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #999999;
+    padding: 2px 2px 2px 2px !important;
+}
+
+#powerTip table {
+    margin-bottom: 0px;
+}
+
+#powerTip td {
+    border-style: none;
+    border-color: #999999;
+    padding: 2px 2px 2px 2px !important;
+}
+

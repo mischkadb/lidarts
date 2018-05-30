@@ -1,13 +1,17 @@
 $(document).ready(function() {
+
+    // Scroll chatbox to bottom (latest message)
     var chatbox = document.getElementById("chatbox");
     chatbox.scrollTop = chatbox.scrollHeight;
 
-    // namespace for the game handling
+    // namespace for handling
     namespace = '/chat';
+
     // Connect to the Socket.IO server.
     // The connection URL has the following format:
     //     http[s]://<domain>:<port>[/<namespace>]
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
@@ -18,7 +22,13 @@ $(document).ready(function() {
         $('#online_players').html('');
         var user;
         for (user in msg){
-            $('#online_players').append('<p><strong>' + msg[user] + '</strong></p>')
+            $('#online_players').append('<p><strong><a href="" id="powertip-' + user + '" class="tooltips" data-powertip="">'
+                + msg[user] + '</a></strong></p>');
+            $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
+            $('#powertip-' + user).data('powertip', '<table class="table table-sm text-center text-dark"><tr><td><i class="fas fa-circle" style="font-size: 10px; color: #33aa44"></i></td>' +
+                '<td>' + msg[user] + '</td></tr>' +
+                '<tr><td><i class="fas fa-futbol"></i></td><td><i class="fas fa-plus-circle"></i></td></tr>' +
+                '</table>');
         }
 
     });
