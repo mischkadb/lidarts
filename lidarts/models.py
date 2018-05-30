@@ -2,6 +2,7 @@ from flask_security import UserMixin, RoleMixin
 from lidarts import db
 from hashids import Hashids
 from datetime import datetime
+from sqlalchemy.ext.associationproxy import association_proxy
 
 
 # Define models
@@ -22,26 +23,46 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
-    requested_rels = db.relationship(
-        'Relationship',
-        foreign_keys='relationships.requesting_user_id',
+    requested_friend_reqs = db.relationship(
+        'FriendshipRequest',
+        foreign_keys='FriendshipRequest.requesting_user_id',
         backref='requesting_user'
     )
-    received_rels = db.relationship(
-        'Relationship',
-        foreign_keys='relationships.receiving_user_id',
+    received_friend_reqs = db.relationship(
+        'FriendshipRequest',
+        foreign_keys='FriendshipRequest.receiving_user_id',
         backref='receiving_user'
     )
+    aspiring_friends = association_proxy('received_friend_reqs', 'requesting_user')
+    desired_friends = association_proxy('requested_friend_reqs', 'receiving_user')
+
+    requested_friend_confs = db.relationship(
+        'Friendship',
+        foreign_keys='Friendship.user1_id',
+        backref='requesting_friend'
+    )
+    received_friend_confs = db.relationship(
+        'Friendship',
+        foreign_keys='Friendship.user2_id',
+        backref='receiving_friend'
+    )
+    friends_requested = association_proxy('received_friend_confs', 'requesting_friend')
+    friends_received = association_proxy('requested_friend_confs', 'receiving_friend')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
 
-class Relationship(db.Model):
-    __tablename__ = 'relationships'
+class FriendshipRequest(db.Model):
+    __tablename__ = 'friendship_requests'
     requesting_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     receiving_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    status = db.Column(db.String(15))
+
+
+class Friendship(db.Model):
+    __tablename__ = 'friendships'
+    user1_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user2_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
 
 
 class Role(db.Model, RoleMixin):

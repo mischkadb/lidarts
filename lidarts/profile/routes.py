@@ -20,7 +20,6 @@ def overview(username):
             player_names[game.player2] = User.query.with_entities(User.username) \
                 .filter_by(id=game.player2).first_or_404()[0]
 
-
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names,
                            is_online=(user.last_seen > datetime.now()- timedelta(minutes=5)))
