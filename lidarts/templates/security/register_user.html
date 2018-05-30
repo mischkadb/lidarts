@@ -19,14 +19,14 @@
                       {{ render_input_with_errors(register_user_form.password_confirm) }}
                     {% endif %}
 
-                    <button type="submit" class="btn btn-info">Register</button>
+                    <button type="submit" class="btn btn-info"><i class="fas fa-user-plus"></i> Register</button>
                 </form>
             </div>
         </div>
     </div>
     <div class="col-lg-4 col-sm-3 mt-sm-5">
         <p>Already have an account?</p>
-        <p><a href="{{ url_for_security('login') }}" class="btn btn-secondary" role="button">{{ _('Sign In') }}</a></p>
+        <p><a href="{{ url_for_security('login') }}" class="btn btn-secondary" role="button"><i class="fas fa-sign-in-alt"></i> {{ _('Sign In') }}</a></p>
     </div>
 </div>
 <div class="row justify-content-center mt-sm-3">

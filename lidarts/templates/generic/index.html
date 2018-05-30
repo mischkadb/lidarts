@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{%m extends "base.html" %}
 {% block title %}Login{% endblock %}
 
 {% block jumbotron %}
@@ -10,8 +10,8 @@
         <p class="mb-4">Lidarts.org is still in beta. It may be slow, unreliable or crash at any time. The website is actively worked on to add new features and improve the experience.</p>
         <p class="lead">
             <div class="btn-group btn-group-lg" role="group" aria-label="JumbotronButtons">
-                <a href="{{ url_for('generic.about') }}"  class="btn btn-secondary" role="button">{{ _('Learn more') }}</a></li>
-                <a href="{{ url_for_security('register') }}" class="btn btn-info" role="button">{{ _('Sign Up now') }}</a>
+                <a href="{{ url_for('generic.about') }}"  class="btn btn-secondary" role="button"><i class="fas fa-info-circle"></i> {{ _('Learn more') }}</a></li>
+                <a href="{{ url_for_security('register') }}" class="btn btn-info" role="button"><i class="fas fa-user-plus"></i> {{ _('Sign Up now') }}</a>
             </div>
         </p>
     </div>

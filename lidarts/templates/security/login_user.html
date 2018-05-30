@@ -16,16 +16,16 @@
                     {{ render_checkbox(login_user_form.remember) }}
 
                     {{ render_field(login_user_form.next) }}
-                    <button type="submit" class="btn btn-info">Submit</button>
+                    <button type="submit" class="btn btn-info"><i class="fas fa-sign-in-alt"></i> Sign In</button>
                 </form>
             </div>
         </div>
     </div>
     <div class="col-lg-4 col-sm-3 mt-sm-5">
         <p>No account yet?</p>
-        <p><a href="{{ url_for_security('register') }}" class="btn btn-secondary" role="button">{{ _('Sign Up') }}</a></p>
+        <p><a href="{{ url_for_security('register') }}" class="btn btn-secondary" role="button"><i class="fas fa-user-plus"></i> {{ _('Sign Up') }}</a></p>
         <p>Forgot your password?</p>
-        <p><a href="{{ url_for_security('forgot_password') }}" class="btn btn-secondary" role="button">{{ _('Reset password') }}</a></p>
+        <p><a href="{{ url_for_security('forgot_password') }}" class="btn btn-secondary" role="button"><i class="fas fa-unlock"></i> {{ _('Reset password') }}</a></p>
 
     </div>
 </div>

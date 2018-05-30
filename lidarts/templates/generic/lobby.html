@@ -3,11 +3,26 @@
 
 {% block app_content %}
 
+<div class="row justify-content-center mb-3">
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-auto">
+                <div class="card bg-light text-dark">
+                    <div class="card-body">
+                        <h2 class="card-text">Welcome back {{ current_user.username }}!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <div class="row justify-content-center">
     <div class="col-md-4 col-xl-3">
         <div class="card bg-light text-dark bs-callout bs-callout-info">
             <div class="card-body">
-                <h5 class="card-title">Play</h5>
+                <h5 class="card-title"><i class="fas fa-gamepad"></i> Play</h5>
                 <hr>
                 <a href="{{ url_for('game.create') }}" class="no-underline">
                     <div class="card bg-info text-light text-center">
@@ -22,7 +37,7 @@
     <div class="col-md-4 col-xl-3">
         <div class="card bg-light text-dark bs-callout bs-callout-warning">
             <div class="card-body">
-                <h5 class="card-title">Notifications</h5>
+                <h5 class="card-title"><i class="fas fa-envelope"></i> Notifications</h5>
                 <hr>
                 <!-- GAMES IN PROGRESS -->
                 {% if games_in_progress %}
@@ -47,7 +62,7 @@
     <div class="col-md-4 col-xl-3">
         <div class="card bg-light text-dark bs-callout bs-callout-danger">
             <div class="card-body">
-                <h5 class="card-title">Friends online</h5>
+                <h5 class="card-title"><i class="fas fa-user-friends"></i> Friends online</h5>
                 <hr>
                 {% if not friends_online %}None{% endif %}
             </div>
