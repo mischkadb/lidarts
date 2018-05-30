@@ -2,7 +2,7 @@ from flask import render_template
 from lidarts.profile import bp
 from lidarts.models import User, Game
 from sqlalchemy import desc
-
+from datetime import datetime, timedelta
 
 @bp.route('/@/')
 @bp.route('/@/<username>')
@@ -20,4 +20,7 @@ def overview(username):
             player_names[game.player2] = User.query.with_entities(User.username) \
                 .filter_by(id=game.player2).first_or_404()[0]
 
-    return render_template('profile/overview.html', user=user, games=games, player_names=player_names)
+
+    return render_template('profile/overview.html', user=user, games=games,
+                           player_names=player_names,
+                           is_online=(user.last_seen > datetime.now()- timedelta(minutes=5)))

@@ -28,7 +28,7 @@ $(document).ready(function() {
                 + msg[user] + '</a></strong></p>');
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
             $('#powertip-' + user).data('powertip', '<table class="table table-sm text-center text-dark"><tr><td><i class="fas fa-circle" style="font-size: 10px; color: #33aa44"></i></td>' +
-                '<td>' + msg[user] + '</td></tr>' +
+                '<td><a href="' + profile_url + msg[user] + '">' + msg[user] + '</a></td></tr>' +
                 '<tr><td><i class="fas fa-futbol"></i></td><td><i class="fas fa-plus-circle"></i></td></tr>' +
                 '</table>');
         }

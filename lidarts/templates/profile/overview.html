@@ -5,19 +5,43 @@
 
 
 <div class="row justify-content-center">
-    <div class="col-md-4 col-xl-3">
-        <div class="card bg-light text-dark bs-callout bs-callout-info">
+    <div class="col-auto mb-3">
+        <div class="card bg-light text-dark">
             <div class="card-body">
-                <h5 class="card-title">Settings</h5>
-                <hr>
-                <p><a href="{{ url_for_security('change_password') }}" class="text-secondary">Change password</a></p>
+                <h3 class="card-text"> <i class="fas fa-circle" style=" font-size: 20px; {% if is_online %}color: #33aa44{% else %}color: #999999{% endif %}"></i> {{ user.username }}</h3>
             </div>
         </div>
     </div>
+
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-4 col-xl-3">
+        <div class="card bg-light text-dark bs-callout bs-callout-info">
+            <div class="card-body">
+                {% if current_user.id == user.id %}
+                <h5 class="card-title"><i class="fas fa-cog"></i> Preferences</h5>
+                <hr>
+                <p><a href="" class="text-secondary">Edit profile</a></p>
+                <p><a href="{{ url_for_security('change_password') }}" class="text-secondary">Change password</a></p>
+                <p><a href="" class="text-secondary">Set language</a></p>
+
+
+                {% else %}
+                <h5 class="card-title"><i class="fas fa-users"></i> Interaction</h5>
+                <hr>
+                <p><a href="" class="text-secondary">Add to friends</a></p>
+                <p><a href="" class="text-secondary">Challenge to game</a></p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-4 col-xl-3">
         <div class="card bg-light text-dark  bs-callout bs-callout-warning">
             <div class="card-body">
-                <h5 class="card-title">Recent games</h5>
+                <h5 class="card-title"><i class="fas fa-history"></i> Recent games</h5>
                 <hr>
                 {% for game in games[:5] if game.status != 'challenged' %}
 
@@ -46,10 +70,12 @@
             </div>
         </div>
     </div>
+
+
     <div class="col-md-4 col-xl-3">
         <div class="card bg-light text-dark bs-callout bs-callout-danger">
             <div class="card-body">
-                <h5 class="card-title">Statistics</h5>
+                <h5 class="card-title"><i class="fas fa-chart-bar"></i> Statistics</h5>
                 <hr>
             </div>
         </div>
