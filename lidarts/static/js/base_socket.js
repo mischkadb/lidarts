@@ -10,6 +10,11 @@ $(document).ready(function() {
     // The callback function is invoked when a connection with the
     // server is established.
 
+    window.setInterval(function(){
+        /// call your function here
+        socket.emit('user_heartbeat');
+    }, 5000);
+
 
 });
 

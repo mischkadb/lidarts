@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 def broadcast_online_players():
     online_players_dict = {}
-    online_players = User.query.filter(User.last_seen > (datetime.now() - timedelta(minutes=5))).all()
+    online_players = User.query.filter(User.last_seen > (datetime.now() - timedelta(seconds=15))).all()
     for user in online_players:
         online_players_dict[user.id] = user.username
 

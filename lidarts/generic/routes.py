@@ -8,13 +8,6 @@ from sqlalchemy import desc
 from datetime import datetime, timedelta
 
 
-@bp.before_app_request
-def before_request():
-    if current_user.is_authenticated:
-        current_user.last_seen = datetime.now()
-        db.session.commit()
-
-
 @bp.route('/')
 def index():
     # logged in users do not need the index page
@@ -51,7 +44,7 @@ def lobby():
     # get online friends
     friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
     friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)
-    online_users = User.query.with_entities(User.id).filter(User.last_seen > datetime.now() - timedelta(minutes=5))
+    online_users = User.query.with_entities(User.id).filter(User.last_seen > datetime.now() - timedelta(seconds=15))
 
     online_friend_list = friend_query1.union(friend_query2).intersect(online_users).all()
     online_friend_list = [r for r, in online_friend_list]
@@ -71,7 +64,6 @@ def chat():
     form = ChatmessageForm()
     messages = Chatmessage.query.filter(Chatmessage.timestamp > (datetime.now() - timedelta(days=1))).all()
     user_names = {}
-    timestamps = {}
 
     for message in messages:
         user_names[message.author] = User.query.with_entities(User.username) \
