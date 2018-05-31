@@ -2,62 +2,9 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-h1 {
-    font-size: 60px;
-}
-
-h2 {
-    font-size: 50px;
-}
-
-h3 {
-    font-size: 30px;
-}
 
 a.no-underline {
     text-decoration: none;
-}
-
-.btn-xl {
-    padding: 10px 20px;
-    font-size: 30px;
-    border-radius: 10px;
-}
-
-.btn-rnd-tl {
-    border-top-left-radius: 5px !important;
-}
-
-.btn-rnd-tr {
-    border-top-right-radius: 5px !important;
-}
-
-.btn-rnd-bl {
-    border-bottom-left-radius: 5px !important;
-}
-
-.btn-rnd-br {
-    border-bottom-right-radius: 5px !important;
-}
-
-.name_card_body_small{
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-.score_card_body_small{
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-.leg-set-card-small{
-    padding-left: 2px;
-    padding-right: 2px;
-}
-
-form .form-control:focus{
-    border-color: #ced4da;
-    box-shadow: none;
 }
 
 .stats-table{
@@ -95,4 +42,8 @@ form .form-control:focus{
 
 .scoreboard_card{
     padding: 10px 10px 10px 10px;
+}
+
+h5 {
+    margin-bottom: 0px;
 }
