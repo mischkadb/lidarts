@@ -1,5 +1,5 @@
 from flask import render_template
-from flask_login import current_user
+from flask_login import current_user, login_required
 from lidarts.profile import bp
 from lidarts.models import User, Game, Friendship, FriendshipRequest
 from sqlalchemy import desc
@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 
 @bp.route('/@/')
 @bp.route('/@/<username>')
+@login_required
 def overview(username):
     player_names = {}
     user = User.query.filter(User.username.ilike(username)).first_or_404()
@@ -34,6 +35,7 @@ def overview(username):
 
 
 @bp.route('/manage_friend_list')
+@login_required
 def manage_friend_list():
     player_names = {}
 

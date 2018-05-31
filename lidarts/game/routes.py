@@ -6,13 +6,14 @@ from lidarts import db
 from lidarts.socket.chat_handler import broadcast_new_game
 from lidarts.game.utils import get_name_by_id, collect_statistics
 from lidarts.socket.X01_game_handler import start_game
-from flask_login import current_user
+from flask_login import current_user, login_required
 from datetime import datetime
 import json
 
 
 @bp.route('/create', methods=['GET', 'POST'])
 @bp.route('/create/<mode>', methods=['GET', 'POST'])
+@login_required
 def create(mode='x01'):
     if mode == 'x01':
         form = CreateX01GameForm()
