@@ -25,7 +25,7 @@ $(document).ready(function() {
         $('#online_players').html('');
         var user;
         for (user in msg){
-            $('#online_players').append('<p><strong><a href="' + profile_url + msg[user] + '" id="powertip-' + user + '" class="tooltips" data-powertip="">'
+            $('#online_players').append('<p><strong><a href="' + profile_url + msg[user] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
                 + msg[user] + '</a></strong></p>');
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
             $('#powertip-' + user).data('powertip', '<table class="table table-sm text-center text-dark"><tr><td><i class="fas fa-circle" style="font-size: 10px; color: #33aa44"></i></td>' +
@@ -41,9 +41,9 @@ $(document).ready(function() {
         // allow 1px inaccuracy by adding 1
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
 
-        $('#chatbox').append('<p><strong>' +
+        $('#chatbox').append('<p><strong><a href="' + profile_url +
             msg['author'] +
-            '</strong> <small class="text-secondary">' +
+            '" class="text-dark">' + msg['author'] + '</a></strong> <small class="text-secondary">' +
             msg['timestamp'] +
             '</small><br>' +
             msg['message'] + '</p><hr>'
@@ -58,9 +58,9 @@ $(document).ready(function() {
         // allow 1px inaccuracy by adding 1
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
 
-        $('#chatbox').append('<p>New game between <strong><a href="' + profile_url + msg['p1_name'] +'">' +
+        $('#chatbox').append('<p>New game between <strong><a href="' + profile_url + msg['p1_name'] +'" class="text-secondary">' +
             msg['p1_name'] +
-            '</a></strong> and <strong><a href="' + profile_url + msg['p2_name'] +'">' +
+            '</a></strong> and <strong><a href="' + profile_url + msg['p2_name'] +'" class="text-secondary">' +
             msg['p2_name'] +
             '</a></strong>. <a href="' + game_url + msg['hashid'] + '">Watch</a></p><hr>'
         );

@@ -14,7 +14,7 @@
                 <div class="card bg-light">
                     <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
                         {% for message in messages %}
-                        <p><strong>{{ user_names[message.author] }}</strong> <small class="text-secondary">{{ message.timestamp.strftime('%H:%M:%S') }}</small><br>
+                        <p><strong><a href="{{ url_for('profile.overview', username=user_names[message.author]) }}" class="text-dark">{{ user_names[message.author] }}</a></strong> <small class="text-secondary">{{ message.timestamp.strftime('%H:%M:%S') }}</small><br>
                         {{ message.message }}</p>
                         <hr>
                         {% endfor %}
@@ -38,16 +38,6 @@
             </div>
         </div>
     </div>
-</div>
-<!-- HTML to write -->
-<a href="#" data-toggle="tooltip" title="Some tooltip text!">Hover over me</a>
-
-<!-- Generated markup by the plugin -->
-<div class="tooltip bs-tooltip-top" role="tooltip">
-  <div class="arrow"></div>
-  <div class="tooltip-inner">
-    Some tooltip text!
-  </div>
 </div>
 
 {% endblock %}
