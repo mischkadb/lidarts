@@ -3,23 +3,20 @@
 
 {% block app_content %}
 
-<div class="row justify-content-center mb-3">
-    <div class="col-md-9">
-        <div class="row">
-            <div class="col-auto">
-                <div class="card bg-light text-dark">
-                    <div class="card-body">
-                        <h2 class="card-text">Welcome back {{ current_user.username }}!</h2>
-                    </div>
-                </div>
+
+<div class="row mb-3">
+    <div class="col-auto">
+        <div class="card bg-light text-dark">
+            <div class="card-body">
+                <h2 class="card-text">Welcome back {{ current_user.username }}!</h2>
             </div>
         </div>
-
     </div>
 </div>
 
+
 <div class="row justify-content-center">
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-4">
         <div class="card bg-light text-dark bs-callout bs-callout-info">
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-gamepad"></i> Play</h5>
@@ -34,7 +31,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-4">
         <div class="card bg-light text-secondary bs-callout bs-callout-warning">
             <div class="card-body">
                 <h5 class="card-title text-dark"><i class="fas fa-envelope"></i> Notifications</h5>
@@ -71,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-4">
         <div class="card bg-light text-secondary bs-callout bs-callout-danger">
             <div class="card-body">
                 <h5 class="card-title text-dark"><i class="fas fa-user-friends"></i> Friends online</h5>
