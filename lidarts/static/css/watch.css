@@ -80,12 +80,17 @@ form .form-control:focus{
 .table td.player_name {
     max-width: 150px;
 }
+
 .table td.player_name span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
     max-width: 100%;
+}
+
+.table td.score_field {
+    width: 60px;
 }
 
 .scoreboard_card{

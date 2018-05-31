@@ -9,35 +9,37 @@
 
 
     <div class="col-4 mb-3">
-        <div class="card bg-light text-dark">
-            <div class="card-body scoreboard_card">
+        <a href="{{ url_for('game.start', hashid=game.hashid) }}" class="no-underline">
+            <div class="card bg-light text-dark">
+                <div class="card-body scoreboard_card">
 
-                <table class="table table-sm bg-dark text-light stats-table text-center" >
-                    <tr class="">
-                        <td class="text-left border border-right-0 border-secondary"><h5>Best of {% if game.bo_sets == 1 %}{{ game.bo_legs }}
-                            {% else %}{{ game.bo_sets }}{% endif %}</h5></td>
-                        <td class="border border-right-0 border-secondary" style="min-width: 40px; {% if game.bo_sets == 1 %}display:none;{% endif %}"><h5>Sets</h5></td>
-                        <td class="border border-secondary" style="min-width: 40px"><h5>Legs</h5></td>
-                        <td class="bg-light border border-bottom-0 border-light" style="min-width: 40px"></td>
-                        <td class="bg-light border border-light" style="min-width: 30px"></td>
-                    </tr>
-                    <tr class="">
-                        <td class="bg-light text-dark border border-secondary text-left player_name"><h5 class=""><span>{{ game.player1_name }} adfasdfasasdfdasdfadf</span></h5></td>
-                        <td class="bg-danger border border-secondary" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h4 class="p1_sets_{{ game.hashid }}"></h4></td>
-                        <td class="bg-danger border border-secondary"><h4 class="p1_legs_{{ game.hashid }}"></h4></td>
-                        <td class="bg-danger border border-secondary"><h4 class="p1_score_{{ game.hashid }}"></h4></td>
-                        <td class="bg-light  text-dark"><h4 class="p1_turn_incidator_{{ game.hashid }}"></h4></td>
-                    </tr>
-                    <tr class="">
-                        <td class="bg-light text-dark border border-secondary text-left player_name"><h5>{{ game.player2_name }}</h5></td>
-                        <td class="bg-danger border border-secondary" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h4 class="p2_sets_{{ game.hashid }}"></h4></td>
-                        <td class="bg-danger border border-secondary"><h4 class="p2_legs_{{ game.hashid }}"></h4></td>
-                        <td class="bg-danger border border-secondary"><h4 class="p2_score_{{ game.hashid }}"></h4></td>
-                        <td class="bg-light  text-dark"><h4 class="p2_turn_incidator_{{ game.hashid }}"></h4></td>
-                    </tr>
-                </table>
+                    <table class="table table-sm bg-dark text-light stats-table text-center" >
+                        <tr class="">
+                            <td class="text-left border border-right-0 border-secondary"><h5>Best of {% if game.bo_sets == 1 %}{{ game.bo_legs }}
+                                {% else %}{{ game.bo_sets }}{% endif %}</h5></td>
+                            <td class="border border-right-0 border-secondary score_field" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h5>Sets</h5></td>
+                            <td class="border border-secondary score_field"><h5>Legs</h5></td>
+                            <td class="bg-light border border-bottom-0 border-light score_field"></td>
+                            <td class="bg-light border border-light" style="width: 10px"></td>
+                        </tr>
+                        <tr class="">
+                            <td class="bg-light text-dark border border-secondary text-left player_name"><h5><span>{{ game.player1_name }}</span></h5></td>
+                            <td class="bg-danger border border-secondary" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h4 class="p1_sets_{{ game.hashid }}"></h4></td>
+                            <td class="bg-danger border border-secondary"><h4 class="p1_legs_{{ game.hashid }}"></h4></td>
+                            <td class="bg-danger border border-secondary"><h4 class="p1_score_{{ game.hashid }}"></h4></td>
+                            <td class="bg-light  text-dark"><h4 class="p1_turn_incidator_{{ game.hashid }}"></h4></td>
+                        </tr>
+                        <tr class="">
+                            <td class="bg-light text-dark border border-secondary text-left player_name"><h5><span>{{ game.player2_name }}</span></h5></td>
+                            <td class="bg-danger border border-secondary" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h4 class="p2_sets_{{ game.hashid }}"></h4></td>
+                            <td class="bg-danger border border-secondary"><h4 class="p2_legs_{{ game.hashid }}"></h4></td>
+                            <td class="bg-danger border border-secondary"><h4 class="p2_score_{{ game.hashid }}"></h4></td>
+                            <td class="bg-light  text-dark"><h4 class="p2_turn_incidator_{{ game.hashid }}"></h4></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 
     <meta id="hash_id-{{ loop.index }}" data-hashid="{{ game.hashid }}">
