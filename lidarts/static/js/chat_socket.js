@@ -13,6 +13,7 @@ $(document).ready(function() {
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
     var profile_url = $('#profile_url').data()['url'];
+    var game_url = $('#game_url').data()['url'];
 
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
@@ -46,6 +47,52 @@ $(document).ready(function() {
             msg['timestamp'] +
             '</small><br>' +
             msg['message'] + '</p><hr>'
+        );
+
+        if(isScrolledToBottom)
+            chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;
+    });
+
+
+    socket.on('send_system_message_new_game', function (msg) {
+        // allow 1px inaccuracy by adding 1
+        var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
+
+        $('#chatbox').append('<p>New game between <strong><a href="' + profile_url + msg['p1_name'] +'">' +
+            msg['p1_name'] +
+            '</a></strong> and <strong><a href="' + profile_url + msg['p2_name'] +'">' +
+            msg['p2_name'] +
+            '</a></strong>. <a href="' + game_url + msg['hashid'] + '">Watch</a></p><hr>'
+        );
+
+        if(isScrolledToBottom)
+            chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;
+    });
+
+
+    socket.on('send_system_message_game_completed', function (msg) {
+        // allow 1px inaccuracy by adding 1
+        var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
+        var color1 = '#fbcc03';
+        var color2 = '#fbcc03';
+
+        if (msg['p1_score'] > msg['p2_score']) {
+            color1 = '#08aa03';
+            color2 = '#ce0e03';
+        } else if (msg['p1_score'] < msg['p2_score']) {
+            color1 = '#ce0e03';
+            color2 = '#08aa03';
+
+        }
+
+        $('#chatbox').append('<p>Game finished: <strong>' +
+            '<a href="' + profile_url + msg['p1_name'] +'" style="color: ' + color1 + '">' +
+            msg['p1_name'] +
+            '</a></strong> vs. <strong>' +
+            '<a href="' + profile_url + msg['p2_name'] +'" style="color: ' + color2 + '">' +
+            msg['p2_name'] +
+            '</a></strong> (' + msg['p1_score'] + ':' + msg['p2_score'] + ') ' +
+            '<a href="' + game_url + msg['hashid'] + '">Game summary</a></p><hr>'
         );
 
         if(isScrolledToBottom)

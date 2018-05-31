@@ -3,6 +3,7 @@ from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm
 from lidarts.models import Game
 from lidarts import db
+from lidarts.socket.chat_handler import broadcast_new_game
 from lidarts.game.utils import get_name_by_id, collect_statistics
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user
@@ -41,6 +42,7 @@ def create(mode='x01'):
     return render_template('game/create_X01.html', form=form)
 
 
+@bp.route('/')
 @bp.route('/<hashid>')
 @bp.route('/<hashid>/<theme>')
 def start(hashid, theme=None):
@@ -51,6 +53,8 @@ def start(hashid, theme=None):
         game.player2 = current_user.id
         game.status = 'started'
         db.session.commit()
+        # send message to global chat
+        broadcast_new_game(game)
         # signal the waiting player and spectators
         start_game(hashid)
 

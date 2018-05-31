@@ -1,5 +1,6 @@
 from lidarts import db
 from lidarts.models import Game
+from lidarts.socket.chat_handler import broadcast_game_completed
 import math
 import json
 from datetime import datetime
@@ -155,6 +156,7 @@ def process_score(hashid, score_value):
 
     if game.status == 'completed':
         game.end = datetime.now()
+        broadcast_game_completed(game)
     # new leg
     elif new_leg_starter:
         game.p1_next_turn = True if new_leg_starter == '1' else False
