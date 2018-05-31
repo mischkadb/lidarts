@@ -17,7 +17,7 @@
     <div class="col-12">
         <table class="table table-sm bg-dark text-light stats-table d-flex text-center">
             <tr class="">
-                <td class="text-left border border-right-0 border-secondary"><h4>First to {% if game.bo_sets == 1 %}{{ game.bo_legs }}
+                <td class="text-left border border-right-0 border-secondary"><h4>Best of {% if game.bo_sets == 1 %}{{ game.bo_legs }}
                     {% else %}{{ game.bo_sets }}{% endif %}</h4></td>
                 <td class="border border-right-0 border-secondary" style="min-width: 70px; {% if game.bo_sets == 1 %}display:none;{% endif %}"><h4>Sets</h4></td>
                 <td class="border border-secondary" style="min-width: 70px"><h4>Legs</h4></td>

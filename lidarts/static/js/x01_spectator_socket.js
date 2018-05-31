@@ -327,28 +327,5 @@ $(document).ready(function() {
         $('.confirm_completion').show();
     });
 
-    // Handler for the score input form.
-    var validation_url = $('#validation_url').data();
-    var user_id = $('#user_id').data();
-    var score_errors = [];
-    $('form#score_input').submit(function(event) {
-        $('#score_error').text('');
-        $.post(
-            // Various errors that are caught if you enter something wrong.
-            validation_url,
-            $("#score_input").serialize(),
-            function (errors) {
-                score_errors = errors
-                if (jQuery.isEmptyObject(score_errors)) {
-                    socket.emit('send_score', {score: $('#score_value').val(), hashid: hashid['hashid'],
-                    user_id: user_id['id']});
-                } else {
-                    $('#score_error').text(score_errors['score_value'][0]);
-                }
-                $('input[name=score_value]').val('');
-            });
-        return false;
-    });
-
 });
 

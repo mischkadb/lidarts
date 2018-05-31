@@ -4,6 +4,7 @@ from lidarts import db
 from lidarts.generic import bp
 from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest
 from lidarts.generic.forms import ChatmessageForm
+from lidarts.game.utils import get_name_by_id
 from sqlalchemy import desc
 from datetime import datetime, timedelta
 
@@ -19,6 +20,30 @@ def index():
 @bp.route('/about')
 def about():
     return render_template('generic/index.html')
+
+
+@bp.route('/changelog')
+def changelog():
+    return render_template('generic/index.html')
+
+
+@bp.route('/watch')
+def live_games_overview():
+    live_games = Game.query.filter_by(status='started').order_by(Game.begin.desc()).limit(9)
+    live_games_list = []
+
+    for game in live_games:
+        game_dict = game.as_dict()
+
+        if game.player1:
+            game_dict['player1_name'] = get_name_by_id(game.player1)
+        if game.player2:
+            # Local Guest needs his own 'name'
+            game_dict['player2_name'] = get_name_by_id(game.player2) if game.player1 != game.player2 else 'Local Guest'
+
+            live_games_list.append(game_dict)
+
+    return render_template('generic/watch.html', live_games=live_games_list)
 
 
 @bp.route('/lobby')

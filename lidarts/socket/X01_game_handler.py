@@ -75,7 +75,8 @@ def send_score_response(game, old_score=0, broadcast=False):
     p2_first9_avg = round(sum(p2_first9_scores)/len(p2_first9_scores), 2) if p2_first9_scores else 0
 
     emit('score_response',
-         {'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
+         {'hashid': game.hashid,
+          'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
           'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs,
           'p1_next_turn': game.p1_next_turn, 'p1_current_leg': p1_current_leg,
           'p2_current_leg': p2_current_leg, 'old_score': old_score,
@@ -139,7 +140,8 @@ def send_score(message):
         p1_last_leg = last_leg['1']
         p2_last_leg = last_leg['2']
         p1_won = sum(p1_last_leg) == game.type
-        emit('game_completed', {'p1_last_leg': p1_last_leg, 'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
+        emit('game_completed', {'hashid': game.hashid, 'p1_last_leg': p1_last_leg,
+                                'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
                                 'type': game.type, 'p1_sets': game.p1_sets,
                                 'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
              room=game.hashid, broadcast=True)
@@ -155,8 +157,8 @@ def send_score(message):
         p1_last_leg = last_leg['1']
         p2_last_leg = last_leg['2']
         p1_won = sum(p1_last_leg) == game.type
-        emit('game_shot', {'p1_last_leg': p1_last_leg, 'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
-                           'type': game.type, 'p1_sets': game.p1_sets,
+        emit('game_shot', {'hashid': game.hashid, 'p1_last_leg': p1_last_leg, 'p2_last_leg': p2_last_leg,
+                           'p1_won': p1_won, 'type': game.type, 'p1_sets': game.p1_sets,
                            'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
              room=game.hashid, broadcast=True)
     else:
