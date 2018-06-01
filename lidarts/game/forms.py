@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SelectField, SubmitField
-from wtforms.validators import DataRequired, NumberRange, ValidationError
+from wtforms.validators import DataRequired, InputRequired, NumberRange, ValidationError
 
 game_types = [('170', '170'), ('301', '301'), ('501', '501')]
 opponents = [('local', 'Local'), ('online', 'Online')]
-starter = [('me', 'Me'), ('opponent', 'Opponent')]
+starter = [('me', 'Me'), ('opponent', 'Opponent'), ('closest_to_bull', 'Closest to Bull')]
 bo_choice = [(str(x), str(x)) for x in range(1, 30)]
 in_choice = [('si', 'Straight In'), ('di', 'Double In')]
 out_choice = [('do', 'Double Out'), ('so', 'Single Out'), ('mo', 'Master Out')]
@@ -17,7 +17,7 @@ def impossible_numbers_check(form, field):
 
 
 class ScoreForm(FlaskForm):
-    score_value = IntegerField('Score', validators=[DataRequired(),
+    score_value = IntegerField('Score', validators=[InputRequired(),
                                                     NumberRange(min=0, max=180),
                                                     impossible_numbers_check])
     submit = SubmitField('Submit score')

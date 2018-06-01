@@ -1,3 +1,4 @@
+from flask_socketio import emit
 from lidarts import db
 from lidarts.models import Game
 from lidarts.socket.chat_handler import broadcast_game_completed
@@ -170,3 +171,90 @@ def process_score(hashid, score_value):
 def current_turn_user_id(hashid):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
     return game.player1 if game.p1_next_turn else game.player2
+
+
+def process_closest_to_bull(game, score_value):
+    if score_value > 60:
+        return
+    closest_to_bull_json = json.loads(game.closest_to_bull_json)
+    # local game
+    if game.player1 == game.player2:
+        player = '2' if (len(closest_to_bull_json['1']) % 3 == 0) and \
+                        (len(closest_to_bull_json['1']) > len(closest_to_bull_json['2'])) else '1'
+    # online game
+    else:
+        player = '1' if game.player1 == current_user.id else '2'
+    other_player = '1' if player == '2' else '2'
+
+    # check if player has to wait for other player
+    if len(closest_to_bull_json[player]) % 3 == 0 \
+            and len(closest_to_bull_json[player]) > len(closest_to_bull_json[other_player]):
+        return
+
+    # append score
+    if score_value in (25, 50):
+        closest_to_bull_json[player].append(score_value)
+    else:
+        closest_to_bull_json[player].append(0)
+    game.closest_to_bull_json = json.dumps(closest_to_bull_json)
+    db.session.commit()
+
+    # check if both threw 3 darts
+    if len(closest_to_bull_json[player]) % 3 == 0 \
+            and (len(closest_to_bull_json[player]) == len(closest_to_bull_json[other_player])):
+        # check if done
+        for i in range(len(closest_to_bull_json[player])):
+            if closest_to_bull_json['1'][i] > closest_to_bull_json['2'][i]:
+                # player 1 won
+                game.p1_next_turn = True
+                game.closest_to_bull = False
+                db.session.commit()
+                emit('closest_to_bull_completed', {'hashid': game.hashid, 'p1_won': game.p1_next_turn,
+                                                   'p1_score': closest_to_bull_json['1'][-3:],
+                                                   'p2_score': closest_to_bull_json['2'][-3:]
+                                                   },
+                     room=game.hashid, broadcast=True)
+                return
+            elif closest_to_bull_json['1'][i] < closest_to_bull_json['2'][i]:
+                # player 2 won
+                game.p1_next_turn = False
+                game.closest_to_bull = False
+                db.session.commit()
+                emit('closest_to_bull_completed', {'hashid': game.hashid, 'p1_won': game.p1_next_turn,
+                                                   'p1_score': closest_to_bull_json['1'][-3:],
+                                                   'p2_score': closest_to_bull_json['2'][-3:]
+                                                   },
+                     room=game.hashid, broadcast=True)
+                return
+
+        # draw, next round
+        emit('closest_to_bull_draw', {'hashid': game.hashid, 'p1_score': closest_to_bull_json['1'][-3:],
+                                      'p2_score': closest_to_bull_json['2'][-3:]},
+             room=game.hashid, broadcast=True)
+        return
+
+    # emit throw score to players
+    if len(closest_to_bull_json['1']) % 3 == 1:
+        p1_score = closest_to_bull_json['1'][-1:]
+    elif len(closest_to_bull_json['1']) % 3 == 2:
+        p1_score = closest_to_bull_json['1'][-2:]
+    elif len(closest_to_bull_json['1']) % 3 == 0 \
+            and len(closest_to_bull_json['1']) > len(closest_to_bull_json['2']):
+        p1_score = closest_to_bull_json['1'][-3:]
+    else:
+        p1_score = []
+
+    if len(closest_to_bull_json['2']) % 3 == 1:
+        p2_score = closest_to_bull_json['2'][-1:]
+    elif len(closest_to_bull_json['2']) % 3 == 2:
+        p2_score = closest_to_bull_json['2'][-2:]
+    elif len(closest_to_bull_json['2']) % 3 == 0 \
+            and len(closest_to_bull_json['2']) > len(closest_to_bull_json['1']):
+        p2_score = closest_to_bull_json['2'][-3:]
+    else:
+        p2_score = []
+
+    emit('closest_to_bull_score', {'hashid': game.hashid, 'p1_score': p1_score, 'p2_score': p2_score},
+         room=game.hashid, broadcast=True)
+    return
+

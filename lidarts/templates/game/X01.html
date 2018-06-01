@@ -12,20 +12,21 @@
 
 {% block app_content %}
 
+<!-- PLAYERS AND SCORES-->
 <div class="row justify-content-center align-items-center text-light">
     <!-- PLAYER 1 NAME AND SCORE -->
     <div class="col-lg-5 col-md-6 d-none d-md-block">
         <div class="card text-center bg-dark player_turn p1_turn_outer_card" id="p1_turn_outer_card">
             <div class="card-body">
-                <div class="card text-center mb-1 p1_turn_name_card" id="p1_turn_name_card">
+                <div class="card bg-secondary text-center mb-1 p1_turn_name_card" id="p1_turn_name_card">
                     <div class="card-body">
                         <h3>{{ game.player1_name }}</h3>
                     </div>
                 </div>
 
-                <div class="card text-center p1_turn_score_card" id="p1_turn_score_card">
+                <div class="card bg-danger text-center p1_turn_score_card" id="p1_turn_score_card">
                     <div class="card-body">
-                        <h1 id="p1_score" class="card-text p1_score" style="font-weight: bold"></h1>
+                        <h1 id="p1_score" class="card-text p1_score" style="font-weight: bold">-</h1>
                     </div>
                 </div>
             </div>
@@ -60,14 +61,14 @@
     <div class="col-lg-5 col-md-6 d-none d-md-block">
         <div class="card text-center bg-dark player_turn p2_turn_outer_card" id="p2_turn_outer_card">
             <div class="card-body">
-                <div class="card text-center text-light mb-1 p2_turn_name_card" id="p2_turn_name_card">
+                <div class="card bg-secondary text-center text-light mb-1 p2_turn_name_card" id="p2_turn_name_card">
                     <div class="card-body">
                         <h3>{{ game.player2_name }}</h3>
                     </div>
                 </div>
-                <div class="card text-center p2_turn_score_card" id="p2_turn_score_card">
+                <div class="card bg-danger text-center p2_turn_score_card" id="p2_turn_score_card">
                     <div class="card-body">
-                        <h1 id="p2_score" class="card-text p2_score" style="font-weight: bold"></h1>
+                        <h1 id="p2_score" class="card-text p2_score" style="font-weight: bold">-</h1>
                     </div>
                 </div>
             </div>
@@ -104,6 +105,15 @@
         </div>
     </div>
 </div>
+
+{% if game.closest_to_bull %}
+<div class="row text-light  text-center mt-2" id="closest_to_bull_notification_div">
+    <div class="col-12">
+    <h3 id="closest_to_bull_notification">Closest to bull begins. Please throw three darts at bull.</h3>
+    {% if game.player1 == game.player2 %}<h5>Local game. Player 1 throws all three darts first.</h5>{% endif %}
+    </div>
+</div>
+{% endif %}
 
 <div class="row justify-content-center align-items-start text-center mt-2">
     <!-- LEG AND SET COUNT SMALL -->
@@ -244,7 +254,7 @@
             </div>
             <div class="col-lg-2 d-none d-lg-block">
                 <table class="table table-sm stats-table">
-                                        <tr>
+                    <tr>
                         <td>Leg Avg.</td>
                         <td class="p2_leg_avg">{{ p2_leg_avg }}</td>
                     </tr>

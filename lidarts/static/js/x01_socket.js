@@ -12,6 +12,56 @@ $(document).ready(function() {
     socket.on('connect', function() {
         socket.emit('init', {hashid: hashid['hashid'] });
     });
+
+    socket.on('closest_to_bull_score', function(msg) {
+        $('#closest_to_bull_notification').text('Throw three darts at bull.');
+        $('#p1_score').html('');
+        $('#p2_score').html('');
+        if (msg.p1_score.length == 0){  $('#p1_score').html('-'); }
+        if (msg.p2_score.length == 0){  $('#p2_score').html('-'); }
+        $.each(msg.p1_score, function( index, value ){
+            $('#p1_score').append(' ' + value);
+        });
+        $.each(msg.p2_score, function( index, value ){
+            $('#p2_score').append(' ' + value);
+        });
+    });
+
+    socket.on('closest_to_bull_draw', function(msg) {
+        $('#p1_score').html('');
+        $('#p2_score').html('');
+        $.each(msg.p1_score, function( index, value ){
+            $('#p1_score').append(' ' + value);
+        });
+        $.each(msg.p2_score, function( index, value ){
+            $('#p2_score').append(' ' + value);
+        });
+        $('#closest_to_bull_notification').text('Draw. Throw again.');
+        $('#closest_to_bull_notification').text('Draw. Throw again.');
+    });
+
+    socket.on('closest_to_bull_completed', function(msg) {
+        $('#p1_score').html('');
+        $('#p2_score').html('');
+        $.each(msg.p1_score, function( index, value ){
+            $('#p1_score').append(' ' + value);
+        });
+        $.each(msg.p2_score, function( index, value ){
+            $('#p2_score').append(' ' + value);
+        });
+        if (msg.p1_won) {
+            $('#closest_to_bull_notification').text('Player 1 to throw first. Game on!');
+        } else {
+            $('#closest_to_bull_notification').text('Player 2 to throw first. Game on!');
+        }
+        setTimeout(function() {
+            $('#closest_to_bull_notification_div').hide();
+            socket.emit('init', {hashid: hashid['hashid'] });
+        }, 3000);
+
+    });
+
+
     socket.on('game_shot', function(msg) {
         $('#p1_current_leg').text('');
 
@@ -33,9 +83,9 @@ $(document).ready(function() {
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p1_current_leg').prepend(
-            '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-            '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-            '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
+                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
                 )
             };
         });
@@ -81,14 +131,14 @@ $(document).ready(function() {
                     $('.p1_score').text(Math.ceil(this.Counter));
                 }
             }).promise().done(function() {
-                    setTimeout(function() {
-                     $('#game-shot-modal').modal('hide');
-                    }, 1500);
-                    // move on after 3 seconds
-                    setTimeout(function() {
-                     socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
-                    }, 3000);
-                });
+                setTimeout(function() {
+                    $('#game-shot-modal').modal('hide');
+                }, 1500);
+                // move on after 3 seconds
+                setTimeout(function() {
+                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                }, 3000);
+            });
         } else {
             $('.p1_score').html(msg.p1_score);
         }
@@ -105,14 +155,14 @@ $(document).ready(function() {
                     $('.p2_score').text(Math.ceil(this.Counter));
                 }
             }).promise().done(function() {
-                    setTimeout(function() {
-                     $('#game-shot-modal').modal('hide');
-                    }, 1500);
-                    // move on after 3 seconds
-                    setTimeout(function() {
-                     socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
-                    }, 3000);
-                });
+                setTimeout(function() {
+                    $('#game-shot-modal').modal('hide');
+                }, 1500);
+                // move on after 3 seconds
+                setTimeout(function() {
+                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                }, 3000);
+            });
         } else {
             $('.p2_score').text(msg.p2_score);
         }
@@ -184,9 +234,9 @@ $(document).ready(function() {
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p1_current_leg').prepend(
-            '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-            '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-            '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
+                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
                 )
             };
         });
@@ -262,9 +312,9 @@ $(document).ready(function() {
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p1_current_leg').prepend(
-            '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-            '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-            '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
+                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
                 )
             };
         });
@@ -301,10 +351,10 @@ $(document).ready(function() {
                     $('.p1_score').text(Math.ceil(this.Counter));
                 }
             }).promise().done(function() {
-                    setTimeout(function() {
-                     $('#match-shot-modal').modal('hide');
-                    }, 1500);
-                });
+                setTimeout(function() {
+                    $('#match-shot-modal').modal('hide');
+                }, 1500);
+            });
         } else {
             $('.p1_score').html(msg.p1_score);
         }
@@ -316,10 +366,10 @@ $(document).ready(function() {
                     $('.p2_score').text(Math.ceil(this.Counter));
                 }
             }).promise().done(function() {
-                    setTimeout(function() {
-                     $('#match-shot-modal').modal('hide');
-                    }, 1500);
-                });
+                setTimeout(function() {
+                    $('#match-shot-modal').modal('hide');
+                }, 1500);
+            });
         } else {
             $('.p2_score').html(msg.p2_score);
         }
@@ -341,7 +391,7 @@ $(document).ready(function() {
                 score_errors = errors
                 if (jQuery.isEmptyObject(score_errors)) {
                     socket.emit('send_score', {score: $('#score_value').val(), hashid: hashid['hashid'],
-                    user_id: user_id['id']});
+                        user_id: user_id['id']});
                 } else {
                     $('#score_error').text(score_errors['score_value'][0]);
                 }
@@ -412,41 +462,41 @@ $(document).keypress(function(e){
 
 // onscreen keyboard functions
 $('.button-1').click(function() {
-        $('.score_value').val($('.score_value').val() + '1');
-    });
+    $('.score_value').val($('.score_value').val() + '1');
+});
 $('.button-2').click(function() {
-        $('.score_value').val($('.score_value').val() + '2');
-    });
+    $('.score_value').val($('.score_value').val() + '2');
+});
 $('.button-3').click(function() {
-        $('.score_value').val($('.score_value').val() + '3');
-    });
+    $('.score_value').val($('.score_value').val() + '3');
+});
 $('.button-4').click(function() {
-        $('.score_value').val($('.score_value').val() + '4');
-    });
+    $('.score_value').val($('.score_value').val() + '4');
+});
 $('.button-5').click(function() {
-        $('.score_value').val($('.score_value').val() + '5');
-    });
+    $('.score_value').val($('.score_value').val() + '5');
+});
 $('.button-6').click(function() {
-        $('.score_value').val($('.score_value').val() + '6');
-    });
+    $('.score_value').val($('.score_value').val() + '6');
+});
 $('.button-7').click(function() {
-        $('.score_value').val($('.score_value').val() + '7');
-    });
+    $('.score_value').val($('.score_value').val() + '7');
+});
 $('.button-8').click(function() {
-        $('.score_value').val($('.score_value').val() + '8');
-    });
+    $('.score_value').val($('.score_value').val() + '8');
+});
 $('.button-9').click(function() {
-        $('.score_value').val($('.score_value').val() + '9');
-    });
+    $('.score_value').val($('.score_value').val() + '9');
+});
 $('.button-0').click(function() {
-        $('.score_value').val($('.score_value').val() + '0');
-    });
+    $('.score_value').val($('.score_value').val() + '0');
+});
 $('.button-del').click(function() {
-        $('.score_value').val('');
-    });
+    $('.score_value').val('');
+});
 $('.button-conf').click(function() {
-        $('.score_input').submit();
-    });
+    $('.score_input').submit();
+});
 
 // Toggle keypad
 $('#hide-keypad').click(function() {

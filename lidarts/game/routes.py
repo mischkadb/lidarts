@@ -35,6 +35,10 @@ def create(mode='x01'):
                     in_mode=form.in_mode.data, out_mode=form.out_mode.data,
                     begin=datetime.now(), match_json=match_json, status=status)
         game.p1_next_turn = form.starter.data == 'me'
+        if form.starter.data == 'closest_to_bull':
+            closest_to_bull_json = json.dumps({1: [], 2: []})
+            game.closest_to_bull_json = closest_to_bull_json
+            game.closest_to_bull = True
         db.session.add(game)
         db.session.commit()  # needed to get a game id for the hashid
         game.set_hashid()

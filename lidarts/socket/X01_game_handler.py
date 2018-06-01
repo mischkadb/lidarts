@@ -1,8 +1,9 @@
 from flask import request
 from flask_socketio import emit, join_room, leave_room
-from lidarts import socketio
+from lidarts import socketio, db
+from flask_login import current_user
 from lidarts.models import Game
-from lidarts.socket.utils import process_score, current_turn_user_id
+from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
 import json
 
 
@@ -103,6 +104,8 @@ def connect():
 def init(message):
     game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
     join_room(game.hashid)
+    if game.closest_to_bull:
+        return
     send_score_response(game, broadcast=False)
 
 
@@ -124,6 +127,12 @@ def send_score(message):
     hashid = message['hashid']
     score_value = int(message['score'])
     game = Game.query.filter_by(hashid=hashid).first()
+
+    # Closest to bull handler to determine starting player
+    if game.closest_to_bull:
+        process_closest_to_bull(game, score_value)
+        return
+
     match_json = json.loads(game.match_json)
     # keep old score to display game shot if finish
     old_score = game.p1_score if game.p1_next_turn else game.p2_score

@@ -87,6 +87,8 @@ class Game(db.Model):
     p1_score = db.Column(db.Integer)
     p2_score = db.Column(db.Integer)
     p1_next_turn = db.Column(db.Boolean)
+    closest_to_bull = db.Column(db.Boolean)
+    closest_to_bull_json = db.Column(db.JSON)
     status = db.Column(db.String(20))
     type = db.Column(db.Integer)
     match_json = db.Column(db.JSON)
