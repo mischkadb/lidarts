@@ -76,7 +76,7 @@ def send_score_response(game, old_score=0, broadcast=False):
     p1_first9_avg = round(sum(p1_first9_scores)/len(p1_first9_scores),2) if p1_first9_scores else 0
     p2_first9_avg = round(sum(p2_first9_scores)/len(p2_first9_scores), 2) if p2_first9_scores else 0
 
-    computer_game = game.opponent_type == 'computer'
+    computer_game = game.opponent_type.startswith('computer')
 
     emit('score_response',
          {'hashid': game.hashid,

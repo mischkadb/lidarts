@@ -24,6 +24,98 @@ checkout_table = {'170': 'T20', '167': 'T20', '164': 'T20', '161': 'T20', '160':
                   '53': 'S13', '52': 'S12', '51': 'S11', '50': 'S10', '49': 'S9', '48': 'S16', '47': 'S7',
                   '46': 'S6', '45': 'S13', '44': 'S12', '43': 'S3', '42': 'S10', '41': 'S9'}
 
+# Level 1: Darts/Leg Avg. 48.743 | Score Avg. 31.539605686970432
+level1 = {
+    'hit_chance_single': [0.1, 0.7, 0.1, 0.1],
+    'hit_chance_double': [0.5, 0.4, 0.1, 0],
+    'hit_chance_triple': [0.1, 0.7, 0.1, 0.1],
+    'hit_chance_D25': [0.05, 0.05, 0.045],
+    'hit_chance_S25': [0.05, 0.05, 0.045],
+    'hit_chance_field': [0.34, 0.33, 0.33]
+}
+
+# Level 2: Darts/Leg Avg. 41.305 | Score Avg. 37.1288948069241
+level2 = {
+    'hit_chance_single': [0.05, 0.75, 0.1, 0.1],
+    'hit_chance_double': [0.5, 0.35, 0.15, 0],
+    'hit_chance_triple': [0.05, 0.75, 0.05, 0.15],
+    'hit_chance_D25': [0.1, 0.1, 0.04],
+    'hit_chance_S25': [0.1, 0.1, 0.04],
+    'hit_chance_field': [0.4, 0.3, 0.3]
+}
+
+# Level 3: Darts/Leg Avg. 34.995 | Score Avg. 43.61851693099014
+level3 = {
+    'hit_chance_single': [0.05, 0.75, 0.1, 0.1],
+    'hit_chance_double': [0.5, 0.3, 0.2, 0],
+    'hit_chance_triple': [0.05, 0.72, 0.05, 0.18],
+    'hit_chance_D25': [0.1, 0.1, 0.04],
+    'hit_chance_S25': [0.1, 0.1, 0.04],
+    'hit_chance_field': [0.5, 0.25, 0.25]
+}
+
+# Level 4: Darts/Leg Avg. 30.127 | Score Avg. 50.528894347263254
+level4 = {
+    'hit_chance_single': [0.02, 0.78, 0.1, 0.1],
+    'hit_chance_double': [0.45, 0.3, 0.25, 0],
+    'hit_chance_triple': [0, 0.8, 0, 0.2],
+    'hit_chance_D25': [0.15, 0.15, 0.035],
+    'hit_chance_S25': [0.1, 0.2, 0.035],
+    'hit_chance_field': [0.6, 0.2, 0.2]
+}
+
+# Level 5: Darts/Leg Avg. 26.902 | Score Avg. 56.421567169727155
+level5 = {
+    'hit_chance_single': [0, 0.8, 0.1, 0.1],
+    'hit_chance_double': [0.45, 0.3, 0.25, 0],
+    'hit_chance_triple': [0, 0.8, 0, 0.2],
+    'hit_chance_D25': [0.15, 0.25, 0.03],
+    'hit_chance_S25': [0.1, 0.3, 0.03],
+    'hit_chance_field': [0.7, 0.15, 0.15]
+}
+
+# Level 6: Darts/Leg Avg. 23.907 | Score Avg. 63.21382858576986
+level6 = {
+    'hit_chance_single': [0, 0.8, 0.1, 0.1],
+    'hit_chance_double': [0.5, 0.2, 0.3, 0],
+    'hit_chance_triple': [0, 0.75, 0, 0.25],
+    'hit_chance_D25': [0.2, 0.3, 0.025],
+    'hit_chance_S25': [0.15, 0.35, 0.025],
+    'hit_chance_field': [0.75, 0.125, 0.125]
+}
+
+# Level 7: Darts/Leg Avg. 21.394 | Score Avg. 70.50855380013087
+level7 = {
+    'hit_chance_single': [0, 0.84, 0.08, 0.08],
+    'hit_chance_double': [0.5, 0.15, 0.35, 0],
+    'hit_chance_triple': [0, 0.7, 0, 0.3],
+    'hit_chance_D25': [0.25, 0.35, 0.02],
+    'hit_chance_S25': [0.2, 0.4, 0.02],
+    'hit_chance_field': [0.8, 0.1, 0.1]
+}
+
+# Level 8: Darts/Leg Avg. 18.935 | Score Avg. 79.51766569844203
+level8 = {
+    'hit_chance_single': [0, 0.86, 0.07, 0.07],
+    'hit_chance_double': [0.5, 0.1, 0.4, 0],
+    'hit_chance_triple': [0, 0.65, 0, 0.35],
+    'hit_chance_D25': [0.3, 0.4, 0.015],
+    'hit_chance_S25': [0.25, 0.45, 0.015],
+    'hit_chance_field': [0.85, 0.075, 0.075]
+}
+
+# Level 9: Darts/Leg Avg. 16.759 | Score Avg. 89.79324542037114
+level9 = {
+    'hit_chance_single': [0, 0.9, 0.05, 0.05],
+    'hit_chance_double': [0.4, 0.1, 0.5, 0],
+    'hit_chance_triple': [0, 0.6, 0, 0.4],
+    'hit_chance_D25': [0.4, 0.4, 0.01],
+    'hit_chance_S25': [0.3, 0.5, 0.01],
+    'hit_chance_field': [0.9, 0.05, 0.05]
+}
+
+levels = [level1, level2, level3, level4, level5, level6, level7, level8, level9]
+
 
 def get_target(remaining_score, out_mode):
     # valid for the naive checkout table
@@ -65,7 +157,7 @@ def get_target(remaining_score, out_mode):
             return 'S' + str(remaining_score-20)
 
 
-def throw_dart(target):
+def throw_dart(target, computer):
     possible_hits = {}
 
     # cyclic data structure to simulate the dartboard
@@ -75,28 +167,28 @@ def throw_dart(target):
 
     # probabilities to hit: 0 / single / double / triple
     if field_type == 'S':
-        hit_chance = [0, 0.8, 0.1, 0.1]
+        hit_chance = computer['hit_chance_single']
     elif field_type == 'D':
-        hit_chance = [0.4, 0.3, 0.3, 0]
+        hit_chance = computer['hit_chance_double']
     else:
-        hit_chance = [0, 0.8, 0, 0.2]
+        hit_chance = computer['hit_chance_triple']
 
     if target == 'D25':
         # probabilities for double bull
-        possible_hits['D25'] = 0.25
-        possible_hits['S25'] = 0.35
+        possible_hits['D25'] = computer['hit_chance_D25'][0]
+        possible_hits['S25'] = computer['hit_chance_D25'][1]
         # all numbers have a basic chance to be hit
         for number in range(1, 21):
             field = 'S' + str(number)
-            possible_hits[field] = 0.02
+            possible_hits[field] = computer['hit_chance_D25'][2]
     elif target == 'S25':
         # probabilities for single bull
-        possible_hits['D25'] = 0.15
-        possible_hits['S25'] = 0.45
+        possible_hits['D25'] = computer['hit_chance_S25'][0]
+        possible_hits['S25'] = computer['hit_chance_S25'][1]
         # all numbers have a basic chance to be hit
         for number in range(1, 21):
             field = 'S' + str(number)
-            possible_hits[field] = 0.02
+            possible_hits[field] = computer['hit_chance_S25'][2]
     else:
         # target number
         target_numbers = [int(target[1:])]
@@ -108,7 +200,7 @@ def throw_dart(target):
         target_numbers.append(dartboard[1])
 
         # probability to hit: target / number left / number right
-        number_hit = str(np.random.choice(target_numbers, p=[0.7, 0.15, 0.15]))
+        number_hit = str(np.random.choice(target_numbers, p=computer['hit_chance_field']))
 
         possible_hits['0'] = hit_chance[0]
         possible_hits['S' + number_hit] = hit_chance[1]
@@ -133,7 +225,8 @@ def throw_dart(target):
 def get_computer_score(hashid):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
 
-    # handling bullout
+    computer_level = int(game.opponent_type[-1])
+    computer = levels[computer_level-1]
 
     # get current remaining score
     remaining_score = game.p2_score
@@ -142,11 +235,11 @@ def get_computer_score(hashid):
     for dart in range(3):
         # acquire target depending on remaining score
         if game.closest_to_bull:
-            return throw_dart('D25')
+            return throw_dart('D25', computer)
         else:
             target = get_target(remaining_score, game.out_mode)
         # simulate dart throw
-        thrown_score = throw_dart(target)
+        thrown_score = throw_dart(target, computer)
         thrown_score_total += thrown_score
         remaining_score -= thrown_score
         # don't keep throwing if leg won or busted

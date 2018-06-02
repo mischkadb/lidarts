@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='lidarts',
-    version='0.4.0-a1',
+    version='0.4.0-a3',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -22,8 +22,9 @@ setup(
         'Flask-WTF',
         'gunicorn',
         'hashids',
+        'numpy',
         'psycopg2-binary',
         'pytest',
-        'python-dotenv',
+        'python-dotenv'
     ],
 )

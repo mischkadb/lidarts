@@ -39,6 +39,8 @@ def create(mode='x01'):
                     in_mode=form.in_mode.data, out_mode=form.out_mode.data,
                     begin=datetime.now(), match_json=match_json,
                     status=status, opponent_type=form.opponent.data)
+        if game.opponent_type.startswith('computer'):
+            game.opponent_type += form.level.data
         game.p1_next_turn = form.starter.data == 'me'
         if form.starter.data == 'closest_to_bull':
             game.p1_next_turn = True

@@ -44,7 +44,10 @@
                         {{ form.type(class="form-control custom-select") }}</p>
 
                     <p>{{ form.opponent.label(class="col-form-label") }}:
-                        {{ form.opponent(class="custom-select") }}</p>
+                        {{ form.opponent(class="custom-select", onchange="computercheck(this);") }}</p>
+
+                    <p style="display: none;" id="levels">{{ form.level.label(class="col-form-label") }}:
+                        {{ form.level(class="custom-select") }}</p>
 
                     <p>{{ form.starter.label(class="col-form-label") }}:
                         {{ form.starter(class="custom-select") }}</p>
@@ -81,4 +84,16 @@
 </form>
 
 
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    function computercheck(that) {
+        if (that.value == 'computer') {
+            document.getElementById("levels").style.display = "block";
+        } else {
+            document.getElementById("levels").style.display = "none";
+        }
+    }
+</script>
 {% endblock %}

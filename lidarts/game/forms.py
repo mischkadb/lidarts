@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, InputRequired, NumberRange, Validat
 
 game_types = [('170', '170'), ('301', '301'), ('501', '501')]
 opponents = [('local', 'Local'), ('online', 'Online'), ('computer', 'Computer')]
+level = [(str(x), str(x)) for x in range(1, 9)]
 starter = [('me', 'Me'), ('opponent', 'Opponent'), ('closest_to_bull', 'Closest to Bull')]
 bo_choice = [(str(x), str(x)) for x in range(1, 30)]
 in_choice = [('si', 'Straight In'), ('di', 'Double In')]
@@ -26,6 +27,7 @@ class ScoreForm(FlaskForm):
 class CreateX01GameForm(FlaskForm):
     type = SelectField('Game type', choices=game_types, validators=[DataRequired()])
     opponent = SelectField('Opponent', choices=opponents, validators=[DataRequired()])
+    level = SelectField('Opponent', choices=level)
     starter = SelectField('First to throw', choices=starter, validators=[DataRequired()])
     bo_sets = SelectField('Best of Sets', choices=bo_choice, validators=[DataRequired()])
     bo_legs = SelectField('Best of Legs', choices=bo_choice, validators=[DataRequired()])
