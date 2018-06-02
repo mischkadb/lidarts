@@ -9,6 +9,7 @@ $(document).ready(function() {
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
+    socket.emit('user_heartbeat');
 
     window.setInterval(function(){
         /// call your function here
