@@ -4,6 +4,7 @@ from lidarts import socketio, db
 from flask_login import current_user
 from lidarts.models import Game
 from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
+from lidarts.socket.computer import get_computer_score
 import json
 
 
@@ -75,6 +76,8 @@ def send_score_response(game, old_score=0, broadcast=False):
     p1_first9_avg = round(sum(p1_first9_scores)/len(p1_first9_scores),2) if p1_first9_scores else 0
     p2_first9_avg = round(sum(p2_first9_scores)/len(p2_first9_scores), 2) if p2_first9_scores else 0
 
+    computer_game = game.opponent_type == 'computer'
+
     emit('score_response',
          {'hashid': game.hashid,
           'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
@@ -89,7 +92,8 @@ def send_score_response(game, old_score=0, broadcast=False):
           'p1_180': p1_180, 'p2_180': p2_180,
           #'p1_doubles': p1_doubles, 'p2_doubles': p2_doubles,
           'p1_high_finish': p1_high_finish, 'p2_high_finish': p2_high_finish,
-          'p1_short_leg': p1_short_leg, 'p2_short_leg': p2_short_leg
+          'p1_short_leg': p1_short_leg, 'p2_short_leg': p2_short_leg,
+          'computer_game': computer_game
           },
 
          room=game.hashid, broadcast=broadcast)
@@ -122,15 +126,30 @@ def start_game(hashid):
 
 @socketio.on('send_score', namespace='/game')
 def send_score(message):
-    if not message['score'] or int(message['user_id']) != current_turn_user_id(message['hashid']):
-        return
     hashid = message['hashid']
-    score_value = int(message['score'])
     game = Game.query.filter_by(hashid=hashid).first()
+
+    if 'computer' in message:
+        # calculate computer's score
+        message['score'] = get_computer_score(message['hashid'])
+    elif not message['score']:
+        return
+    # players may throw simultaneously at closest to bull
+    elif int(message['user_id']) != current_turn_user_id(message['hashid']) and not game.closest_to_bull:
+        return
+    # spectators should never submit scores :-)
+    elif int(message['user_id']) not in (game.player1, game.player2):
+        return
+
+    score_value = int(message['score'])
 
     # Closest to bull handler to determine starting player
     if game.closest_to_bull:
         process_closest_to_bull(game, score_value)
+        if game.opponent_type.startswith('computer'):
+            # computer's attempt at double bullseye
+            score = get_computer_score(game.hashid)
+            process_closest_to_bull(game, score, computer=True)
         return
 
     match_json = json.loads(game.match_json)
@@ -156,7 +175,7 @@ def send_score(message):
              room=game.hashid, broadcast=True)
         leave_room(game.hashid)
 
-    if old_set_count < len(match_json) or old_leg_count < len(match_json[str(len(match_json))]):
+    elif old_set_count < len(match_json) or old_leg_count < len(match_json[str(len(match_json))]):
         if len(match_json[str(len(match_json))]) == 1:  # new set
             last_set = match_json[str(len(match_json)-1)]
             last_leg = last_set[str(len(last_set))]

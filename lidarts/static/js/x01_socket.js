@@ -37,7 +37,6 @@ $(document).ready(function() {
             $('#p2_score').append(' ' + value);
         });
         $('#closest_to_bull_notification').text('Draw. Throw again.');
-        $('#closest_to_bull_notification').text('Draw. Throw again.');
     });
 
     socket.on('closest_to_bull_completed', function(msg) {
@@ -292,6 +291,14 @@ $(document).ready(function() {
 
             $('.p1_turn_incidator').html('');
             $('.p2_turn_incidator').html('<i class="fas fa-angle-left"></i>');
+        }
+
+        if (msg.computer_game && !msg.p1_next_turn) {
+            setTimeout(function() {
+                socket.emit('send_score', {hashid: hashid['hashid'],
+                    user_id: user_id['id'], computer: true});
+            }, 3000);
+
         }
     });
     // Remove turn indicators when game is over and show link to game overview

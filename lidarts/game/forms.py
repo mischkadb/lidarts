@@ -3,7 +3,7 @@ from wtforms import IntegerField, SelectField, SubmitField
 from wtforms.validators import DataRequired, InputRequired, NumberRange, ValidationError
 
 game_types = [('170', '170'), ('301', '301'), ('501', '501')]
-opponents = [('local', 'Local'), ('online', 'Online')]
+opponents = [('local', 'Local'), ('online', 'Online'), ('computer', 'Computer')]
 starter = [('me', 'Me'), ('opponent', 'Opponent'), ('closest_to_bull', 'Closest to Bull')]
 bo_choice = [(str(x), str(x)) for x in range(1, 30)]
 in_choice = [('si', 'Straight In'), ('di', 'Double In')]

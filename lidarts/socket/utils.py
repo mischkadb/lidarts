@@ -1,4 +1,5 @@
 from flask_socketio import emit
+from flask_login import current_user
 from lidarts import db
 from lidarts.models import Game
 from lidarts.socket.chat_handler import broadcast_game_completed
@@ -157,7 +158,8 @@ def process_score(hashid, score_value):
 
     if game.status == 'completed':
         game.end = datetime.now()
-        broadcast_game_completed(game)
+        if not game.opponent_type.startswith('computer'):
+            broadcast_game_completed(game)
     # new leg
     elif new_leg_starter:
         game.p1_next_turn = True if new_leg_starter == '1' else False
@@ -173,7 +175,7 @@ def current_turn_user_id(hashid):
     return game.player1 if game.p1_next_turn else game.player2
 
 
-def process_closest_to_bull(game, score_value):
+def process_closest_to_bull(game, score_value, computer=False):
     if score_value > 60:
         return
     closest_to_bull_json = json.loads(game.closest_to_bull_json)
@@ -181,6 +183,9 @@ def process_closest_to_bull(game, score_value):
     if game.player1 == game.player2:
         player = '2' if (len(closest_to_bull_json['1']) % 3 == 0) and \
                         (len(closest_to_bull_json['1']) > len(closest_to_bull_json['2'])) else '1'
+    # computer game
+    elif computer:
+        player = '2'
     # online game
     else:
         player = '1' if game.player1 == current_user.id else '2'

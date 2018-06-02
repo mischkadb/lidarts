@@ -96,6 +96,7 @@ class Game(db.Model):
     out_mode = db.Column(db.String(15))
     begin = db.Column(db.DateTime)
     end = db.Column(db.DateTime)
+    opponent_type = db.Column(db.String(10))
 
     def set_hashid(self):
         hashids = Hashids(min_length=8)
