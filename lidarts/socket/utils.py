@@ -11,7 +11,9 @@ from datetime import datetime
 def player1_started_leg(leg):
     # player 1 started leg if player 1 threw more darts (no break)
     # or player 1 lost the leg and threw the same amount of darts (break)
-    return len(leg['1']) > len(leg['2']) or (len(leg['1']) == len(leg['2']) and sum(leg['1']) < sum(leg['2']))
+    return len(leg['1']['scores']) > len(leg['2']['scores']) \
+           or (len(leg['1']['scores']) == len(leg['2']['scores'])
+               and sum(leg['1']['scores']) < sum(leg['2']['scores']))
 
 
 def player_to_dict(game, player1):
@@ -81,7 +83,8 @@ def process_leg_win(player_dict, match_json, current_values):
             player_dict['o_legs'] = 0
             current_values['set'] = str(int(current_values['set']) + 1)
             current_values['leg'] = '1'
-            match_json[current_values['set']] = {current_values['leg']: {'1': [], '2': []}}
+            match_json[current_values['set']] = {current_values['leg']: {'1': {'scores': [], 'double_missed': 0},
+                                                                         '2': {'scores': [], 'double_missed': 0}}}
 
     else:  # no new set unless drawn
         # check for drawn set
@@ -102,15 +105,17 @@ def process_leg_win(player_dict, match_json, current_values):
                 player_dict['o_legs'] = 0
                 current_values['set'] = str(int(current_values['set']) + 2)  # + 2 because both players won a set
                 current_values['leg'] = '1'
-                match_json[current_values['set']] = {current_values['leg']: {'1': [], '2': []}}
+                match_json[current_values['set']] = {current_values['leg']: {'1': {'scores': [], 'double_missed': 0},
+                                                                             '2': {'scores': [], 'double_missed': 0}}}
         else:  # no draw, just new leg
             current_values['leg'] = str(int(current_values['leg']) + 1)
-            match_json[current_values['set']][current_values['leg']] = {'1': [], '2': []}
+            match_json[current_values['set']][current_values['leg']] = {'1': {'scores': [], 'double_missed': 0},
+                                                                        '2': {'scores': [], 'double_missed': 0}}
 
     return player_dict, match_json, current_values
 
 
-def process_score(hashid, score_value):
+def process_score(hashid, score_value, double_missed, to_finish):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
     match_json = json.loads(game.match_json)
 
@@ -125,13 +130,18 @@ def process_score(hashid, score_value):
     player_dict = player_to_dict(game, game.p1_next_turn)
     new_leg_starter = 0  # used for leg starting player
 
+    if to_finish:
+        match_json[current_values['set']][current_values['leg']][current_values['player']]['to_finish'] = to_finish
+
+    match_json[current_values['set']][current_values['leg']][current_values['player']]['double_missed'] += double_missed
+
     # check if leg was won
     if player_dict['p_score'] - score_value == 0:
         # add thrown score to match json object
-        match_json[current_values['set']][current_values['leg']][current_values['player']].append(score_value)
+        match_json[current_values['set']][current_values['leg']][current_values['player']]['scores'].append(score_value)
 
         # check who begins next leg
-        new_leg_starter = '2'  \
+        new_leg_starter = '2' \
             if player1_started_leg(match_json[current_values['set']][current_values['leg']]) else '1'
 
         # check for won sets, won match, update scores etc.
@@ -143,14 +153,14 @@ def process_score(hashid, score_value):
             game.p2_score = game.type
     # check if busted
     elif player_dict['p_score'] - score_value < 0:
-        match_json[current_values['set']][current_values['leg']][current_values['player']].append(0)
+        match_json[current_values['set']][current_values['leg']][current_values['player']]['scores'].append(0)
     # Double/Master out: score cannot drop to 1
     elif game.out_mode in ['do', 'mo'] and player_dict['p_score'] - score_value == 1:
-        match_json[current_values['set']][current_values['leg']][current_values['player']].append(0)
+        match_json[current_values['set']][current_values['leg']][current_values['player']]['scores'].append(0)
     # nothing special happened, just score
     else:
         player_dict['p_score'] -= score_value
-        match_json[current_values['set']][current_values['leg']][current_values['player']].append(score_value)
+        match_json[current_values['set']][current_values['leg']][current_values['player']]['scores'].append(score_value)
 
     # save everything back into the model object
     game = game_from_dict(game, player_dict)

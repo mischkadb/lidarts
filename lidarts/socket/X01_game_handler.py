@@ -1,7 +1,6 @@
 from flask import request
 from flask_socketio import emit, join_room, leave_room
-from lidarts import socketio, db
-from flask_login import current_user
+from lidarts import socketio
 from lidarts.models import Game
 from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.computer import get_computer_score
@@ -12,11 +11,11 @@ def send_score_response(game, old_score=0, broadcast=False):
     match_json = json.loads(game.match_json)
     current_set = str(len(match_json))
     current_leg = str(len(match_json[str(len(match_json))]))
-    p1_current_leg = match_json[current_set][current_leg]['1']
-    p2_current_leg = match_json[current_set][current_leg]['2']
+    p1_current_leg_scores = match_json[current_set][current_leg]['1']['scores']
+    p2_current_leg_scores = match_json[current_set][current_leg]['2']['scores']
     # various statistics for footer
-    p1_leg_avg = round(sum(p1_current_leg) / len(p1_current_leg), 2) if len(p1_current_leg) else 0
-    p2_leg_avg = round(sum(p2_current_leg) / len(p2_current_leg), 2) if len(p2_current_leg) else 0
+    p1_leg_avg = round(sum(p1_current_leg_scores) / len(p1_current_leg_scores), 2) if len(p1_current_leg_scores) else 0
+    p2_leg_avg = round(sum(p2_current_leg_scores) / len(p2_current_leg_scores), 2) if len(p2_current_leg_scores) else 0
 
     p1_180 = 0
     p2_180 = 0
@@ -33,23 +32,51 @@ def send_score_response(game, old_score=0, broadcast=False):
     p1_short_leg = 0
     p2_short_leg = 0
 
+    p1_darts_thrown = 0
+    p1_darts_thrown_double = 0
+    p1_legs_won = 0
+    p2_darts_thrown = 0
+    p2_darts_thrown_double = 0
+    p2_legs_won = 0
+
     for set in match_json:
         for leg in match_json[set]:
-            if sum(match_json[set][leg]['1']) == game.type:
-                p1_short_leg = len(match_json[set][leg]['1'])*3 if p1_short_leg == 0 else p1_short_leg
-                p1_short_leg = len(match_json[set][leg]['1'])*3 \
-                    if len(match_json[set][leg]['1']) < p1_short_leg else p1_short_leg
-                p1_high_finish = match_json[set][leg]['1'][-1] \
-                    if match_json[set][leg]['1'][-1] > p1_high_finish else p1_high_finish
+            p1_darts_thrown_double += match_json[set][leg]['1']['double_missed']
+            p2_darts_thrown_double += match_json[set][leg]['2']['double_missed']
 
-            if sum(match_json[set][leg]['2']) == game.type:
-                p2_short_leg = len(match_json[set][leg]['2'])*3 if p2_short_leg == 0 else p2_short_leg
-                p2_short_leg = len(match_json[set][leg]['2'])*3 \
-                    if len(match_json[set][leg]['2']) < p2_short_leg else p2_short_leg
-                p2_high_finish = match_json[set][leg]['2'][-1] \
-                    if match_json[set][leg]['2'][-1] > p2_high_finish else p2_high_finish
+            p1_darts_thrown_this_leg = len(match_json[set][leg]['1']['scores']) * 3
+            p2_darts_thrown_this_leg = len(match_json[set][leg]['2']['scores']) * 3
 
-            for i, score in enumerate(match_json[set][leg]['1']):
+            if sum(match_json[set][leg]['1']['scores']) == game.type:
+                if 'to_finish' in match_json[set][leg]['1']:
+                    p1_darts_thrown_this_leg -= (3 - match_json[set][leg]['1']['to_finish'])
+
+                p1_darts_thrown_double += 1
+                p1_legs_won += 1
+
+                p1_short_leg = p1_darts_thrown_this_leg if p1_short_leg == 0 else p1_short_leg
+                p1_short_leg = p1_darts_thrown_this_leg \
+                    if p1_darts_thrown_this_leg < p1_short_leg else p1_short_leg
+                p1_high_finish = match_json[set][leg]['1']['scores'][-1] \
+                    if match_json[set][leg]['1']['scores'][-1] > p1_high_finish else p1_high_finish
+
+            if sum(match_json[set][leg]['2']['scores']) == game.type:
+                if 'to_finish' in match_json[set][leg]['2']:
+                    p2_darts_thrown_this_leg -= (3 - match_json[set][leg]['2']['to_finish'])
+
+                p2_darts_thrown_double += 1
+                p2_legs_won += 1
+
+                p2_short_leg = p2_darts_thrown_this_leg if p2_short_leg == 0 else p2_short_leg
+                p2_short_leg = p2_darts_thrown_this_leg \
+                    if p2_darts_thrown_this_leg < p2_short_leg else p2_short_leg
+                p2_high_finish = match_json[set][leg]['2']['scores'][-1] \
+                    if match_json[set][leg]['2']['scores'][-1] > p2_high_finish else p2_high_finish
+
+            p1_darts_thrown += p1_darts_thrown_this_leg
+            p2_darts_thrown += p2_darts_thrown_this_leg
+
+            for i, score in enumerate(match_json[set][leg]['1']['scores']):
                 p1_scores.append(score)
                 if i <= 3:
                     p1_first9_scores.append(score)
@@ -60,7 +87,7 @@ def send_score_response(game, old_score=0, broadcast=False):
                 elif score >= 100:
                     p1_100 += 1
 
-            for i, score in enumerate(match_json[set][leg]['2']):
+            for i, score in enumerate(match_json[set][leg]['2']['scores']):
                 p2_scores.append(score)
                 if i <= 3:
                     p2_first9_scores.append(score)
@@ -71,10 +98,13 @@ def send_score_response(game, old_score=0, broadcast=False):
                 elif score >= 100:
                     p2_100 += 1
 
-    p1_match_avg = round(sum(p1_scores) / len(p1_scores), 2) if p1_scores else 0
-    p2_match_avg = round(sum(p2_scores) / len(p2_scores), 2) if p2_scores else 0
-    p1_first9_avg = round(sum(p1_first9_scores)/len(p1_first9_scores),2) if p1_first9_scores else 0
+    p1_match_avg = round(sum(p1_scores) * 3 / (p1_darts_thrown), 2) if p1_scores else 0
+    p2_match_avg = round(sum(p2_scores) * 3 / (p2_darts_thrown), 2) if p2_scores else 0
+    p1_first9_avg = round(sum(p1_first9_scores)/len(p1_first9_scores), 2) if p1_first9_scores else 0
     p2_first9_avg = round(sum(p2_first9_scores)/len(p2_first9_scores), 2) if p2_first9_scores else 0
+
+    p1_doubles = round(p1_legs_won / p1_darts_thrown_double, 4)*100 if p1_legs_won else 0
+    p2_doubles = round(p2_legs_won / p2_darts_thrown_double, 4)*100 if p2_legs_won else 0
 
     computer_game = game.opponent_type.startswith('computer')
 
@@ -82,18 +112,21 @@ def send_score_response(game, old_score=0, broadcast=False):
          {'hashid': game.hashid,
           'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
           'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs,
-          'p1_next_turn': game.p1_next_turn, 'p1_current_leg': p1_current_leg,
-          'p2_current_leg': p2_current_leg, 'old_score': old_score,
+          'p1_next_turn': game.p1_next_turn, 'p1_current_leg': p1_current_leg_scores,
+          'p2_current_leg': p2_current_leg_scores, 'old_score': old_score,
           'p1_leg_avg': p1_leg_avg, 'p2_leg_avg': p2_leg_avg,
           'p1_match_avg': p1_match_avg, 'p2_match_avg': p2_match_avg,
           'p1_first9_avg': p1_first9_avg, 'p2_first9_avg': p2_first9_avg,
           'p1_100': p1_100, 'p2_100': p2_100,
           'p1_140': p1_140, 'p2_140': p2_140,
           'p1_180': p1_180, 'p2_180': p2_180,
-          #'p1_doubles': p1_doubles, 'p2_doubles': p2_doubles,
+          'p1_doubles': p1_doubles, 'p2_doubles': p2_doubles,
+          'p1_legs_won': p1_legs_won, 'p2_legs_won': p2_legs_won,
+          'p1_darts_thrown_double': p1_darts_thrown_double, 'p2_darts_thrown_double': p2_darts_thrown_double,
           'p1_high_finish': p1_high_finish, 'p2_high_finish': p2_high_finish,
           'p1_short_leg': p1_short_leg, 'p2_short_leg': p2_short_leg,
-          'computer_game': computer_game
+          'computer_game': computer_game,
+          'p1_id': game.player1, 'p2_id': game.player2
           },
 
          room=game.hashid, broadcast=broadcast)
@@ -131,7 +164,7 @@ def send_score(message):
 
     if 'computer' in message:
         # calculate computer's score
-        message['score'] = get_computer_score(message['hashid'])
+        message['score'], message['double_missed'], message['to_finish'] = get_computer_score(message['hashid'])
     elif not message['score']:
         return
     # players may throw simultaneously at closest to bull
@@ -158,15 +191,15 @@ def send_score(message):
     old_set_count = len(match_json)
     old_leg_count = len(match_json[str(len(match_json))])
 
-    game = process_score(hashid, score_value)
+    game = process_score(hashid, score_value, int(message['double_missed']), int(message['to_finish']))
     # check for match_json updates
     match_json = json.loads(game.match_json)
 
     if game.status == 'completed':
         last_set = match_json[str(len(match_json))]
         last_leg = last_set[str(len(last_set))]
-        p1_last_leg = last_leg['1']
-        p2_last_leg = last_leg['2']
+        p1_last_leg = last_leg['1']['scores']
+        p2_last_leg = last_leg['2']['scores']
         p1_won = sum(p1_last_leg) == game.type
         emit('game_completed', {'hashid': game.hashid, 'p1_last_leg': p1_last_leg,
                                 'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
@@ -182,8 +215,8 @@ def send_score(message):
         else:  # no new set
             last_set = match_json[str(len(match_json))]
             last_leg = last_set[str(len(last_set)-1)]
-        p1_last_leg = last_leg['1']
-        p2_last_leg = last_leg['2']
+        p1_last_leg = last_leg['1']['scores']
+        p2_last_leg = last_leg['2']['scores']
         p1_won = sum(p1_last_leg) == game.type
         emit('game_shot', {'hashid': game.hashid, 'p1_last_leg': p1_last_leg, 'p2_last_leg': p2_last_leg,
                            'p1_won': p1_won, 'type': game.type, 'p1_sets': game.p1_sets,

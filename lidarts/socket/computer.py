@@ -2,7 +2,7 @@ from lidarts.models import Game
 from collections import deque
 import numpy as np
 
-#checkout table contains the next field to aim at
+# checkout table contains the next field to aim at
 checkout_table = {'170': 'T20', '167': 'T20', '164': 'T20', '161': 'T20', '160': 'T20', '158': 'T20',
                   '157': 'T20', '156': 'T20', '155': 'T20', '154': 'T20', '153': 'T20', '152': 'T20',
                   '151': 'T20', '150': 'T20', '149': 'T20', '148': 'T20', '147': 'T20', '146': 'T20',
@@ -231,19 +231,25 @@ def get_computer_score(hashid):
     # get current remaining score
     remaining_score = game.p2_score
     thrown_score_total = 0
+    thrown_at_double = 0
 
-    for dart in range(3):
+    for dart in range(1, 4):
         # acquire target depending on remaining score
         if game.closest_to_bull:
             return throw_dart('D25', computer)
         else:
             target = get_target(remaining_score, game.out_mode)
+
+        if target[0] == 'D' and remaining_score <= 50:
+            thrown_at_double += 1
         # simulate dart throw
         thrown_score = throw_dart(target, computer)
         thrown_score_total += thrown_score
         remaining_score -= thrown_score
         # don't keep throwing if leg won or busted
-        if remaining_score <= 0:
+        if remaining_score == 0:
+            return thrown_score_total, thrown_at_double, dart
+        elif remaining_score < 0:
             break
 
-    return thrown_score_total
+    return thrown_score_total, thrown_at_double, 0

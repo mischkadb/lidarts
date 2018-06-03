@@ -8,6 +8,10 @@ $(document).ready(function() {
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
+    var p1_next_turn;
+    var p1_id;
+    var p2_id;
+
     var hashid = $('#hash_id').data();
     socket.on('connect', function() {
         socket.emit('init', {hashid: hashid['hashid'] });
@@ -170,6 +174,10 @@ $(document).ready(function() {
 
     // Event handler for server sent score data
     socket.on('score_response', function(msg) {
+        p1_next_turn = msg.p1_next_turn;
+        p1_id = msg.p1_id;
+        p2_id = msg.p2_id;
+
         if ( !msg.p1_next_turn && msg.old_score > msg.p1_score) {
             // score substraction animation
             jQuery({Counter: msg.old_score}).animate({Counter: msg.p1_score-1}, {
@@ -220,6 +228,8 @@ $(document).ready(function() {
         $('.p2_high_finish').text(msg.p2_high_finish);
         $('.p1_short_leg').text(msg.p1_short_leg);
         $('.p2_short_leg').text(msg.p2_short_leg);
+        $('.p1_doubles').text(msg.p1_doubles + '% ('+ msg.p1_legs_won + '/' + msg.p1_darts_thrown_double + ')');
+        $('.p2_doubles').text(msg.p2_doubles + '% ('+ msg.p2_legs_won + '/' + msg.p2_darts_thrown_double + ')');
 
         $('#p1_current_leg').text('');
         $.each(msg.p1_current_leg, function( index, value ){
@@ -384,30 +394,183 @@ $(document).ready(function() {
         $('.confirm_completion').show();
     });
 
-    // Handler for the score input form.
-    var validation_url = $('#validation_url').data();
-    var user_id = $('#user_id').data();
-    var score_errors = [];
-    $('form#score_input').submit(function(event) {
-        $('#score_error').text('');
+    function send_score(double_missed, to_finish, score_value){
         $.post(
             // Various errors that are caught if you enter something wrong.
             validation_url,
             $("#score_input").serialize(),
             function (errors) {
-                score_errors = errors
+                score_errors = errors;
                 if (jQuery.isEmptyObject(score_errors)) {
-                    socket.emit('send_score', {score: $('#score_value').val(), hashid: hashid['hashid'],
-                        user_id: user_id['id']});
+                    socket.emit('send_score', {score: score_value, hashid: hashid['hashid'],
+                        user_id: user_id['id'], double_missed: double_missed, to_finish: to_finish});
                 } else {
                     $('#score_error').text(score_errors['score_value'][0]);
                 }
                 $('input[name=score_value]').val('');
                 $('#score_value_sm').val($('#score_value').val());
             });
-        return false;
-    });
+    }
 
+    function handle_score_input(remaining_score, score_value) {
+        // player checkout
+        if (remaining_score == score_value) {
+
+            // modal for double misses
+            const modal = new Promise(function (resolve) {
+                // you cannot miss 3 darts if you check
+                $('#double-missed-3').hide();
+
+                // one dart checkout possible
+                if ((remaining_score <= 40 && remaining_score % 2 == 0) || remaining_score == 50) {
+                    $('#double-missed-2').show();
+                } else {
+                    $('#double-missed-2').hide();
+                }
+
+                // two dart checkout possible (naive)
+                if (remaining_score > 110) {
+                    $('#double-missed-1').hide();
+                } else {
+                    $('#double-missed-1').show();
+                }
+                // missing none is always possible
+                $('#double-missed-0').show();
+
+                // if it's clear we do not need to ask (score too high for missed doubles)
+                if ( remaining_score > 110 ) {
+                    resolve(0);
+                } else {
+                    $('#double-missed-modal').modal('show');
+                    $('#double-missed-modal #double-missed-2').click(function () {
+                        resolve(2);
+                    });
+                    $('#double-missed-modal #double-missed-1').click(function () {
+                        resolve(1);
+                    });
+                    $('#double-missed-modal #double-missed-0').click(function () {
+                        resolve(0);
+                    });
+                }
+            }).then(function (val) {
+                double_missed = val;
+
+                // modal for darts needed for checkout
+                const modal2 = new Promise(function (resolve) {
+                    // 3 darts for finishing are always possible
+                    $('#to-finish-3').show();
+
+                    // 2 dart finish is only possible at 110 or lower (naive)
+                    if (remaining_score > 110) {
+                        $('#to-finish-2').hide();
+                    } else {
+                        $('#to-finish-2').show();
+                    }
+
+                    // 1 dart finish only for checkable remaining scores
+                    if ((remaining_score <= 40 && remaining_score % 2 == 0) || remaining_score == 50) {
+                        $('#to-finish-1').show();
+                    } else {
+                        $('#to-finish-1').hide();
+                    }
+
+                    // no need to ask if it must be a 3-dart checkout
+                    if (remaining_score > 110) {
+                        resolve(3);
+                    } else {
+                        $('#darts-to-finish-modal').modal('show');
+                        $('#darts-to-finish-modal #to-finish-3').click(function () {
+                            resolve(3);
+                        });
+                        $('#darts-to-finish-modal #to-finish-2').click(function () {
+                            resolve(2);
+                        });
+                        $('#darts-to-finish-modal #to-finish-1').click(function () {
+                            resolve(1);
+                        });
+                    }
+                }).then(function (val) {
+                    to_finish = val;
+                    send_score(double_missed, to_finish, score_value);
+                    return false;
+                });
+            });
+        }
+        // if remaining score - score_value is higher than 50 there is no way for a double attempt
+        else if (remaining_score - score_value > 50) {
+            send_score(double_missed, to_finish, score_value);
+            return false;
+        }
+        // maybe a double was missed
+        else {
+            // modal for double misses
+            const modal = new Promise(function (resolve) {
+                // you can only miss 3 if you started on a checkout score
+                if ((remaining_score <= 40 && remaining_score % 2 == 0) || remaining_score == 50) {
+                    $('#double-missed-3').show();
+                } else {
+                    $('#double-missed-3').hide();
+                }
+
+                // if a checkout is reachable with 1 dart --> 2 dart checkout possible (naive)
+                if (remaining_score <= 110) {
+                    $('#double-missed-2').show();
+                } else {
+                    $('#double-missed-2').hide();
+                }
+
+                // in our case a 1-dart miss is possible
+                $('#double-missed-1').show();
+
+                // missing none is always possible
+                $('#double-missed-0').show();
+
+                $('#double-missed-modal').modal('show');
+                $('#double-missed-modal #double-missed-3').click(function () {
+                    resolve(3);
+                });
+                $('#double-missed-modal #double-missed-2').click(function () {
+                    resolve(2);
+                });
+                $('#double-missed-modal #double-missed-1').click(function () {
+                    resolve(1);
+                });
+                $('#double-missed-modal #double-missed-0').click(function () {
+                    resolve(0);
+                });
+
+            }).then(function (val) {
+                double_missed = val;
+                send_score(double_missed, to_finish, score_value);
+            });
+        }
+    }
+
+    // Handler for the score input form.
+    var validation_url = $('#validation_url').data();
+    var user_id = $('#user_id').data();
+    var score_errors = [];
+    var double_missed = 0;
+    var to_finish = 0;
+
+    $('form#score_input').submit(function(event) {
+        $('#score_error').text('');
+        var score_value = $('#score_value').val();
+
+        // check for valid input values
+        if (score_value <= 180) {
+            // player 1 handler
+            if (user_id['id'] == p1_id && p1_next_turn) {
+                handle_score_input($('#p1_score').text(), score_value)
+
+            }
+            // player 2 handler
+            else if (user_id['id'] == p2_id && !p1_next_turn) {
+                handle_score_input($('#p2_score').text(), score_value)
+            }
+            return false;
+        }
+    });
 
 
 });
@@ -423,15 +586,33 @@ $(document).keypress(function(e){
     if (document.activeElement != score_input && document.activeElement != score_input_sm) {
         // 1
         if (keyCode == 49 || keyCode == 97) {
-            $('.score_value').val($('.score_value').val() + '1');
+            if ($('#double-missed-1').is(":visible")){
+                $('#double-missed-1').click();
+            } else if ($('#to-finish-1').is(":visible")){
+                $('#to-finish-1').click();
+            } else {
+                $('.score_value').val($('.score_value').val() + '1');
+            }
         }
         // 2
         else if (keyCode == 50 || keyCode == 98) {
-            $('.score_value').val($('.score_value').val() + '2');
+            if ($('#double-missed-2').is(":visible")){
+                $('#double-missed-2').click();
+            } else if ($('#to-finish-2').is(":visible")){
+                $('#to-finish-2').click();
+            } else {
+                $('.score_value').val($('.score_value').val() + '2');
+            }
         }
         // 3
         else if (keyCode == 51 || keyCode == 99) {
-            $('.score_value').val($('.score_value').val() + '3');
+            if ($('#double-missed-3').is(":visible")){
+                $('#double-missed-3').click();
+            } else if ($('#to-finish-3').is(":visible")){
+                $('#to-finish-3').click();
+            } else {
+                $('.score_value').val($('.score_value').val() + '3');
+            }
         }
         // 4
         else if (keyCode == 52 || keyCode == 100) {
@@ -459,7 +640,11 @@ $(document).keypress(function(e){
         }
         // 0
         else if (keyCode == 48 || keyCode == 96) {
-            $('.score_value').val($('.score_value').val() + '0');
+            if ($('#double-missed-0').is(":visible")){
+                $('#double-missed-0').click();
+            } else {
+                $('.score_value').val($('.score_value').val() + '0');
+            }
         }
         else if (keyCode == 13) {
             $('.score_input').submit();

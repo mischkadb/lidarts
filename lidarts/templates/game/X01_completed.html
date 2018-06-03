@@ -105,6 +105,7 @@
                             <div class="card-body player_name_card">
                                 <p>{{ stats['p1_match_avg'] }}</p>
                                 <p>{{ stats['p1_first9_avg'] }}</p>
+                                <p>{{ stats['p1_doubles']}}% ({{ stats['p1_legs_won'] }}/{{ stats['p1_darts_thrown_double'] }})</p>
                                 <p>{{ stats['p1_high_finish'] }}</p>
                                 <p>{{ stats['p1_short_leg'] }}</p>
                                 <p>{{ stats['p1_180'] }}</p>
@@ -124,6 +125,7 @@
                             <div class="card-body player_name_card">
                                 <p>Avg.</p>
                                 <p>First 9 Avg.</p>
+                                <p>Doubles</p>
                                 <p>Highest Finish</p>
                                 <p>Shortest Leg</p>
                                 <p>180</p>
@@ -143,6 +145,7 @@
                             <div class="card-body player_name_card">
                                 <p>{{ stats['p2_match_avg'] }}</p>
                                 <p>{{ stats['p2_first9_avg'] }}</p>
+                                <p>{{ stats['p2_doubles']}}% ({{ stats['p2_legs_won'] }}/{{ stats['p2_darts_thrown_double'] }})</p>
                                 <p>{{ stats['p2_high_finish'] }}</p>
                                 <p>{{ stats['p2_short_leg'] }}</p>
                                 <p>{{ stats['p2_180'] }}</p>
@@ -186,16 +189,16 @@
                                     {% else %}{{ game.player2_name }}{% endif %}</strong></td>
                                 {% for set in match_json %}
                                 {% for leg in match_json[set] %}
-                                <td class="border td-leg-overview {% if (match_json[set][leg][player]|sum == game.type) %}bg-leg-win text-light{% endif %}">
+                                <td class="border td-leg-overview {% if (match_json[set][leg][player]['scores']|sum == game.type) %}bg-leg-win text-light{% endif %}">
                                     <div style="position: relative">
-                                    <span class="leg-average">{% if (match_json[set][leg][player]|length > 0) %}
-                                        {{ (match_json[set][leg][player]|sum / match_json[set][leg][player]|length)|round(2) }}
+                                    <span class="leg-average">{% if (match_json[set][leg][player]['scores']|length > 0) %}
+                                        {{ (match_json[set][leg][player]['scores']|sum / match_json[set][leg][player]['scores']|length)|round(2) }}
                                         {% else %}0{% endif %}
                                     </span>
-                                        <span class="dart-count">{% if (match_json[set][leg][player]|sum == game.type) %}{{ match_json[set][leg][player]|length*3 }}
+                                        <span class="dart-count">{% if (match_json[set][leg][player]['scores']|sum == game.type) %}{{ match_json[set][leg][player]['scores']|length*3 }}
                                     {% else %}-{% endif %}
                                     </span>
-                                        <span class="score-remain">{{ game.type - match_json[set][leg][player]|sum }}
+                                        <span class="score-remain">{{ game.type - match_json[set][leg][player]['scores']|sum }}
                                     </span>
                                     </div>
                                 </td>
