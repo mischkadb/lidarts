@@ -70,6 +70,15 @@ def lobby():
             player_names[game.player2] = User.query.with_entities(User.username) \
                 .filter_by(id=game.player2).first_or_404()[0]
 
+    # get challenges
+    challenges = Game.query.filter_by(status='challenged', player2=current_user.id).all()
+    for game in challenges:
+        player_names[game.player1] = User.query.with_entities(User.username) \
+            .filter_by(id=game.player1).first_or_404()[0]
+    challenges = [r.as_dict() for r in challenges]
+
+
+    # get friend requests
     friend_requests = FriendshipRequest.query.filter_by(receiving_user_id=current_user.id).all()
     for friend_request in friend_requests:
         if friend_request.requesting_user_id not in player_names:
@@ -90,7 +99,8 @@ def lobby():
                 .filter_by(id=friend).first_or_404()[0]
 
     return render_template('generic/lobby.html', games_in_progress=games_in_progress, player_names=player_names,
-                           friend_requests=friend_requests, online_friend_list=online_friend_list)
+                           friend_requests=friend_requests, online_friend_list=online_friend_list,
+                           challenges=challenges)
 
 
 @bp.route('/chat', methods=['GET', 'POST'])

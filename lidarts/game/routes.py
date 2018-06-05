@@ -114,3 +114,14 @@ def validate_score():
     form = ScoreForm(request.form)
     result = form.validate()
     return jsonify(form.errors)
+
+
+@bp.route('/decline_challenge/')
+@bp.route('/decline_challenge/<id>', methods=['POST'])
+def decline_challenge(id):
+    print(id)
+    id = int(id)
+    game = Game.query.filter_by(id=id).first_or_404()
+    game.status = "declined"
+    db.session.commit()
+    return jsonify('success')
