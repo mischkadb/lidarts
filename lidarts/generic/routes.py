@@ -19,12 +19,17 @@ def index():
 
 @bp.route('/about')
 def about():
-    return render_template('generic/index.html')
+    return render_template('generic/about.html')
+
+
+@bp.route('/contact')
+def contact():
+    return render_template('generic/contact.html')
 
 
 @bp.route('/changelog')
 def changelog():
-    return render_template('generic/index.html')
+    return render_template('generic/changelog.html')
 
 
 @bp.route('/watch')

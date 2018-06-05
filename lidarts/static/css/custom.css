@@ -56,7 +56,11 @@ a.no-underline {
     padding-bottom: 2px;
 }
 
-.player_name_card h1, h2, h3, h4, h5 {
+.player_name_card h1,
+.player_name_card h2,
+.player_name_card h3,
+.player_name_card h4,
+.player_name_card h5 {
     margin-top: 0px;
     margin-bottom: 0px;
 }
