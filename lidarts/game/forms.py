@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SelectField, SubmitField
+from wtforms import IntegerField, SelectField, SubmitField, StringField
 from wtforms.validators import DataRequired, InputRequired, NumberRange, ValidationError
 
 game_types = [('170', '170'), ('301', '301'), ('501', '501')]
@@ -26,8 +26,9 @@ class ScoreForm(FlaskForm):
 
 class CreateX01GameForm(FlaskForm):
     type = SelectField('Game type', choices=game_types, validators=[DataRequired()])
-    opponent = SelectField('Opponent', choices=opponents, validators=[DataRequired()])
-    level = SelectField('Opponent', choices=level)
+    opponent = SelectField('Opponent', default='online', choices=opponents, validators=[DataRequired()])
+    opponent_name = StringField('Opponent name')
+    level = SelectField('Level', choices=level)
     starter = SelectField('First to throw', choices=starter, validators=[DataRequired()])
     bo_sets = SelectField('Best of Sets', choices=bo_choice, validators=[DataRequired()])
     bo_legs = SelectField('Best of Legs', choices=bo_choice, validators=[DataRequired()])

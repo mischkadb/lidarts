@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, jsonify, request
 from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm
-from lidarts.models import Game
+from lidarts.models import Game, User
 from lidarts import db
 from lidarts.socket.chat_handler import broadcast_new_game
 from lidarts.game.utils import get_name_by_id, collect_statistics
@@ -13,10 +13,11 @@ import json
 
 @bp.route('/create', methods=['GET', 'POST'])
 @bp.route('/create/<mode>', methods=['GET', 'POST'])
+@bp.route('/create/<mode>/<opponent_name>', methods=['GET', 'POST'])
 @login_required
-def create(mode='x01'):
+def create(mode='x01', opponent_name=None):
     if mode == 'x01':
-        form = CreateX01GameForm()
+        form = CreateX01GameForm(opponent_name=opponent_name)
     else:
         pass  # no other game modes yet
     if form.validate_on_submit():
@@ -25,7 +26,11 @@ def create(mode='x01'):
             player2 = current_user.id
             status = 'started'
         elif player1 and form.opponent.data == 'online':
-            player2 = None
+            if form.opponent_name.data:
+                player2 = User.query.with_entities(User.id).filter_by(username=form.opponent_name.data).first_or_404()
+                print(player2)
+            else:
+                player2 = None
             status = 'challenged'
         else:
             # computer as opponent
@@ -53,7 +58,7 @@ def create(mode='x01'):
         game.set_hashid()
         db.session.commit()
         return redirect(url_for('game.start', hashid=game.hashid))
-    return render_template('game/create_X01.html', form=form)
+    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name)
 
 
 @bp.route('/')
@@ -63,15 +68,15 @@ def start(hashid, theme=None):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
     # check if we found an opponent, logged in users only
     if game.status == 'challenged' and current_user.is_authenticated \
-            and current_user.id != game.player1 and not game.player2:
-        game.player2 = current_user.id
-        game.status = 'started'
-        db.session.commit()
-        # send message to global chat
-        if not game.opponent_type.startswith('computer'):
+            and current_user.id != game.player1:
+        if not game.player2 or game.player2 == current_user.id:
+            game.player2 = current_user.id
+            game.status = 'started'
+            db.session.commit()
+            # send message to global chat
             broadcast_new_game(game)
-        # signal the waiting player and spectators
-        start_game(hashid)
+            # signal the waiting player and spectators
+            start_game(hashid)
 
     game_dict = game.as_dict()
     if game.player1:
@@ -89,7 +94,8 @@ def start(hashid, theme=None):
 
     # for player1 and spectators while waiting
     if game.status == 'challenged':
-        return render_template('game/wait_for_opponent.html', game=game_dict)
+        p2_name = get_name_by_id(game.player2) if game.player2 else None
+        return render_template('game/wait_for_opponent.html', game=game_dict, p2_name=p2_name)
     # for everyone if the game is completed
     if game.status == 'completed':
         statistics = collect_statistics(game, match_json)

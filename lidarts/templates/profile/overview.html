@@ -42,7 +42,7 @@
                 </form></p>
                 {% endif %}
 
-                <p><a href="" class="text-secondary">Challenge to game</a></p>
+                <p><a href="{{ url_for('game.create', mode='x01', opponent_name=user.username) }}" class="text-secondary">Challenge to game</a></p>
 
                 {% endif %}
             </div>
