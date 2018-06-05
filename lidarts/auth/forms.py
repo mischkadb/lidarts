@@ -52,8 +52,8 @@ def valid_username(form, field):
     username = field.data
     if not username[0].isalnum() and username[0] not in '[(':
         raise ValidationError('Username must start with a letter, number or "(["')
-    if not username[-1].isalnum():
-        raise ValidationError('Username must end with a letter or a number')
+    if not username[-1].isalnum() and username[-1] not in ')]':
+        raise ValidationError('Username must end with a letter or a number or ")]"')
     last_is_symbol = False
     for x in username:
         if not x.isalnum() and x not in ' .-_()[]':
