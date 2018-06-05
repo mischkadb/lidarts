@@ -26,7 +26,7 @@ def valid_password(form, field):
     # password policy: either length > 15 or length > 8 and at least two out of: lowercase, uppercase, number, symbol
     password = field.data
     features = 0
-    if len(password) > 15:
+    if len(password) >= 15:
         features += 2
     if any(x.isupper() for x in password):
         features += 1
