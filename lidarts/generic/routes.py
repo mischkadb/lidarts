@@ -32,6 +32,11 @@ def changelog():
     return render_template('generic/changelog.html')
 
 
+@bp.route('/contribute')
+def contribute():
+    return render_template('generic/contribute.html')
+
+
 @bp.route('/watch')
 def live_games_overview():
     live_games = Game.query.filter_by(status='started').order_by(Game.begin.desc()).limit(9)

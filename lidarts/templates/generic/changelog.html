@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>Title
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Changelog{% endblock %}
 
-</body>
-</html>
+{% block app_content %}
+
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card bg-light text-dark bs-callout bs-callout-info">
+            <div class="card-body">
+                <h2>Changelog</h2>
+                <hr>
+                <p>Lidarts is continuously being worked on. Below you can find the changelog for the latest releases.
+                    To follow the development in detail visit our <a href="https://github.com/mischkadb/lidarts">GitHub repository</a>.</p>
+                <hr>
+                <h4>v0.4.0</h4>
+                <p class="text-secondary">Not released yet</p>
+                <p>
+                <ul class="text-secondary">
+                    <li>Started adding public changelogs :-) (versions slowly become important)</li>
+                    <li>Added public chat with online user name list</li>
+                    <li>Added 'friend'-feature with friend online list</li>
+                    <li>Improved online status handling</li>
+                    <li>Added 'closest to bull' as starting player option</li>
+                    <li>Switched from CDNs to self-hosted javascript of various embedded scripts</li>
+                    <li>Added some basic custom error pages</li>
+                    <li>Added computer player with 9 different levels (~30 - ~90 average)</li>
+                    <li>Added legal documents and a footer with most important links</li>
+                    <li>Applied username and password policy</li>
+                    <li>New and finished games now get displayed in public chat</li>
+                    <li>Added watch tab which displays the 9 latest live games</li>
+                    <li>Improved look of some pages and added various icons</li>
+                </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

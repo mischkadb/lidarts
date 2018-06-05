@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
 
-</body>
-</html>
+{% block app_content %}
+
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card bg-light text-dark bs-callout bs-callout-info">
+            <div class="card-body">
+                <h2>About lidarts.org</h2>
+                <hr>
+                <p>Lidarts is a <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">free/libre, open-source</a> online darts scoring website.</p>
+                <p>Still being in a very early stage, the main goal for Lidarts' future is to provide darts players an online service to play against real players and to help in their daily training. Many features are planned and wait for completion.</p>
+                <p>The entire project is driven by volunteers. Everyone is invited to <a href="{{ url_for('generic.contribute') }}">contribute</a>.</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

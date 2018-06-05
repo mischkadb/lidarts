@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Disclaimer{% endblock %}
 
-</body>
-</html>
+{% block app_content %}
+
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card bg-light text-dark bs-callout bs-callout-info">
+            <div class="card-body">
+                <h2>Contact</h2>
+                <hr>
+                <p>There are a few ways to contact us, more to come soon! No matter the reason, we try to reply as quickly as possible.</p>
+                <p>At the moment we can provide you support in English or German.</p>
+
+                <p>Discord: <a href="https://discord.gg/devMXxf">lidarts Discord server</a></p>
+                <p>GitHub: <a href="https://github.com/mischkadb/lidarts">lidarts on GitHub</a></p>
+                <p>Email: <a href="mailto:contact@lidarts.org">contact@lidarts.org</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
