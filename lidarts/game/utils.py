@@ -80,7 +80,7 @@ def collect_statistics(game, match_json):
                 elif score >= 100:
                     stats['p1_100'] += 1
                 elif score >= 80:
-                    stats['p1_800'] += 1
+                    stats['p1_80'] += 1
                 elif score >= 60:
                     stats['p1_60'] += 1
                 elif score >= 40:
@@ -101,7 +101,7 @@ def collect_statistics(game, match_json):
                 elif score >= 100:
                     stats['p2_100'] += 1
                 elif score >= 80:
-                    stats['p2_800'] += 1
+                    stats['p2_80'] += 1
                 elif score >= 60:
                     stats['p2_60'] += 1
                 elif score >= 40:
