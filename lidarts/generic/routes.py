@@ -77,7 +77,6 @@ def lobby():
             .filter_by(id=game.player1).first_or_404()[0]
     challenges = [r.as_dict() for r in challenges]
 
-
     # get friend requests
     friend_requests = FriendshipRequest.query.filter_by(receiving_user_id=current_user.id).all()
     for friend_request in friend_requests:

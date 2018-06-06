@@ -18,6 +18,7 @@
                     {% if register_user_form.password_confirm %}
                       {{ render_input_with_errors(register_user_form.password_confirm) }}
                     {% endif %}
+                    <p>By registering you confirm that you agree to our <a href="{{ url_for('legal.terms_and_conditions') }}">Terms and Conditions</a>.</p>
 
                     <button type="submit" class="btn btn-info"><i class="fas fa-user-plus"></i> Register</button>
                 </form>
