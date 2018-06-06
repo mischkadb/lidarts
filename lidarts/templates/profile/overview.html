@@ -54,7 +54,7 @@
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-history"></i> Recent games</h5>
                 <hr>
-                {% for game in games[:5] if game.status != 'challenged' %}
+                {% for game in games[:5] if game.status != 'challenged' and game.status != 'declined' %}
 
                 <p class="text-secondary"><a href="{{ url_for('game.start', hashid=game.hashid) }}"
                                              class="
