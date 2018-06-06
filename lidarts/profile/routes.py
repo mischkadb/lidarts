@@ -31,7 +31,7 @@ def overview(username):
 
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names, friend_list=friend_list,
-                           is_online=(user.last_seen > datetime.now() - timedelta(seconds=15)))
+                           is_online=(user.last_seen > datetime.utcnow() - timedelta(seconds=15)))
 
 
 @bp.route('/manage_friend_list')

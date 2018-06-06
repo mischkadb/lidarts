@@ -17,7 +17,7 @@ def connect():
 @socketio.on('user_heartbeat', namespace='/base')
 def connect():
     if current_user.is_authenticated:
-        current_user.last_seen = datetime.now()
+        current_user.last_seen = datetime.utcnow()
         db.session.commit()
         broadcast_online_players()
 

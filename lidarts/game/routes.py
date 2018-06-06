@@ -43,7 +43,7 @@ def create(mode='x01', opponent_name=None):
                     p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
                     p1_score=int(form.type.data), p2_score=int(form.type.data),
                     in_mode=form.in_mode.data, out_mode=form.out_mode.data,
-                    begin=datetime.now(), match_json=match_json,
+                    begin=datetime.utcnow(), match_json=match_json,
                     status=status, opponent_type=form.opponent.data)
         if game.opponent_type.startswith('computer'):
             game.opponent_type += form.level.data

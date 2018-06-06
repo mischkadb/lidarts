@@ -167,7 +167,7 @@ def process_score(hashid, score_value, double_missed, to_finish):
     game.match_json = json.dumps(match_json)
 
     if game.status == 'completed':
-        game.end = datetime.now()
+        game.end = datetime.utcnow()
         if not game.opponent_type.startswith('computer'):
             broadcast_game_completed(game)
     # new leg

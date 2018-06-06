@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 def broadcast_online_players():
     online_players_dict = {}
-    online_players = User.query.filter(User.last_seen > (datetime.now() - timedelta(seconds=15))).all()
+    online_players = User.query.filter(User.last_seen > (datetime.utcnow() - timedelta(seconds=15))).all()
     for user in online_players:
         online_players_dict[user.id] = user.username
 
@@ -47,7 +47,7 @@ def connect():
 @socketio.on('broadcast_chat_message', namespace='/chat')
 def broadcast_chat_message(message):
     print(message)
-    new_message = Chatmessage(message=message['message'], author=message['user_id'], timestamp=datetime.now())
+    new_message = Chatmessage(message=message['message'], author=message['user_id'], timestamp=datetime.utcnow())
     db.session.add(new_message)
     db.session.commit()
 
