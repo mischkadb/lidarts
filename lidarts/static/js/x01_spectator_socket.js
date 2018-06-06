@@ -8,10 +8,63 @@ $(document).ready(function() {
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
+    var p1_next_turn;
+    var p1_id;
+    var p2_id;
+
     var hashid = $('#hash_id').data();
     socket.on('connect', function() {
         socket.emit('init', {hashid: hashid['hashid'] });
     });
+
+    socket.on('closest_to_bull_score', function(msg) {
+        $('#closest_to_bull_notification').text('Throw three darts at bull.');
+        $('#p1_score').html('');
+        $('#p2_score').html('');
+        if (msg.p1_score.length == 0){  $('#p1_score').html('-'); }
+        if (msg.p2_score.length == 0){  $('#p2_score').html('-'); }
+        $.each(msg.p1_score, function( index, value ){
+            $('#p1_score').append(' ' + value);
+        });
+        $.each(msg.p2_score, function( index, value ){
+            $('#p2_score').append(' ' + value);
+        });
+    });
+
+    socket.on('closest_to_bull_draw', function(msg) {
+        $('#p1_score').html('');
+        $('#p2_score').html('');
+        $.each(msg.p1_score, function( index, value ){
+            $('#p1_score').append(' ' + value);
+        });
+        $.each(msg.p2_score, function( index, value ){
+            $('#p2_score').append(' ' + value);
+        });
+        $('#closest_to_bull_notification').text('Draw. Throw again.');
+    });
+
+    socket.on('closest_to_bull_completed', function(msg) {
+        $('#p1_score').html('');
+        $('#p2_score').html('');
+        $.each(msg.p1_score, function( index, value ){
+            $('#p1_score').append(' ' + value);
+        });
+        $.each(msg.p2_score, function( index, value ){
+            $('#p2_score').append(' ' + value);
+        });
+        if (msg.p1_won) {
+            $('#closest_to_bull_notification').text('Player 1 to throw first. Game on!');
+        } else {
+            $('#closest_to_bull_notification').text('Player 2 to throw first. Game on!');
+        }
+        setTimeout(function() {
+            $('#closest_to_bull_notification_div').hide();
+            socket.emit('init', {hashid: hashid['hashid'] });
+        }, 3000);
+
+    });
+
+
     socket.on('game_shot', function(msg) {
         $('#p1_current_leg').text('');
 
@@ -33,9 +86,9 @@ $(document).ready(function() {
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p1_current_leg').prepend(
-            '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-            '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-            '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
+                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
                 )
             };
         });
@@ -81,14 +134,14 @@ $(document).ready(function() {
                     $('.p1_score').text(Math.ceil(this.Counter));
                 }
             }).promise().done(function() {
-                    setTimeout(function() {
-                     $('#game-shot-modal').modal('hide');
-                    }, 1500);
-                    // move on after 3 seconds
-                    setTimeout(function() {
-                     socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
-                    }, 3000);
-                });
+                setTimeout(function() {
+                    $('#game-shot-modal').modal('hide');
+                }, 1500);
+                // move on after 3 seconds
+                setTimeout(function() {
+                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                }, 3000);
+            });
         } else {
             $('.p1_score').html(msg.p1_score);
         }
@@ -105,14 +158,14 @@ $(document).ready(function() {
                     $('.p2_score').text(Math.ceil(this.Counter));
                 }
             }).promise().done(function() {
-                    setTimeout(function() {
-                     $('#game-shot-modal').modal('hide');
-                    }, 1500);
-                    // move on after 3 seconds
-                    setTimeout(function() {
-                     socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
-                    }, 3000);
-                });
+                setTimeout(function() {
+                    $('#game-shot-modal').modal('hide');
+                }, 1500);
+                // move on after 3 seconds
+                setTimeout(function() {
+                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                }, 3000);
+            });
         } else {
             $('.p2_score').text(msg.p2_score);
         }
@@ -121,6 +174,10 @@ $(document).ready(function() {
 
     // Event handler for server sent score data
     socket.on('score_response', function(msg) {
+        p1_next_turn = msg.p1_next_turn;
+        p1_id = msg.p1_id;
+        p2_id = msg.p2_id;
+
         if ( !msg.p1_next_turn && msg.old_score > msg.p1_score) {
             // score substraction animation
             jQuery({Counter: msg.old_score}).animate({Counter: msg.p1_score-1}, {
@@ -171,6 +228,8 @@ $(document).ready(function() {
         $('.p2_high_finish').text(msg.p2_high_finish);
         $('.p1_short_leg').text(msg.p1_short_leg);
         $('.p2_short_leg').text(msg.p2_short_leg);
+        $('.p1_doubles').text(msg.p1_doubles + '% ('+ msg.p1_legs_won + '/' + msg.p1_darts_thrown_double + ')');
+        $('.p2_doubles').text(msg.p2_doubles + '% ('+ msg.p2_legs_won + '/' + msg.p2_darts_thrown_double + ')');
 
         $('#p1_current_leg').text('');
         $.each(msg.p1_current_leg, function( index, value ){
@@ -184,9 +243,9 @@ $(document).ready(function() {
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p1_current_leg').prepend(
-            '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-            '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-            '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
+                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
                 )
             };
         });
@@ -243,6 +302,14 @@ $(document).ready(function() {
             $('.p1_turn_incidator').html('');
             $('.p2_turn_incidator').html('<i class="fas fa-angle-left"></i>');
         }
+
+        if (msg.computer_game && !msg.p1_next_turn) {
+            setTimeout(function() {
+                socket.emit('send_score', {hashid: hashid['hashid'],
+                    user_id: user_id['id'], computer: true});
+            }, 3000);
+
+        }
     });
     // Remove turn indicators when game is over and show link to game overview
     socket.on('game_completed', function(msg) {
@@ -262,9 +329,9 @@ $(document).ready(function() {
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p1_current_leg').prepend(
-            '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-            '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-            '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
+                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
                 )
             };
         });
@@ -301,10 +368,10 @@ $(document).ready(function() {
                     $('.p1_score').text(Math.ceil(this.Counter));
                 }
             }).promise().done(function() {
-                    setTimeout(function() {
-                     $('#match-shot-modal').modal('hide');
-                    }, 1500);
-                });
+                setTimeout(function() {
+                    $('#match-shot-modal').modal('hide');
+                }, 1500);
+            });
         } else {
             $('.p1_score').html(msg.p1_score);
         }
@@ -316,16 +383,18 @@ $(document).ready(function() {
                     $('.p2_score').text(Math.ceil(this.Counter));
                 }
             }).promise().done(function() {
-                    setTimeout(function() {
-                     $('#match-shot-modal').modal('hide');
-                    }, 1500);
-                });
+                setTimeout(function() {
+                    $('#match-shot-modal').modal('hide');
+                }, 1500);
+            });
         } else {
             $('.p2_score').html(msg.p2_score);
         }
         $('.score_input').hide();
         $('.confirm_completion').show();
     });
+
+
 
 });
 
