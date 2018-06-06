@@ -42,6 +42,7 @@ def live_games_overview():
     live_games = Game.query.filter_by(status='started').order_by(Game.begin.desc()).limit(9)
     live_games_list = []
 
+
     for game in live_games:
         game_dict = game.as_dict()
 
@@ -51,7 +52,7 @@ def live_games_overview():
             # Local Guest needs his own 'name'
             game_dict['player2_name'] = get_name_by_id(game.player2) if game.player1 != game.player2 else 'Local Guest'
 
-            live_games_list.append(game_dict)
+        live_games_list.append(game_dict)
 
     return render_template('generic/watch.html', live_games=live_games_list)
 
