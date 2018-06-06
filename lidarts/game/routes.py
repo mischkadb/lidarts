@@ -88,7 +88,7 @@ def start(hashid, theme=None):
         game_dict['player2_name'] = get_name_by_id(game.player2)
     else:
         # computer game
-        game_dict['player2_name'] = 'Trainer'
+        game_dict['player2_name'] = 'Trainer ' + game_dict['opponent_type'][8:]
 
     match_json = json.loads(game.match_json)
 

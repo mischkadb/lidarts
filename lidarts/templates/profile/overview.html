@@ -71,10 +71,11 @@
                                              {%- else %}text-secondary
                                              {%- endif %}
                                                 ">vs.
-                    {%- if game.player1 != current_user.id %} {{ player_names[game.player1] }}
-                    {%- elif game.player2 != current_user.id %} {{ player_names[game.player2] }}
+                    {%- if game.opponent_type.startswith('computer') %} Trainer {{ game.opponent_type[8:] }}
+                    {%- elif game.player1 != user.id %} {{ player_names[game.player1] }}
+                    {%- elif game.player2 != user.id %} {{ player_names[game.player2] }}
                     {%- else %} local guest{% endif %}
-                    - [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
+                    - {{ game.type }} {{ game.in_mode }}/{{ game.out_mode }} [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
                 {% endfor %}
                 <a href="#" class="text-secondary">Full match list</a>
 
