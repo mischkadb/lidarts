@@ -195,7 +195,7 @@
                                         {{ (match_json[set][leg][player]['scores']|sum / match_json[set][leg][player]['scores']|length)|round(2) }}
                                         {% else %}0{% endif %}
                                     </span>
-                                        <span class="dart-count">{% if (match_json[set][leg][player]['scores']|sum == game.type) %}{{ match_json[set][leg][player]['scores']|length*3 }}
+                                        <span class="dart-count">{% if (match_json[set][leg][player]['scores']|sum == game.type) %}{{ match_json[set][leg][player]['scores']|length*3 - (3 - match_json[set][leg][player]['to_finish']) }}
                                     {% else %}-{% endif %}
                                     </span>
                                         <span class="score-remain">{{ game.type - match_json[set][leg][player]['scores']|sum }}
