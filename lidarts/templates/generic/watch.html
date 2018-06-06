@@ -4,20 +4,22 @@
 
 {% block app_content %}
 
+{% if not live_games %}
 <div class="row justify-content-center">
-    {% if not live_games %}
-        <div class="col-8 mb-3">
-            <div class="card bg-light text-dark text-center">
-                <div class="card-body">
-                    <p><h3>There are no live games at the moment.</h3></p>
-                </div>
+
+    <div class="col-8 mb-3">
+        <div class="card bg-light text-dark text-center">
+            <div class="card-body">
+                <p><h3>There are no live games at the moment.</h3></p>
             </div>
-        </a>
+        </div>
     </div>
-    {% endif %}
+</div>
+{% endif %}
+
+
+<div class="row">
     {% for game in live_games %}
-
-
     <div class="col-4 mb-3">
         <a href="{{ url_for('game.start', hashid=game.hashid) }}" class="no-underline">
             <div class="card bg-light text-dark">

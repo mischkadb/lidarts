@@ -650,6 +650,9 @@ $(document).keypress(function(e){
         else if (keyCode == 13) {
             $('.score_input').submit();
         }
+        else if (keyCode == 8) {
+            $('.score_value').val($('.score_value').val().slice(0, -1));
+        }
     }
 });
 
