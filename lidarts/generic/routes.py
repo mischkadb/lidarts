@@ -42,7 +42,6 @@ def live_games_overview():
     live_games = Game.query.filter_by(status='started').order_by(Game.begin.desc()).limit(9)
     live_games_list = []
 
-
     for game in live_games:
         game_dict = game.as_dict()
 
