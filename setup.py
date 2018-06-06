@@ -16,6 +16,7 @@ setup(
         'Flask-Login',
         'Flask-Mail',
         'Flask-Migrate',
+        'Flask-Moment',
         'Flask-Security',
         'Flask-SocketIO',
         'Flask-SQLAlchemy',

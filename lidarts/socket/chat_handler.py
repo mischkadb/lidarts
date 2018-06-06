@@ -46,7 +46,6 @@ def connect():
 
 @socketio.on('broadcast_chat_message', namespace='/chat')
 def broadcast_chat_message(message):
-    print(message)
     new_message = Chatmessage(message=message['message'], author=message['user_id'], timestamp=datetime.utcnow())
     db.session.add(new_message)
     db.session.commit()
@@ -55,7 +54,7 @@ def broadcast_chat_message(message):
         .filter_by(id=new_message.author).first_or_404()[0]
 
     emit('send_message', {'author': author, 'message': new_message.message,
-                          'timestamp': new_message.timestamp.strftime("%H:%M:%S")},
+                          'timestamp': str(new_message.timestamp) + 'Z'},
          broadcast=True)
 
 

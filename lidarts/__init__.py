@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from flask_security import Security, SQLAlchemyUserDatastore
 from flask_socketio import SocketIO
 from flask_mail import Mail
+from flask_moment import Moment
 from flask_babel import _, Babel
 from dotenv import load_dotenv
 
@@ -17,6 +18,7 @@ mail = Mail()
 security = Security()
 socketio = SocketIO()
 babel = Babel()
+moment = Moment()
 
 
 def create_app(test_config=None):
@@ -53,6 +55,7 @@ def create_app(test_config=None):
                       register_form=ExtendedRegisterForm)
     socketio.init_app(app)
     babel.init_app(app)
+    moment.init_app(app)
 
     # Load all blueprints
     from lidarts.generic import bp as generic_bp

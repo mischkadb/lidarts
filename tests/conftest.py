@@ -68,7 +68,7 @@ def game(db_session, user, user2):
                 p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
                 p1_score=170, p2_score=170,
                 in_mode='si', out_mode='do',
-                begin=datetime.now(), match_json=match_json, status='started')
+                begin=datetime.utcnow(), match_json=match_json, status='started')
     game.p1_next_turn = True
     db_session.add(user)
     db_session.add(user2)

@@ -110,10 +110,14 @@
     <script src="/static/js/popper.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
 
+    {{ moment.include_moment(local_js='/static/js/moment_with_locales.min.js') }}
+
     <!-- socketio -->
     <script type="text/javascript" src="/static/js/socket.io.min.js"></script>
 
     <script type="text/javascript" src="/static/js/base_socket.js"></script>
+
+
 
 {% block scripts %}
 {% endblock %}

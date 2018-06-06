@@ -44,7 +44,7 @@ $(document).ready(function() {
         $('#chatbox').append('<p><strong><a href="' + profile_url +
             msg['author'] +
             '" class="text-dark">' + msg['author'] + '</a></strong> <small class="text-secondary">' +
-            msg['timestamp'] +
+            moment(msg['timestamp']).local().format('HH:mm:ss') +
             '</small><br>' +
             msg['message'] + '</p><hr>'
         );
@@ -112,9 +112,7 @@ $(document).ready(function() {
             $("#message_input").serialize(),
             function (errors) {
                 message_errors = errors;
-                console.log("Tests");
                 if (jQuery.isEmptyObject(message_errors)) {
-                    console.log("Tets");
                     socket.emit('broadcast_chat_message', {
                         message: $('#message').val(), user_id: user_id['id']
                     });
