@@ -222,8 +222,6 @@ $(document).ready(function() {
         $('.p2_140').text(msg.p2_140);
         $('.p1_180').text(msg.p1_180);
         $('.p2_180').text(msg.p2_180);
-        $('.p1_doubles').text(msg.p1_doubles);
-        $('.p2_doubles').text(msg.p2_doubles);
         $('.p1_high_finish').text(msg.p1_high_finish);
         $('.p2_high_finish').text(msg.p2_high_finish);
         $('.p1_short_leg').text(msg.p1_short_leg);
