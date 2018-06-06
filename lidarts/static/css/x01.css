@@ -73,6 +73,10 @@ form .form-control:focus{
     margin-bottom: 0px;
 }
 
+.stats-table h5{
+    margin-bottom: 0px;
+}
+
 .stats-table td{
     border:none;
 }

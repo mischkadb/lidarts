@@ -229,6 +229,9 @@ $(document).ready(function() {
         $('.p1_doubles').text((Math.round(msg.p1_doubles * 100) / 100) + '% ('+ msg.p1_legs_won + '/' + msg.p1_darts_thrown_double + ')');
         $('.p2_doubles').text((Math.round(msg.p2_doubles * 100) / 100) + '% ('+ msg.p2_legs_won + '/' + msg.p2_darts_thrown_double + ')');
 
+        $('.p1_darts_this_leg').text((msg.p1_current_leg.length)*3);
+        $('.p2_darts_this_leg').text((msg.p2_current_leg.length)*3);
+
         $('#p1_current_leg').text('');
         $.each(msg.p1_current_leg, function( index, value ){
             if ( index == msg.p1_current_leg.length-1 && !msg.p1_next_turn) {
