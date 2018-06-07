@@ -43,7 +43,8 @@ def create_app(test_config=None):
         pass
 
     from lidarts.models import User, Role
-    from lidarts.auth.forms import ExtendedLoginForm, ExtendedRegisterForm
+    from lidarts.auth.forms import ExtendedLoginForm, ExtendedRegisterForm, \
+        ExtendedChangePasswordForm, ExtendedResetPasswordForm
 
     # Initialize Flask extensions
     db.init_app(app)
@@ -52,7 +53,9 @@ def create_app(test_config=None):
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security.init_app(app, user_datastore,
                       login_form=ExtendedLoginForm,
-                      register_form=ExtendedRegisterForm)
+                      register_form=ExtendedRegisterForm,
+                      change_password_form=ExtendedChangePasswordForm,
+                      reset_password_form=ExtendedResetPasswordForm)
     socketio.init_app(app)
     babel.init_app(app)
     moment.init_app(app)

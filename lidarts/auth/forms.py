@@ -3,7 +3,8 @@ from wtforms.validators import DataRequired, ValidationError
 from lidarts.models import User
 from flask_security import LoginForm
 from flask_security.forms import Form, PasswordConfirmFormMixin, NextFormMixin, \
-    RegisterFormMixin, UniqueEmailFormMixin, NewPasswordFormMixin, ValidatorMixin
+    RegisterFormMixin, UniqueEmailFormMixin, NewPasswordFormMixin, ValidatorMixin, \
+    ChangePasswordForm, ResetPasswordForm
 from flask_babel import _, lazy_gettext
 
 
@@ -81,6 +82,14 @@ class ExtendedRegisterForm(ExtendedConfirmRegisterForm, PasswordConfirmFormMixin
 class ExtendedLoginForm(LoginForm):
     # hacked in username to use default email validation from flask-security
     email = StringField(lazy_gettext('Username or Email Address'), validators=[DataRequired()])
+
+
+class ExtendedChangePasswordForm(ChangePasswordForm):
+    new_password = PasswordField('Password', validators=[password_required, password_length, valid_password])
+
+
+class ExtendedResetPasswordForm(ResetPasswordForm):
+    password = PasswordField('Password', validators=[password_required, password_length, valid_password])
 
 
 class ChangeUsernameForm(Form, UniqueUsernameFormMixin):
