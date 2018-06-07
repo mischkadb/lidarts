@@ -83,6 +83,9 @@ class ExtendedLoginForm(LoginForm):
     email = StringField(lazy_gettext('Username or Email Address'), validators=[DataRequired()])
 
 
+class ChangeUsernameForm(Form, UniqueUsernameFormMixin):
+    pass
+
 
 
 
