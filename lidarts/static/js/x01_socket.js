@@ -591,7 +591,7 @@ $(document).keypress(function(e){
                 $('#double-missed-1').click();
             } else if ($('#to-finish-1').is(":visible")){
                 $('#to-finish-1').click();
-            } else {
+            } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")){
                 $('.score_value').val($('.score_value').val() + '1');
             }
         }
@@ -601,7 +601,7 @@ $(document).keypress(function(e){
                 $('#double-missed-2').click();
             } else if ($('#to-finish-2').is(":visible")){
                 $('#to-finish-2').click();
-            } else {
+            } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")){
                 $('.score_value').val($('.score_value').val() + '2');
             }
         }
@@ -611,47 +611,51 @@ $(document).keypress(function(e){
                 $('#double-missed-3').click();
             } else if ($('#to-finish-3').is(":visible")){
                 $('#to-finish-3').click();
-            } else {
+            } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
                 $('.score_value').val($('.score_value').val() + '3');
             }
         }
         // 4
-        else if (keyCode == 52 || keyCode == 100) {
-            $('.score_value').val($('.score_value').val() + '4');
-        }
-        // 5
-        else if (keyCode == 53 || keyCode == 101) {
-            $('.score_value').val($('.score_value').val() + '5');
-        }
-        // 6
-        else if (keyCode == 54 || keyCode == 102) {
-            $('.score_value').val($('.score_value').val() + '6');
-        }
-        // 7
-        else if (keyCode == 55 || keyCode == 103) {
-            $('.score_value').val($('.score_value').val() + '7');
-        }
-        // 8
-        else if (keyCode == 56 || keyCode == 104) {
-            $('.score_value').val($('.score_value').val() + '8');
-        }
-        // 9
-        else if (keyCode == 57 || keyCode == 105) {
-            $('.score_value').val($('.score_value').val() + '9');
-        }
-        // 0
-        else if (keyCode == 48 || keyCode == 96) {
-            if ($('#double-missed-0').is(":visible")){
-                $('#double-missed-0').click();
-            } else {
-                $('.score_value').val($('.score_value').val() + '0');
+        else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
+
+            if (keyCode == 52 || keyCode == 100)
+            {
+                $('.score_value').val($('.score_value').val() + '4');
             }
-        }
-        else if (keyCode == 13) {
-            $('.score_input').submit();
-        }
-        else if (keyCode == 8) {
-            $('.score_value').val($('.score_value').val().slice(0, -1));
+            // 5
+            else if (keyCode == 53 || keyCode == 101) {
+                $('.score_value').val($('.score_value').val() + '5');
+            }
+            // 6
+            else if (keyCode == 54 || keyCode == 102) {
+                $('.score_value').val($('.score_value').val() + '6');
+            }
+            // 7
+            else if (keyCode == 55 || keyCode == 103) {
+                $('.score_value').val($('.score_value').val() + '7');
+            }
+            // 8
+            else if (keyCode == 56 || keyCode == 104) {
+                $('.score_value').val($('.score_value').val() + '8');
+            }
+            // 9
+            else if (keyCode == 57 || keyCode == 105) {
+                $('.score_value').val($('.score_value').val() + '9');
+            }
+            // 0
+            else if (keyCode == 48 || keyCode == 96) {
+                if ($('#double-missed-0').is(":visible")) {
+                    $('#double-missed-0').click();
+                } else {
+                    $('.score_value').val($('.score_value').val() + '0');
+                }
+            }
+            else if (keyCode == 13) {
+                $('.score_input').submit();
+            }
+            else if (keyCode == 8) {
+                $('.score_value').val($('.score_value').val().slice(0, -1));
+            }
         }
     }
 });
