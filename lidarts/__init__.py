@@ -9,6 +9,9 @@ from flask_mail import Mail
 from flask_moment import Moment
 from flask_babel import _, Babel
 from dotenv import load_dotenv
+import eventlet
+
+eventlet.monkey_patch(socket=True)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
@@ -56,7 +59,7 @@ def create_app(test_config=None):
                       register_form=ExtendedRegisterForm,
                       change_password_form=ExtendedChangePasswordForm,
                       reset_password_form=ExtendedResetPasswordForm)
-    socketio.init_app(app)
+    socketio.init_app(app, message_queue='redis://', async_mode='eventlet')
     babel.init_app(app)
     moment.init_app(app)
 
