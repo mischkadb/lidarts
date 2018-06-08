@@ -16,6 +16,29 @@ $(document).ready(function() {
         socket.emit('user_heartbeat');
     }, 5000);
 
+    socket.emit('get_status');
+
+    socket.on('status_reply', function (msg) {
+        var indicator = $(document.getElementsByClassName('status-indicator'));
+        indicator.addClass('status-' + msg['status']);
+    });
+
+    // Handler for the score input form.
+    var status_url = $('#status_url').data()['url'];
+
+    $('.dropdown-status').click( function (event) {
+        var status = event.target.id.replace('dropdown-', '');
+
+        $.post(status_url + status,
+            function() {
+                var indicator = $(document.getElementsByClassName('status-indicator'));
+                indicator.removeClass('status-online');
+                indicator.removeClass('status-lfg');
+                indicator.removeClass('status-busy');
+                indicator.addClass('status-' + status);
+            });
+    });
+
 
 });
 

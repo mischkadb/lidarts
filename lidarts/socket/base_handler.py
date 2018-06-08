@@ -1,6 +1,7 @@
 from flask import request
 from lidarts import socketio, db
 from flask_login import current_user
+from flask_socketio import emit
 from lidarts.socket.chat_handler import broadcast_online_players
 from datetime import datetime
 
@@ -20,6 +21,12 @@ def connect():
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
         broadcast_online_players()
+
+
+@socketio.on('get_status', namespace='/base')
+def get_status():
+    if current_user.is_authenticated:
+        emit('status_reply', {'status': current_user.status})
 
 
 @socketio.on('disconnect', namespace='/base')

@@ -1,5 +1,6 @@
-from flask import render_template, request, url_for
+from flask import render_template, request, url_for, jsonify
 from flask_login import current_user, login_required
+from lidarts import db
 from lidarts.profile import bp
 from lidarts.models import User, Game, Friendship, FriendshipRequest
 from sqlalchemy import desc
@@ -61,6 +62,16 @@ def overview(username):
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names, friend_list=friend_list,
                            is_online=(user.last_seen > datetime.utcnow() - timedelta(seconds=15)))
+
+
+@bp.route('/set_status/')
+@bp.route('/set_status/<status>', methods=['POST'])
+@login_required
+def set_status(status):
+    user = User.query.filter_by(id=current_user.id).first_or_404()
+    user.status = status
+    db.session.commit()
+    return jsonify('success')
 
 
 @bp.route('/manage_friend_list')

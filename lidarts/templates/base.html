@@ -2,28 +2,28 @@
 <html>
 <head>
 
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
 
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="/static/css/fontawesome/css/fontawesome-all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/static/css/fontawesome/css/fontawesome-all.min.css">
 
-        <!-- Open Sans -->
-        <link href="/static/css/open-sans.css" rel="stylesheet">
+    <!-- Open Sans -->
+    <link href="/static/css/open-sans.css" rel="stylesheet">
 
-        <!-- Custom CSS -->
+    <!-- Custom CSS -->
     {% block css %}
-        <link href="{{ url_for('static',filename='css/custom.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/custom.css') }}" rel="stylesheet">
     {% endblock %}
 
-        {% block head %}
-        {% endblock %}
+    {% block head %}
+    {% endblock %}
 
-        <title>{% block title %}{% if title %}{{ title }} - Lidarts.org{% else %}{{ _('Lidarts.org') }}{% endif %}{% endblock %}</title>
+    <title>{% block title %}{% if title %}{{ title }} - Lidarts.org{% else %}{{ _('Lidarts.org') }}{% endif %}{% endblock %}</title>
 
 </head>
 
@@ -56,7 +56,16 @@
                     <a href="{{ url_for_security('login') }}" class="btn btn-secondary" role="button"><i class="fas fa-sign-in-alt"></i> {{ _('Sign In') }}</a>
                     <a href="{{ url_for_security('register') }}" class="btn btn-info" role="button"><i class="fas fa-user-plus"></i> {{ _('Register') }}</a>
                     {% else %}
-                    <a href="{{ url_for('profile.overview', username=current_user.username) | replace('%40', '@') }}"  class="btn btn-secondary" role="button"><i class="fas fa-user-circle"></i> {{ _('Profile') }}</a></li>
+                    <div class="btn-group" role="group">
+                        <button id="statusDrop" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><i class="fas fa-circle status-indicator"></i> {{ _('Status') }}</button>
+                        <div class="dropdown-menu" aria-labelledby="statusDrop">
+                            <a class="dropdown-item dropdown-status" id="dropdown-online" href="#"><i class="fas fa-circle status-online"></i> Online</a>
+                            <a class="dropdown-item dropdown-status" id="dropdown-lfg" href="#"><i class="fas fa-circle status-lfg"></i> Looking for Game</a>
+                            <a class="dropdown-item dropdown-status" id="dropdown-busy" href="#"><i class="fas fa-circle status-busy"></i> Busy</a>
+                        </div>
+                    </div>
+
+                    <a href="{{ url_for('profile.overview', username=current_user.username) | replace('%40', '@') }}"  class="btn btn-secondary" role="button"><i class="fas fa-user-circle"></i> {{ _('Profile') }}</a>
                     <a href="{{ url_for_security('logout') }}" class="btn btn-secondary" role="button"><i class="fas fa-sign-out-alt"></i> {{ _('Logout') }}</a>
                     {% endif %}
                 </div>
@@ -64,23 +73,25 @@
         </div>
     </div>
 </nav>
+
+<meta id="status_url" data-url="{{ url_for('profile.set_status') }}">
 {% endblock %}
 
 {% block content %}
-    {% block jumbotron %}{% endblock %}
+{% block jumbotron %}{% endblock %}
 
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-info" role="alert">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 
-        {# application content needs to be provided in the app_content block #}
-        {% block app_content %}{% endblock %}
-    </div>
+    {# application content needs to be provided in the app_content block #}
+    {% block app_content %}{% endblock %}
+</div>
 {% endblock %}
 
 {% block footer %}
@@ -104,18 +115,18 @@
 {% endblock %}
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="/static/js/jquery-3.3.1.min.js"></script>
-    <script src="/static/js/popper.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
 
-    {{ moment.include_moment(local_js='/static/js/moment_with_locales.min.js') }}
+{{ moment.include_moment(local_js='/static/js/moment_with_locales.min.js') }}
 
-    <!-- socketio -->
-    <script type="text/javascript" src="/static/js/socket.io.min.js"></script>
+<!-- socketio -->
+<script type="text/javascript" src="/static/js/socket.io.min.js"></script>
 
-    <script type="text/javascript" src="/static/js/base_socket.js"></script>
+<script type="text/javascript" src="/static/js/base_socket.js"></script>
 
 
 

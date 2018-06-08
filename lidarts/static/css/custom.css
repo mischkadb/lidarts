@@ -114,3 +114,19 @@ a.no-underline {
 .match_card:hover {
     background: #eeeeee;
 }
+
+.status-online{
+    color: #33dd33;
+}
+
+.status-lfg{
+    color: #aa00aa;
+}
+
+.status-busy{
+    color: #eeee00;
+}
+
+.status-ingame{
+    color: #5555ee;
+}
