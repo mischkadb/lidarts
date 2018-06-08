@@ -5,7 +5,7 @@ from lidarts.generic import bp
 from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.utils import get_name_by_id
-from sqlalchemy import desc
+from sqlalchemy import desc, asc
 from datetime import datetime, timedelta
 
 
@@ -106,7 +106,8 @@ def lobby():
 @login_required
 def chat():
     form = ChatmessageForm()
-    messages = Chatmessage.query.filter(Chatmessage.timestamp > (datetime.now() - timedelta(days=1))).all()
+    messages = Chatmessage.query.filter(Chatmessage.timestamp > (datetime.now() - timedelta(days=1))) \
+        .order_by(Chatmessage.id.asc()).all()
     user_names = {}
 
     for message in messages:
