@@ -9,7 +9,7 @@
         <div class="card bg-light text-dark">
             <div class="card-body">
                 <h3 class="card-text">
-                    <i class="fas fa-circle" style=" font-size: 20px; {% if is_online %}color: #33aa44" title="User is online{% else %}color: #999999" title="User is offline{% endif %}"></i>
+                    <i class="fas fa-circle {% if is_online %}status-{{ user.status }}" title="User is {{ user.status }}"{% else %}text-secondary" title="User is offline"{% endif %} style="font-size: 20px;"></i>
                     {{ user.username }} {% if user.id in friend_list %}<i class="fas fa-user-friends" title="User is your friend."></i>{% endif %}</h3>
             </div>
         </div>
