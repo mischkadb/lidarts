@@ -25,13 +25,17 @@ $(document).ready(function() {
         $('#online_players').html('');
         var user;
         for (user in msg){
-            $('#online_players').append('<p><strong><a href="' + profile_url + msg[user] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
-                + msg[user] + '</a></strong></p>');
+            $('#online_players').append('<div class="card"><div class="card-body" style="padding: 2px 2px 2px 2px;">' +
+                '' +
+                '<p><strong><h5><a href="' + profile_url + msg[user]['username'] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
+                + '<i class="fas fa-circle status-' + msg[user]['status'] + '" style="font-size: 15px;"></i> ' + msg[user]['username'] + '</a></h5></strong></p>');
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
-            $('#powertip-' + user).data('powertip', '<table class="table table-sm text-center text-dark"><tr><td><i class="fas fa-circle" style="font-size: 10px; color: #33aa44"></i></td>' +
-                '<td><a href="' + profile_url + msg[user] + '">' + msg[user] + '</a></td></tr>' +
+            $('#powertip-' + user).data('powertip', '<table class="table table-sm text-center text-dark"><tr><td>' +
+                '<i class="fas fa-circle status-' + msg[user]['status'] + '" style="font-size: 10px;"></i></td>' +
+                '<td><a href="' + profile_url + msg[user]['username'] + '">' + msg[user]['username'] + '</a></td></tr>' +
                 '<tr><td><i class="fas fa-futbol"></i></td><td><i class="fas fa-plus-circle"></i></td></tr>' +
-                '</table>');
+                '</table> ' +
+                '</div></div>');
         }
 
     });

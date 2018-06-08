@@ -9,7 +9,7 @@ def broadcast_online_players():
     online_players_dict = {}
     online_players = User.query.filter(User.last_seen > (datetime.utcnow() - timedelta(seconds=15))).all()
     for user in online_players:
-        online_players_dict[user.id] = user.username
+        online_players_dict[user.id] = {'username': user.username, 'status': user.status}
 
     emit('send_online_players', online_players_dict, broadcast=True, namespace='/chat')
 
