@@ -111,3 +111,6 @@ a.no-underline {
     padding: 2px 2px 2px 2px !important;
 }
 
+.match_card:hover {
+    background: #eeeeee;
+}

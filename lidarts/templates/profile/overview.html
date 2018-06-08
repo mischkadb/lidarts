@@ -37,7 +37,7 @@
 
                 {% if user.id not in friend_list %}<p>
                 <form action="/send_friend_request/{{ user.id }}" method="post">
-                    <a href="javascript:;" onclick="parentNode.submit();">Send friend request</a>
+                    <a href="javascript:;" onclick="parentNode.submit();" class="text-secondary">Send friend request</a>
                     <input type="hidden" name="friend_request" value="{{ user.id }}">
                 </form></p>
                 {% endif %}
@@ -60,12 +60,12 @@
                                              class="
                                              {%- if game.status == 'started' %}text-started
                                              {%- elif game.player1 != game.player2 and
-                                                    ((game.player1 == current_user.id and game.p1_sets > game.p2_sets)
-                                                    or (game.player2 == current_user.id and game.p2_sets > game.p1_sets))
+                                                    ((game.player1 == user.id and game.p1_sets > game.p2_sets)
+                                                    or (game.player2 == user.id and game.p2_sets > game.p1_sets))
                                              %}text-success
                                              {%- elif game.player1 != game.player2 and
-                                                    ((game.player1 == current_user.id and game.p1_sets < game.p2_sets)
-                                                    or (game.player2 == current_user.id and game.p2_sets < game.p1_sets))
+                                                    ((game.player1 == user.id and game.p1_sets < game.p2_sets)
+                                                    or (game.player2 == user.id and game.p2_sets < game.p1_sets))
                                              %}text-danger
                                              {%- elif game.p1_sets == game.p2_sets %}text-warning
                                              {%- else %}text-secondary
@@ -77,7 +77,7 @@
                     {%- else %} local guest{% endif %}
                     - {{ game.type }} {{ game.in_mode }}/{{ game.out_mode }} [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
                 {% endfor %}
-                <a href="#" class="text-secondary">Full match list</a>
+                <a href="{{ url_for('profile.game_history', username=player_names[user.id]) | replace('%40', '@') }}" class="text-secondary">Full match list</a>
 
             </div>
         </div>

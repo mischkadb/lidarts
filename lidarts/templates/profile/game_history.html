@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Profile overview{% endblock %}
+
+{% block app_content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6 text-center">
+        <div class="card bg-light text-dark  bs-callout bs-callout-warning">
+            <div class="card-body">
+                <h5 class="card-title text-left"><i class="fas fa-history"></i> Game history of {{ user.username }}</h5>
+                <hr>
+                {% for game in games %}
+                <a href="{{ url_for('game.start', hashid=game.hashid) }}" style="text-decoration: none;">
+                    <div class="card mb-2 match_card">
+                        <div class="card-body text-secondary">
+                            <h3 class="{%- if game.status == 'started' %}text-started
+                                             {%- elif game.player1 != game.player2 and
+                                                    ((game.player1 == user.id and game.p1_sets > game.p2_sets)
+                                                    or (game.player2 == user.id and game.p2_sets > game.p1_sets))
+                                             %}text-success
+                                             {%- elif game.player1 != game.player2 and
+                                                    ((game.player1 == user.id and game.p1_sets < game.p2_sets)
+                                                    or (game.player2 == user.id and game.p2_sets < game.p1_sets))
+                                             %}text-danger
+                                             {%- elif game.p1_sets == game.p2_sets %}text-warning
+                                             {%- else %}text-secondary
+                                             {%- endif %}
+                                         ">{{ player_names[game.player1] }} {% if game.bo_sets > 1 %}{{ game.p1_sets }}:{{ game.p2_sets }}
+                                {% else %}{{ game.p1_legs }}:{{ game.p2_legs }} {% endif %}
+                                {%- if game.opponent_type.startswith('computer') %} Trainer {{ game.opponent_type[8:] }}
+                                {%- elif game.player1 != user.id or game.player2 != user.id %} {{ player_names[game.player2] }}
+                                {%- else %} local guest{% endif %}
+                            </h3>
+
+                            <h4 >
+
+                            </h4>
+
+                            <h5>{{ game.type }} {{ game.in_mode }}/{{ game.out_mode }}</h5>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+
+
+
+                <ul class="pagination justify-content-center">
+                    {% if prev_url %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ prev_url | replace('%40', '@') }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if next_url %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ next_url | replace('%40', '@') }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+{% endblock %}

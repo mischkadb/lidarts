@@ -1,9 +1,38 @@
-from flask import render_template
+from flask import render_template, request, url_for
 from flask_login import current_user, login_required
 from lidarts.profile import bp
 from lidarts.models import User, Game, Friendship, FriendshipRequest
 from sqlalchemy import desc
 from datetime import datetime, timedelta
+
+
+@bp.route('/@/<username>/game_history')
+@login_required
+def game_history(username):
+    page = request.args.get('page', 1, type=int)
+
+    user = User.query.filter_by(username=username).first_or_404()
+
+    games = Game.query.filter(((Game.player1 == user.id) | (Game.player2 == user.id)) & (Game.status == 'completed')) \
+        .order_by(desc(Game.id))
+
+    games = games.paginate(page, 10, False)
+    next_url = url_for('profile.game_history', username=username, page=games.next_num) \
+        if games.has_next else None
+    prev_url = url_for('profile.game_history', username=username, page=games.prev_num) \
+        if games.has_prev else None
+
+    player_names = {}
+    for game in games.items:
+        if game.player1 and game.player1 not in player_names:
+            player_names[game.player1] = User.query.with_entities(User.username)\
+                .filter_by(id=game.player1).first_or_404()[0]
+        if game.player2 and game.player2 not in player_names:
+            player_names[game.player2] = User.query.with_entities(User.username) \
+                .filter_by(id=game.player2).first_or_404()[0]
+
+    return render_template('profile/game_history.html', games=games.items, user=user, player_names=player_names,
+                           next_url=next_url, prev_url=prev_url)
 
 
 @bp.route('/@/')
