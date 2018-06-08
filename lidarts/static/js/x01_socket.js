@@ -570,6 +570,9 @@ $(document).ready(function() {
                 handle_score_input($('#p2_score').text(), score_value)
             }
             return false;
+        } else {
+            $('#score_value').val('');
+            return false;
         }
     });
 
