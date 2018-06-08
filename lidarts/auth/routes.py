@@ -1,13 +1,9 @@
-from flask import render_template, redirect, url_for, request, jsonify, flash
-from flask_login import current_user, login_required
+from flask import render_template, flash
+from flask_login import current_user
 from lidarts import db
 from lidarts.auth import bp
 from lidarts.auth.forms import ChangeUsernameForm
-from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest
-from lidarts.generic.forms import ChatmessageForm
-from lidarts.game.utils import get_name_by_id
-from sqlalchemy import desc
-from datetime import datetime, timedelta
+from lidarts.models import User
 
 
 @bp.route('/change_username', methods=['GET', 'POST'])

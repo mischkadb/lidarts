@@ -24,7 +24,7 @@
         </div>
         <form id="message_input" method="POST" action="">
             {{ form.hidden_tag() }}
-            {{ form.message(class="form-control") }}
+            {{ form.message(class="form-control", autocomplete="off" ) }}
             {{ form.submit }}
         </form>
     </div>
