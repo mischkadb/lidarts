@@ -98,7 +98,7 @@ def start(hashid, theme=None):
         p2_name = get_name_by_id(game.player2) if game.player2 else None
         return render_template('game/wait_for_opponent.html', game=game_dict, p2_name=p2_name)
     # for everyone if the game is completed
-    if game.status == 'completed' or game.status == 'aborted':
+    if game.status in ('completed', 'aborted', 'declined'):
         statistics = collect_statistics(game, match_json)
         return render_template('game/X01_completed.html', game=game_dict, match_json=match_json, stats=statistics)
     # for running games
@@ -123,8 +123,18 @@ def decline_challenge(id):
     id = int(id)
     game = Game.query.filter_by(id=id).first_or_404()
     game.status = "declined"
+    game.end = datetime.utcnow()
     db.session.commit()
     return jsonify('success')
+
+
+@bp.route('/cancel_challenge/<hashid>')
+def cancel_challenge(hashid):
+    game = Game.query.filter_by(hashid=hashid).first_or_404()
+    game.status = "declined"
+    game.end = datetime.utcnow()
+    db.session.commit()
+    return redirect(url_for('generic.lobby'))
 
 
 @bp.route('/abort_game/')

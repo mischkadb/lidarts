@@ -7,9 +7,14 @@
 <div class="row justify-content-center">
     <div class="col-md-6 col-sm-8">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body justify-content-center">
                 <p class="text-center">Waiting for {% if p2_name %}{{ p2_name }}{% else %}player 2{% endif %} </p>
                 <h1 class="text-center"><i class="fas fa-spinner fa-spin"></i></h1>
+                <form action="{{ url_for('game.cancel_challenge', hashid=game.hashid) }}">
+                    <input type="submit" value="Cancel challenge" class="btn btn-dark" />
+                </form>
+
+                <p class="mt-2 text-center">This page will redirect you to the game once the challenge has been accepted.</p>
 
                 {% if not p2_name and not current_user.is_authenticated %}<p>You are not logged in. Log in to play in this game.</p>
                 {% elif not p2_name %}<p>Share this link to invite another player (must be logged in):</p>
@@ -21,11 +26,11 @@
     </div>
 </div>
 
-    {% endblock %}
+{% endblock %}
 
-    {% block scripts %}
-    <meta id="hash_id" data-hashid="{{ game.hashid }}">
-    <meta id="user_id" data-id="{{ current_user.id }}">
+{% block scripts %}
+<meta id="hash_id" data-hashid="{{ game.hashid }}">
+<meta id="user_id" data-id="{{ current_user.id }}">
 
-    <script type="text/javascript" src="/static/js/x01_waiting.js"></script>
-    {% endblock %}
+<script type="text/javascript" src="/static/js/x01_waiting.js"></script>
+{% endblock %}
