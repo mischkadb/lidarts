@@ -4,8 +4,11 @@
 
 {% block navbar %}
 <div class="container-fluid">
-    <div class="row mb-2">
-        <div id="hide-keypad">Toggle Keypad</div> <a href="{{ url_for('generic.index') }}"> Index</a><a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}">Streamoverlay</a>
+    <div class="row mb-2 text-secondary">
+        <a href="{{ url_for('generic.index') }}" class="text-secondary"> Leave game</a>
+        | <div id="abort-game">Abort game</div>
+        | <div id="hide-keypad">Toggle Keypad</div>
+        | <a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}" class="text-secondary">Streamoverlay</a>
     </div>
 </div>
 {% endblock %}
@@ -182,6 +185,11 @@
         <!-- GAME END CONFIRMATION -->
         <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
             <h4 class="text-light">Game is completed.</h4>
+            <a href="{{ url_for('game.start', hashid=game.hashid) }}">Game overview</a>
+        </form>
+
+        <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status != 'aborted' %} style="display: none" {% endif %}>
+            <h4 class="text-light">Game was aborted.</h4>
             <a href="{{ url_for('game.start', hashid=game.hashid) }}">Game overview</a>
         </form>
 
@@ -383,6 +391,17 @@
     </div>
 </div>
 
+<!-- ABORT GAME MODAL -->
+<div class="modal fade abort-game-modal" id="abort-game-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <h3 class="text-center">Abort game?</h3>
+            <button type="button" class="btn btn-success" data-dismiss="modal" id="abort-confirm">Confirm</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="abort-cancel">Cancel</button>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block footer %}
@@ -392,6 +411,8 @@
 <meta id="hash_id" data-hashid="{{ game.hashid }}">
 <meta id="validation_url" data-url="{{ url_for('game.validate_score') }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
+<meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
+
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
 <script type="text/javascript" src="/static/js/x01_socket.js"></script>

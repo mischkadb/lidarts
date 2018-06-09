@@ -273,3 +273,6 @@ def process_closest_to_bull(game, score_value, computer=False):
          room=game.hashid, broadcast=True)
     return
 
+
+def broadcast_game_aborted(game):
+    emit('game_aborted', {'hashid': game.hashid}, room=game.hashid, namespace='/game', broadcast=True)

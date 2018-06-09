@@ -25,6 +25,11 @@ $(document).ready(function() {
         socket.emit('init', {hashid: hashid['hashid'] });
     });
 
+    socket.on('game_aborted', function(msg) {
+        $('.score_input').hide();
+        $('.game-aborted').show();
+    });
+
     socket.on('closest_to_bull_score', function(msg) {
         $('#closest_to_bull_notification').text('Throw three darts at bull.');
         $('#p1_score').html('');
@@ -584,134 +589,152 @@ $(document).ready(function() {
         }
     });
 
+    // handle key inputs
+    $(document).keypress(function(e){
+        var keyCode = e.which;
 
-});
-
-// handle key inputs
-$(document).keypress(function(e){
-    var keyCode = e.which;
-
-    var score_input = document.getElementById('score_value');
-    var score_input_sm = document.getElementById('score_value_sm');
+        var score_input = document.getElementById('score_value');
+        var score_input_sm = document.getElementById('score_value_sm');
 
 
-    if (document.activeElement != score_input && document.activeElement != score_input_sm) {
-        // 1
-        if (keyCode == 49 || keyCode == 97) {
-            if ($('#double-missed-1').is(":visible")){
-                $('#double-missed-1').click();
-            } else if ($('#to-finish-1').is(":visible")){
-                $('#to-finish-1').click();
-            } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")){
-                $('.score_value').val($('.score_value').val() + '1');
-            }
-        }
-        // 2
-        else if (keyCode == 50 || keyCode == 98) {
-            if ($('#double-missed-2').is(":visible")){
-                $('#double-missed-2').click();
-            } else if ($('#to-finish-2').is(":visible")){
-                $('#to-finish-2').click();
-            } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")){
-                $('.score_value').val($('.score_value').val() + '2');
-            }
-        }
-        // 3
-        else if (keyCode == 51 || keyCode == 99) {
-            if ($('#double-missed-3').is(":visible")){
-                $('#double-missed-3').click();
-            } else if ($('#to-finish-3').is(":visible")){
-                $('#to-finish-3').click();
-            } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
-                $('.score_value').val($('.score_value').val() + '3');
-            }
-        }
-        // 4
-        else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
-
-            if (keyCode == 52 || keyCode == 100)
-            {
-                $('.score_value').val($('.score_value').val() + '4');
-            }
-            // 5
-            else if (keyCode == 53 || keyCode == 101) {
-                $('.score_value').val($('.score_value').val() + '5');
-            }
-            // 6
-            else if (keyCode == 54 || keyCode == 102) {
-                $('.score_value').val($('.score_value').val() + '6');
-            }
-            // 7
-            else if (keyCode == 55 || keyCode == 103) {
-                $('.score_value').val($('.score_value').val() + '7');
-            }
-            // 8
-            else if (keyCode == 56 || keyCode == 104) {
-                $('.score_value').val($('.score_value').val() + '8');
-            }
-            // 9
-            else if (keyCode == 57 || keyCode == 105) {
-                $('.score_value').val($('.score_value').val() + '9');
-            }
-            // 0
-            else if (keyCode == 48 || keyCode == 96) {
-                if ($('#double-missed-0').is(":visible")) {
-                    $('#double-missed-0').click();
-                } else {
-                    $('.score_value').val($('.score_value').val() + '0');
+        if (document.activeElement != score_input && document.activeElement != score_input_sm) {
+            // 1
+            if (keyCode == 49 || keyCode == 97) {
+                if ($('#double-missed-1').is(":visible")){
+                    $('#double-missed-1').click();
+                } else if ($('#to-finish-1').is(":visible")){
+                    $('#to-finish-1').click();
+                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")){
+                    $('.score_value').val($('.score_value').val() + '1');
                 }
             }
-            else if (keyCode == 13) {
-                $('.score_input').submit();
+            // 2
+            else if (keyCode == 50 || keyCode == 98) {
+                if ($('#double-missed-2').is(":visible")){
+                    $('#double-missed-2').click();
+                } else if ($('#to-finish-2').is(":visible")){
+                    $('#to-finish-2').click();
+                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")){
+                    $('.score_value').val($('.score_value').val() + '2');
+                }
             }
-            else if (keyCode == 8) {
-                $('.score_value').val($('.score_value').val().slice(0, -1));
+            // 3
+            else if (keyCode == 51 || keyCode == 99) {
+                if ($('#double-missed-3').is(":visible")){
+                    $('#double-missed-3').click();
+                } else if ($('#to-finish-3').is(":visible")){
+                    $('#to-finish-3').click();
+                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
+                    $('.score_value').val($('.score_value').val() + '3');
+                }
+            }
+            // 4
+            else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
+
+                if (keyCode == 52 || keyCode == 100)
+                {
+                    $('.score_value').val($('.score_value').val() + '4');
+                }
+                // 5
+                else if (keyCode == 53 || keyCode == 101) {
+                    $('.score_value').val($('.score_value').val() + '5');
+                }
+                // 6
+                else if (keyCode == 54 || keyCode == 102) {
+                    $('.score_value').val($('.score_value').val() + '6');
+                }
+                // 7
+                else if (keyCode == 55 || keyCode == 103) {
+                    $('.score_value').val($('.score_value').val() + '7');
+                }
+                // 8
+                else if (keyCode == 56 || keyCode == 104) {
+                    $('.score_value').val($('.score_value').val() + '8');
+                }
+                // 9
+                else if (keyCode == 57 || keyCode == 105) {
+                    $('.score_value').val($('.score_value').val() + '9');
+                }
+                // 0
+                else if (keyCode == 48 || keyCode == 96) {
+                    if ($('#double-missed-0').is(":visible")) {
+                        $('#double-missed-0').click();
+                    } else {
+                        $('.score_value').val($('.score_value').val() + '0');
+                    }
+                }
+                else if (keyCode == 13) {
+                    $('.score_input').submit();
+                }
+                else if (keyCode == 8) {
+                    $('.score_value').val($('.score_value').val().slice(0, -1));
+                }
             }
         }
-    }
+
+    });
+
+
+    // onscreen keyboard functions
+    $('.button-1').click(function() {
+        $('.score_value').val($('.score_value').val() + '1');
+    });
+    $('.button-2').click(function() {
+        $('.score_value').val($('.score_value').val() + '2');
+    });
+    $('.button-3').click(function() {
+        $('.score_value').val($('.score_value').val() + '3');
+    });
+    $('.button-4').click(function() {
+        $('.score_value').val($('.score_value').val() + '4');
+    });
+    $('.button-5').click(function() {
+        $('.score_value').val($('.score_value').val() + '5');
+    });
+    $('.button-6').click(function() {
+        $('.score_value').val($('.score_value').val() + '6');
+    });
+    $('.button-7').click(function() {
+        $('.score_value').val($('.score_value').val() + '7');
+    });
+    $('.button-8').click(function() {
+        $('.score_value').val($('.score_value').val() + '8');
+    });
+    $('.button-9').click(function() {
+        $('.score_value').val($('.score_value').val() + '9');
+    });
+    $('.button-0').click(function() {
+        $('.score_value').val($('.score_value').val() + '0');
+    });
+    $('.button-del').click(function() {
+        $('.score_value').val('');
+    });
+    $('.button-conf').click(function() {
+        $('.score_input').submit();
+    });
+
+    // Toggle keypad
+    $('#hide-keypad').click(function() {
+        $('.score_input').toggle();
+    });
+
+    // Abort game
+    $('#abort-game').click(function() {
+        $('#abort-game-modal').modal('show');
+    });
+
+    $('#abort-confirm').click(function() {
+        var hashid = $('#hash_id').data()['hashid'];
+        var abort_url = $('#abort_url').data()['url'];
+        console.log(abort_url + hashid);
+        $.post(abort_url + hashid);
+    })
+
 });
 
-// onscreen keyboard functions
-$('.button-1').click(function() {
-    $('.score_value').val($('.score_value').val() + '1');
-});
-$('.button-2').click(function() {
-    $('.score_value').val($('.score_value').val() + '2');
-});
-$('.button-3').click(function() {
-    $('.score_value').val($('.score_value').val() + '3');
-});
-$('.button-4').click(function() {
-    $('.score_value').val($('.score_value').val() + '4');
-});
-$('.button-5').click(function() {
-    $('.score_value').val($('.score_value').val() + '5');
-});
-$('.button-6').click(function() {
-    $('.score_value').val($('.score_value').val() + '6');
-});
-$('.button-7').click(function() {
-    $('.score_value').val($('.score_value').val() + '7');
-});
-$('.button-8').click(function() {
-    $('.score_value').val($('.score_value').val() + '8');
-});
-$('.button-9').click(function() {
-    $('.score_value').val($('.score_value').val() + '9');
-});
-$('.button-0').click(function() {
-    $('.score_value').val($('.score_value').val() + '0');
-});
-$('.button-del').click(function() {
-    $('.score_value').val('');
-});
-$('.button-conf').click(function() {
-    $('.score_input').submit();
-});
 
-// Toggle keypad
-$('#hide-keypad').click(function() {
-    $('.score_input').toggle();
-});
+
+
+
 
 

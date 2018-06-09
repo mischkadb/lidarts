@@ -4,6 +4,7 @@ from lidarts.game.forms import CreateX01GameForm, ScoreForm
 from lidarts.models import Game, User
 from lidarts import db
 from lidarts.socket.chat_handler import broadcast_new_game
+from lidarts.socket.utils import broadcast_game_aborted
 from lidarts.game.utils import get_name_by_id, collect_statistics
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user, login_required
@@ -97,7 +98,7 @@ def start(hashid, theme=None):
         p2_name = get_name_by_id(game.player2) if game.player2 else None
         return render_template('game/wait_for_opponent.html', game=game_dict, p2_name=p2_name)
     # for everyone if the game is completed
-    if game.status == 'completed':
+    if game.status == 'completed' or game.status == 'aborted':
         statistics = collect_statistics(game, match_json)
         return render_template('game/X01_completed.html', game=game_dict, match_json=match_json, stats=statistics)
     # for running games
@@ -124,3 +125,16 @@ def decline_challenge(id):
     game.status = "declined"
     db.session.commit()
     return jsonify('success')
+
+
+@bp.route('/abort_game/')
+@bp.route('/abort_game/<hashid>', methods=['POST'])
+def abort_game(hashid):
+    game = Game.query.filter_by(hashid=hashid).first_or_404()
+    game.status = "aborted"
+    game.end = datetime.utcnow()
+    broadcast_game_aborted(game)
+    db.session.commit()
+    return redirect(url_for('generic.lobby'))
+
+

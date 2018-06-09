@@ -7,7 +7,13 @@
 <div class="row justify-content-center mb-2">
     <div class="col-xl-8 col-lg-10 col-sm-12">
         <div class="card bg-light">
-            <div class="card-body"><!--
+
+            <div class="card-body">
+                {% if game.status == 'aborted' %}
+                <h2 class="card-title text-center bg-danger text-light font-weight-bold">Game was aborted.</h2>
+                {% endif %}
+
+                <!--
                 <div class="card-title text-center">
                     {% if game.p1_sets == game.p2_sets %}<h1>Draw.</h1>
                     {% else %}<h1>Winner: {% if game.p1_sets > game.p2_sets %}{{ game.player1_name }} {% else %} {{ game.player2_name }}{% endif %}</h1>

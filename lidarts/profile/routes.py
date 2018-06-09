@@ -43,7 +43,7 @@ def overview(username):
     player_names = {}
     user = User.query.filter(User.username.ilike(username)).first_or_404()
     games = Game.query.filter(((Game.player1 == user.id) | (Game.player2 == user.id)) & (Game.status != 'challenged')
-                              & (Game.status != 'declined'))\
+                              & (Game.status != 'declined') & (Game.status != 'aborted'))\
         .order_by(desc(Game.id)).all()
 
     for game in games:
