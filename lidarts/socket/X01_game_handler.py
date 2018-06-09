@@ -1,10 +1,13 @@
 from flask import request
 from flask_socketio import emit, join_room, leave_room
-from lidarts import socketio
+from flask_login import current_user
+from lidarts import socketio, db
 from lidarts.models import Game
 from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.computer import get_computer_score
+from lidarts.socket.chat_handler import broadcast_online_players
 import json
+from datetime import datetime
 
 
 def send_score_response(game, old_score=0, broadcast=False):
@@ -135,6 +138,14 @@ def send_score_response(game, old_score=0, broadcast=False):
 @socketio.on('connect', namespace='/game')
 def connect():
     print('Client connected', request.sid)
+
+
+@socketio.on('player_heartbeat', namespace='/game')
+def connect():
+    if current_user.is_authenticated:
+        current_user.last_seen_ingame = datetime.utcnow()
+        db.session.commit()
+        broadcast_online_players()
 
 
 @socketio.on('init', namespace='/game')

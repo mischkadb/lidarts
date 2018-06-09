@@ -74,7 +74,6 @@
     </div>
 </nav>
 
-<meta id="status_url" data-url="{{ url_for('profile.set_status') }}">
 {% endblock %}
 
 {% block content %}
@@ -126,6 +125,7 @@
 <!-- socketio -->
 <script type="text/javascript" src="/static/js/socket.io.min.js"></script>
 
+<meta id="status_url" data-url="{{ url_for('profile.set_status') }}">
 <script type="text/javascript" src="/static/js/base_socket.js"></script>
 
 

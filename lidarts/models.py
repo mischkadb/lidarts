@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(128))
     active = db.Column(db.Boolean)
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    last_seen_ingame = db.Column(db.DateTime, default=datetime.utcnow)
     active_sessions = db.Column(db.Integer, default=0)
     status = db.Column(db.String(15), default='online')
     roles = db.relationship('Role', secondary=roles_users,
