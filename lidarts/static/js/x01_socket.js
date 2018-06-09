@@ -9,13 +9,6 @@ $(document).ready(function() {
     // The callback function is invoked when a connection with the
     // server is established.
 
-    socket.emit('player_heartbeat');
-
-    window.setInterval(function(){
-        /// call your function here
-        socket.emit('player_heartbeat');
-    }, 5000);
-
     var p1_next_turn;
     var p1_id;
     var p2_id;
@@ -25,9 +18,29 @@ $(document).ready(function() {
         socket.emit('init', {hashid: hashid['hashid'] });
     });
 
+    socket.emit('player_heartbeat', {hashid: hashid['hashid']});
+
+    window.setInterval(function(){
+        /// call your function here
+        socket.emit('player_heartbeat', {hashid: hashid['hashid']});
+    }, 5000);
+
     socket.on('game_aborted', function(msg) {
         $('.score_input').hide();
         $('.game-aborted').show();
+    });
+
+    socket.on('players_ingame', function(msg) {
+        if (msg.p1_ingame === true) {
+            $('#p1_ingame').hide();
+        } else {
+            $('#p1_ingame').show();
+        }
+        if (msg.p2_ingame === true) {
+            $('#p2_ingame').hide();
+        } else {
+            $('#p2_ingame').show();
+        }
     });
 
     socket.on('closest_to_bull_score', function(msg) {

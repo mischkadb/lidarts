@@ -2,12 +2,12 @@ from flask import request
 from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
-from lidarts.models import Game
+from lidarts.models import Game, User
 from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.computer import get_computer_score
 from lidarts.socket.chat_handler import broadcast_online_players
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def send_score_response(game, old_score=0, broadcast=False):
@@ -141,11 +141,17 @@ def connect():
 
 
 @socketio.on('player_heartbeat', namespace='/game')
-def connect():
+def player_heartbeat(message):
     if current_user.is_authenticated:
+        game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
         current_user.last_seen_ingame = datetime.utcnow()
+        p1 = User.query.filter_by(id=game.player1).first_or_404()
+        p1_ingame = p1.last_seen_ingame > datetime.utcnow() - timedelta(seconds=10)
+        p2 = User.query.filter_by(id=game.player2).first_or_404() if game.player2 else None
+        p2_ingame = p2.last_seen_ingame > datetime.utcnow() - timedelta(seconds=10) if p2 else True
         db.session.commit()
         broadcast_online_players()
+        emit('players_ingame', {'p1_ingame': p1_ingame, 'p2_ingame': p2_ingame}, room=game.hashid, broadcast=True)
 
 
 @socketio.on('init', namespace='/game')

@@ -17,6 +17,24 @@ $(document).ready(function() {
         socket.emit('init', {hashid: hashid['hashid'] });
     });
 
+    socket.on('game_aborted', function(msg) {
+        $('.score_input').hide();
+        $('.game-aborted').show();
+    });
+
+    socket.on('players_ingame', function(msg) {
+        if (msg.p1_ingame === true) {
+            $('#p1_ingame').hide();
+        } else {
+            $('#p1_ingame').show();
+        }
+        if (msg.p2_ingame === true) {
+            $('#p2_ingame').hide();
+        } else {
+            $('#p2_ingame').show();
+        }
+    });
+
     socket.on('closest_to_bull_score', function(msg) {
         $('#closest_to_bull_notification').text('Throw three darts at bull.');
         $('#p1_score').html('');
