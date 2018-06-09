@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Avatar{% endblock %}
+
+{% block app_content %}
+
+
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-xl-6">
+        <div class="card bg-light text-dark bs-callout bs-callout-info text-center">
+            <div class="card-body">
+                <h5 class="card-title">Avatar</h5>
+                <hr>
+                <img src="{{ avatar_url }}">
+                <form action="{{ url_for('profile.delete_avatar') }}">
+                    <input type="submit" value="Delete" class="btn btn-dark mt-3">
+                </form>
+                <form method="POST" enctype="multipart/form-data" action="{{ url_for('profile.change_avatar') }}">
+                    <input type="file" name="avatar" class="form-control-file mt-3 text-center">
+                    <input type="submit" class="btn btn-dark mt-3" value="Upload">
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

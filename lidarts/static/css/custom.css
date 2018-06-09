@@ -130,3 +130,7 @@ a.no-underline {
 .status-playing{
     color: #5555ee;
 }
+
+.avatar{
+    border-radius: 50%;
+}

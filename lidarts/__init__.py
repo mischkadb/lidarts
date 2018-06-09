@@ -8,6 +8,7 @@ from flask_socketio import SocketIO
 from flask_mail import Mail
 from flask_moment import Moment
 from flask_babel import _, Babel
+from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from dotenv import load_dotenv
 import eventlet
 
@@ -22,6 +23,7 @@ security = Security()
 socketio = SocketIO()
 babel = Babel()
 moment = Moment()
+avatars = UploadSet('avatars', IMAGES)
 
 
 def create_app(test_config=None):
@@ -62,6 +64,8 @@ def create_app(test_config=None):
     socketio.init_app(app, message_queue='redis://', async_mode='eventlet')
     babel.init_app(app)
     moment.init_app(app)
+    configure_uploads(app, avatars)
+    patch_request_class(app, 2 * 1024 * 1024)
 
     # Load all blueprints
     from lidarts.generic import bp as generic_bp

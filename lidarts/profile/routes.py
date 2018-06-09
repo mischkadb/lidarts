@@ -1,10 +1,11 @@
-from flask import render_template, request, url_for, jsonify
+from flask import render_template, request, url_for, jsonify, redirect, flash, current_app
 from flask_login import current_user, login_required
-from lidarts import db
+from lidarts import db, avatars
 from lidarts.profile import bp
 from lidarts.models import User, Game, Friendship, FriendshipRequest
 from sqlalchemy import desc
 from datetime import datetime, timedelta
+import os
 
 
 @bp.route('/@/<username>/game_history')
@@ -103,3 +104,32 @@ def manage_friend_list():
 
     return render_template('profile/manage_friend_list.html',
                            friend_list=friend_list, player_names=player_names, pending_requests=friendship_request)
+
+
+@bp.route('/delete_avatar', methods=['GET', 'POST'])
+@login_required
+def delete_avatar():
+    if current_user.avatar:
+        os.remove(os.path.join(current_app.config['UPLOADS_DEFAULT_DEST'], 'avatars', current_user.avatar))
+        flash("Avatar deleted.")
+    current_user.avatar = None
+    db.session.commit()
+    return redirect(url_for('profile.change_avatar'))
+
+
+@bp.route('/change_avatar', methods=['GET', 'POST'])
+@login_required
+def change_avatar():
+    if request.method == 'POST' and 'avatar' in request.files:
+        delete_avatar()
+        filename = avatars.save(request.files['avatar'], name=f'{current_user.id}.')
+        current_user.avatar = filename
+        db.session.commit()
+        flash("Avatar saved.")
+        return redirect(url_for('profile.change_avatar'))
+
+    avatar_url = avatars.url(current_user.avatar) if current_user.avatar else avatars.url('default.png')
+
+    return render_template('profile/change_avatar.html', avatar_url=avatar_url)
+
+
