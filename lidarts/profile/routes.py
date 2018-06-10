@@ -85,9 +85,11 @@ def overview(username):
     stats['first9_average'] = round((sum(stats['first9_scores'])/len(stats['first9_scores'])), 2) \
         if stats['first9_scores'] else 0
 
+    avatar_url = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
+
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names, friend_list=friend_list,
-                           stats=stats,
+                           stats=stats, avatar_url=avatar_url,
                            is_online=(user.last_seen > datetime.utcnow() - timedelta(seconds=15)))
 
 
