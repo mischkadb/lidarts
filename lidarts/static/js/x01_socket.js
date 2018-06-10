@@ -641,6 +641,14 @@ $(document).ready(function() {
                     $('.score_value').val($('.score_value').val() + '3');
                 }
             }
+            // 0
+            else if (keyCode == 48 || keyCode == 96) {
+                if ($('#double-missed-0').is(":visible")) {
+                    $('#double-missed-0').click();
+                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
+                    $('.score_value').val($('.score_value').val() + '0');
+                }
+            }
             // 4
             else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
 
@@ -667,14 +675,6 @@ $(document).ready(function() {
                 // 9
                 else if (keyCode == 57 || keyCode == 105) {
                     $('.score_value').val($('.score_value').val() + '9');
-                }
-                // 0
-                else if (keyCode == 48 || keyCode == 96) {
-                    if ($('#double-missed-0').is(":visible")) {
-                        $('#double-missed-0').click();
-                    } else {
-                        $('.score_value').val($('.score_value').val() + '0');
-                    }
                 }
                 else if (keyCode == 13) {
                     $('.score_input').submit();
