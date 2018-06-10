@@ -185,8 +185,8 @@
                         <table class="table d-flex border-0">
                             <tr>
                                 <td class="border-0"></td>
-                                {% for set in match_json %}
-                                {% for leg in match_json[set] %}
+                                {% for set in range(1, match_json|length + 1) %}
+                                {% for leg in range(1, match_json[set|string]|length + 1) %}
                                 <td class="border">S{{ set }}|L{{ leg }}</td>
                                 {% endfor %}
                                 {% endfor %}
@@ -196,18 +196,18 @@
                             <tr>
                                 <td class="border"><strong>{% if player == '1' %}{{ game.player1_name }}
                                     {% else %}{{ game.player2_name }}{% endif %}</strong></td>
-                                {% for set in match_json %}
-                                {% for leg in match_json[set] %}
-                                <td class="border td-leg-overview {% if (match_json[set][leg][player]['scores']|sum == game.type) %}bg-leg-win text-light{% endif %}">
+                                {% for set in range(1, match_json|length + 1) %}
+                                {% for leg in range(1, match_json[set|string]|length + 1) %}
+                                <td class="border td-leg-overview {% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}bg-leg-win text-light{% endif %}">
                                     <div style="position: relative">
-                                    <span class="leg-average">{% if (match_json[set][leg][player]['scores']|length > 0) %}
-                                        {{ (match_json[set][leg][player]['scores']|sum / match_json[set][leg][player]['scores']|length)|round(2) }}
+                                    <span class="leg-average">{% if (match_json[set|string][leg|string][player]['scores']|length > 0) %}
+                                        {{ (match_json[set|string][leg|string][player]['scores']|sum / match_json[set|string][leg|string][player]['scores']|length)|round(2) }}
                                         {% else %}0{% endif %}
                                     </span>
-                                        <span class="dart-count">{% if (match_json[set][leg][player]['scores']|sum == game.type) %}{{ match_json[set][leg][player]['scores']|length*3 - (3 - match_json[set][leg][player]['to_finish']) }}
+                                        <span class="dart-count">{% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}{{ match_json[set|string][leg|string][player]['scores']|length*3 - (3 - match_json[set|string][leg|string][player]['to_finish']) }}
                                     {% else %}-{% endif %}
                                     </span>
-                                        <span class="score-remain">{{ game.type - match_json[set][leg][player]['scores']|sum }}
+                                        <span class="score-remain">{{ game.type - match_json[set|string][leg|string][player]['scores']|sum }}
                                     </span>
                                     </div>
                                 </td>
