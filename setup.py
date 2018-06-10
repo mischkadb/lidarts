@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='lidarts',
-    version='0.4.0-3',
+    version='0.4.0-5',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -20,6 +20,7 @@ setup(
         'Flask-Security',
         'Flask-SocketIO',
         'Flask-SQLAlchemy',
+        'Flask-Uploads',
         'Flask-WTF',
         'gunicorn',
         'hashids',

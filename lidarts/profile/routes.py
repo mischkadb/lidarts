@@ -149,7 +149,7 @@ def delete_avatar():
 def change_avatar():
     if request.method == 'POST' and 'avatar' in request.files:
         delete_avatar()
-        filename = avatars.save(request.files['avatar'], name=f'{current_user.id}.')
+        filename = avatars.save(request.files['avatar'], name='{}.'.format(current_user.id))
         current_user.avatar = filename
         db.session.commit()
         flash("Avatar saved.")
