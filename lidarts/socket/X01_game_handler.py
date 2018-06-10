@@ -222,8 +222,8 @@ def send_score(message):
                                 'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
                                 'type': game.type, 'p1_sets': game.p1_sets,
                                 'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
-             room=game.hashid, broadcast=True)
-        leave_room(game.hashid)
+             room=game.hashid, broadcast=True, namespace='/game')
+        #leave_room(game.hashid)  # does this cause a bug?
 
     elif old_set_count < len(match_json) or old_leg_count < len(match_json[str(len(match_json))]):
         if len(match_json[str(len(match_json))]) == 1:  # new set
@@ -238,7 +238,7 @@ def send_score(message):
         emit('game_shot', {'hashid': game.hashid, 'p1_last_leg': p1_last_leg, 'p2_last_leg': p2_last_leg,
                            'p1_won': p1_won, 'type': game.type, 'p1_sets': game.p1_sets,
                            'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
-             room=game.hashid, broadcast=True)
+             room=game.hashid, broadcast=True, namespace='/game')
     else:
         send_score_response(game, old_score, broadcast=True)
 
