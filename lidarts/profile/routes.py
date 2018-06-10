@@ -6,7 +6,7 @@ from lidarts.models import User, Game, Friendship, FriendshipRequest
 from sqlalchemy import desc
 from datetime import datetime, timedelta
 import os
-
+import json
 
 @bp.route('/@/<username>/game_history')
 @login_required
@@ -47,6 +47,7 @@ def overview(username):
                               & (Game.status != 'declined') & (Game.status != 'aborted'))\
         .order_by(desc(Game.id)).all()
 
+    stats = {'darts_thrown': 0, 'double_thrown': 0, 'legs_won': 0, 'total_score': 0, 'first9_scores': []}
     for game in games:
         if game.player1 and game.player1 not in player_names:
             player_names[game.player1] = User.query.with_entities(User.username)\
@@ -55,14 +56,38 @@ def overview(username):
             player_names[game.player2] = User.query.with_entities(User.username) \
                 .filter_by(id=game.player2).first_or_404()[0]
 
+        if not (game.type == 501 and game.out_mode == 'do' and game.in_mode == 'si'):
+            continue
+
+        player = '1' if (user.id == game.player1) else '2'
+
+        match_json = json.loads(game.match_json)
+        for set in match_json:
+            for leg in match_json[set]:
+                for score in match_json[set][leg][player]['scores'][:3]:
+                    stats['first9_scores'].append(score)
+                stats['darts_thrown'] += len(match_json[set][leg][player]['scores'])*3
+                stats['total_score'] += sum(match_json[set][leg][player]['scores'])
+                if 'to_finish' in match_json[set][leg][player]:
+                    stats['darts_thrown'] -= (3 - match_json[set][leg][player]['to_finish'])
+                    stats['double_thrown'] += 1
+                    stats['legs_won'] += 1
+                stats['double_thrown'] += match_json[set][leg][player]['double_missed']
+
     friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
     friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)
 
     friend_list = friend_query1.union(friend_query2).all()
     friend_list = [r for (r,) in friend_list]
 
+    stats['doubles'] = round((stats['legs_won'] / stats['double_thrown']), 4)*100 if stats['double_thrown'] else 0
+    stats['average'] = round((stats['total_score'] / (stats['darts_thrown']))*3, 2) if stats['darts_thrown'] else 0
+    stats['first9_average'] = round((sum(stats['first9_scores'])/len(stats['first9_scores'])), 2) \
+        if stats['first9_scores'] else 0
+
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names, friend_list=friend_list,
+                           stats=stats,
                            is_online=(user.last_seen > datetime.utcnow() - timedelta(seconds=15)))
 
 

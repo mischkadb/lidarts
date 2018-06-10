@@ -85,10 +85,15 @@
 
 
     <div class="col-md-4">
-        <div class="card bg-light text-dark bs-callout bs-callout-danger">
+        <div class="card bg-light bs-callout bs-callout-danger text-secondary">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-chart-bar"></i> Statistics</h5>
+                <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> Statistics</h5>
                 <hr>
+                <p>Darts thrown: {{ stats['darts_thrown'] }}</p>
+                <p>Average: {{ stats['average'] }}</p>
+                <p>First 9: {{ stats['first9_average'] }}</p>
+                <p>Doubles: {{ stats['doubles'] }}%</p>
+
             </div>
         </div>
     </div>
