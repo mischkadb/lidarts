@@ -115,3 +115,12 @@ class Chatmessage(db.Model):
     author = db.Column(db.Integer, db.ForeignKey('users.id'))
     message = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime)
+
+
+class Privatemessage(db.Model):
+    __tablename__ = 'privatemessages'
+    id = db.Column(db.Integer, primary_key=True)
+    sender = db.Column(db.Integer, db.ForeignKey('users.id'))
+    receiver = db.Column(db.Integer, db.ForeignKey('users.id'))
+    message = db.Column(db.String(500))
+    timestamp = db.Column(db.DateTime)
