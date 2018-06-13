@@ -131,6 +131,10 @@ a.no-underline {
     color: #5555ee;
 }
 
+.status-offline{
+    color: #888888;
+}
+
 .avatar{
     border-radius: 50%;
 }

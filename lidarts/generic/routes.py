@@ -5,6 +5,7 @@ from lidarts.generic import bp
 from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.utils import get_name_by_id
+from lidarts.profile.utils import get_user_status
 from sqlalchemy import desc, asc
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -128,17 +129,21 @@ def private_messages():
     messages = messages_sent.union(messages_received).order_by(Privatemessage.id.asc()).all()
     user_names = {current_user.id: current_user.username}
     messages_dict = defaultdict(list)
+    status = {}
 
     for message in messages:
         other_user = message.sender if message.sender != current_user.id else message.receiver
         messages_dict[other_user].append({'sender': message.sender, 'receiver': message.receiver,
                                           'message': message.message, 'timestamp': message.timestamp})
 
-        user_names[other_user] = User.query.with_entities(User.username) \
-            .filter_by(id=other_user).first_or_404()[0]
+        if other_user not in user_names:
+            other_user = User.query.filter_by(id=other_user).first_or_404()
+            user_names[other_user.id] = other_user.username
+            status[other_user.id] = get_user_status(other_user)
+    print(status)
 
     return render_template('generic/inbox.html', form=form, messages=messages_dict,
-                           user_names=user_names)
+                           user_names=user_names, status=status)
 
 
 @bp.route('/compose_message/')

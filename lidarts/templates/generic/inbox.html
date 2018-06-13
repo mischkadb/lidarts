@@ -10,11 +10,11 @@
 <div class="row justify-content-center">
     <div class="col-sm-4">
         <div class="card bg-light text-dark">
-            <div class="card-body" id="chat_partners" style="height: 600px; overflow-y: scroll;">
+            <div class="card-body" id="chat_partners" style="height: 642px; overflow-y: scroll;">
                 {% for other_user in messages %}
                 <div class="card chat-partner {% if loop.index == 1 %}chat-partner-active{% endif %}" id="chat_partner_{{ user_names[other_user] }}">
                     <div class="card-body" style="padding: 2px 2px 2px 2px;">
-                        <p><strong><h5><i class="fas fa-circle status-" style="font-size: 15px;"></i>
+                        <p><strong><h5><i class="fas fa-circle status-{{ status[other_user] }}" style="font-size: 15px;"></i>
                             {{ user_names[other_user] }}</h5></strong>
                         </p>
                     </div>
@@ -50,10 +50,10 @@
                 </div>
             </div>
         </div>
-        <form id="message_input" method="POST" action="">
+        <form id="message_input" method="POST" action="" class="mt-2">
             {{ form.hidden_tag() }}
             {{ form.message(class="form-control", autocomplete="off" ) }}
-            {{ form.submit(class="btn btn-dark") }}
+            {{ form.submit(class="btn btn-dark mt-1") }}
         </form>
     </div>
 </div>
