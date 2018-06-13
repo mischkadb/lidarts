@@ -55,6 +55,9 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 
 class FriendshipRequest(db.Model):
     __tablename__ = 'friendship_requests'

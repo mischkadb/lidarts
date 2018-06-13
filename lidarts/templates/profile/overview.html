@@ -25,6 +25,7 @@
                 {% if current_user.id == user.id %}
                 <h5 class="card-title"><i class="fas fa-cog"></i> Preferences</h5>
                 <hr>
+                <p><a href="{{ url_for('generic.private_messages') }}" class="text-secondary">Private messages</a></p>
                 <p><a href="" class="text-secondary">Edit profile</a></p>
                 <p><a href="{{ url_for('profile.manage_friend_list') }}" class="text-secondary">Manage friend list</a></p>
                 <p><a href="{{ url_for('auth.change_username') }}" class="text-secondary">Change display name</a></p>

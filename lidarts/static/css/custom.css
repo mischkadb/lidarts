@@ -134,3 +134,13 @@ a.no-underline {
 .avatar{
     border-radius: 50%;
 }
+
+.chat-partner:hover{
+    background: #eeeeee;
+}
+
+.chat-partner-active{
+    background: #cccccc;
+}
+
+

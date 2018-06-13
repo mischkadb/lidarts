@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 import os
 import json
 
+
 @bp.route('/@/<username>/game_history')
 @login_required
 def game_history(username):

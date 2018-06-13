@@ -2,11 +2,12 @@ from flask import render_template, redirect, url_for, request, jsonify
 from flask_login import current_user, login_required
 from lidarts import db
 from lidarts.generic import bp
-from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest
+from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.utils import get_name_by_id
 from sqlalchemy import desc, asc
 from datetime import datetime, timedelta
+from collections import defaultdict
 
 
 @bp.route('/')
@@ -116,6 +117,41 @@ def chat():
 
     return render_template('generic/chat.html', form=form, messages=messages,
                            user_names=user_names)
+
+
+@bp.route('/private_messages', methods=['GET', 'POST'])
+@login_required
+def private_messages():
+    form = ChatmessageForm()
+    messages_sent = Privatemessage.query.filter_by(sender=current_user.id)
+    messages_received = Privatemessage.query.filter_by(receiver=current_user.id)
+    messages = messages_sent.union(messages_received).order_by(Privatemessage.id.asc()).all()
+    user_names = {current_user.id: current_user.username}
+    messages_dict = defaultdict(list)
+
+    for message in messages:
+        other_user = message.sender if message.sender != current_user.id else message.receiver
+        messages_dict[other_user].append({'sender': message.sender, 'receiver': message.receiver,
+                                          'message': message.message, 'timestamp': message.timestamp})
+
+        user_names[other_user] = User.query.with_entities(User.username) \
+            .filter_by(id=other_user).first_or_404()[0]
+
+    return render_template('generic/inbox.html', form=form, messages=messages_dict,
+                           user_names=user_names)
+
+
+@bp.route('/compose_message/')
+@bp.route('/compose_message/<name>', methods=['POST'])
+@login_required
+def compose_message(name=None):
+    user = User.query.filter_by(username=name).first()
+    if not user:
+        return jsonify('error')
+    user_dict = dict(
+        id=user.id, username=user.username, status=user.status, avatar=user.avatar
+    )
+    return jsonify(user_dict)
 
 
 @bp.route('/validate_chat_message', methods=['POST'])

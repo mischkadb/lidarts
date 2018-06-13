@@ -1,7 +1,8 @@
 from flask import request
-from flask_socketio import emit
+from flask_socketio import emit, join_room
+from flask_login import current_user
 from lidarts import socketio, db
-from lidarts.models import User, Chatmessage
+from lidarts.models import User, Chatmessage, Privatemessage
 from datetime import datetime, timedelta
 
 
@@ -59,6 +60,35 @@ def broadcast_chat_message(message):
     emit('send_message', {'author': author, 'message': new_message.message,
                           'timestamp': str(new_message.timestamp) + 'Z'},
          broadcast=True)
+
+
+@socketio.on('connect', namespace='/private_messages')
+def connect():
+    print('Client connected', request.sid)
+    if current_user.is_authenticated:
+        join_room(current_user.username)
+
+
+@socketio.on('broadcast_private_message', namespace='/private_messages')
+def send_private_message(message):
+    receiver, = User.query.with_entities(User.id).filter_by(username=message['receiver']).first_or_404()
+    new_message = Privatemessage(message=message['message'], sender=current_user.id,
+                                 receiver=receiver, timestamp=datetime.utcnow())
+    db.session.add(new_message)
+    db.session.commit()
+
+    sender_name = current_user.username
+    receiver_name = User.query.with_entities(User.username).filter_by(id=receiver).first_or_404()[0]
+
+    emit('broadcast_private_message', dict(message=message['message'], sender=current_user.id,
+                                           sender_name=sender_name, receiver_name=receiver_name,
+                                           receiver=message['receiver'], timestamp=str(datetime.utcnow()) + 'Z'),
+         room=receiver_name, broadcast=True)
+
+    emit('broadcast_private_message', dict(message=message['message'], sender=current_user.id,
+                                           sender_name=sender_name, receiver_name=receiver_name,
+                                           receiver=message['receiver'], timestamp=str(datetime.utcnow()) + 'Z'),
+         room=sender_name, broadcast=True)
 
 
 @socketio.on('disconnect', namespace='/chat')
