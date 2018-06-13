@@ -201,7 +201,11 @@
                                 <td class="border td-leg-overview {% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}bg-leg-win text-light{% endif %}">
                                     <div style="position: relative">
                                     <span class="leg-average">{% if (match_json[set|string][leg|string][player]['scores']|length > 0) %}
-                                        {{ (match_json[set|string][leg|string][player]['scores']|sum / match_json[set|string][leg|string][player]['scores']|length)|round(2) }}
+                                        {% if 'to_finish' in match_json[set|string][leg|string][player] %}
+                                        {{ (match_json[set|string][leg|string][player]['scores']|sum / ((match_json[set|string][leg|string][player]['scores']|length * 3) - (3-match_json[set|string][leg|string][player]['to_finish'])) * 3)|round(2) }}
+                                        {% else %}
+                                        {{ (match_json[set|string][leg|string][player]['scores']|sum / (match_json[set|string][leg|string][player]['scores']|length))|round(2) }}
+                                        {% endif %}
                                         {% else %}0{% endif %}
                                     </span>
                                         <span class="dart-count">{% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}{{ match_json[set|string][leg|string][player]['scores']|length*3 - (3 - match_json[set|string][leg|string][player]['to_finish']) }}
