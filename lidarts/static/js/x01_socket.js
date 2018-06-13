@@ -728,7 +728,7 @@ $(document).ready(function() {
 
     // Toggle keypad
     $('#hide-keypad').click(function() {
-        $('.score_input').toggle();
+        $('.keypad').toggle();
     });
 
     // Abort game
