@@ -147,4 +147,27 @@ a.no-underline {
     background: #cccccc;
 }
 
+.notification-badge{
+   position: absolute;
+    right: -5px;
+    top: -5px;
+    font-size: 12px;
+}
+
+.dropdown-toggle::after {
+    display:none;
+}
+
+#notification-dropdown {
+    padding: 0px 0px 0px 0px;
+}
+
+.dropdown-item {
+    padding: 2px 2px 2px 2px;
+}
+
+.notification-seperator {
+    margin: 5px 0px 5px 0px;
+}
+
 

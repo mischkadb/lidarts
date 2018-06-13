@@ -51,6 +51,23 @@
 
             </ul>
             <ul class="navbar-nav navbar-right">
+
+                {% if current_user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <h3 style="margin-bottom: 0px; margin-right: 15px; position: relative;">
+                        <a class="nav-link dropdown-toggle" href="#" id="notification-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-bell text-secondary"></i>
+                            <span class="badge badge-danger notification-badge" id="notification-badge"></span>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="notification-dropdown-menu">
+                            <a class="dropdown-item" href="#" id="no-notifications-text">No new notifications</a>
+                        </div>
+
+                    </h3>
+                </li>
+                {% endif %}
+
                 <div class="btn-group" role="group" aria-label="Basic example">
                     {% if current_user.is_anonymous %}
                     <a href="{{ url_for_security('login') }}" class="btn btn-secondary" role="button"><i class="fas fa-sign-in-alt"></i> {{ _('Sign In') }}</a>

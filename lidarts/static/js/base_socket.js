@@ -23,7 +23,32 @@ $(document).ready(function() {
         indicator.addClass('status-' + msg['status']);
     });
 
-    // Handler for the score input form.
+    socket.on('send_notification', function (msg) {
+        console.log(msg);
+        if ($('#notification-badge').text() == '') {
+            $('#notification-badge').text('1');
+        } else{
+            $('#notification-badge').text(parseInt($('#notification-badge').text())+1);
+        }
+        $('#no-notifications-text').hide();
+
+        var link;
+        if (msg['type'] == 'challenge') {
+            link = '/lobby'
+        } else {
+            link = '/private_messages'
+        }
+        $('#notification-dropdown-menu').prepend(
+            '<a class="dropdown-item" href="' + link + '"><strong>' + msg['author'] + '</strong><br>'
+            + msg['message'] + '</a><hr class="notification-seperator">'
+        )
+    });
+
+    $('#notification-dropdown').click( function() {
+        $('#notification-badge').val('');
+        $.post('/notifications_read');
+    });
+
     var status_url = $('#status_url').data()['url'];
 
     $('.dropdown-status').click( function (event) {

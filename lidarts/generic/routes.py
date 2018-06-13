@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, request, jsonify
 from flask_login import current_user, login_required
 from lidarts import db
 from lidarts.generic import bp
-from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage
+from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, Notification
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.utils import get_name_by_id
 from lidarts.profile.utils import get_user_status
@@ -273,3 +273,14 @@ def remove_friend_request(id):
         return jsonify('success')
 
     return jsonify('failure')
+
+
+@bp.route('/notifications_read', methods=['POST'])
+@login_required
+def notifications_read():
+    notifications = Notification.query.filter_by(user=current_user.id).all()
+    for notification in notifications:
+        db.session.delete(notification)
+    db.session.commit()
+    return jsonify('success')
+

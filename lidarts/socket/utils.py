@@ -1,11 +1,10 @@
 from flask_socketio import emit
 from flask_login import current_user
 from lidarts import db
-from lidarts.models import Game
-from lidarts.socket.chat_handler import broadcast_game_completed
+from lidarts.models import Game, User
 import math
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def player1_started_leg(leg):
@@ -276,3 +275,43 @@ def process_closest_to_bull(game, score_value, computer=False):
 
 def broadcast_game_aborted(game):
     emit('game_aborted', {'hashid': game.hashid}, room=game.hashid, namespace='/game', broadcast=True)
+
+
+def broadcast_online_players():
+    online_players_dict = {}
+    online_players = User.query.filter(User.last_seen > (datetime.utcnow() - timedelta(seconds=15))).all()
+    for user in online_players:
+        status = user.status
+        if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=10)):
+            status = 'playing'
+        online_players_dict[user.id] = {'username': user.username, 'status': status}
+
+    emit('send_online_players', online_players_dict, broadcast=True, namespace='/chat')
+
+
+def broadcast_new_game(game):
+    p1_name, = User.query.with_entities(User.username).filter_by(id=game.player1).first_or_404()
+    p2_name, = User.query.with_entities(User.username).filter_by(id=game.player2).first_or_404()
+
+    emit('send_system_message_new_game', {'hashid': game.hashid, 'p1_name': p1_name, 'p2_name': p2_name},
+         broadcast=True, namespace='/chat')
+
+
+def broadcast_game_completed(game):
+    p1_name, = User.query.with_entities(User.username).filter_by(id=game.player1).first_or_404()
+    p2_name, = User.query.with_entities(User.username).filter_by(id=game.player2).first_or_404()
+
+    if game.bo_sets > 1:
+        p1_score = game.p1_sets
+        p2_score = game.p2_sets
+    else:
+        p1_score = game.p1_legs
+        p2_score = game.p2_legs
+
+    emit('send_system_message_game_completed', {'hashid': game.hashid, 'p1_name': p1_name, 'p2_name': p2_name,
+                                                'p1_score': p1_score, 'p2_score': p2_score},
+         broadcast=True, namespace='/chat')
+
+
+def send_notification(username, message, author, type):
+    emit('send_notification', {'message': message, 'author': author, 'type': type}, room=username, namespace='/base')

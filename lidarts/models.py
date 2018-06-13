@@ -127,3 +127,12 @@ class Privatemessage(db.Model):
     receiver = db.Column(db.Integer, db.ForeignKey('users.id'))
     message = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime)
+
+
+class Notification(db.Model):
+    __tablename__ = 'notifications'
+    id = db.Column(db.Integer, primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id'))
+    message = db.Column(db.String(500))
+    author = db.Column(db.String(30))
+    type = db.Column(db.String(30))

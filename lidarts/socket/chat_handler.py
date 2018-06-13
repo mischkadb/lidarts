@@ -2,44 +2,9 @@ from flask import request
 from flask_socketio import emit, join_room
 from flask_login import current_user
 from lidarts import socketio, db
-from lidarts.models import User, Chatmessage, Privatemessage
-from datetime import datetime, timedelta
-
-
-def broadcast_online_players():
-    online_players_dict = {}
-    online_players = User.query.filter(User.last_seen > (datetime.utcnow() - timedelta(seconds=15))).all()
-    for user in online_players:
-        status = user.status
-        if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=10)):
-            status = 'playing'
-        online_players_dict[user.id] = {'username': user.username, 'status': status}
-
-    emit('send_online_players', online_players_dict, broadcast=True, namespace='/chat')
-
-
-def broadcast_new_game(game):
-    p1_name, = User.query.with_entities(User.username).filter_by(id=game.player1).first_or_404()
-    p2_name, = User.query.with_entities(User.username).filter_by(id=game.player2).first_or_404()
-
-    emit('send_system_message_new_game', {'hashid': game.hashid, 'p1_name': p1_name, 'p2_name': p2_name},
-         broadcast=True, namespace='/chat')
-
-
-def broadcast_game_completed(game):
-    p1_name, = User.query.with_entities(User.username).filter_by(id=game.player1).first_or_404()
-    p2_name, = User.query.with_entities(User.username).filter_by(id=game.player2).first_or_404()
-
-    if game.bo_sets > 1:
-        p1_score = game.p1_sets
-        p2_score = game.p2_sets
-    else:
-        p1_score = game.p1_legs
-        p2_score = game.p2_legs
-
-    emit('send_system_message_game_completed', {'hashid': game.hashid, 'p1_name': p1_name, 'p2_name': p2_name,
-                                                'p1_score': p1_score, 'p2_score': p2_score},
-         broadcast=True, namespace='/chat')
+from lidarts.models import User, Chatmessage, Privatemessage, Notification
+from lidarts.socket.utils import broadcast_online_players, send_notification
+from datetime import datetime
 
 
 @socketio.on('connect', namespace='/chat')
@@ -74,11 +39,17 @@ def send_private_message(message):
     receiver, = User.query.with_entities(User.id).filter_by(username=message['receiver']).first_or_404()
     new_message = Privatemessage(message=message['message'], sender=current_user.id,
                                  receiver=receiver, timestamp=datetime.utcnow())
-    db.session.add(new_message)
-    db.session.commit()
 
     sender_name = current_user.username
     receiver_name = User.query.with_entities(User.username).filter_by(id=receiver).first_or_404()[0]
+
+    notification = Notification(user=receiver, message=message['message'], author=sender_name, type='message')
+
+    db.session.add(new_message)
+    db.session.add(notification)
+    db.session.commit()
+
+    send_notification(receiver_name, message['message'], sender_name, 'message')
 
     emit('broadcast_private_message', dict(message=message['message'], sender=current_user.id,
                                            sender_name=sender_name, receiver_name=receiver_name,
