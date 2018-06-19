@@ -41,7 +41,10 @@ $(document).ready(function() {
         $('#notification-dropdown-menu').prepend(
             '<a class="dropdown-item" href="' + link + '"><strong>' + msg['author'] + '</strong><br>'
             + msg['message'] + '</a><hr class="notification-seperator">'
-        )
+        );
+
+        var audio = new Audio('/static/sounds/notification.mp3');
+        audio.play();
     });
 
     $('#notification-dropdown').click( function() {
