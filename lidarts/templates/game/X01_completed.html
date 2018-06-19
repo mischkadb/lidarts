@@ -112,9 +112,9 @@
                     <div class="col-sm-3 offset-sm-1">
                         <div class="card bg-light text-dark">
                             <div class="card-body player_name_card">
-                                <p>{{ stats['p1_match_avg'] }}</p>
-                                <p>{{ stats['p1_first9_avg'] }}</p>
-                                <p>{{ stats['p1_doubles']}}% ({{ stats['p1_legs_won'] }}/{{ stats['p1_darts_thrown_double'] }})</p>
+                                <p>{{ stats['p1_match_avg']|string }}</p>
+                                <p>{{ stats['p1_first9_avg']|string }}</p>
+                                <p>{{ stats['p1_doubles']|string}}% ({{ stats['p1_legs_won'] }}/{{ stats['p1_darts_thrown_double'] }})</p>
                                 <p>{{ stats['p1_high_finish'] }}</p>
                                 <p>{{ stats['p1_short_leg'] }}</p>
                                 <p>{{ stats['p1_180'] }}</p>
@@ -152,9 +152,9 @@
                     <div class="col-sm-3">
                         <div class="card bg-light text-dark">
                             <div class="card-body player_name_card">
-                                <p>{{ stats['p2_match_avg'] }}</p>
-                                <p>{{ stats['p2_first9_avg'] }}</p>
-                                <p>{{ stats['p2_doubles']}}% ({{ stats['p2_legs_won'] }}/{{ stats['p2_darts_thrown_double'] }})</p>
+                                <p>{{ stats['p2_match_avg']|string }}</p>
+                                <p>{{ stats['p2_first9_avg']|string }}</p>
+                                <p>{{ stats['p2_doubles']|string}}% ({{ stats['p2_legs_won'] }}/{{ stats['p2_darts_thrown_double'] }})</p>
                                 <p>{{ stats['p2_high_finish'] }}</p>
                                 <p>{{ stats['p2_short_leg'] }}</p>
                                 <p>{{ stats['p2_180'] }}</p>
@@ -202,9 +202,9 @@
                                     <div style="position: relative">
                                     <span class="leg-average">{% if (match_json[set|string][leg|string][player]['scores']|length > 0) %}
                                         {% if 'to_finish' in match_json[set|string][leg|string][player] %}
-                                        {{ (match_json[set|string][leg|string][player]['scores']|sum / ((match_json[set|string][leg|string][player]['scores']|length * 3) - (3-match_json[set|string][leg|string][player]['to_finish'])) * 3)|round(2) }}
+                                        {{ (match_json[set|string][leg|string][player]['scores']|sum / ((match_json[set|string][leg|string][player]['scores']|length * 3) - (3-match_json[set|string][leg|string][player]['to_finish'])) * 3)|round(2)|string }}
                                         {% else %}
-                                        {{ (match_json[set|string][leg|string][player]['scores']|sum / (match_json[set|string][leg|string][player]['scores']|length))|round(2) }}
+                                        {{ (match_json[set|string][leg|string][player]['scores']|sum / (match_json[set|string][leg|string][player]['scores']|length))|round(2)|string }}
                                         {% endif %}
                                         {% else %}0{% endif %}
                                     </span>
