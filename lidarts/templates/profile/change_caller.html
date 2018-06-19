@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Avatar{% endblock %}
+
+{% block app_content %}
+
+
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-xl-4">
+        <div class="card bg-light text-dark bs-callout bs-callout-info text-center">
+            <div class="card-body">
+                <h5 class="card-title">Caller</h5>
+                <hr>
+                <form method="POST" class="form-horizontal">
+                    {{ form.hidden_tag() }}
+                    <p>{{ form.callers.label(class="control-label") }}:
+                        {{ form.callers(class="form-control custom-select") }}</p>
+
+                    <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

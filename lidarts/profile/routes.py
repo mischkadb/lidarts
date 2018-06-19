@@ -1,7 +1,8 @@
-from flask import render_template, request, url_for, jsonify, redirect, flash, current_app
+from flask import render_template, request, url_for, jsonify, redirect, flash, current_app, request
 from flask_login import current_user, login_required
 from lidarts import db, avatars
 from lidarts.profile import bp
+from lidarts.profile.forms import ChangeCallerForm
 from lidarts.models import User, Game, Friendship, FriendshipRequest
 from sqlalchemy import desc
 from datetime import datetime, timedelta
@@ -161,3 +162,12 @@ def change_avatar():
     return render_template('profile/change_avatar.html', avatar_url=avatar_url)
 
 
+@bp.route('/change_caller', methods=['GET', 'POST'])
+@login_required
+def change_caller():
+    form = ChangeCallerForm(request.form)
+    if form.validate_on_submit():
+        current_user.caller = form.callers.data
+        db.session.commit()
+    form.callers.data = current_user.caller
+    return render_template('profile/change_caller.html', form=form)

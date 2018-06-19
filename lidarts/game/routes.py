@@ -107,9 +107,12 @@ def start(hashid, theme=None):
     # for running games
     else:
         form = ScoreForm()
+        caller = current_user.caller if current_user.is_authenticated else 'default'
+        print(caller)
         if theme:
-            return render_template('game/X01_stream.html', game=game_dict, form=form, match_json=match_json)
-        return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json)
+            return render_template('game/X01_stream.html', game=game_dict, form=form,
+                                   match_json=match_json, caller=caller)
+        return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json, caller=caller)
 
 
 @bp.route('/validate_score', methods=['POST'])

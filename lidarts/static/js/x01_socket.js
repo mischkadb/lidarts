@@ -18,6 +18,8 @@ $(document).ready(function() {
         socket.emit('init', {hashid: hashid['hashid'] });
     });
 
+    var caller = $('#caller').data()['caller'];
+
     socket.emit('player_heartbeat', {hashid: hashid['hashid']});
 
     window.setInterval(function(){
@@ -139,6 +141,9 @@ $(document).ready(function() {
             }
         });
 
+        var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
+        audio.play();
+
         // show current leg and set scores
         $('.p1_sets').text(msg.p1_sets);
         $('.p2_sets').text(msg.p2_sets);
@@ -204,8 +209,11 @@ $(document).ready(function() {
         p1_id = msg.p1_id;
         p2_id = msg.p2_id;
 
+        var score = 0;
+
         if ( !msg.p1_next_turn && msg.old_score > msg.p1_score) {
             // score substraction animation
+            score = msg.old_score - msg.p1_score;
             jQuery({Counter: msg.old_score}).animate({Counter: msg.p1_score-1}, {
                 duration: 1000,
                 easing: 'swing',
@@ -217,6 +225,7 @@ $(document).ready(function() {
             $('.p1_score').html(msg.p1_score);
         }
         if ( msg.p1_next_turn && msg.old_score > msg.p2_score) {
+            score = msg.old_score - msg.p2_score;
             // score substraction animation
             jQuery({Counter: msg.old_score}).animate({Counter: msg.p2_score-1}, {
                 duration: 1000,
@@ -228,6 +237,12 @@ $(document).ready(function() {
         } else {
             $('.p2_score').text(msg.p2_score);
         }
+
+        if (msg['new_score']) {
+            var audio = new Audio('/static/sounds/' + caller + '/' + score + '.mp3');
+            audio.play();
+        }
+
 
         // show current leg and set scores
         $('.p1_sets').text(msg.p1_sets);
@@ -380,6 +395,9 @@ $(document).ready(function() {
                 )
             }
         });
+
+        var audio = new Audio('/static/sounds/' + caller + '/game_shot_match.mp3');
+        audio.play();
 
         $('.p1_sets').text(msg.p1_sets);
         $('.p2_sets').text(msg.p2_sets);

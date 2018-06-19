@@ -129,7 +129,8 @@ def send_score_response(game, old_score=0, broadcast=False):
           'p1_high_finish': p1_high_finish, 'p2_high_finish': p2_high_finish,
           'p1_short_leg': p1_short_leg, 'p2_short_leg': p2_short_leg,
           'computer_game': computer_game,
-          'p1_id': game.player1, 'p2_id': game.player2
+          'p1_id': game.player1, 'p2_id': game.player2,
+          'new_score': broadcast  # needed for score sound output
           },
 
          room=game.hashid, broadcast=broadcast)

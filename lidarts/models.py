@@ -23,6 +23,7 @@ class User(db.Model, UserMixin):
     last_seen_ingame = db.Column(db.DateTime, default=datetime.utcnow)
     active_sessions = db.Column(db.Integer, default=0)
     status = db.Column(db.String(15), default='online')
+    caller = db.Column(db.String(20), default='default')
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 

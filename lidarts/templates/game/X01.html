@@ -417,6 +417,7 @@
 <meta id="validation_url" data-url="{{ url_for('game.validate_score') }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
 <meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
+<meta id="caller" data-caller="{{ caller }}">
 
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
