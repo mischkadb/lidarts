@@ -39,10 +39,8 @@
                 <hr>
 
                 {% if user.id not in friend_list %}<p>
-                <form action="/send_friend_request/{{ user.id }}" method="post">
-                    <a href="javascript:;" onclick="parentNode.submit();" class="text-secondary">Send friend request</a>
-                    <input type="hidden" name="friend_request" value="{{ user.id }}">
-                </form></p>
+                    <a href="#" class="text-secondary" id="send_friend_request">Send friend request</a>
+                </p>
                 {% endif %}
 
                 <p><a href="{{ url_for('game.create', mode='x01', opponent_name=user.username) }}" class="text-secondary">Challenge to game</a></p>
@@ -105,4 +103,16 @@
 
 
 
+{% endblock %}
+
+
+{% block scripts %}
+<meta id="send_request_url" data-url="{{ url_for('generic.send_friend_request') }}">
+<meta id="accept_url" data-url="{{ url_for('generic.accept_friend_request') }}">
+<meta id="decline_url" data-url="{{ url_for('generic.decline_friend_request') }}">
+<meta id="decline_challenge_url" data-url="{{ url_for('game.decline_challenge') }}">
+<meta id="profile_user_id" data-id="{{ user.id }}">
+
+
+<script type="text/javascript" src="/static/js/friend_requests.js"></script>
 {% endblock %}
