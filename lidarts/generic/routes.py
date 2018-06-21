@@ -169,10 +169,13 @@ def validate_chat_message():
     return jsonify(form.errors)
 
 
+@bp.route('/send_friend_request/')
 @bp.route('/send_friend_request/<id>', methods=['POST'])
 @login_required
 def send_friend_request(id):
     id = int(id)
+    if current_user.id == id:
+        return 'error'
     friendship = Friendship.query \
         .filter(((Friendship.user1_id == id) & (Friendship.user2_id == current_user.id))
                 | ((Friendship.user2_id == id) & (Friendship.user1_id == current_user.id))).first()
