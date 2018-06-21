@@ -5,6 +5,7 @@ from lidarts import socketio, db
 from lidarts.models import User, Chatmessage, Privatemessage, Notification
 from lidarts.socket.utils import broadcast_online_players, send_notification
 from datetime import datetime
+import bleach
 
 
 @socketio.on('connect', namespace='/chat')
@@ -15,6 +16,7 @@ def connect():
 
 @socketio.on('broadcast_chat_message', namespace='/chat')
 def broadcast_chat_message(message):
+    message['message'] = bleach.clean(message['message'])
     new_message = Chatmessage(message=message['message'], author=message['user_id'], timestamp=datetime.utcnow())
     db.session.add(new_message)
     db.session.commit()
@@ -36,6 +38,7 @@ def connect():
 
 @socketio.on('broadcast_private_message', namespace='/private_messages')
 def send_private_message(message):
+    message['message'] = bleach.clean(message['message'])
     receiver, = User.query.with_entities(User.id).filter_by(username=message['receiver']).first_or_404()
     new_message = Privatemessage(message=message['message'], sender=current_user.id,
                                  receiver=receiver, timestamp=datetime.utcnow())

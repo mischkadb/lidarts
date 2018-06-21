@@ -15,7 +15,7 @@
                     <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
                         {% for message in messages %}
                         <p><strong><a href="{{ url_for('profile.overview', username=user_names[message.author]) }}" class="text-dark">{{ user_names[message.author] }}</a></strong> <small class="text-secondary">{{ moment(message.timestamp).format('HH:mm:ss') }}</small><br>
-                        {{ message.message }}</p>
+                        {{ message.message|safe }}</p>
                         <hr>
                         {% endfor %}
                     </div>
