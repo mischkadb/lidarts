@@ -93,9 +93,9 @@
                 <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> Statistics (501 SI/DO)</h5>
                 <hr>
                 <p>Darts thrown: {{ stats['darts_thrown'] }}</p>
-                <p>Average: {{ stats['average'] }}</p>
-                <p>First 9: {{ stats['first9_average'] }}</p>
-                <p>Doubles: {{ stats['doubles'] }}%</p>
+                <p>Average: {{ stats['average']|round(2) }}</p>
+                <p>First 9: {{ stats['first9_average']|round(2) }}</p>
+                <p>Doubles: {{ stats['doubles']|round(2) }}%</p>
 
             </div>
         </div>
