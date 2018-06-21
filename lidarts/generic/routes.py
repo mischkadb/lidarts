@@ -151,7 +151,7 @@ def private_messages():
 @login_required
 def compose_message(name=None):
     user = User.query.filter_by(username=name).first()
-    if not user:
+    if not user or user == current_user:
         return jsonify('error')
     user_dict = dict(
         id=user.id, username=user.username, status=user.status, avatar=user.avatar
