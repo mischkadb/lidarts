@@ -42,6 +42,9 @@
 <meta id="validation_url" data-url="{{ url_for('generic.validate_chat_message') }}">
 <meta id="profile_url" data-url="{{ url_for('profile.overview') | replace('%40', '@') }}">
 <meta id="game_url" data-url="{{ url_for('game.start') }}">
+<meta id="create_url" data-url="{{ url_for('game.create') }}">
+<meta id="private_messages_url" data-url="{{ url_for('generic.private_messages') }}">
+<meta id="send_request_url" data-url="{{ url_for('generic.send_friend_request') }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
 
 <script src="/static/js/jquery.powertip.min.js" crossorigin="anonymous"></script>

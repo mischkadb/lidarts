@@ -12,8 +12,11 @@ $(document).ready(function() {
     //     http[s]://<domain>:<port>[/<namespace>]
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
+    var user_id = $('#user_id').data()['id'];
     var profile_url = $('#profile_url').data()['url'];
     var game_url = $('#game_url').data()['url'];
+    var create_url = $('#create_url').data()['url'] + '/x01/';
+    var private_messages_url = $('#private_messages_url').data()['url'];
 
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
@@ -25,19 +28,42 @@ $(document).ready(function() {
         $('#online_players').html('');
         var user;
         for (user in msg){
-            $('#online_players').append('<div class="card"><div class="card-body" style="padding: 2px 2px 2px 2px;">' +
-                '' +
-                '<p><strong><h5><a href="' + profile_url + msg[user]['username'] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
-                + '<i class="fas fa-circle status-' + msg[user]['status'] + '" style="font-size: 15px;"></i> ' + msg[user]['username'] + '</a></h5></strong></p>');
+            $('#online_players').append('<div class="card"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
+                + '<strong style="font-size: 20px;"><a href="' + profile_url + msg[user]['username'] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
+                + '<img src="' + msg[user]['avatar'] + '" height="50px" width="50px" class="avatar avatar-status avatar-status-' + msg[user]['status'] + '">'
+                + msg[user]['username'] + '</a></strong>');
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
-            $('#powertip-' + user).data('powertip', '<table class="table table-sm text-center text-dark"><tr><td>' +
-                '<i class="fas fa-circle status-' + msg[user]['status'] + '" style="font-size: 10px;"></i></td>' +
-                '<td><a href="' + profile_url + msg[user]['username'] + '">' + msg[user]['username'] + '</a></td></tr>' +
-                '<tr><td><i class="fas fa-futbol"></i></td><td><i class="fas fa-plus-circle"></i></td></tr>' +
-                '</table> ' +
-                '</div></div>');
+            console.log(user_id + msg[user]['id']);
+            if (user_id == msg[user]['id']) {
+                $('#powertip-' + user).data('powertip', '<div><span class="text-dark">' +
+                    '<i class="fas fa-circle status-' + msg[user]['status'] + ' powerTip-status"></i>' +
+                    '<a href="' + profile_url + msg[user]['username'] + '" class="text-dark">' + msg[user]['username'] + '</a></span></div>' +
+                    '<hr style="margin: 2px 0px 5px 0px;">' +
+                    '<div class="text-secondary">This is you.</div></div></div>');
+            } else {
+                $('#powertip-' + user).data('powertip', '<div><span class="text-dark">' +
+                    '<i class="fas fa-circle status-' + msg[user]['status'] + ' powerTip-status"></i>' +
+                    '<a href="' + profile_url + msg[user]['username'] + '" class="text-dark">' + msg[user]['username'] + '</a></span></div>' +
+                    '<hr style="margin: 2px 0px 5px 0px;">' +
+                    '<div class="btn-group powertip-buttons">' +
+                    '<a href="' + create_url + msg[user]['username'] + '" class="btn btn-secondary" role="button" title="Challenge to a game"><i class="fas fa-dice"></i></a>' +
+                    '<a href="' + private_messages_url + '" role="button" class="btn btn-secondary" title="Send private message"><i class="fas fa-comments"></i></a>' +
+                    '<button type="button" class="btn btn-secondary button-send-friend-request" id="button-send-friend-request-' + msg[user]['id'] + '" title="Send friend request"><i class="fas fa-user-friends"></i></button>' +
+                    '</div></div></div>');
+            }
         }
 
+    });
+
+    $(document).on('click', '.button-send-friend-request', function (event) {
+        var send_request_url = $('#send_request_url').data()['url'];
+        var id = event.target.id.replace('button-send-friend-request-', '');
+
+        $.post(send_request_url + id,
+            function() {
+                $(document.getElementById('button-send-friend-request-' + id)).html('<i class="fas fa-check text-success"></i>');
+            }
+        );
     });
 
 
@@ -107,7 +133,6 @@ $(document).ready(function() {
 
     // Handler for the score input form.
     var validation_url = $('#validation_url').data();
-    var user_id = $('#user_id').data();
     var message_errors = [];
     $('form#message_input').submit(function (event) {
         $.post(
@@ -118,7 +143,7 @@ $(document).ready(function() {
                 message_errors = errors;
                 if (jQuery.isEmptyObject(message_errors)) {
                     socket.emit('broadcast_chat_message', {
-                        message: $('#message').val(), user_id: user_id['id']
+                        message: $('#message').val(), user_id: user_id
                     });
                 } else {
                 }
@@ -126,6 +151,8 @@ $(document).ready(function() {
             });
         return false;
     });
+
+
 
 });
 

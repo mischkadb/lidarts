@@ -1,12 +1,18 @@
 $(document).ready(function() {
 
+    $('#send_friend_request').click( function (event) {
+        var user_id = $('#profile_user_id').data()['id'];
+        var send_request_url = $('#send_request_url').data()['url'];
 
-    // Handler for the score input form.
-    var accept_url = $('#accept_url').data()['url'];
-    var decline_url = $('#decline_url').data()['url'];
-    var decline_challenge_url = $('#decline_challenge_url').data()['url'];
+        $.post(send_request_url + user_id,
+            function() {
+                $(document.getElementById('send_friend_request')).html('<strong style="color: #449944">Request sent.</strong>');
+            }
+        );
+    });
 
     $('.button-accept-friend-request').click( function (event) {
+        var accept_url = $('#accept_url').data()['url'];
         var id = event.target.id.replace('button-accept-friend-request-', '');
 
         $.post(accept_url + id,
@@ -17,6 +23,7 @@ $(document).ready(function() {
     });
 
     $('.button-decline-friend-request').click( function (event) {
+        var decline_url = $('#decline_url').data()['url'];
         var id = event.target.id.replace('button-decline-friend-request-', '');
 
         $.post(decline_url + id,
@@ -27,6 +34,7 @@ $(document).ready(function() {
     });
 
     $('.decline-challenge').click( function (event) {
+        var decline_challenge_url = $('#decline_challenge_url').data()['url'];
         var id = event.target.id.replace('decline-challenge-', '');
         console.log(id);
 

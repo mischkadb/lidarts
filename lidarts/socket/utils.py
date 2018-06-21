@@ -1,6 +1,6 @@
 from flask_socketio import emit
 from flask_login import current_user
-from lidarts import db
+from lidarts import db, avatars
 from lidarts.models import Game, User
 import math
 import json
@@ -284,7 +284,9 @@ def broadcast_online_players():
         status = user.status
         if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=10)):
             status = 'playing'
-        online_players_dict[user.id] = {'username': user.username, 'status': status}
+        avatar = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
+
+        online_players_dict[user.id] = {'id': user.id, 'username': user.username, 'status': status, 'avatar': avatar}
 
     emit('send_online_players', online_players_dict, broadcast=True, namespace='/chat')
 

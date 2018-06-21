@@ -98,17 +98,14 @@ a.no-underline {
     border-style: solid;
     border-width: 1px;
     border-color: #999999;
-    padding: 2px 2px 2px 2px !important;
+    padding: 5px 5px 5px 5px !important;
+    width: 200px;
 }
 
-#powerTip table {
-    margin-bottom: 0px;
-}
-
-#powerTip td {
-    border-style: none;
-    border-color: #999999;
-    padding: 2px 2px 2px 2px !important;
+.powerTip-status{
+    font-size: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .match_card:hover {
@@ -138,6 +135,32 @@ a.no-underline {
 .avatar{
     border-radius: 50%;
 }
+
+.avatar-status{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.avatar-status-online{
+    border: 3px solid #33dd33;
+}
+
+.avatar-status-lfg{
+    border: 3px solid #aa00aa;
+}
+
+.avatar-status-busy{
+    border: 3px solid #eeee00;
+}
+
+.avatar-status-playing{
+    border: 3px solid #5555ee;
+}
+
+.avatar-status-offline{
+    border: 3px solid #888888;
+}
+
 
 .chat-partner:hover{
     background: #eeeeee;
