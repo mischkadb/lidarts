@@ -80,3 +80,11 @@ form .form-control:focus{
 .stats-table td{
     border:none;
 }
+
+.table td.player_name span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
+}
