@@ -549,7 +549,7 @@ $(document).ready(function() {
         }
         // if remaining score - score_value is higher than 50 there is no way for a double attempt
         else if (remaining_score - score_value > 50) {
-            send_score(double_missed, to_finish, score_value);
+            send_score(0, 0, score_value);
             return false;
         }
         // maybe a double was missed
