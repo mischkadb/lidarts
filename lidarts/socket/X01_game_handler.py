@@ -81,7 +81,7 @@ def send_score_response(game, old_score=0, broadcast=False):
 
             for i, score in enumerate(match_json[set][leg]['1']['scores']):
                 p1_scores.append(score)
-                if i <= 3:
+                if i <= 2:
                     p1_first9_scores.append(score)
                 if score == 180:
                     p1_180 += 1
@@ -92,7 +92,7 @@ def send_score_response(game, old_score=0, broadcast=False):
 
             for i, score in enumerate(match_json[set][leg]['2']['scores']):
                 p2_scores.append(score)
-                if i <= 3:
+                if i <= 2:
                     p2_first9_scores.append(score)
                 if score == 180:
                     p2_180 += 1
