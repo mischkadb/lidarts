@@ -458,6 +458,12 @@ $(document).ready(function() {
     }
 
     function handle_score_input(remaining_score, score_value) {
+        // p1_id is undefined --> closest to bull
+        if (p1_id == null) {
+            send_score(0, 0, score_value);
+            return false;
+        }
+
         // player checkout
         if (remaining_score == score_value) {
 
@@ -601,17 +607,15 @@ $(document).ready(function() {
     $('form#score_input').submit(function(event) {
         $('#score_error').text('');
         var score_value = $('#score_value').val();
-
         // check for valid input values
         if (score_value <= 180) {
             // player 1 handler
-            if (user_id['id'] == p1_id && p1_next_turn) {
-                handle_score_input($('#p1_score').text(), score_value)
-
+            if ((user_id['id'] == p1_id && p1_next_turn) || (p1_id == null)) {
+                handle_score_input($('#p1_score').text(), score_value);
             }
             // player 2 handler
-            else if (user_id['id'] == p2_id && !p1_next_turn) {
-                handle_score_input($('#p2_score').text(), score_value)
+            else if ((user_id['id'] == p2_id && !p1_next_turn) || (p2_id == null)) {
+                handle_score_input($('#p2_score').text(), score_value);
             }
             return false;
         } else {
