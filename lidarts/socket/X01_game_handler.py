@@ -183,7 +183,7 @@ def send_score(message):
     hashid = message['hashid']
     game = Game.query.filter_by(hashid=hashid).first()
 
-    if 'computer' in message:
+    if 'computer' in message and not game.p1_next_turn:
         # calculate computer's score
         message['score'], message['double_missed'], message['to_finish'] = get_computer_score(message['hashid'])
     elif not message['score']:

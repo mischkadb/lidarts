@@ -156,9 +156,9 @@ $(document).ready(function() {
                     $('#game-shot-modal').modal('hide');
                 }, 1500);
                 // move on after 3 seconds
-                setTimeout(function() {
-                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
-                }, 3000);
+                //setTimeout(function() {
+                //    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                //}, 3000);
             });
         } else {
             $('.p1_score').html(msg.p1_score);
@@ -180,9 +180,9 @@ $(document).ready(function() {
                     $('#game-shot-modal').modal('hide');
                 }, 1500);
                 // move on after 3 seconds
-                setTimeout(function() {
-                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
-                }, 3000);
+                //setTimeout(function() {
+                //    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                //}, 3000);
             });
         } else {
             $('.p2_score').text(msg.p2_score);
