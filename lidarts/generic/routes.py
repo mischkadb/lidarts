@@ -41,19 +41,30 @@ def contribute():
 
 @bp.route('/watch')
 def live_games_overview():
-    live_games = Game.query.filter_by(status='started').order_by(Game.begin.desc()).limit(9)
+    live_games = Game.query.filter((Game.status == 'started')).order_by(Game.begin.desc())
     live_games_list = []
 
     for game in live_games:
         game_dict = game.as_dict()
+        player1_active = True
+        player2_active = True
 
         if game.player1:
-            game_dict['player1_name'] = get_name_by_id(game.player1)
+            player1 = User.query.get(game.player1)
+            game_dict['player1_name'] = player1.username
+            player1_active = player1.last_seen_ingame > datetime.utcnow() - timedelta(seconds=60)
         if game.player2:
+            player2 = User.query.get(game.player2)
             # Local Guest needs his own 'name'
-            game_dict['player2_name'] = get_name_by_id(game.player2) if game.player1 != game.player2 else 'Local Guest'
+            game_dict['player2_name'] = player2.username if game.player1 != game.player2 else 'Local Guest'
+            player2_active = player2.last_seen_ingame > datetime.utcnow() - timedelta(seconds=60)
 
-        live_games_list.append(game_dict)
+        # only show game in watch tab if both players are recently ingame
+        if player1_active and player2_active:
+            live_games_list.append(game_dict)
+
+        if len(live_games_list) >= 9:
+            break
 
     return render_template('generic/watch.html', live_games=live_games_list)
 
