@@ -25,7 +25,8 @@ def connect():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
-        broadcast_online_players()
+        # this causes issues in chat
+        # broadcast_online_players()
 
 
 @socketio.on('get_status', namespace='/base')

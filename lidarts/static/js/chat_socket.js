@@ -33,7 +33,6 @@ $(document).ready(function() {
                 + '<img src="' + msg[user]['avatar'] + '" height="50px" width="50px" class="avatar avatar-status avatar-status-' + msg[user]['status'] + '">'
                 + msg[user]['username'] + '</a></strong>');
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
-            console.log(user_id + msg[user]['id']);
             if (user_id == msg[user]['id']) {
                 $('#powertip-' + user).data('powertip', '<div><span class="text-dark">' +
                     '<i class="fas fa-circle status-' + msg[user]['status'] + ' powerTip-status"></i>' +
