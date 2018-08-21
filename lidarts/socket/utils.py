@@ -75,7 +75,7 @@ def process_leg_win(player_dict, match_json, current_values):
         if player_dict['p_sets'] == sets_for_match:
             # leg score is needed if best of 1 set
             if player_dict['bo_sets'] == 1:
-                player_dict['p_legs'] = math.ceil(player_dict['bo_legs'] / 2)
+                player_dict['p_legs'] = math.ceil((player_dict['bo_legs'] + 0.5) / 2)
             player_dict['status'] = 'completed'
             player_dict['p_score'] = 0  # end score 0 looks nicer
         else:  # match not over, new set
