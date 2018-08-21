@@ -142,9 +142,14 @@ def process_score(hashid, score_value, double_missed, to_finish):
         # check who begins next leg
         new_leg_starter = '2' \
             if player1_started_leg(match_json[current_values['set']][current_values['leg']]) else '1'
+        current_set = current_values['set']
 
         # check for won sets, won match, update scores etc.
         player_dict, match_json, current_values = process_leg_win(player_dict, match_json, current_values)
+
+        # set mode only: new sets are started alternately, need to recheck leg starter)
+        if current_values['set'] > current_set and len(match_json[current_set]) % 2 == 0:
+            new_leg_starter = '2' if new_leg_starter == '1' else '1'
 
         # reset player scores to default
         if not player_dict['status'] == 'completed':
