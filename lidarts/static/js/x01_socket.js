@@ -630,7 +630,7 @@ $(document).ready(function() {
     });
 
     // handle key inputs
-    $(document).keypress(function(e){
+    $(document).keydown(function(e){
         var keyCode = e.which;
 
         var score_input = document.getElementById('score_value');
