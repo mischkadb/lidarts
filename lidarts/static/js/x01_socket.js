@@ -19,6 +19,7 @@ $(document).ready(function() {
     });
 
     var caller = $('#caller').data()['caller'];
+    var muted = false;
 
     socket.emit('player_heartbeat', {hashid: hashid['hashid']});
 
@@ -141,8 +142,10 @@ $(document).ready(function() {
             }
         });
 
-        var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
-        audio.play();
+        if (muted == false) {
+            var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
+            audio.play();
+        }
 
         // show current leg and set scores
         $('.p1_sets').text(msg.p1_sets);
@@ -238,7 +241,7 @@ $(document).ready(function() {
             $('.p2_score').text(msg.p2_score);
         }
 
-        if (msg['new_score']) {
+        if (msg['new_score'] && muted == false) {
             var audio = new Audio('/static/sounds/' + caller + '/' + score + '.mp3');
             audio.play();
         }
@@ -396,8 +399,10 @@ $(document).ready(function() {
             }
         });
 
-        var audio = new Audio('/static/sounds/' + caller + '/game_shot_match.mp3');
-        audio.play();
+        if (muted == false){
+            var audio = new Audio('/static/sounds/' + caller + '/game_shot_match.mp3');
+            audio.play();
+        }
 
         $('.p1_sets').text(msg.p1_sets);
         $('.p2_sets').text(msg.p2_sets);
@@ -756,6 +761,18 @@ $(document).ready(function() {
     // Abort game
     $('#abort-game').click(function() {
         $('#abort-game-modal').modal('show');
+    });
+
+    $('#mute').click(function() {
+        muted = true;
+        $('#unmute').show();
+        $('#mute').hide();
+    });
+
+    $('#unmute').click(function() {
+        muted = false;
+        $('#mute').show();
+        $('#unmute').hide();
     });
 
     $('#abort-confirm').click(function() {

@@ -9,6 +9,7 @@
         | <div id="abort-game">Abort game</div>
         | <div id="hide-keypad">Toggle Keypad</div>
         | <a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}" class="text-secondary">Streamoverlay</a>
+        | <div id="mute">Mute caller</div> <div id="unmute" style="display: none">Unmute caller</div>
     </div>
 </div>
 {% endblock %}

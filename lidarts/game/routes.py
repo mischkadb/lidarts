@@ -108,7 +108,6 @@ def start(hashid, theme=None):
     else:
         form = ScoreForm()
         caller = current_user.caller if current_user.is_authenticated else 'default'
-        print(caller)
         if theme:
             return render_template('game/X01_stream.html', game=game_dict, form=form,
                                    match_json=match_json, caller=caller)
