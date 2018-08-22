@@ -154,7 +154,7 @@ def player_heartbeat(message):
         p2 = User.query.filter_by(id=game.player2).first_or_404() if game.player2 else None
         p2_ingame = p2.last_seen_ingame > datetime.utcnow() - timedelta(seconds=10) if p2 else True
         db.session.commit()
-        broadcast_online_players()
+        # broadcast_online_players()
         emit('players_ingame', {'p1_ingame': p1_ingame, 'p2_ingame': p2_ingame}, room=game.hashid, broadcast=True)
 
 
