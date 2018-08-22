@@ -6,6 +6,7 @@ from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipReques
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.utils import get_name_by_id
 from lidarts.profile.utils import get_user_status
+from lidarts.socket.utils import broadcast_online_players
 from sqlalchemy import desc, asc
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -129,6 +130,13 @@ def chat():
 
     return render_template('generic/chat.html', form=form, messages=messages,
                            user_names=user_names)
+
+
+# should get called by a cronjob periodically
+@bp.route('/chat/broadcast_online_players')
+def chat_broadcast_online_players_periodic():
+    broadcast_online_players()
+    return jsonify('success')
 
 
 @bp.route('/private_messages', methods=['GET', 'POST'])

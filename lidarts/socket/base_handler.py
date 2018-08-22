@@ -17,7 +17,7 @@ def connect():
         for notification in notifications:
             send_notification(current_user.username, notification.message, notification.author, notification.type)
         db.session.commit()
-        broadcast_online_players()
+        # broadcast_online_players()
 
 
 @socketio.on('user_heartbeat', namespace='/base')
@@ -41,4 +41,4 @@ def disconnect():
     if current_user.is_authenticated:
         current_user.active_sessions -= 1
         db.session.commit()
-        broadcast_online_players()
+        # broadcast_online_players()
