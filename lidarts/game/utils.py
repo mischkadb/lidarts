@@ -116,8 +116,8 @@ def collect_statistics(game, match_json):
     stats['p1_first9_avg'] = round(sum(p1_first9_scores)/len(p1_first9_scores), 2) if p1_first9_scores else 0
     stats['p2_first9_avg'] = round(sum(p2_first9_scores)/len(p2_first9_scores), 2) if p2_first9_scores else 0
 
-    stats['p1_doubles'] = round(p1_legs_won / p1_darts_thrown_double, 4)*100 if p1_legs_won else 0
-    stats['p2_doubles'] = round(p2_legs_won / p2_darts_thrown_double, 4)*100 if p2_legs_won else 0
+    stats['p1_doubles'] = int(p1_legs_won / p1_darts_thrown_double * 10000) / 100 if p1_legs_won else 0
+    stats['p2_doubles'] = int(p2_legs_won / p2_darts_thrown_double * 10000) / 100 if p2_legs_won else 0
 
     stats['p1_legs_won'] = p1_legs_won
     stats['p2_legs_won'] = p2_legs_won
