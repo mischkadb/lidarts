@@ -44,6 +44,7 @@ def contribute():
 def live_games_overview():
     live_games = Game.query.filter((Game.status == 'started')).order_by(Game.begin.desc())
     live_games_list = []
+    players_in_list = []
 
     for game in live_games:
         game_dict = game.as_dict()
@@ -61,8 +62,14 @@ def live_games_overview():
             player2_active = player2.last_seen_ingame > datetime.utcnow() - timedelta(seconds=60)
 
         # only show game in watch tab if both players are recently ingame
-        if player1_active and player2_active:
+        if player1_active and player2_active \
+                and (game.player1 and game.player1 not in players_in_list) \
+                and (game.player2 and game.player2 not in players_in_list):
             live_games_list.append(game_dict)
+            if game.player1:
+                players_in_list.append(game.player1)
+            if game.player2:
+                players_in_list.append(game.player2)
 
         if len(live_games_list) >= 9:
             break
@@ -159,7 +166,6 @@ def private_messages():
             other_user = User.query.filter_by(id=other_user).first_or_404()
             user_names[other_user.id] = other_user.username
             status[other_user.id] = get_user_status(other_user)
-    print(status)
 
     return render_template('generic/inbox.html', form=form, messages=messages_dict,
                            user_names=user_names, status=status)
