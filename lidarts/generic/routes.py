@@ -129,7 +129,7 @@ def lobby():
 @login_required
 def chat():
     form = ChatmessageForm()
-    messages = Chatmessage.query.filter(Chatmessage.timestamp > (datetime.now() - timedelta(days=1))) \
+    messages = Chatmessage.query.filter(Chatmessage.timestamp > (datetime.utcnow() - timedelta(days=1))) \
         .order_by(Chatmessage.id.asc()).all()
     user_names = {}
 
@@ -145,6 +145,16 @@ def chat():
 @bp.route('/chat/broadcast_online_players')
 def chat_broadcast_online_players_periodic():
     broadcast_online_players()
+    return jsonify('success')
+
+
+# should get called by a cronjob periodically
+@bp.route('/abort_long_started_games')
+def abort_long_started_games():
+    games = Game.query.filter((Game.status == 'started') & (Game.begin < (datetime.utcnow() - timedelta(days=3)))).all()
+    for game in games:
+        game.status = 'aborted'
+    db.session.commit()
     return jsonify('success')
 
 
