@@ -50,21 +50,23 @@ def live_games_overview():
         game_dict = game.as_dict()
         player1_active = True
         player2_active = True
+        player1_in_player_list = False
+        player2_in_player_list = False
 
         if game.player1:
             player1 = User.query.get(game.player1)
             game_dict['player1_name'] = player1.username
             player1_active = player1.last_seen_ingame > datetime.utcnow() - timedelta(seconds=60)
+            player1_in_player_list = game.player1 in players_in_list
         if game.player2:
             player2 = User.query.get(game.player2)
             # Local Guest needs his own 'name'
             game_dict['player2_name'] = player2.username if game.player1 != game.player2 else 'Local Guest'
             player2_active = player2.last_seen_ingame > datetime.utcnow() - timedelta(seconds=60)
+            player2_in_player_list = game.player2 in players_in_list
 
         # only show game in watch tab if both players are recently ingame
-        if player1_active and player2_active \
-                and (game.player1 and game.player1 not in players_in_list) \
-                and (game.player2 and game.player2 not in players_in_list):
+        if player1_active and player2_active and not player1_in_player_list and not player2_in_player_list:
             live_games_list.append(game_dict)
             if game.player1:
                 players_in_list.append(game.player1)
