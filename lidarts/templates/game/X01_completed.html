@@ -198,7 +198,7 @@
                                     {% else %}{{ game.player2_name }}{% endif %}</strong></td>
                                 {% for set in range(1, match_json|length + 1) %}
                                 {% for leg in range(1, match_json[set|string]|length + 1) %}
-                                <td class="border td-leg-overview {% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}bg-leg-win text-light{% endif %}">
+                                <td class="border td-leg-overview {% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}bg-leg-win text-light{% else %}text-secondary{% endif %}">
                                     <div style="position: relative">
                                     <span class="leg-average">{% if (match_json[set|string][leg|string][player]['scores']|length > 0) %}
                                         {% if 'to_finish' in match_json[set|string][leg|string][player] %}
@@ -209,9 +209,11 @@
                                         {% else %}0{% endif %}
                                     </span>
                                         <span class="dart-count">{% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}{{ match_json[set|string][leg|string][player]['scores']|length*3 - (3 - match_json[set|string][leg|string][player]['to_finish']) }}
-                                    {% else %}-{% endif %}
+                                    {% else %} {{ match_json[set|string][leg|string][player]['scores']|length*3 }} {% endif %}
                                     </span>
-                                        <span class="score-remain">{{ game.type - match_json[set|string][leg|string][player]['scores']|sum }}
+                                        <span class="score-remain">{% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}{{ game.type - match_json[set|string][leg|string][player]['scores'][:-1]|sum }}
+                                            {% else %} {{ game.type - match_json[set|string][leg|string][player]['scores']|sum }}
+                                            {% endif %}
                                     </span>
                                     </div>
                                 </td>
