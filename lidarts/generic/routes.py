@@ -158,6 +158,15 @@ def abort_long_started_games():
     return jsonify('success')
 
 
+@bp.route('/get_id_by_username/')
+@bp.route('/get_id_by_username/<username>')
+def get_id_by_username(username):
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        return jsonify('error')
+    return jsonify(user.id)
+
+
 @bp.route('/private_messages', methods=['GET', 'POST'])
 @login_required
 def private_messages():
@@ -202,7 +211,6 @@ def validate_chat_message():
     # validating the score input from users
     form = ChatmessageForm(request.form)
     result = form.validate()
-    print(form.errors)
     return jsonify(form.errors)
 
 

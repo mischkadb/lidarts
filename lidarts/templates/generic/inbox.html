@@ -12,7 +12,7 @@
         <div class="card bg-light text-dark">
             <div class="card-body" id="chat_partners" style="height: 642px; overflow-y: scroll;">
                 {% for other_user in messages %}
-                <div class="card chat-partner {% if loop.index == 1 %}chat-partner-active{% endif %}" id="chat_partner_{{ user_names[other_user] }}">
+                <div class="card chat-partner {% if loop.index == 1 %}chat-partner-active{% endif %}" id="chat_partner_{{ other_user }}">
                     <div class="card-body" style="padding: 2px 2px 2px 2px;">
                         <p><strong><h5><i class="fas fa-circle status-{{ status[other_user] }}" style="font-size: 15px;"></i>
                             {{ user_names[other_user] }}</h5></strong>
@@ -36,7 +36,7 @@
                     <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
                         <div id="chatbox-tabs">
                             {% for partner in messages %}
-                            <div id="messages_tab_{{ user_names[partner] }}" class="message-tab" {% if loop.index > 1 %}style="display: none"{% endif %}>
+                            <div id="messages_tab_{{ partner }}" class="message-tab" {% if loop.index > 1 %}style="display: none"{% endif %}>
                                 <h5 class="card-title">Chat with {{ user_names[partner] }}</h5>
                                 {% for message in messages[partner] %}
                                 <p><strong><a href="{{ url_for('profile.overview', username=user_names[message.author]) }}" class="text-dark">{{ user_names[message.sender] }}</a></strong> <small class="text-secondary">{{ moment(message.timestamp).format('HH:mm:ss') }}</small><br>
@@ -66,6 +66,7 @@
 <meta id="profile_url" data-url="{{ url_for('profile.overview') | replace('%40', '@') }}">
 <meta id="game_url" data-url="{{ url_for('game.start') }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
+<meta id="get_id_by_username_url" data-url="{{ url_for('generic.get_id_by_username') }}">
 
 <script src="/static/js/jquery.powertip.min.js" crossorigin="anonymous"></script>
 

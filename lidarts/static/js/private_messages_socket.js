@@ -14,6 +14,7 @@ $(document).ready(function() {
 
     var profile_url = $('#profile_url').data()['url'];
     var game_url = $('#game_url').data()['url'];
+    var get_id_by_username_url = $('#get_id_by_username_url').data()['url'];
 
     var user_id = $('#user_id').data()['id'];
 
@@ -41,17 +42,16 @@ $(document).ready(function() {
     });
 
     socket.on('broadcast_private_message', function(msg) {
-        console.log(msg);
         var messages_tab;
         if (msg['sender'] == user_id) {
-            messages_tab = document.getElementById('messages_tab_' + msg['receiver_name'])
+            messages_tab = document.getElementById('messages_tab_' + msg['receiver'])
         } else {
-            messages_tab = document.getElementById('messages_tab_' + msg['sender_name'])
+            messages_tab = document.getElementById('messages_tab_' + msg['sender'])
         }
 
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
 
-       messages_tab.insertAdjacentHTML('beforeend', '<p><strong><a href="' + profile_url +
+        messages_tab.insertAdjacentHTML('beforeend', '<p><strong><a href="' + profile_url +
             msg['sender_name'] +
             '" class="text-dark">' + msg['sender_name'] + '</a></strong> <small class="text-secondary">' +
             moment(msg['timestamp']).local().format('HH:mm:ss') +
@@ -89,9 +89,9 @@ $(document).ready(function() {
     $('#chat_partners').delegate('.chat-partner', 'click', function (event) {
         $('.chat-partner').removeClass('chat-partner-active');
         $(this).addClass('chat-partner-active');
-        var username = this.id.replace('chat_partner_', '');
+        var partner_id = this.id.replace('chat_partner_', '');
         $('.message-tab').hide();
-        $('#messages_tab_' + username).show();
+        $('#messages_tab_' + partner_id).show();
 
         chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;
     });
@@ -100,7 +100,16 @@ $(document).ready(function() {
 
     $('#compose_message').click(function (event) {
         var chat_partner_name = $('#compose_message_name').val();
-        if ($('#chat_partner_' + chat_partner_name).length > 0) {
+        var chat_partner_id;
+
+        $.get(get_id_by_username_url + chat_partner_name, function (msg) {
+            if (msg == 'error') {
+                return;
+            }
+            chat_partner_id = msg;
+        });
+
+        if ($('#chat_partner_' + chat_partner_id).length > 0) {
             return;
         }
         $.post(compose_message_url + chat_partner_name, function (msg) {
@@ -109,12 +118,12 @@ $(document).ready(function() {
             }
             $('.chat-partner').removeClass('chat-partner-active');
 
-            $('#chat_partners').prepend('<div class="card chat-partner chat-partner-active" id="chat_partner_' + msg['username'] + '"><div class="card-body" style="padding: 2px 2px 2px 2px;">' +
+            $('#chat_partners').prepend('<div class="card chat-partner chat-partner-active" id="chat_partner_' + chat_partner_id + '"><div class="card-body" style="padding: 2px 2px 2px 2px;">' +
                 '<p><strong><h5><i class="fas fa-circle status-' + msg['status'] + '" style="font-size: 15px;"></i> ' + msg['username'] + '</h5></strong></p>'
                 +'</div></div>');
 
             $('.message-tab').hide();
-            $('#chatbox-tabs').append('<div id="messages_tab_' + msg['username'] + '" class="message-tab">' +
+            $('#chatbox-tabs').append('<div id="messages_tab_' + chat_partner_id + '" class="message-tab">' +
                 '<h5 class="card-title">Chat with ' + msg['username'] + '</h5></div>');
 
 

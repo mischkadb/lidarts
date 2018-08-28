@@ -39,7 +39,7 @@ def connect():
 @socketio.on('broadcast_private_message', namespace='/private_messages')
 def send_private_message(message):
     message['message'] = bleach.clean(message['message'])
-    receiver, = User.query.with_entities(User.id).filter_by(username=message['receiver']).first_or_404()
+    receiver = message['receiver']
     new_message = Privatemessage(message=message['message'], sender=current_user.id,
                                  receiver=receiver, timestamp=datetime.utcnow())
 
