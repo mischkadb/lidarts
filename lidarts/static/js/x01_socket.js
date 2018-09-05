@@ -222,6 +222,9 @@ $(document).ready(function() {
                 easing: 'swing',
                 step: function () {
                     $('.p1_score').text(Math.ceil(this.Counter));
+                },
+                complete: function () {
+                    $('.p1_score').html(msg.p1_score);
                 }
             });
         } else {
@@ -235,6 +238,9 @@ $(document).ready(function() {
                 easing: 'swing',
                 step: function () {
                     $('.p2_score').text(Math.ceil(this.Counter));
+                },
+                complete: function () {
+                    $('.p2_score').html(msg.p2_score);
                 }
             });
         } else {
