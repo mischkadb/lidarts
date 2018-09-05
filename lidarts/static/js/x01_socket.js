@@ -552,8 +552,9 @@ $(document).ready(function() {
                 });
             });
         }
-        // if remaining score - score_value is higher than 50 there is no way for a double attempt
-        else if (remaining_score - score_value > 50) {
+        // if remaining score - score_value is higher than 50 there is no way for a double attempt,
+        // unless 0 was entered as score (0 might indicate a bust) - in this case, >170 is safe for no doubles
+        else if ((remaining_score - score_value > 50 && score_value > 0) || (remaining_score - score_value > 170)) {
             send_score(0, 0, score_value);
             return false;
         }
