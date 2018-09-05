@@ -597,7 +597,7 @@ $(document).ready(function() {
 
             }).then(function (val) {
                 double_missed = val;
-                send_score(double_missed, to_finish, score_value);
+                send_score(double_missed, 0, score_value);
             });
         }
     }
@@ -752,6 +752,7 @@ $(document).ready(function() {
     $('.button-conf').click(function() {
         $('.score_input').submit();
     });
+
 
     // Toggle keypad
     $('#hide-keypad').click(function() {
