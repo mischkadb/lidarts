@@ -21,6 +21,8 @@ $(document).ready(function() {
     var caller = $('#caller').data()['caller'];
     var muted = false;
 
+    var out_mode = $('#out_mode').data()['out_mode'];
+
     socket.emit('player_heartbeat', {hashid: hashid['hashid']});
 
     window.setInterval(function(){
@@ -500,7 +502,7 @@ $(document).ready(function() {
                 $('#double-missed-0').show();
 
                 // if it's clear we do not need to ask (score too high for missed doubles)
-                if ( remaining_score > 110 ) {
+                if ( remaining_score > 110 || out_mode == 'so' ) {
                     resolve(0);
                 } else {
                     $('#double-missed-modal').modal('show');
@@ -522,15 +524,17 @@ $(document).ready(function() {
                     // 3 darts for finishing are always possible
                     $('#to-finish-3').show();
 
-                    // 2 dart finish is only possible at 110 or lower (naive)
-                    if (remaining_score > 110) {
+                    // double out: 2 dart finish is only possible at 110 or lower (naive)
+                    // single/master out: 2 dart finish is only possible at 120 or lower (naive)
+                    if (remaining_score > 120 || (out_mode == 'do' && remaining_score > 110)) {
                         $('#to-finish-2').hide();
                     } else {
                         $('#to-finish-2').show();
                     }
 
                     // 1 dart finish only for checkable remaining scores
-                    if ((remaining_score <= 40 && remaining_score % 2 == 0) || remaining_score == 50) {
+                    if ((out_mode == 'do' && ((remaining_score <= 40 && remaining_score % 2 == 0) || remaining_score == 50))
+                        || (out_mode != 'do' && remaining_score <= 60)) {
                         $('#to-finish-1').show();
                     } else {
                         $('#to-finish-1').hide();
@@ -560,7 +564,8 @@ $(document).ready(function() {
         }
         // if remaining score - score_value is higher than 50 there is no way for a double attempt,
         // unless 0 was entered as score (0 might indicate a bust) - in this case, >170 is safe for no doubles
-        else if ((remaining_score - score_value > 50 && score_value > 0) || (remaining_score - score_value > 170)) {
+        else if ((remaining_score - score_value > 50 && score_value > 0) || (remaining_score - score_value > 170)
+            || (out_mode == 'so')) {
             send_score(0, 0, score_value);
             return false;
         }
