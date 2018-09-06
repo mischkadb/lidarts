@@ -32,8 +32,13 @@ def collect_statistics(game, match_json):
 
     for set in match_json:
         for leg in match_json[set]:
-            p1_darts_thrown_double += match_json[set][leg]['1']['double_missed']
-            p2_darts_thrown_double += match_json[set][leg]['2']['double_missed']
+            if isinstance(match_json[set][leg]['1']['double_missed'], (list,)):
+                p1_darts_thrown_double += sum(match_json[set][leg]['1']['double_missed'])
+                p2_darts_thrown_double += sum(match_json[set][leg]['2']['double_missed'])
+            else:
+                # legacy: double_missed as int
+                p1_darts_thrown_double += match_json[set][leg]['1']['double_missed']
+                p2_darts_thrown_double += match_json[set][leg]['2']['double_missed']
 
             p1_darts_thrown_this_leg = len(match_json[set][leg]['1']['scores']) * 3
             p2_darts_thrown_this_leg = len(match_json[set][leg]['2']['scores']) * 3
