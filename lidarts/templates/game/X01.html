@@ -3,15 +3,26 @@
 {% block css %}<link href="{{ url_for('static',filename='css/x01.css') }}" rel="stylesheet">{% endblock %}
 
 {% block navbar %}
-<div class="container-fluid">
-    <div class="row mb-2 text-secondary">
-        <a href="{{ url_for('generic.index') }}" class="text-secondary"> Leave game</a>
-        | <div id="abort-game">Abort game</div>
-        | <div id="hide-keypad">Toggle Keypad</div>
-        | <a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}" class="text-secondary">Streamoverlay</a>
-        | <div id="mute">Mute caller</div> <div id="unmute" style="display: none">Unmute caller</div>
+<nav class="navbar navbar-expand-md sticky-top navbar-dark bg-dark">
+
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <div class="row mb-2 text-secondary">
+                <a href="{{ url_for('generic.index') }}" class="text-secondary"> Leave game</a>
+                | <div id="abort-game">Abort game</div>
+                | <div id="hide-keypad">Toggle Keypad</div>
+                | <div id="hide-statistics">Toggle statistics</div>
+                | <a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}" class="text-secondary">Streamoverlay</a>
+                | <div id="mute">Mute caller</div> <div id="unmute" style="display: none">Unmute caller</div>
+
+            </div>
+        </div>
     </div>
-</div>
+</nav>
 {% endblock %}
 
 {% block app_content %}
@@ -217,7 +228,7 @@
 </div>
 
 <!-- STATISTICS -->
-<div class="row fixed-bottom">
+<div class="row fixed-bottom statistics">
     <div class="container">
         <div class="row bg-secondary text-light">
             <div class="col-lg-2 d-none d-lg-block">
