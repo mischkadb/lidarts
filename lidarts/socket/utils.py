@@ -82,8 +82,8 @@ def process_leg_win(player_dict, match_json, current_values):
             player_dict['o_legs'] = 0
             current_values['set'] = str(int(current_values['set']) + 1)
             current_values['leg'] = '1'
-            match_json[current_values['set']] = {current_values['leg']: {'1': {'scores': [], 'double_missed': 0},
-                                                                         '2': {'scores': [], 'double_missed': 0}}}
+            match_json[current_values['set']] = {current_values['leg']: {'1': {'scores': [], 'double_missed': []},
+                                                                         '2': {'scores': [], 'double_missed': []}}}
 
     else:  # no new set unless drawn
         # check for drawn set
@@ -104,12 +104,12 @@ def process_leg_win(player_dict, match_json, current_values):
                 player_dict['o_legs'] = 0
                 current_values['set'] = str(int(current_values['set']) + 2)  # + 2 because both players won a set
                 current_values['leg'] = '1'
-                match_json[current_values['set']] = {current_values['leg']: {'1': {'scores': [], 'double_missed': 0},
-                                                                             '2': {'scores': [], 'double_missed': 0}}}
+                match_json[current_values['set']] = {current_values['leg']: {'1': {'scores': [], 'double_missed': []},
+                                                                             '2': {'scores': [], 'double_missed': []}}}
         else:  # no draw, just new leg
             current_values['leg'] = str(int(current_values['leg']) + 1)
-            match_json[current_values['set']][current_values['leg']] = {'1': {'scores': [], 'double_missed': 0},
-                                                                        '2': {'scores': [], 'double_missed': 0}}
+            match_json[current_values['set']][current_values['leg']] = {'1': {'scores': [], 'double_missed': []},
+                                                                        '2': {'scores': [], 'double_missed': []}}
 
     return player_dict, match_json, current_values
 
@@ -132,7 +132,7 @@ def process_score(hashid, score_value, double_missed, to_finish):
     if to_finish:
         match_json[current_values['set']][current_values['leg']][current_values['player']]['to_finish'] = to_finish
 
-    match_json[current_values['set']][current_values['leg']][current_values['player']]['double_missed'] += double_missed
+    match_json[current_values['set']][current_values['leg']][current_values['player']]['double_missed'].append(double_missed)
 
     # check if leg was won
     if player_dict['p_score'] - score_value == 0:

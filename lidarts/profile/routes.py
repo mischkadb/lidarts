@@ -74,7 +74,11 @@ def overview(username):
                     stats['darts_thrown'] -= (3 - match_json[set][leg][player]['to_finish'])
                     stats['double_thrown'] += 1
                     stats['legs_won'] += 1
-                stats['double_thrown'] += match_json[set][leg][player]['double_missed']
+                if isinstance(match_json[set][leg][player]['double_missed'], (list,)):
+                    stats['double_thrown'] += sum(match_json[set][leg][player]['double_missed'])
+                else:
+                    # legacy: double_missed as int
+                    stats['double_thrown'] += match_json[set][leg][player]['double_missed']
 
     friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
     friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)

@@ -40,8 +40,8 @@ def create(mode='x01', opponent_name=None):
             # computer as opponent
             player2 = None
             status = 'started'
-        match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': 0},
-                                         2: {'scores': [], 'double_missed': 0}}}})
+        match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
+                                         2: {'scores': [], 'double_missed': []}}}})
         game = Game(player1=player1, player2=player2, type=form.type.data,
                     bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
                     p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,

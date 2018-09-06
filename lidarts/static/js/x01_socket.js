@@ -453,7 +453,14 @@ $(document).ready(function() {
                 score_errors = errors;
                 if (jQuery.isEmptyObject(score_errors)) {
                     socket.emit('send_score', {score: score_value, hashid: hashid['hashid'],
-                        user_id: user_id['id'], double_missed: double_missed, to_finish: to_finish});
+                        user_id: user_id['id'], double_missed: double_missed, to_finish: to_finish,
+                        undo_active: undo_active});
+                    // turn off undo mode if active
+                    if (undo_active) {
+                        $('.undo-button').show();
+                        $('.undo-button-active').hide();
+                        undo_active = false;
+                    }
                 } else {
                     $('#score_error').text(score_errors['score_value'][0]);
                 }
@@ -602,6 +609,10 @@ $(document).ready(function() {
         }
     }
 
+    socket.on('undo_remaining_score', function(msg) {
+        handle_score_input(msg['remaining_score'], msg['score_value']);
+    });
+
     // Handler for the score input form.
     var validation_url = $('#validation_url').data();
     var user_id = $('#user_id').data();
@@ -612,10 +623,15 @@ $(document).ready(function() {
     $('form#score_input').submit(function(event) {
         $('#score_error').text('');
         var score_value = $('#score_value').val();
+
         // check for valid input values
         if (score_value <= 180) {
+            // check for undo last score
+            if (undo_active) {
+                socket.emit('undo_request_remaining_score', {hashid: hashid['hashid'], score_value: score_value});
+            }
             // player 1 handler
-            if ((user_id['id'] == p1_id && p1_next_turn) || (p1_id == null)) {
+            else if ((user_id['id'] == p1_id && p1_next_turn) || (p1_id == null)) {
                 handle_score_input($('#p1_score').text(), score_value);
             }
             // player 2 handler
@@ -780,7 +796,23 @@ $(document).ready(function() {
         var abort_url = $('#abort_url').data()['url'];
         console.log(abort_url + hashid);
         $.post(abort_url + hashid);
-    })
+    });
+
+    // Undo score
+    var undo_active = false;
+
+    $('.undo-button').click(function() {
+        $('.undo-button').hide();
+        $('.undo-button-active').show();
+        undo_active = true;
+    });
+
+    $('.undo-button-active').click(function() {
+        $('.undo-button').show();
+        $('.undo-button-active').hide();
+        undo_active = false;
+    });
+
 
 });
 
