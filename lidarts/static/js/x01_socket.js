@@ -788,6 +788,15 @@ $(document).ready(function() {
     });
 
     // Toggle keypad
+    $('#change-keypad').click(function() {
+        $('.score-input').toggleClass('d-none d-md-block');
+        $('.score-input').toggleClass('d-md-none');
+        $('#p1_current_leg').toggleClass('col-md-4');
+        $('#p2_current_leg').toggleClass('col-md-4');
+
+    });
+
+    // Toggle keypad
     $('#hide-statistics').click(function() {
         $('.statistics').toggle();
     });

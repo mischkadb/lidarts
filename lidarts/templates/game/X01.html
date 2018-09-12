@@ -3,7 +3,7 @@
 {% block css %}<link href="{{ url_for('static',filename='css/x01.css') }}" rel="stylesheet">{% endblock %}
 
 {% block navbar %}
-<nav class="navbar navbar-expand-md sticky-top navbar-dark bg-dark">
+<nav class="navbar navbar-expand-xl sticky-top navbar-dark bg-dark">
 
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,8 @@
             <div class="row mb-2 text-secondary">
                 <a href="{{ url_for('generic.index') }}" class="text-secondary"> Leave game</a>
                 | <div id="abort-game">Abort game</div>
-                | <div id="hide-keypad">Toggle Keypad</div>
+                | <div id="hide-keypad">Toggle Keypad visibility</div>
+                | <div id="change-keypad">Change keypad position</div>
                 | <div id="hide-statistics">Toggle statistics</div>
                 | <a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}" class="text-secondary">Streamoverlay</a>
                 | <div id="mute">Mute caller</div> <div id="unmute" style="display: none">Unmute caller</div>
@@ -167,7 +168,7 @@
     </div>
 
     <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
-    <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block">
+    <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block score-input">
 
         <form class="text-center score_input" id="score_input" method="POST" action="" autocomplete="off" {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
         {{ form.hidden_tag() }}
@@ -216,8 +217,7 @@
     </div>
 
     <!-- SCOREBOARD PLAYER 2 -->
-    <div class="col-lg-4 col-md-4 col-6 mt-3">
-        <p id="p2_current_leg"></p>
+    <div class="col-lg-4 col-md-4 col-6 mt-3" id="p2_current_leg">
     </div>
 </div>
 
@@ -335,7 +335,7 @@
 <!-- ONSCREEN KEYBOARD SMALL SCREENS -->
 <div class="row fixed-bottom">
 
-    <div class="col-sm-12 d-md-none score_input">
+    <div class="col-sm-12 d-md-none score_input score-input">
 
         <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center">
             <input class="bg-light text-center form-control form-control-lg border-secondary score_value" id="score_value_sm"
