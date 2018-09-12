@@ -787,6 +787,11 @@ $(document).ready(function() {
         $('.keypad').toggle();
     });
 
+    // Toggle keypad
+    $('#hide-statistics').click(function() {
+        $('.statistics').toggle();
+    });
+
     // Abort game
     $('#abort-game').click(function() {
         $('#abort-game-modal').modal('show');
