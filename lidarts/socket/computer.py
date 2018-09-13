@@ -24,94 +24,103 @@ checkout_table = {'170': 'T20', '167': 'T20', '164': 'T20', '161': 'T20', '160':
                   '53': 'S13', '52': 'S12', '51': 'S11', '50': 'S10', '49': 'S9', '48': 'S16', '47': 'S7',
                   '46': 'S6', '45': 'S13', '44': 'S12', '43': 'S3', '42': 'S10', '41': 'S9'}
 
-# Level 1: Darts/Leg Avg. 48.743 | Score Avg. 31.539605686970432
+# Level 1: Darts/Leg Avg. 67.353 | Score Avg. 22.315264353480913 | Double% 0.08976660682226212
 level1 = {
     'hit_chance_single': [0.1, 0.7, 0.1, 0.1],
     'hit_chance_double': [0.5, 0.4, 0.1, 0],
     'hit_chance_triple': [0.1, 0.7, 0.1, 0.1],
     'hit_chance_D25': [0.05, 0.05, 0.045],
     'hit_chance_S25': [0.05, 0.05, 0.045],
-    'hit_chance_field': [0.34, 0.33, 0.33]
+    'hit_chance_field': [0.34, 0.33, 0.33],
+    'hit_chance_field_at_double': [0.6, 0.2, 0.2]
 }
 
-# Level 2: Darts/Leg Avg. 41.305 | Score Avg. 37.1288948069241
+# Level 2: Darts/Leg Avg. 50.566 | Score Avg. 29.72352964442511 | Double% 0.12471938139186829
 level2 = {
     'hit_chance_single': [0.05, 0.75, 0.1, 0.1],
     'hit_chance_double': [0.5, 0.35, 0.15, 0],
     'hit_chance_triple': [0.05, 0.75, 0.05, 0.15],
     'hit_chance_D25': [0.1, 0.1, 0.04],
     'hit_chance_S25': [0.1, 0.1, 0.04],
-    'hit_chance_field': [0.4, 0.3, 0.3]
+    'hit_chance_field': [0.4, 0.3, 0.3],
+    'hit_chance_field_at_double': [0.7, 0.15, 0.15]
 }
 
-# Level 3: Darts/Leg Avg. 34.995 | Score Avg. 43.61851693099014
+# Level 3: Darts/Leg Avg. 38.766 | Score Avg. 38.77108806686272 | Double% 0.17140898183064793
 level3 = {
     'hit_chance_single': [0.05, 0.75, 0.1, 0.1],
     'hit_chance_double': [0.5, 0.3, 0.2, 0],
     'hit_chance_triple': [0.05, 0.72, 0.05, 0.18],
     'hit_chance_D25': [0.1, 0.1, 0.04],
     'hit_chance_S25': [0.1, 0.1, 0.04],
-    'hit_chance_field': [0.5, 0.25, 0.25]
+    'hit_chance_field': [0.5, 0.25, 0.25],
+    'hit_chance_field_at_double': [0.75, 0.125, 0.125]
 }
 
-# Level 4: Darts/Leg Avg. 30.127 | Score Avg. 50.528894347263254
+# Level 4: Darts/Leg Avg. 31.775 | Score Avg. 47.30133752950433 | Double% 0.21673168617251842
 level4 = {
     'hit_chance_single': [0.02, 0.78, 0.1, 0.1],
     'hit_chance_double': [0.45, 0.3, 0.25, 0],
     'hit_chance_triple': [0, 0.8, 0, 0.2],
     'hit_chance_D25': [0.15, 0.15, 0.035],
     'hit_chance_S25': [0.1, 0.2, 0.035],
-    'hit_chance_field': [0.6, 0.2, 0.2]
+    'hit_chance_field': [0.6, 0.2, 0.2],
+    'hit_chance_field_at_double': [0.8, 0.1, 0.1]
 }
 
-# Level 5: Darts/Leg Avg. 26.902 | Score Avg. 56.421567169727155
+# Level 5: Darts/Leg Avg. 28.282 | Score Avg. 53.14334205501732 | Double% 0.23413720440177943
 level5 = {
     'hit_chance_single': [0, 0.8, 0.1, 0.1],
     'hit_chance_double': [0.45, 0.3, 0.25, 0],
     'hit_chance_triple': [0, 0.8, 0, 0.2],
     'hit_chance_D25': [0.15, 0.25, 0.03],
     'hit_chance_S25': [0.1, 0.3, 0.03],
-    'hit_chance_field': [0.7, 0.15, 0.15]
+    'hit_chance_field': [0.7, 0.15, 0.15],
+    'hit_chance_field_at_double': [0.85, 0.075, 0.075]
 }
 
-# Level 6: Darts/Leg Avg. 23.907 | Score Avg. 63.21382858576986
+# Level 6: Darts/Leg Avg. 24.26 | Score Avg. 61.95383347073372 | Double% 0.2788622420524261
 level6 = {
     'hit_chance_single': [0, 0.8, 0.1, 0.1],
     'hit_chance_double': [0.5, 0.2, 0.3, 0],
     'hit_chance_triple': [0, 0.75, 0, 0.25],
     'hit_chance_D25': [0.2, 0.3, 0.025],
     'hit_chance_S25': [0.15, 0.35, 0.025],
-    'hit_chance_field': [0.75, 0.125, 0.125]
+    'hit_chance_field': [0.75, 0.125, 0.125],
+    'hit_chance_field_at_double': [0.9, 0.05, 0.05]
 }
 
-# Level 7: Darts/Leg Avg. 21.394 | Score Avg. 70.50855380013087
+# Level 7: Darts/Leg Avg. 22.101 | Score Avg. 68.00597258042622 | Double% 0.2824060999717594
 level7 = {
     'hit_chance_single': [0, 0.84, 0.08, 0.08],
     'hit_chance_double': [0.5, 0.15, 0.35, 0],
     'hit_chance_triple': [0, 0.7, 0, 0.3],
     'hit_chance_D25': [0.25, 0.35, 0.02],
     'hit_chance_S25': [0.2, 0.4, 0.02],
-    'hit_chance_field': [0.8, 0.1, 0.1]
+    'hit_chance_field': [0.8, 0.1, 0.1],
+    'hit_chance_field_at_double': [0.95, 0.025, 0.025]
 }
 
-# Level 8: Darts/Leg Avg. 18.935 | Score Avg. 79.51766569844203
+# Level 8: Darts/Leg Avg. 19.29 | Score Avg. 77.91601866251943 | Double% 0.34518467380048323
 level8 = {
     'hit_chance_single': [0, 0.86, 0.07, 0.07],
     'hit_chance_double': [0.5, 0.1, 0.4, 0],
     'hit_chance_triple': [0, 0.65, 0, 0.35],
     'hit_chance_D25': [0.3, 0.4, 0.015],
     'hit_chance_S25': [0.25, 0.45, 0.015],
-    'hit_chance_field': [0.85, 0.075, 0.075]
+    'hit_chance_field': [0.85, 0.075, 0.075],
+    'hit_chance_field_at_double': [0.96, 0.02, 0.02]
 }
 
-# Level 9: Darts/Leg Avg. 16.759 | Score Avg. 89.79324542037114
+# Level 9: Darts/Leg Avg. 16.97 | Score Avg. 88.56806128461992 | Double% 0.44603033006244425
 level9 = {
     'hit_chance_single': [0, 0.9, 0.05, 0.05],
     'hit_chance_double': [0.4, 0.1, 0.5, 0],
     'hit_chance_triple': [0, 0.6, 0, 0.4],
     'hit_chance_D25': [0.4, 0.4, 0.01],
     'hit_chance_S25': [0.3, 0.5, 0.01],
-    'hit_chance_field': [0.9, 0.05, 0.05]
+    'hit_chance_field': [0.9, 0.05, 0.05],
+    'hit_chance_field_at_double': [0.97, 0.015, 0.015]
 }
 
 levels = [level1, level2, level3, level4, level5, level6, level7, level8, level9]
@@ -200,7 +209,10 @@ def throw_dart(target, computer):
         target_numbers.append(dartboard[1])
 
         # probability to hit: target / number left / number right
-        number_hit = str(np.random.choice(target_numbers, p=computer['hit_chance_field']))
+        if field_type == 'D':
+            number_hit = str(np.random.choice(target_numbers, p=computer['hit_chance_field_at_double']))
+        else:
+            number_hit = str(np.random.choice(target_numbers, p=computer['hit_chance_field']))
 
         possible_hits['0'] = hit_chance[0]
         possible_hits['S' + number_hit] = hit_chance[1]
