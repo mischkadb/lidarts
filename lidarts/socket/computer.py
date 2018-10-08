@@ -222,7 +222,7 @@ def throw_dart(target, computer):
     hit = np.random.choice(list(possible_hits), p=list(possible_hits.values()))
 
     if hit == '0':
-        return 0
+        return 0, '0'
     elif hit[0] == 'S':
         factor = 1
     elif hit[0] == 'D':
@@ -231,7 +231,7 @@ def throw_dart(target, computer):
         factor = 3
 
     number = int(hit[1:])
-    return number*factor
+    return number*factor, hit
 
 
 def get_computer_score(hashid):
@@ -249,13 +249,17 @@ def get_computer_score(hashid):
         # acquire target depending on remaining score
         if game.closest_to_bull:
             return throw_dart('D25', computer)
+        elif game.in_mode == 'di' and game.p2_score == game.type:
+            target = 'D20'
         else:
             target = get_target(remaining_score, game.out_mode)
 
         if target[0] == 'D' and remaining_score <= 50:
             thrown_at_double += 1
         # simulate dart throw
-        thrown_score = throw_dart(target, computer)
+        thrown_score, field_hit = throw_dart(target, computer)
+        if (game.in_mode == 'di' and field_hit[0] != 'D') and (game.p2_score == game.type):
+            thrown_score = 0
         thrown_score_total += thrown_score
         remaining_score -= thrown_score
         # don't keep throwing if leg won or busted
