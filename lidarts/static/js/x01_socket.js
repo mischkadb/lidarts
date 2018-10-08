@@ -735,6 +735,7 @@ $(document).ready(function() {
                     $('.score_input').submit();
                 }
                 else if (keyCode == 8) {
+                    e.preventDefault();
                     $('.score_value').val($('.score_value').val().slice(0, -1));
                 }
             }
