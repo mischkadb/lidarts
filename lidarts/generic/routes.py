@@ -76,7 +76,7 @@ def live_games_overview():
         if len(live_games_list) >= 9:
             break
 
-    return render_template('generic/watch.html', live_games=live_games_list)
+    return render_template('generic/watch.html', live_games=live_games_list, title='Live Games')
 
 
 @bp.route('/lobby')
@@ -122,7 +122,7 @@ def lobby():
 
     return render_template('generic/lobby.html', games_in_progress=games_in_progress, player_names=player_names,
                            friend_requests=friend_requests, online_friend_list=online_friend_list,
-                           challenges=challenges)
+                           challenges=challenges, title='Lobby')
 
 
 @bp.route('/chat', methods=['GET', 'POST'])
@@ -138,7 +138,7 @@ def chat():
             .filter_by(id=message.author).first_or_404()[0]
 
     return render_template('generic/chat.html', form=form, messages=messages,
-                           user_names=user_names)
+                           user_names=user_names, title='Chat')
 
 
 # should get called by a cronjob periodically
@@ -190,7 +190,7 @@ def private_messages():
             status[other_user.id] = get_user_status(other_user)
 
     return render_template('generic/inbox.html', form=form, messages=messages_dict,
-                           user_names=user_names, status=status)
+                           user_names=user_names, status=status, title='Private Messages')
 
 
 @bp.route('/compose_message/')

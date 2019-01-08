@@ -62,7 +62,7 @@ def create(mode='x01', opponent_name=None):
         game.set_hashid()
         db.session.commit()
         return redirect(url_for('game.start', hashid=game.hashid))
-    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name)
+    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name, title='Create Game')
 
 
 @bp.route('/')
@@ -99,19 +99,22 @@ def start(hashid, theme=None):
     # for player1 and spectators while waiting
     if game.status == 'challenged':
         p2_name = get_name_by_id(game.player2) if game.player2 else None
-        return render_template('game/wait_for_opponent.html', game=game_dict, p2_name=p2_name)
+        return render_template('game/wait_for_opponent.html', game=game_dict, p2_name=p2_name, title="Waiting...")
     # for everyone if the game is completed
     if game.status in ('completed', 'aborted', 'declined'):
         statistics = collect_statistics(game, match_json)
-        return render_template('game/X01_completed.html', game=game_dict, match_json=match_json, stats=statistics)
+        return render_template('game/X01_completed.html', game=game_dict, match_json=match_json,
+                               stats=statistics, title='Match overview')
     # for running games
     else:
         form = ScoreForm()
         caller = current_user.caller if current_user.is_authenticated else 'default'
+        cpu_delay = current_user.cpu_delay if current_user.is_authenticated else 0
         if theme:
             return render_template('game/X01_stream.html', game=game_dict, form=form,
-                                   match_json=match_json, caller=caller)
-        return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json, caller=caller)
+                                   match_json=match_json, caller=caller, cpu_delay=cpu_delay, title='Stream overlay')
+        return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json,
+                               caller=caller, cpu_delay=cpu_delay, title='Live Match')
 
 
 @bp.route('/validate_score', methods=['POST'])

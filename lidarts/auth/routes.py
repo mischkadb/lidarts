@@ -17,4 +17,4 @@ def change_username():
         user.username = form.username.data
         db.session.commit()
 
-    return render_template('security/change_username.html', change_username_form=form)
+    return render_template('security/change_username.html', change_username_form=form, title='Change username')
