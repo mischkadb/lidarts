@@ -24,6 +24,7 @@ class User(db.Model, UserMixin):
     active_sessions = db.Column(db.Integer, default=0)
     status = db.Column(db.String(15), default='online')
     caller = db.Column(db.String(20), default='default')
+    cpu_delay = db.Column(db.Integer, default=0)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %}X01{% endblock %}
 {% block css %}<link href="{{ url_for('static',filename='css/x01.css') }}" rel="stylesheet">{% endblock %}
 
 {% block navbar %}
@@ -434,6 +433,7 @@
 <meta id="user_id" data-id="{{ current_user.id }}">
 <meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
 <meta id="caller" data-caller="{{ caller }}">
+<meta id="cpu_delay" data-cpu_delay="{{ cpu_delay }}">
 <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
 
 

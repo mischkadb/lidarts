@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %}Profile overview{% endblock %}
 
 {% block app_content %}
 
@@ -32,6 +31,7 @@
                 <p><a href="{{ url_for_security('change_password') }}" class="text-secondary">Change password</a></p>
                 <p><a href="{{ url_for('profile.change_avatar') }}" class="text-secondary">Change avatar</a></p>
                 <p><a href="{{ url_for('profile.change_caller') }}" class="text-secondary">Change caller</a></p>
+                <p><a href="{{ url_for('profile.change_cpu_delay') }}" class="text-secondary">Change CPU delay</a></p>
 
 
                 {% else %}

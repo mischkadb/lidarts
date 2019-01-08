@@ -19,6 +19,7 @@ $(document).ready(function() {
     });
 
     var caller = $('#caller').data()['caller'];
+    var cpu_delay = $('#cpu_delay').data()['cpu_delay'];
     var muted = false;
 
     var out_mode = $('#out_mode').data()['out_mode'];
@@ -360,7 +361,7 @@ $(document).ready(function() {
             setTimeout(function() {
                 socket.emit('send_score', {hashid: hashid['hashid'],
                     user_id: user_id['id'], computer: true});
-            }, 3000);
+            }, 3000 + (cpu_delay * 1000));
 
         }
     });

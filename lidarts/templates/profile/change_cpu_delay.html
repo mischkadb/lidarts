@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+
+
+<div class="row justify-content-center">
+    <div class="col-md-10 col-xl-8">
+        <div class="card bg-light text-dark bs-callout bs-callout-info text-center">
+            <div class="card-body">
+                <h5 class="card-title">CPU delay (in seconds)</h5>
+                <p>Note: There is a base delay of ~3 seconds. The custom delay will be added to this.</p>
+                <hr>
+                <form method="POST" class="form-horizontal">
+                    {{ form.hidden_tag() }}
+                    <p>{{ form.delay.label(class="control-label") }}:
+                        {{ form.delay(class="form-control") }}</p>
+                    {% if form.errors %}
+                    {% for error in form.delay.errors %}
+                      <p class="font-weight-bold text-danger">{{ error }}</p>
+                    {% endfor %}
+                  {% endif %}
+
+                    <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
