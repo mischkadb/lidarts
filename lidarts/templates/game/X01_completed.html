@@ -99,6 +99,7 @@
         <div class="card bg-light">
             <div class="card-body">
 
+                {% if game.end and game.begin %}
                 <div class="row justify-content-center align-items-center mb-2">
                     <div class="col-sm-8 text-center text-secondary">
                         <p>Game time: {{ ((game.end - game.begin).seconds // 3600)}} hours,
@@ -106,6 +107,7 @@
                             {{ ((game.end - game.begin).seconds % 60)}} seconds</p>
                     </div>
                 </div>
+                {% endif %}
 
 
                 <div class="row justify-content-center align-items-center mb-2 text-center text-secondary">
@@ -182,7 +184,7 @@
             <div class="card-body">
                 <div class="row justify-content-center">
                     <div class="col-sm-12 text-center">
-                        <table class="table d-flex border-0">
+                        <table class="table d-flex border-0 table-responsive">
                             <tr>
                                 <td class="border-0"></td>
                                 {% for set in range(1, match_json|length + 1) %}
