@@ -549,7 +549,7 @@ $(document).ready(function() {
                     }
 
                     // no need to ask if it must be a 3-dart checkout
-                    if (remaining_score > 110) {
+                    if (remaining_score > 110 || double_missed == 2) {
                         resolve(3);
                     } else {
                         $('#darts-to-finish-modal').modal('show');
