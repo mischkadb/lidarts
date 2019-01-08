@@ -243,7 +243,7 @@ def get_computer_score(hashid):
     # get current remaining score
     remaining_score = game.p2_score
     thrown_score_total = 0
-    thrown_at_double = 0
+    double_missed = 0
 
     for dart in range(1, 4):
         # acquire target depending on remaining score
@@ -256,7 +256,7 @@ def get_computer_score(hashid):
             target = get_target(remaining_score, game.out_mode)
 
         if target[0] == 'D' and remaining_score <= 50:
-            thrown_at_double += 1
+            double_missed += 1
         # simulate dart throw
         thrown_score, field_hit = throw_dart(target, computer)
         if (game.in_mode == 'di' and field_hit[0] != 'D') and (game.p2_score == game.type):
@@ -265,8 +265,9 @@ def get_computer_score(hashid):
         remaining_score -= thrown_score
         # don't keep throwing if leg won or busted
         if remaining_score == 0:
-            return thrown_score_total, thrown_at_double, dart
+            double_missed -= 1
+            return thrown_score_total, double_missed, dart
         elif remaining_score < 0:
             break
 
-    return thrown_score_total, thrown_at_double, 0
+    return thrown_score_total, double_missed, 0
