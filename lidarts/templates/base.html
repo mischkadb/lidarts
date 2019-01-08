@@ -77,6 +77,10 @@
                     <a href="{{ url_for_security('login') }}" class="btn btn-secondary" role="button"><i class="fas fa-sign-in-alt"></i> {{ _('Sign In') }}</a>
                     <a href="{{ url_for_security('register') }}" class="btn btn-info" role="button"><i class="fas fa-user-plus"></i> {{ _('Register') }}</a>
                     {% else %}
+
+                    <a href="{{ url_for('generic.private_messages') }}"  class="btn btn-secondary" role="button"><i class="fas fa-envelope"></i> {{ _('Inbox') }}</a>
+
+
                     <div class="btn-group" role="group">
                         <button id="statusDrop" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><i class="fas fa-circle status-indicator"></i> {{ _('Status') }}</button>
                         <div class="dropdown-menu" aria-labelledby="statusDrop">
