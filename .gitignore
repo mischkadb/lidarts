@@ -105,3 +105,9 @@ venv.bak/
 
 .idea
 lidarts.db
+
+lidarts/game/fix\.py
+
+lidarts/static/avatars/
+
+\.flaskenv

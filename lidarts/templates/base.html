@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
 
@@ -23,7 +26,7 @@
     {% block head %}
     {% endblock %}
 
-    <title>{% block title %}{% if title %}{{ title }} - Lidarts.org{% else %}{{ _('Lidarts.org') }}{% endif %}{% endblock %}</title>
+    <title>{% block title %}{% if title %}{{ title }} - lidarts.org{% else %}lidarts.org{% endif %}{% endblock %}</title>
 
 </head>
 
@@ -31,7 +34,8 @@
 {% block navbar %}
 <nav class="navbar navbar-expand-md sticky-top navbar-dark bg-dark mb-4">
     <div class="container">
-        <a class="navbar-brand" href="{{ url_for('generic.index') }}">Lidarts</a>
+        <a class="navbar-brand d-flex align-items-center" href="{{ url_for('generic.index') }}">
+            <img src="/static/img/logo_white2.png" width="39" height="20" alt="lidarts logo" class="mr-1"> Lidarts</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
