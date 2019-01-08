@@ -154,6 +154,7 @@ def abort_long_started_games():
     games = Game.query.filter((Game.status == 'started') & (Game.begin < (datetime.utcnow() - timedelta(days=3)))).all()
     for game in games:
         game.status = 'aborted'
+        game.end = datetime.utcnow()
     db.session.commit()
     return jsonify('success')
 
