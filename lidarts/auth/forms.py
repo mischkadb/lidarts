@@ -5,7 +5,7 @@ from flask_security import LoginForm
 from flask_security.forms import Form, PasswordConfirmFormMixin, NextFormMixin, \
     RegisterFormMixin, UniqueEmailFormMixin, NewPasswordFormMixin, ValidatorMixin, \
     ChangePasswordForm, ResetPasswordForm
-from flask_babel import _, lazy_gettext
+from flask_babelex import _, lazy_gettext
 
 
 class Required(ValidatorMixin, validators.DataRequired):
@@ -17,9 +17,9 @@ class Length(ValidatorMixin, validators.Length):
 
 
 password_required = Required(message='PASSWORD_NOT_PROVIDED')
-password_length = Length(min=8, max=128, message='Password must have at least 8 characters')
+password_length = Length(min=8, max=128, message=lazy_gettext('Password must have at least 8 characters'))
 
-username_required = Required('Username is required')
+username_required = Required(lazy_gettext('Username is required'))
 username_validator = Length(min=3, max=25)
 
 
@@ -39,34 +39,34 @@ def valid_password(form, field):
         features += 1
 
     if features < 2:
-        raise ValidationError('Password must have at least 15 characters OR contain at least two out of these: '
-                              'lowercase letter, uppercase letter, number, symbol.')
+        raise ValidationError(lazy_gettext('Password must have at least 15 characters OR contain at least two out of '
+                                           'these: lowercase letter, uppercase letter, number, symbol.'))
 
 
 def unique_username(form, field):
     user = User.query.filter(User.username.ilike(field.data)).first()
     if user is not None:
-        raise ValidationError('Username is already taken')
+        raise ValidationError(lazy_gettext('Username is already taken'))
 
 
 def valid_username(form, field):
     username = field.data
     if not username[0].isalnum() and username[0] not in '[(':
-        raise ValidationError('Username must start with a letter, number or "(["')
+        raise ValidationError(lazy_gettext('Username must start with a letter, number or "(["'))
     if not username[-1].isalnum() and username[-1] not in ')]':
-        raise ValidationError('Username must end with a letter or a number or ")]"')
+        raise ValidationError(lazy_gettext('Username must end with a letter or a number or ")]"'))
     last_is_symbol = False
     for x in username:
         if not x.isalnum() and x not in ' .-_()[]':
-            raise ValidationError('Username contains invalid symbols.')
+            raise ValidationError(lazy_gettext('Username contains invalid symbols.'))
         if (not x.isalnum() and x not in '([') and last_is_symbol:
-            raise ValidationError('Two special characters in a row are not allowed.')
+            raise ValidationError(lazy_gettext('Two special characters in a row are not allowed.'))
         last_is_symbol = not x.isalnum()
 
 
 class UniqueUsernameFormMixin():
     username = StringField(
-        'Username',
+        lazy_gettext('Username'),
         validators=[username_required, username_validator, unique_username, valid_username])
 
 
@@ -76,7 +76,7 @@ class ExtendedConfirmRegisterForm(Form, RegisterFormMixin,
 
 
 class ExtendedRegisterForm(ExtendedConfirmRegisterForm, PasswordConfirmFormMixin, NextFormMixin):
-    password = PasswordField('Password', validators=[password_required, password_length, valid_password])
+    password = PasswordField(lazy_gettext('Password'), validators=[password_required, password_length, valid_password])
 
 
 class ExtendedLoginForm(LoginForm):
@@ -85,11 +85,11 @@ class ExtendedLoginForm(LoginForm):
 
 
 class ExtendedChangePasswordForm(ChangePasswordForm):
-    new_password = PasswordField('Password', validators=[password_required, password_length, valid_password])
+    new_password = PasswordField(lazy_gettext('Password'), validators=[password_required, password_length, valid_password])
 
 
 class ExtendedResetPasswordForm(ResetPasswordForm):
-    password = PasswordField('Password', validators=[password_required, password_length, valid_password])
+    password = PasswordField(lazy_gettext('Password'), validators=[password_required, password_length, valid_password])
 
 
 class ChangeUsernameForm(Form, UniqueUsernameFormMixin):

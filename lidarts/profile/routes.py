@@ -1,4 +1,5 @@
-from flask import render_template, request, url_for, jsonify, redirect, flash, current_app, request
+from flask import render_template, url_for, jsonify, redirect, flash, current_app, request
+from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from lidarts import db, avatars
 from lidarts.profile import bp
@@ -36,7 +37,7 @@ def game_history(username):
                 .filter_by(id=game.player2).first_or_404()[0]
 
     return render_template('profile/game_history.html', games=games.items, user=user, player_names=player_names,
-                           next_url=next_url, prev_url=prev_url, title='Match History')
+                           next_url=next_url, prev_url=prev_url, title=lazy_gettext('Match History'))
 
 
 @bp.route('/@/')
@@ -95,7 +96,7 @@ def overview(username):
 
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names, friend_list=friend_list,
-                           stats=stats, avatar_url=avatar_url, title='Profile',
+                           stats=stats, avatar_url=avatar_url, title=lazy_gettext('Profile'),
                            is_online=(user.last_seen > datetime.utcnow() - timedelta(seconds=15)))
 
 
@@ -137,7 +138,7 @@ def manage_friend_list():
 
     return render_template('profile/manage_friend_list.html',
                            friend_list=friend_list, player_names=player_names, pending_requests=friendship_request,
-                           title='Manage Friend List')
+                           title=lazy_gettext('Manage Friend List'))
 
 
 @bp.route('/delete_avatar', methods=['GET', 'POST'])
@@ -145,7 +146,7 @@ def manage_friend_list():
 def delete_avatar():
     if current_user.avatar:
         os.remove(os.path.join(current_app.config['UPLOADS_DEFAULT_DEST'], 'avatars', current_user.avatar))
-        flash("Avatar deleted.")
+        flash(lazy_gettext("Avatar deleted."))
     current_user.avatar = None
     db.session.commit()
     return redirect(url_for('profile.change_avatar'))
@@ -159,12 +160,12 @@ def change_avatar():
         filename = avatars.save(request.files['avatar'], name='{}.'.format(current_user.id))
         current_user.avatar = filename
         db.session.commit()
-        flash("Avatar saved.")
+        flash(lazy_gettext("Avatar saved."))
         return redirect(url_for('profile.change_avatar'))
 
     avatar_url = avatars.url(current_user.avatar) if current_user.avatar else avatars.url('default.png')
 
-    return render_template('profile/change_avatar.html', avatar_url=avatar_url, title='Avatar Settings')
+    return render_template('profile/change_avatar.html', avatar_url=avatar_url, title=lazy_gettext('Avatar Settings'))
 
 
 @bp.route('/change_caller', methods=['GET', 'POST'])
@@ -175,7 +176,7 @@ def change_caller():
         current_user.caller = form.callers.data
         db.session.commit()
     form.callers.data = current_user.caller
-    return render_template('profile/change_caller.html', form=form, title='Caller Settings')
+    return render_template('profile/change_caller.html', form=form, title=lazy_gettext('Caller Settings'))
 
 
 @bp.route('/change_cpu_delay', methods=['GET', 'POST'])
@@ -186,4 +187,4 @@ def change_cpu_delay():
         current_user.cpu_delay = form.delay.data
         db.session.commit()
     form.delay.data = current_user.cpu_delay
-    return render_template('profile/change_cpu_delay.html', form=form, title='CPU Delay')
+    return render_template('profile/change_cpu_delay.html', form=form, title=lazy_gettext('Trainer Delay'))

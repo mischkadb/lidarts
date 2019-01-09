@@ -9,10 +9,10 @@
 
             <div class="card-body">
                 {% if game.status == 'aborted' %}
-                <h2 class="card-title text-center bg-danger text-light font-weight-bold">Game was aborted.</h2>
+                <h2 class="card-title text-center bg-danger text-light font-weight-bold">{{ _('Game was aborted.') }}</h2>
                 {% endif %}
                 {% if game.status == 'declined' %}
-                <h2 class="card-title text-center bg-danger text-light font-weight-bold">Challenge was declined or withdrawn.</h2>
+                <h2 class="card-title text-center bg-danger text-light font-weight-bold">{{ _('Challenge was declined or withdrawn.') }}</h2>
                 {% endif %}
 
                 <!--
@@ -101,9 +101,9 @@
                 {% if game.end and game.begin %}
                 <div class="row justify-content-center align-items-center mb-2">
                     <div class="col-sm-8 text-center text-secondary">
-                        <p>Game time: {{ ((game.end - game.begin).seconds // 3600)}} hours,
-                            {{ ((game.end - game.begin).seconds % 3600) // 60}} minutes,
-                            {{ ((game.end - game.begin).seconds % 60)}} seconds</p>
+                        <p>{{ _('Match duration') }}: {{ ((game.end - game.begin).seconds // 3600)}} {{ _('hours') }},
+                            {{ ((game.end - game.begin).seconds % 3600) // 60}} {{ _('minutes') }},
+                            {{ ((game.end - game.begin).seconds % 60)}} {{ _('seconds') }}</p>
                     </div>
                 </div>
                 {% endif %}
@@ -136,8 +136,8 @@
                                 <p>Avg.</p>
                                 <p>First 9 Avg.</p>
                                 <p>Doubles</p>
-                                <p>Highest Finish</p>
-                                <p>Shortest Leg</p>
+                                <p>{{ _('Highest Finish') }}</p>
+                                <p>{{ _('Shortest Leg') }}</p>
                                 <p>180</p>
                                 <p>140+</p>
                                 <p>100+</p>

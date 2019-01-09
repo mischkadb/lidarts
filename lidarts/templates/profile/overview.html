@@ -22,28 +22,28 @@
         <div class="card bg-light text-dark bs-callout bs-callout-info">
             <div class="card-body">
                 {% if current_user.id == user.id %}
-                <h5 class="card-title"><i class="fas fa-cog"></i> Preferences</h5>
+                <h5 class="card-title"><i class="fas fa-cog"></i> {{ _('Preferences') }}</h5>
                 <hr>
-                <p><a href="{{ url_for('generic.private_messages') }}" class="text-secondary">Private messages</a></p>
-                <p><a href="" class="text-secondary">Edit profile</a></p>
-                <p><a href="{{ url_for('profile.manage_friend_list') }}" class="text-secondary">Manage friend list</a></p>
-                <p><a href="{{ url_for('auth.change_username') }}" class="text-secondary">Change display name</a></p>
-                <p><a href="{{ url_for_security('change_password') }}" class="text-secondary">Change password</a></p>
-                <p><a href="{{ url_for('profile.change_avatar') }}" class="text-secondary">Change avatar</a></p>
-                <p><a href="{{ url_for('profile.change_caller') }}" class="text-secondary">Change caller</a></p>
-                <p><a href="{{ url_for('profile.change_cpu_delay') }}" class="text-secondary">Change CPU delay</a></p>
+                <p><a href="{{ url_for('generic.private_messages') }}" class="text-secondary">{{ _('Private messages') }}</a></p>
+                <p><a href="" class="text-secondary">{{ _('Edit profile') }}</a></p>
+                <p><a href="{{ url_for('profile.manage_friend_list') }}" class="text-secondary">{{ _('Manage friend list') }}</a></p>
+                <p><a href="{{ url_for('auth.change_username') }}" class="text-secondary">{{ _('Change display name') }}</a></p>
+                <p><a href="{{ url_for_security('change_password') }}" class="text-secondary">{{ _('Change password') }}</a></p>
+                <p><a href="{{ url_for('profile.change_avatar') }}" class="text-secondary">{{ _('Avatar settings') }}</a></p>
+                <p><a href="{{ url_for('profile.change_caller') }}" class="text-secondary">{{ _('Caller settings') }}</a></p>
+                <p><a href="{{ url_for('profile.change_cpu_delay') }}" class="text-secondary">{{ _('Trainer delay settings') }}</a></p>
 
 
                 {% else %}
-                <h5 class="card-title"><i class="fas fa-users"></i> Interaction</h5>
+                <h5 class="card-title"><i class="fas fa-users"></i> {{ _('Interaction') }}</h5>
                 <hr>
 
                 {% if user.id not in friend_list %}<p>
-                    <a href="#" class="text-secondary" id="send_friend_request">Send friend request</a>
+                    <a href="#" class="text-secondary" id="send_friend_request">{{ _('Send friend request') }}</a>
                 </p>
                 {% endif %}
 
-                <p><a href="{{ url_for('game.create', mode='x01', opponent_name=user.username) }}" class="text-secondary">Challenge to game</a></p>
+                <p><a href="{{ url_for('game.create', mode='x01', opponent_name=user.username) }}" class="text-secondary">{{ _('Challenge to game') }}</a></p>
 
                 {% endif %}
             </div>
@@ -53,7 +53,7 @@
     <div class="col-md-4">
         <div class="card bg-light text-dark  bs-callout bs-callout-warning">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-history"></i> Recent games</h5>
+                <h5 class="card-title"><i class="fas fa-history"></i> {{ _('Recent games') }}</h5>
                 <hr>
                 {% for game in games[:5] if game.status != 'challenged' and game.status != 'declined' %}
 
@@ -78,7 +78,7 @@
                     {%- else %} local guest{% endif %}
                     - {{ game.type }} {{ game.in_mode }}/{{ game.out_mode }} [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
                 {% endfor %}
-                <a href="{{ url_for('profile.game_history', username=player_names[user.id]) | replace('%40', '@') }}" class="text-secondary">Full match list</a>
+                <a href="{{ url_for('profile.game_history', username=player_names[user.id]) | replace('%40', '@') }}" class="text-secondary">{{ _('Full match list') }}</a>
 
             </div>
         </div>
@@ -88,9 +88,9 @@
     <div class="col-md-4">
         <div class="card bg-light bs-callout bs-callout-danger text-secondary">
             <div class="card-body">
-                <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> Statistics (501 SI/DO)</h5>
+                <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Statistics (501 SI/DO)') }}</h5>
                 <hr>
-                <p>Darts thrown: {{ stats['darts_thrown'] }}</p>
+                <p>{{ _('Darts thrown:') }} {{ stats['darts_thrown'] }}</p>
                 <p>Average: {{ stats['average']|round(2) }}</p>
                 <p>First 9: {{ stats['first9_average']|round(2) }}</p>
                 <p>Doubles: {{ stats['doubles']|round(2) }}%</p>

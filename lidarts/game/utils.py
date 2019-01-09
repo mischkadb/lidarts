@@ -1,3 +1,4 @@
+from flask_babelex import lazy_gettext
 from lidarts import db
 from lidarts.models import User
 from collections import defaultdict
@@ -5,7 +6,7 @@ from collections import defaultdict
 
 def get_name_by_id(id):
     if id is None:
-        return 'Guest'
+        return lazy_gettext('Guest')
     user = User.query.get(id)
     if user:
         return user.username

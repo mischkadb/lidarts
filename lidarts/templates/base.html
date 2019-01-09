@@ -44,7 +44,7 @@
                 {% if current_user.is_anonymous %}
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.index') }}">{{ _('Home') }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.live_games_overview') }}">{{ _('Watch') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Statistics') }}</a></li>
+                <!--<li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Statistics') }}</a></li>-->
                 {% else %}
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Lobby') }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('game.create') }}">{{ _('Play') }}</a></li>
@@ -65,7 +65,7 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="notification-dropdown-menu">
-                            <a class="dropdown-item" href="#" id="no-notifications-text">No new notifications</a>
+                            <a class="dropdown-item" href="#" id="no-notifications-text">{{ _('No new notifications') }}</a>
                         </div>
 
                     </h3>
@@ -85,8 +85,8 @@
                         <button id="statusDrop" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><i class="fas fa-circle status-indicator"></i> {{ _('Status') }}</button>
                         <div class="dropdown-menu" aria-labelledby="statusDrop">
                             <a class="dropdown-item dropdown-status" id="dropdown-online" href="#"><i class="fas fa-circle status-online"></i> Online</a>
-                            <a class="dropdown-item dropdown-status" id="dropdown-lfg" href="#"><i class="fas fa-circle status-lfg"></i> Looking for Game</a>
-                            <a class="dropdown-item dropdown-status" id="dropdown-busy" href="#"><i class="fas fa-circle status-busy"></i> Busy</a>
+                            <a class="dropdown-item dropdown-status" id="dropdown-lfg" href="#"><i class="fas fa-circle status-lfg"></i> {{ _('Looking for Game') }}</a>
+                            <a class="dropdown-item dropdown-status" id="dropdown-busy" href="#"><i class="fas fa-circle status-busy"></i> {{ _('Busy') }}</a>
                         </div>
                     </div>
 
@@ -122,15 +122,15 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-12 text-secondary text-center">
-            <a href="{{ url_for('generic.about') }}" class="text-secondary">About</a> |
-            <a href="{{ url_for('generic.contact') }}" class="text-secondary">Contact</a> |
-            <a href="{{ url_for('generic.contribute') }}" class="text-secondary">Contribute</a> |
-            <a href="{{ url_for('generic.changelog') }}" class="text-secondary">Changelog</a> |
-            <a href="https://github.com/mischkadb/lidarts" class="text-secondary">Source Code</a> |
-            <a href="{{ url_for('legal.privacy') }}" class="text-secondary">Privacy</a> |
-            <a href="{{ url_for('legal.terms_and_conditions') }}" class="text-secondary">Terms & Conditions</a> |
+            <a href="{{ url_for('generic.about') }}" class="text-secondary">{{ _('About') }}</a> |
+            <a href="{{ url_for('generic.contact') }}" class="text-secondary">{{ _('Contact') }}</a> |
+            <a href="{{ url_for('generic.contribute') }}" class="text-secondary">{{ _('Contribute') }}</a> |
+            <a href="{{ url_for('generic.changelog') }}" class="text-secondary">{{ _('Changelog') }}</a> |
+            <a href="https://github.com/mischkadb/lidarts" class="text-secondary">{{ _('Source Code') }}</a> |
+            <a href="{{ url_for('legal.privacy') }}" class="text-secondary">{{ _('Privacy') }}</a> |
+            <a href="{{ url_for('legal.terms_and_conditions') }}" class="text-secondary">{{ _('Terms & Conditions') }}</a> |
             <a href="{{ url_for('legal.disclaimer') }}" class="text-secondary">Disclaimer</a> |
-            <a href="{{ url_for('legal.legal_notice') }}" class="text-secondary">Legal notice</a>
+            <a href="{{ url_for('legal.legal_notice') }}" class="text-secondary">{{ _('Legal notice') }}</a>
 
 
         </div>

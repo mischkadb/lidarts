@@ -17,15 +17,15 @@
                     {% if register_user_form.password_confirm %}
                       {{ render_input_with_errors(register_user_form.password_confirm) }}
                     {% endif %}
-                    <p>By registering you confirm that you agree to our <a href="{{ url_for('legal.terms_and_conditions') }}">Terms and Conditions</a>.</p>
+                    <p>{{ _('By registering you confirm that you agree to our') }} <a href="{{ url_for('legal.terms_and_conditions') }}">{{ _('Terms and Conditions') }}</a>.</p>
 
-                    <button type="submit" class="btn btn-info"><i class="fas fa-user-plus"></i> Register</button>
+                    <button type="submit" class="btn btn-info"><i class="fas fa-user-plus"></i> {{ _('Register') }}</button>
                 </form>
             </div>
         </div>
     </div>
     <div class="col-lg-4 col-sm-3 mt-sm-5">
-        <p>Already have an account?</p>
+        <p>{{ _('Already have an account?') }}</p>
         <p><a href="{{ url_for_security('login') }}" class="btn btn-secondary" role="button"><i class="fas fa-sign-in-alt"></i> {{ _('Sign In') }}</a></p>
     </div>
 </div>

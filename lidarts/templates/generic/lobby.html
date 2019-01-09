@@ -7,7 +7,7 @@
     <div class="col-auto">
         <div class="card bg-light text-dark">
             <div class="card-body">
-                <h2 class="card-text"><img src="/static/img/logo.png" width="76" height="38" alt="lidarts logo" class=""> Welcome back {{ current_user.username }}!</h2>
+                <h2 class="card-text"><img src="/static/img/logo.png" width="76" height="38" alt="lidarts logo" class=""> {{ _('Welcome back') }} {{ current_user.username }}!</h2>
             </div>
         </div>
     </div>
@@ -18,12 +18,12 @@
     <div class="col-md-4">
         <div class="card bg-light text-dark bs-callout bs-callout-info">
             <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-gamepad"></i> Play</h5>
+                <h5 class="card-title"><i class="fas fa-gamepad"></i> {{ _('Play') }}</h5>
                 <hr>
                 <a href="{{ url_for('game.create') }}" class="no-underline">
                     <div class="card bg-info text-light text-center">
                         <div class="card-body">
-                            <h5 class="card-text">Create game</h5>
+                            <h5 class="card-text">{{ _('Create a game') }}</h5>
                         </div>
                     </div>
                 </a>
@@ -33,11 +33,11 @@
     <div class="col-md-4">
         <div class="card bg-light text-secondary bs-callout bs-callout-warning">
             <div class="card-body">
-                <h5 class="card-title text-dark"><i class="fas fa-envelope"></i> Notifications</h5>
+                <h5 class="card-title text-dark"><i class="fas fa-envelope"></i> {{ _('Notifications') }}</h5>
                 <hr>
                 <!-- CHALLENGES -->
                 {% if challenges %}
-                <p>Challenges:</p>
+                <p>{{ _('Challenges:') }}</p>
                 {% for game in challenges %}
                 <p id="element-decline-challenge-{{ game.id }}"><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ player_names[game.player1] }}:
                     {{ game.type }} {{ game.in_mode }}/{{ game.out_mode }} Bo{{ game.bo_sets }} sets, Bo{{ game.bo_legs }} legs</a>
@@ -46,12 +46,12 @@
                 {% endif %}
                 <!-- GAMES IN PROGRESS -->
                 {% if games_in_progress %}
-                <p>Games in progress:</p>
+                <p>{{ _('Games in progress:') }}</p>
                 {% for game in games_in_progress %}
                 <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">vs.
                     {%- if game.player1 != current_user.id %} {{ player_names[game.player1] }}
                     {%- elif game.player2 != current_user.id %} {{ player_names[game.player2] }}
-                    {%- else %} local guest{% endif %}
+                    {%- else %} {{ _('local guest') }}{% endif %}
                     - [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
                 {% endfor %}
                 <hr>
@@ -62,7 +62,7 @@
                 {% endif %}
                 <!-- FRIEND REQUESTS -->
                 {% if friend_requests %}
-                <p>New friend requests</p>
+                <p>{{ _('New friend requests') }}</p>
                 {% for friend_request in friend_requests %}
                 <p id="element-friend-request-{{friend_request.requesting_user_id}}"><strong>{{ player_names[friend_request.requesting_user_id] }}</strong>
                     <span class="btn-group btn-group-sm text-right" role="group" aria-label="Accept or decline friend request" style="float: right">
@@ -79,9 +79,9 @@
     <div class="col-md-4">
         <div class="card bg-light text-secondary bs-callout bs-callout-danger">
             <div class="card-body">
-                <h5 class="card-title text-dark"><i class="fas fa-user-friends"></i> Friends online</h5>
+                <h5 class="card-title text-dark"><i class="fas fa-user-friends"></i> {{ _('Friends online') }}</h5>
                 <hr>
-                {% if not online_friend_list %}None
+                {% if not online_friend_list %}{{ _('None') }}
                 {% else %}
                 {% for friend in online_friend_list %}
                 <p><a href="{{ url_for('profile.overview', username=player_names[friend]) | replace('%40', '@') }}">

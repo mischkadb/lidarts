@@ -23,8 +23,8 @@
             </div>
         </div>
         <p class="text-center mt-2">
-            <input type="text" class="form-control" placeholder="Enter name" id="compose_message_name">
-            <button class="btn btn-dark mt-1" id="compose_message">Compose new message</button>
+            <input type="text" class="form-control" placeholder="{{ _('Enter name_) }}" id="compose_message_name">
+            <button class="btn btn-dark mt-1" id="compose_message">{{ _('Compose new message') }}</button>
         </p>
     </div>
 
@@ -36,7 +36,7 @@
                         <div id="chatbox-tabs">
                             {% for partner in messages %}
                             <div id="messages_tab_{{ partner }}" class="message-tab" {% if loop.index > 1 %}style="display: none"{% endif %}>
-                                <h5 class="card-title">Chat with {{ user_names[partner] }}</h5>
+                                <h5 class="card-title">{{ _('Chat with') }} {{ user_names[partner] }}</h5>
                                 {% for message in messages[partner] %}
                                 <p><strong><a href="{{ url_for('profile.overview', username=user_names[message.sender]) | replace('%40', '@') }}" class="text-dark">{{ user_names[message.sender] }}</a></strong> <small class="text-secondary">{{ moment(message.timestamp).format('HH:mm:ss') }}</small><br>
                                     {{ message.message|safe }}</p>

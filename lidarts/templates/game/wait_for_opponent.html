@@ -7,18 +7,18 @@
     <div class="col-md-6 col-sm-8">
         <div class="card">
             <div class="card-body">
-                <p class="text-center">Waiting for {% if p2_name %}{{ p2_name }}{% else %}player 2{% endif %} </p>
+                <p class="text-center">{{ _('Waiting for') }} {% if p2_name %}{{ p2_name }}{% else %}player 2{% endif %} </p>
                 <h1 class="text-center"><i class="fas fa-spinner fa-spin"></i></h1>
                 <form action="{{ url_for('game.cancel_challenge', hashid=game.hashid) }}" class="text-center mt-3">
                     <input type="submit" value="Cancel challenge" class="btn btn-dark" />
                 </form>
 
-                <p class="mt-2 text-center bg-dark text-light">This page will redirect you to the game once the challenge has been accepted.</p>
+                <p class="mt-2 text-center bg-dark text-light">{{ _('This page will redirect you to the game once the challenge has been accepted.') }}</p>
 
-                {% if not p2_name and not current_user.is_authenticated %}<p>You are not logged in. Log in to play in this game.</p>
-                {% elif not p2_name %}<p>Share this link to invite another player (must be logged in):</p>
+                {% if not p2_name and not current_user.is_authenticated %}<p>{{ _('You are not logged in. Log in to play in this game.') }}</p>
+                {% elif not p2_name %}<p>{{ _('Share this link to invite another player (must be logged in):') }}</p>
                 <input type="text" value="{{ request.url }}" id="invitation_link" class="form-control mb-3" readonly>
-                <button onclick="copyLink()" class="btn btn-dark">Copy text</button>
+                <button onclick="copyLink()" class="btn btn-dark">{{ _('Copy text') }}</button>
                 {% endif %}
             </div>
         </div>

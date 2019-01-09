@@ -7,13 +7,13 @@
     <div class="col-md-8">
         <div class="card bg-light text-secondary bs-callout bs-callout-info">
             <div class="card-body">
-                <h2 class="text-dark">About lidarts.org</h2>
+                <h2 class="text-dark">{{ _('About lidarts.org') }}</h2>
                 <hr>
-                <p>Lidarts is a <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">free/libre, open-source</a> online darts scoring website.</p>
-                <p>Still being in a very early stage, the main goal for Lidarts' future is to provide darts players an online service to play against real players and to help in their daily training. Many features are planned and wait for completion.</p>
-                <p>The entire project is driven by volunteers. Everyone is invited to <a href="{{ url_for('generic.contribute') }}">contribute</a>.</p>
-                <p>DartCall 2007 caller pack created by Horst Girtew</p>
-                <p>Sound effects obtained from <a href="https://www.zapsplat.com">https://www.zapsplat.com</a></p>
+                <p>{{ _('Lidarts is a') }} <a href="https://en.wikipedia.org/wiki/Free_and_open-source_software">{{ _('free/libre, open-source') }}</a> {{ _('online darts scoring website.') }}</p>
+                <p>{{ _('Still being in a very early stage, the main goal for Lidarts\' future is to provide darts players an online service to play against real players and to help in their daily training.') }} {{ _('Many features are planned and wait for completion.') }}</p>
+                <p>{{ _('The entire project is driven by volunteers. Everyone is invited to') }} <a href="{{ url_for('generic.contribute') }}">{{ _('contribute') }}</a>.</p>
+                <p>{{ _('DartCall 2007 caller pack created by Horst Girtew.') }}</p>
+                <p>{{ _('Sound effects obtained from') }} <a href="https://www.zapsplat.com">https://www.zapsplat.com</a></p>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@
     <div class="col-md-4 col-xl-4">
         <div class="card bg-light text-dark bs-callout bs-callout-info">
             <div class="card-body">
-                <h5 class="card-title">Friends</h5>
+                <h5 class="card-title">{{ _('Friends') }}</h5>
                 <hr>
                 {% for friend in friend_list %}
                 <p id="element-remove-friend-{{friend}}"><a href="{{ url_for('profile.overview', username=player_names[friend]) | replace('%40', '@') }}">
@@ -24,7 +24,7 @@
     <div class="col-md-4 col-xl-4">
         <div class="card bg-light text-dark  bs-callout bs-callout-warning">
             <div class="card-body">
-                <h5 class="card-title">Pending requests</h5>
+                <h5 class="card-title">{{ _('Pending requests') }}</h5>
                 <hr>
                 {% for request in pending_requests %}
                 <p id="element-remove-friend-request-{{request}}"><a href="{{ url_for('profile.overview', username=player_names[request]) | replace('%40', '@') }}">

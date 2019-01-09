@@ -1,13 +1,13 @@
 import os
 
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_security import Security, SQLAlchemyUserDatastore
 from flask_socketio import SocketIO
 from flask_mail import Mail
 from flask_moment import Moment
-from flask_babel import _, Babel
+from flask_babelex import Babel
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from dotenv import load_dotenv
 import eventlet
@@ -93,3 +93,8 @@ def create_app(test_config=None):
     import lidarts.socket.X01_game_handler
 
     return app
+
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(['de', 'en'])

@@ -7,13 +7,13 @@
     <div class="col-lg-4 col-md-6 col-sm-10 ">
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title">Change display name</h3>
+                <h3 class="card-title">{{ _('Change display name') }}</h3>
                 <hr>
                 <form action="{{ url_for('auth.change_username') }}" method="post" name="change_username_form">
                     {{ change_username_form.hidden_tag() }}
                     {{ render_input_with_errors(change_username_form.username) }}
 
-                    <button type="submit" class="btn btn-info">Submit</button>
+                    <button type="submit" class="btn btn-info">{{ _('Submit') }}</button>
                 </form>
             </div>
         </div>

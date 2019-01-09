@@ -1,4 +1,5 @@
 from flask import render_template, redirect, url_for, request, jsonify
+from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from lidarts import db
 from lidarts.generic import bp
@@ -61,7 +62,7 @@ def live_games_overview():
         if game.player2:
             player2 = User.query.get(game.player2)
             # Local Guest needs his own 'name'
-            game_dict['player2_name'] = player2.username if game.player1 != game.player2 else 'Local Guest'
+            game_dict['player2_name'] = player2.username if game.player1 != game.player2 else lazy_gettext('Local Guest')
             player2_active = player2.last_seen_ingame > datetime.utcnow() - timedelta(minutes=5)
             player2_in_player_list = game.player2 in players_in_list
 
@@ -76,7 +77,7 @@ def live_games_overview():
         if len(live_games_list) >= 9:
             break
 
-    return render_template('generic/watch.html', live_games=live_games_list, title='Live Games')
+    return render_template('generic/watch.html', live_games=live_games_list, title=lazy_gettext('Live Games'))
 
 
 @bp.route('/lobby')
@@ -122,7 +123,7 @@ def lobby():
 
     return render_template('generic/lobby.html', games_in_progress=games_in_progress, player_names=player_names,
                            friend_requests=friend_requests, online_friend_list=online_friend_list,
-                           challenges=challenges, title='Lobby')
+                           challenges=challenges, title=lazy_gettext('Lobby'))
 
 
 @bp.route('/chat', methods=['GET', 'POST'])
@@ -138,7 +139,7 @@ def chat():
             .filter_by(id=message.author).first_or_404()[0]
 
     return render_template('generic/chat.html', form=form, messages=messages,
-                           user_names=user_names, title='Chat')
+                           user_names=user_names, title=lazy_gettext('Chat'))
 
 
 # should get called by a cronjob periodically
@@ -190,7 +191,7 @@ def private_messages():
             status[other_user.id] = get_user_status(other_user)
 
     return render_template('generic/inbox.html', form=form, messages=messages_dict,
-                           user_names=user_names, status=status, title='Private Messages')
+                           user_names=user_names, status=status, title=lazy_gettext('Private Messages'))
 
 
 @bp.route('/compose_message/')

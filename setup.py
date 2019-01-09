@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='lidarts',
-    version='0.4.0-24',
+    version='0.4.0-34',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -13,7 +13,7 @@ setup(
         'bleach',
         'coverage',
         'eventlet',
-        'Flask-Babel',
+        'Flask-BabelEx',
         'Flask-Login',
         'Flask-Mail',
         'Flask-Migrate',

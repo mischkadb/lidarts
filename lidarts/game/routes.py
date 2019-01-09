@@ -1,4 +1,5 @@
 from flask import render_template, redirect, url_for, jsonify, request
+from flask_babelex import lazy_gettext
 from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm
 from lidarts.models import Game, User, Notification
@@ -28,7 +29,7 @@ def create(mode='x01', opponent_name=None):
         elif player1 and form.opponent.data == 'online':
             if form.opponent_name.data:
                 player2 = User.query.with_entities(User.id).filter_by(username=form.opponent_name.data).first_or_404()
-                message = 'New challenge'
+                message = lazy_gettext('New challenge')
                 notification = Notification(user=player2, message=message, author=current_user.username,
                                             type='challenge')
                 db.session.add(notification)
@@ -62,7 +63,8 @@ def create(mode='x01', opponent_name=None):
         game.set_hashid()
         db.session.commit()
         return redirect(url_for('game.start', hashid=game.hashid))
-    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name, title='Create Game')
+    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
+                           title=lazy_gettext('Create Game'))
 
 
 @bp.route('/')
@@ -87,7 +89,7 @@ def start(hashid, theme=None):
         game_dict['player1_name'] = get_name_by_id(game.player1)
 
     if game.opponent_type == 'local':
-        game_dict['player2_name'] = 'Local Guest'
+        game_dict['player2_name'] = lazy_gettext('Local Guest')
     elif game.opponent_type == 'online':
         game_dict['player2_name'] = get_name_by_id(game.player2)
     else:
@@ -99,12 +101,13 @@ def start(hashid, theme=None):
     # for player1 and spectators while waiting
     if game.status == 'challenged':
         p2_name = get_name_by_id(game.player2) if game.player2 else None
-        return render_template('game/wait_for_opponent.html', game=game_dict, p2_name=p2_name, title="Waiting...")
+        return render_template('game/wait_for_opponent.html', game=game_dict, p2_name=p2_name,
+                               title=lazy_gettext("Waiting..."))
     # for everyone if the game is completed
     if game.status in ('completed', 'aborted', 'declined'):
         statistics = collect_statistics(game, match_json)
         return render_template('game/X01_completed.html', game=game_dict, match_json=match_json,
-                               stats=statistics, title='Match overview')
+                               stats=statistics, title=lazy_gettext('Match overview'))
     # for running games
     else:
         form = ScoreForm()
@@ -112,9 +115,10 @@ def start(hashid, theme=None):
         cpu_delay = current_user.cpu_delay if current_user.is_authenticated else 0
         if theme:
             return render_template('game/X01_stream.html', game=game_dict, form=form,
-                                   match_json=match_json, caller=caller, cpu_delay=cpu_delay, title='Stream overlay')
+                                   match_json=match_json, caller=caller, cpu_delay=cpu_delay,
+                                   title=lazy_gettext('Stream overlay'))
         return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json,
-                               caller=caller, cpu_delay=cpu_delay, title='Live Match')
+                               caller=caller, cpu_delay=cpu_delay, title=lazy_gettext('Live Match'))
 
 
 @bp.route('/validate_score', methods=['POST'])

@@ -12,11 +12,11 @@
                 <hr>
                 <img src="{{ avatar_url }}">
                 <form action="{{ url_for('profile.delete_avatar') }}">
-                    <input type="submit" value="Delete" class="btn btn-dark mt-3">
+                    <input type="submit" value="{{ _('Delete') }}" class="btn btn-dark mt-3">
                 </form>
                 <form method="POST" enctype="multipart/form-data" action="{{ url_for('profile.change_avatar') }}">
                     <input type="file" name="avatar" class="form-control-file mt-3 text-center">
-                    <input type="submit" class="btn btn-dark mt-3" value="Upload">
+                    <input type="submit" class="btn btn-dark mt-3" value="{{ _('Upload') }}">
                 </form>
 
             </div>
