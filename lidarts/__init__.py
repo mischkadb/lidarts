@@ -11,6 +11,18 @@ from flask_babelex import Babel
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from dotenv import load_dotenv
 import eventlet
+from flask._compat import text_type
+from flask.json import JSONEncoder as BaseEncoder
+from speaklater import _LazyString
+
+
+class JSONEncoder(BaseEncoder):
+    def default(self, o):
+        if isinstance(o, _LazyString):
+            return text_type(o)
+
+        return BaseEncoder.default(self, o)
+
 
 eventlet.monkey_patch(socket=True)
 
@@ -67,6 +79,8 @@ def create_app(test_config=None):
     configure_uploads(app, avatars)
     patch_request_class(app, 2 * 1024 * 1024)
 
+    app.json_encoder = JSONEncoder
+
     # Load all blueprints
     from lidarts.generic import bp as generic_bp
     app.register_blueprint(generic_bp)
@@ -82,6 +96,9 @@ def create_app(test_config=None):
 
     from lidarts.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
+
+    from lidarts.tools import bp as tools_bp
+    app.register_blueprint(tools_bp)
 
     from lidarts.generic.errors import not_found_error, internal_error
     app.register_error_handler(404, not_found_error)

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+html {
+  overflow-y: scroll !important;
+}
+</style>
+{% endblock %}
+
+{% block app_content %}
+<div class="row justify-content-center">
+    <div class="col-md-12 col-xl-12">
+        <img src="/static/img/board.png" width="680" height="680" id="board" class="board">
+        <canvas id="boardCanvas" width="680" height="680" class="board"></canvas>
+    </div>
+
+</div>
+
+<form action="" method="post" id="coordform">
+    {{ form.hidden_tag() }}
+    <div class="justify-content-center form-row mt-3">
+
+        <div class="col-md-1 col-xl-1">
+            {{ form.x1(class="form-control", placeholder="x1", id="x1") }}
+        </div>
+        <div class="col-md-1 col-xl-1">
+            {{ form.y1(class="form-control", placeholder="y1", id="y1") }}
+        </div>
+        <div class="col-md-1 col-xl-1">
+                {{ form.x2(class="form-control", placeholder="x2", id="x2") }}
+        </div>
+        <div class="col-md-1 col-xl-1">
+                {{ form.y2(class="form-control", placeholder="y2", id="y2") }}
+        </div>
+        <div class="col-md-1 col-xl-1">
+                {{ form.x3(class="form-control", placeholder="x3", id="x3") }}
+        </div>
+        <div class="col-md-1 col-xl-1">
+                {{ form.y3(class="form-control", placeholder="y3", id="y3") }}
+        </div>
+        <div class="col-md-2 col-xl-2">
+            {{ form.submit(class="btn btn-info") }}
+        </div>
+        <div class="col-md-1 col-xl-1">
+            <input class="btn btn-secondary" type="reset" value="Reset" id="reset">
+        </div>
+    </div>
+</form>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+
+  var darts = 0;
+
+  var offset = $('.board').offset();
+  var img = document.getElementById("board");
+  var cnvs = document.getElementById("boardCanvas");
+
+  cnvs.style.position = "absolute";
+  cnvs.style.left = img.offsetLeft + "px";
+  cnvs.style.top = img.offsetTop + "px";
+
+  var ctx = cnvs.getContext("2d");
+
+  $('.board').click(function(e) {
+    if (darts < 3) {
+      var x = e.pageX - offset.left;
+      var y = e.pageY - offset.top;
+      ctx.fillStyle = "#000000";
+      ctx.fillRect(x-5, y-5, 9, 9);
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(x-4, y-4, 7, 7);
+      darts += 1;
+
+      if (darts == 1) {
+          $('#x1').val(x);
+          $('#y1').val(y);
+      } else if (darts == 2) {
+          $('#x2').val(x);
+          $('#y2').val(y);
+      } else {
+          $('#x3').val(x);
+          $('#y3').val(y);
+      }
+   }
+  });
+
+  $('#reset').click(function(e) {
+    darts = 0;
+    ctx.clearRect(0, 0, cnvs.width, cnvs.height);
+  });
+
+ </script>
+
+{% endblock %}

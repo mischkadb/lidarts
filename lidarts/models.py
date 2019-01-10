@@ -122,6 +122,15 @@ class Chatmessage(db.Model):
     timestamp = db.Column(db.DateTime)
 
 
+class ChatmessageIngame(db.Model):
+    __tablename__ = 'chatmessages_ingame'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    game_hashid = db.Column(db.String(10), primary_key=True)
+    author = db.Column(db.Integer, db.ForeignKey('users.id'))
+    message = db.Column(db.String(500))
+    timestamp = db.Column(db.DateTime)
+
+
 class Privatemessage(db.Model):
     __tablename__ = 'privatemessages'
     id = db.Column(db.Integer, primary_key=True)
@@ -138,3 +147,17 @@ class Notification(db.Model):
     message = db.Column(db.String(500))
     author = db.Column(db.String(30))
     type = db.Column(db.String(30))
+
+
+class BoardCoordinates(db.Model):
+    __tablename__ = 'boardcoordinates'
+    id = db.Column(db.Integer(), primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id'))
+    x1 = db.Column(db.Integer)
+    y1 = db.Column(db.Integer)
+    x2 = db.Column(db.Integer)
+    y2 = db.Column(db.Integer)
+    x3 = db.Column(db.Integer)
+    y3 = db.Column(db.Integer)
+
+
