@@ -24,7 +24,6 @@ $(document).ready(function() {
     });
 
     socket.on('send_notification', function (msg) {
-        console.log(msg);
         if ($('#notification-badge').text() == '') {
             $('#notification-badge').text('1');
         } else{
