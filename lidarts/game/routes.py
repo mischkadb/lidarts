@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for, jsonify, request
-from flask_babelex import lazy_gettext
+from flask_babelex import lazy_gettext, gettext
 from lidarts.game import bp
-from lidarts.game.forms import CreateX01GameForm, ScoreForm
-from lidarts.models import Game, User, Notification
+from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
+from lidarts.models import Game, User, Notification, ChatmessageIngame
 from lidarts import db
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
 from lidarts.game.utils import get_name_by_id, collect_statistics
@@ -29,7 +29,7 @@ def create(mode='x01', opponent_name=None):
         elif player1 and form.opponent.data == 'online':
             if form.opponent_name.data:
                 player2 = User.query.with_entities(User.id).filter_by(username=form.opponent_name.data).first_or_404()
-                message = lazy_gettext('New challenge')
+                message = gettext('New challenge')
                 notification = Notification(user=player2, message=message, author=current_user.username,
                                             type='challenge')
                 db.session.add(notification)
@@ -111,14 +111,33 @@ def start(hashid, theme=None):
     # for running games
     else:
         form = ScoreForm()
+        chat_form = GameChatmessageForm()
+        chat_form_small = GameChatmessageForm()
         caller = current_user.caller if current_user.is_authenticated else 'default'
         cpu_delay = current_user.cpu_delay if current_user.is_authenticated else 0
+
+        user = current_user.id if current_user.is_authenticated else None
+
+        if user == game.player1 or user == game.player2:
+            messages = ChatmessageIngame.query.filter_by(game_hashid=game.hashid).order_by(ChatmessageIngame.id.asc()).all()
+        else:
+            messages = []
+        user_names = {}
+
+        for message in messages:
+            user_names[message.author] = User.query.with_entities(User.username) \
+                .filter_by(id=message.author).first_or_404()[0]
+
         if theme:
             return render_template('game/X01_stream.html', game=game_dict, form=form,
                                    match_json=match_json, caller=caller, cpu_delay=cpu_delay,
-                                   title=lazy_gettext('Stream overlay'))
+                                   title=lazy_gettext('Stream overlay'),
+                                   chat_form=chat_form, chat_form_small=chat_form_small,
+                                   messages=messages, user_names=user_names)
         return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json,
-                               caller=caller, cpu_delay=cpu_delay, title=lazy_gettext('Live Match'))
+                               caller=caller, cpu_delay=cpu_delay, title=lazy_gettext('Live Match'),
+                               chat_form=chat_form, chat_form_small=chat_form_small,
+                               messages=messages, user_names=user_names)
 
 
 @bp.route('/validate_score', methods=['POST'])

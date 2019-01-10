@@ -1,7 +1,7 @@
 from flask_babelex import _, lazy_gettext
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SelectField, SubmitField, StringField
-from wtforms.validators import DataRequired, InputRequired, NumberRange, ValidationError
+from wtforms.validators import DataRequired, InputRequired, NumberRange, ValidationError, Length
 
 game_types = [('170', '170'), ('301', '301'), ('501', '501'), ('1001', '1001')]
 opponents = [('local', lazy_gettext('Local')), ('online', 'Online'), ('computer', 'Computer')]
@@ -38,3 +38,7 @@ class CreateX01GameForm(FlaskForm):
     out_mode = SelectField(lazy_gettext('Mode Out'), choices=out_choice, validators=[DataRequired()])
     submit = SubmitField(lazy_gettext('Start game'))
 
+
+class GameChatmessageForm(FlaskForm):
+    message = StringField('Message', validators=[DataRequired(), Length(max=500)])
+    submit = SubmitField(lazy_gettext('Submit message'))

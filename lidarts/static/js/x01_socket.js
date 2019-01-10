@@ -13,6 +13,8 @@ $(document).ready(function() {
     var p1_id;
     var p2_id;
 
+    var game_completed = false;
+
     var hashid = $('#hash_id').data();
     socket.on('connect', function() {
         socket.emit('init', {hashid: hashid['hashid'] });
@@ -451,6 +453,8 @@ $(document).ready(function() {
         }
         $('.score_input').hide();
         $('.confirm_completion').show();
+
+        game_completed = true
     });
 
     function send_score(double_missed, to_finish, score_value){
@@ -572,7 +576,7 @@ $(document).ready(function() {
         }
         // if remaining score - score_value is higher than 50 there is no way for a double attempt,
         // unless 0 was entered as score (0 might indicate a bust) - in this case, >170 is safe for no doubles
-        else if ((remaining_score - score_value > 50 && score_value > 0) || (remaining_score - score_value > 170)
+        else if ((remaining_score - score_value > 50 && score_value > 0) || (remaining_score > 170)
             || (out_mode == 'so')) {
             send_score(0, 0, score_value);
             return false;
@@ -664,9 +668,12 @@ $(document).ready(function() {
 
         var score_input = document.getElementById('score_value');
         var score_input_sm = document.getElementById('score_value_sm');
+        var message_input = document.getElementById('message');
+        var message_input_small = document.getElementById('message_small');
 
-
-        if (document.activeElement != score_input && document.activeElement != score_input_sm) {
+        if (document.activeElement != score_input && document.activeElement != score_input_sm
+            && document.activeElement != message_input && document.activeElement != message_input_small
+            && game_completed == false) {
             // 1
             if (keyCode == 49 || keyCode == 97) {
                 if ($('#double-missed-1').is(":visible")){
@@ -780,7 +787,8 @@ $(document).ready(function() {
         $('.score_value').val('');
     });
     $('.button-conf').click(function() {
-        $('.score_input').submit();
+        if (game_completed == false)
+               $('.score_input').submit();
     });
 
 

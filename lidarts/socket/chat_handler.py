@@ -2,7 +2,7 @@ from flask import request
 from flask_socketio import emit, join_room
 from flask_login import current_user
 from lidarts import socketio, db
-from lidarts.models import User, Chatmessage, Privatemessage, Notification
+from lidarts.models import User, Chatmessage, Privatemessage, Notification, Game, ChatmessageIngame
 from lidarts.socket.utils import broadcast_online_players, send_notification
 from datetime import datetime
 import bleach
@@ -34,6 +34,28 @@ def connect():
     print('Client connected', request.sid)
     if current_user.is_authenticated:
         join_room(current_user.username)
+
+
+@socketio.on('init', namespace='/game_chat')
+def init(message):
+    game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
+    join_room(game.hashid)
+
+
+@socketio.on('broadcast_game_chat_message', namespace='/game_chat')
+def send_game_chat_message(message):
+    message['message'] = bleach.clean(message['message'])
+    hashid = message['hash_id']
+    new_message = ChatmessageIngame(message=message['message'], author=message['user_id'],
+                                    timestamp=datetime.utcnow(), game_hashid=hashid)
+    db.session.add(new_message)
+    db.session.commit()
+
+    author = User.query.with_entities(User.username) \
+        .filter_by(id=new_message.author).first_or_404()[0]
+
+    emit('send_message', {'author': author, 'message': new_message.message, 'author_id': new_message.author},
+         room=hashid, broadcast=True)
 
 
 @socketio.on('broadcast_private_message', namespace='/private_messages')

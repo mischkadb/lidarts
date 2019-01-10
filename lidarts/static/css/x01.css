@@ -15,6 +15,10 @@ h3 {
   font-size: 30px;
 }
 
+p {
+   margin-bottom: 0px;
+}
+
 a.no-underline {
   text-decoration: none;
 }
@@ -87,4 +91,16 @@ form .form-control:focus{
     text-overflow: ellipsis;
     display: inline-block;
     max-width: 100%;
+}
+
+.nav-tabs {
+    border-bottom: 0px;
+}
+
+.nav-link.active{
+    background-color: #6c757d !important;
+}
+
+.nav-tabs .nav-link {
+    border: 0px;
 }
