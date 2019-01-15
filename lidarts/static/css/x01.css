@@ -104,3 +104,12 @@ form .form-control:focus{
 .nav-tabs .nav-link {
     border: 0px;
 }
+
+.div-link{
+    cursor: pointer;
+}
+
+.div-link:hover{
+   color:#545b62;
+   text-decoration: underline;
+}

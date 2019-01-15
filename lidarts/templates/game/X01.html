@@ -12,12 +12,12 @@
 
             <div class="row mb-2 text-secondary">
                 <a href="{{ url_for('generic.index') }}" class="text-secondary"> {{ _('Leave game') }}</a>
-                | <div id="abort-game">{{ _('Abort game') }}</div>
-                | <div id="hide-keypad">{{ _('Toggle Keypad visibility') }}</div>
-                | <div id="change-keypad">{{ _('Change keypad position') }}</div>
-                | <div id="hide-statistics">{{ _('Toggle statistics') }}</div>
+                | <div id="abort-game" class="div-link">{{ _('Abort game') }}</div>
+                | <div id="hide-keypad" class="div-link">{{ _('Toggle Keypad visibility') }}</div>
+                | <div id="change-keypad" class="div-link">{{ _('Change keypad position') }}</div>
+                | <div id="hide-statistics" class="div-link">{{ _('Toggle statistics') }}</div>
                 | <a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}" class="text-secondary">{{ _('Streamoverlay') }}</a>
-                | <div id="mute">{{ _('Mute caller') }}</div> <div id="unmute" style="display: none">{{ _('Unmute caller') }}</div>
+                | <div id="mute" class="div-link">{{ _('Mute caller') }}</div> <div id="unmute" style="display: none" class="div-link">{{ _('Unmute caller') }}</div>
 
             </div>
         </div>
