@@ -93,25 +93,6 @@ a.no-underline {
     background-color: #33aa44;
 }
 
-#powerTip{
-    background-color: #f5f5f5 !important;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #999999;
-    padding: 5px 5px 5px 5px !important;
-    width: 200px;
-}
-
-.powerTip-status{
-    font-size: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.match_card:hover {
-    background: #eeeeee;
-}
-
 .status-online{
     color: #33dd33;
 }
@@ -130,44 +111,6 @@ a.no-underline {
 
 .status-offline{
     color: #888888;
-}
-
-.avatar{
-    border-radius: 50%;
-}
-
-.avatar-status{
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.avatar-status-online{
-    border: 3px solid #33dd33;
-}
-
-.avatar-status-lfg{
-    border: 3px solid #aa00aa;
-}
-
-.avatar-status-busy{
-    border: 3px solid #eeee00;
-}
-
-.avatar-status-playing{
-    border: 3px solid #5555ee;
-}
-
-.avatar-status-offline{
-    border: 3px solid #888888;
-}
-
-
-.chat-partner:hover{
-    background: #eeeeee;
-}
-
-.chat-partner-active{
-    background: #cccccc;
 }
 
 .notification-badge{

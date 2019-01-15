@@ -1,0 +1,76 @@
+#powerTip{
+    background-color: #f5f5f5 !important;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #999999;
+    padding: 5px 5px 5px 5px !important;
+    width: 200px;
+}
+
+.powerTip-status{
+    font-size: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.match_card:hover {
+    background: #eeeeee;
+}
+
+.avatar{
+    border-radius: 50%;
+}
+
+.avatar-status{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.avatar-status-online{
+    border: 1px solid #555;
+    box-shadow:
+        inset 0 0 0 4px #00e600,
+        inset 0 0 0 5px #555;
+  padding: 5px;
+}
+
+.avatar-status-lfg{
+    border: 1px solid #555;
+    box-shadow:
+        inset 0 0 0 4px #aa00aa,
+        inset 0 0 0 5px #555;
+    padding: 5px;
+}
+
+.avatar-status-busy{
+    border: 1px solid #555;
+    box-shadow:
+        inset 0 0 0 4px #ffff00,
+        inset 0 0 0 5px #555;
+    padding: 5px;
+}
+
+.avatar-status-playing{
+    border: 1px solid #555;
+    box-shadow:
+        inset 0 0 0 4px #5555ee,
+        inset 0 0 0 5px #555;
+    padding: 5px;
+}
+
+.avatar-status-offline{
+    border: 1px solid #555;
+    box-shadow:
+        inset 0 0 0 4px #888,
+        inset 0 0 0 5px #555;
+    padding: 5px;
+}
+
+
+.chat-partner:hover{
+    background: #eeeeee;
+}
+
+.chat-partner-active{
+    background: #cccccc;
+}
