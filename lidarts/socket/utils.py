@@ -2,6 +2,7 @@ from flask_socketio import emit
 from flask_login import current_user
 from lidarts import db, avatars
 from lidarts.models import Game, User
+from sqlalchemy import desc
 import math
 import json
 from datetime import datetime, timedelta
@@ -322,3 +323,40 @@ def broadcast_game_completed(game):
 
 def send_notification(username, message, author, type):
     emit('send_notification', {'message': message, 'author': author, 'type': type}, room=username, namespace='/base')
+
+
+def calculate_statistics(user_id):
+    games = Game.query.filter(((Game.player1 == user_id) | (Game.player2 == user_id)) & (Game.status != 'challenged')
+                              & (Game.status != 'declined') & (Game.status != 'aborted')) \
+        .order_by(desc(Game.id)).all()
+
+    stats = {'darts_thrown': 0, 'double_thrown': 0, 'legs_won': 0, 'total_score': 0, 'first9_scores': []}
+    for game in games:
+        if not (game.type == 501 and game.out_mode == 'do' and game.in_mode == 'si'):
+            continue
+
+        player = '1' if (user_id == game.player1) else '2'
+
+        match_json = json.loads(game.match_json)
+        for set in match_json:
+            for leg in match_json[set]:
+                for score in match_json[set][leg][player]['scores'][:3]:
+                    stats['first9_scores'].append(score)
+                stats['darts_thrown'] += len(match_json[set][leg][player]['scores']) * 3
+                stats['total_score'] += sum(match_json[set][leg][player]['scores'])
+                if 'to_finish' in match_json[set][leg][player]:
+                    stats['darts_thrown'] -= (3 - match_json[set][leg][player]['to_finish'])
+                    stats['double_thrown'] += 1
+                    stats['legs_won'] += 1
+                if isinstance(match_json[set][leg][player]['double_missed'], (list,)):
+                    stats['double_thrown'] += sum(match_json[set][leg][player]['double_missed'])
+                else:
+                    # legacy: double_missed as int
+                    stats['double_thrown'] += match_json[set][leg][player]['double_missed']
+
+    stats['doubles'] = round((stats['legs_won'] / stats['double_thrown']), 4) * 100 if stats['double_thrown'] else 0
+    stats['average'] = round((stats['total_score'] / (stats['darts_thrown'])) * 3, 2) if stats['darts_thrown'] else 0
+    stats['first9_average'] = round((sum(stats['first9_scores']) / len(stats['first9_scores'])), 2) \
+        if stats['first9_scores'] else 0
+
+    return stats

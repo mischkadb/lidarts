@@ -2,8 +2,8 @@ from flask import request
 from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
-from lidarts.models import Game, User
-from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
+from lidarts.models import Game, User, Stats
+from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull, calculate_statistics
 from lidarts.socket.computer import get_computer_score
 from lidarts.socket.chat_handler import broadcast_online_players
 import json
@@ -288,7 +288,40 @@ def send_score(message):
                                 'type': game.type, 'p1_sets': game.p1_sets,
                                 'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
              room=game.hashid, broadcast=True, namespace='/game')
-        #leave_room(game.hashid)  # does this cause a bug?
+        # leave_room(game.hashid)  # does this cause a bug?
+        p1_stats = calculate_statistics(game.player1)
+        stats = Stats.query.filter_by(user_id=game.player1).first()
+        if not stats:
+            stats = Stats(user_id=game.player1, darts_thrown=stats['darts_thrown'],
+                          double_thrown=stats['double_thrown'], legs_won=stats['legs_won'],
+                          doubles=stats['doubles'], average=stats['average'], first9_average=stats['first9_average'])
+            db.session.add(stats)
+        else:
+            stats.darts_thrown = p1_stats['darts_thrown']
+            stats.double_thrown = p1_stats['double_thrown']
+            stats.legs_won = p1_stats['legs_won']
+            stats.doubles = p1_stats['doubles']
+            stats.average = p1_stats['average']
+            stats.first9_average = p1_stats['first9_average']
+
+        if game.opponent_type == 'online':
+            p2_stats = calculate_statistics(game.player2)
+            stats = Stats.query.filter_by(user_id=game.player2).first()
+            if not stats:
+                stats = Stats(user_id=game.player2, darts_thrown=stats['darts_thrown'],
+                              double_thrown=stats['double_thrown'], legs_won=stats['legs_won'],
+                              doubles=stats['doubles'], average=stats['average'],
+                              first9_average=stats['first9_average'])
+                db.session.add(stats)
+            else:
+                stats.darts_thrown = p2_stats['darts_thrown']
+                stats.double_thrown = p2_stats['double_thrown']
+                stats.legs_won = p2_stats['legs_won']
+                stats.doubles = p2_stats['doubles']
+                stats.average = p2_stats['average']
+                stats.first9_average = p2_stats['first9_average']
+
+        db.session.commit()
 
     elif old_set_count < len(match_json) or old_leg_count < len(match_json[str(len(match_json))]):
         if len(match_json[str(len(match_json))]) == 1:  # new set

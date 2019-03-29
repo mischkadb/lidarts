@@ -105,6 +105,7 @@ class Game(db.Model):
     begin = db.Column(db.DateTime)
     end = db.Column(db.DateTime)
     opponent_type = db.Column(db.String(10))
+    bot_id = db.Column(db.Integer, db.ForeignKey('bots.id'))
 
     def set_hashid(self):
         hashids = Hashids(min_length=8)
@@ -159,5 +160,24 @@ class BoardCoordinates(db.Model):
     y2 = db.Column(db.Integer)
     x3 = db.Column(db.Integer)
     y3 = db.Column(db.Integer)
+
+
+class Bot(db.Model):
+    __tablename__ = 'bots'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(25))
+    sigma_x = db.Column(db.Integer)
+    sigma_y = db.Column(db.Integer)
+
+
+class Stats(db.Model):
+    __tablename__ = 'stats'
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    darts_thrown = db.Column(db.Integer)
+    double_thrown = db.Column(db.Integer)
+    legs_won = db.Column(db.Integer)
+    doubles = db.Column(db.Float)
+    first9_average = db.Column(db.Float)
+    average = db.Column(db.Float)
 
 

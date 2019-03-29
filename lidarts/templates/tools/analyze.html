@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+html {
+  overflow-y: scroll !important;
+}
+</style>
+{% endblock %}
+
+{% block app_content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <p>{{ _('My x:') }} {{ my_x }}</p>
+        <p>{{ _('My y:') }} {{ my_y }}</p>
+        <p>{{ _('Sigma x:') }} {{ sigma_x }}</p>
+        <p>{{ _('Sigma y:') }} {{ sigma_y }}</p>
+        <p>{{ _('Sigma x0:') }} {{ sigma_x_0 }}</p>
+        <p>{{ _('Sigma y0:') }} {{ sigma_y_0 }}</p>
+        <p>Simulated Average: {{ average }}</p>
+        <p>Simulated Doubles: {{ doubles }}%</p>
+        <p class="mt-5">{{ _('Explanation: All values in 1/100 mm. A value of 1200 is equivalent to 1,2cm/12mm.') }}</p>
+        <p>{{ _('x = horizontal axis on the dartboard') }}</p>
+        <p>{{ _('y = vertical axis on the dartboard') }}</p>
+        <p>{{ _('Bullseye is at x=0, y=0') }}</p>
+        <p>{{ _('My x/y: Expected value = Average hit point of all darts. Positive x = tendency to right, negative x = tendency to left.
+        Positive y = tendency to top, negative y = tendency to bottom.') }}</p>
+        <p>{{ _('Sigma x/y: Standard deviation = Average distance to My x/y.') }}</p>
+        <p>{{ _('Sigma x0/y0: Standard deviation from bullseye at x=0, y=0') }}</p>
+        <p>{{ _('Reference: Top PDC player values: Sigma x ~1000, Sigma y ~550') }}</p>
+    </div>
+
+</div>
+
+
+{% endblock %}

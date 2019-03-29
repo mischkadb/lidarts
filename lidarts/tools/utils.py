@@ -1,6 +1,9 @@
-from lidarts.models import Game, Bot
+from math import sqrt, atan, degrees, cos, radians
 import numpy as np
-from math import sqrt, cos, radians, degrees, atan
+import time
+
+
+double_attempts = [0, 0]
 
 # checkout table contains the next field to aim at
 checkout_table = {1: {'170': 'T20', '167': 'T20', '164': 'T20', '161': 'T20', '160': 'T20', '158': 'T20',
@@ -114,6 +117,11 @@ def get_target(remaining_score, dart, out_mode):
 
 
 def throw_dart(target, sigma_x, sigma_y):
+    # sigma_x = 980
+    # sigma_y = 550
+    # sigma_x = 1150
+    # sigma_y = 650
+
     if target[0] == 'S':
         distance = 13450
     elif target[0] == 'D':
@@ -151,7 +159,7 @@ def throw_dart(target, sigma_x, sigma_y):
         factor = 3
 
     number = int(field[1:])
-    return number * factor, field
+    return number * factor
 
 
 def get_field_by_coordinates(x, y):
@@ -219,38 +227,86 @@ def get_field_by_coordinates(x, y):
     return result
 
 
-def get_computer_score(hashid):
-    game = Game.query.filter_by(hashid=hashid).first_or_404()
-    bot = Bot.query.filter_by(id=game.bot_id).first_or_404()
-
+def get_computer_score(remaining_score, player, sigma_x, sigma_y):
     # get current remaining score
-    remaining_score = game.p2_score
     thrown_score_total = 0
-    double_missed = 0
 
     for dart in range(1, 4):
-        # acquire target depending on remaining score
-        if game.closest_to_bull:
-            thrown_score, field_hit = throw_dart('D25', bot.sigma_x, bot.sigma_y)
-            return thrown_score
-        elif game.in_mode == 'di' and game.p2_score == game.type:
-            target = 'D20'
-        else:
-            target = get_target(remaining_score, dart, game.out_mode)
 
-        if target[0] == 'D' and remaining_score <= 50:
-            double_missed += 1
+        target = get_target(remaining_score, dart, 'do')
         # simulate dart throw
-        thrown_score, field_hit = throw_dart(target, bot.sigma_x, bot.sigma_y)
-        if (game.in_mode == 'di' and field_hit[0] != 'D') and (game.p2_score == game.type):
-            thrown_score = 0
+        if target[0] == 'D' and remaining_score <= 50:
+            global double_attempts
+            double_attempts[player] += 1
+        thrown_score = throw_dart(target, sigma_x, sigma_y)
+        # if target[0] == 'D' and remaining_score <= 50:
+        #   print('Target: {target}, Score: {score}'.format(target=target, score=thrown_score))
         thrown_score_total += thrown_score
         remaining_score -= thrown_score
         # don't keep throwing if leg won or busted
         if remaining_score == 0:
-            double_missed -= 1
-            return thrown_score_total, double_missed, dart
+            return thrown_score_total, dart
         elif remaining_score < 0:
             break
 
-    return thrown_score_total, double_missed, 0
+    return thrown_score_total, 3
+
+
+def simulate(sigma_x, sigma_y):
+    for i in range(1):
+        scores = [[], []]
+        legs = [[], []]
+        global double_attempts
+        nine_darters = [0, 0]
+        double_attempts = [0, 0]
+        legs_won = [0, 0]
+        matches_won = [0, 0]
+        averages = [[], []]
+        for match in range(20):
+            legs_won_match = [0, 0]
+            p1_started = True
+
+            while legs_won_match[0] < 6 and legs_won_match[1] < 6:
+                remains = [501, 501]
+                darts = [0, 0]
+                p1_turn = p1_started
+                while remains[0] > 0 and remains[1] > 0:
+                    p = 0 if p1_turn else 1
+                    score, darts_thrown = get_computer_score(remains[p], p, sigma_x, sigma_y)
+                    if score <= remains[p]:
+                        remains[p] -= score
+                        scores[p].append(score)
+                    else:
+                        scores[p].append(0)
+                    darts[p] += darts_thrown
+
+                    p1_turn = not p1_turn
+
+                if remains[0] == 0:
+                    legs_won[0] += 1
+                    legs_won_match[0] += 1
+                else:
+                    legs_won[1] += 1
+                    legs_won_match[1] += 1
+
+                for p in range(2):
+                    legs[p].append(darts[p])
+
+                    if darts[p] == 9 and remains[p] == 0:
+                        nine_darters[p] += 1
+
+                p1_started = not p1_started
+
+                time.sleep(0)
+
+            if legs_won_match[0] == 6:
+                matches_won[0] += 1
+            else:
+                matches_won[1] += 1
+
+        return sum(scores[p]) / sum(legs[p]) * 3, legs_won[p] / double_attempts[p]
+
+
+
+
+

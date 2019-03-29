@@ -2,9 +2,9 @@ from flask import render_template, redirect, url_for, jsonify, request
 from flask_babelex import lazy_gettext, gettext
 from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
-from lidarts.models import Game, User, Notification, ChatmessageIngame
+from lidarts.models import Game, User, Notification, ChatmessageIngame, Bot, Stats
 from lidarts import db
-from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
+from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification, calculate_statistics
 from lidarts.game.utils import get_name_by_id, collect_statistics
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user, login_required
@@ -51,7 +51,15 @@ def create(mode='x01', opponent_name=None):
                     begin=datetime.utcnow(), match_json=match_json,
                     status=status, opponent_type=form.opponent.data)
         if game.opponent_type.startswith('computer'):
-            game.opponent_type += form.level.data
+            if form.bot_choice.data == 'level':
+                game.bot_id = form.level.data
+            else:
+                bot_name = '[Bot] {username}'.format(username=current_user.username)
+
+                bot = Bot(name=bot_name, sigma_x=sigma_x, sigma_y=sigma_y)
+                db.session.add(bot)
+                db.session.commit()
+                game.bot_id = bot.id
         game.p1_next_turn = form.starter.data == 'me'
         if form.starter.data == 'closest_to_bull':
             game.p1_next_turn = True
@@ -94,7 +102,11 @@ def start(hashid, theme=None):
         game_dict['player2_name'] = get_name_by_id(game.player2)
     else:
         # computer game
-        game_dict['player2_name'] = 'Trainer ' + game_dict['opponent_type'][8:]
+        if game.bot_id:
+            bot = Bot.query.filter_by(id=game.bot_id).first_or_404()
+            game_dict['player2_name'] = bot.name
+        else:
+            game_dict['player2_name'] = 'Trainer ' + game_dict['opponent_type'][8:]
 
     match_json = json.loads(game.match_json)
 
@@ -178,4 +190,27 @@ def abort_game(hashid):
     db.session.commit()
     return redirect(url_for('generic.lobby'))
 
+
+@bp.route('/calc_all_stats')
+def calc_all_stats():
+    users = User.query.all()
+    for user in users:
+        current_stats = calculate_statistics(user.id)
+        stats = Stats.query.filter_by(user_id=user.id).first()
+        if not stats:
+            stats = Stats(user_id=user.id, darts_thrown=current_stats['darts_thrown'],
+                          double_thrown=current_stats['double_thrown'], legs_won=current_stats['legs_won'],
+                          doubles=current_stats['doubles'], average=current_stats['average'],
+                          first9_average=current_stats['first9_average'])
+            db.session.add(stats)
+        else:
+            stats.darts_thrown = stats['darts_thrown']
+            stats.double_thrown = stats['double_thrown']
+            stats.legs_won = stats['legs_won']
+            stats.doubles = stats['doubles']
+            stats.average = stats['average']
+            stats.first9_average = stats['first9_average']
+
+    db.session.commit()
+    return jsonify('success')
 
