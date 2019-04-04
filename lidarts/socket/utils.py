@@ -71,8 +71,9 @@ def process_leg_win(player_dict, match_json, current_values):
     # check if player won set
     if player_dict['p_legs'] == 0:
         player_dict['p_sets'] += 1
-        # check if player won match
-        if player_dict['p_sets'] == sets_for_match:
+        # check if player won match or match drawn
+        if player_dict['p_sets'] == sets_for_match or \
+                (set_draw_possible and (player_dict['p_sets'] == player_dict['o_sets'] == (player_dict['bo_sets'] / 2))):
             # leg score is needed if best of 1 set
             if player_dict['bo_sets'] == 1:
                 player_dict['p_legs'] = math.ceil((player_dict['bo_legs'] + 0.5) / 2)
