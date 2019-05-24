@@ -132,6 +132,9 @@ def process_score(hashid, score_value, double_missed, to_finish):
 
     if to_finish:
         match_json[current_values['set']][current_values['leg']][current_values['player']]['to_finish'] = to_finish
+    # bug fix - sometimes to_finish is not sent, default to 3
+    elif player_dict['p_score'] - score_value == 0:
+        match_json[current_values['set']][current_values['leg']][current_values['player']]['to_finish'] = 3
 
     match_json[current_values['set']][current_values['leg']][current_values['player']]['double_missed'].append(double_missed)
 
