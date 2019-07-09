@@ -14,6 +14,7 @@ import eventlet
 from flask._compat import text_type
 from flask.json import JSONEncoder as BaseEncoder
 from speaklater import _LazyString
+from sqlalchemy import MetaData
 
 
 class JSONEncoder(BaseEncoder):
@@ -26,9 +27,20 @@ class JSONEncoder(BaseEncoder):
 
 eventlet.monkey_patch(socket=True)
 
+convention = {
+    "ix": 'ix_%(column_0_label)s',
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_%(constraint_name)s",
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+    "pk": "pk_%(table_name)s"
+}
+
+metadata = MetaData(naming_convention=convention)
+
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
-db = SQLAlchemy()
+db = SQLAlchemy(metadata=metadata)
 migrate = Migrate()
 mail = Mail()
 security = Security()
