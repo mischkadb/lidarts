@@ -88,6 +88,7 @@ class Game(db.Model):
     player2 = db.Column(db.Integer, db.ForeignKey('users.id'))
     bo_sets = db.Column(db.Integer, nullable=False)
     bo_legs = db.Column(db.Integer, nullable=False)
+    two_clear_legs = db.Column(db.Boolean)
     p1_sets = db.Column(db.Integer)
     p2_sets = db.Column(db.Integer)
     p1_legs = db.Column(db.Integer)

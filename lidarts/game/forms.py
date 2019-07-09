@@ -1,6 +1,6 @@
 from flask_babelex import _, lazy_gettext
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SelectField, SubmitField, StringField
+from wtforms import IntegerField, SelectField, SubmitField, StringField, BooleanField
 from wtforms.validators import DataRequired, InputRequired, NumberRange, ValidationError, Length
 
 game_types = [('170', '170'), ('301', '301'), ('501', '501'), ('1001', '1001')]
@@ -34,6 +34,7 @@ class CreateX01GameForm(FlaskForm):
     starter = SelectField(lazy_gettext('First to throw'), choices=starter, validators=[DataRequired()])
     bo_sets = SelectField(lazy_gettext('Best of Sets'), choices=bo_choice, validators=[DataRequired()])
     bo_legs = SelectField(lazy_gettext('Best of Legs'), choices=bo_choice, validators=[DataRequired()])
+    two_clear_legs = BooleanField(lazy_gettext('Two Clear Legs'))
     in_mode = SelectField(lazy_gettext('Mode In'), choices=in_choice, validators=[DataRequired()])
     out_mode = SelectField(lazy_gettext('Mode Out'), choices=out_choice, validators=[DataRequired()])
     submit = SubmitField(lazy_gettext('Start game'))

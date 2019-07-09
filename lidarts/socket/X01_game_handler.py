@@ -67,7 +67,7 @@ def send_score_response(game, old_score=0, broadcast=False):
                 if 'to_finish' in match_json[set][leg]['2']:
                     p2_darts_thrown_this_leg -= (3 - match_json[set][leg]['2']['to_finish'])
 
-                p2_darts_thrown_double += 1
+                p2_darts_thrown_double += 1  # better: p2_darts_thrown_double = legs_won + double_missed
                 p2_legs_won += 1
 
                 p2_short_leg = p2_darts_thrown_this_leg if p2_short_leg == 0 else p2_short_leg

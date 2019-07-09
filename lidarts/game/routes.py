@@ -45,6 +45,7 @@ def create(mode='x01', opponent_name=None):
                                          2: {'scores': [], 'double_missed': []}}}})
         game = Game(player1=player1, player2=player2, type=form.type.data,
                     bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
+                    two_clear_legs=form.two_clear_legs.data,
                     p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
                     p1_score=int(form.type.data), p2_score=int(form.type.data),
                     in_mode=form.in_mode.data, out_mode=form.out_mode.data,
