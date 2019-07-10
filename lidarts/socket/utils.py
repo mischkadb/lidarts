@@ -19,6 +19,7 @@ def player_to_dict(game, player1):
     player_dict = {
         'bo_legs': game.bo_legs,
         'bo_sets': game.bo_sets,
+        'two_clear_legs': game.two_clear_legs,
         'type': game.type,
         'status': game.status
     }
@@ -64,18 +65,25 @@ def process_leg_win(player_dict, match_json, current_values):
     sets_for_match = (player_dict['bo_sets'] / 2) + 1 if set_draw_possible else math.ceil(player_dict['bo_sets'] / 2)
 
     # leg count increase with check for set win
-    player_dict['p_legs'] = (player_dict['p_legs'] + 1) % legs_for_set
+    if player_dict['two_clear_legs']:
+        player_dict['p_legs'] += 1
+    else:
+        player_dict['p_legs'] = (player_dict['p_legs'] + 1) % legs_for_set
     # reset score to default value
     player_dict['p_score'] = player_dict['type']
 
     # check if player won set
-    if player_dict['p_legs'] == 0:
+    if player_dict['p_legs'] == 0 or \
+            (player_dict['two_clear_legs'] and
+             player_dict['p_legs'] >= legs_for_set and
+             player_dict['p_legs'] == player_dict['o_legs'] + 2):
         player_dict['p_sets'] += 1
+
         # check if player won match or match drawn
         if player_dict['p_sets'] == sets_for_match or \
                 (set_draw_possible and (player_dict['p_sets'] == player_dict['o_sets'] == (player_dict['bo_sets'] / 2))):
             # leg score is needed if best of 1 set
-            if player_dict['bo_sets'] == 1:
+            if player_dict['bo_sets'] == 1 and not player_dict['two_clear_legs']:
                 player_dict['p_legs'] = math.ceil((player_dict['bo_legs'] + 0.5) / 2)
             player_dict['status'] = 'completed'
             player_dict['p_score'] = 0  # end score 0 looks nicer
