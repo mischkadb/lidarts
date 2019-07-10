@@ -76,7 +76,7 @@ def process_leg_win(player_dict, match_json, current_values):
     if player_dict['p_legs'] == 0 or \
             (player_dict['two_clear_legs'] and
              player_dict['p_legs'] >= legs_for_set and
-             player_dict['p_legs'] == player_dict['o_legs'] + 2):
+             player_dict['p_legs'] >= player_dict['o_legs'] + 2):
         player_dict['p_sets'] += 1
 
         # check if player won match or match drawn
