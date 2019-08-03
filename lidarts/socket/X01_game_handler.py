@@ -353,8 +353,7 @@ def undo_get_remaining_score(message):
             # get last remaining score from player 2
             remaining_score = game.type - sum(current_leg_json['2']['scores'][:-1])
         emit('undo_remaining_score',
-             {'remaining_score': remaining_score, 'score_value': message['score_value']},
-             room=game.hashid)
+             {'remaining_score': remaining_score, 'score_value': message['score_value']})
 
 
 @socketio.on('disconnect', namespace='/game')
