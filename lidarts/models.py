@@ -158,6 +158,10 @@ class Game(GameBase):
     out_mode = db.Column(db.String(15))
 
 
+class CricketGame(GameBase):
+    __tablename__ = 'games_cricket'
+
+
 class Chatmessage(db.Model):
     __tablename__ = 'chatmessages'
     id = db.Column(db.Integer, primary_key=True)
