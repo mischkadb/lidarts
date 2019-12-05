@@ -243,8 +243,8 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         game.set_hashid()
         db.session.commit()
         return redirect(url_for('game.start', hashid=game.hashid))
-    return render_template('game/create_game.html', form=form, opponent_name=opponent_name,
-                           title=lazy_gettext('Create Game'))
+    return render_template('game/create_game.html', form=form,
+                           opponent_name=opponent_name, title=lazy_gettext('Create Game'))
 
 
 @bp.route('/<hashid>/statistics/<set_>/<leg>')
