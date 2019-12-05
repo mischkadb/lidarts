@@ -130,7 +130,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         tournament_choices.append(('-', '-'))
         form.tournament.choices = tournament_choices[::-1]
     else:
-        pass  # no other game modes yet
+        form = CreateCricketGameForm(opponent_name=opponent_name)
 
     webcam_query = WebcamSettings.query.filter_by(user=current_user.id).first()
     if not webcam_query or not webcam_query.activated:
@@ -243,7 +243,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         game.set_hashid()
         db.session.commit()
         return redirect(url_for('game.start', hashid=game.hashid))
-    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
+    return render_template('game/create_game.html', form=form, opponent_name=opponent_name,
                            title=lazy_gettext('Create Game'))
 
 
