@@ -18,7 +18,11 @@
                     <div class="col-6 align-self-center text-left">
                         <div class="dropdown show">
                             <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% if 'cricket' in request.path %}
+                                Cricket
+                                {% else %}
                                 X01
+                                {% endif %}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="gameModeDropdown">
                                 <a class="dropdown-item" href="{{ url_for('game.create') }}/x01">X01</a>
