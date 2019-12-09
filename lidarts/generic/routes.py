@@ -103,8 +103,13 @@ def lobby():
         return redirect(url_for('profile.overview', username=form.username.data).replace('%40', '@'))
 
     player_names = {}
-    games_in_progress = Game.query.filter(((Game.player1 == current_user.id) | (Game.player2 == current_user.id)) & \
+    games_in_progress = Game.query.filter(((Game.player1 == current_user.id) | (Game.player2 == current_user.id)) &
                                           (Game.status == 'started')).order_by(desc(Game.id)).all()
+    cricket_games_in_progress = CricketGame.query.filter(((CricketGame.player1 == current_user.id) |
+                                                          (CricketGame.player2 == current_user.id)) &
+                                                         (CricketGame.status == 'started'))\
+        .order_by(desc(CricketGame.id)).all()
+    games_in_progress.extend(cricket_games_in_progress)
     for game in games_in_progress:
         if game.player1 and game.player1 not in player_names:
             player_names[game.player1] = User.query.with_entities(User.username) \
