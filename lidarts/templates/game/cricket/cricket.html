@@ -5,7 +5,8 @@
 <nav class="navbar navbar-expand-xl sticky-top navbar-dark bg-dark">
 
     <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -17,7 +18,7 @@
                 | <div id="change-keypad" class="div-link">{{ _('Change keypad position') }}</div>
                 | <div id="hide-statistics" class="div-link">{{ _('Toggle statistics') }}</div>
                 | <a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}" class="text-secondary">{{ _('Streamoverlay') }}</a>
-                | <div id="mute" class="div-link">{{ _('Mute caller') }}</div> <div id="unmute" style="display: none" class="div-link">{{ _('Unmute caller') }}</div>
+                | <div id="mute" class="div-link">{{ _('Mute sound') }}</div> <div id="unmute" style="display: none" class="div-link">{{ _('Unmute sound') }}</div>
 
             </div>
         </div>
@@ -158,7 +159,6 @@
         </div>
     </div>
     <div class="col-sm-1"></div>
-
 </div>
 
 <div class="row justify-content-center align-items-start">
@@ -460,30 +460,6 @@
     </div>
 </div>
 
-<!-- MISSED AT DOUBLE OVERLAY -->
-<div class="modal fade" id="double-missed-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <h4 class="text-center">{{ _('How many darts missed at double?') }}</h4>
-            <button type="button" class="btn btn-primary double-missed-3" data-dismiss="modal" id="double-missed-3">3</button>
-            <button type="button" class="btn btn-primary double-missed-2" data-dismiss="modal" id="double-missed-2">2</button>
-            <button type="button" class="btn btn-primary double-missed-1" data-dismiss="modal" id="double-missed-1">1</button>
-            <button type="button" class="btn btn-primary double-missed-0" data-dismiss="modal" id="double-missed-0">0</button>
-        </div>
-    </div>
-</div>
-
-<!-- DARTS TO FINISH OVERLAY -->
-<div class="modal fade" id="darts-to-finish-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <h4 class="text-center">{{ _('How many darts to finish?') }}</h4>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="to-finish-3">3</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="to-finish-2">2</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="to-finish-1">1</button>
-        </div>
-    </div>
-</div>
 
 <!-- ABORT GAME MODAL -->
 <div class="modal fade abort-game-modal" id="abort-game-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -508,14 +484,13 @@
 <meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
 <meta id="caller" data-caller="{{ caller }}">
 <meta id="cpu_delay" data-cpu_delay="{{ cpu_delay }}">
-<meta id="out_mode" data-out_mode="{{ game.out_mode }}">
 <meta id="chat_validation_url" data-url="{{ url_for('generic.validate_game_chat_message') }}">
 
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
-<script type="text/javascript" src="/static/js/x01_socket.js"></script>
+<script type="text/javascript" src="/static/js/game/cricket/cricket_socket.js"></script>
 <script type="text/javascript" src="/static/js/game_chat_socket.js"></script>
 {% else %}
-<script type="text/javascript" src="/static/js/x01_spectator_socket.js"></script>
+<script type="text/javascript" src="/static/js/game/cricket/cricket_spectator_socket.js"></script>
 {% endif %}
 {% endblock %}
