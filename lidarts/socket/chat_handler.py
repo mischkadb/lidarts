@@ -79,7 +79,9 @@ def connect_private_messages():
 
 @socketio.on('init', namespace='/game_chat')
 def init(message):
-    game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
+    game = Game.query.filter_by(hashid=message['hashid']).first()
+    if not game:
+        game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
     join_room(game.hashid)
 
 
