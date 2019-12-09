@@ -26,6 +26,13 @@ class ScoreForm(FlaskForm):
     submit = SubmitField(lazy_gettext('Submit score'))
 
 
+class CricketScoreForm(FlaskForm):
+    score_value = IntegerField(lazy_gettext('Score'), validators=[InputRequired(),
+                                                    NumberRange(min=0, max=180),
+                                                    impossible_numbers_check])
+    submit = SubmitField(lazy_gettext('Submit score'))
+
+
 class CreateGameForm(FlaskForm):
     bo_sets = SelectField(lazy_gettext('Best of Sets'), choices=bo_choice, validators=[DataRequired()])
     bo_legs = SelectField(lazy_gettext('Best of Legs'), choices=bo_choice, validators=[DataRequired()])

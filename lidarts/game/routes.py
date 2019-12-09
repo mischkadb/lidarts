@@ -263,7 +263,9 @@ def statistics_set_leg(hashid, set_, leg):
 @bp.route('/<hashid>')
 @bp.route('/<hashid>/<theme>')
 def start(hashid, theme=None):
-    game = Game.query.filter_by(hashid=hashid).first_or_404()
+    game = Game.query.filter_by(hashid=hashid).first()
+    if not game:
+        game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
     # check if we found an opponent, logged in users only
     if game.status == 'challenged' and current_user.is_authenticated and current_user.id != game.player1:
         # Check webcam consent
