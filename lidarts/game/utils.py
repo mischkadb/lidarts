@@ -3,6 +3,21 @@ from lidarts import db
 from lidarts.models import User
 from collections import defaultdict
 
+def get_player_names(game):
+    if game.player1:
+        playerOneName = get_name_by_id(game.player1)
+
+    if game.opponent_type == 'local':
+        playerTwoName = lazy_gettext('Local Guest')
+    elif game.opponent_type == 'online':
+        playerTwoName = get_name_by_id(game.player2)
+    else:
+        game_dict = game.as_dict()
+
+        # computer game
+        playerTwoName = 'Trainer ' + game_dict['opponent_type'][8:]
+
+    return playerOneName, playerTwoName
 
 def get_name_by_id(id):
     if id is None:

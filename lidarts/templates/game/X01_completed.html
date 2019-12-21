@@ -188,7 +188,9 @@
                                 <td class="border-0"></td>
                                 {% for set in range(1, match_json|length + 1) %}
                                 {% for leg in range(1, match_json[set|string]|length + 1) %}
-                                <td class="border">S{{ set }}|L{{ leg }}</td>
+                                <td class="border">
+                                    <a href="{{ url_for('game.statistics_set_leg', hashid=game.hashid, set=set, leg=leg) }}">S{{ set }}|L{{ leg }}</a>
+                                </td>
                                 {% endfor %}
                                 {% endfor %}
                             </tr>

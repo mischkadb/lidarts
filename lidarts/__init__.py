@@ -17,8 +17,9 @@ from speaklater import _LazyString
 from sqlalchemy import MetaData
 
 
+# disable false positive pylint warning - https://github.com/PyCQA/pylint/issues/414
 class JSONEncoder(BaseEncoder):
-    def default(self, o):
+    def default(self, o):                           # pylint: disable=E0202 
         if isinstance(o, _LazyString):
             return text_type(o)
 
@@ -47,8 +48,8 @@ security = Security()
 socketio = SocketIO()
 babel = Babel()
 moment = Moment()
-avatars = UploadSet('avatars', IMAGES)
 
+avatars = UploadSet('avatars', IMAGES)
 
 def create_app(test_config=None):
     # Create Flask app with a default config
