@@ -17,6 +17,8 @@ def x01():
     stats['today'] = createStatsObject()
     stats['currentweek'] = createStatsObject()
     stats['currentmonth'] = createStatsObject()
+    stats['currentyear'] = createStatsObject()
+    stats['overall'] = createStatsObject()
     stats['averagepergame'] = []
 
     user = User.query.filter(User.id == current_user.id).first_or_404()
@@ -26,6 +28,7 @@ def x01():
                               & (Game.status != 'declined') & (Game.status != 'aborted')) \
         .order_by(desc(Game.id)).all()
 
+    # get the dates for date related statistics
     todayDate = datetime.today().date()
 
     startCurrentWeek = todayDate - timedelta(days=todayDate.weekday())
@@ -35,6 +38,7 @@ def x01():
         startCurrentMonth += datetime.timedelta(7)
     startCurrentMonth = startCurrentMonth.replace(day=1)
 
+    # iterate through each game
     for game in games:
         player = '1' 
         if not(user.id == game.player1):
@@ -71,9 +75,18 @@ def x01():
                 if (gameBeginDate >= startCurrentMonth):
                     calculateOverallStatsFromLeg(stats['currentmonth'], currentPlayerLegStats)
 
+                # use current year statistics?
+                if (gameBeginDate.year >= todayDate.year):
+                    calculateOverallStatsFromLeg(stats['currentyear'], currentPlayerLegStats)
+
+                # overall stats
+                calculateOverallStatsFromLeg(stats['overall'], currentPlayerLegStats)
+
     # sum up all the stats
     sumUpStats(stats['today'])
     sumUpStats(stats['currentweek'])
     sumUpStats(stats['currentmonth'])
+    sumUpStats(stats['currentyear'])
+    sumUpStats(stats['overall'])
 
     return render_template('statistics/x01.html', stats = stats)

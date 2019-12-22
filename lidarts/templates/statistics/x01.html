@@ -81,26 +81,26 @@
                     <div class="col-md-4">
                         <div class="card bg-light text-dark bs-callout bs-callout-success">
                             <div class="card-body">
-                                <h5>{{ _('Current Year (wrong data)') }}</h5>                
+                                <h5>{{ _('Current Year') }}</h5>                
                                 <hr>
-                                <p style="color: crimson;">{{ _('Number of games:') }} {{ stats['today']['number_of_games'] }}</p>
-                                <p style="color: crimson;">{{ _('Darts thrown:') }} {{ stats['today']['darts_thrown'] }}</p>
-                                <p style="color: crimson;">Average: {{ stats['today']['average']|round(2) }}</p>
-                                <p style="color: crimson;">First 9: {{ stats['today']['first9_average']|round(2) }}</p>
-                                <p style="color: crimson;">Doubles: {{ stats['today']['doubles']|round(2) }}%</p>                
+                                <p>{{ _('Number of games:') }} {{ stats['currentyear']['number_of_games'] }}</p>
+                                <p>{{ _('Darts thrown:') }} {{ stats['currentyear']['darts_thrown'] }}</p>
+                                <p>Average: {{ stats['currentyear']['average']|round(2) }}</p>
+                                <p>First 9: {{ stats['currentyear']['first9_average']|round(2) }}</p>
+                                <p>Doubles: {{ stats['currentyear']['doubles']|round(2) }}%</p>                
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card bg-light text-dark bs-callout bs-callout-primary">
                             <div class="card-body">
-                                <h5 class="card-title">{{ _('Overall (wrong data)') }}</h5>                
+                                <h5 class="card-title">{{ _('Overall') }}</h5>                
                                 <hr>
-                                <p style="color: crimson;">{{ _('Number of games:') }} {{ stats['currentweek']['number_of_games'] }}</p>
-                                <p style="color: crimson;">{{ _('Darts thrown:') }} {{ stats['currentweek']['darts_thrown'] }}</p>
-                                <p style="color: crimson;">Average: {{ stats['currentweek']['average']|round(2) }}</p>
-                                <p style="color: crimson;">First 9: {{ stats['currentweek']['first9_average']|round(2) }}</p>
-                                <p style="color: crimson;">Doubles: {{ stats['currentweek']['doubles']|round(2) }}%</p>                
+                                <p>{{ _('Number of games:') }} {{ stats['overall']['number_of_games'] }}</p>
+                                <p>{{ _('Darts thrown:') }} {{ stats['overall']['darts_thrown'] }}</p>
+                                <p>Average: {{ stats['overall']['average']|round(2) }}</p>
+                                <p>First 9: {{ stats['overall']['first9_average']|round(2) }}</p>
+                                <p>Doubles: {{ stats['overall']['doubles']|round(2) }}%</p>                
                             </div>
                         </div>
                     </div>
