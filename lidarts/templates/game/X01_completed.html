@@ -101,6 +101,7 @@
                 {% if game.end and game.begin %}
                 <div class="row justify-content-center align-items-center mb-2">
                     <div class="col-sm-8 text-center text-secondary">
+                        <p>{{ _('Match start')}}: {{game.begin|datetime}}</p>
                         <p>{{ _('Match duration') }}: {{ ((game.end - game.begin).seconds // 3600)}} {{ _('hours') }},
                             {{ ((game.end - game.begin).seconds % 3600) // 60}} {{ _('minutes') }},
                             {{ ((game.end - game.begin).seconds % 60)}} {{ _('seconds') }}</p>

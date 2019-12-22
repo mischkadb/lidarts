@@ -90,6 +90,7 @@
             <div class="card-body">
                 <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Statistics (501 SI/DO)') }}</h5>
                 <hr>
+                <p>{{ _('Number of games:') }} {{ stats['number_of_games'] }}</p>
                 <p>{{ _('Darts thrown:') }} {{ stats['darts_thrown'] }}</p>
                 <p>Average: {{ stats['average']|round(2) }}</p>
                 <p>First 9: {{ stats['first9_average']|round(2) }}</p>
@@ -97,6 +98,15 @@
 
             </div>
         </div>
+        {% if current_user.id == user.id %}
+        <br>
+        <div class="card bg-light bs-callout bs-callout-danger text-secondary">
+            <div class="card-body">
+                <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Statistics (Prototyp)') }}</h5>
+                <p><a href="{{ url_for('statistics.x01') }}" class="text-secondary">{{ _('X01') }}</a></p>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 

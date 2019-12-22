@@ -7,913 +7,934 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-01-10 17:22+0100\n"
+"POT-Creation-Date: 2019-12-22 11:17+0100\n"
 "PO-Revision-Date: 2019-01-10 17:22+0100\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
-"X-Generator: Poedit 2.2\n"
 
-#: auth/forms.py:20
-msgid "Password must have at least 8 characters"
-msgstr "Passwort muss aus mindestens 8 Zeichen bestehen"
-
-#: auth/forms.py:22
-msgid "Username is required"
-msgstr "Benutzername wird benötigt"
-
-#: auth/forms.py:42
-msgid ""
-"Password must have at least 15 characters OR contain at least two out of these: "
-"lowercase letter, uppercase letter, number, symbol."
-msgstr ""
-"Passwort muss mindestens 15 Zeichen enthalten ODER mindestens zwei der "
-"folgenden Elemente enthalten: Kleinbuchstabe, Großbuchstabe, Zahl, Symbol."
-
-#: auth/forms.py:49
-msgid "Username is already taken"
-msgstr "Benutzername ist bereits vergeben"
-
-#: auth/forms.py:55
-msgid "Username must start with a letter, number or \"([\""
-msgstr "Benutzername muss mit einem Buchstaben, einer Zahl oder \"([\" beginnen"
-
-#: auth/forms.py:57
-msgid "Username must end with a letter or a number or \")]\""
-msgstr "Benutzername muss mit einem Buchstaben, einer Zahl oder \")]\" enden"
-
-#: auth/forms.py:61
-msgid "Username contains invalid symbols."
-msgstr "Benutzername enthält ungültige Symbole."
-
-#: auth/forms.py:63
-msgid "Two special characters in a row are not allowed."
-msgstr "Zwei Sonderzeichen hintereinander sind nicht gestattet."
-
-#: auth/forms.py:69
-msgid "Username"
-msgstr "Benutzername"
-
-#: auth/forms.py:79 auth/forms.py:88 auth/forms.py:92
-msgid "Password"
-msgstr "Passwort"
-
-#: auth/forms.py:84
-msgid "Username or Email Address"
-msgstr "Benutzername oder E-Mail-Adresse"
-
-#: auth/routes.py:17
-msgid "Username changed."
-msgstr "Benutzername geändert."
-
-#: auth/routes.py:21
-msgid "Change username"
-msgstr "Benutzername ändern"
-
-#: game/forms.py:7
-msgid "Local"
-msgstr "Lokal"
-
-#: game/forms.py:9
-msgid "Me"
-msgstr "Ich"
-
-#: game/forms.py:9 game/forms.py:31
-msgid "Opponent"
-msgstr "Gegner"
-
-#: game/forms.py:10
-msgid "Closest to Bull"
-msgstr "Ausbullen"
-
-#: game/forms.py:19
-msgid "Invalid number."
-msgstr "Ungültige Zahl."
-
-#: game/forms.py:23
-msgid "Score"
-msgstr "Punktzahl"
-
-#: game/forms.py:26
-msgid "Submit score"
-msgstr "Abschicken"
-
-#: game/forms.py:30
-msgid "Game type"
-msgstr "Spieltyp"
-
-#: game/forms.py:32
-msgid "Opponent name"
-msgstr "Name des Gegners"
-
-#: game/forms.py:33
-msgid "Level"
-msgstr "Level"
-
-#: game/forms.py:34
-msgid "First to throw"
-msgstr "Erster Wurf"
-
-#: game/forms.py:35
-msgid "Best of Sets"
-msgstr "Best of Sets"
-
-#: game/forms.py:36
-msgid "Best of Legs"
-msgstr "Best of Legs"
-
-#: game/forms.py:37
-msgid "Mode In"
-msgstr "Modus In"
-
-#: game/forms.py:38
-msgid "Mode Out"
-msgstr "Modus Out"
-
-#: game/forms.py:39
-msgid "Start game"
-msgstr "Spiel beginnen"
-
-#: game/forms.py:44 generic/forms.py:9
-msgid "Submit message"
-msgstr "Nachricht senden"
-
-#: game/routes.py:32
+#: lidarts/game/routes.py:32
 msgid "New challenge"
 msgstr "Neue Herausforderung"
 
-#: game/routes.py:67 templates/game/create_X01.html:9
-msgid "Create Game"
-msgstr "Spiel erstellen"
-
-#: game/routes.py:92 generic/routes.py:66
-msgid "Local Guest"
-msgstr "Lokaler Gast"
-
-#: game/routes.py:105
-msgid "Waiting..."
-msgstr "Warte..."
-
-#: game/routes.py:110
-msgid "Match overview"
-msgstr "Spielübersicht"
-
-#: game/routes.py:134
-msgid "Stream overlay"
-msgstr "Streamoverlay"
-
-#: game/routes.py:138
-msgid "Live Match"
-msgstr "Livespiel"
-
-#: game/utils.py:9
-msgid "Guest"
-msgstr "Gast"
-
-#: generic/routes.py:81
-msgid "Live Games"
-msgstr "Livespiele"
-
-#: generic/routes.py:127 templates/base.html:49
-msgid "Lobby"
-msgstr "Lobby"
-
-#: generic/routes.py:143 templates/base.html:52 templates/game/X01.html:201
-#: templates/game/X01_stream.html:124
-msgid "Chat"
-msgstr "Chat"
-
-#: generic/routes.py:195
-msgid "Private Messages"
-msgstr "Private Nachrichten"
-
-#: profile/forms.py:10
-msgid "Caller"
-msgstr "Caller"
-
-#: profile/forms.py:11 profile/forms.py:16
-msgid "Save"
-msgstr "Speichern"
-
-#: profile/forms.py:15
-msgid "Trainer delay"
-msgstr "Trainerverzögerung"
-
-#: profile/routes.py:40
-msgid "Match History"
-msgstr "Spielverlauf"
-
-#: profile/routes.py:99 templates/base.html:93
-msgid "Profile"
-msgstr "Profil"
-
-#: profile/routes.py:141
-msgid "Manage Friend List"
-msgstr "Freundesliste verwalten"
-
-#: profile/routes.py:149
-msgid "Avatar deleted."
-msgstr "Avatar gelöscht."
-
-#: profile/routes.py:163
-msgid "Avatar saved."
-msgstr "Avatar gespeichert."
-
-#: profile/routes.py:168
-msgid "Avatar Settings"
-msgstr "Avatar einstellen"
-
-#: profile/routes.py:179
-msgid "Caller Settings"
-msgstr "Caller einstellen"
-
-#: profile/routes.py:190
-msgid "Trainer Delay"
-msgstr "Trainerverzögerung einstellen"
-
-#: templates/base.html:45
+#: lidarts/templates/base.html:45
 msgid "Home"
 msgstr "Startseite"
 
-#: templates/base.html:46 templates/base.html:51
+#: lidarts/templates/base.html:46 lidarts/templates/base.html:51
 msgid "Watch"
 msgstr "Zuschauen"
 
-#: templates/base.html:47 templates/base.html:53
+#: lidarts/templates/base.html:47 lidarts/templates/base.html:53
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/base.html:50 templates/generic/lobby.html:21
+#: lidarts/templates/base.html:49
+msgid "Lobby"
+msgstr "Lobby"
+
+#: lidarts/templates/base.html:50 lidarts/templates/generic/lobby.html:21
 msgid "Play"
 msgstr "Spielen"
 
-#: templates/base.html:68
+#: lidarts/templates/base.html:52 lidarts/templates/game/X01.html:201
+#: lidarts/templates/game/X01_stream.html:126
+msgid "Chat"
+msgstr "Chat"
+
+#: lidarts/templates/base.html:68
 msgid "No new notifications"
 msgstr "Keine neuen Benachrichtigungen"
 
-#: templates/base.html:77 templates/security/login_user.html:9
-#: templates/security/login_user.html:18 templates/security/register_user.html:29
+#: lidarts/templates/base.html:77 lidarts/templates/security/login_user.html:9
+#: lidarts/templates/security/login_user.html:18
+#: lidarts/templates/security/register_user.html:29
 msgid "Sign In"
 msgstr "Einloggen"
 
-#: templates/base.html:78 templates/security/register_user.html:10
-#: templates/security/register_user.html:22
+#: lidarts/templates/base.html:78
+#: lidarts/templates/security/register_user.html:10
+#: lidarts/templates/security/register_user.html:22
 msgid "Register"
 msgstr "Registrieren"
 
-#: templates/base.html:81
+#: lidarts/templates/base.html:81
 msgid "Inbox"
 msgstr "Posteingang"
 
-#: templates/base.html:85
+#: lidarts/templates/base.html:85
 msgid "Status"
 msgstr "Status"
 
-#: templates/base.html:88
+#: lidarts/templates/base.html:88
 msgid "Looking for Game"
 msgstr "Suche nach Spiel"
 
-#: templates/base.html:89
+#: lidarts/templates/base.html:89
 msgid "Busy"
 msgstr "Beschäftigt"
 
-#: templates/base.html:94
+#: lidarts/templates/base.html:93
+msgid "Profile"
+msgstr "Profil"
+
+#: lidarts/templates/base.html:94
 msgid "Logout"
 msgstr "Abmelden"
 
-#: templates/base.html:125
+#: lidarts/templates/base.html:125
 msgid "About"
 msgstr "Über"
 
-#: templates/base.html:126 templates/generic/contact.html:10
+#: lidarts/templates/base.html:126 lidarts/templates/generic/contact.html:10
 msgid "Contact"
 msgstr "Kontakt"
 
-#: templates/base.html:127
+#: lidarts/templates/base.html:127
 msgid "Contribute"
 msgstr "Mitmachen"
 
-#: templates/base.html:128
+#: lidarts/templates/base.html:128
 msgid "Changelog"
 msgstr "Changelog"
 
-#: templates/base.html:129
+#: lidarts/templates/base.html:129
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: templates/base.html:130
+#: lidarts/templates/base.html:130
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: templates/base.html:131
+#: lidarts/templates/base.html:131
 msgid "Terms & Conditions"
 msgstr "AGB"
 
-#: templates/base.html:133
+#: lidarts/templates/base.html:133
 msgid "Legal notice"
 msgstr "Impressum"
 
-#: templates/game/X01.html:14 templates/game/X01_stream.html:7
+#: lidarts/templates/game/X01.html:14 lidarts/templates/game/X01_stream.html:7
 msgid "Leave game"
 msgstr "Spiel verlassen"
 
-#: templates/game/X01.html:15 templates/game/X01_stream.html:8
+#: lidarts/templates/game/X01.html:15 lidarts/templates/game/X01_stream.html:8
 msgid "Abort game"
 msgstr "Spiel abbrechen"
 
-#: templates/game/X01.html:16
+#: lidarts/templates/game/X01.html:16 lidarts/templates/game/X01_stream.html:9
 msgid "Toggle Keypad visibility"
 msgstr "Tastatur ein/ausblenden"
 
-#: templates/game/X01.html:17
+#: lidarts/templates/game/X01.html:17 lidarts/templates/game/X01_stream.html:10
 msgid "Change keypad position"
 msgstr "Tastaturposition umschalten"
 
-#: templates/game/X01.html:18
+#: lidarts/templates/game/X01.html:18 lidarts/templates/game/X01_stream.html:11
 msgid "Toggle statistics"
 msgstr "Statistiken ein/ausblenden"
 
-#: templates/game/X01.html:19
+#: lidarts/templates/game/X01.html:19
 msgid "Streamoverlay"
 msgstr "Streamoverlay"
 
-#: templates/game/X01.html:20 templates/game/X01_stream.html:11
+#: lidarts/templates/game/X01.html:20 lidarts/templates/game/X01_stream.html:13
 msgid "Mute caller"
 msgstr "Caller stumm"
 
-#: templates/game/X01.html:20 templates/game/X01_stream.html:11
+#: lidarts/templates/game/X01.html:20 lidarts/templates/game/X01_stream.html:13
 msgid "Unmute caller"
 msgstr "Caller aktivieren"
 
-#: templates/game/X01.html:132 templates/game/X01_stream.html:55
+#: lidarts/templates/game/X01.html:132
+#: lidarts/templates/game/X01_stream.html:57
 msgid "Closest to bull begins. Please throw three darts at bull."
 msgstr "Ausbullen. Bitte drei Darts auf Bull werfen."
 
-#: templates/game/X01.html:133 templates/game/X01_stream.html:56
+#: lidarts/templates/game/X01.html:133
+#: lidarts/templates/game/X01_stream.html:58
 msgid "Local game. Player 1 throws all three darts first."
 msgstr "Lokales Spiel. Spieler 1 wirft zuerst alle drei Darts."
 
-#: templates/game/X01.html:174 templates/game/X01.html:260
-#: templates/game/X01_stream.html:97 templates/game/X01_stream.html:183
+#: lidarts/templates/game/X01.html:174 lidarts/templates/game/X01.html:260
+#: lidarts/templates/game/X01_stream.html:99
+#: lidarts/templates/game/X01_stream.html:185
 msgid "Game is completed."
 msgstr "Spiel ist beendet."
 
-#: templates/game/X01.html:175 templates/game/X01.html:180
-#: templates/game/X01.html:261 templates/game/X01_stream.html:98
-#: templates/game/X01_stream.html:103 templates/game/X01_stream.html:184
+#: lidarts/templates/game/X01.html:175 lidarts/templates/game/X01.html:180
+#: lidarts/templates/game/X01.html:261
+#: lidarts/templates/game/X01_stream.html:100
+#: lidarts/templates/game/X01_stream.html:105
+#: lidarts/templates/game/X01_stream.html:186
 msgid "Game overview"
 msgstr "Spielübersicht"
 
-#: templates/game/X01.html:179 templates/game/X01_completed.html:12
-#: templates/game/X01_stream.html:102
+#: lidarts/templates/game/X01.html:179
+#: lidarts/templates/game/X01_completed.html:12
+#: lidarts/templates/game/X01_stream.html:104
 msgid "Game was aborted."
 msgstr "Spiel wurde abgebrochen."
 
-#: templates/game/X01.html:191 templates/game/X01.html:378
-#: templates/game/X01_stream.html:114 templates/game/X01_stream.html:301
+#: lidarts/templates/game/X01.html:191 lidarts/templates/game/X01.html:378
+#: lidarts/templates/game/X01_stream.html:116
+#: lidarts/templates/game/X01_stream.html:303
 msgid "Undo last score"
 msgstr "Letzten Score ändern"
 
-#: templates/game/X01.html:192 templates/game/X01.html:379
-#: templates/game/X01_stream.html:115 templates/game/X01_stream.html:302
+#: lidarts/templates/game/X01.html:192 lidarts/templates/game/X01.html:379
+#: lidarts/templates/game/X01_stream.html:117
+#: lidarts/templates/game/X01_stream.html:304
 msgid "Enter correct score"
 msgstr "Korrekten Score eingeben"
 
-#: templates/game/X01.html:198 templates/game/X01_stream.html:121
+#: lidarts/templates/game/X01.html:198
+#: lidarts/templates/game/X01_stream.html:123
 msgid "Keypad"
 msgstr "Tastatur"
 
-#: templates/game/X01.html:467 templates/game/X01_stream.html:390
+#: lidarts/templates/game/X01.html:467
+#: lidarts/templates/game/X01_stream.html:392
 msgid "How many darts missed at double?"
 msgstr "Wieviele Darts auf Doppel verfehlt?"
 
-#: templates/game/X01.html:480 templates/game/X01_stream.html:403
+#: lidarts/templates/game/X01.html:480
+#: lidarts/templates/game/X01_stream.html:405
 msgid "How many darts to finish?"
 msgstr "Wieviele Darts für den Checkout?"
 
-#: templates/game/X01.html:492 templates/game/X01_stream.html:415
+#: lidarts/templates/game/X01.html:492
+#: lidarts/templates/game/X01_stream.html:417
 msgid "Abort game?"
 msgstr "Spiel abbrechen?"
 
-#: templates/game/X01.html:493 templates/game/X01_stream.html:416
+#: lidarts/templates/game/X01.html:493
+#: lidarts/templates/game/X01_stream.html:418
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: templates/game/X01.html:494 templates/game/X01_stream.html:417
+#: lidarts/templates/game/X01.html:494
+#: lidarts/templates/game/X01_stream.html:419
 msgid "Cancel"
 msgstr "Zurück"
 
-#: templates/game/X01_completed.html:15
+#: lidarts/templates/game/X01_completed.html:15
 msgid "Challenge was declined or withdrawn."
 msgstr "Herausforderung wurde abgelehnt oder zurückgezogen."
 
-#: templates/game/X01_completed.html:104
+#: lidarts/templates/game/X01_completed.html:104
+msgid "Match start"
+msgstr ""
+
+#: lidarts/templates/game/X01_completed.html:105
 msgid "Match duration"
 msgstr "Spieldauer"
 
-#: templates/game/X01_completed.html:104
+#: lidarts/templates/game/X01_completed.html:105
 msgid "hours"
 msgstr "Stunden"
 
-#: templates/game/X01_completed.html:105
+#: lidarts/templates/game/X01_completed.html:106
 msgid "minutes"
 msgstr "Minuten"
 
-#: templates/game/X01_completed.html:106
+#: lidarts/templates/game/X01_completed.html:107
 msgid "seconds"
 msgstr "Sekunden"
 
-#: templates/game/X01_completed.html:139
+#: lidarts/templates/game/X01_completed.html:140
 msgid "Highest Finish"
 msgstr "Höchstes Finish"
 
-#: templates/game/X01_completed.html:140
+#: lidarts/templates/game/X01_completed.html:141
 msgid "Shortest Leg"
 msgstr "Kürzestes Leg"
 
-#: templates/game/X01_stream.html:9
-msgid "Toggle Keypad"
-msgstr "Tastatur ein/ausblenden"
-
-#: templates/game/X01_stream.html:10
+#: lidarts/templates/game/X01_stream.html:12
 msgid "Normal theme"
 msgstr "Normales Theme"
 
-#: templates/game/create_X01.html:16
+#: lidarts/templates/game/create_X01.html:9
+msgid "Create Game"
+msgstr "Spiel erstellen"
+
+#: lidarts/templates/game/create_X01.html:16
 msgid "Game Mode"
 msgstr "Spielmodus"
 
-#: templates/game/wait_for_opponent.html:10
+#: lidarts/templates/game/wait_for_opponent.html:10
 msgid "Waiting for"
 msgstr "Warte auf"
 
-#: templates/game/wait_for_opponent.html:16
+#: lidarts/templates/game/wait_for_opponent.html:16
 msgid ""
-"This page will redirect you to the game once the challenge has been accepted."
+"This page will redirect you to the game once the challenge has been "
+"accepted."
 msgstr ""
-"Diese Seite leitet dich weiter, sobald die Herausforderung angenommen wurde."
+"Diese Seite leitet dich weiter, sobald die Herausforderung angenommen "
+"wurde."
 
-#: templates/game/wait_for_opponent.html:18
+#: lidarts/templates/game/wait_for_opponent.html:18
 msgid "You are not logged in. Log in to play in this game."
 msgstr "Du bist nicht eingeloggt. Bitte einloggen um in diesem Spiel zu spielen."
 
-#: templates/game/wait_for_opponent.html:19
+#: lidarts/templates/game/wait_for_opponent.html:19
 msgid "Share this link to invite another player (must be logged in):"
 msgstr ""
-"Teile diesen Link, um einen anderen Spieler einzuladen (muss eingeloggt sein):"
+"Teile diesen Link, um einen anderen Spieler einzuladen (muss eingeloggt "
+"sein):"
 
-#: templates/game/wait_for_opponent.html:21
+#: lidarts/templates/game/wait_for_opponent.html:21
 msgid "Copy text"
 msgstr "Text kopieren"
 
-#: templates/generic/404.html:10
+#: lidarts/templates/generic/404.html:10
 msgid "404 Error"
 msgstr "Fehler 404"
 
-#: templates/generic/404.html:12
+#: lidarts/templates/generic/404.html:12
 msgid "Oops, you've visited a page that does not exist."
 msgstr "Hoppla. Du hast eine Seite besucht, die nicht existiert."
 
-#: templates/generic/404.html:13 templates/generic/500.html:13
+#: lidarts/templates/generic/404.html:13 lidarts/templates/generic/500.html:13
 msgid "If you've found a bug please contact us at contact@lidarts.org. Thank you!"
 msgstr ""
 "Falls du einen Fehler gefunden hast, bitte kontaktiere uns per E-Mail: "
 "contact@lidarts.org. Danke!"
 
-#: templates/generic/500.html:10
+#: lidarts/templates/generic/500.html:10
 msgid "500 Error"
 msgstr "Fehler 500"
 
-#: templates/generic/500.html:12
+#: lidarts/templates/generic/500.html:12
 msgid "Oh no, something went wrong."
 msgstr "Oh nein, da ist etwas schiefgelaufen."
 
-#: templates/generic/about.html:10
+#: lidarts/templates/generic/about.html:10
 msgid "About lidarts.org"
 msgstr "Über lidarts.org"
 
-#: templates/generic/about.html:12
+#: lidarts/templates/generic/about.html:12
 msgid "Lidarts is a"
 msgstr "Lidarts ist eine"
 
-#: templates/generic/about.html:12
+#: lidarts/templates/generic/about.html:12
 msgid "free/libre, open-source"
 msgstr "free/libre, open-source"
 
-#: templates/generic/about.html:12
+#: lidarts/templates/generic/about.html:12
 msgid "online darts scoring website."
 msgstr "Onlinedarts-Scoring-Webseite."
 
-#: templates/generic/about.html:13
+#: lidarts/templates/generic/about.html:13
 msgid ""
-"Still being in a very early stage, the main goal for Lidarts' future is to "
-"provide darts players an online service to play against real players and to "
-"help in their daily training."
+"Still being in a very early stage, the main goal for Lidarts' future is "
+"to provide darts players an online service to play against real players "
+"and to help in their daily training."
 msgstr ""
-"Lidarts befindet sich noch in einer frühen Entwicklungsphase. Das Hauptziel "
-"ist, Dartspielern einen Onlineservice bereitzustellen, um gegen echte Gegner "
-"anzutreten und im täglichen Training auszuhelfen."
+"Lidarts befindet sich noch in einer frühen Entwicklungsphase. Das "
+"Hauptziel ist, Dartspielern einen Onlineservice bereitzustellen, um gegen"
+" echte Gegner anzutreten und im täglichen Training auszuhelfen."
 
-#: templates/generic/about.html:13
+#: lidarts/templates/generic/about.html:13
 msgid "Many features are planned and wait for completion."
 msgstr "Viele Funktionen sind noch in Planung und warten auf Fertigstellung."
 
-#: templates/generic/about.html:14
+#: lidarts/templates/generic/about.html:14
 msgid "The entire project is driven by volunteers. Everyone is invited to"
 msgstr "Das gesamte Projekt wird von Freiwilligen gestemmt. Jeder ist eingeladen"
 
-#: templates/generic/about.html:14
+#: lidarts/templates/generic/about.html:14
 msgid "contribute"
 msgstr "mitzumachen"
 
-#: templates/generic/about.html:15
+#: lidarts/templates/generic/about.html:15
 msgid "DartCall 2007 caller pack created by Horst Girtew."
 msgstr "DartCall 2007 Callerpaket wurde erstellt von Horst Girtew."
 
-#: templates/generic/about.html:16
+#: lidarts/templates/generic/about.html:16
 msgid "Sound effects obtained from"
 msgstr "Soundeffekte erhalten von"
 
-#: templates/generic/contact.html:12
+#: lidarts/templates/generic/contact.html:12
 msgid ""
-"There are a few ways to contact us, more to come soon! No matter the reason, we "
-"try to reply as quickly as possible."
+"There are a few ways to contact us, more to come soon! No matter the "
+"reason, we try to reply as quickly as possible."
 msgstr ""
-"Es gibt mehrere Möglichkeiten uns zu kontaktieren. Weitere werden bald folgen! "
-"Egal aus welchem Grund du uns kontaktierst, wir versuchen, zeitnah zu antworten."
+"Es gibt mehrere Möglichkeiten uns zu kontaktieren. Weitere werden bald "
+"folgen! Egal aus welchem Grund du uns kontaktierst, wir versuchen, "
+"zeitnah zu antworten."
 
-#: templates/generic/contact.html:13
+#: lidarts/templates/generic/contact.html:13
 msgid "At the moment we can provide you support in English or German."
 msgstr "Im Moment können wir Support auf Englisch und Deutsch anbieten."
 
-#: templates/generic/contact.html:16
+#: lidarts/templates/generic/contact.html:16
 msgid "lidarts on GitHub"
 msgstr "lidarts bei GitHub"
 
-#: templates/generic/contribute.html:10
+#: lidarts/templates/generic/contribute.html:10
 msgid "Contribute to lidarts.org"
 msgstr "Wirke mit bei lidarts.org"
 
-#: templates/generic/contribute.html:12
+#: lidarts/templates/generic/contribute.html:12
 msgid ""
-"Lidarts relies on volunteers to develop and maintain the project. There are "
-"several ways you can help out."
+"Lidarts relies on volunteers to develop and maintain the project. There "
+"are several ways you can help out."
 msgstr ""
-"Lidarts ist auf Freiwillige angewiesen, die das Projekt weiterentwickeln und "
-"pflegen. Es gibt mehrere Wege, auf denen auch du aushelfen kannst."
+"Lidarts ist auf Freiwillige angewiesen, die das Projekt weiterentwickeln "
+"und pflegen. Es gibt mehrere Wege, auf denen auch du aushelfen kannst."
 
-#: templates/generic/contribute.html:14
+#: lidarts/templates/generic/contribute.html:14
 msgid "Play and provide feedback"
 msgstr "Spiele und gib Feedback"
 
-#: templates/generic/contribute.html:16
+#: lidarts/templates/generic/contribute.html:16
 msgid ""
-"During development I try to test the features the best I can. But there will "
-"still be bugs that make it through to the live server.\n"
-"                    If you encounter any bugs or problems during play or you "
-"have ideas or feedback to improve the site, please"
+"During development I try to test the features the best I can. But there "
+"will still be bugs that make it through to the live server.\n"
+"                    If you encounter any bugs or problems during play or "
+"you have ideas or feedback to improve the site, please"
 msgstr ""
-"Im Laufe der Entwicklung versuche ich, alle Funktionen auf Herz und Nieren zu "
-"prüfen. Dennoch werden es Fehler bis auf den Liveserver schaffen. \n"
-"Falls du irgendwelche Fehler oder Probleme während des Spielens findest oder "
-"Ideen oder Anregungen hast, die Seite zu verbessern, bitte"
+"Im Laufe der Entwicklung versuche ich, alle Funktionen auf Herz und "
+"Nieren zu prüfen. Dennoch werden es Fehler bis auf den Liveserver "
+"schaffen. \n"
+"Falls du irgendwelche Fehler oder Probleme während des Spielens findest "
+"oder Ideen oder Anregungen hast, die Seite zu verbessern, bitte"
 
-#: templates/generic/contribute.html:17 templates/generic/contribute.html:27
+#: lidarts/templates/generic/contribute.html:17
+#: lidarts/templates/generic/contribute.html:27
 msgid "contact"
 msgstr "kontaktiere"
 
-#: templates/generic/contribute.html:19
+#: lidarts/templates/generic/contribute.html:19
 msgid "Tell your friends"
 msgstr "Erzähl deinen Freunden"
 
-#: templates/generic/contribute.html:21
+#: lidarts/templates/generic/contribute.html:21
 msgid ""
-"Lidarts generates no money - it is free for everyone, we do not sell ads nor "
-"your data. The downside is the lack of a budget for marketing.\n"
-"                    We rely on users to make Lidarts known to darts players. So "
-"tell your friends, invite them to play and spread the word!"
+"Lidarts generates no money - it is free for everyone, we do not sell ads "
+"nor your data. The downside is the lack of a budget for marketing.\n"
+"                    We rely on users to make Lidarts known to darts "
+"players. So tell your friends, invite them to play and spread the word!"
 msgstr ""
-"Lidarts erwirtschaftet kein Geld - es ist für jeden komplett kostenfrei, wir "
-"verkaufen weder Werbung noch deine Daten. Ein Nachteil ist ein fehlendes Budget "
-"für Marketing.\n"
-"Wir setzen auf unsere Nutzer, um Lidarts unter Dartspielern bekannt zu machen. "
-"Also erzähl es deinen Freunden und lade sie auf ein Spiel ein!"
+"Lidarts erwirtschaftet kein Geld - es ist für jeden komplett kostenfrei, "
+"wir verkaufen weder Werbung noch deine Daten. Ein Nachteil ist ein "
+"fehlendes Budget für Marketing.\n"
+"Wir setzen auf unsere Nutzer, um Lidarts unter Dartspielern bekannt zu "
+"machen. Also erzähl es deinen Freunden und lade sie auf ein Spiel ein!"
 
-#: templates/generic/contribute.html:25
+#: lidarts/templates/generic/contribute.html:25
 msgid "Graphics"
 msgstr "Grafiken"
 
-#: templates/generic/contribute.html:27
+#: lidarts/templates/generic/contribute.html:27
 msgid ""
 "The design of the website is not finished, but Lidarts mainly lacks some "
-"graphics to improve the look. Do you have the know-how to create graphics for "
-"Lidarts? If so,"
+"graphics to improve the look. Do you have the know-how to create graphics"
+" for Lidarts? If so,"
 msgstr ""
-"Das Design der Seite ist noch nicht fertiggestellt, aber Lidarts benötigt "
-"hauptsächlich ein paar Grafiken zur Aufhübschung. Hast du die Fähigkeiten, für "
-"Lidarts ein paar Grafiken zu erstellen? Falls ja,"
+"Das Design der Seite ist noch nicht fertiggestellt, aber Lidarts benötigt"
+" hauptsächlich ein paar Grafiken zur Aufhübschung. Hast du die "
+"Fähigkeiten, für Lidarts ein paar Grafiken zu erstellen? Falls ja,"
 
-#: templates/generic/contribute.html:27
+#: lidarts/templates/generic/contribute.html:27
 msgid "us."
 msgstr "uns."
 
-#: templates/generic/contribute.html:31
+#: lidarts/templates/generic/contribute.html:31
 msgid ""
-"I am not a web designer and the website reflects that. At some point Lidarts "
-"will need a redesign and some help would be greatly appreciated.\n"
-"                    You can help out with design ideas: Create a visual concept "
-"with Paint, Photoshop or whatever you like and"
+"I am not a web designer and the website reflects that. At some point "
+"Lidarts will need a redesign and some help would be greatly appreciated."
+"\n"
+"                    You can help out with design ideas: Create a visual "
+"concept with Paint, Photoshop or whatever you like and"
 msgstr ""
-"Ich bin kein Webdesigner und das sieht man der Webseite an. Früher oder später "
-"braucht Lidarts ein frisches Auftreten und über etwas Hilfe würde ich mich "
-"riesig freuen.\n"
-"Du kannst mit Designideen aushelfen: Erstelle ein visuelles Konzept mit Paint, "
-"Photoshop oder wie auch immer du magst und"
+"Ich bin kein Webdesigner und das sieht man der Webseite an. Früher oder "
+"später braucht Lidarts ein frisches Auftreten und über etwas Hilfe würde "
+"ich mich riesig freuen.\n"
+"Du kannst mit Designideen aushelfen: Erstelle ein visuelles Konzept mit "
+"Paint, Photoshop oder wie auch immer du magst und"
 
-#: templates/generic/contribute.html:32
+#: lidarts/templates/generic/contribute.html:32
 msgid "send it to me."
 msgstr "sende es mir zu."
 
-#: templates/generic/contribute.html:33
+#: lidarts/templates/generic/contribute.html:33
 msgid ""
-"Or even better: you can work directly on the frontend and implement your ideas "
-"if you have some knowledge about HTML, CSS and JavaScript."
+"Or even better: you can work directly on the frontend and implement your "
+"ideas if you have some knowledge about HTML, CSS and JavaScript."
 msgstr ""
 "Oder noch besser: du kannst direkt am Frontend arbeiten und deine Ideen "
 "umsetzen, falls du etwas HTML, CSS und JavaScript beherrschst."
 
-#: templates/generic/contribute.html:34
+#: lidarts/templates/generic/contribute.html:34
 msgid "Interested?"
 msgstr "Interessiert?"
 
-#: templates/generic/contribute.html:34
+#: lidarts/templates/generic/contribute.html:34
 msgid "Contact Lidarts"
 msgstr "Kontaktiere Lidarts"
 
-#: templates/generic/contribute.html:34
+#: lidarts/templates/generic/contribute.html:34
 msgid "or visit the"
 msgstr "oder besuche das"
 
-#: templates/generic/contribute.html:36
+#: lidarts/templates/generic/contribute.html:36
 msgid "Programming"
 msgstr "Programmierung"
 
-#: templates/generic/contribute.html:38
+#: lidarts/templates/generic/contribute.html:38
 msgid ""
-"Of course you are more than welcome to join Lidarts and develop on the project. "
-"At the current stage I am all by myself and try to get the project contribution-"
-"ready.\n"
-"                    If you are interested to get started take a look at the"
+"Of course you are more than welcome to join Lidarts and develop on the "
+"project. At the current stage I am all by myself and try to get the "
+"project contribution-ready.\n"
+"                    If you are interested to get started take a look at "
+"the"
 msgstr ""
-"Selbstverständlich bist du herzlichst eingeladen Lidarts beizutreten und am "
-"Projekt mitzuentwickeln. Zum aktuellen Stand bin ich in der Entwicklung auf "
-"mich allein gestellt und versuche, das Projekt für Mitarbeit bereit zu machen.\n"
+"Selbstverständlich bist du herzlichst eingeladen Lidarts beizutreten und "
+"am Projekt mitzuentwickeln. Zum aktuellen Stand bin ich in der "
+"Entwicklung auf mich allein gestellt und versuche, das Projekt für "
+"Mitarbeit bereit zu machen.\n"
 "Falls du Interesse am Einstieg hast, dann wirf einen Blick auf das"
 
-#: templates/generic/contribute.html:39
+#: lidarts/templates/generic/contribute.html:39
 msgid "GitHub repo"
 msgstr "GitHub repo"
 
-#: templates/generic/contribute.html:39
+#: lidarts/templates/generic/contribute.html:39
 msgid "or"
 msgstr "oder"
 
-#: templates/generic/contribute.html:39
+#: lidarts/templates/generic/contribute.html:39
 msgid "contact me"
 msgstr "kontaktiere mich"
 
-#: templates/generic/inbox.html:26
+#: lidarts/templates/generic/inbox.html:26
 msgid "Enter name"
 msgstr "Namen eingeben"
 
-#: templates/generic/inbox.html:27
+#: lidarts/templates/generic/inbox.html:27
 msgid "Compose new message"
 msgstr "Neue Nachricht verfassen"
 
-#: templates/generic/inbox.html:39
+#: lidarts/templates/generic/inbox.html:39
 msgid "Chat with"
 msgstr "Chat mit"
 
-#: templates/generic/index.html:6
+#: lidarts/templates/generic/index.html:6
 msgid "Welcome to lidarts.org!"
 msgstr "Willkommen bei lidarts.org!"
 
-#: templates/generic/index.html:7
+#: lidarts/templates/generic/index.html:7
 msgid "lidarts.org is an"
 msgstr "lidarts.org ist eine"
 
-#: templates/generic/index.html:7
+#: lidarts/templates/generic/index.html:7
 msgid "open-source"
 msgstr "quelloffene"
 
-#: templates/generic/index.html:7
+#: lidarts/templates/generic/index.html:7
 msgid "forever free online darts website."
 msgstr "für immer kostenlose Onlinedarts-Webseite."
 
-#: templates/generic/index.html:9
+#: lidarts/templates/generic/index.html:9
 msgid ""
-"Lidarts.org is still in beta. It may be slow, unreliable or crash at any time. "
-"The website is actively worked on to add new features and improve the "
-"experience."
+"Lidarts.org is still in beta. It may be slow, unreliable or crash at any "
+"time. The website is actively worked on to add new features and improve "
+"the experience."
 msgstr ""
-"Lidarts.org befindet sich noch in der Beta-Phase. Die Seite kann langsam oder "
-"unzuverlässig sein bzw. jederzeit abstürzen. Es wird kontinuierlich an der "
-"Seite gearbeitet, um neue Funktionen hinzuzufügen und das Erlebnis zu "
-"verbessern."
+"Lidarts.org befindet sich noch in der Beta-Phase. Die Seite kann langsam "
+"oder unzuverlässig sein bzw. jederzeit abstürzen. Es wird kontinuierlich "
+"an der Seite gearbeitet, um neue Funktionen hinzuzufügen und das Erlebnis"
+" zu verbessern."
 
-#: templates/generic/index.html:12
+#: lidarts/templates/generic/index.html:12
 msgid "Learn more"
 msgstr "Mehr"
 
-#: templates/generic/index.html:13
+#: lidarts/templates/generic/index.html:13
 msgid "Sign Up now"
 msgstr "Jetzt registrieren"
 
-#: templates/generic/lobby.html:10
+#: lidarts/templates/generic/lobby.html:10
 msgid "Welcome back"
 msgstr "Willkommen zurück"
 
-#: templates/generic/lobby.html:26
+#: lidarts/templates/generic/lobby.html:26
 msgid "Create a game"
 msgstr "Spiel erstellen"
 
-#: templates/generic/lobby.html:36
+#: lidarts/templates/generic/lobby.html:36
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: templates/generic/lobby.html:40
+#: lidarts/templates/generic/lobby.html:40
 msgid "Challenges:"
 msgstr "Herausforderungen:"
 
-#: templates/generic/lobby.html:49
+#: lidarts/templates/generic/lobby.html:49
 msgid "Games in progress:"
 msgstr "Laufende Spiele:"
 
-#: templates/generic/lobby.html:54
+#: lidarts/templates/generic/lobby.html:54
 msgid "local guest"
 msgstr "lokaler Gast"
 
-#: templates/generic/lobby.html:65
+#: lidarts/templates/generic/lobby.html:65
 msgid "New friend requests"
 msgstr "Neue Freundschaftsanfragen"
 
-#: templates/generic/lobby.html:82
+#: lidarts/templates/generic/lobby.html:82
 msgid "Friends online"
 msgstr "Freunde online"
 
-#: templates/generic/lobby.html:84
+#: lidarts/templates/generic/lobby.html:84
 msgid "None"
 msgstr "Keine"
 
-#: templates/generic/watch.html:12
+#: lidarts/templates/generic/watch.html:12
 msgid "There are no live games at the moment."
 msgstr "Es gibt gerade keine Livespiele."
 
-#: templates/profile/change_avatar.html:15
+#: lidarts/templates/profile/change_avatar.html:15
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/profile/change_avatar.html:19
+#: lidarts/templates/profile/change_avatar.html:19
 msgid "Upload"
 msgstr "Hochladen"
 
-#: templates/profile/change_cpu_delay.html:11
+#: lidarts/templates/profile/change_cpu_delay.html:11
 msgid "Trainer delay (in seconds)"
 msgstr "Verzögerung des Trainers (in Sekunden)"
 
-#: templates/profile/change_cpu_delay.html:12
+#: lidarts/templates/profile/change_cpu_delay.html:12
 msgid ""
-"Note: There is a base delay of ~3 seconds. The custom delay will be added to "
-"this."
+"Note: There is a base delay of ~3 seconds. The custom delay will be added"
+" to this."
 msgstr ""
-"Hinweis: Es gibt eine Grundverzögerung von ~3 Sekunden. Die benutzerdefinierte "
-"Verzögerung wird hinzuaddiert."
+"Hinweis: Es gibt eine Grundverzögerung von ~3 Sekunden. Die "
+"benutzerdefinierte Verzögerung wird hinzuaddiert."
 
-#: templates/profile/game_history.html:10
+#: lidarts/templates/profile/game_history.html:10
 msgid "Game history of"
 msgstr "Spielverlauf von"
 
-#: templates/profile/game_history.html:52
+#: lidarts/templates/profile/game_history.html:54
 msgid "Previous"
 msgstr "Zurück"
 
-#: templates/profile/game_history.html:60
+#: lidarts/templates/profile/game_history.html:62
 msgid "Next"
 msgstr "Weiter"
 
-#: templates/profile/manage_friend_list.html:11
+#: lidarts/templates/profile/manage_friend_list.html:11
 msgid "Friends"
 msgstr "Freunde"
 
-#: templates/profile/manage_friend_list.html:27
+#: lidarts/templates/profile/manage_friend_list.html:27
 msgid "Pending requests"
 msgstr "Ausstehende Anfragen"
 
-#: templates/profile/overview.html:25
+#: lidarts/templates/profile/overview.html:25
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: templates/profile/overview.html:27
+#: lidarts/templates/profile/overview.html:27
 msgid "Private messages"
 msgstr "Private Nachrichten"
 
-#: templates/profile/overview.html:28
+#: lidarts/templates/profile/overview.html:28
 msgid "Edit profile"
 msgstr "Profil bearbeiten"
 
-#: templates/profile/overview.html:29
+#: lidarts/templates/profile/overview.html:29
 msgid "Manage friend list"
 msgstr "Freundesliste verwalten"
 
-#: templates/profile/overview.html:30 templates/security/change_username.html:10
+#: lidarts/templates/profile/overview.html:30
+#: lidarts/templates/security/change_username.html:10
 msgid "Change display name"
 msgstr "Anzeigenamen ändern"
 
-#: templates/profile/overview.html:31 templates/security/change_password.html:10
+#: lidarts/templates/profile/overview.html:31
+#: lidarts/templates/security/change_password.html:10
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: templates/profile/overview.html:32
+#: lidarts/templates/profile/overview.html:32
 msgid "Avatar settings"
 msgstr "Avatareinstellungen"
 
-#: templates/profile/overview.html:33
+#: lidarts/templates/profile/overview.html:33
 msgid "Caller settings"
 msgstr "Callereinstellungen"
 
-#: templates/profile/overview.html:34
+#: lidarts/templates/profile/overview.html:34
 msgid "Trainer delay settings"
 msgstr "Trainerverzögerung einstellen"
 
-#: templates/profile/overview.html:38
+#: lidarts/templates/profile/overview.html:38
 msgid "Interaction"
 msgstr "Interaktion"
 
-#: templates/profile/overview.html:42
+#: lidarts/templates/profile/overview.html:42
 msgid "Send friend request"
 msgstr "Freundschaftsanfrage senden"
 
-#: templates/profile/overview.html:46
+#: lidarts/templates/profile/overview.html:46
 msgid "Challenge to game"
 msgstr "Zu Spiel herausfordern"
 
-#: templates/profile/overview.html:56
+#: lidarts/templates/profile/overview.html:56
 msgid "Recent games"
 msgstr "Neueste Spiele"
 
-#: templates/profile/overview.html:81
+#: lidarts/templates/profile/overview.html:81
 msgid "Full match list"
 msgstr "Vollständige Spielliste"
 
-#: templates/profile/overview.html:91
+#: lidarts/templates/profile/overview.html:91
 msgid "Statistics (501 SI/DO)"
 msgstr "Statistiken (501 SI/DO)"
 
-#: templates/profile/overview.html:93
+#: lidarts/templates/profile/overview.html:93
+#: lidarts/templates/statistics/x01.html:11
+#: lidarts/templates/statistics/x01.html:24
+#: lidarts/templates/statistics/x01.html:37
+msgid "Number of games:"
+msgstr "Anzahl Spiele"
+
+#: lidarts/templates/profile/overview.html:94
+#: lidarts/templates/statistics/x01.html:12
+#: lidarts/templates/statistics/x01.html:25
+#: lidarts/templates/statistics/x01.html:38
 msgid "Darts thrown:"
 msgstr "Darts geworfen:"
 
-#: templates/security/change_password.html:18
-#: templates/security/change_username.html:16
-#: templates/security/forgot_password.html:16 tools/forms.py:14
+#: lidarts/templates/profile/overview.html:105
+msgid "Statistics (Prototyp)"
+msgstr "Statistiken (Prototyp)"
+
+#: lidarts/templates/profile/overview.html:106
+msgid "X01"
+msgstr "X01"
+
+#: lidarts/templates/security/change_password.html:18
+#: lidarts/templates/security/change_username.html:16
+#: lidarts/templates/security/forgot_password.html:16
 msgid "Submit"
 msgstr "Abschicken"
 
-#: templates/security/forgot_password.html:10
+#: lidarts/templates/security/forgot_password.html:10
 msgid "Request a new password"
 msgstr "Neues Passwort beantragen"
 
-#: templates/security/login_user.html:24
+#: lidarts/templates/security/login_user.html:24
 msgid "No account yet?"
 msgstr "Noch kein Account?"
 
-#: templates/security/login_user.html:25
+#: lidarts/templates/security/login_user.html:25
 msgid "Sign Up"
 msgstr "Registrieren"
 
-#: templates/security/login_user.html:26
+#: lidarts/templates/security/login_user.html:26
 msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
-#: templates/security/login_user.html:27 templates/security/reset_password.html:10
+#: lidarts/templates/security/login_user.html:27
+#: lidarts/templates/security/reset_password.html:10
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: templates/security/register_user.html:20
+#: lidarts/templates/security/register_user.html:20
 msgid "By registering you confirm that you agree to our"
 msgstr ""
-"Die Registrierung beinhaltet die Bestätigung für das Lesen und Akzeptieren "
-"unserer"
+"Die Registrierung beinhaltet die Bestätigung für das Lesen und "
+"Akzeptieren unserer"
 
-#: templates/security/register_user.html:20
+#: lidarts/templates/security/register_user.html:20
 msgid "Terms and Conditions"
 msgstr "AGB"
 
-#: templates/security/register_user.html:28
+#: lidarts/templates/security/register_user.html:28
 msgid "Already have an account?"
 msgstr "Account schon vorhanden?"
+
+#: lidarts/templates/statistics/x01.html:9
+msgid "Today"
+msgstr "Heute"
+
+#: lidarts/templates/statistics/x01.html:22
+msgid "Current Week"
+msgstr "Aktuelle Woche"
+
+#: lidarts/templates/statistics/x01.html:35
+msgid "Current Month"
+msgstr "Aktueller Monat"
+
+#: lidarts/templates/statistics/x01.html:51
+msgid "Average per Game"
+msgstr "Average pro Spiel"
+
+#~ msgid "Password must have at least 8 characters"
+#~ msgstr "Passwort muss aus mindestens 8 Zeichen bestehen"
+
+#~ msgid "Username is required"
+#~ msgstr "Benutzername wird benötigt"
+
+#~ msgid ""
+#~ "Password must have at least 15 "
+#~ "characters OR contain at least two "
+#~ "out of these: lowercase letter, "
+#~ "uppercase letter, number, symbol."
+#~ msgstr ""
+#~ "Passwort muss mindestens 15 Zeichen "
+#~ "enthalten ODER mindestens zwei der "
+#~ "folgenden Elemente enthalten: Kleinbuchstabe, "
+#~ "Großbuchstabe, Zahl, Symbol."
+
+#~ msgid "Username is already taken"
+#~ msgstr "Benutzername ist bereits vergeben"
+
+#~ msgid "Username must start with a letter, number or \"([\""
+#~ msgstr "Benutzername muss mit einem Buchstaben, einer Zahl oder \"([\" beginnen"
+
+#~ msgid "Username must end with a letter or a number or \")]\""
+#~ msgstr "Benutzername muss mit einem Buchstaben, einer Zahl oder \")]\" enden"
+
+#~ msgid "Username contains invalid symbols."
+#~ msgstr "Benutzername enthält ungültige Symbole."
+
+#~ msgid "Two special characters in a row are not allowed."
+#~ msgstr "Zwei Sonderzeichen hintereinander sind nicht gestattet."
+
+#~ msgid "Username"
+#~ msgstr "Benutzername"
+
+#~ msgid "Password"
+#~ msgstr "Passwort"
+
+#~ msgid "Username or Email Address"
+#~ msgstr "Benutzername oder E-Mail-Adresse"
+
+#~ msgid "Username changed."
+#~ msgstr "Benutzername geändert."
+
+#~ msgid "Change username"
+#~ msgstr "Benutzername ändern"
+
+#~ msgid "Local"
+#~ msgstr "Lokal"
+
+#~ msgid "Me"
+#~ msgstr "Ich"
+
+#~ msgid "Opponent"
+#~ msgstr "Gegner"
+
+#~ msgid "Closest to Bull"
+#~ msgstr "Ausbullen"
+
+#~ msgid "Invalid number."
+#~ msgstr "Ungültige Zahl."
+
+#~ msgid "Score"
+#~ msgstr "Punktzahl"
+
+#~ msgid "Submit score"
+#~ msgstr "Abschicken"
+
+#~ msgid "Game type"
+#~ msgstr "Spieltyp"
+
+#~ msgid "Opponent name"
+#~ msgstr "Name des Gegners"
+
+#~ msgid "Level"
+#~ msgstr "Level"
+
+#~ msgid "First to throw"
+#~ msgstr "Erster Wurf"
+
+#~ msgid "Best of Sets"
+#~ msgstr "Best of Sets"
+
+#~ msgid "Best of Legs"
+#~ msgstr "Best of Legs"
+
+#~ msgid "Mode In"
+#~ msgstr "Modus In"
+
+#~ msgid "Mode Out"
+#~ msgstr "Modus Out"
+
+#~ msgid "Start game"
+#~ msgstr "Spiel beginnen"
+
+#~ msgid "Submit message"
+#~ msgstr "Nachricht senden"
+
+#~ msgid "Local Guest"
+#~ msgstr "Lokaler Gast"
+
+#~ msgid "Waiting..."
+#~ msgstr "Warte..."
+
+#~ msgid "Match overview"
+#~ msgstr "Spielübersicht"
+
+#~ msgid "Stream overlay"
+#~ msgstr "Streamoverlay"
+
+#~ msgid "Live Match"
+#~ msgstr "Livespiel"
+
+#~ msgid "Guest"
+#~ msgstr "Gast"
+
+#~ msgid "Live Games"
+#~ msgstr "Livespiele"
+
+#~ msgid "Private Messages"
+#~ msgstr "Private Nachrichten"
+
+#~ msgid "Caller"
+#~ msgstr "Caller"
+
+#~ msgid "Save"
+#~ msgstr "Speichern"
+
+#~ msgid "Trainer delay"
+#~ msgstr "Trainerverzögerung"
+
+#~ msgid "Match History"
+#~ msgstr "Spielverlauf"
+
+#~ msgid "Manage Friend List"
+#~ msgstr "Freundesliste verwalten"
+
+#~ msgid "Avatar deleted."
+#~ msgstr "Avatar gelöscht."
+
+#~ msgid "Avatar saved."
+#~ msgstr "Avatar gespeichert."
+
+#~ msgid "Avatar Settings"
+#~ msgstr "Avatar einstellen"
+
+#~ msgid "Caller Settings"
+#~ msgstr "Caller einstellen"
+
+#~ msgid "Trainer Delay"
+#~ msgstr "Trainerverzögerung einstellen"
+
+#~ msgid "Toggle Keypad"
+#~ msgstr "Tastatur ein/ausblenden"
+

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<h1>X01 Statistics</h1>
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card bg-light text-dark bs-callout bs-callout-danger">
+            <div class="card-body">
+                <h5>{{ _('Today') }}</h5>                
+                <hr>
+                <p>{{ _('Number of games:') }} {{ stats['today']['number_of_games'] }}</p>
+                <p>{{ _('Darts thrown:') }} {{ stats['today']['darts_thrown'] }}</p>
+                <p>Average: {{ stats['today']['average']|round(2) }}</p>
+                <p>First 9: {{ stats['today']['first9_average']|round(2) }}</p>
+                <p>Doubles: {{ stats['today']['doubles']|round(2) }}%</p>                
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light text-dark bs-callout bs-callout-warning">
+            <div class="card-body">
+                <h5>{{ _('Current Week') }}</h5>                
+                <hr>
+                <p>{{ _('Number of games:') }} {{ stats['currentweek']['number_of_games'] }}</p>
+                <p>{{ _('Darts thrown:') }} {{ stats['currentweek']['darts_thrown'] }}</p>
+                <p>Average: {{ stats['currentweek']['average']|round(2) }}</p>
+                <p>First 9: {{ stats['currentweek']['first9_average']|round(2) }}</p>
+                <p>Doubles: {{ stats['currentweek']['doubles']|round(2) }}%</p>                
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light text-dark bs-callout bs-callout-info">
+            <div class="card-body">
+                <h5>{{ _('Current Month') }}</h5>                
+                <hr>
+                <p>{{ _('Number of games:') }} {{ stats['currentmonth']['number_of_games'] }}</p>
+                <p>{{ _('Darts thrown:') }} {{ stats['currentmonth']['darts_thrown'] }}</p>
+                <p>Average: {{ stats['currentmonth']['average']|round(2) }}</p>
+                <p>First 9: {{ stats['currentmonth']['first9_average']|round(2) }}</p>
+                <p>Doubles: {{ stats['currentmonth']['doubles']|round(2) }}%</p>                
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+<div class="row justify-content-center">
+    <div class="col-md-12">
+        <div class="card bg-light text-dark bs-callout bs-callout-success">
+            <div class="card-body">
+                <h5>{{ _('Average per Game') }}</h5>
+                <canvas id="myChart" width="400" height="150"></canvas>
+                <script type="text/javascript" src="/static/js/chart.min.js"></script>
+                <script type="text/javascript">
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var labels = [{% for i in range(stats['averagepergame']|length) %}
+                                        "{{i + 1}}",
+                                     {% endfor %}];
+
+                    var data = [{% for item in (stats['averagepergame']) %}
+                                        "{{item}}",
+                                     {% endfor %}];
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels : labels,
+                            datasets: [{
+                                data: data,
+                                fill: false,
+                                label: "average",
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    ticks: {
+                                        autoSkip: true,
+                                        maxTicksLimit: 20
+                                    }
+                                }]
+                            }
+                        }
+                    });                
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

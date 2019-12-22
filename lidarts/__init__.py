@@ -1,4 +1,5 @@
 import os
+import babel
 
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
@@ -45,10 +46,12 @@ migrate = Migrate()
 mail = Mail()
 security = Security()
 socketio = SocketIO()
-babel = Babel()
+babelObject = Babel()
 moment = Moment()
 avatars = UploadSet('avatars', IMAGES)
 
+def format_datetime(value):
+    return  babel.dates.format_datetime(value, "dd.MM.y HH:mm")
 
 def create_app(test_config=None):
     # Create Flask app with a default config
@@ -86,12 +89,15 @@ def create_app(test_config=None):
                       change_password_form=ExtendedChangePasswordForm,
                       reset_password_form=ExtendedResetPasswordForm)
     socketio.init_app(app, message_queue='redis://', async_mode='eventlet')
-    babel.init_app(app)
+    babelObject.init_app(app)
     moment.init_app(app)
     configure_uploads(app, avatars)
     patch_request_class(app, 2 * 1024 * 1024)
 
     app.json_encoder = JSONEncoder
+
+    # filter for jinja
+    app.jinja_env.filters['datetime'] = format_datetime
 
     # Load all blueprints
     from lidarts.generic import bp as generic_bp
@@ -112,6 +118,9 @@ def create_app(test_config=None):
     from lidarts.tools import bp as tools_bp
     app.register_blueprint(tools_bp)
 
+    from lidarts.statistics import bp as statistics_bp
+    app.register_blueprint(statistics_bp)
+    
     from lidarts.generic.errors import not_found_error, internal_error
     app.register_error_handler(404, not_found_error)
     app.register_error_handler(500, internal_error)
@@ -124,6 +133,6 @@ def create_app(test_config=None):
     return app
 
 
-@babel.localeselector
+@babelObject.localeselector
 def get_locale():
     return request.accept_languages.best_match(['de', 'en'])
