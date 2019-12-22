@@ -5,7 +5,7 @@ from lidarts.models import User, Game
 from sqlalchemy import desc
 from lidarts.game.forms import game_types
 from datetime import datetime, timedelta
-from lidarts.statistics.utils import calculateOverallStatsFromLeg, sumUpStats
+from lidarts.statistics.utils import calculateOverallStatsFromLeg, sumUpStats, createStatsObject
 
 import os
 import json
@@ -14,9 +14,9 @@ import json
 @login_required
 def x01():
     stats = {}
-    stats['today'] = {'darts_thrown': 0, 'double_thrown': 0, 'legs_won': 0, 'total_score': 0, 'average': 0, 'first9_scores': [], 'first9_average': 0, 'doubles': 0, 'number_of_games': 0}
-    stats['currentweek'] = {'darts_thrown': 0, 'double_thrown': 0, 'legs_won': 0, 'total_score': 0, 'average': 0, 'first9_scores': [], 'first9_average': 0, 'doubles': 0, 'number_of_games': 0}
-    stats['currentmonth'] = {'darts_thrown': 0, 'double_thrown': 0, 'legs_won': 0, 'total_score': 0, 'average': 0, 'first9_scores': [], 'first9_average': 0, 'doubles': 0, 'number_of_games': 0}
+    stats['today'] = createStatsObject()
+    stats['currentweek'] = createStatsObject()
+    stats['currentmonth'] = createStatsObject()
     stats['averagepergame'] = []
 
     user = User.query.filter(User.id == current_user.id).first_or_404()
