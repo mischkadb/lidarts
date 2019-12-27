@@ -117,3 +117,6 @@ lidarts/static/avatars/
 
 # Babel Input Files
 lidarts/translations/messages.pot
+
+# Testing things
+/testing

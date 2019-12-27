@@ -64,10 +64,12 @@ def overview(username):
 
         player = '1' if (user.id == game.player1) else '2'
 
+        stats['number_of_games'] += 1
+
         match_json = json.loads(game.match_json)
+
         for set in match_json:
             for leg in match_json[set]:
-                stats['number_of_games'] += 1
                 for score in match_json[set][leg][player]['scores'][:3]:
                     stats['first9_scores'].append(score)
                 stats['darts_thrown'] += len(match_json[set][leg][player]['scores']) * 3

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-12-22 11:17+0100\n"
+"POT-Creation-Date: 2019-12-27 21:02+0100\n"
 "PO-Revision-Date: 2019-01-10 17:22+0100\n"
 "Last-Translator: \n"
 "Language: de\n"
@@ -31,6 +31,7 @@ msgid "Watch"
 msgstr "Zuschauen"
 
 #: lidarts/templates/base.html:47 lidarts/templates/base.html:53
+#: lidarts/templates/profile/overview.html:105
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -430,6 +431,7 @@ msgstr ""
 "machen. Also erzähl es deinen Freunden und lade sie auf ein Spiel ein!"
 
 #: lidarts/templates/generic/contribute.html:25
+#: lidarts/templates/statistics/x01.html:44
 msgid "Graphics"
 msgstr "Grafiken"
 
@@ -705,22 +707,13 @@ msgid "Statistics (501 SI/DO)"
 msgstr "Statistiken (501 SI/DO)"
 
 #: lidarts/templates/profile/overview.html:93
-#: lidarts/templates/statistics/x01.html:11
-#: lidarts/templates/statistics/x01.html:24
-#: lidarts/templates/statistics/x01.html:37
 msgid "Number of games:"
 msgstr "Anzahl Spiele"
 
 #: lidarts/templates/profile/overview.html:94
-#: lidarts/templates/statistics/x01.html:12
-#: lidarts/templates/statistics/x01.html:25
-#: lidarts/templates/statistics/x01.html:38
+#: lidarts/templates/statistics/x01_overview_element.html:7
 msgid "Darts thrown:"
 msgstr "Darts geworfen:"
-
-#: lidarts/templates/profile/overview.html:105
-msgid "Statistics (Prototyp)"
-msgstr "Statistiken (Prototyp)"
 
 #: lidarts/templates/profile/overview.html:106
 msgid "X01"
@@ -767,21 +760,87 @@ msgstr "AGB"
 msgid "Already have an account?"
 msgstr "Account schon vorhanden?"
 
-#: lidarts/templates/statistics/x01.html:9
+#: lidarts/templates/statistics/x01.html:23
+msgid "Overview"
+msgstr "Übersicht"
+
+#: lidarts/templates/statistics/x01.html:26
+#: lidarts/templates/statistics/x01.html:79
+msgid "Overall"
+msgstr "Gesamt"
+
+#: lidarts/templates/statistics/x01.html:29
+#: lidarts/templates/statistics/x01.html:53
 msgid "Today"
 msgstr "Heute"
 
-#: lidarts/templates/statistics/x01.html:22
+#: lidarts/templates/statistics/x01.html:32
+#: lidarts/templates/statistics/x01.html:59
 msgid "Current Week"
 msgstr "Aktuelle Woche"
 
 #: lidarts/templates/statistics/x01.html:35
+#: lidarts/templates/statistics/x01.html:65
 msgid "Current Month"
 msgstr "Aktueller Monat"
 
-#: lidarts/templates/statistics/x01.html:51
-msgid "Average per Game"
-msgstr "Average pro Spiel"
+#: lidarts/templates/statistics/x01.html:38
+#: lidarts/templates/statistics/x01.html:73
+msgid "Current Year"
+msgstr "Aktuelles Jahr"
+
+#: lidarts/templates/statistics/x01.html:41
+#: lidarts/templates/statistics/x01.html:85
+msgid "Custom"
+msgstr "Benutzerdefiniert"
+
+#: lidarts/templates/statistics/x01.html:163
+msgid "Overall average per game"
+msgstr "Gesamt Average pro Spiel"
+
+#: lidarts/templates/statistics/x01.html:237
+msgid "Filter"
+msgstr "Filter"
+
+#: lidarts/templates/statistics/x01_detail_element.html:5
+msgid "General"
+msgstr ""
+
+#: lidarts/templates/statistics/x01_detail_element.html:7
+msgid "Number of games"
+msgstr "Anzahl Spiele"
+
+#: lidarts/templates/statistics/x01_detail_element.html:8
+msgid "Games Won"
+msgstr "Spiele gewonnen"
+
+#: lidarts/templates/statistics/x01_detail_element.html:9
+msgid "Games Lost"
+msgstr "Spiele verloren"
+
+#: lidarts/templates/statistics/x01_detail_element.html:10
+msgid "Games Draw"
+msgstr "Spiele unentschieden"
+
+#: lidarts/templates/statistics/x01_detail_element.html:11
+msgid "Number of Legs"
+msgstr "Anzahl Legs"
+
+#: lidarts/templates/statistics/x01_detail_element.html:12
+msgid "Legs Won"
+msgstr "Legs gewonnen"
+
+#: lidarts/templates/statistics/x01_detail_element.html:13
+msgid "Legs Lost"
+msgstr "Legs verloren"
+
+#: lidarts/templates/statistics/x01_detail_element.html:14
+msgid "Darts thrown"
+msgstr "Darts geworfen"
+
+#: lidarts/templates/statistics/x01_overview_element.html:6
+msgid "Number of games / legs:"
+msgstr "Anzahl Spiele / Legs"
 
 #~ msgid "Password must have at least 8 characters"
 #~ msgstr "Passwort muss aus mindestens 8 Zeichen bestehen"
@@ -937,4 +996,10 @@ msgstr "Average pro Spiel"
 
 #~ msgid "Toggle Keypad"
 #~ msgstr "Tastatur ein/ausblenden"
+
+#~ msgid "Statistics (Prototyp)"
+#~ msgstr "Statistiken (Prototyp)"
+
+#~ msgid "Average per Game"
+#~ msgstr "Average pro Spiel"
 
