@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // namespace for the game handling
-    namespace = '/game';
+    namespace = '/game/cricket';
     // Connect to the Socket.IO server.
     // The connection URL has the following format:
     //     http[s]://<domain>:<port>[/<namespace>]
@@ -23,8 +23,6 @@ $(document).ready(function() {
     var caller = $('#caller').data()['caller'];
     var cpu_delay = $('#cpu_delay').data()['cpu_delay'];
     var muted = false;
-
-    var out_mode = $('#out_mode').data()['out_mode'];
 
     socket.emit('player_heartbeat', {hashid: hashid['hashid']});
 
