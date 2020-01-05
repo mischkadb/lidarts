@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-12-27 21:02+0100\n"
+"POT-Creation-Date: 2020-01-05 19:06+0100\n"
 "PO-Revision-Date: 2019-01-10 17:22+0100\n"
 "Last-Translator: \n"
 "Language: de\n"
@@ -18,9 +18,245 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
+#: lidarts/auth/forms.py:20
+msgid "Password must have at least 8 characters"
+msgstr ""
+
+#: lidarts/auth/forms.py:22
+msgid "Username is required"
+msgstr ""
+
+#: lidarts/auth/forms.py:42
+msgid ""
+"Password must have at least 15 characters OR contain at least two out of "
+"these: lowercase letter, uppercase letter, number, symbol."
+msgstr ""
+
+#: lidarts/auth/forms.py:49
+msgid "Username is already taken"
+msgstr ""
+
+#: lidarts/auth/forms.py:55
+msgid "Username must start with a letter, number or \"([\""
+msgstr ""
+
+#: lidarts/auth/forms.py:57
+msgid "Username must end with a letter or a number or \")]\""
+msgstr ""
+
+#: lidarts/auth/forms.py:61
+msgid "Username contains invalid symbols."
+msgstr ""
+
+#: lidarts/auth/forms.py:63
+msgid "Two special characters in a row are not allowed."
+msgstr ""
+
+#: lidarts/auth/forms.py:69
+msgid "Username"
+msgstr ""
+
+#: lidarts/auth/forms.py:79 lidarts/auth/forms.py:88 lidarts/auth/forms.py:92
+msgid "Password"
+msgstr ""
+
+#: lidarts/auth/forms.py:84
+msgid "Username or Email Address"
+msgstr ""
+
+#: lidarts/auth/routes.py:17
+msgid "Username changed."
+msgstr ""
+
+#: lidarts/auth/routes.py:21
+msgid "Change username"
+msgstr ""
+
+#: lidarts/game/forms.py:7
+msgid "Local"
+msgstr ""
+
+#: lidarts/game/forms.py:9
+msgid "Me"
+msgstr ""
+
+#: lidarts/game/forms.py:9 lidarts/game/forms.py:31
+msgid "Opponent"
+msgstr ""
+
+#: lidarts/game/forms.py:10
+msgid "Closest to Bull"
+msgstr ""
+
+#: lidarts/game/forms.py:19
+msgid "Invalid number."
+msgstr ""
+
+#: lidarts/game/forms.py:23
+msgid "Score"
+msgstr ""
+
+#: lidarts/game/forms.py:26
+msgid "Submit score"
+msgstr ""
+
+#: lidarts/game/forms.py:30
+msgid "Game type"
+msgstr ""
+
+#: lidarts/game/forms.py:32
+msgid "Opponent name"
+msgstr ""
+
+#: lidarts/game/forms.py:33
+msgid "Level"
+msgstr ""
+
+#: lidarts/game/forms.py:34
+msgid "First to throw"
+msgstr ""
+
+#: lidarts/game/forms.py:35
+msgid "Best of Sets"
+msgstr ""
+
+#: lidarts/game/forms.py:36
+msgid "Best of Legs"
+msgstr ""
+
+#: lidarts/game/forms.py:37
+msgid "Two Clear Legs"
+msgstr ""
+
+#: lidarts/game/forms.py:38
+msgid "Mode In"
+msgstr ""
+
+#: lidarts/game/forms.py:39
+msgid "Mode Out"
+msgstr ""
+
+#: lidarts/game/forms.py:40
+msgid "Start game"
+msgstr ""
+
+#: lidarts/game/forms.py:45 lidarts/generic/forms.py:9
+msgid "Submit message"
+msgstr ""
+
 #: lidarts/game/routes.py:32
 msgid "New challenge"
 msgstr "Neue Herausforderung"
+
+#: lidarts/game/routes.py:68 lidarts/templates/game/create_X01.html:9
+msgid "Create Game"
+msgstr "Spiel erstellen"
+
+#: lidarts/game/routes.py:93 lidarts/generic/routes.py:66
+msgid "Local Guest"
+msgstr ""
+
+#: lidarts/game/routes.py:106
+msgid "Waiting..."
+msgstr ""
+
+#: lidarts/game/routes.py:111
+msgid "Match overview"
+msgstr ""
+
+#: lidarts/game/routes.py:135
+msgid "Stream overlay"
+msgstr ""
+
+#: lidarts/game/routes.py:139
+msgid "Live Match"
+msgstr ""
+
+#: lidarts/game/utils.py:9
+msgid "Guest"
+msgstr ""
+
+#: lidarts/generic/routes.py:81
+msgid "Live Games"
+msgstr ""
+
+#: lidarts/generic/routes.py:127 lidarts/templates/base.html:49
+msgid "Lobby"
+msgstr "Lobby"
+
+#: lidarts/generic/routes.py:143 lidarts/templates/base.html:52
+#: lidarts/templates/game/X01.html:201
+#: lidarts/templates/game/X01_stream.html:126
+msgid "Chat"
+msgstr "Chat"
+
+#: lidarts/generic/routes.py:195
+msgid "Private Messages"
+msgstr ""
+
+#: lidarts/profile/forms.py:10
+msgid "Caller"
+msgstr ""
+
+#: lidarts/profile/forms.py:11 lidarts/profile/forms.py:16
+msgid "Save"
+msgstr ""
+
+#: lidarts/profile/forms.py:15
+msgid "Trainer delay"
+msgstr ""
+
+#: lidarts/profile/routes.py:40
+msgid "Match History"
+msgstr ""
+
+#: lidarts/profile/routes.py:102 lidarts/templates/base.html:93
+msgid "Profile"
+msgstr "Profil"
+
+#: lidarts/profile/routes.py:144
+msgid "Manage Friend List"
+msgstr ""
+
+#: lidarts/profile/routes.py:152
+msgid "Avatar deleted."
+msgstr ""
+
+#: lidarts/profile/routes.py:166
+msgid "Avatar saved."
+msgstr ""
+
+#: lidarts/profile/routes.py:171
+msgid "Avatar Settings"
+msgstr ""
+
+#: lidarts/profile/routes.py:182
+msgid "Caller Settings"
+msgstr ""
+
+#: lidarts/profile/routes.py:193
+msgid "Trainer Delay"
+msgstr ""
+
+#: lidarts/statistics/forms.py:8
+msgid "Last ... games"
+msgstr "Letzte ... Spiele"
+
+#: lidarts/statistics/forms.py:9
+msgid "From ... to ..."
+msgstr "Von ... bis ..."
+
+#: lidarts/statistics/forms.py:12
+msgid "From"
+msgstr "Von"
+
+#: lidarts/statistics/forms.py:14
+msgid "to"
+msgstr "bis"
+
+#: lidarts/statistics/forms.py:16 lidarts/templates/statistics/x01.html:237
+msgid "Filter"
+msgstr "Filter"
 
 #: lidarts/templates/base.html:45
 msgid "Home"
@@ -35,18 +271,9 @@ msgstr "Zuschauen"
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: lidarts/templates/base.html:49
-msgid "Lobby"
-msgstr "Lobby"
-
 #: lidarts/templates/base.html:50 lidarts/templates/generic/lobby.html:21
 msgid "Play"
 msgstr "Spielen"
-
-#: lidarts/templates/base.html:52 lidarts/templates/game/X01.html:201
-#: lidarts/templates/game/X01_stream.html:126
-msgid "Chat"
-msgstr "Chat"
 
 #: lidarts/templates/base.html:68
 msgid "No new notifications"
@@ -79,10 +306,6 @@ msgstr "Suche nach Spiel"
 #: lidarts/templates/base.html:89
 msgid "Busy"
 msgstr "Beschäftigt"
-
-#: lidarts/templates/base.html:93
-msgid "Profile"
-msgstr "Profil"
 
 #: lidarts/templates/base.html:94
 msgid "Logout"
@@ -249,6 +472,7 @@ msgid "seconds"
 msgstr "Sekunden"
 
 #: lidarts/templates/game/X01_completed.html:140
+#: lidarts/templates/statistics/x01_detail_element.html:40
 msgid "Highest Finish"
 msgstr "Höchstes Finish"
 
@@ -259,10 +483,6 @@ msgstr "Kürzestes Leg"
 #: lidarts/templates/game/X01_stream.html:12
 msgid "Normal theme"
 msgstr "Normales Theme"
-
-#: lidarts/templates/game/create_X01.html:9
-msgid "Create Game"
-msgstr "Spiel erstellen"
 
 #: lidarts/templates/game/create_X01.html:16
 msgid "Game Mode"
@@ -721,7 +941,7 @@ msgstr "X01"
 
 #: lidarts/templates/security/change_password.html:18
 #: lidarts/templates/security/change_username.html:16
-#: lidarts/templates/security/forgot_password.html:16
+#: lidarts/templates/security/forgot_password.html:16 lidarts/tools/forms.py:14
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -797,10 +1017,6 @@ msgstr "Benutzerdefiniert"
 #: lidarts/templates/statistics/x01.html:163
 msgid "Overall average per game"
 msgstr "Gesamt Average pro Spiel"
-
-#: lidarts/templates/statistics/x01.html:237
-msgid "Filter"
-msgstr "Filter"
 
 #: lidarts/templates/statistics/x01_detail_element.html:5
 msgid "General"
