@@ -46,7 +46,7 @@ migrate = Migrate()
 mail = Mail()
 security = Security()
 socketio = SocketIO()
-babelObject = Babel()
+babelobject = Babel()
 moment = Moment()
 avatars = UploadSet('avatars', IMAGES)
 
@@ -89,7 +89,7 @@ def create_app(test_config=None):
                       change_password_form=ExtendedChangePasswordForm,
                       reset_password_form=ExtendedResetPasswordForm)
     socketio.init_app(app, message_queue='redis://', async_mode='eventlet')
-    babelObject.init_app(app)
+    babelobject.init_app(app)
     moment.init_app(app)
     configure_uploads(app, avatars)
     patch_request_class(app, 2 * 1024 * 1024)
@@ -133,6 +133,6 @@ def create_app(test_config=None):
     return app
 
 
-@babelObject.localeselector
+@babelobject.localeselector
 def get_locale():
     return request.accept_languages.best_match(['de', 'en'])

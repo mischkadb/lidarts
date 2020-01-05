@@ -1,16 +1,22 @@
-from lidarts.statistics import bp
+"""
+routing functions for statistics
+"""
+
+
+from datetime import timedelta, datetime
+
+import json
+
 from flask_login import current_user, login_required
 from flask import render_template
-from lidarts.models import User, Game
 from sqlalchemy import asc
-from lidarts.game.forms import game_types
-from datetime import timedelta, datetime
-from lidarts.statistics.utils import calculateOverallStatsFromLeg, calculateOverallStatsFromGame, sumUpStats, createStatsObject
-from wtforms import Form, RadioField, SelectField
+from lidarts.models import User, Game
+from lidarts.statistics import bp
+from lidarts.statistics.utils import calculate_overall_stats_from_leg, sum_up_stats
+from lidarts.statistics.utils import calculate_overall_stats_from_game, create_stats_object
 from lidarts.statistics.forms import StatisticsForm
 
-import os
-import json
+
 
 @bp.route('/x01', methods=['GET', 'POST'])
 @login_required
@@ -18,147 +24,161 @@ def x01():
     form = StatisticsForm()
 
     stats = {}
-    stats['today'] = createStatsObject()
-    stats['currentweek'] = createStatsObject()
-    stats['currentmonth'] = createStatsObject()
-    stats['currentyear'] = createStatsObject()
-    stats['overall'] = createStatsObject()
-    stats['custom'] = createStatsObject()
+    stats['today'] = create_stats_object()
+    stats['currentweek'] = create_stats_object()
+    stats['currentmonth'] = create_stats_object()
+    stats['currentyear'] = create_stats_object()
+    stats['overall'] = create_stats_object()
+    stats['custom'] = create_stats_object()
     stats['averagepergame'] = []
 
     user = User.query.filter(User.id == current_user.id).first_or_404()
 
-    #if (form.is_submitted):
-    customFilterNumberOfGames = form.numberOfGames.default
-    customFilterDateFrom = form.dateFrom.default
-    customFilterDateTo = form.dateTo.default
+    # if (form.is_submitted):
+    custom_filter_number_of_games = form.numberOfGames.default
+    custom_filter_date_from = form.dateFrom.default
+    custom_filter_date_to = form.dateTo.default
 
     # if no value is in the form data, we can insert the default values
-    if (form.numberOfGames.data == None):
-        form.numberOfGames.data = customFilterNumberOfGames
-    if (form.dateFrom.data == None):
-        form.dateFrom.data = customFilterDateFrom
-    if (form.dateTo.data == None):
-        form.dateTo.data = customFilterDateTo
+    if form.numberOfGames.data is None:
+        form.numberOfGames.data = custom_filter_number_of_games
+    if form.dateFrom.data is None:
+        form.dateFrom.data = custom_filter_date_from
+    if form.dateTo.data is None:
+        form.dateTo.data = custom_filter_date_to
 
     # check which custom filter is active
-    useCustomFilterLastGames = False
-    useCustomFilterDateRange = False
-    if (form.selectGameRangeFilter.data == 'lastgames'):
-        useCustomFilterLastGames = True
-        customFilterNumberOfGames = form.numberOfGames.data
-    elif (form.selectGameRangeFilter.data == 'daterange'):
-        useCustomFilterDateRange = True
-        customFilterDateFrom = form.dateFrom.data
-        customFilterDateTo = form.dateTo.data
+    use_custom_filter_last_games = False
+    use_custom_filter_date_range = False
+    if form.selectGameRangeFilter.data == 'lastgames':
+        use_custom_filter_last_games = True
+        custom_filter_number_of_games = form.numberOfGames.data
+    elif form.selectGameRangeFilter.data == 'daterange':
+        use_custom_filter_date_range = True
+        custom_filter_date_from = form.dateFrom.data
+        custom_filter_date_to = form.dateTo.data
     else:
-        useCustomFilterLastGames = True
+        use_custom_filter_last_games = True
 
-    #TODO: Check Performance select with Game.begin vs. Game.id
-    games = Game.query.filter(((Game.player1 == user.id) | (Game.player2 == user.id)) & (Game.status != 'challenged')
-                            & (Game.status != 'declined') & (Game.status != 'aborted')) \
+    # select the the games
+    games = Game.query.filter(((Game.player1 == user.id) | (Game.player2 == user.id))
+                              & (Game.status != 'challenged')
+                              & (Game.status != 'declined')
+                              & (Game.status != 'aborted')) \
         .order_by(asc(Game.begin)).all()
 
     # get the dates for date related statistics
-    todayDate = datetime.today().date()
-    startCurrentWeek = todayDate - timedelta(days=todayDate.weekday())
-    startCurrentMonth = todayDate.replace(day = 1)
+    today_date = datetime.today().date()
+    start_current_week = today_date - timedelta(days=today_date.weekday())
+    start_current_month = today_date.replace(day=1)
 
     number_of_games = 0
     # iterate through each game
     for game in games:
-        gameBeginDate = game.begin.date()
+        game_begin_date = game.begin.date()
 
-        player = '1' 
-        if not(user.id == game.player1):
-            '2'
+        player = '1'
+        if not user.id == game.player1:
+            player = '2'
 
         number_of_games += 1
 
         # check if game is valid for the current custom filter settings
-        validGameForCustomFilter = False
-        if (useCustomFilterLastGames and number_of_games <= customFilterNumberOfGames):
-            validGameForCustomFilter = True
-        elif (useCustomFilterDateRange and gameBeginDate >= customFilterDateFrom and gameBeginDate <= customFilterDateTo):
-            validGameForCustomFilter = True
+        valid_game_for_custom_filter = False
+        if (use_custom_filter_last_games and number_of_games <= custom_filter_number_of_games):
+            valid_game_for_custom_filter = True
+        elif (use_custom_filter_date_range and game_begin_date >= custom_filter_date_from and
+              game_begin_date <= custom_filter_date_to):
+            valid_game_for_custom_filter = True
 
         # custom filter
-        if (validGameForCustomFilter):
-            calculateOverallStatsFromGame(stats['custom'], game)
+        if valid_game_for_custom_filter:
+            calculate_overall_stats_from_game(stats['custom'], game)
 
         # use for today statistics?
-        if (gameBeginDate == todayDate):
-            calculateOverallStatsFromGame(stats['today'], game)
+        if game_begin_date == today_date:
+            calculate_overall_stats_from_game(stats['today'], game)
 
         # use current week statistics?
-        if (gameBeginDate >= startCurrentWeek):
-            calculateOverallStatsFromGame(stats['currentweek'], game)
+        if game_begin_date >= start_current_week:
+            calculate_overall_stats_from_game(stats['currentweek'], game)
 
         # use current month statistics?
-        if (gameBeginDate >= startCurrentMonth):
-            calculateOverallStatsFromGame(stats['currentmonth'], game)
+        if game_begin_date >= start_current_month:
+            calculate_overall_stats_from_game(stats['currentmonth'], game)
 
         # use current year statistics?
-        if (gameBeginDate.year >= todayDate.year):
-            calculateOverallStatsFromGame(stats['currentyear'], game)
+        if game_begin_date.year >= today_date.year:
+            calculate_overall_stats_from_game(stats['currentyear'], game)
 
         # overall stats
-        calculateOverallStatsFromGame(stats['overall'], game)
+        calculate_overall_stats_from_game(stats['overall'], game)
 
         match_json = json.loads(game.match_json)
 
         # calculate current game stats
-        currentGameStats = {'darts_thrown': 0, 'total_score': 0}
+        current_game_stats = {'darts_thrown': 0, 'total_score': 0}
 
         # iterate through each set/leg
-        for set in match_json:
-            for leg in match_json[set]:
-                currentPlayerLegStats = match_json[set][leg][player]
+        for current_set in match_json:
+            for current_leg in match_json[current_set]:
+                current_player_leg_stats = match_json[current_set][current_leg][player]
 
                 # add stats for current game
-                currentGameStats['darts_thrown'] += len(currentPlayerLegStats['scores']) * 3
-                currentGameStats['total_score'] += sum(currentPlayerLegStats['scores'])
-                if 'to_finish' in currentPlayerLegStats:
-                    currentGameStats['darts_thrown'] -= (3 - currentPlayerLegStats['to_finish'])
+                current_game_stats['darts_thrown'] += len(
+                    current_player_leg_stats['scores']) * 3
+                current_game_stats['total_score'] += sum(
+                    current_player_leg_stats['scores'])
+                if 'to_finish' in current_player_leg_stats:
+                    current_game_stats['darts_thrown'] -= (
+                        3 - current_player_leg_stats['to_finish'])
 
                 # custom filter
-                if (validGameForCustomFilter):
-                    calculateOverallStatsFromLeg(stats['custom'], currentPlayerLegStats)
+                if valid_game_for_custom_filter:
+                    calculate_overall_stats_from_leg(
+                        stats['custom'], current_player_leg_stats)
 
                 # use for today statistics?
-                if (gameBeginDate == todayDate):
-                    calculateOverallStatsFromLeg(stats['today'], currentPlayerLegStats)
+                if game_begin_date == today_date:
+                    calculate_overall_stats_from_leg(
+                        stats['today'], current_player_leg_stats)
 
                 # use current week statistics?
-                if (gameBeginDate >= startCurrentWeek):
-                    calculateOverallStatsFromLeg(stats['currentweek'], currentPlayerLegStats)
+                if game_begin_date >= start_current_week:
+                    calculate_overall_stats_from_leg(
+                        stats['currentweek'], current_player_leg_stats)
 
                 # use current month statistics?
-                if (gameBeginDate >= startCurrentMonth):
-                    calculateOverallStatsFromLeg(stats['currentmonth'], currentPlayerLegStats)
+                if game_begin_date >= start_current_month:
+                    calculate_overall_stats_from_leg(
+                        stats['currentmonth'], current_player_leg_stats)
 
                 # use current year statistics?
-                if (gameBeginDate.year >= todayDate.year):
-                    calculateOverallStatsFromLeg(stats['currentyear'], currentPlayerLegStats)
+                if game_begin_date.year >= today_date.year:
+                    calculate_overall_stats_from_leg(
+                        stats['currentyear'], current_player_leg_stats)
 
                 # overall stats
-                calculateOverallStatsFromLeg(stats['overall'], currentPlayerLegStats)
+                calculate_overall_stats_from_leg(
+                    stats['overall'], current_player_leg_stats)
 
         # sum up average per game stats
-        gameAverage = round((currentGameStats['total_score'] / (currentGameStats['darts_thrown'])) * 3, 2)
-        stats['averagepergame'].append(gameAverage)
+        game_average = round((current_game_stats['total_score'] / (current_game_stats['darts_thrown'])) * 3, 2) \
+                if current_game_stats['darts_thrown'] else 0
+        stats['averagepergame'].append(game_average)
 
     # sum up all the stats
-    sumUpStats(stats['custom'])
-    sumUpStats(stats['today'])
-    sumUpStats(stats['currentweek'])
-    sumUpStats(stats['currentmonth'])
-    sumUpStats(stats['currentyear'])
-    sumUpStats(stats['overall'])
+    sum_up_stats(stats['custom'])
+    sum_up_stats(stats['today'])
+    sum_up_stats(stats['currentweek'])
+    sum_up_stats(stats['currentmonth'])
+    sum_up_stats(stats['currentyear'])
+    sum_up_stats(stats['overall'])
 
-    activeNavPage = ''
+    active_nav_page = ''
     # if we are in post (from filter), we must append the prefix for the internal link
-    if (form.is_submitted()):
-       activeNavPage = 'custom'
+    if form.is_submitted():
+        active_nav_page = 'custom'
 
-    return render_template('statistics/x01.html', stats = stats, form = form, activeNavPage = activeNavPage)
+    return render_template('statistics/x01.html', stats=stats, form=form,
+                           activeNavPage=active_nav_page)
