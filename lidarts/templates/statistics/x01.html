@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+{% set overviewActive = 'show active' %}
+{% set customActive = '' %}
+{% if (activeNavPage == 'custom') %}
+{%   set overviewActive = '' %}
+{%   set customActive = 'show active' %}
+{% endif %}
+{% set customFilterLastGamesVisible = '' %}
+{% set customFilterDateRangeVisible = 'display: none;' %}
+{% if (form.selectGameRangeFilter.data == 'daterange') %}
+{%   set customFilterLastGamesVisible = 'display: none;' %}
+{%   set customFilterDateRangeVisible = '' %}
+{% endif %}
+<h1>X01 Statistics</h1>
+
+  <div class="card ">
+    <div class="card-header"> 
+      <ul class="nav nav-tabs card-header-tabs pull-right"  id="myTab" role="tablist">
+        <li class="nav-item">
+         <a class="nav-link {{ overviewActive }}" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">{{ _('Overview') }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="overall-tab" data-toggle="tab" href="#overall" role="tab" aria-controls="overall" aria-selected="false">{{ _('Overall') }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="today-tab" data-toggle="tab" href="#today" role="tab" aria-controls="today" aria-selected="false">{{ _('Today') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="currentweek-tab" data-toggle="tab" href="#currentweek" role="tab" aria-controls="currentweek" aria-selected="false">{{ _('Current Week') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="currentmonth-tab" data-toggle="tab" href="#currentmonth" role="tab" aria-controls="currentmonth" aria-selected="false">{{ _('Current Month') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="currentyear-tab" data-toggle="tab" href="#currentyear" role="tab" aria-controls="currentyear" aria-selected="false">{{ _('Current Year') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ customActive }}" id="custom-tab" data-toggle="tab" href="#custom" role="tab" aria-controls="custom" aria-selected="false">{{ _('Custom') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="graphics-tab" data-toggle="tab" href="#graphics" role="tab" aria-controls="graphics" aria-selected="false">{{ _('Graphics') }}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade {{ overviewActive }}" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                <div class="row justify-content-center">
+                    <!-- Today stats -->
+                    {% set title = _('Today') %}
+                    {% set currentstats = stats['today'] %}
+                    {% set card_color = 'bs-callout-danger' %}
+                    {% include "statistics/x01_overview_element.html" %}
+                    
+                    <!-- current week stats -->
+                    {% set title = _('Current Week') %}
+                    {% set currentstats = stats['currentweek'] %}
+                    {% set card_color = 'bs-callout-warning' %}
+                    {% include "statistics/x01_overview_element.html" %}
+
+                    <!-- current month stats -->
+                    {% set title = _('Current Month') %}
+                    {% set currentstats = stats['currentmonth'] %}
+                    {% set card_color = 'bs-callout-info' %}
+                    {% include "statistics/x01_overview_element.html" %}
+                </div>
+                <br>
+                <div class="row">
+                    <!-- current year stats -->
+                    {% set title = _('Current Year') %}
+                    {% set currentstats = stats['currentyear'] %}
+                    {% set card_color = 'bs-callout-success' %}
+                    {% include "statistics/x01_overview_element.html" %}
+
+                    <!-- overall -->
+                    {% set title = _('Overall') %}
+                    {% set currentstats = stats['overall'] %}
+                    {% set card_color = 'bs-callout-primary' %}
+                    {% include "statistics/x01_overview_element.html" %}
+
+                    <!-- custom -->
+                    {% set title = _('Custom') %}
+                    {% set currentstats = stats['custom'] %}
+                    {% set card_color = 'bs-callout-default' %}
+                    {% include "statistics/x01_overview_element.html" %}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="overall" role="tabpanel" aria-labelledby="overall-tab">
+                <!-- overall detail -->
+                {% set card_color = 'bs-callout-primary' %}
+                {% set currentstats = stats['overall'] %}
+                {% include "statistics/x01_detail_element.html" %}
+            </div>
+            <div class="tab-pane fade" id="today" role="tabpanel" aria-labelledby="today-tab">
+                <!-- today detail -->
+                {% set card_color = 'bs-callout-danger' %}
+                {% set currentstats = stats['today'] %}
+                {% include "statistics/x01_detail_element.html" %}
+            </div>
+            <div class="tab-pane fade" id="currentweek" role="tabpanel" aria-labelledby="currentweek-tab">
+                <!-- current week detail -->
+                {% set card_color = 'bs-callout-warning' %}
+                {% set currentstats = stats['currentweek'] %}
+                {% include "statistics/x01_detail_element.html" %}
+            </div>
+            <div class="tab-pane fade" id="currentmonth" role="tabpanel" aria-labelledby="currentmonth-tab">
+                <!-- current month detail -->
+                {% set card_color = 'bs-callout-info' %}
+                {% set currentstats = stats['currentmonth'] %}
+                {% include "statistics/x01_detail_element.html" %}
+            </div>
+            <div class="tab-pane fade" id="currentyear" role="tabpanel" aria-labelledby="currentyear-tab">
+                <!-- current year detail -->
+                {% set card_color = 'bs-callout-success' %}
+                {% set currentstats = stats['currentyear'] %}
+                {% include "statistics/x01_detail_element.html" %}
+            </div>
+            <div class="tab-pane fade {{ customActive }}" id="custom" role="tabpanel" aria-labelledby="custom-tab">
+                <form action="" method="post" class="form-horizontal">
+                    {{ form.hidden_tag() }}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card bg-light text-dark bs-callout bs-callout-default">
+                                <div class="card-body">
+                                    <p>    
+                                    {{ form.selectGameRangeFilter(class="custom-select", onchange="setGameFilter(this);", id="selectGameRangeFilter") }}
+                                    </p>
+                                    
+                                    <p id="filterNumberOfGames" style="{{ customFilterLastGamesVisible }}">
+                                        {{ form.numberOfGames(class="form-control") }}
+                                    </p>
+                                    <p id="filterDateRange" style="{{ customFilterDateRangeVisible }}">
+                                        {{ form.dateFrom.label(class="col-form-label") }}
+                                        {{ form.dateFrom(class="form-control") }}
+                                        {{ form.dateTo.label(class="col-form-label") }}
+                                        {{ form.dateTo(class="form-control") }}
+                                    </p>
+                                    <span class="float-right">
+                                        {{ form.submit(class="btn btn-success") }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <br>                
+                <!-- custom detail -->
+                {% set card_color = 'bs-callout-default' %}
+                {% set currentstats = stats['custom'] %}
+                {% include "statistics/x01_detail_element.html" %}
+            </div>
+
+
+
+            <div class="tab-pane fade" id="graphics" role="tabpanel" aria-labeledby="graphics-tab">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card bg-light text-dark bs-callout bs-callout-success">
+                            <div class="card-body">
+                                <h5>{{ _('Overall average per game') }}</h5>
+                                <canvas id="myChart" width="400" height="150"></canvas>
+                                <script type="text/javascript" src="/static/js/chart.min.js"></script>
+                                <script type="text/javascript">
+                                    var ctx = document.getElementById('myChart').getContext('2d');
+                                    var labels = [{% for i in range(stats['averagepergame']|length) %}
+                                                        "{{i + 1}}",
+                                                     {% endfor %}];
+                
+                                    var data = [{% for item in (stats['averagepergame']) %}
+                                                        "{{item}}",
+                                                     {% endfor %}];
+                                    var myChart = new Chart(ctx, {
+                                        type: 'line',
+                                        data: {
+                                            labels : labels,
+                                            datasets: [{
+                                                data: data,
+                                                fill: false,
+                                                label: "average",
+                                                borderColor: [
+                                                    'rgba(255, 99, 132, 1)',
+                                                ],
+                                                borderWidth: 2
+                                            }]
+                                        },
+                                        options: {
+                                            elements: {
+                                                point:{
+                                                    radius: 0
+                                                }
+                                            },
+                                            scales: {
+                                                yAxes: [{
+                                                    ticks: {
+                                                        beginAtZero: true
+                                                    }
+                                                }],
+                                                xAxes: [{
+                                                    ticks: {
+                                                        autoSkip: true,
+                                                        maxTicksLimit: 20
+                                                    }
+                                                }]
+                                            }
+                                        }
+                                    });                
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <br> 
+<!--
+<div class="container">
+    <div class="row">
+        <div id="filter-panel" class="collapse filter-panel">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="filter-col" style="margin-right:0;" for="pref-perpage">Rows per page:</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filter-panel">
+    <span class="glyphicon glyphicon-cog"></span> {{ _('Filter')}}
+</button>    
+<br>
+<br>
+-->
+
+{% endblock %}
+
+{% block scripts %}
+<script text="text/javascript">
+    function setGameFilter(selectElement)
+    {
+        var showLastGames = "none";
+        var showDateRange = "none";
+
+        if (selectElement.value == "lastgames")
+            showLastGames = "block";
+        else if (selectElement.value == "daterange")
+            showDateRange = "block";
+
+        document.getElementById("filterNumberOfGames").style.display = showLastGames; 
+        document.getElementById("filterDateRange").style.display = showDateRange; 
+    }
+</script>
+{% endblock %}

@@ -5,7 +5,7 @@ from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
 from lidarts.models import Game, User, Notification, ChatmessageIngame
 from lidarts import db
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
-from lidarts.game.utils import get_name_by_id, collect_statistics
+from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user, login_required
 from datetime import datetime
@@ -68,6 +68,18 @@ def create(mode='x01', opponent_name=None):
                            title=lazy_gettext('Create Game'))
 
 
+@bp.route('/<hashid>/statistics/<set_>/<leg>')
+def statistics_set_leg(hashid, set_, leg):
+    game = Game.query.filter_by(hashid=hashid).first_or_404()
+
+    player_names = get_player_names(game)
+
+    match_json = json.loads(game.match_json)
+    leg_data_json = match_json[set_][leg]
+
+    return render_template('game/X01_statistics.html', playerNames=player_names, leg_data_json=leg_data_json)
+
+
 @bp.route('/')
 @bp.route('/<hashid>')
 @bp.route('/<hashid>/<theme>')
@@ -86,16 +98,11 @@ def start(hashid, theme=None):
             start_game(hashid)
 
     game_dict = game.as_dict()
-    if game.player1:
-        game_dict['player1_name'] = get_name_by_id(game.player1)
+    
+    player_names = get_player_names(game)
 
-    if game.opponent_type == 'local':
-        game_dict['player2_name'] = lazy_gettext('Local Guest')
-    elif game.opponent_type == 'online':
-        game_dict['player2_name'] = get_name_by_id(game.player2)
-    else:
-        # computer game
-        game_dict['player2_name'] = 'Trainer ' + game_dict['opponent_type'][8:]
+    game_dict['player1_name'] = player_names[0]
+    game_dict['player2_name'] = player_names[1]
 
     match_json = json.loads(game.match_json)
 
@@ -151,9 +158,9 @@ def validate_score():
 
 @bp.route('/decline_challenge/')
 @bp.route('/decline_challenge/<id>', methods=['POST'])
-def decline_challenge(id):
-    id = int(id)
-    game = Game.query.filter_by(id=id).first_or_404()
+def decline_challenge(id_):
+    id_ = int(id_)
+    game = Game.query.filter_by(id=id_).first_or_404()
     game.status = "declined"
     game.end = datetime.utcnow()
     db.session.commit()

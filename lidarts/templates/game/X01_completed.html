@@ -101,6 +101,7 @@
                 {% if game.end and game.begin %}
                 <div class="row justify-content-center align-items-center mb-2">
                     <div class="col-sm-8 text-center text-secondary">
+                        <p>{{ _('Match start')}}: {{game.begin|datetime}}</p>
                         <p>{{ _('Match duration') }}: {{ ((game.end - game.begin).seconds // 3600)}} {{ _('hours') }},
                             {{ ((game.end - game.begin).seconds % 3600) // 60}} {{ _('minutes') }},
                             {{ ((game.end - game.begin).seconds % 60)}} {{ _('seconds') }}</p>
@@ -186,9 +187,11 @@
                         <table class="table d-flex border-0 table-responsive">
                             <tr>
                                 <td class="border-0"></td>
-                                {% for set in range(1, match_json|length + 1) %}
-                                {% for leg in range(1, match_json[set|string]|length + 1) %}
-                                <td class="border">S{{ set }}|L{{ leg }}</td>
+                                {% for set_ in range(1, match_json|length + 1) %}
+                                {% for leg in range(1, match_json[set_|string]|length + 1) %}
+                                <td class="border">
+                                    <a href="{{ url_for('game.statistics_set_leg', hashid=game.hashid, set_=set_, leg=leg) }}">S{{ set_ }}|L{{ leg }}</a>
+                                </td>
                                 {% endfor %}
                                 {% endfor %}
                             </tr>

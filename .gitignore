@@ -111,3 +111,13 @@ lidarts/game/fix\.py
 lidarts/static/avatars/
 
 \.flaskenv
+
+# Visual Studio Code Settings
+set_leg
+.vscode
+
+# Babel Input Files
+lidarts/translations/messages.pot
+
+# Testing things
+/testing

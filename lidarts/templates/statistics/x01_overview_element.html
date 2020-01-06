@@ -1,0 +1,13 @@
+<div class="col-md-4">
+    <div class="card bg-light text-dark bs-callout {{ card_color }}">
+        <div class="card-body">
+            <h5>{{ title }}</h5>                
+            <hr>
+            <p>{{ _('Number of games / legs:') }} <span style="float: right;">{{ currentstats['number_of_games'] }} / {{ currentstats['number_of_legs'] }}</span></p>
+            <p>{{ _('Darts thrown:') }} <span style="float: right;">{{ currentstats['darts_thrown'] }}</span></p>
+            <p>Average: <span style="float: right;">{{ currentstats['average']|round(2) }}</span></p>
+            <p>First 9: <span style="float: right;">{{ currentstats['first9_average']|round(2) }}</span></p>
+            <p>Doubles: <span style="float: right;">{{ currentstats['doubles']|round(2) }}%</span></p>                
+        </div>
+    </div>
+</div>
