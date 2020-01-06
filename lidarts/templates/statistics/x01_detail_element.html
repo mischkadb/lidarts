@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card bg-light text-dark bs-callout {{ card_color }}">
+            <div class="card-body">
+                <h5>{{ _('General') }}</h5>
+                <hr>
+                <p>{{ _('Number of games') }} <span class="float-right">{{ currentstats['number_of_games'] }}</span></p>
+                <p>{{ _('Games Won') }} <span class="float-right">{{ currentstats['games_won'] }} / {{ currentstats['games_won_percent'] }}%<span></p>
+                <p>{{ _('Games Lost') }} <span class="float-right">{{ currentstats['games_lost'] }} / {{ currentstats['games_lost_percent'] }}%</span></p>
+                <p>{{ _('Games Draw') }} <span class="float-right">{{ currentstats['games_draw'] }} / {{ currentstats['games_draw_percent'] }}%</span></p>
+                <p>{{ _('Number of Legs') }} <span class="float-right">{{ currentstats['number_of_legs'] }}</span></p>
+                <p>{{ _('Legs Won') }} <span class="float-right">{{ currentstats['legs_won']}} / {{ currentstats['legs_won_percent'] }}%</span></p>
+                <p>{{ _('Legs Lost') }} <span class="float-right">{{ currentstats['legs_lost']}} / {{ currentstats['legs_lost_percent'] }}%</span></p>
+                <p>{{ _('Darts thrown') }} <span class="float-right">{{ currentstats['darts_thrown'] }}</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light text-dark bs-callout {{ card_color }}">
+            <div class="card-body">
+                <h5>Scoring</h5>
+                <hr>
+                <p>180 <span class="float-right">{{ currentstats['hundredeighty']}} / {{ currentstats['hundredeighty_percent']}}%</span></p>
+                <p>140+<span class="float-right">{{ currentstats['hundredforty_and_more']}} / {{ currentstats['hundredforty_and_more_percent']}}%</span></p>
+                <p>100+<span class="float-right">{{ currentstats['hundred_and_more']}} / {{ currentstats['hundred_and_more_percent']}}%</span></p>
+                <p>80+<span class="float-right">{{ currentstats['eigthy_and_more']}} / {{ currentstats['eigthy_and_more_percent']}}%</span></p>
+                <p>60+<san class="float-right">{{ currentstats['sixty_and_more']}} / {{ currentstats['sixty_and_more_percent']}}%</span></p>
+                <p>40+<span class="float-right">{{ currentstats['forty_and_more']}} / {{ currentstats['forty_and_more_percent']}}%</span></p>
+                <p>20+<span class="float-right">{{ currentstats['twenty_and_more']}} / {{ currentstats['twenty_and_more_percent']}}%</span></p>
+                <p>&lt; 20<span class="float-right">{{ currentstats['less_than_twenty']}} / {{ currentstats['less_than_twenty_percent']}}%</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light text-dark bs-callout {{ card_color }}">
+            <div class="card-body">
+                <h5>Finish</h5>
+                <hr>
+                <p>Doubles <span class="float-right">{{ currentstats['doubles']|round(2) }}% ({{ currentstats['legs_won']}} / {{ currentstats['double_thrown']}})</span></p>
+                <p>{{ _('Highest Finish') }}<pan class="float-right">{{currentstats['highest_finish']}}</span></p>
+                <p>Finish 141 - 170 <span class="float-right">{{ currentstats['finish_hundredfortyone_to_hundredseventy'] }} / {{ currentstats['finish_hundredfortyone_to_hundredseventy_percent']}}%</span></p>
+                <p>Finish 121 - 140<span class="float-right">{{ currentstats['finish_hundredtwentyone_to_hundredforty'] }} / {{ currentstats['finish_hundredtwentyone_to_hundredforty_percent']}}%</span></p>
+                <p>Finish 101 - 120<span class="float-right">{{ currentstats['finish_hundredone_to_hundredtwenty'] }} / {{ currentstats['finish_hundredone_to_hundredtwenty_percent']}}%</span></p>
+                <p>Finish 81 - 100<span class="float-right">{{ currentstats['finish_eightyone_to_hundred'] }} / {{ currentstats['finish_eightyone_to_hundred_percent']}}%</span></p>
+                <p>Finish 41 - 80<span class="float-right">{{ currentstats['finish_fortyone_to_eigthy'] }} / {{ currentstats['finish_fortyone_to_eigthy_percent']}}%</span></p>
+                <p>Finish 2 - 40<span class="float-right">{{ currentstats['finish_two_to_forty']}} / {{ currentstats['finish_two_to_forty_percent']}}%</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card bg-light text-dark bs-callout {{ card_color }}">
+            <div class="card-body">
+                <h5>Average</h5>
+                <hr>
+                <p>Average <span class="float-right">{{ currentstats['average']|round(2) }}</span></p>
+                <p>First 9 Average <span class="float-right">{{ currentstats['first9_average']|round(2) }}</span></p>
+                <p>First 6 Average <span class="float-right">{{ currentstats['first6_average']|round(2) }}</span></p>
+                <p>First 3 Average <span class="float-right">{{ currentstats['first3_average']|round(2) }}</span></p>
+            </div>
+        </div>
+    </div>
+</div>
