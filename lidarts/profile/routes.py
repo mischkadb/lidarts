@@ -50,7 +50,7 @@ def overview(username):
                               & (Game.status != 'declined') & (Game.status != 'aborted')) \
         .order_by(desc(Game.id)).all()
 
-    stats = {'darts_thrown': 0, 'double_thrown': 0, 'legs_won': 0, 'total_score': 0, 'first9_scores': []}
+    stats = {'darts_thrown': 0, 'double_thrown': 0, 'legs_won': 0, 'total_score': 0, 'number_of_games': 0, 'first9_scores': []}
     for game in games:
         if game.player1 and game.player1 not in player_names:
             player_names[game.player1] = User.query.with_entities(User.username) \
@@ -64,7 +64,10 @@ def overview(username):
 
         player = '1' if (user.id == game.player1) else '2'
 
+        stats['number_of_games'] += 1
+
         match_json = json.loads(game.match_json)
+
         for set in match_json:
             for leg in match_json[set]:
                 for score in match_json[set][leg][player]['scores'][:3]:
