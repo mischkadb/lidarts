@@ -68,6 +68,10 @@ def x01():
     number_of_games = 0
     # iterate through each game
     for game in games:
+        # hack for legacy games on lidarts.org which do not have double-missed and finish darts
+        if game.id < 18:
+            continue
+
         game_begin_date = game.begin.date()
 
         player = '1'
