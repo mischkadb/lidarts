@@ -1,13 +1,29 @@
 from flask_babelex import lazy_gettext
-from lidarts import db
 from lidarts.models import User
 from collections import defaultdict
 
 
-def get_name_by_id(id):
-    if id is None:
+def get_player_names(game):
+    if game.player1:
+        player_one_name = get_name_by_id(game.player1)
+
+    if game.opponent_type == 'local':
+        player_two_name = lazy_gettext('Local Guest')
+    elif game.opponent_type == 'online':
+        player_two_name = get_name_by_id(game.player2)
+    else:
+        game_dict = game.as_dict()
+
+        # computer game
+        player_two_name = 'Trainer ' + game_dict['opponent_type'][8:]
+
+    return player_one_name, player_two_name
+
+
+def get_name_by_id(id_):
+    if id_ is None:
         return lazy_gettext('Guest')
-    user = User.query.get(id)
+    user = User.query.get(id_)
     if user:
         return user.username
     else:
@@ -31,22 +47,22 @@ def collect_statistics(game, match_json):
     p2_darts_thrown_double = 0
     p2_legs_won = 0
 
-    for set in match_json:
-        for leg in match_json[set]:
-            if isinstance(match_json[set][leg]['1']['double_missed'], (list,)):
-                p1_darts_thrown_double += sum(match_json[set][leg]['1']['double_missed'])
-                p2_darts_thrown_double += sum(match_json[set][leg]['2']['double_missed'])
+    for set_ in match_json:
+        for leg in match_json[set_]:
+            if isinstance(match_json[set_][leg]['1']['double_missed'], (list,)):
+                p1_darts_thrown_double += sum(match_json[set_][leg]['1']['double_missed'])
+                p2_darts_thrown_double += sum(match_json[set_][leg]['2']['double_missed'])
             else:
                 # legacy: double_missed as int
-                p1_darts_thrown_double += match_json[set][leg]['1']['double_missed']
-                p2_darts_thrown_double += match_json[set][leg]['2']['double_missed']
+                p1_darts_thrown_double += match_json[set_][leg]['1']['double_missed']
+                p2_darts_thrown_double += match_json[set_][leg]['2']['double_missed']
 
-            p1_darts_thrown_this_leg = len(match_json[set][leg]['1']['scores']) * 3
-            p2_darts_thrown_this_leg = len(match_json[set][leg]['2']['scores']) * 3
+            p1_darts_thrown_this_leg = len(match_json[set_][leg]['1']['scores']) * 3
+            p2_darts_thrown_this_leg = len(match_json[set_][leg]['2']['scores']) * 3
 
-            if sum(match_json[set][leg]['1']['scores']) == game.type:
-                if 'to_finish' in match_json[set][leg]['1']:
-                    p1_darts_thrown_this_leg -= (3 - match_json[set][leg]['1']['to_finish'])
+            if sum(match_json[set_][leg]['1']['scores']) == game.type:
+                if 'to_finish' in match_json[set_][leg]['1']:
+                    p1_darts_thrown_this_leg -= (3 - match_json[set_][leg]['1']['to_finish'])
 
                 p1_darts_thrown_double += 1
                 p1_legs_won += 1
@@ -55,12 +71,12 @@ def collect_statistics(game, match_json):
                     if stats['p1_short_leg'] == 0 else stats['p1_short_leg']
                 stats['p1_short_leg'] = p1_darts_thrown_this_leg \
                     if p1_darts_thrown_this_leg < stats['p1_short_leg'] else stats['p1_short_leg']
-                stats['p1_high_finish'] = match_json[set][leg]['1']['scores'][-1] \
-                    if match_json[set][leg]['1']['scores'][-1] > stats['p1_high_finish'] else stats['p1_high_finish']
+                stats['p1_high_finish'] = match_json[set_][leg]['1']['scores'][-1] \
+                    if match_json[set_][leg]['1']['scores'][-1] > stats['p1_high_finish'] else stats['p1_high_finish']
 
-            if sum(match_json[set][leg]['2']['scores']) == game.type:
-                if 'to_finish' in match_json[set][leg]['2']:
-                    p2_darts_thrown_this_leg -= (3 - match_json[set][leg]['2']['to_finish'])
+            if sum(match_json[set_][leg]['2']['scores']) == game.type:
+                if 'to_finish' in match_json[set_][leg]['2']:
+                    p2_darts_thrown_this_leg -= (3 - match_json[set_][leg]['2']['to_finish'])
 
                 p2_darts_thrown_double += 1
                 p2_legs_won += 1
@@ -69,13 +85,13 @@ def collect_statistics(game, match_json):
                     if stats['p2_short_leg'] == 0 else stats['p2_short_leg']
                 stats['p2_short_leg'] = p2_darts_thrown_this_leg \
                     if p2_darts_thrown_this_leg < stats['p2_short_leg'] else stats['p2_short_leg']
-                stats['p2_high_finish'] = match_json[set][leg]['2']['scores'][-1] \
-                    if match_json[set][leg]['2']['scores'][-1] > stats['p2_high_finish'] else stats['p2_high_finish']
+                stats['p2_high_finish'] = match_json[set_][leg]['2']['scores'][-1] \
+                    if match_json[set_][leg]['2']['scores'][-1] > stats['p2_high_finish'] else stats['p2_high_finish']
 
             p1_darts_thrown += p1_darts_thrown_this_leg
             p2_darts_thrown += p2_darts_thrown_this_leg
 
-            for i, score in enumerate(match_json[set][leg]['1']['scores']):
+            for i, score in enumerate(match_json[set_][leg]['1']['scores']):
                 p1_scores.append(score)
                 if i <= 3:
                     p1_first9_scores.append(score)
@@ -96,7 +112,7 @@ def collect_statistics(game, match_json):
                 else:
                     stats['p1_0'] += 1
 
-            for i, score in enumerate(match_json[set][leg]['2']['scores']):
+            for i, score in enumerate(match_json[set_][leg]['2']['scores']):
                 p2_scores.append(score)
                 if i <= 3:
                     p2_first9_scores.append(score)

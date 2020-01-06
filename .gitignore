@@ -113,6 +113,7 @@ lidarts/static/avatars/
 \.flaskenv
 
 # Visual Studio Code Settings
+set_leg
 .vscode
 
 # Babel Input Files
