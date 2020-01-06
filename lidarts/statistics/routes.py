@@ -2,7 +2,6 @@
 routing functions for statistics
 """
 
-
 from datetime import timedelta, datetime
 
 import json
@@ -17,20 +16,14 @@ from lidarts.statistics.utils import calculate_overall_stats_from_game, create_s
 from lidarts.statistics.forms import StatisticsForm
 
 
-
 @bp.route('/x01', methods=['GET', 'POST'])
 @login_required
 def x01():
     form = StatisticsForm()
 
-    stats = {}
-    stats['today'] = create_stats_object()
-    stats['currentweek'] = create_stats_object()
-    stats['currentmonth'] = create_stats_object()
-    stats['currentyear'] = create_stats_object()
-    stats['overall'] = create_stats_object()
-    stats['custom'] = create_stats_object()
-    stats['averagepergame'] = []
+    stats = {'today': create_stats_object(), 'currentweek': create_stats_object(),
+             'currentmonth': create_stats_object(), 'currentyear': create_stats_object(),
+             'overall': create_stats_object(), 'custom': create_stats_object(), 'averagepergame': []}
 
     user = User.query.filter(User.id == current_user.id).first_or_404()
 
@@ -85,10 +78,9 @@ def x01():
 
         # check if game is valid for the current custom filter settings
         valid_game_for_custom_filter = False
-        if (use_custom_filter_last_games and number_of_games <= custom_filter_number_of_games):
+        if use_custom_filter_last_games and number_of_games <= custom_filter_number_of_games:
             valid_game_for_custom_filter = True
-        elif (use_custom_filter_date_range and game_begin_date >= custom_filter_date_from and
-              game_begin_date <= custom_filter_date_to):
+        elif use_custom_filter_date_range and custom_filter_date_from <= game_begin_date <= custom_filter_date_to:
             valid_game_for_custom_filter = True
 
         # custom filter
@@ -131,7 +123,7 @@ def x01():
                     current_player_leg_stats['scores'])
                 if 'to_finish' in current_player_leg_stats:
                     current_game_stats['darts_thrown'] -= (
-                        3 - current_player_leg_stats['to_finish'])
+                            3 - current_player_leg_stats['to_finish'])
 
                 # custom filter
                 if valid_game_for_custom_filter:
@@ -164,7 +156,7 @@ def x01():
 
         # sum up average per game stats
         game_average = round((current_game_stats['total_score'] / (current_game_stats['darts_thrown'])) * 3, 2) \
-                if current_game_stats['darts_thrown'] else 0
+            if current_game_stats['darts_thrown'] else 0
         stats['averagepergame'].append(game_average)
 
     # sum up all the stats

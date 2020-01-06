@@ -50,8 +50,10 @@ babelobject = Babel()
 moment = Moment()
 avatars = UploadSet('avatars', IMAGES)
 
+
 def format_datetime(value):
-    return  babel.dates.format_datetime(value, "dd.MM.y HH:mm")
+    return babel.dates.format_datetime(value, "dd.MM.y HH:mm")
+
 
 def create_app(test_config=None):
     # Create Flask app with a default config

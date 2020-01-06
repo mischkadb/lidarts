@@ -13,7 +13,7 @@ def sum_up_stats(stats):
         dictionary with stats, created by calculateOverallStatsFromLeg
     """
 
-    print("LEN STATS: " + str(len(stats['first9_scores'])))
+    # print("LEN STATS: " + str(len(stats['first9_scores'])))
 
     stats['doubles'] = round((stats['legs_won'] / stats['double_thrown']), 4) * 100 \
         if stats['double_thrown'] else 0
@@ -124,7 +124,7 @@ def calculate_overall_stats_from_leg(current_stats, match_player_legstats_json):
 
     Parameters
     ----------
-    currentStats : []
+    current_stats : []
         dictionary with the current stats, created by calculateOverallStatsFromLeg
 
     match_player_legstats_json : []
@@ -132,7 +132,6 @@ def calculate_overall_stats_from_leg(current_stats, match_player_legstats_json):
     """
 
     current_round = 0
-    darts_thrown_this_leg = 0
     current_stats['number_of_legs'] += 1
     darts_thrown_this_leg = len(match_player_legstats_json['scores']) * 3
 
@@ -175,15 +174,15 @@ def calculate_overall_stats_from_leg(current_stats, match_player_legstats_json):
 
         if score > current_stats['highest_finish']:
             current_stats['highest_finish'] = score
-        if (score > 2 and score <= 40):
+        if 2 < score <= 40:
             current_stats['finish_two_to_forty'] += 1
-        elif (score > 41 and score <= 80):
+        elif 41 < score <= 80:
             current_stats['finish_fortyone_to_eigthy'] += 1
-        elif (score > 81 and score <= 100):
+        elif 81 < score <= 100:
             current_stats['finish_eightyone_to_hundred'] += 1
-        elif (score > 101 and score <= 120):
+        elif 101 < score <= 120:
             current_stats['finish_hundredone_to_hundredtwenty'] += 1
-        elif (score > 121 and score <= 140):
+        elif 121 < score <= 140:
             current_stats['finish_hundredtwentyone_to_hundredforty'] += 1
         elif score > 141:
             current_stats['finish_hundredfortyone_to_hundredseventy'] += 1
