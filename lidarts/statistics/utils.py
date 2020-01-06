@@ -106,14 +106,24 @@ def create_stats_object():
             'finish_hundredfortyone_to_hundredseventy_percent': 0}
 
 
-def calculate_overall_stats_from_game(current_stats, game):
+def calculate_overall_stats_from_game(current_stats, game, player):
     current_stats['number_of_games'] += 1
-    if game.p1_legs > game.p2_legs:
-        current_stats['games_won'] += 1
-    elif game.p1_legs < game.p2_legs:
-        current_stats['games_lost'] += 1
-    else:
+
+    # draw?
+    if game.p1_legs == game.p2_legs:
         current_stats['games_draw'] += 1
+    # is player1 the current player?
+    elif player == '1':
+        if game.p1_legs > game.p2_legs:
+            current_stats['games_won'] += 1
+        elif game.p1_legs < game.p2_legs:
+            current_stats['games_lost'] += 1
+    # is player2 the current player?
+    elif player == '2':
+        if game.p2_legs > game.p1_legs:
+            current_stats['games_won'] += 1
+        elif game.p2_legs < game.p1_legs:
+            current_stats['games_lost'] += 1
 
     return current_stats
 
@@ -174,15 +184,15 @@ def calculate_overall_stats_from_leg(current_stats, match_player_legstats_json):
 
         if score > current_stats['highest_finish']:
             current_stats['highest_finish'] = score
-        if 2 < score <= 40:
+        if 2 <= score <= 40:
             current_stats['finish_two_to_forty'] += 1
-        elif 41 < score <= 80:
+        elif 41 <= score <= 80:
             current_stats['finish_fortyone_to_eigthy'] += 1
-        elif 81 < score <= 100:
+        elif 81 <= score <= 100:
             current_stats['finish_eightyone_to_hundred'] += 1
-        elif 101 < score <= 120:
+        elif 101 <= score <= 120:
             current_stats['finish_hundredone_to_hundredtwenty'] += 1
-        elif 121 < score <= 140:
+        elif 121 <= score <= 140:
             current_stats['finish_hundredtwentyone_to_hundredforty'] += 1
         elif score > 141:
             current_stats['finish_hundredfortyone_to_hundredseventy'] += 1
