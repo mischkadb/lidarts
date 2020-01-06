@@ -67,16 +67,18 @@ def create(mode='x01', opponent_name=None):
     return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
                            title=lazy_gettext('Create Game'))
 
-@bp.route('/<hashid>/statistics/<set>/<leg>')
-def statistics_set_leg(hashid, set, leg):
+
+@bp.route('/<hashid>/statistics/<set_>/<leg>')
+def statistics_set_leg(hashid, set_, leg):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
 
-    playerNames = get_player_names(game)
+    player_names = get_player_names(game)
 
     match_json = json.loads(game.match_json)
-    leg_data_json = match_json[set][leg]
+    leg_data_json = match_json[set_][leg]
 
-    return render_template('game/x01_statistics.html', playerNames=playerNames, leg_data_json = leg_data_json)
+    return render_template('game/X01_statistics.html', playerNames=player_names, leg_data_json=leg_data_json)
+
 
 @bp.route('/')
 @bp.route('/<hashid>')
@@ -97,10 +99,10 @@ def start(hashid, theme=None):
 
     game_dict = game.as_dict()
     
-    playerNames = get_player_names(game)
+    player_names = get_player_names(game)
 
-    game_dict['player1_name'] = playerNames[0]
-    game_dict['player2_name'] = playerNames[1]
+    game_dict['player1_name'] = player_names[0]
+    game_dict['player2_name'] = player_names[1]
 
     match_json = json.loads(game.match_json)
 
@@ -156,9 +158,9 @@ def validate_score():
 
 @bp.route('/decline_challenge/')
 @bp.route('/decline_challenge/<id>', methods=['POST'])
-def decline_challenge(id):
-    id = int(id)
-    game = Game.query.filter_by(id=id).first_or_404()
+def decline_challenge(id_):
+    id_ = int(id_)
+    game = Game.query.filter_by(id=id_).first_or_404()
     game.status = "declined"
     game.end = datetime.utcnow()
     db.session.commit()

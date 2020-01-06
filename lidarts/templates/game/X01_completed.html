@@ -186,10 +186,10 @@
                         <table class="table d-flex border-0 table-responsive">
                             <tr>
                                 <td class="border-0"></td>
-                                {% for set in range(1, match_json|length + 1) %}
-                                {% for leg in range(1, match_json[set|string]|length + 1) %}
+                                {% for set_ in range(1, match_json|length + 1) %}
+                                {% for leg in range(1, match_json[set_|string]|length + 1) %}
                                 <td class="border">
-                                    <a href="{{ url_for('game.statistics_set_leg', hashid=game.hashid, set=set, leg=leg) }}">S{{ set }}|L{{ leg }}</a>
+                                    <a href="{{ url_for('game.statistics_set_leg', hashid=game.hashid, set_=set_, leg=leg) }}">S{{ set_ }}|L{{ leg }}</a>
                                 </td>
                                 {% endfor %}
                                 {% endfor %}

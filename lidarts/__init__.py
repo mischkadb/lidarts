@@ -51,6 +51,7 @@ moment = Moment()
 
 avatars = UploadSet('avatars', IMAGES)
 
+
 def create_app(test_config=None):
     # Create Flask app with a default config
     app = Flask(__name__, instance_relative_config=True)
