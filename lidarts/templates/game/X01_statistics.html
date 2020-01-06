@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+{% set playerWon = 1 %}
+{% if 'to_finish' in leg_data_json['2'] %}
+{%     set playerWon = 2 %}
+{% endif %}
+
+<div class="row justify-content-center mb-2">
+    <div class="col-xl-8 col-lg-10 col-sm-12">
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="row justify-content-center align-items-center mb-2">
+                    <div class="col-sm-5 text-center text-light">
+                        <div class="card bg-dark">
+                            <div class="card-body player_name_card"><h1>{{ playerNames[0] }}</h1></div>
+                            <div class="card-footer
+                            {% if playerWon == 1 %}bg-success border-success
+                            {% else %}bg-danger border-danger{% endif %}"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 text-center"><h1>vs.</h1></div>
+
+                    <div class="col-sm-5 text-center text-light">
+                        <div class="card bg-dark">
+                            <div class="card-body player_name_card"><h1>{{ playerNames[1] }}</h1></div>
+                            <div class="card-footer
+                            {% if playerWon == 2 %}bg-success border-success
+                            {% else %}bg-danger border-danger{% endif %}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mb-2">
+    <div class="col-xl-8 col-lg-10 col-sm-12">
+        <div class="card bg-light">
+            <div class="card-body">
+                {%  set countScoresPlayerOne = leg_data_json['1']['scores']|length %}
+                {%  set countScoresPlayerTwo = leg_data_json['2']['scores']|length %}
+                {%  set countScores = countScoresPlayerOne %}
+                {%  if countScoresPlayerTwo > countScoresPlayerOne %}
+                {%      set countScores = countScoresPlayerTwo %}
+                {%  endif %}
+                {%  for entry in range(0, countScores) %}
+                <div class="row">
+
+                    <div class="col-sm-3 offset-sm-1 text-center"> 
+                        <h1>{{ leg_data_json['1']['scores'][entry] }}</h1>
+                    </div>
+                    <div class="col-sm-4 text-center" >
+                        <h1><b>{{ entry + 1 }}</b></h1>
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        <h1>{{ leg_data_json['2']['scores'][entry] }}</h1>
+                    </div>
+                </div>
+                <br/>
+                {% endfor %}
+                <!--
+                <div class="row justify-content-center align-items-center mb-2 text-center text-secondary">
+                    <div class="col-sm-3 offset-sm-1">
+                        <div class="card bg-light text-dark">
+                            <div class="card-body player_name_card">
+                                <p>aAvg.</p>
+                                <p>First 9 Avg.</p>
+                                <p>Doubles</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card bg-light">
+                        <div class="card-body player_name_card">
+                            <p>Avg.</p>
+                            <p>First 9 Avg.</p>
+                            <p>Doubles</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="card bg-light text-dark">
+                        <div class="card-body player_name_card">
+                            <p>test</p>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
