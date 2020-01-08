@@ -8,7 +8,7 @@ import json
 
 from flask_login import current_user, login_required
 from flask import render_template
-from sqlalchemy import asc
+from sqlalchemy import desc
 from lidarts.models import User, Game
 from lidarts.statistics import bp
 from lidarts.statistics.utils import calculate_overall_stats_from_leg, sum_up_stats
@@ -53,12 +53,12 @@ def x01():
     else:
         use_custom_filter_last_games = True
 
-    # select the the games
+    # select the the games (descending order - to be able to filter for last ... games)
     games = Game.query.filter(((Game.player1 == user.id) | (Game.player2 == user.id))
                               & (Game.status != 'challenged')
                               & (Game.status != 'declined')
                               & (Game.status != 'aborted')) \
-        .order_by(asc(Game.begin)).all()
+        .order_by(desc(Game.begin)).all()
 
     # get the dates for date related statistics
     today_date = datetime.today().date()
@@ -127,7 +127,7 @@ def x01():
                     current_player_leg_stats['scores'])
                 if 'to_finish' in current_player_leg_stats:
                     current_game_stats['darts_thrown'] -= (
-                            3 - current_player_leg_stats['to_finish'])
+                        3 - current_player_leg_stats['to_finish'])
 
                 # custom filter
                 if valid_game_for_custom_filter:
