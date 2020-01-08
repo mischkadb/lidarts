@@ -89,26 +89,26 @@ def x01():
 
         # custom filter
         if valid_game_for_custom_filter:
-            calculate_overall_stats_from_game(stats['custom'], game)
+            calculate_overall_stats_from_game(stats['custom'], game, player)
 
         # use for today statistics?
         if game_begin_date == today_date:
-            calculate_overall_stats_from_game(stats['today'], game)
+            calculate_overall_stats_from_game(stats['today'], game, player)
 
         # use current week statistics?
         if game_begin_date >= start_current_week:
-            calculate_overall_stats_from_game(stats['currentweek'], game)
+            calculate_overall_stats_from_game(stats['currentweek'], game, player)
 
         # use current month statistics?
         if game_begin_date >= start_current_month:
-            calculate_overall_stats_from_game(stats['currentmonth'], game)
+            calculate_overall_stats_from_game(stats['currentmonth'], game, player)
 
         # use current year statistics?
         if game_begin_date.year >= today_date.year:
-            calculate_overall_stats_from_game(stats['currentyear'], game)
+            calculate_overall_stats_from_game(stats['currentyear'], game, player)
 
         # overall stats
-        calculate_overall_stats_from_game(stats['overall'], game)
+        calculate_overall_stats_from_game(stats['overall'], game, player)
 
         match_json = json.loads(game.match_json)
 
