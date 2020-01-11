@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-xl sticky-top navbar-dark bg-dark">
+
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <div class="row mb-2 text-secondary">
+                <a href="{{ url_for('generic.index') }}" class="text-secondary"> {{ _('Leave game') }}</a>
+                | <div id="abort-game" class="div-link">{{ _('Abort game') }}</div>
+                | <div id="hide-keypad" class="div-link">{{ _('Toggle Keypad visibility') }}</div>
+                | <div id="change-keypad" class="div-link">{{ _('Change keypad position') }}</div>
+                | <div id="hide-statistics" class="div-link">{{ _('Toggle statistics') }}</div>
+                | <a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}" class="text-secondary">{{ _('Streamoverlay') }}</a>
+                | <div id="mute" class="div-link">{{ _('Mute sound') }}</div> <div id="unmute" style="display: none" class="div-link">{{ _('Unmute sound') }}</div>
+
+            </div>
+        </div>
+    </div>
+</nav>

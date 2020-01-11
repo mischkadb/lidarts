@@ -1,131 +1,12 @@
 {% extends "base.html" %}
-{% block css %}<link href="{{ url_for('static',filename='css/x01.css') }}" rel="stylesheet">{% endblock %}
+{% block css %}<link href="{{ url_for('static',filename='css/cricket.css') }}" rel="stylesheet">{% endblock %}
 
 {% block navbar %}
-<nav class="navbar navbar-expand-xl sticky-top navbar-dark bg-dark">
-
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            <div class="row mb-2 text-secondary">
-                <a href="{{ url_for('generic.index') }}" class="text-secondary"> {{ _('Leave game') }}</a>
-                | <div id="abort-game" class="div-link">{{ _('Abort game') }}</div>
-                | <div id="hide-keypad" class="div-link">{{ _('Toggle Keypad visibility') }}</div>
-                | <div id="change-keypad" class="div-link">{{ _('Change keypad position') }}</div>
-                | <div id="hide-statistics" class="div-link">{{ _('Toggle statistics') }}</div>
-                | <a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}" class="text-secondary">{{ _('Streamoverlay') }}</a>
-                | <div id="mute" class="div-link">{{ _('Mute sound') }}</div> <div id="unmute" style="display: none" class="div-link">{{ _('Unmute sound') }}</div>
-
-            </div>
-        </div>
-    </div>
-</nav>
+{% include "game/game_navbar.html" %}
 {% endblock %}
 
 {% block app_content %}
-
-<!-- PLAYERS AND SCORES-->
-<div class="row justify-content-center align-items-center text-light">
-    <!-- PLAYER 1 NAME AND SCORE -->
-    <div class="col-lg-5 col-md-6 d-none d-md-block">
-        <div class="card text-center bg-dark player_turn p1_turn_outer_card" id="p1_turn_outer_card">
-            <div class="card-body">
-                <div class="card bg-secondary text-center mb-1 p1_turn_name_card" id="p1_turn_name_card">
-                    <div class="card-body">
-                        <h3>{{ game.player1_name }}</h3>
-                    </div>
-                </div>
-
-                <div class="card bg-danger text-center p1_turn_score_card" id="p1_turn_score_card">
-                    <div class="card-body">
-                        <h1 id="p1_score" class="card-text p1_score" style="font-weight: bold">-</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- TOP LEG AND SET COUNTER -->
-    <div class="col-lg-2 text-center bg-dark d-none d-lg-block" style="padding-left: 0px; padding-right: 0px;">
-        <div class="row text-danger">
-            <div class="col-6"><h3 id="p1_ingame"><i class="fas fa-plug"></i></h3></div>
-            <div class="col-6"><h3 id="p2_ingame"><i class="fas fa-plug"></i></h3></div>
-        </div>
-
-        <div class="row mb-3">
-            {% if game.bo_sets == 1 %}
-            <div class="col">Best of {{ game.bo_legs }} Legs</div>
-            {% else %}
-            <div class="col">Best of {{ game.bo_sets }} Sets</div>
-            {% endif %}
-        </div>
-        <div class="card bg-info">
-            <div class="card-body" style="padding-top: 10px; padding-bottom: 10px;">
-                <div class="row align-items-center mb-3">
-                    <div class="col-sm-3"><h4 class="card-text p1_sets" style="font-weight:bold"></h4></div>
-                    <div class="col-sm-6">Sets</div>
-                    <div class="col-sm-3"><h4 class="card-text p2_sets" style="font-weight:bold"></h4></div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col-sm-3"><h4 class="card-text p1_legs" style="font-weight:bold"></h4></div>
-                    <div class="col-sm-6">Legs</div>
-                    <div class="col-sm-3"><h4 class="card-text p2_legs" style="font-weight:bold"></h4></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- PLAYER 2 NAME AND SCORE -->
-    <div class="col-lg-5 col-md-6 d-none d-md-block">
-        <div class="card text-center bg-dark player_turn p2_turn_outer_card" id="p2_turn_outer_card">
-            <div class="card-body">
-                <div class="card bg-secondary text-center text-light mb-1 p2_turn_name_card" id="p2_turn_name_card">
-                    <div class="card-body">
-                        <h3>{{ game.player2_name }}</h3>
-                    </div>
-                </div>
-                <div class="card bg-danger text-center p2_turn_score_card" id="p2_turn_score_card">
-                    <div class="card-body">
-                        <h1 id="p2_score" class="card-text p2_score" style="font-weight: bold">-</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PLAYER 1 NAME AND SCORE SMALL -->
-    <div class="col-6 d-md-none">
-        <div class="card text-center bg-dark mb-1 p1_turn_name_card" id="p1_turn_name_card_small">
-            <div class="card-body name_card_body_small">
-                <h3>{{ game.player1_name }}</h3>
-            </div>
-        </div>
-
-        <div class="card text-center p1_turn_score_card" id="p1_turn_score_card_small">
-            <div class="card-body score_card_body_small">
-                <h2 id="p1_score_small" class="card-text p1_score" style="font-weight: bold"></h2>
-            </div>
-        </div>
-    </div>
-
-    <!-- PLAYER 2 NAME AND SCORE SMALL -->
-    <div class="col-6 d-md-none">
-        <div class="card text-center bg-dark mb-1 p2_turn_name_card" id="p2_turn_name_card_small">
-            <div class="card-body name_card_body_small">
-                <h3>{{ game.player2_name }}</h3>
-            </div>
-        </div>
-
-        <div class="card text-center p2_turn_score_card" id="p2_turn_score_card_small">
-            <div class="card-body score_card_body_small">
-                <h2 id="p2_score_small" class="card-text p2_score" style="font-weight: bold"></h2>
-            </div>
-        </div>
-    </div>
-</div>
+{% include "game/scoreboard_top.html" %}
 
 {% if game.closest_to_bull %}
 <div class="row text-light  text-center mt-2" id="closest_to_bull_notification_div">
@@ -136,30 +17,8 @@
 </div>
 {% endif %}
 
-<div class="row justify-content-center align-items-start text-center mt-2">
-    <!-- LEG AND SET COUNT SMALL -->
-    <div class="col-md-4 offset-md-1 col-6 d-lg-none">
-        <div class="card bg-info text-light">
-            <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
-                <div class="row">
-                    <div class="col-6">Sets: <strong class="p1_sets">{{ game.p1_sets }}</strong></div>
-                    <div class="col-6">Legs: <strong class="p1_legs">{{ game.p1_legs }}</strong></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 offset-md-2 col-6 d-lg-none">
-        <div class="card bg-info text-light">
-            <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
-                <div class="row">
-                    <div class="col-6">Sets: <strong class="p2_sets">{{ game.p2_sets }}</strong></div>
-                    <div class="col-6">Legs: <strong class="p2_legs">{{ game.p2_legs }}</strong></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-1"></div>
-</div>
+{% include "game/leg_set_count_small.html" %}
+
 
 <div class="row justify-content-center align-items-start">
     <!-- SCOREBOARD PLAYER 1 -->
@@ -445,36 +304,7 @@
     </div>
 </div>
 
-
-<!-- GAME SHOT OVERLAY -->
-<div class="modal fade game-shot-modal" id="game-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-            <h2 class="text-center">Game Shot</h2>
-        </div>
-    </div>
-</div>
-
-<!-- MATCH SHOT OVERLAY -->
-<div class="modal fade match-shot-modal" id="match-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-            <h2 class="text-center">Game Shot and the match</h2>
-        </div>
-    </div>
-</div>
-
-
-<!-- ABORT GAME MODAL -->
-<div class="modal fade abort-game-modal" id="abort-game-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-            <h3 class="text-center">{{ _('Abort game?') }}</h3>
-            <button type="button" class="btn btn-success" data-dismiss="modal" id="abort-confirm">{{ _('Confirm') }}</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" id="abort-cancel">{{ _('Cancel') }}</button>
-        </div>
-    </div>
-</div>
+{% include "game/modals.html" %}
 
 {% endblock %}
 
