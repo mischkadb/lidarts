@@ -194,7 +194,7 @@ msgstr "Chat"
 
 #: lidarts/generic/routes.py:195
 msgid "Private Messages"
-msgstr ""
+msgstr "Private Nachrichten"
 
 #: lidarts/profile/forms.py:10
 msgid "Caller"
@@ -455,7 +455,7 @@ msgstr "Herausforderung wurde abgelehnt oder zurückgezogen."
 
 #: lidarts/templates/game/X01_completed.html:104
 msgid "Match start"
-msgstr ""
+msgstr "Spielbegin"
 
 #: lidarts/templates/game/X01_completed.html:105
 msgid "Match duration"
