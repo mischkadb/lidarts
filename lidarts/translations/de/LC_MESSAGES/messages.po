@@ -20,109 +20,111 @@ msgstr ""
 
 #: lidarts/auth/forms.py:20
 msgid "Password must have at least 8 characters"
-msgstr ""
+msgstr "Passwort muss aus mindestens 8 Zeichen bestehen"
 
 #: lidarts/auth/forms.py:22
 msgid "Username is required"
-msgstr ""
+msgstr "Benutzername wird benötigt"
 
 #: lidarts/auth/forms.py:42
 msgid ""
 "Password must have at least 15 characters OR contain at least two out of "
 "these: lowercase letter, uppercase letter, number, symbol."
 msgstr ""
+"Passwort muss mindestens 15 Zeichen enthalten ODER mindestens zwei der "
+"folgenden Elemente enthalten: Kleinbuchstabe, Großbuchstabe, Zahl, Symbol."
 
 #: lidarts/auth/forms.py:49
 msgid "Username is already taken"
-msgstr ""
+msgstr "Benutzername ist bereits vergeben"
 
 #: lidarts/auth/forms.py:55
 msgid "Username must start with a letter, number or \"([\""
-msgstr ""
+msgstr "Benutzername muss mit einem Buchstaben, einer Zahl oder \"([\" beginnen"
 
 #: lidarts/auth/forms.py:57
 msgid "Username must end with a letter or a number or \")]\""
-msgstr ""
+msgstr "Benutzername muss mit einem Buchstaben, einer Zahl oder \")]\" enden"
 
 #: lidarts/auth/forms.py:61
 msgid "Username contains invalid symbols."
-msgstr ""
+msgstr "Benutzername enthält ungültige Symbole."
 
 #: lidarts/auth/forms.py:63
 msgid "Two special characters in a row are not allowed."
-msgstr ""
+msgstr "Zwei Sonderzeichen hintereinander sind nicht gestattet."
 
 #: lidarts/auth/forms.py:69
 msgid "Username"
-msgstr ""
+msgstr "Benutzername"
 
 #: lidarts/auth/forms.py:79 lidarts/auth/forms.py:88 lidarts/auth/forms.py:92
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: lidarts/auth/forms.py:84
 msgid "Username or Email Address"
-msgstr ""
+msgstr "Benutzername oder E-Mail-Adresse"
 
 #: lidarts/auth/routes.py:17
 msgid "Username changed."
-msgstr ""
+msgstr "Benutzername geändert."
 
 #: lidarts/auth/routes.py:21
 msgid "Change username"
-msgstr ""
+msgstr "Benutzername ändern"
 
 #: lidarts/game/forms.py:7
 msgid "Local"
-msgstr ""
+msgstr "Lokal"
 
 #: lidarts/game/forms.py:9
 msgid "Me"
-msgstr ""
+msgstr "Ich"
 
 #: lidarts/game/forms.py:9 lidarts/game/forms.py:31
 msgid "Opponent"
-msgstr ""
+msgstr "Gegner"
 
 #: lidarts/game/forms.py:10
 msgid "Closest to Bull"
-msgstr ""
+msgstr "Ausbullen"
 
 #: lidarts/game/forms.py:19
 msgid "Invalid number."
-msgstr ""
+msgstr "Ungültige Zahl."
 
 #: lidarts/game/forms.py:23
 msgid "Score"
-msgstr ""
+msgstr "Punktzahl"
 
 #: lidarts/game/forms.py:26
 msgid "Submit score"
-msgstr ""
+msgstr "Abschicken"
 
 #: lidarts/game/forms.py:30
 msgid "Game type"
-msgstr ""
+msgstr "Spieltyp"
 
 #: lidarts/game/forms.py:32
 msgid "Opponent name"
-msgstr ""
+msgstr "Name des Gegners"
 
 #: lidarts/game/forms.py:33
 msgid "Level"
-msgstr ""
+msgstr "Level"
 
 #: lidarts/game/forms.py:34
 msgid "First to throw"
-msgstr ""
+msgstr "Erster Wurf"
 
 #: lidarts/game/forms.py:35
 msgid "Best of Sets"
-msgstr ""
+msgstr "Best of Sets"
 
 #: lidarts/game/forms.py:36
 msgid "Best of Legs"
-msgstr ""
+msgstr "Best of Legs"
 
 #: lidarts/game/forms.py:37
 msgid "Two Clear Legs"
@@ -130,19 +132,19 @@ msgstr ""
 
 #: lidarts/game/forms.py:38
 msgid "Mode In"
-msgstr ""
+msgstr "Modus In"
 
 #: lidarts/game/forms.py:39
 msgid "Mode Out"
-msgstr ""
+msgstr "Modus Out"
 
 #: lidarts/game/forms.py:40
 msgid "Start game"
-msgstr ""
+msgstr "Spiel beginnen"
 
 #: lidarts/game/forms.py:45 lidarts/generic/forms.py:9
 msgid "Submit message"
-msgstr ""
+msgstr "Nachricht senden"
 
 #: lidarts/game/routes.py:32
 msgid "New challenge"
@@ -154,31 +156,31 @@ msgstr "Spiel erstellen"
 
 #: lidarts/game/routes.py:93 lidarts/generic/routes.py:66
 msgid "Local Guest"
-msgstr ""
+msgstr "Lokaler Gast"
 
 #: lidarts/game/routes.py:106
 msgid "Waiting..."
-msgstr ""
+msgstr "Warte..."
 
 #: lidarts/game/routes.py:111
 msgid "Match overview"
-msgstr ""
+msgstr "Spielübersicht"
 
 #: lidarts/game/routes.py:135
 msgid "Stream overlay"
-msgstr ""
+msgstr "Streamoverlay"
 
 #: lidarts/game/routes.py:139
 msgid "Live Match"
-msgstr ""
+msgstr "Livespiel"
 
 #: lidarts/game/utils.py:9
 msgid "Guest"
-msgstr ""
+msgstr "Gast"
 
 #: lidarts/generic/routes.py:81
 msgid "Live Games"
-msgstr ""
+msgstr "Live Spiele"
 
 #: lidarts/generic/routes.py:127 lidarts/templates/base.html:49
 msgid "Lobby"
@@ -196,19 +198,19 @@ msgstr ""
 
 #: lidarts/profile/forms.py:10
 msgid "Caller"
-msgstr ""
+msgstr "Caller"
 
 #: lidarts/profile/forms.py:11 lidarts/profile/forms.py:16
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: lidarts/profile/forms.py:15
 msgid "Trainer delay"
-msgstr ""
+msgstr "Trainerverzögerung"
 
 #: lidarts/profile/routes.py:40
 msgid "Match History"
-msgstr ""
+msgstr "Spielverlauf"
 
 #: lidarts/profile/routes.py:102 lidarts/templates/base.html:93
 msgid "Profile"
@@ -216,27 +218,27 @@ msgstr "Profil"
 
 #: lidarts/profile/routes.py:144
 msgid "Manage Friend List"
-msgstr ""
+msgstr "Freundesliste verwalten"
 
 #: lidarts/profile/routes.py:152
 msgid "Avatar deleted."
-msgstr ""
+msgstr "Avatar gelöscht"
 
 #: lidarts/profile/routes.py:166
 msgid "Avatar saved."
-msgstr ""
+msgstr "Avatar gespeichert"
 
 #: lidarts/profile/routes.py:171
 msgid "Avatar Settings"
-msgstr ""
+msgstr "Avatar einstellen"
 
 #: lidarts/profile/routes.py:182
 msgid "Caller Settings"
-msgstr ""
+msgstr "Caller einstellen"
 
 #: lidarts/profile/routes.py:193
 msgid "Trainer Delay"
-msgstr ""
+msgstr "Trainerverzögerung einstellen"
 
 #: lidarts/statistics/forms.py:8
 msgid "Last ... games"
@@ -1020,7 +1022,7 @@ msgstr "Gesamt Average pro Spiel"
 
 #: lidarts/templates/statistics/x01_detail_element.html:5
 msgid "General"
-msgstr ""
+msgstr "Allgemein"
 
 #: lidarts/templates/statistics/x01_detail_element.html:7
 msgid "Number of games"
