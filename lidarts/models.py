@@ -1,7 +1,7 @@
 from flask_security import UserMixin, RoleMixin
 from lidarts import db
-from hashids import Hashids
 from datetime import datetime
+import secrets
 from sqlalchemy.ext.associationproxy import association_proxy
 
 
@@ -108,8 +108,7 @@ class Game(db.Model):
     opponent_type = db.Column(db.String(10))
 
     def set_hashid(self):
-        hashids = Hashids(min_length=8)
-        self.hashid = hashids.encode(self.id)
+        self.hashid = secrets.token_urlsafe(8)[:8]
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}

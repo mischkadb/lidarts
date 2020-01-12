@@ -15,14 +15,13 @@ Flask-Mail==0.9.1
 Flask-Migrate==2.1.1
 Flask-Moment==0.6.0
 Flask-Principal==0.4.0
-Flask-Security==3.0.0   
+Flask-Security==3.0.0
 Flask-SocketIO==3.0.0
 Flask-SQLAlchemy==2.3.2
 Flask-Uploads==0.2.1
 Flask-WTF==0.14.2
 greenlet==0.4.13
 gunicorn==19.8.1
-hashids==1.2.0
 html5lib==1.0.1
 itsdangerous==1.1.0
 Jinja2==2.10
