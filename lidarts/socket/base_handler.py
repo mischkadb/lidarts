@@ -1,15 +1,15 @@
-from flask import request
+# from flask import request
 from lidarts import socketio, db
 from flask_login import current_user
 from flask_socketio import emit, join_room
-from lidarts.socket.utils import broadcast_online_players, send_notification
+from lidarts.socket.utils import send_notification
 from lidarts.models import Notification
 from datetime import datetime
 
 
 @socketio.on('connect', namespace='/base')
 def connect():
-    print('Client connected', request.sid)
+    # print('Client connected', request.sid)
     if current_user.is_authenticated:
         join_room(current_user.username)
         current_user.active_sessions += 1
@@ -37,7 +37,7 @@ def get_status():
 
 @socketio.on('disconnect', namespace='/base')
 def disconnect():
-    print('Client disconnected', request.sid)
+    # print('Client disconnected', request.sid)
     if current_user.is_authenticated:
         current_user.active_sessions -= 1
         db.session.commit()
