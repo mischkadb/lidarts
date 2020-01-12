@@ -159,5 +159,3 @@ class BoardCoordinates(db.Model):
     y2 = db.Column(db.Integer)
     x3 = db.Column(db.Integer)
     y3 = db.Column(db.Integer)
-
-

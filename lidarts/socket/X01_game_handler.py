@@ -141,7 +141,8 @@ def send_score_response(game, old_score=0, broadcast=False):
 
 @socketio.on('connect', namespace='/game')
 def connect():
-    print('Client connected', request.sid)
+    # print('Client connected', request.sid)
+    pass
 
 
 @socketio.on('player_heartbeat', namespace='/game')
@@ -288,7 +289,7 @@ def send_score(message):
                                 'type': game.type, 'p1_sets': game.p1_sets,
                                 'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
              room=game.hashid, broadcast=True, namespace='/game')
-        #leave_room(game.hashid)  # does this cause a bug?
+        # leave_room(game.hashid)  # does this cause a bug?
 
     elif old_set_count < len(match_json) or old_leg_count < len(match_json[str(len(match_json))]):
         if len(match_json[str(len(match_json))]) == 1:  # new set
@@ -358,4 +359,6 @@ def undo_get_remaining_score(message):
 
 @socketio.on('disconnect', namespace='/game')
 def disconnect():
-    print('Client disconnected', request.sid)
+    # print('Client disconnected', request.sid)
+    pass
+

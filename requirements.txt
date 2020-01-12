@@ -7,8 +7,9 @@ blinker==1.4
 cffi==1.11.5
 Click==7.0
 coverage==4.5.1
-eventlet==0.23.0
-Flask==1.0.2
+dnspython==1.16.0
+eventlet==0.25.1
+Flask==1.1.1
 Flask-BabelEx==0.9.3
 Flask-Login==0.4.1
 Flask-Mail==0.9.1
@@ -16,7 +17,7 @@ Flask-Migrate==2.1.1
 Flask-Moment==0.6.0
 Flask-Principal==0.4.0
 Flask-Security==3.0.0
-Flask-SocketIO==3.0.0
+Flask-SocketIO==4.2.1
 Flask-SQLAlchemy==2.3.2
 Flask-Uploads==0.2.1
 Flask-WTF==0.14.2
@@ -27,6 +28,7 @@ itsdangerous==1.1.0
 Jinja2==2.10.1
 Mako==1.0.7
 MarkupSafe==1.1.1
+monotonic==1.5
 more-itertools==4.1.0
 numpy==1.14.3
 passlib==1.7.1
@@ -39,8 +41,8 @@ pytest==3.5.1
 python-dateutil==2.7.3
 python-dotenv==0.8.2
 python-editor==1.0.3
-python-engineio==3.9.0
-python-socketio==3.1.2
+python-engineio==3.11.2
+python-socketio==4.4.0
 pytz==2018.4
 redis==2.10.6
 six==1.12.0
