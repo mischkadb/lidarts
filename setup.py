@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='lidarts',
-    version='0.5.0-7',
+    version='0.6.0-1',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -24,7 +24,6 @@ setup(
         'Flask-Uploads',
         'Flask-WTF',
         'gunicorn',
-        'hashids',
         'numpy',
         'psycopg2-binary',
         'pytest',
