@@ -36,7 +36,6 @@ $(document).ready(function() {
     $('.decline-challenge').click( function (event) {
         var decline_challenge_url = $('#decline_challenge_url').data()['url'];
         var id = event.target.id.replace('decline-challenge-', '');
-        console.log(id);
 
         $.post(decline_challenge_url + id,
             function() {

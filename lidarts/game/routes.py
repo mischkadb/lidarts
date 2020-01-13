@@ -157,7 +157,7 @@ def validate_score():
 
 
 @bp.route('/decline_challenge/')
-@bp.route('/decline_challenge/<id>', methods=['POST'])
+@bp.route('/decline_challenge/<id_>', methods=['POST'])
 def decline_challenge(id_):
     id_ = int(id_)
     game = Game.query.filter_by(id=id_).first_or_404()
