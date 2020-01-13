@@ -10,7 +10,7 @@ import bleach
 
 @socketio.on('connect', namespace='/chat')
 def connect():
-    print('Client connected', request.sid)
+    # print('Client connected', request.sid)
     broadcast_online_players()
 
 
@@ -31,7 +31,7 @@ def broadcast_chat_message(message):
 
 @socketio.on('connect', namespace='/private_messages')
 def connect():
-    print('Client connected', request.sid)
+    # print('Client connected', request.sid)
     if current_user.is_authenticated:
         join_room(current_user.username)
 
@@ -89,4 +89,6 @@ def send_private_message(message):
 
 @socketio.on('disconnect', namespace='/chat')
 def disconnect():
-    print('Client disconnected', request.sid)
+    # print('Client disconnected', request.sid)
+    pass
+
