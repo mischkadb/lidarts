@@ -53,6 +53,18 @@ moment = Moment()
 avatars = UploadSet('avatars', IMAGES)
 
 
+# Fixes bug: url_for generates http endpoints instead of https which causes mixed-content-errors
+class ReverseProxied(object):
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        scheme = environ.get('HTTP_X_FORWARDED_PROTO')
+        if scheme:
+            environ['wsgi.url_scheme'] = scheme
+        return self.app(environ, start_response)
+
+
 def format_datetime(value):
     return babel.dates.format_datetime(value, "dd.MM.y HH:mm")
 
@@ -96,6 +108,8 @@ def create_app(test_config=None):
     patch_request_class(app, 2 * 1024 * 1024)
 
     app.json_encoder = JSONEncoder
+    # Fixes bug: url_for generates http endpoints instead of https which causes mixed-content-errors
+    app.wsgi_app = ReverseProxied(app.wsgi_app)
 
     # filter for jinja
     app.jinja_env.filters['datetime'] = format_datetime
