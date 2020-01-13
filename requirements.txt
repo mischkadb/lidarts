@@ -7,8 +7,8 @@ blinker==1.4
 cffi==1.11.5
 Click==7.0
 coverage==4.5.1
+cryptography==2.8
 dnspython==1.16.0
-eventlet==0.25.1
 Flask==1.1.1
 Flask-BabelEx==0.9.3
 Flask-Login==0.4.1
@@ -21,8 +21,10 @@ Flask-SocketIO==4.2.1
 Flask-SQLAlchemy==2.3.2
 Flask-Uploads==0.2.1
 Flask-WTF==0.14.2
-greenlet==0.4.13
-gunicorn==19.8.1
+gevent==1.4.0
+gevent-websocket==0.10.1
+greenlet==0.4.15
+gunicorn==20.0.4
 html5lib==1.0.1
 itsdangerous==1.1.0
 Jinja2==2.10.1

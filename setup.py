@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='lidarts',
-    version='0.6.0-1',
+    version='0.6.0-2',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -12,7 +12,6 @@ setup(
         'bcrypt',
         'bleach',
         'coverage',
-        'eventlet',
         'Flask-BabelEx',
         'Flask-Login',
         'Flask-Mail',
@@ -23,6 +22,7 @@ setup(
         'Flask-SQLAlchemy',
         'Flask-Uploads',
         'Flask-WTF',
+        'gevent',
         'gunicorn',
         'numpy',
         'psycopg2-binary',
