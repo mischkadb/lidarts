@@ -99,9 +99,9 @@ def create_app(test_config=None):
                       register_form=ExtendedRegisterForm,
                       change_password_form=ExtendedChangePasswordForm,
                       reset_password_form=ExtendedResetPasswordForm)
+    origins = app.config['CORS_ALLOWED_ORIGINS'] if 'CORS_ALLOWED_ORIGINS' in app.config else '*'
     socketio.init_app(app, message_queue='redis://', async_mode='gevent',
-                      cors_allowed_origins=['https://lidarts.org', 'https://beta.lidarts.org',
-                                            'http://127.0.0.1:5000'])
+                      cors_allowed_origins=origins)
     babelobject.init_app(app)
     moment.init_app(app)
     configure_uploads(app, avatars)
