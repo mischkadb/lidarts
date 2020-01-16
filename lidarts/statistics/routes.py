@@ -55,9 +55,7 @@ def x01():
 
     # select the the games (descending order - to be able to filter for last ... games)
     games = Game.query.filter(((Game.player1 == user.id) | (Game.player2 == user.id))
-                              & (Game.status != 'challenged')
-                              & (Game.status != 'declined')
-                              & (Game.status != 'aborted')) \
+                              & (Game.status == 'completed')) \
         .order_by(desc(Game.begin)).all()
 
     # get the dates for date related statistics
@@ -161,7 +159,7 @@ def x01():
         # sum up average per game stats
         game_average = round((current_game_stats['total_score'] / (current_game_stats['darts_thrown'])) * 3, 2) \
             if current_game_stats['darts_thrown'] else 0
-        stats['averagepergame'].append(game_average)
+        stats['averagepergame'].insert(0, game_average)
 
     # sum up all the stats
     sum_up_stats(stats['custom'])
