@@ -159,7 +159,7 @@ def x01():
         # sum up average per game stats
         game_average = round((current_game_stats['total_score'] / (current_game_stats['darts_thrown'])) * 3, 2) \
             if current_game_stats['darts_thrown'] else 0
-        stats['averagepergame'].insert(0, game_average)
+        stats['averagepergame'].append(game_average)
 
     # sum up all the stats
     sum_up_stats(stats['custom'])
@@ -168,6 +168,9 @@ def x01():
     sum_up_stats(stats['currentmonth'])
     sum_up_stats(stats['currentyear'])
     sum_up_stats(stats['overall'])
+
+    # invert the list for averagepergame (we need the date from the oldest game to newest game)
+    stats['averagepergame'].reverse()
 
     active_nav_page = ''
     # if we are in post (from filter), we must append the prefix for the internal link
