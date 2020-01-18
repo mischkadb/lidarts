@@ -55,9 +55,7 @@ def x01():
 
     # select the the games (descending order - to be able to filter for last ... games)
     games = Game.query.filter(((Game.player1 == user.id) | (Game.player2 == user.id))
-                              & (Game.status != 'challenged')
-                              & (Game.status != 'declined')
-                              & (Game.status != 'aborted')) \
+                              & (Game.status == 'completed')) \
         .order_by(desc(Game.begin)).all()
 
     # get the dates for date related statistics
@@ -170,6 +168,9 @@ def x01():
     sum_up_stats(stats['currentmonth'])
     sum_up_stats(stats['currentyear'])
     sum_up_stats(stats['overall'])
+
+    # invert the list for averagepergame (we need the date from the oldest game to newest game)
+    stats['averagepergame'].reverse()
 
     active_nav_page = ''
     # if we are in post (from filter), we must append the prefix for the internal link
