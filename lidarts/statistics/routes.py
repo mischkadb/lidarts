@@ -28,28 +28,28 @@ def x01():
     user = User.query.filter(User.id == current_user.id).first_or_404()
 
     # if (form.is_submitted):
-    custom_filter_number_of_games = form.numberOfGames.default
-    custom_filter_date_from = form.dateFrom.default
-    custom_filter_date_to = form.dateTo.default
+    custom_filter_number_of_games = form.number_of_games.default
+    custom_filter_date_from = form.date_from.default
+    custom_filter_date_to = form.date_to.default
 
     # if no value is in the form data, we can insert the default values
-    if form.numberOfGames.data is None:
-        form.numberOfGames.data = custom_filter_number_of_games
-    if form.dateFrom.data is None:
-        form.dateFrom.data = custom_filter_date_from
-    if form.dateTo.data is None:
-        form.dateTo.data = custom_filter_date_to
+    if form.number_of_games.data is None:
+        form.number_of_games.data = custom_filter_number_of_games
+    if form.date_from.data is None:
+        form.date_from.data = custom_filter_date_from
+    if form.date_to.data is None:
+        form.date_to.data = custom_filter_date_to
 
     # check which custom filter is active
     use_custom_filter_last_games = False
     use_custom_filter_date_range = False
-    if form.selectGameRangeFilter.data == 'lastgames':
+    if form.select_game_range_filter.data == 'lastgames':
         use_custom_filter_last_games = True
-        custom_filter_number_of_games = form.numberOfGames.data
-    elif form.selectGameRangeFilter.data == 'daterange':
+        custom_filter_number_of_games = form.number_of_games.data
+    elif form.select_game_range_filter.data == 'daterange':
         use_custom_filter_date_range = True
-        custom_filter_date_from = form.dateFrom.data
-        custom_filter_date_to = form.dateTo.data
+        custom_filter_date_from = form.date_from.data
+        custom_filter_date_to = form.date_to.data
     else:
         use_custom_filter_last_games = True
 
