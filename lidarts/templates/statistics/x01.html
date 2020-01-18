@@ -63,41 +63,30 @@
 		<div class="card-body">
 			<div class="row">
 				<div class="form-group col-md-4">
-					<label class="control-label" for="Type">Game Type</label>
-					<select class="browser-default custom-select" name="Type">
-						<option value="170">170</option>
-						<option value="301">301</option>
-						<option value="501" selected>501</option>
-						<option value="1001">1001</option>
-					</select>
+					{{ form.game_types.label(class="control-label") }}
+					{{ form.game_types(class="custom-select") }}
 				</div>
 				<div class="form-group col-md-4">
-						{{ form.opponents.label(class="control-label") }}
-                        {{ form.opponents(class="custom-select", onchange="onChangeOpponent(this);") }}
+					{{ form.opponents.label(class="control-label") }}
+					{{ form.opponents(class="custom-select", onchange="onChangeOpponent(this);") }}
 				</div>
-				<div class="form-group col-md-4" id="computerLevel" style="display: none">
-						{{ form.computer_level.label(class="control-label") }}
-                        {{ form.computer_level(class="custom-select") }}
+				<div class="form-group col-md-4" id="computerLevel" style="display: {{ computer_level_displaystyle }}">
+					{{ form.computer_level.label(class="control-label") }}
+					{{ form.computer_level(class="custom-select") }}
 				</div>
-				<div class="form-group col-md-4" id="opponentName" style="display: none">
-						{{ form.opponent_name.label(class="control-label") }}
-                        {{ form.opponent_name(class="form-control") }}
+				<div class="form-group col-md-4" id="opponentName" style="display: {{ opponent_name_displaystyle }}">
+					{{ form.opponent_name.label(class="control-label") }}
+					{{ form.opponent_name(class="form-control") }}
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-md-4">
-					<label class="control-label" for="Opponent">Modus In</label>
-					<select class="browser-default custom-select" name="Opponent">
-						<option value="MODEIN_SI" selected>Straight In</option>
-						<option value="MODEIN_DO">Double Out</option>
-					</select>
+					{{ form.in_mode.label(class="control-label") }}
+					{{ form.in_mode(class="custom-select") }}
 				</div>
 				<div class="form-group col-md-4">
-					<label class="control-label" for="Opponent">Modus Out</label>
-					<select class="browser-default custom-select" name="Opponent">
-						<option value="MODEOUT_SI">Straight In</option>
-						<option value="MODEOUT_DO" selected>Double Out</option>
-					</select>
+					{{ form.out_mode.label(class="control-label") }}
+					{{ form.out_mode(class="custom-select") }}
 				</div>
 				<div class="form-group col-md-4 align-self-end">
 					{{ form.apply_filter(class="btn btn-primary btn-block") }}
