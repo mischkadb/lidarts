@@ -157,22 +157,22 @@ def calculate_overall_stats_from_leg(current_stats, match_player_legstats_json):
 
         current_stats['number_of_rounds'] += 1
 
-        if score < 20:
-            current_stats['less_than_twenty'] += 1
-        if score >= 20:
-            current_stats['twenty_and_more'] += 1
-        if score >= 40:
-            current_stats['forty_and_more'] += 1
-        if score >= 60:
-            current_stats['sixty_and_more'] += 1
-        if score >= 80:
-            current_stats['eigthy_and_more'] += 1
-        if score >= 100:
-            current_stats['hundred_and_more'] += 1
-        if score >= 140:
-            current_stats['hundredforty_and_more'] += 1
         if score == 180:
             current_stats['hundredeighty'] += 1
+        elif score >= 140:
+            current_stats['hundredforty_and_more'] += 1
+        elif score >= 100:
+            current_stats['hundred_and_more'] += 1
+        elif score >= 80:
+            current_stats['eigthy_and_more'] += 1
+        elif score >= 60:
+            current_stats['sixty_and_more'] += 1
+        elif score >= 40:
+            current_stats['forty_and_more'] += 1
+        elif score >= 20:
+            current_stats['twenty_and_more'] += 1
+        else:
+            current_stats['less_than_twenty'] += 1
         current_stats['total_score'] += score
 
     # check if player has finished the game
