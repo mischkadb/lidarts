@@ -37,7 +37,7 @@
 
                             <h5>{{ game.type }} {{ game.in_mode }}/{{ game.out_mode }}</h5>
                             <h6>                                
-                                {{ game.begin|datetime }}
+                                {{ moment(game.begin).format('DD.MM.YYYY HH:mm') }}
                             </h6>
                         </div>
                     </div>
