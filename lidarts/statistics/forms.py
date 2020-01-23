@@ -12,6 +12,7 @@ opponents = [('all', lazy_gettext('All')), ('local', lazy_gettext('Local')),
 computer_level = [('all', lazy_gettext('All')), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'),
                   ('6', '6'), ('7', '7'), ('8', '8'), ('9', '9')]
 
+
 class StatisticsForm(FlaskForm):
     select_game_range_filter = SelectField('', choices=[('lastgames', lazy_gettext('Last ... games')),
                                                         ('daterange', lazy_gettext('From ... to ...'))])

@@ -9,6 +9,7 @@ from sqlalchemy import desc
 from flask_login import current_user
 from lidarts.models import User, Game
 
+
 def sum_up_stats(stats):
     """
     produces aggregated statistics
@@ -192,7 +193,7 @@ def calculate_overall_stats_from_leg(current_stats, match_player_legstats_json):
         current_stats['legs_won'] += 1
 
         # check if we can update the shortest leg
-        if (current_stats['shortest_leg'] == 0 or current_stats['shortest_leg'] > darts_thrown_this_leg):
+        if current_stats['shortest_leg'] == 0 or current_stats['shortest_leg'] > darts_thrown_this_leg:
             current_stats['shortest_leg'] = darts_thrown_this_leg
 
         if score > current_stats['highest_finish']:
@@ -220,6 +221,7 @@ def calculate_overall_stats_from_leg(current_stats, match_player_legstats_json):
     current_stats['darts_thrown'] += darts_thrown_this_leg
 
     return current_stats
+
 
 def calculate_set_leg_statistics(match_json, player, current_game_stats, valid_game_for_custom_filter, stats,
                                  game_begin_date, today_date, start_current_week, start_current_month):
@@ -260,6 +262,7 @@ def calculate_set_leg_statistics(match_json, player, current_game_stats, valid_g
             # overall stats
             calculate_overall_stats_from_leg(stats['overall'], current_player_leg_stats)
 
+
 def create_statistics_query(user, form):
     """
     this function builds the database query
@@ -292,13 +295,14 @@ def create_statistics_query(user, form):
             opponent_user = User.query.filter(User.username == opponent_user_name).first()
 
             # check if username is valid (found in database) and if the user id is not our own user id
-            if (opponent_user is not None and opponent_user.id != current_user.id):
+            if opponent_user is not None and opponent_user.id != current_user.id:
                 opponent_id = opponent_user.id
 
             query = query.filter((Game.player1 == opponent_id) | (Game.player2 == opponent_id))
 
     # execute the query (descending order - to be able to filter for last ... games)
     return query.order_by(desc(Game.begin))
+
 
 def create_statistics(user, form, use_custom_filter_last_games, use_custom_filter_date_range):
     """
