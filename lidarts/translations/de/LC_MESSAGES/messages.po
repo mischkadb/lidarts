@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-01-05 19:06+0100\n"
+"POT-Creation-Date: 2020-01-18 17:47+0100\n"
 "PO-Revision-Date: 2019-01-10 17:22+0100\n"
 "Last-Translator: \n"
 "Language: de\n"
@@ -32,7 +32,8 @@ msgid ""
 "these: lowercase letter, uppercase letter, number, symbol."
 msgstr ""
 "Passwort muss mindestens 15 Zeichen enthalten ODER mindestens zwei der "
-"folgenden Elemente enthalten: Kleinbuchstabe, Großbuchstabe, Zahl, Symbol."
+"folgenden Elemente enthalten: Kleinbuchstabe, Großbuchstabe, Zahl, "
+"Symbol."
 
 #: lidarts/auth/forms.py:49
 msgid "Username is already taken"
@@ -74,7 +75,7 @@ msgstr "Benutzername geändert."
 msgid "Change username"
 msgstr "Benutzername ändern"
 
-#: lidarts/game/forms.py:7
+#: lidarts/game/forms.py:7 lidarts/statistics/forms.py:9
 msgid "Local"
 msgstr "Lokal"
 
@@ -83,6 +84,7 @@ msgid "Me"
 msgstr "Ich"
 
 #: lidarts/game/forms.py:9 lidarts/game/forms.py:31
+#: lidarts/statistics/forms.py:27
 msgid "Opponent"
 msgstr "Gegner"
 
@@ -102,15 +104,15 @@ msgstr "Punktzahl"
 msgid "Submit score"
 msgstr "Abschicken"
 
-#: lidarts/game/forms.py:30
+#: lidarts/game/forms.py:30 lidarts/statistics/forms.py:26
 msgid "Game type"
 msgstr "Spieltyp"
 
-#: lidarts/game/forms.py:32
+#: lidarts/game/forms.py:32 lidarts/statistics/forms.py:31
 msgid "Opponent name"
 msgstr "Name des Gegners"
 
-#: lidarts/game/forms.py:33
+#: lidarts/game/forms.py:33 lidarts/statistics/forms.py:29
 msgid "Level"
 msgstr "Level"
 
@@ -130,11 +132,11 @@ msgstr "Best of Legs"
 msgid "Two Clear Legs"
 msgstr ""
 
-#: lidarts/game/forms.py:38
+#: lidarts/game/forms.py:38 lidarts/statistics/forms.py:32
 msgid "Mode In"
 msgstr "Modus In"
 
-#: lidarts/game/forms.py:39
+#: lidarts/game/forms.py:39 lidarts/statistics/forms.py:33
 msgid "Mode Out"
 msgstr "Modus Out"
 
@@ -154,45 +156,45 @@ msgstr "Neue Herausforderung"
 msgid "Create Game"
 msgstr "Spiel erstellen"
 
-#: lidarts/game/routes.py:93 lidarts/generic/routes.py:66
-msgid "Local Guest"
-msgstr "Lokaler Gast"
-
-#: lidarts/game/routes.py:106
+#: lidarts/game/routes.py:113
 msgid "Waiting..."
 msgstr "Warte..."
 
-#: lidarts/game/routes.py:111
+#: lidarts/game/routes.py:118
 msgid "Match overview"
 msgstr "Spielübersicht"
 
-#: lidarts/game/routes.py:135
+#: lidarts/game/routes.py:142
 msgid "Stream overlay"
 msgstr "Streamoverlay"
 
-#: lidarts/game/routes.py:139
+#: lidarts/game/routes.py:146
 msgid "Live Match"
 msgstr "Livespiel"
 
-#: lidarts/game/utils.py:9
+#: lidarts/game/utils.py:11 lidarts/generic/routes.py:65
+msgid "Local Guest"
+msgstr "Lokaler Gast"
+
+#: lidarts/game/utils.py:25
 msgid "Guest"
 msgstr "Gast"
 
-#: lidarts/generic/routes.py:81
+#: lidarts/generic/routes.py:80
 msgid "Live Games"
 msgstr "Live Spiele"
 
-#: lidarts/generic/routes.py:127 lidarts/templates/base.html:49
+#: lidarts/generic/routes.py:126 lidarts/templates/base.html:49
 msgid "Lobby"
 msgstr "Lobby"
 
-#: lidarts/generic/routes.py:143 lidarts/templates/base.html:52
+#: lidarts/generic/routes.py:142 lidarts/templates/base.html:52
 #: lidarts/templates/game/X01.html:201
 #: lidarts/templates/game/X01_stream.html:126
 msgid "Chat"
 msgstr "Chat"
 
-#: lidarts/generic/routes.py:195
+#: lidarts/generic/routes.py:194
 msgid "Private Messages"
 msgstr "Private Nachrichten"
 
@@ -240,25 +242,33 @@ msgstr "Caller einstellen"
 msgid "Trainer Delay"
 msgstr "Trainerverzögerung einstellen"
 
-#: lidarts/statistics/forms.py:8
+#: lidarts/statistics/forms.py:9 lidarts/statistics/forms.py:12
+msgid "All"
+msgstr "Alle"
+
+#: lidarts/statistics/forms.py:16
 msgid "Last ... games"
 msgstr "Letzte ... Spiele"
 
-#: lidarts/statistics/forms.py:9
+#: lidarts/statistics/forms.py:17
 msgid "From ... to ..."
 msgstr "Von ... bis ..."
 
-#: lidarts/statistics/forms.py:12
+#: lidarts/statistics/forms.py:19
 msgid "From"
 msgstr "Von"
 
-#: lidarts/statistics/forms.py:14
+#: lidarts/statistics/forms.py:21
 msgid "to"
 msgstr "bis"
 
-#: lidarts/statistics/forms.py:16 lidarts/templates/statistics/x01.html:237
+#: lidarts/statistics/forms.py:23
 msgid "Filter"
 msgstr "Filter"
+
+#: lidarts/statistics/forms.py:24
+msgid "Apply"
+msgstr "Übernehmen"
 
 #: lidarts/templates/base.html:45
 msgid "Home"
@@ -653,7 +663,7 @@ msgstr ""
 "machen. Also erzähl es deinen Freunden und lade sie auf ein Spiel ein!"
 
 #: lidarts/templates/generic/contribute.html:25
-#: lidarts/templates/statistics/x01.html:44
+#: lidarts/templates/statistics/x01.html:124
 msgid "Graphics"
 msgstr "Grafiken"
 
@@ -982,41 +992,41 @@ msgstr "AGB"
 msgid "Already have an account?"
 msgstr "Account schon vorhanden?"
 
-#: lidarts/templates/statistics/x01.html:23
+#: lidarts/templates/statistics/x01.html:103
 msgid "Overview"
 msgstr "Übersicht"
 
-#: lidarts/templates/statistics/x01.html:26
-#: lidarts/templates/statistics/x01.html:79
+#: lidarts/templates/statistics/x01.html:106
+#: lidarts/templates/statistics/x01.html:159
 msgid "Overall"
 msgstr "Gesamt"
 
-#: lidarts/templates/statistics/x01.html:29
-#: lidarts/templates/statistics/x01.html:53
+#: lidarts/templates/statistics/x01.html:109
+#: lidarts/templates/statistics/x01.html:133
 msgid "Today"
 msgstr "Heute"
 
-#: lidarts/templates/statistics/x01.html:32
-#: lidarts/templates/statistics/x01.html:59
+#: lidarts/templates/statistics/x01.html:112
+#: lidarts/templates/statistics/x01.html:139
 msgid "Current Week"
 msgstr "Aktuelle Woche"
 
-#: lidarts/templates/statistics/x01.html:35
-#: lidarts/templates/statistics/x01.html:65
+#: lidarts/templates/statistics/x01.html:115
+#: lidarts/templates/statistics/x01.html:145
 msgid "Current Month"
 msgstr "Aktueller Monat"
 
-#: lidarts/templates/statistics/x01.html:38
-#: lidarts/templates/statistics/x01.html:73
+#: lidarts/templates/statistics/x01.html:118
+#: lidarts/templates/statistics/x01.html:153
 msgid "Current Year"
 msgstr "Aktuelles Jahr"
 
-#: lidarts/templates/statistics/x01.html:41
-#: lidarts/templates/statistics/x01.html:85
+#: lidarts/templates/statistics/x01.html:121
+#: lidarts/templates/statistics/x01.html:165
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: lidarts/templates/statistics/x01.html:163
+#: lidarts/templates/statistics/x01.html:240
 msgid "Overall average per game"
 msgstr "Gesamt Average pro Spiel"
 
