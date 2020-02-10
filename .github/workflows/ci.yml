@@ -1,0 +1,21 @@
+name: Styleguide
+
+on:
+  push:
+    branches:
+      - style-flake8
+  pull_request:
+    branches:
+      - style-flake8
+
+jobs:
+  styleguide:
+    name: Styleguide
+    runs-on: ubuntu-latest
+    steps:
+      - name: wemake-python-styleguide
+      uses: wemake-services/wemake-python-styleguide@0.13.4
+
+
+
+

@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='lidarts',
-    version='0.6.0-5',
+    version='0.6.0-8',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -24,10 +24,12 @@ setup(
         'Flask-WTF',
         'gevent',
         'gunicorn',
+        'mypy',
         'numpy',
         'psycopg2-binary',
         'pytest',
         'python-dotenv',
-        'redis'
+        'redis',
+        'wemake-python-styleguide'
     ],
 )
