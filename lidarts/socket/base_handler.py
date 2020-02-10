@@ -12,7 +12,7 @@ from flask_socketio import emit, join_room
 
 from lidarts import db, socketio
 from lidarts.models import Notification
-from lidarts.socket.utils import send_notification
+from lidarts.socket.chat.chat_utils import send_notification
 
 
 @socketio.on('connect', namespace='/base')

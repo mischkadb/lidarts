@@ -4,7 +4,8 @@ from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
 from lidarts.models import Game, User, Notification, ChatmessageIngame
 from lidarts import db
-from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
+from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game
+from lidarts.socket.chat.chat_utils import send_notification
 from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user, login_required
@@ -29,11 +30,7 @@ def create(mode='x01', opponent_name=None):
         elif player1 and form.opponent.data == 'online':
             if form.opponent_name.data:
                 player2 = User.query.with_entities(User.id).filter_by(username=form.opponent_name.data).first_or_404()
-                message = gettext('New challenge')
-                notification = Notification(user=player2, message=message, author=current_user.username,
-                                            type='challenge')
-                db.session.add(notification)
-                send_notification(form.opponent_name.data, message, current_user.username, 'challenge')
+                send_notification(player2, form.opponent_name.data, gettext('New challenge'), current_user.username, 'challenge')
             else:
                 player2 = None
             status = 'challenged'

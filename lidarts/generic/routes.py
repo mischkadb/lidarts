@@ -7,7 +7,7 @@ from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipReques
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.forms import GameChatmessageForm
 from lidarts.profile.utils import get_user_status
-from lidarts.socket.utils import broadcast_online_players
+from lidarts.socket.chat.chat_utils import broadcast_online_players
 from sqlalchemy import desc
 from datetime import datetime, timedelta
 from collections import defaultdict

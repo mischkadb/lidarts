@@ -294,19 +294,6 @@ def broadcast_game_aborted(game):
     emit('game_aborted', {'hashid': game.hashid}, room=game.hashid, namespace='/game', broadcast=True)
 
 
-def broadcast_online_players():
-    online_players_dict = {}
-    online_players = User.query.filter(User.last_seen > (datetime.utcnow() - timedelta(seconds=15))).all()
-    for user in online_players:
-        status = user.status
-        if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=10)):
-            status = 'playing'
-        avatar = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
-
-        online_players_dict[user.id] = {'id': user.id, 'username': user.username, 'status': status, 'avatar': avatar}
-
-    emit('send_online_players', online_players_dict, broadcast=True, namespace='/chat')
-
 
 def broadcast_new_game(game):
     p1_name, = User.query.with_entities(User.username).filter_by(id=game.player1).first_or_404()
@@ -332,5 +319,4 @@ def broadcast_game_completed(game):
          broadcast=True, namespace='/chat')
 
 
-def send_notification(username, message, author, type):
-    emit('send_notification', {'message': message, 'author': author, 'type': type}, room=username, namespace='/base')
+

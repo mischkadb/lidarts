@@ -142,7 +142,10 @@ def create_app(test_config=None):
 
     import lidarts.models
     import lidarts.socket.base_handler
-    import lidarts.socket.chat_handler
+    # import all chat handlers at once?
+    import lidarts.socket.chat.chat_handler
+    import lidarts.socket.chat.game_chat_handler
+    import lidarts.socket.chat.private_chat_handler
     import lidarts.socket.X01_game_handler
 
     return app
