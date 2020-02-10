@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+
+"""Distutils setup.py file.
+
+Used to create an installable package for deployment.
+"""
+
 from setuptools import find_packages, setup
 
 setup(
@@ -30,6 +37,6 @@ setup(
         'pytest',
         'python-dotenv',
         'redis',
-        'wemake-python-styleguide'
+        'wemake-python-styleguide',
     ],
 )
