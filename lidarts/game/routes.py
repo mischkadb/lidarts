@@ -4,10 +4,10 @@ from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
 from lidarts.models import Game, User, Notification, ChatmessageIngame
 from lidarts import db
-from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game
+from lidarts.socket.game.broadcasts import broadcast_game_aborted, broadcast_new_game
 from lidarts.socket.chat.chat_utils import send_notification
 from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names
-from lidarts.socket.X01_game_handler import start_game
+from lidarts.socket.game.X01_game_handler import start_game
 from flask_login import current_user, login_required
 from datetime import datetime
 import json

@@ -3,8 +3,9 @@ from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
 from lidarts.models import Game, User
-from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
-from lidarts.socket.computer import get_computer_score
+from lidarts.socket.game.game_utils import process_score, current_turn_user_id
+from lidarts.socket.game.closest_to_bull.closest_to_bull import process_closest_to_bull
+from lidarts.socket.game.computer import get_computer_score
 import json
 from datetime import datetime, timedelta
 
