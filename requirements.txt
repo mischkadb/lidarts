@@ -40,7 +40,7 @@ psycopg2-binary==2.7.4
 py==1.5.3
 pycparser==2.18
 pytest==3.5.1
-python-dateutil==2.7.3
+python-dateutil==2.8.1
 python-dotenv==0.8.2
 python-editor==1.0.3
 python-engineio==3.11.2
