@@ -32,7 +32,7 @@ Mako==1.0.7
 MarkupSafe==1.1.1
 monotonic==1.5
 more-itertools==4.1.0
-numpy==1.14.3
+numpy==1.18.1
 passlib==1.7.1
 pluggy==0.6.0
 psycopg2==2.8.4
