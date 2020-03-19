@@ -27,30 +27,32 @@ $(document).ready(function() {
     socket.on('send_online_players', function (msg) {
         $('#online_players').html('');
         var user;
-        for (user in msg){
+        for (user in msg['players']){
             $('#online_players').append('<div class="card"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
-                + '<strong style="font-size: 20px;"><a href="' + profile_url + msg[user]['username'] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
-                + '<img src="' + msg[user]['avatar'] + '" height="50px" width="50px" class="avatar avatar-status avatar-status-' + msg[user]['status'] + '">'
-                + msg[user]['username'] + '</a></strong>');
+                + '<strong style="font-size: 20px;"><a href="' + profile_url + msg['players'][user]['username'] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
+                + '<img src="' + msg['players'][user]['avatar'] + '" height="50px" width="50px" class="avatar avatar-status avatar-status-' + msg['players'][user]['status'] + '">'
+                + msg['players'][user]['username'] + '</a></strong>');
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
-            if (user_id == msg[user]['id']) {
+            if (user_id == msg['players'][user]['id']) {
                 $('#powertip-' + user).data('powertip', '<div><span class="text-dark">' +
-                    '<i class="fas fa-circle status-' + msg[user]['status'] + ' powerTip-status"></i>' +
-                    '<a href="' + profile_url + msg[user]['username'] + '" class="text-dark">' + msg[user]['username'] + '</a></span></div>' +
+                    '<i class="fas fa-circle status-' + msg['players'][user]['status'] + ' powerTip-status"></i>' +
+                    '<a href="' + profile_url + msg['players'][user]['username'] + '" class="text-dark">' + msg['players'][user]['username'] + '</a></span></div>' +
                     '<hr style="margin: 2px 0px 5px 0px;">' +
                     '<div class="text-secondary">This is you.</div></div></div>');
             } else {
                 $('#powertip-' + user).data('powertip', '<div><span class="text-dark">' +
-                    '<i class="fas fa-circle status-' + msg[user]['status'] + ' powerTip-status"></i>' +
-                    '<a href="' + profile_url + msg[user]['username'] + '" class="text-dark">' + msg[user]['username'] + '</a></span></div>' +
+                    '<i class="fas fa-circle status-' + msg['players'][user]['status'] + ' powerTip-status"></i>' +
+                    '<a href="' + profile_url + msg['players'][user]['username'] + '" class="text-dark">' + msg['players'][user]['username'] + '</a></span></div>' +
                     '<hr style="margin: 2px 0px 5px 0px;">' +
                     '<div class="btn-group powertip-buttons">' +
-                    '<a href="' + create_url + msg[user]['username'] + '" class="btn btn-secondary" role="button" title="Challenge to a game"><i class="fas fa-dice"></i></a>' +
+                    '<a href="' + create_url + msg['players'][user]['username'] + '" class="btn btn-secondary" role="button" title="Challenge to a game"><i class="fas fa-dice"></i></a>' +
                     '<a href="' + private_messages_url + '" role="button" class="btn btn-secondary" title="Send private message"><i class="fas fa-comments"></i></a>' +
-                    '<button type="button" class="btn btn-secondary button-send-friend-request" id="button-send-friend-request-' + msg[user]['id'] + '" title="Send friend request"><i class="fas fa-user-friends"></i></button>' +
+                    '<button type="button" class="btn btn-secondary button-send-friend-request" id="button-send-friend-request-' + msg['players'][user]['id'] + '" title="Send friend request"><i class="fas fa-user-friends"></i></button>' +
                     '</div></div></div>');
             }
-        }
+        };
+        $('#online-players-count').html(msg['players'].length);
+        $('#ingame-players-count').html(msg['ingame-count']);
 
     });
 

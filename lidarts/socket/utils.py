@@ -296,7 +296,8 @@ def broadcast_game_aborted(game):
 
 def broadcast_online_players():
     status_order = ['lfg', 'online', 'playing', 'busy']
-
+    ingame_count = 0
+    
     online_players_list = []
     online_players = (
         User.query
@@ -306,6 +307,7 @@ def broadcast_online_players():
         status = user.status
         if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=10)):
             status = 'playing'
+            ingame_count += 1
         avatar = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
 
         online_players_list.append(
@@ -320,7 +322,7 @@ def broadcast_online_players():
 
     online_players_list.sort(key=lambda k: (k['status_prio'], k['username'].lower()))
 
-    emit('send_online_players', online_players_list, broadcast=True, namespace='/chat')
+    emit('send_online_players', {'players': online_players_list, 'ingame-count': ingame_count}, broadcast=True, namespace='/chat')
 
 
 def broadcast_new_game(game):
