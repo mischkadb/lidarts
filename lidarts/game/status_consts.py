@@ -1,0 +1,2 @@
+COMPLETED = 'completed'
+STARTED = 'started'
