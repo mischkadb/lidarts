@@ -18,7 +18,37 @@ import json
 @login_required
 def create(mode='x01', opponent_name=None):
     if mode == 'x01':
-        form = CreateX01GameForm(opponent_name=opponent_name)
+        x01_type = request.args.get('type')
+        x01_type = x01_type if x01_type in ['170', '301', '501', '1001'] else '170'
+        starter = request.args.get('starter')
+        starter_short = {
+            '1': 'me',
+            '2': 'opponent',
+            'bull': 'closest_to_bull',
+        }
+        starter = starter_short[starter] if starter in starter_short else 'me'
+        bo_sets = request.args.get('sets')
+        try:
+            bo_sets = bo_sets if int(bo_sets) < 30 else 1
+        except (ValueError, TypeError):
+            bo_sets = 1
+
+        bo_legs = request.args.get('legs')
+        try:
+            bo_legs = bo_legs if int(bo_legs) < 30 else 1
+        except (ValueError, TypeError):
+            bo_legs = 1
+
+        two_clear_legs = request.args.get('2cl')
+
+        form = CreateX01GameForm(
+            opponent_name=opponent_name,
+            type=x01_type,
+            starter=starter,
+            bo_sets=bo_sets,
+            bo_legs=bo_legs,
+            two_clear_legs=two_clear_legs,
+        )
     else:
         pass  # no other game modes yet
     if form.validate_on_submit():
