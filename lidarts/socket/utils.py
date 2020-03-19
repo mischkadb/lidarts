@@ -318,7 +318,7 @@ def broadcast_online_players():
             }
         )
 
-    online_players_list.sort(key=lambda k: (k['status_prio'], k['username']))
+    online_players_list.sort(key=lambda k: (k['status_prio'], k['username'].lower()))
 
     emit('send_online_players', online_players_list, broadcast=True, namespace='/chat')
 
