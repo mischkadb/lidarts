@@ -368,7 +368,7 @@ def calc_cached_stats(player_id):
         .filter_by(type='501')
         .filter(or_(Game.player1 == player_id, Game.player2 == player_id))
         .order_by(Game.id.desc())
-        .limit(50).all()
+        .limit(20).all()
     )
     total_score = 0
     darts_thrown = 0

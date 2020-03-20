@@ -287,7 +287,8 @@ def send_score(message):
 
         # calculate cached stats
         calc_cached_stats(game.player1)
-        calc_cached_stats(game.player2)
+        if game.player1 != game.player2 and game.player2:
+            calc_cached_stats(game.player2)
 
         emit('game_completed', {'hashid': game.hashid, 'p1_last_leg': p1_last_leg,
                                 'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
