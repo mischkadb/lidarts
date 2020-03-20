@@ -285,17 +285,17 @@ def send_score(message):
         p2_last_leg = last_leg['2']['scores']
         p1_won = sum(p1_last_leg) == game.type
 
-        # calculate cached stats
-        calc_cached_stats(game.player1)
-        if game.player1 != game.player2 and game.player2:
-            calc_cached_stats(game.player2)
-
         emit('game_completed', {'hashid': game.hashid, 'p1_last_leg': p1_last_leg,
                                 'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
                                 'type': game.type, 'p1_sets': game.p1_sets,
                                 'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
              room=game.hashid, broadcast=True, namespace='/game')
         # leave_room(game.hashid)  # does this cause a bug?
+
+        # calculate cached stats
+        calc_cached_stats(game.player1)
+        if game.player1 != game.player2 and game.player2:
+            calc_cached_stats(game.player2)
 
     elif old_set_count < len(match_json) or old_leg_count < len(match_json[str(len(match_json))]):
         if len(match_json[str(len(match_json))]) == 1:  # new set
