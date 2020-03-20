@@ -124,5 +124,5 @@
 <meta id="profile_user_id" data-id="{{ user.id }}">
 
 
-<script type="text/javascript" src="/static/js/friend_requests.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/friend_requests.js', version=config.VERSION) }}"></script>
 {% endblock %}

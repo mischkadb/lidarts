@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/static/css/jquery.powertip.min.css" />
-<link rel="stylesheet" type="text/css" href="/static/css/chat.css" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/jquery.powertip.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/chat.css', version=config.VERSION) }}" />
 {% endblock %}
 
 {% block app_content %}
@@ -50,9 +50,9 @@
 <meta id="send_request_url" data-url="{{ url_for('generic.send_friend_request') }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
 
-<script src="/static/js/jquery.powertip.min.js" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/jquery.powertip.min.js', crossorigin='anonymous') }}"></script>
 
-<script type="text/javascript" src="/static/js/chat_socket.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/chat_socket.js', version=config.VERSION) }}"></script>
 
 
 {% endblock %}

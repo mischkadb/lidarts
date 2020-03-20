@@ -48,5 +48,5 @@
 <meta id="remove_friend_request_url" data-url="{{ url_for('generic.remove_friend_request') }}">
 
 
-<script type="text/javascript" src="/static/js/manage_friend_list.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/manage_friend_list.js', version=config.VERSION) }}"></script>
 {% endblock %}

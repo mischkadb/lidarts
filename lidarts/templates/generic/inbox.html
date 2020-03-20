@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/static/css/jquery.powertip.min.css" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/jquery.powertip.min.css') }}" />
 {% endblock %}
 
 {% block app_content %}
@@ -67,9 +67,9 @@
 <meta id="user_id" data-id="{{ current_user.id }}">
 <meta id="get_id_by_username_url" data-url="{{ url_for('generic.get_id_by_username') }}">
 
-<script src="/static/js/jquery.powertip.min.js" crossorigin="anonymous"></script>
+<script src="{{ url_for('static',filename='js/jquery.powertip.min.js', crossorigin='anonymous') }}" ></script>
 
-<script type="text/javascript" src="/static/js/private_messages_socket.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/private_messages_socket.js', version=config.VERSION) }}"></script>
 
 
 {% endblock %}
