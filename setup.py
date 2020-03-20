@@ -1,8 +1,9 @@
 from setuptools import find_packages, setup
+from instance.config import VERSION
 
 setup(
     name='lidarts',
-    version='0.6.1-7',
+    version=VERSION,
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
