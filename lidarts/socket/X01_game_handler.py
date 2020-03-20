@@ -3,7 +3,7 @@ from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
 from lidarts.models import Game, User
-from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
+from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull, calc_cached_stats
 from lidarts.socket.computer import get_computer_score
 from lidarts.socket.chat_handler import broadcast_online_players
 import json
@@ -284,6 +284,11 @@ def send_score(message):
         p1_last_leg = last_leg['1']['scores']
         p2_last_leg = last_leg['2']['scores']
         p1_won = sum(p1_last_leg) == game.type
+
+        # calculate cached stats
+        calc_cached_stats(game.player1)
+        calc_cached_stats(game.player2)
+
         emit('game_completed', {'hashid': game.hashid, 'p1_last_leg': p1_last_leg,
                                 'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
                                 'type': game.type, 'p1_sets': game.p1_sets,

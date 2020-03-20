@@ -2,7 +2,7 @@ from flask import request
 from flask_socketio import emit, join_room
 from flask_login import current_user
 from lidarts import socketio, db
-from lidarts.models import User, Chatmessage, Privatemessage, Notification, Game, ChatmessageIngame
+from lidarts.models import User, Chatmessage, Privatemessage, Notification, Game, ChatmessageIngame, UserStatistic
 from lidarts.socket.utils import broadcast_online_players, send_notification
 from datetime import datetime
 import bleach
@@ -19,12 +19,18 @@ def broadcast_chat_message(message):
     message['message'] = bleach.clean(message['message'])
     new_message = Chatmessage(message=message['message'], author=message['user_id'], timestamp=datetime.utcnow())
     db.session.add(new_message)
+    user_statistic = UserStatistic.query.filter_by(user=message['user_id']).first()
+    if not user_statistic:
+        user_statistic = UserStatistic(user=message['user_id'], average=0, doubles=0)
+        db.session.add(user_statistic)
     db.session.commit()
+
+    statistics = {'average': user_statistic.average, 'doubles': user_statistic.doubles}
 
     author = User.query.with_entities(User.username) \
         .filter_by(id=new_message.author).first_or_404()[0]
 
-    emit('send_message', {'author': author, 'message': new_message.message,
+    emit('send_message', {'author': author, 'message': new_message.message, 'statistics': statistics,
                           'timestamp': str(new_message.timestamp) + 'Z'},
          broadcast=True)
 

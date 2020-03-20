@@ -34,15 +34,19 @@ $(document).ready(function() {
                 + msg['players'][user]['username'] + '</a></strong>');
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
             if (user_id == msg['players'][user]['id']) {
-                $('#powertip-' + user).data('powertip', '<div><span class="text-dark">' +
+                $('#powertip-' + user).data('powertip', '<div><span class="text-dark font-weight-bold">' +
                     '<i class="fas fa-circle status-' + msg['players'][user]['status'] + ' powerTip-status"></i>' +
                     '<a href="' + profile_url + msg['players'][user]['username'] + '" class="text-dark">' + msg['players'][user]['username'] + '</a></span></div>' +
+                    '<hr style="margin: 2px 0px 5px 0px;">' +
+                    '<span class="text-dark">Avg.: ' + msg['players'][user]['statistics']['average'] + ' | Doubles: ' + msg['players'][user]['statistics']['doubles'] + '%</span>' +
                     '<hr style="margin: 2px 0px 5px 0px;">' +
                     '<div class="text-secondary">This is you.</div></div></div>');
             } else {
                 $('#powertip-' + user).data('powertip', '<div><span class="text-dark">' +
                     '<i class="fas fa-circle status-' + msg['players'][user]['status'] + ' powerTip-status"></i>' +
                     '<a href="' + profile_url + msg['players'][user]['username'] + '" class="text-dark">' + msg['players'][user]['username'] + '</a></span></div>' +
+                    '<hr style="margin: 2px 0px 5px 0px;">' +
+                    '<span class="text-dark">Avg.: ' + msg['players'][user]['statistics']['average'] + ' | Doubles: ' + msg['players'][user]['statistics']['doubles'] + '%</span>' +
                     '<hr style="margin: 2px 0px 5px 0px;">' +
                     '<div class="btn-group powertip-buttons">' +
                     '<a href="' + create_url + msg['players'][user]['username'] + '" class="btn btn-secondary" role="button" title="Challenge to a game"><i class="fas fa-dice"></i></a>' +
@@ -76,7 +80,7 @@ $(document).ready(function() {
             msg['author'] +
             '" class="text-dark">' + msg['author'] + '</a></strong> <small class="text-secondary">' +
             moment(msg['timestamp']).local().format('HH:mm:ss') +
-            '</small><br>' +
+            ' - Avg.: ' + msg['statistics']['average'] + '</small><br>' +
             msg['message'] + '</p><hr>'
         );
 

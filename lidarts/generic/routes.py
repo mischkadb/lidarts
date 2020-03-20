@@ -3,7 +3,7 @@ from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from lidarts import db
 from lidarts.generic import bp
-from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, Notification
+from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, Notification, UserStatistic
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.forms import GameChatmessageForm
 from lidarts.profile.utils import get_user_status
@@ -139,12 +139,23 @@ def chat():
     )
     messages = messages[::-1]
     user_names = {}
+    statistics = {}
 
     for message in messages:
-        user_names[message.author] = User.query.with_entities(User.username) \
+        if message.author in user_names:
+            continue
+        user_names[message.author] = (
+            User.query.with_entities(User.username) 
             .filter_by(id=message.author).first_or_404()[0]
+        )
+        user_statistic = UserStatistic.query.filter_by(user=message.author).first()
+        if not user_statistic:
+            user_statistic = UserStatistic(user=message.author, average=0, doubles=0)
+            db.session.add(user_statistic)
+            db.session.commit()
+        statistics[message.author] = {'average': user_statistic.average, 'doubles': user_statistic.doubles}
 
-    return render_template('generic/chat.html', form=form, messages=messages,
+    return render_template('generic/chat.html', form=form, messages=messages, statistics=statistics,
                            user_names=user_names, title=lazy_gettext('Chat'))
 
 

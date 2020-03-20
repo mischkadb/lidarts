@@ -1,10 +1,11 @@
 from flask_socketio import emit
 from flask_login import current_user
 from lidarts import db, avatars
-from lidarts.models import Game, User
+from lidarts.models import Game, User, UserStatistic
 import math
 import json
 from datetime import datetime, timedelta
+from sqlalchemy import or_
 
 
 def player1_started_leg(leg):
@@ -310,13 +311,21 @@ def broadcast_online_players():
             ingame_count += 1
         avatar = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
 
+        user_statistic = UserStatistic.query.filter_by(user=user.id).first()
+        if not user_statistic:
+            user_statistic = UserStatistic(user=message.author, average=0, doubles=0)
+            db.session.add(user_statistic)
+            db.session.commit()
+        statistics = {'average': user_statistic.average, 'doubles': user_statistic.doubles}
+
         online_players_list.append(
             {
                 'id': user.id,
                 'username': user.username,
                 'status': status,
                 'status_prio': status_order.index(status),
-                'avatar': avatar
+                'avatar': avatar,
+                'statistics': statistics,
             }
         )
 
@@ -351,3 +360,39 @@ def broadcast_game_completed(game):
 
 def send_notification(username, message, author, type):
     emit('send_notification', {'message': message, 'author': author, 'type': type}, room=username, namespace='/base')
+
+
+def calc_cached_stats(player_id):
+    games = (
+        Game.query
+        .filter_by(type='501')
+        .filter(or_(Game.player1 == player_id, Game.player2 == player_id))
+        .order_by(Game.id.desc())
+        .limit(50).all()
+    )
+    total_score = 0
+    darts_thrown = 0
+    legs_won = 0
+    double_missed = 0
+    for game in games:
+        player = '1' if game.player1 == player_id else '2'
+        match_json = json.loads(game.match_json)
+        for set_ in match_json:
+            for leg in set_:
+                current_leg = match_json[set_][leg][player]
+                total_score += sum(current_leg['scores']) 
+                to_finish = (3 - current_leg['to_finish']) if 'to_finish' in current_leg else 0                
+                darts_thrown += len(current_leg['scores']) * 3 - to_finish
+                legs_won = legs_won + 1 if sum(current_leg['scores']) == 501 else legs_won
+                double_missed += sum(current_leg['double_missed'])
+    average = round((total_score / darts_thrown) * 3, 1) if darts_thrown != 0 else 0
+    doubles = round(((legs_won / (legs_won + double_missed)) * 100), 1) if legs_won + double_missed != 0 else 0
+
+    user_statistic = UserStatistic.query.filter_by(user=player_id).first()
+    if not user_statistic:
+        user_statistic = UserStatistic(user=player_id, average=average, doubles=doubles)
+        db.session.add(user_statistic)
+    else:
+        user_statistic.average = average
+        user_statistic.doubles = doubles
+    db.session.commit()

@@ -159,3 +159,11 @@ class BoardCoordinates(db.Model):
     y2 = db.Column(db.Integer)
     x3 = db.Column(db.Integer)
     y3 = db.Column(db.Integer)
+
+
+class UserStatistic(db.Model):
+    __tablename__ = 'user_statistic'
+    id = db.Column(db.Integer, primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id'))
+    average = db.Column(db.Float)
+    doubles = db.Column(db.Float)
