@@ -365,8 +365,8 @@ def send_notification(username, message, author, type):
 def calc_cached_stats(player_id):
     games = (
         Game.query
-        .filter_by(type='501')
         .filter(or_(Game.player1 == player_id, Game.player2 == player_id))
+        .filter_by(type='501')
         .order_by(Game.id.desc())
         .limit(20).all()
     )
@@ -375,10 +375,19 @@ def calc_cached_stats(player_id):
     legs_won = 0
     double_missed = 0
     for game in games:
+        if darts_thrown > 5000:
+            break
         player = '1' if game.player1 == player_id else '2'
         match_json = json.loads(game.match_json)
         for set_ in match_json:
+            if darts_thrown > 5000:
+                break
             for leg in set_:
+                if darts_thrown > 5000:
+                    break
+                # Hack to fix error encountered in production. How can this happen?
+                if player not in match_json[set_][leg]:
+                    continue
                 current_leg = match_json[set_][leg][player]
                 total_score += sum(current_leg['scores']) 
                 to_finish = (3 - current_leg['to_finish']) if 'to_finish' in current_leg else 0                

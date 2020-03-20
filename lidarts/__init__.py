@@ -17,6 +17,7 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_cl
 from flask._compat import text_type
 from flask.json import JSONEncoder as BaseEncoder
 
+from engineio.payload import Payload
 from speaklater import _LazyString
 from sqlalchemy import MetaData
 
@@ -100,6 +101,8 @@ def create_app(test_config=None):
                       change_password_form=ExtendedChangePasswordForm,
                       reset_password_form=ExtendedResetPasswordForm)
     origins = app.config['CORS_ALLOWED_ORIGINS'] if 'CORS_ALLOWED_ORIGINS' in app.config else '*'
+    if 'ENGINEIO_MAX_DECODE_PACKETS' in app.config:
+        Payload.max_decode_packets = app.config['ENGINEIO_MAX_DECODE_PACKETS']
     socketio.init_app(app, message_queue='redis://', async_mode='gevent',
                       cors_allowed_origins=origins)
     babelobject.init_app(app)
