@@ -313,7 +313,7 @@ def broadcast_online_players():
 
         user_statistic = UserStatistic.query.filter_by(user=user.id).first()
         if not user_statistic:
-            user_statistic = UserStatistic(user=message.author, average=0, doubles=0)
+            user_statistic = UserStatistic(user=user.id, average=0, doubles=0)
             db.session.add(user_statistic)
             db.session.commit()
         statistics = {'average': user_statistic.average, 'doubles': user_statistic.doubles}
