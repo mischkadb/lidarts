@@ -58,7 +58,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.button-send-friend-request', function (event) {
         var send_request_url = $('#send_request_url').data()['url'];
-        var id = event.target.id.replace('button-send-friend-request-', '');
+        var id = this.id.replace('button-send-friend-request-', '');
 
         $.post(send_request_url + id,
             function() {

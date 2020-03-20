@@ -13,7 +13,7 @@ $(document).ready(function() {
 
     $('.button-accept-friend-request').click( function (event) {
         var accept_url = $('#accept_url').data()['url'];
-        var id = event.target.id.replace('button-accept-friend-request-', '');
+        var id = this.id.replace('button-accept-friend-request-', '');
 
         $.post(accept_url + id,
             function() {
@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     $('.button-decline-friend-request').click( function (event) {
         var decline_url = $('#decline_url').data()['url'];
-        var id = event.target.id.replace('button-decline-friend-request-', '');
+        var id = this.id.replace('button-decline-friend-request-', '');
 
         $.post(decline_url + id,
             function() {
@@ -35,7 +35,7 @@ $(document).ready(function() {
 
     $('.decline-challenge').click( function (event) {
         var decline_challenge_url = $('#decline_challenge_url').data()['url'];
-        var id = event.target.id.replace('decline-challenge-', '');
+        var id = this.id.replace('decline-challenge-', '');
 
         $.post(decline_challenge_url + id,
             function() {

@@ -54,7 +54,7 @@ $(document).ready(function() {
     var status_url = $('#status_url').data()['url'];
 
     $('.dropdown-status').click( function (event) {
-        var status = event.target.id.replace('dropdown-', '');
+        var status = this.id.replace('dropdown-', '');
 
         $.post(status_url + status,
             function() {

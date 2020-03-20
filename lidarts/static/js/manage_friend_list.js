@@ -6,7 +6,7 @@ $(document).ready(function() {
     var remove_friend_request_url = $('#remove_friend_request_url').data()['url'];
 
     $('.button-remove-friend').click( function (event) {
-        var id = event.target.id.replace('button-remove-friend-', '');
+        var id = this.id.replace('button-remove-friend-', '');
 
         $.post(remove_friend_url + id,
             function() {
@@ -16,7 +16,7 @@ $(document).ready(function() {
     });
 
     $('.button-remove-friend-request').click( function (event) {
-        var id = event.target.id.replace('button-remove-friend-request-', '');
+        var id = this.id.replace('button-remove-friend-request-', '');
 
         $.post(remove_friend_request_url + id,
             function() {
