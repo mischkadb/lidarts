@@ -130,8 +130,14 @@ def lobby():
 @login_required
 def chat():
     form = ChatmessageForm()
-    messages = Chatmessage.query.filter(Chatmessage.timestamp > (datetime.utcnow() - timedelta(days=1))) \
-        .order_by(Chatmessage.id.asc()).all()
+    messages = (
+        Chatmessage.query
+        .filter(Chatmessage.timestamp > (datetime.utcnow() - timedelta(hours=12)))
+        .order_by(Chatmessage.id.desc())
+        .limit(200)
+        .all()
+    )
+    messages = messages[::-1]
     user_names = {}
 
     for message in messages:
