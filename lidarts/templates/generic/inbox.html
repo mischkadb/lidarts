@@ -51,7 +51,7 @@
         </div>
         <form id="message_input" method="POST" action="" class="mt-2">
             {{ form.hidden_tag() }}
-            {{ form.message(class="form-control", autocomplete="off" ) }}
+            {{ form.message(class="form-control", autocomplete="off", maxlength="500") }}
             {{ form.submit(class="btn btn-dark mt-1") }}
         </form>
     </div>

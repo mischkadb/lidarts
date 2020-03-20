@@ -242,7 +242,7 @@
                     </div>
                     <form id="message_input" method="POST" action="">
                         {{ chat_form.hidden_tag() }}
-                        {{ chat_form.message(class="form-control", autocomplete="off") }}
+                        {{ chat_form.message(class="form-control", autocomplete="off", maxlength="500") }}
                         {{ chat_form.submit }}
                     </form>
                 </div>
@@ -432,7 +432,7 @@
                     </div>
                     <form id="message_input_small" method="POST" action="">
                         {{ chat_form_small.hidden_tag() }}
-                        {{ chat_form_small.message(class="form-control", autocomplete="off", id="message_small") }}
+                        {{ chat_form_small.message(class="form-control", autocomplete="off", maxlength="500", id="message_small") }}
                         {{ chat_form_small.submit }}
                     </form>
                 </div>
