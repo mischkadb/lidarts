@@ -105,6 +105,7 @@ venv.bak/
 
 .idea
 lidarts.db
+dashboard.db
 
 lidarts/game/fix\.py
 

@@ -16,6 +16,7 @@ from flask_babelex import Babel
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from flask._compat import text_type
 from flask.json import JSONEncoder as BaseEncoder
+import flask_monitoringdashboard as dashboard
 
 from engineio.payload import Payload
 from speaklater import _LazyString
@@ -124,6 +125,10 @@ def create_app(test_config=None):
 
     app.redis = Redis.from_url('redis://')
     app.task_queue = rq.Queue('lidarts-tasks', connection=app.redis)
+
+    print(os.path.join(app.instance_path, 'dashboard.cfg'))
+    dashboard.config.init_from(file=os.path.join(app.instance_path, 'dashboard.cfg'))
+    dashboard.bind(app)
 
     # Load all blueprints
     from lidarts.generic import bp as generic_bp
