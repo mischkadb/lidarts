@@ -18,6 +18,7 @@ setup(
         'Flask-Mail',
         'Flask-Migrate',
         'Flask-Moment',
+        'Flask-MonitoringDashboard',
         'Flask-Security',
         'Flask-SocketIO',
         'Flask-SQLAlchemy',
@@ -29,6 +30,7 @@ setup(
         'psycopg2-binary',
         'pytest',
         'python-dotenv',
-        'redis'
+        'redis',
+        'rq',
     ],
 )
