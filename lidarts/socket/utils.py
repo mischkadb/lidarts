@@ -365,8 +365,13 @@ def send_notification(username, message, author, type):
 def calc_cached_stats(player_id):
     games = (
         Game.query
-        .filter(or_(Game.player1 == player_id, Game.player2 == player_id))
-        .filter_by(type='501')
+        .filter(
+            or_(Game.player1 == player_id, Game.player2 == player_id) 
+            & (Game.status == 'completed')
+            & (Game.type == '501')
+            & (Game.in_mode == 'si')
+            & (Game.out_mode == 'do')
+        )
         .order_by(Game.id.desc())
         .limit(20).all()
     )
