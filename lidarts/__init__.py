@@ -21,6 +21,9 @@ from engineio.payload import Payload
 from speaklater import _LazyString
 from sqlalchemy import MetaData
 
+from redis import Redis
+import rq
+
 
 # disable false positive pylint warning - https://github.com/PyCQA/pylint/issues/414
 class JSONEncoder(BaseEncoder):
@@ -104,7 +107,9 @@ def create_app(test_config=None):
     if 'ENGINEIO_MAX_DECODE_PACKETS' in app.config:
         Payload.max_decode_packets = app.config['ENGINEIO_MAX_DECODE_PACKETS']
     socketio.init_app(app, message_queue='redis://', async_mode='gevent',
-                      cors_allowed_origins=origins)
+                      cors_allowed_origins=origins,
+                      # logger=True, engineio_logger=True,
+                      )
     babelobject.init_app(app)
     moment.init_app(app)
     configure_uploads(app, avatars)
@@ -116,6 +121,9 @@ def create_app(test_config=None):
 
     # filter for jinja
     app.jinja_env.filters['datetime'] = format_datetime
+
+    app.redis = Redis.from_url('redis://')
+    app.task_queue = rq.Queue('lidarts-tasks', connection=app.redis)
 
     # Load all blueprints
     from lidarts.generic import bp as generic_bp

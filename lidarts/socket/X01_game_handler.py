@@ -1,9 +1,9 @@
-from flask import request
+from flask import current_app, request
 from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
 from lidarts.models import Game, User
-from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull, calc_cached_stats
+from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.computer import get_computer_score
 from lidarts.socket.chat_handler import broadcast_online_players
 import json
@@ -297,9 +297,9 @@ def send_score(message):
         # leave_room(game.hashid)  # does this cause a bug?
 
         # calculate cached stats
-        calc_cached_stats(game.player1)
-        if game.player1 != game.player2 and game.player2:
-            calc_cached_stats(game.player2)
+        rq_job = current_app.task_queue.enqueue('lidarts.tasks.calc_cached_stats', game.player1)
+        if game.player2 and game.player1 != game.player2:
+            rq_job = current_app.task_queue.enqueue('lidarts.tasks.calc_cached_stats', game.player2)
 
     elif old_set_count < len(match_json) or old_leg_count < len(match_json[str(len(match_json))]):
         if len(match_json[str(len(match_json))]) == 1:  # new set

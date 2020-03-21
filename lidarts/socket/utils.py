@@ -5,7 +5,6 @@ from lidarts.models import Game, User, UserStatistic
 import math
 import json
 from datetime import datetime, timedelta
-from sqlalchemy import or_
 
 
 def player1_started_leg(leg):
@@ -360,53 +359,3 @@ def broadcast_game_completed(game):
 
 def send_notification(username, message, author, type):
     emit('send_notification', {'message': message, 'author': author, 'type': type}, room=username, namespace='/base')
-
-
-def calc_cached_stats(player_id):
-    games = (
-        Game.query
-        .filter(
-            or_(Game.player1 == player_id, Game.player2 == player_id) 
-            & (Game.status == 'completed')
-            & (Game.type == '501')
-            & (Game.in_mode == 'si')
-            & (Game.out_mode == 'do')
-        )
-        .order_by(Game.id.desc())
-        .limit(20).all()
-    )
-    total_score = 0
-    darts_thrown = 0
-    legs_won = 0
-    double_missed = 0
-    for game in games:
-        if darts_thrown > 5000:
-            break
-        player = '1' if game.player1 == player_id else '2'
-        match_json = json.loads(game.match_json)
-        for set_ in match_json:
-            if darts_thrown > 5000:
-                break
-            for leg in set_:
-                if darts_thrown > 5000:
-                    break
-                # Hack to fix error encountered in production. How can this happen?
-                if player not in match_json[set_][leg]:
-                    continue
-                current_leg = match_json[set_][leg][player]
-                total_score += sum(current_leg['scores']) 
-                to_finish = (3 - current_leg['to_finish']) if 'to_finish' in current_leg else 0                
-                darts_thrown += len(current_leg['scores']) * 3 - to_finish
-                legs_won = legs_won + 1 if sum(current_leg['scores']) == 501 else legs_won
-                double_missed += sum(current_leg['double_missed'])
-    average = round((total_score / darts_thrown) * 3, 1) if darts_thrown != 0 else 0
-    doubles = round(((legs_won / (legs_won + double_missed)) * 100), 1) if legs_won + double_missed != 0 else 0
-
-    user_statistic = UserStatistic.query.filter_by(user=player_id).first()
-    if not user_statistic:
-        user_statistic = UserStatistic(user=player_id, average=average, doubles=doubles)
-        db.session.add(user_statistic)
-    else:
-        user_statistic.average = average
-        user_statistic.doubles = doubles
-    db.session.commit()
