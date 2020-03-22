@@ -55,7 +55,7 @@ $(document).ready(function() {
                     '</div></div></div>');
             }
         };
-        $('#online-players-count').html(msg['players'].length);
+        $('#online-players-count').html(msg['online-count']);
         $('#ingame-players-count').html(msg['ingame-count']);
 
     });

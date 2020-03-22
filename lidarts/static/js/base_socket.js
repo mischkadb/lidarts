@@ -14,7 +14,7 @@ $(document).ready(function() {
     window.setInterval(function(){
         /// call your function here
         socket.emit('user_heartbeat');
-    }, 5000);
+    }, 10000);
 
     socket.emit('get_status');
 
