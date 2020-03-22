@@ -126,7 +126,6 @@ def create_app(test_config=None):
     app.redis = Redis.from_url('redis://')
     app.task_queue = rq.Queue('lidarts-tasks', connection=app.redis)
 
-    print(os.path.join(app.instance_path, 'dashboard.cfg'))
     dashboard.config.init_from(file=os.path.join(app.instance_path, 'dashboard.cfg'))
     dashboard.bind(app)
 

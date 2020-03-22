@@ -9,6 +9,14 @@ $(document).ready(function() {
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
+    socket.on('connect', function () {
+        console.log('Base socket connected');
+    });
+
+    socket.on('disconnect', function () {
+        console.log('Base socket disconnected');
+    });
+
     socket.emit('user_heartbeat');
 
     window.setInterval(function(){
