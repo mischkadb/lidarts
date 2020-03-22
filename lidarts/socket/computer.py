@@ -1,3 +1,4 @@
+from lidarts import socketio
 from lidarts.models import Game
 from collections import deque
 import numpy as np
@@ -246,6 +247,7 @@ def get_computer_score(hashid):
     double_missed = 0
 
     for dart in range(1, 4):
+        socketio.sleep(0)
         # acquire target depending on remaining score
         if game.closest_to_bull:
             thrown_score, field_hit = throw_dart('D25', computer)
