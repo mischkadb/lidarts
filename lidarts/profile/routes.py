@@ -1,7 +1,7 @@
 from flask import render_template, url_for, jsonify, redirect, flash, current_app, request
 from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
-from lidarts import db, avatars
+from lidarts import db, avatars, socketio
 from lidarts.profile import bp
 from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm
 from lidarts.models import User, Game, Friendship, FriendshipRequest
@@ -52,6 +52,7 @@ def overview(username):
 
     stats = {'darts_thrown': 0, 'double_thrown': 0, 'legs_won': 0, 'total_score': 0, 'number_of_games': 0, 'first9_scores': []}
     for game in games:
+        socketio.sleep(0)
         if game.player1 and game.player1 not in player_names:
             player_names[game.player1] = User.query.with_entities(User.username) \
                 .filter_by(id=game.player1).first_or_404()[0]

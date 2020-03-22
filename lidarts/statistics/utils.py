@@ -7,6 +7,7 @@ import json
 from datetime import timedelta, datetime
 from sqlalchemy import desc
 from flask_login import current_user
+from lidarts import socketio
 from lidarts.models import User, Game
 
 
@@ -325,6 +326,7 @@ def create_statistics(user, form, use_custom_filter_last_games, use_custom_filte
     number_of_games = 0
     # iterate through each game
     for game in games:
+        socketio.sleep(0)
         # hack for legacy games on lidarts.org which do not have double-missed and finish darts
         if game.id < 18:
             continue
