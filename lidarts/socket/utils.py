@@ -88,6 +88,7 @@ def process_leg_win(player_dict, match_json, current_values):
             player_dict['status'] = 'completed'
             player_dict['p_score'] = 0  # end score 0 looks nicer
         else:  # match not over, new set
+            player_dict['p_legs'] = 0
             player_dict['o_legs'] = 0
             current_values['set'] = str(int(current_values['set']) + 1)
             current_values['leg'] = '1'
