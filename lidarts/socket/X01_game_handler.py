@@ -150,12 +150,22 @@ def player_heartbeat(message):
     if current_user.is_authenticated:
         game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
         current_user.last_seen_ingame = datetime.utcnow()
-        p1 = User.query.filter_by(id=game.player1).first_or_404()
-        p1_ingame = p1.last_seen_ingame > datetime.utcnow() - timedelta(seconds=10)
-        p2 = User.query.filter_by(id=game.player2).first_or_404() if game.player2 else None
-        p2_ingame = p2.last_seen_ingame > datetime.utcnow() - timedelta(seconds=10) if p2 else True
         db.session.commit()
-        # broadcast_online_players()
+
+        if current_user.id == game.player1:
+            p1_ingame = True
+        else:
+            p1 = User.query.filter_by(id=game.player1).first_or_404()
+            p1_ingame = p1.last_seen_ingame > datetime.utcnow() - timedelta(seconds=10)
+            
+        if current_user.id == game.player2:
+            p2_ingame = True
+        elif game.player1 == game.player2:
+            p2_ingame = p1_ingame
+        else:
+            p2 = User.query.filter_by(id=game.player2).first_or_404() if game.player2 else None
+            p2_ingame = p2.last_seen_ingame > datetime.utcnow() - timedelta(seconds=10) if p2 else True
+
         emit('players_ingame', {'p1_ingame': p1_ingame, 'p2_ingame': p2_ingame}, room=game.hashid, broadcast=True)
 
 
