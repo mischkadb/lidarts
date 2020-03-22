@@ -284,7 +284,7 @@ def send_score(message):
     old_set_count = len(match_json)
     old_leg_count = len(match_json[str(len(match_json))])
 
-    game = process_score(hashid, score_value, int(message['double_missed']), int(message['to_finish']))
+    game = process_score(game, score_value, int(message['double_missed']), int(message['to_finish']))
     # check for match_json updates
     match_json = json.loads(game.match_json)
 

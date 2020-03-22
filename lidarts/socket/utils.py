@@ -123,8 +123,8 @@ def process_leg_win(player_dict, match_json, current_values):
     return player_dict, match_json, current_values
 
 
-def process_score(hashid, score_value, double_missed, to_finish):
-    game = Game.query.filter_by(hashid=hashid).first_or_404()
+def process_score(game, score_value, double_missed, to_finish):
+    # game = Game.query.filter_by(hashid=hashid).first_or_404()
     match_json = json.loads(game.match_json)
 
     if game.status != 'started':
