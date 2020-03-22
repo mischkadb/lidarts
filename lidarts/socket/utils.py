@@ -303,11 +303,16 @@ def broadcast_online_players():
         User.query
         .filter(User.last_seen > (datetime.utcnow() - timedelta(seconds=15)))
         .all())
+
+    online_count = len(online_players)
+
     for user in online_players:
         status = user.status
+
         if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=10)):
             status = 'playing'
             ingame_count += 1
+
         avatar = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
 
         user_statistic = UserStatistic.query.filter_by(user=user.id).first()
@@ -330,7 +335,12 @@ def broadcast_online_players():
 
     online_players_list.sort(key=lambda k: (k['status_prio'], k['username'].lower()))
 
-    emit('send_online_players', {'players': online_players_list, 'ingame-count': ingame_count}, broadcast=True, namespace='/chat')
+    emit(
+        'send_online_players', 
+        {'players': online_players_list, 'ingame-count': ingame_count, 'online-count': online_count},
+        broadcast=True,
+        namespace='/chat'
+    )
 
 
 def broadcast_new_game(game):
