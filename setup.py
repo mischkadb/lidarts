@@ -22,7 +22,8 @@ setup(
         'Flask-Security',
         'Flask-SocketIO',
         'Flask-SQLAlchemy',
-        'Flask-Uploads',
+        # Flask-Uploads 0.2.1 is not compatible with werkzeug 1.0.0
+        'Flask-Uploads @ https://github.com/maxcountryman/flask-uploads/archive/f66d7dc93e684fa0a3a4350a38e41ae00483a796.zip#egg=Flask-Uploads-0.2.2.dev',
         'Flask-WTF',
         'gevent',
         'gunicorn',
