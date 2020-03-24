@@ -178,14 +178,6 @@ def start(hashid, theme=None):
                                messages=messages, user_names=user_names)
 
 
-@bp.route('/validate_score', methods=['POST'])
-def validate_score():
-    # validating the score input from users
-    form = ScoreForm(request.form)
-    result = form.validate()
-    return jsonify(form.errors)
-
-
 @bp.route('/decline_challenge/')
 @bp.route('/decline_challenge/<id_>', methods=['POST'])
 def decline_challenge(id_):
@@ -215,5 +207,3 @@ def abort_game(hashid):
     broadcast_game_aborted(game)
     db.session.commit()
     return redirect(url_for('generic.lobby'))
-
-

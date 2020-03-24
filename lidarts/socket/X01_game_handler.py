@@ -5,7 +5,6 @@ from lidarts import socketio, db
 from lidarts.models import Game, User
 from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.computer import get_computer_score
-from lidarts.socket.chat_handler import broadcast_online_players
 import json
 from datetime import datetime, timedelta
 
@@ -44,6 +43,7 @@ def send_score_response(game, old_score=0, broadcast=False):
 
     for set in match_json:
         for leg in match_json[set]:
+            socketio.sleep(0)
             p1_darts_thrown_double += sum(match_json[set][leg]['1']['double_missed'])
             p2_darts_thrown_double += sum(match_json[set][leg]['2']['double_missed'])
 
@@ -116,29 +116,30 @@ def send_score_response(game, old_score=0, broadcast=False):
 
     room = game.hashid if broadcast else request.sid
 
-    emit('score_response',
-         {'hashid': game.hashid,
-          'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
-          'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs,
-          'p1_next_turn': game.p1_next_turn, 'p1_current_leg': p1_current_leg_scores,
-          'p2_current_leg': p2_current_leg_scores, 'old_score': old_score,
-          'p1_leg_avg': p1_leg_avg, 'p2_leg_avg': p2_leg_avg,
-          'p1_match_avg': p1_match_avg, 'p2_match_avg': p2_match_avg,
-          'p1_first9_avg': p1_first9_avg, 'p2_first9_avg': p2_first9_avg,
-          'p1_100': p1_100, 'p2_100': p2_100,
-          'p1_140': p1_140, 'p2_140': p2_140,
-          'p1_180': p1_180, 'p2_180': p2_180,
-          'p1_doubles': p1_doubles, 'p2_doubles': p2_doubles,
-          'p1_legs_won': p1_legs_won, 'p2_legs_won': p2_legs_won,
-          'p1_darts_thrown_double': p1_darts_thrown_double, 'p2_darts_thrown_double': p2_darts_thrown_double,
-          'p1_high_finish': p1_high_finish, 'p2_high_finish': p2_high_finish,
-          'p1_short_leg': p1_short_leg, 'p2_short_leg': p2_short_leg,
-          'computer_game': computer_game,
-          'p1_id': game.player1, 'p2_id': game.player2,
-          'new_score': broadcast  # needed for score sound output
-          },
-
-         room=room)
+    emit(
+        'score_response',
+        {
+            'hashid': game.hashid,
+            'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
+            'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs,
+            'p1_next_turn': game.p1_next_turn, 'p1_current_leg': p1_current_leg_scores,
+            'p2_current_leg': p2_current_leg_scores, 'old_score': old_score,
+            'p1_leg_avg': p1_leg_avg, 'p2_leg_avg': p2_leg_avg,
+            'p1_match_avg': p1_match_avg, 'p2_match_avg': p2_match_avg,
+            'p1_first9_avg': p1_first9_avg, 'p2_first9_avg': p2_first9_avg,
+            'p1_100': p1_100, 'p2_100': p2_100,
+            'p1_140': p1_140, 'p2_140': p2_140,
+            'p1_180': p1_180, 'p2_180': p2_180,
+            'p1_doubles': p1_doubles, 'p2_doubles': p2_doubles,
+            'p1_legs_won': p1_legs_won, 'p2_legs_won': p2_legs_won,
+            'p1_darts_thrown_double': p1_darts_thrown_double, 'p2_darts_thrown_double': p2_darts_thrown_double,
+            'p1_high_finish': p1_high_finish, 'p2_high_finish': p2_high_finish,
+            'p1_short_leg': p1_short_leg, 'p2_short_leg': p2_short_leg,
+            'computer_game': computer_game,
+            'p1_id': game.player1, 'p2_id': game.player2,
+            'new_score': broadcast  # needed for score sound output
+        },
+        room=room)
 
 
 @socketio.on('connect', namespace='/game')
@@ -211,7 +212,13 @@ def send_score(message):
     elif int(message['user_id']) not in (game.player1, game.player2):
         return
 
-    score_value = int(message['score'])
+    try:
+        score_value = int(message['score'])
+        impossible_numbers = [179, 178, 176, 175, 173, 172, 169]
+        if not 0 <= score_value <= 180 or score_value in impossible_numbers:
+            return
+    except:
+        return
 
     # Closest to bull handler to determine starting player
     if game.closest_to_bull:

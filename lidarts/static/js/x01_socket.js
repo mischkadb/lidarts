@@ -458,28 +458,18 @@ $(document).ready(function() {
     });
 
     function send_score(double_missed, to_finish, score_value){
-        $.post(
-            // Various errors that are caught if you enter something wrong.
-            validation_url,
-            $("#score_input").serialize(),
-            function (errors) {
-                score_errors = errors;
-                if (jQuery.isEmptyObject(score_errors)) {
-                    socket.emit('send_score', {score: score_value, hashid: hashid['hashid'],
-                        user_id: user_id['id'], double_missed: double_missed, to_finish: to_finish,
-                        undo_active: undo_active});
-                    // turn off undo mode if active
-                    if (undo_active) {
-                        $('.undo-button').show();
-                        $('.undo-button-active').hide();
-                        undo_active = false;
-                    }
-                } else {
-                    $('#score_error').text(score_errors['score_value'][0]);
-                }
-                $('input[name=score_value]').val('');
-                $('#score_value_sm').val($('#score_value').val());
-            });
+        socket.emit('send_score', {score: score_value, hashid: hashid['hashid'],
+            user_id: user_id['id'], double_missed: double_missed, to_finish: to_finish,
+            undo_active: undo_active});
+        // turn off undo mode if active
+        if (undo_active) {
+            $('.undo-button').show();
+            $('.undo-button-active').hide();
+            undo_active = false;
+        }
+
+        $('input[name=score_value]').val('');
+        $('#score_value_sm').val($('#score_value').val());
     }
 
     function handle_score_input(remaining_score, score_value) {
@@ -631,7 +621,6 @@ $(document).ready(function() {
     });
 
     // Handler for the score input form.
-    var validation_url = $('#validation_url').data();
     var user_id = $('#user_id').data();
     var score_errors = [];
     var double_missed = 0;

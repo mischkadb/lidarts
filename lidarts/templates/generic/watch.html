@@ -64,8 +64,6 @@
 
 {% block scripts %}
 
-<meta id="validation_url" data-url="{{ url_for('game.validate_score') }}">
-
 <script type="text/javascript" src="{{ url_for('static',filename='js/watch_socket.js', version=config.VERSION) }}"></script>
 
 {% endblock %}
