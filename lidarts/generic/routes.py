@@ -3,7 +3,7 @@ from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from lidarts import db
 from lidarts.generic import bp
-from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, Notification, UserStatistic
+from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, Notification, UserStatistic, SocketConnections
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.forms import GameChatmessageForm
 from lidarts.profile.utils import get_user_status
@@ -363,8 +363,14 @@ def notifications_read():
 
 @bp.before_app_first_request
 def before_first_request():
-    """Set all users to offline."""
+    """Set all users to offline and resets socket connection counter."""
     users = User.query.filter_by(is_online=True).all()
     for user in users:
         user.is_online = False
+    connections = SocketConnections.query.first()
+    if not connections:
+        connections = SocketConnections(active=0, total=0)
+        db.session.add(connections)
+    connections.active = 0
+    connections.total = 0
     db.session.commit()

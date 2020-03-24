@@ -175,3 +175,10 @@ class UserStatistic(db.Model):
     user = db.Column(db.Integer, db.ForeignKey('users.id'))
     average = db.Column(db.Float)
     doubles = db.Column(db.Float)
+
+
+class SocketConnections(db.Model):
+    __tablename__ = 'socket_connections'
+    id = db.Column(db.Integer, primary_key=True)
+    active = db.Column(db.Integer, default=0)
+    total = db.Column(db.Integer, default=0)

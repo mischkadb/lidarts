@@ -3,13 +3,18 @@ from lidarts import socketio, db
 from flask_login import current_user
 from flask_socketio import disconnect, emit, join_room, ConnectionRefusedError
 from lidarts.socket.utils import send_notification
-from lidarts.models import Notification
+from lidarts.models import Notification, SocketConnections
 from datetime import datetime
 
 
 @socketio.on('connect', namespace='/base')
 def connect_client():
+    connections = SocketConnections.query.first()
+    connections.active += 1
+    connections.total += 1    
+
     if not current_user.is_authenticated:
+        db.session.commit()
         return
 
     current_user.ping()
@@ -24,7 +29,11 @@ def connect_client():
 
 @socketio.on('disconnect', namespace='/base')
 def disconnect_client():
+    connections = SocketConnections.query.first()
+    connections.active -= 1    
+
     if not current_user.is_authenticated:
+        db.session.commit()
         return
 
     current_user.last_seen = datetime.utcnow()
