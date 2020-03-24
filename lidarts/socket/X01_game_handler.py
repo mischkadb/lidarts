@@ -114,6 +114,8 @@ def send_score_response(game, old_score=0, broadcast=False):
     if not p1_current_leg_scores and not p2_current_leg_scores:
         broadcast = False
 
+    room = game.hashid if broadcast else request.sid
+
     emit('score_response',
          {'hashid': game.hashid,
           'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
@@ -136,7 +138,7 @@ def send_score_response(game, old_score=0, broadcast=False):
           'new_score': broadcast  # needed for score sound output
           },
 
-         room=game.hashid, broadcast=broadcast)
+         room=room)
 
 
 @socketio.on('connect', namespace='/game')
