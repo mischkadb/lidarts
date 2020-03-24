@@ -302,7 +302,7 @@ def broadcast_online_players():
     online_players_list = []
     online_players = (
         User.query
-        .filter(User.last_seen > (datetime.utcnow() - timedelta(seconds=15)))
+        .filter(User.is_online)
         .all())
 
     online_count = len(online_players)

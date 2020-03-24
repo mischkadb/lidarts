@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     avatar = db.Column(db.String(15), default=None)
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     last_seen_ingame = db.Column(db.DateTime, default=datetime.utcnow)
+    is_online = db.Column(db.Boolean, default=False)
     active_sessions = db.Column(db.Integer, default=0)
     status = db.Column(db.String(15), default='online')
     caller = db.Column(db.String(20), default='default')
@@ -59,6 +60,13 @@ class User(db.Model, UserMixin):
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    def ping(self):
+        self.last_seen = datetime.utcnow()
+        last_online = self.is_online
+        self.is_online = True
+        db.session.commit()
+        return last_online != self.is_online
 
 
 class FriendshipRequest(db.Model):

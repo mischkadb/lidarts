@@ -100,8 +100,7 @@ def overview(username):
 
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names, friend_list=friend_list,
-                           stats=stats, avatar_url=avatar_url, title=lazy_gettext('Profile'),
-                           is_online=(user.last_seen > datetime.utcnow() - timedelta(seconds=15)))
+                           stats=stats, avatar_url=avatar_url, title=lazy_gettext('Profile'))
 
 
 @bp.route('/set_status/')

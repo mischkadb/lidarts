@@ -360,3 +360,11 @@ def notifications_read():
     db.session.commit()
     return jsonify('success')
 
+
+@bp.before_app_first_request
+def before_first_request():
+    """Set all users to offline."""
+    users = User.query.filter_by(is_online=True).all()
+    for user in users:
+        user.is_online = False
+    db.session.commit()

@@ -16,16 +16,7 @@ $(document).ready(function() {
     socket.on('disconnect', function () {
         console.log('Base socket disconnected');
     });
-
-    socket.emit('user_heartbeat');
-
-    window.setInterval(function(){
-        /// call your function here
-        socket.emit('user_heartbeat');
-    }, 10000);
-
-    socket.emit('get_status');
-
+    
     socket.on('status_reply', function (msg) {
         var indicator = $(document.getElementsByClassName('status-indicator'));
         indicator.addClass('status-' + msg['status']);
