@@ -10,7 +10,7 @@ $(document).ready(function() {
     // Connect to the Socket.IO server.
     // The connection URL has the following format:
     //     http[s]://<domain>:<port>[/<namespace>]
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {transports: ['websocket']);
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {transports: ['websocket']});
 
     var user_id = $('#user_id').data()['id'];
     var hashid = $('#hash_id').data();

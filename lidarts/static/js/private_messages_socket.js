@@ -10,7 +10,7 @@ $(document).ready(function() {
     // Connect to the Socket.IO server.
     // The connection URL has the following format:
     //     http[s]://<domain>:<port>[/<namespace>]
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {transports: ['websocket']);
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {transports: ['websocket']});
 
     var profile_url = $('#profile_url').data()['url'];
     var game_url = $('#game_url').data()['url'];
