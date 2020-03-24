@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, jsonify
 from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
-from lidarts import db
+from lidarts import db, socketio
 from lidarts.generic import bp
 from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, Notification, UserStatistic, SocketConnections
 from lidarts.generic.forms import ChatmessageForm
@@ -11,6 +11,7 @@ from lidarts.socket.utils import broadcast_online_players
 from sqlalchemy import desc
 from datetime import datetime, timedelta
 from collections import defaultdict
+import time
 
 
 @bp.route('/')
@@ -48,6 +49,7 @@ def live_games_overview():
     players_in_list = []
 
     for game in live_games:
+        socketio.sleep(0)
         game_dict = game.as_dict()
         player1_active = True
         player2_active = True
@@ -132,9 +134,9 @@ def chat():
     form = ChatmessageForm()
     messages = (
         Chatmessage.query
-        .filter(Chatmessage.timestamp > (datetime.utcnow() - timedelta(hours=12)))
+        .filter(Chatmessage.timestamp > (datetime.utcnow() - timedelta(hours=1)))
         .order_by(Chatmessage.id.desc())
-        .limit(200)
+        .limit(20)
         .all()
     )
     messages = messages[::-1]
@@ -142,6 +144,7 @@ def chat():
     statistics = {}
 
     for message in messages:
+        socketio.sleep(0)
         if message.author in user_names:
             continue
         user_names[message.author] = (
@@ -162,8 +165,9 @@ def chat():
 # should get called by a cronjob periodically
 @bp.route('/chat/broadcast_online_players')
 def chat_broadcast_online_players_periodic():
+    start = time.process_time()
     broadcast_online_players()
-    return jsonify('success')
+    return str(time.process_time() - start)
 
 
 # should get called by a cronjob periodically
@@ -373,7 +377,7 @@ def before_first_request():
         db.session.add(connections)
     # Do not reset if last reset was too recently
     # e.g. when multiple worker start up
-    if connections.last_reset and connections.last_reset < datetime.utcnow() - timedelta(minutes=2):
+    if connections.last_reset and connections.last_reset > datetime.utcnow() - timedelta(minutes=2):
         return
     connections.last_reset = datetime.utcnow()
     connections.active = 0
