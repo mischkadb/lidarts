@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from lidarts import db, avatars, socketio
 from lidarts.profile import bp
 from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm
-from lidarts.models import User, Game, Friendship, FriendshipRequest
+from lidarts.models import User, Game, Friendship, FriendshipRequest, UserStatistic
 from sqlalchemy import desc
 from datetime import datetime, timedelta
 import os
@@ -48,9 +48,10 @@ def overview(username):
     user = User.query.filter(User.username.ilike(username)).first_or_404()
     games = Game.query.filter(((Game.player1 == user.id) | (Game.player2 == user.id)) & (Game.status != 'challenged')
                               & (Game.status != 'declined') & (Game.status != 'aborted')) \
-        .order_by(desc(Game.id)).all()
+        .order_by(desc(Game.id)).limit(10).all()
 
-    stats = {'darts_thrown': 0, 'double_thrown': 0, 'legs_won': 0, 'total_score': 0, 'number_of_games': 0, 'first9_scores': []}
+    stats = UserStatistic.query.filter_by(user=user.id).first()
+
     for game in games:
         socketio.sleep(0)
         if game.player1 and game.player1 not in player_names:
@@ -60,41 +61,11 @@ def overview(username):
             player_names[game.player2] = User.query.with_entities(User.username) \
                 .filter_by(id=game.player2).first_or_404()[0]
 
-        if not (game.type == 501 and game.out_mode == 'do' and game.in_mode == 'si'):
-            continue
-
-        player = '1' if (user.id == game.player1) else '2'
-
-        stats['number_of_games'] += 1
-
-        match_json = json.loads(game.match_json)
-
-        for set in match_json:
-            for leg in match_json[set]:
-                for score in match_json[set][leg][player]['scores'][:3]:
-                    stats['first9_scores'].append(score)
-                stats['darts_thrown'] += len(match_json[set][leg][player]['scores']) * 3
-                stats['total_score'] += sum(match_json[set][leg][player]['scores'])
-                if 'to_finish' in match_json[set][leg][player]:
-                    stats['darts_thrown'] -= (3 - match_json[set][leg][player]['to_finish'])
-                    stats['double_thrown'] += 1
-                    stats['legs_won'] += 1
-                if isinstance(match_json[set][leg][player]['double_missed'], (list,)):
-                    stats['double_thrown'] += sum(match_json[set][leg][player]['double_missed'])
-                else:
-                    # legacy: double_missed as int
-                    stats['double_thrown'] += match_json[set][leg][player]['double_missed']
-
     friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
     friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)
 
     friend_list = friend_query1.union(friend_query2).all()
     friend_list = [r for (r,) in friend_list]
-
-    stats['doubles'] = round((stats['legs_won'] / stats['double_thrown']), 4) * 100 if stats['double_thrown'] else 0
-    stats['average'] = round((stats['total_score'] / (stats['darts_thrown'])) * 3, 2) if stats['darts_thrown'] else 0
-    stats['first9_average'] = round((sum(stats['first9_scores']) / len(stats['first9_scores'])), 2) \
-        if stats['first9_scores'] else 0
 
     avatar_url = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
 

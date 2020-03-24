@@ -173,8 +173,11 @@ class UserStatistic(db.Model):
     __tablename__ = 'user_statistic'
     id = db.Column(db.Integer, primary_key=True)
     user = db.Column(db.Integer, db.ForeignKey('users.id'))
-    average = db.Column(db.Float)
-    doubles = db.Column(db.Float)
+    average = db.Column(db.Float, default=0)
+    first9 = db.Column(db.Float, default=0)
+    doubles = db.Column(db.Float, default=0)
+    total_games = db.Column(db.Integer, default=0)
+    darts_thrown = db.Column(db.Integer, default=0)
 
 
 class SocketConnections(db.Model):

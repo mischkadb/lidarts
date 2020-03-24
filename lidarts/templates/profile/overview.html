@@ -55,7 +55,7 @@
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-history"></i> {{ _('Recent games') }}</h5>
                 <hr>
-                {% for game in games[:5] if game.status != 'challenged' and game.status != 'declined' %}
+                {% for game in games %}
 
                 <p class="text-secondary"><a href="{{ url_for('game.start', hashid=game.hashid) }}"
                                              class="
@@ -90,11 +90,11 @@
             <div class="card-body">
                 <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Statistics (501 SI/DO)') }}</h5>
                 <hr>
-                <p>{{ _('Number of games:') }} {{ stats['number_of_games'] }}</p>
-                <p>{{ _('Darts thrown:') }} {{ stats['darts_thrown'] }}</p>
-                <p>Average: {{ stats['average']|round(2) }}</p>
-                <p>First 9: {{ stats['first9_average']|round(2) }}</p>
-                <p>Doubles: {{ stats['doubles']|round(2) }}%</p>
+                <p>{{ _('Number of games:') }} {{ stats.total_games }}</p>
+                <p>{{ _('Darts thrown:') }} {{ stats.darts_thrown }}</p>
+                <p>Average: {{ stats.average}}</p>
+                <p>First 9: {{ stats.first9 }}</p>
+                <p>Doubles: {{ stats.doubles }}%</p>
 
             </div>
         </div>
