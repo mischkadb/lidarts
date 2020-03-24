@@ -11,7 +11,7 @@ from datetime import datetime
 def connect_client():
     connections = SocketConnections.query.first()
     connections.active += 1
-    connections.total += 1    
+    connections.total += 1
 
     if not current_user.is_authenticated:
         db.session.commit()

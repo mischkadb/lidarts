@@ -369,8 +369,13 @@ def before_first_request():
         user.is_online = False
     connections = SocketConnections.query.first()
     if not connections:
-        connections = SocketConnections(active=0, total=0)
+        connections = SocketConnections(active=0, total=0, last_reset=datetime.utcnow())
         db.session.add(connections)
+    # Do not reset if last reset was too recently
+    # e.g. when multiple worker start up
+    if connections.last_reset and connections.last_reset < datetime.utcnow() - timedelta(minutes=2):
+        return
+    connections.last_reset = datetime.utcnow()
     connections.active = 0
     connections.total = 0
     db.session.commit()

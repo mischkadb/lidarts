@@ -182,3 +182,4 @@ class SocketConnections(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     active = db.Column(db.Integer, default=0)
     total = db.Column(db.Integer, default=0)
+    last_reset = db.Column(db.DateTime)
