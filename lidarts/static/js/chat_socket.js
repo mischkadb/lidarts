@@ -17,6 +17,7 @@ $(document).ready(function() {
     var game_url = $('#game_url').data()['url'];
     var create_url = $('#create_url').data()['url'] + '/x01/';
     var private_messages_url = $('#private_messages_url').data()['url'];
+    var match_alerts_enabled = true
 
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
@@ -90,6 +91,10 @@ $(document).ready(function() {
 
 
     socket.on('send_system_message_new_game', function (msg) {
+        if (match_alerts_enabled == false) {
+            return;
+        };            
+
         // allow 1px inaccuracy by adding 1
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
 
@@ -101,11 +106,15 @@ $(document).ready(function() {
         );
 
         if(isScrolledToBottom)
-            chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;
+            chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;        
     });
 
 
     socket.on('send_system_message_game_completed', function (msg) {
+        if (match_alerts_enabled == false) {
+            return;
+        };     
+        
         // allow 1px inaccuracy by adding 1
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
         var color1 = '#fbcc03';
@@ -155,6 +164,17 @@ $(document).ready(function() {
                 $('input[name=message]').val('');
             });
         return false;
+    });
+
+    $('#match-alert-toggle').click(function() {
+        if ($('#match-alert-toggle').hasClass('active') == true) {
+            $('#match-alert-toggle').html('Match alerts disabled');
+            match_alerts_enabled = false;
+        } else {
+            $('#match-alert-toggle').html('Match alerts enabled');
+            match_alerts_enabled = true;
+        }
+
     });
 
 
