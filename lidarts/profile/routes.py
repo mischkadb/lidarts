@@ -6,6 +6,7 @@ from lidarts.profile import bp
 from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm
 from lidarts.models import User, Game, Friendship, FriendshipRequest, UserStatistic
 from sqlalchemy import desc
+from sqlalchemy.orm import aliased
 import os
 
 
@@ -44,20 +45,20 @@ def game_history(username):
 def overview(username):
     player_names = {}
     user = User.query.filter(User.username.ilike(username)).first_or_404()
-    games = Game.query.filter(((Game.player1 == user.id) | (Game.player2 == user.id)) & (Game.status != 'challenged')
-                              & (Game.status != 'declined') & (Game.status != 'aborted')) \
+    player1 = aliased(User)
+    player2 = aliased(User)
+    games = (
+        Game.query
+        .filter(
+            ((Game.player1 == user.id) | (Game.player2 == user.id)) & (Game.status != 'challenged')
+            & (Game.status != 'declined') & (Game.status != 'aborted')
+        )
+        .join(player1, Game.player1 == player1.id).add_columns(player1.username)
+        .join(player2, Game.player2 == player2.id).add_columns(player2.username)
         .order_by(desc(Game.id)).limit(10).all()
+    )
 
     stats = UserStatistic.query.filter_by(user=user.id).first()
-
-    for game in games:
-        socketio.sleep(0)
-        if game.player1 and game.player1 not in player_names:
-            player_names[game.player1] = User.query.with_entities(User.username) \
-                .filter_by(id=game.player1).first_or_404()[0]
-        if game.player2 and game.player2 not in player_names:
-            player_names[game.player2] = User.query.with_entities(User.username) \
-                .filter_by(id=game.player2).first_or_404()[0]
 
     friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
     friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)

@@ -55,7 +55,7 @@
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-history"></i> {{ _('Recent games') }}</h5>
                 <hr>
-                {% for game in games %}
+                {% for game, player1_name, player2_name in games %}
 
                 <p class="text-secondary"><a href="{{ url_for('game.start', hashid=game.hashid) }}"
                                              class="
@@ -73,8 +73,8 @@
                                              {%- endif %}
                                                 ">vs.
                     {%- if game.opponent_type.startswith('computer') %} Trainer {{ game.opponent_type[8:] }}
-                    {%- elif game.player1 != user.id %} {{ player_names[game.player1] }}
-                    {%- elif game.player2 != user.id %} {{ player_names[game.player2] }}
+                    {%- elif game.player1 != user.id %} {{ player1_name }}
+                    {%- elif game.player2 != user.id %} {{ player2_name }}
                     {%- else %} local guest{% endif %}
                     - {{ game.type }} {{ game.in_mode }}/{{ game.out_mode }} [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
                 {% endfor %}

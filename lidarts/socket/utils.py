@@ -305,26 +305,21 @@ def broadcast_online_players():
     online_players = (
         User.query
         .filter(or_(User.is_online, User.last_seen > online_thresh_timestamp))
+        .join(UserStatistic).add_columns(UserStatistic.average, UserStatistic.doubles)
         .all())
 
     online_count = len(online_players)
 
-    for user in online_players:
+    for user, average, doubles in online_players:
         socketio.sleep(0)
         status = user.status
 
-        if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=10)):
+        if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=35)):
             status = 'playing'
             ingame_count += 1
 
         avatar = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
-
-        user_statistic = UserStatistic.query.filter_by(user=user.id).first()
-        if not user_statistic:
-            user_statistic = UserStatistic(user=user.id, average=0, doubles=0)
-            db.session.add(user_statistic)
-            db.session.commit()
-        statistics = {'average': user_statistic.average, 'doubles': user_statistic.doubles}
+        statistics = {'average': average, 'doubles': doubles}
 
         online_players_list.append(
             {

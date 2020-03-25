@@ -11,7 +11,8 @@ import bleach
 @socketio.on('connect', namespace='/chat')
 def connect():
     # print('Client connected', request.sid)
-    broadcast_online_players()
+    # broadcast_online_players()
+    pass
 
 
 @socketio.on('broadcast_chat_message', namespace='/chat')
