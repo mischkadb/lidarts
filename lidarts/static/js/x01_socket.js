@@ -31,7 +31,7 @@ $(document).ready(function() {
     window.setInterval(function(){
         /// call your function here
         socket.emit('player_heartbeat', {hashid: hashid['hashid']});
-    }, 5000);
+    }, 15000);
 
     socket.on('game_aborted', function(msg) {
         $('.score_input').hide();

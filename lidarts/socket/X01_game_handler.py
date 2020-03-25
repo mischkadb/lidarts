@@ -7,7 +7,7 @@ from lidarts.socket.utils import process_score, current_turn_user_id, process_cl
 from lidarts.socket.computer import get_computer_score
 import json
 from datetime import datetime, timedelta
-
+from sqlalchemy.orm import aliased
 
 def send_score_response(game, old_score=0, broadcast=False):
     match_json = json.loads(game.match_json)
@@ -151,25 +151,31 @@ def connect():
 @socketio.on('player_heartbeat', namespace='/game')
 def player_heartbeat(message):
     if current_user.is_authenticated:
-        game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
+        player1 = aliased(User)
+        player2 = aliased(User)
+        game, p1_last_seen, p2_last_seen = (
+            Game.query.filter_by(hashid=message['hashid'])
+            .join(player1, Game.player1 == player1.id).add_columns(player1.last_seen_ingame)
+            .join(player2, Game.player2 == player2.id).add_columns(player2.last_seen_ingame)
+            .first_or_404()
+        )
         current_user.last_seen_ingame = datetime.utcnow()
         db.session.commit()
+        socketio.sleep(0)
 
         if current_user.id == game.player1:
             p1_ingame = True
         else:
-            p1 = User.query.filter_by(id=game.player1).first_or_404()
-            p1_ingame = p1.last_seen_ingame > datetime.utcnow() - timedelta(seconds=10)
+            p1_ingame = p1_last_seen > datetime.utcnow() - timedelta(seconds=35)
             
         if current_user.id == game.player2:
             p2_ingame = True
         elif game.player1 == game.player2:
             p2_ingame = p1_ingame
         else:
-            p2 = User.query.filter_by(id=game.player2).first_or_404() if game.player2 else None
-            p2_ingame = p2.last_seen_ingame > datetime.utcnow() - timedelta(seconds=10) if p2 else True
+            p2_ingame = p2_last_seen > datetime.utcnow() - timedelta(seconds=35)
 
-        emit('players_ingame', {'p1_ingame': p1_ingame, 'p2_ingame': p2_ingame}, room=game.hashid, broadcast=True)
+        emit('players_ingame', {'p1_ingame': p1_ingame, 'p2_ingame': p2_ingame}, room=game.hashid)
 
 
 @socketio.on('init', namespace='/game')
