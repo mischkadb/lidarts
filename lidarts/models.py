@@ -1,6 +1,6 @@
 from flask_security import UserMixin, RoleMixin
 from lidarts import db
-from datetime import datetime
+from datetime import datetime, timedelta
 import secrets
 from sqlalchemy.ext.associationproxy import association_proxy
 
@@ -67,6 +67,9 @@ class User(db.Model, UserMixin):
         self.is_online = True
         db.session.commit()
         return last_online != self.is_online
+
+    def recently_online(self):
+        return self.is_online or self.last_seen > datetime.utcnow() - timedelta(minutes=1)
 
 
 class FriendshipRequest(db.Model):

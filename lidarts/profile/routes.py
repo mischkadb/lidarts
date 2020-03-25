@@ -6,9 +6,7 @@ from lidarts.profile import bp
 from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm
 from lidarts.models import User, Game, Friendship, FriendshipRequest, UserStatistic
 from sqlalchemy import desc
-from datetime import datetime, timedelta
 import os
-import json
 
 
 @bp.route('/@/<username>/game_history')
@@ -71,7 +69,7 @@ def overview(username):
 
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names, friend_list=friend_list,
-                           recently_online=(user.last_seen > datetime.utcnow() - timedelta(seconds=15)),
+                           recently_online=user.recently_online(),
                            stats=stats, avatar_url=avatar_url, title=lazy_gettext('Profile'))
 
 

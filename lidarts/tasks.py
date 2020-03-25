@@ -33,7 +33,6 @@ def calc_stats(player_id, max_games=None, max_darts=None):
     legs_played = 0
     legs_won = 0
     double_missed = 0
-    total_legs = 0
     for game in games:
         if max_darts and darts_thrown > max_darts:
             break

@@ -27,6 +27,12 @@ def connect_client():
         send_notification(current_user.username, notification.message, notification.author, notification.type)
 
 
+@socketio.on('user_heartbeat', namespace='/base')
+def heartbeat():
+    if current_user.is_authenticated:
+        current_user.ping()
+
+
 @socketio.on('disconnect', namespace='/base')
 def disconnect_client():
     connections = SocketConnections.query.first()

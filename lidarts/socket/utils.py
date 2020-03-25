@@ -5,6 +5,7 @@ from lidarts.models import Game, User, UserStatistic
 import math
 import json
 from datetime import datetime, timedelta
+from sqlalchemy import or_
 
 
 def player1_started_leg(leg):
@@ -300,9 +301,10 @@ def broadcast_online_players():
     ingame_count = 0
     
     online_players_list = []
+    online_thresh_timestamp = datetime.utcnow() - timedelta(minutes=1)
     online_players = (
         User.query
-        .filter(User.is_online)
+        .filter(or_(User.is_online, User.last_seen > online_thresh_timestamp))
         .all())
 
     online_count = len(online_players)
