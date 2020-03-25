@@ -1,6 +1,6 @@
 from flask_socketio import emit
 from flask_login import current_user
-from lidarts import db, avatars
+from lidarts import db, avatars, socketio
 from lidarts.models import Game, User, UserStatistic
 import math
 import json
@@ -310,6 +310,7 @@ def broadcast_online_players():
     online_count = len(online_players)
 
     for user in online_players:
+        socketio.sleep(0)
         status = user.status
 
         if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=10)):

@@ -175,7 +175,7 @@ class BoardCoordinates(db.Model):
 class UserStatistic(db.Model):
     __tablename__ = 'user_statistic'
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True)
     average = db.Column(db.Float, default=0)
     first9 = db.Column(db.Float, default=0)
     doubles = db.Column(db.Float, default=0)

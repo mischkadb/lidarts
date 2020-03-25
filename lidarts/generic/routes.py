@@ -139,27 +139,32 @@ def chat():
         .limit(20)
         .all()
     )
-    messages = messages[::-1]
-    user_names = {}
-    statistics = {}
+    user_ids = set([message.author for message in messages])
+    socketio.sleep(0)
 
-    for message in messages:
+    usernames_dict = {}
+    statistics_dict = {}
+
+    usernames = User.query.with_entities(User.id, User.username).filter(User.id.in_(user_ids)).all()
+    user_statistics = UserStatistic.query.filter(User.id.in_(user_ids)).all()
+
+    for user in user_statistics:
         socketio.sleep(0)
-        if message.author in user_names:
-            continue
-        user_names[message.author] = (
-            User.query.with_entities(User.username) 
-            .filter_by(id=message.author).first_or_404()[0]
-        )
-        user_statistic = UserStatistic.query.filter_by(user=message.author).first()
-        if not user_statistic:
-            user_statistic = UserStatistic(user=message.author, average=0, doubles=0)
+        statistics_dict[user.user] = {'average': user.average, 'doubles': user.doubles}
+
+    for user in usernames:
+        socketio.sleep(0)
+        usernames_dict[user.id] = user.username
+        if user.id not in statistics_dict:
+            user_statistic = UserStatistic(user=user.id)
             db.session.add(user_statistic)
             db.session.commit()
-        statistics[message.author] = {'average': user_statistic.average, 'doubles': user_statistic.doubles}
+            statistics_dict[user.id] = {'average': user_statistic.average, 'doubles': user_statistic.doubles}
 
-    return render_template('generic/chat.html', form=form, messages=messages, statistics=statistics,
-                           user_names=user_names, title=lazy_gettext('Chat'))
+    messages = messages[::-1]
+
+    return render_template('generic/chat.html', form=form, messages=messages, statistics=statistics_dict,
+                           user_names=usernames_dict, title=lazy_gettext('Chat'))
 
 
 # should get called by a cronjob periodically
