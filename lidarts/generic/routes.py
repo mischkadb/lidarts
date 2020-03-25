@@ -136,35 +136,13 @@ def chat():
         Chatmessage.query
         .filter(Chatmessage.timestamp > (datetime.utcnow() - timedelta(hours=1)))
         .order_by(Chatmessage.id.desc())
-        .limit(20)
+        .join(User).add_columns(User.username)
+        .join(UserStatistic).add_columns(UserStatistic.average)
+        .limit(50)
         .all()
     )
-    user_ids = set([message.author for message in messages])
-    socketio.sleep(0)
 
-    usernames_dict = {}
-    statistics_dict = {}
-
-    usernames = User.query.with_entities(User.id, User.username).filter(User.id.in_(user_ids)).all()
-    user_statistics = UserStatistic.query.filter(User.id.in_(user_ids)).all()
-
-    for user in user_statistics:
-        socketio.sleep(0)
-        statistics_dict[user.user] = {'average': user.average, 'doubles': user.doubles}
-
-    for user in usernames:
-        socketio.sleep(0)
-        usernames_dict[user.id] = user.username
-        if user.id not in statistics_dict:
-            user_statistic = UserStatistic(user=user.id)
-            db.session.add(user_statistic)
-            db.session.commit()
-            statistics_dict[user.id] = {'average': user_statistic.average, 'doubles': user_statistic.doubles}
-
-    messages = messages[::-1]
-
-    return render_template('generic/chat.html', form=form, messages=messages, statistics=statistics_dict,
-                           user_names=usernames_dict, title=lazy_gettext('Chat'))
+    return render_template('generic/chat.html', form=form, messages=messages, title=lazy_gettext('Chat'))
 
 
 # should get called by a cronjob periodically
