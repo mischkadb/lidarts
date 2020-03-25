@@ -8,7 +8,7 @@ from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.forms import GameChatmessageForm
 from lidarts.profile.utils import get_user_status
 from lidarts.socket.utils import broadcast_online_players
-from sqlalchemy import desc
+from sqlalchemy import desc, or_
 from datetime import datetime, timedelta
 from collections import defaultdict
 import time
@@ -113,7 +113,7 @@ def lobby():
     # get online friends
     friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
     friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)
-    online_users = User.query.with_entities(User.id).filter(User.last_seen > datetime.utcnow() - timedelta(seconds=15))
+    online_users = User.query.with_entities(User.id).filter(or_(User.is_online, User.last_seen > datetime.utcnow() - timedelta(minutes=1)))
 
     online_friend_list = friend_query1.union(friend_query2).intersect(online_users).all()
     online_friend_list = [r for r, in online_friend_list]
