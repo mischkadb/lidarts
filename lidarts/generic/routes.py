@@ -44,7 +44,7 @@ def contribute():
 
 @bp.route('/watch')
 def live_games_overview():
-    live_games = Game.query.filter((Game.status == 'started')).order_by(Game.begin.desc())
+    live_games = Game.query.filter((Game.status == 'started')).order_by(Game.begin.desc()).limit(50).all()
     live_games_list = []
     players_in_list = []
 
