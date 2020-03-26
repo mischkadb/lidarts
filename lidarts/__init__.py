@@ -129,8 +129,9 @@ def create_app(test_config=None):
     app.redis = Redis.from_url('redis://')
     app.task_queue = rq.Queue('lidarts-tasks', connection=app.redis)
 
-    dashboard.config.init_from(file=os.path.join(app.instance_path, 'dashboard.cfg'))
-    dashboard.bind(app)
+    if 'ENABLE_DASHBOARD' in app.config and app.config['ENABLE_DASHBOARD']:
+        dashboard.config.init_from(file=os.path.join(app.instance_path, 'dashboard.cfg'))
+        dashboard.bind(app)
 
     # Load all blueprints
     from lidarts.generic import bp as generic_bp
