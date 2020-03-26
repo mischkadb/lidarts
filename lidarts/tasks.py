@@ -9,7 +9,6 @@ app.app_context().push()
 
 
 def calc_stats(player_id, max_games=None, max_darts=None):
-
     games_query = (
         Game.query
         .filter(
@@ -39,6 +38,7 @@ def calc_stats(player_id, max_games=None, max_darts=None):
         player = '1' if game.player1 == player_id else '2'
         match_json = json.loads(game.match_json)
         for set_ in match_json:
+            socketio.sleep(0)
             if max_darts and darts_thrown > max_darts:
                 break
             for leg in match_json[set_]:

@@ -248,6 +248,7 @@ def process_closest_to_bull(game, score_value, computer=False):
                                                    'p2_score': closest_to_bull_json['2'][-3:]
                                                    },
                      room=game.hashid, broadcast=True)
+                socketio.sleep(0)
                 return
             elif closest_to_bull_json['1'][i] < closest_to_bull_json['2'][i]:
                 # player 2 won
@@ -259,12 +260,14 @@ def process_closest_to_bull(game, score_value, computer=False):
                                                    'p2_score': closest_to_bull_json['2'][-3:]
                                                    },
                      room=game.hashid, broadcast=True)
+                socketio.sleep(0)
                 return
 
         # draw, next round
         emit('closest_to_bull_draw', {'hashid': game.hashid, 'p1_score': closest_to_bull_json['1'][-3:],
                                       'p2_score': closest_to_bull_json['2'][-3:]},
              room=game.hashid, broadcast=True)
+        socketio.sleep(0)
         return
 
     # emit throw score to players
@@ -290,6 +293,7 @@ def process_closest_to_bull(game, score_value, computer=False):
 
     emit('closest_to_bull_score', {'hashid': game.hashid, 'p1_score': p1_score, 'p2_score': p2_score},
          room=game.hashid, broadcast=True)
+    socketio.sleep(0)
     return
 
 
@@ -312,7 +316,7 @@ def broadcast_online_players(broadcast=True):
     online_count = len(online_players)
 
     for user, average, doubles in online_players:
-        # socketio.sleep(0)
+        socketio.sleep(0)
         status = user.status
 
         if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=35)):
@@ -355,6 +359,7 @@ def broadcast_new_game(game):
 
     emit('send_system_message_new_game', {'hashid': game.hashid, 'p1_name': p1_name, 'p2_name': p2_name},
          broadcast=True, namespace='/chat')
+    socketio.sleep(0)
 
 
 def broadcast_game_completed(game):
@@ -371,6 +376,7 @@ def broadcast_game_completed(game):
     emit('send_system_message_game_completed', {'hashid': game.hashid, 'p1_name': p1_name, 'p2_name': p2_name,
                                                 'p1_score': p1_score, 'p2_score': p2_score},
          broadcast=True, namespace='/chat')
+    socketio.sleep(0)
 
 
 def send_notification(username, message, author, type):

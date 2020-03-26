@@ -49,7 +49,7 @@ def live_games_overview():
     players_in_list = []
 
     for game in live_games:
-        # socketio.sleep(0)
+        socketio.sleep(0)
         game_dict = game.as_dict()
         player1_active = True
         player2_active = True

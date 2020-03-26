@@ -17,14 +17,14 @@ def connect_client():
         db.session.commit()
         return
 
-    current_user.ping()
-
-    emit('status_reply', {'status': current_user.status})
+    current_user.ping()   
 
     join_room(current_user.username)
     notifications = Notification.query.filter_by(user=current_user.id).all()
     for notification in notifications:
         send_notification(current_user.username, notification.message, notification.author, notification.type)
+
+    emit('status_reply', {'status': current_user.status})
 
 
 @socketio.on('user_heartbeat', namespace='/base')
