@@ -1,5 +1,5 @@
 from lidarts import create_app
-from lidarts import db
+from lidarts import db, socketio
 from lidarts.models import Game, UserStatistic
 import json
 from sqlalchemy import or_
