@@ -106,8 +106,8 @@ def send_score_response(game, old_score=0, broadcast=False):
     p1_first9_avg = round(sum(p1_first9_scores)/len(p1_first9_scores), 2) if p1_first9_scores else 0
     p2_first9_avg = round(sum(p2_first9_scores)/len(p2_first9_scores), 2) if p2_first9_scores else 0
 
-    p1_doubles = int(p1_legs_won / p1_darts_thrown_double * 10000) / 100 if p1_legs_won else 0
-    p2_doubles = int(p2_legs_won / p2_darts_thrown_double * 10000) / 100 if p2_legs_won else 0
+    p1_doubles = int(p1_legs_won / p1_darts_thrown_double * 10000) / 100 if p1_legs_won and p2_darts_thrown_double else 0
+    p2_doubles = int(p2_legs_won / p2_darts_thrown_double * 10000) / 100 if p2_legs_won and p2_darts_thrown_double else 0
 
     computer_game = game.opponent_type.startswith('computer')
 
