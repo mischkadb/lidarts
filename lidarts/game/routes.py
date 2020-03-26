@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, jsonify, request
 from flask_babelex import lazy_gettext, gettext
 from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
-from lidarts.models import Game, User, Notification, ChatmessageIngame
+from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting
 from lidarts import db
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
 from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names
@@ -18,28 +18,64 @@ import json
 @login_required
 def create(mode='x01', opponent_name=None):
     if mode == 'x01':
-        x01_type = request.args.get('type')
-        x01_type = x01_type if x01_type in ['170', '301', '501', '1001'] else '170'
-        starter = request.args.get('starter')
-        starter_short = {
-            '1': 'me',
-            '2': 'opponent',
-            'bull': 'closest_to_bull',
-        }
-        starter = starter_short[starter] if starter in starter_short else 'me'
-        bo_sets = request.args.get('sets')
-        try:
-            bo_sets = bo_sets if int(bo_sets) < 30 else 1
-        except (ValueError, TypeError):
-            bo_sets = 1
+        preset = X01Presetting.query.filter_by(user=current_user.id).first()
+        if not preset:
+            preset = X01Presetting(user=current_user.id)
+            db.session.add(preset)
+            db.session.commit()
+        
+        if request.args.get('type'):
+            x01_type = request.args.get('type') if request.args.get('type') in ['170', '301', '501', '1001'] else '170'
+        elif preset.type:
+            x01_type = preset.type
+        else:
+            x01_type = 501
 
-        bo_legs = request.args.get('legs')
-        try:
-            bo_legs = bo_legs if int(bo_legs) < 30 else 1
-        except (ValueError, TypeError):
-            bo_legs = 1
+        if request.args.get('starter'):
+            starter_short = {
+                '1': 'me',
+                '2': 'opponent',
+                'bull': 'closest_to_bull',
+            }
+            starter = starter_short[request.args.get('starter')] if request.args.get('starter') in starter_short else 'me'
+        elif preset.starter:
+            starter = preset.starter
+        else:
+            starter = 'me'
 
-        two_clear_legs = request.args.get('2cl')
+        if request.args.get('sets'):
+            bo_sets = request.args.get('sets')
+            try:
+                bo_sets = bo_sets if int(bo_sets) < 30 else 1
+            except (ValueError, TypeError):
+                bo_sets = 1
+        elif preset.bo_sets:
+            bo_sets = preset.bo_sets
+        else:
+            bo_sets = 1        
+
+        if request.args.get('legs'):
+            bo_legs = request.args.get('legs')
+            try:
+                bo_legs = bo_legs if int(bo_legs) < 30 else 1
+            except (ValueError, TypeError):
+                bo_legs = 1
+        elif preset.bo_legs:
+            bo_legs = preset.bo_legs
+        else:
+            bo_legs = 5
+
+        if request.args.get('2cl'):
+            two_clear_legs = request.args.get('2cl')
+        elif preset.two_clear_legs:
+            two_clear_legs = preset.two_clear_legs
+        else:
+            two_clear_legs = False
+
+        level = preset.level if preset.level else 1
+
+        in_mode = preset.in_mode if preset.in_mode else 'si'
+        out_mode = preset.out_mode if preset.out_mode else 'do'
 
         form = CreateX01GameForm(
             opponent_name=opponent_name,
@@ -48,9 +84,13 @@ def create(mode='x01', opponent_name=None):
             bo_sets=bo_sets,
             bo_legs=bo_legs,
             two_clear_legs=two_clear_legs,
+            level=level,
+            in_mode=in_mode,
+            out_mode=out_mode,
         )
     else:
         pass  # no other game modes yet
+
     if form.validate_on_submit():
         player1 = current_user.id if current_user.is_authenticated else None
         if player1 and form.opponent.data == 'local':
@@ -71,6 +111,7 @@ def create(mode='x01', opponent_name=None):
             # computer as opponent
             player2 = None
             status = 'started'
+
         match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
                                          2: {'scores': [], 'double_missed': []}}}})
         game = Game(player1=player1, player2=player2, type=form.type.data,
@@ -81,8 +122,28 @@ def create(mode='x01', opponent_name=None):
                     in_mode=form.in_mode.data, out_mode=form.out_mode.data,
                     begin=datetime.utcnow(), match_json=match_json,
                     status=status, opponent_type=form.opponent.data)
+
+        # Preset saving
+        if form.save_preset.data:
+            preset = X01Presetting.query.filter_by(user=current_user.id).first()
+            if not preset:
+                preset = X01Presetting(user=current_user.id)
+                db.session.add(preset)
+            preset.bo_sets = form.bo_sets.data
+            preset.bo_legs = form.bo_legs.data
+            preset.two_clear_legs = form.two_clear_legs.data
+            preset.starter = form.starter.data
+            preset.type = form.type.data
+            preset.in_mode = form.in_mode.data
+            preset.out_mode = form.out_mode.data
+            preset.opponent_type = form.opponent.data
+            preset.level = form.level.data
+
+            db.session.commit()
+
         if game.opponent_type.startswith('computer'):
             game.opponent_type += form.level.data
+
         game.p1_next_turn = form.starter.data == 'me'
         if form.starter.data == 'closest_to_bull':
             game.p1_next_turn = True

@@ -37,6 +37,7 @@ class CreateX01GameForm(FlaskForm):
     two_clear_legs = BooleanField(lazy_gettext('Two Clear Legs'))
     in_mode = SelectField(lazy_gettext('Mode In'), choices=in_choice, validators=[DataRequired()])
     out_mode = SelectField(lazy_gettext('Mode Out'), choices=out_choice, validators=[DataRequired()])
+    save_preset = BooleanField(lazy_gettext('Save settings'))
     submit = SubmitField(lazy_gettext('Start game'))
 
 

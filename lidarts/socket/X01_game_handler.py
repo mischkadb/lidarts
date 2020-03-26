@@ -2,12 +2,11 @@ from flask import current_app, request
 from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
-from lidarts.models import Game, User
+from lidarts.models import Game
 from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.computer import get_computer_score
 import json
-from datetime import datetime, timedelta
-from sqlalchemy.orm import aliased
+from datetime import datetime
 
 def send_score_response(game, old_score=0, broadcast=False):
     match_json = json.loads(game.match_json)

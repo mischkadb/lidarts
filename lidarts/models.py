@@ -172,6 +172,30 @@ class BoardCoordinates(db.Model):
     y3 = db.Column(db.Integer)
 
 
+class UserSettings(db.Model):
+    __tablename__ = 'user_settings'
+    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    match_alerts = db.Column(db.Boolean, default=True)
+    allow_challenges = db.Column(db.Boolean, default=True)
+    allow_private_messages = db.Column(db.Boolean, default=True)
+    allow_friend_requests = db.Column(db.Boolean, default=True)
+    country = db.Column(db.String, default=None)
+
+
+class X01Presetting(db.Model):
+    __tablename__ = 'x01_presettings'
+    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    bo_sets = db.Column(db.Integer)
+    bo_legs = db.Column(db.Integer)
+    two_clear_legs = db.Column(db.Boolean)
+    starter = db.Column(db.String(25))
+    type = db.Column(db.Integer)
+    in_mode = db.Column(db.String(15))
+    out_mode = db.Column(db.String(15))
+    opponent_type = db.Column(db.String(10))
+    level = db.Column(db.Integer)
+
+
 class UserStatistic(db.Model):
     __tablename__ = 'user_statistic'
     id = db.Column(db.Integer, primary_key=True)
