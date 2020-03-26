@@ -3,6 +3,7 @@ from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from lidarts import db, socketio
 from lidarts.generic import bp
+from lidarts.generic.forms import UserSearchForm
 from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, Notification, UserStatistic, SocketConnections
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.forms import GameChatmessageForm
@@ -82,9 +83,13 @@ def live_games_overview():
     return render_template('generic/watch.html', live_games=live_games_list, title=lazy_gettext('Live Games'))
 
 
-@bp.route('/lobby')
+@bp.route('/lobby', methods=['GET', 'POST'])
 @login_required
 def lobby():
+    form = UserSearchForm()
+    if form.validate_on_submit():
+        return redirect(url_for('profile.overview', username=form.username.data).replace('%40', '@'))
+
     player_names = {}
     games_in_progress = Game.query.filter(((Game.player1 == current_user.id) | (Game.player2 == current_user.id)) & \
                                           (Game.status == 'started')).order_by(desc(Game.id)).all()
@@ -124,7 +129,7 @@ def lobby():
                 .filter_by(id=friend).first_or_404()[0]
 
     return render_template('generic/lobby.html', games_in_progress=games_in_progress, player_names=player_names,
-                           friend_requests=friend_requests, online_friend_list=online_friend_list,
+                           friend_requests=friend_requests, online_friend_list=online_friend_list, form=form,
                            challenges=challenges, title=lazy_gettext('Lobby'))
 
 

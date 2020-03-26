@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+<div class="row">
+    <div class="col-md-6 col-xl-10">
+        <div class="card bg-light text-dark  bs-callout bs-callout-warning">
+            <div class="card-body">
+                <h5 class="card-title">{{ _('User not found') }}</h5>
+                <hr>
+                <p>We could not find a user with the name {{ username }}.</p>
+                <form method="POST" class="form-horizontal">
+                    {{ form.hidden_tag() }}
+                    <p>{{ form.username.label(class="control-label") }}:
+                        {{ form.username(class="form-control") }}</p>
+                    {% if form.errors %}
+                    {% for error in form.delay.errors %}
+                      <p class="font-weight-bold text-danger">{{ error }}</p>
+                    {% endfor %}
+                  {% endif %}
+
+                    <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}

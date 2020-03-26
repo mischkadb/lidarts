@@ -2,6 +2,7 @@ from flask import render_template, url_for, jsonify, redirect, flash, current_ap
 from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from lidarts import db, avatars, socketio
+from lidarts.generic.forms import UserSearchForm
 from lidarts.profile import bp
 from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm
 from lidarts.models import User, Game, Friendship, FriendshipRequest, UserStatistic
@@ -44,7 +45,9 @@ def game_history(username):
 @login_required
 def overview(username):
     player_names = {}
-    user = User.query.filter(User.username.ilike(username)).first_or_404()
+    user = User.query.filter(User.username.ilike(username)).first()
+    if not user:
+        return redirect(url_for('profile.user_not_found', username=username))
     player1 = aliased(User)
     player2 = aliased(User)
     games = (
@@ -82,6 +85,16 @@ def set_status(status):
     user.status = status
     db.session.commit()
     return jsonify('success')
+
+
+@bp.route('/user-not-found', methods=['POST'])
+@bp.route('/user-not-found/<string:username>', methods=['GET', 'POST'])
+@login_required
+def user_not_found(username):
+    form = UserSearchForm()
+    if form.validate_on_submit():
+        return redirect(url_for('profile.overview', username=form.username.data).replace('%40', '@'))
+    return render_template('profile/user_not_found.html', username=username, form=form)
 
 
 @bp.route('/manage_friend_list')
