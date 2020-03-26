@@ -1,6 +1,9 @@
 from gevent import monkey
 monkey.patch_all()
 
+import psycogreen.gevent
+psycogreen.gevent.patch_psycopg()
+
 import babel
 from dotenv import load_dotenv
 import os
