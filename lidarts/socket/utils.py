@@ -312,7 +312,7 @@ def broadcast_online_players(broadcast=True):
     online_count = len(online_players)
 
     for user, average, doubles in online_players:
-        socketio.sleep(0)
+        # socketio.sleep(0)
         status = user.status
 
         if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=35)):

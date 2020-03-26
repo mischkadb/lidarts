@@ -43,7 +43,7 @@ def send_score_response(game, old_score=0, broadcast=False):
 
     for set in match_json:
         for leg in match_json[set]:
-            socketio.sleep(0)
+            # socketio.sleep(0)
             p1_darts_thrown_double += sum(match_json[set][leg]['1']['double_missed'])
             p2_darts_thrown_double += sum(match_json[set][leg]['2']['double_missed'])
 
@@ -186,7 +186,7 @@ def send_score(message):
     if 'computer' in message and not game.p1_next_turn:
         # calculate computer's score
         message['score'], message['double_missed'], message['to_finish'] = get_computer_score(message['hashid'])
-        socketio.sleep(0)
+        # socketio.sleep(0)
     elif 'score' not in message or not message['score']:
         return
     # players may throw simultaneously at closest to bull
@@ -280,9 +280,9 @@ def send_score(message):
     old_set_count = len(match_json)
     old_leg_count = len(match_json[str(len(match_json))])
 
-    socketio.sleep(0)
+    # socketio.sleep(0)
     game = process_score(game, score_value, int(message['double_missed']), int(message['to_finish']))
-    socketio.sleep(0)
+    # socketio.sleep(0)
     
     # check for match_json updates
     match_json = json.loads(game.match_json)
