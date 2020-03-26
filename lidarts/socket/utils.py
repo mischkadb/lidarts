@@ -1,3 +1,4 @@
+from flask import request
 from flask_socketio import emit
 from flask_login import current_user
 from lidarts import db, avatars, socketio
@@ -296,7 +297,7 @@ def broadcast_game_aborted(game):
     emit('game_aborted', {'hashid': game.hashid}, room=game.hashid, namespace='/game', broadcast=True)
 
 
-def broadcast_online_players():
+def broadcast_online_players(broadcast=True):
     status_order = ['lfg', 'online', 'playing', 'busy']
     ingame_count = 0
     
@@ -334,12 +335,18 @@ def broadcast_online_players():
 
     online_players_list.sort(key=lambda k: (k['status_prio'], k['username'].lower()))
 
-    emit(
-        'send_online_players', 
-        {'players': online_players_list, 'ingame-count': ingame_count, 'online-count': online_count},
-        broadcast=True,
-        namespace='/chat'
-    )
+    if broadcast:
+        emit(
+            'send_online_players', 
+            {'players': online_players_list, 'ingame-count': ingame_count, 'online-count': online_count},
+            namespace='/chat'
+        )
+    else:
+        emit(
+            'send_online_players', 
+            {'players': online_players_list, 'ingame-count': ingame_count, 'online-count': online_count},
+            namespace='/chat', room=request.sid
+        )
 
 
 def broadcast_new_game(game):
