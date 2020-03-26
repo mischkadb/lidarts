@@ -73,12 +73,14 @@ def create(mode='x01', opponent_name=None):
             two_clear_legs = False
 
         level = preset.level if preset.level else 1
+        opponent = preset.opponent_type if preset.opponent_type else 'online'
 
         in_mode = preset.in_mode if preset.in_mode else 'si'
         out_mode = preset.out_mode if preset.out_mode else 'do'
 
         form = CreateX01GameForm(
             opponent_name=opponent_name,
+            opponent=opponent,
             type=x01_type,
             starter=starter,
             bo_sets=bo_sets,

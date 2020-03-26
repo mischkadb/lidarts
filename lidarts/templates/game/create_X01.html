@@ -45,10 +45,10 @@
                     <p>{{ form.opponent.label(class="col-form-label") }}:
                         {{ form.opponent(class="custom-select", onchange="computercheck(this);") }}</p>
 
-                    <p style="display: none;" id="levels">{{ form.level.label(class="col-form-label") }}:
+                    <p {% if form.opponent.data != 'computer' %}style="display: none;"{% endif %} id="levels">{{ form.level.label(class="col-form-label") }}:
                         {{ form.level(class="custom-select") }}</p>
 
-                    <p id="opponent_name">{{ form.opponent_name.label(class="col-form-label") }}:
+                    <p {% if form.opponent.data != 'online' %}style="display: none;"{% endif %}id="opponent_name">{{ form.opponent_name.label(class="col-form-label") }}:
                         {{ form.opponent_name(class="form-control") }}</p>
 
                     <p>{{ form.starter.label(class="col-form-label") }}:
