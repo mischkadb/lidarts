@@ -40,50 +40,27 @@ $(document).ready(function() {
         $('.game-aborted').show();
     });
 
-    function Timer(fn, t) {
-        var timerObj = setInterval(fn, t);
-    
-        this.stop = function() {
-            if (timerObj) {
-                clearInterval(timerObj);
-                timerObj = null;
-            }
-            return this;
-        }
-    
-        // start timer using current settings (if it's not already running)
-        this.start = function() {
-            if (!timerObj) {
-                this.stop();
-                timerObj = setInterval(fn, t);
-            }
-            return this;
-        }
-    
-        // start with new or original interval, stop current interval
-        this.reset = function(newT = t) {
-            t = newT;
-            return this.stop().start();
-        }
-    }
-
-    var p1_ingame_timer = new Timer(function() {
-        $('#p1_ingame').show();
+    var p1_ingame_timer = setInterval(function(){
+        $('#p1_ingame').show()
     }, 35000);
-
-    var p2_ingame_timer = new Timer(function() {
-        $('#p2_ingame').show();
+    var p2_ingame_timer = setInterval(function(){
+        $('#p2_ingame').show()
     }, 35000);
-
 
     socket.on('player_heartbeat_response', function(msg) {
         if (msg.player_id_heartbeat === player1_id) {
             $('#p1_ingame').hide();
-            p1_ingame_timer.reset();
+            clearInterval(p1_ingame_timer);
+            p1_ingame_timer = setInterval(function(){
+                $('#p1_ingame').show();
+            }, 35000);
         }
         if (msg.player_id_heartbeat === player2_id || player2_id == 'None') {
             $('#p2_ingame').hide();
-            p2_ingame_timer.reset();
+            clearInterval(p2_ingame_timer);
+            p2_ingame_timer = setInterval(function(){
+                $('#p2_ingame').show();
+            }, 35000);
         }
     });
 
