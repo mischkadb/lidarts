@@ -58,7 +58,7 @@ def create(mode='x01', opponent_name=None):
             status = 'started'
         elif player1 and form.opponent.data == 'online':
             if form.opponent_name.data:
-                player2 = User.query.with_entities(User.id).filter_by(username=form.opponent_name.data).first_or_404()
+                player2 = User.query.with_entities(User.id).filter(User.username.ilike(form.opponent_name.data)).first_or_404()
                 message = gettext('New challenge')
                 notification = Notification(user=player2, message=message, author=current_user.username,
                                             type='challenge')
