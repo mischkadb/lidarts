@@ -134,11 +134,11 @@ def chat():
     form = ChatmessageForm()
     messages = (
         Chatmessage.query
-        .filter(Chatmessage.timestamp > (datetime.utcnow() - timedelta(hours=1)))
+        .filter(Chatmessage.timestamp > (datetime.utcnow() - timedelta(hours=3)))
         .order_by(Chatmessage.id.desc())
         .join(User).add_columns(User.username)
         .join(UserStatistic).add_columns(UserStatistic.average)
-        .limit(50)
+        .limit(100)
         .all()
     )
 
