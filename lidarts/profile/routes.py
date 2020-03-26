@@ -54,7 +54,7 @@ def overview(username):
             & (Game.status != 'declined') & (Game.status != 'aborted')
         )
         .join(player1, Game.player1 == player1.id).add_columns(player1.username)
-        .join(player2, Game.player2 == player2.id).add_columns(player2.username)
+        .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
         .order_by(desc(Game.id)).limit(10).all()
     )
 
