@@ -17,10 +17,10 @@ Flask-Migrate==2.1.1
 Flask-Moment==0.9.0
 Flask-MonitoringDashboard==3.0.9
 Flask-Principal==0.4.0
-Flask-Security==3.0.0
+-e git://github.com/mischkadb/flask-uploads@f66d7dc
 Flask-SocketIO==4.2.1
 Flask-SQLAlchemy==2.4.1
-git+git://github.com/maxcountryman/flask-uploads@f66d7dc
+-e git://github.com/maxcountryman/flask-uploads@f66d7dc
 Flask-WTF==0.14.3
 gevent==1.4.0
 gevent-websocket==0.10.1
