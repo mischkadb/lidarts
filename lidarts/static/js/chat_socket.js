@@ -170,11 +170,12 @@ $(document).ready(function() {
         if ($('#match-alert-toggle').hasClass('active') == true) {
             $('#match-alert-toggle').html('Match alerts disabled');
             match_alerts_enabled = false;
+            socket.emit('disable_match_alert');
         } else {
             $('#match-alert-toggle').html('Match alerts enabled');
             match_alerts_enabled = true;
+            socket.emit('enable_match_alert');
         }
-
     });
 
 

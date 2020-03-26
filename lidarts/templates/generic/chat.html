@@ -28,8 +28,8 @@
             {{ form.message(class="form-control", autocomplete="off", maxlength="500") }}
             {{ form.submit }}
         </form>
-        <button type="button" id="match-alert-toggle" class="btn btn-secondary active mt-2" data-toggle="button" aria-pressed="true" autocomplete="off">
-            Match alerts enabled
+        <button type="button" id="match-alert-toggle" class="btn btn-secondary {% if match_alert %}active{% endif %} mt-2" data-toggle="button" aria-pressed="true" autocomplete="off">
+            Match alerts {% if match_alert %}enabled{% else %}disabled{% endif %}
         </button>
     </div>
     <div class="col-sm-4">

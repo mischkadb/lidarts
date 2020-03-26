@@ -4,7 +4,10 @@ from flask_login import current_user, login_required
 from lidarts import db, socketio
 from lidarts.generic import bp
 from lidarts.generic.forms import UserSearchForm
-from lidarts.models import Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, Notification, UserStatistic, SocketConnections
+from lidarts.models import (
+    Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, 
+    Notification, UserSettings, UserStatistic, SocketConnections
+)
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.forms import GameChatmessageForm
 from lidarts.profile.utils import get_user_status
@@ -147,7 +150,18 @@ def chat():
         .all()
     )
 
-    return render_template('generic/chat.html', form=form, messages=messages, title=lazy_gettext('Chat'))
+    match_alert = UserSettings.query.with_entities(UserSettings.match_alerts).filter_by(user=current_user.id).first()
+    if not match_alert:
+        match_alert = UserSettings(user=current_user.id)
+        db.session.add(match_alert)
+        db.session.commit()
+        match_alert = True
+    else:
+        match_alert = match_alert[0]
+    return render_template(
+        'generic/chat.html', form=form, messages=messages,
+        match_alert=match_alert, title=lazy_gettext('Chat')
+    )
 
 
 # should get called by a cronjob periodically

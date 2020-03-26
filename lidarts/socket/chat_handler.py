@@ -2,14 +2,14 @@ from flask import request
 from flask_socketio import emit, join_room
 from flask_login import current_user
 from lidarts import socketio, db
-from lidarts.models import User, Chatmessage, Privatemessage, Notification, Game, ChatmessageIngame, UserStatistic
+from lidarts.models import User, Chatmessage, Privatemessage, Notification, Game, ChatmessageIngame, UserStatistic, UserSettings
 from lidarts.socket.utils import broadcast_online_players, send_notification
 from datetime import datetime
 import bleach
 
 
 @socketio.on('connect', namespace='/chat')
-def connect():
+def connect_chat():
     # print('Client connected', request.sid)
     broadcast_online_players(broadcast=False)
 
@@ -36,7 +36,7 @@ def broadcast_chat_message(message):
 
 
 @socketio.on('connect', namespace='/private_messages')
-def connect():
+def connect_private_messages():
     # print('Client connected', request.sid)
     if current_user.is_authenticated:
         join_room(current_user.username)
@@ -91,6 +91,26 @@ def send_private_message(message):
                                            sender_name=sender_name, receiver_name=receiver_name,
                                            receiver=message['receiver'], timestamp=str(datetime.utcnow()) + 'Z'),
          room=sender_name, broadcast=True)
+
+
+@socketio.on('enable_match_alert', namespace='/chat')
+def enable_match_alert():
+    settings = UserSettings.query.filter_by(user=current_user.id).first()
+    if not settings:
+        settings = UserSettings(user=current_user.id)
+        db.session.add()
+    settings.match_alerts = True
+    db.session.commit()
+
+
+@socketio.on('disable_match_alert', namespace='/chat')
+def disable_match_alert():
+    settings = UserSettings.query.filter_by(user=current_user.id).first()
+    if not settings:
+        settings = UserSettings(user=current_user.id)
+        db.session.add()
+    settings.match_alerts = False
+    db.session.commit()
 
 
 @socketio.on('disconnect', namespace='/chat')
