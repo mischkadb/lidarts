@@ -339,7 +339,7 @@ def broadcast_online_players(broadcast=True):
         emit(
             'send_online_players', 
             {'players': online_players_list, 'ingame-count': ingame_count, 'online-count': online_count},
-            namespace='/chat'
+            namespace='/chat', broadcast=True
         )
     else:
         emit(
