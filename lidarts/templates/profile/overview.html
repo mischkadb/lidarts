@@ -78,7 +78,7 @@
                     {%- else %} local guest{% endif %}
                     - {{ game.type }} {{ game.in_mode }}/{{ game.out_mode }} [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
                 {% endfor %}
-                <a href="{{ url_for('profile.game_history', username=player_names[user.id]) | replace('%40', '@') }}" class="text-secondary">{{ _('Full match list') }}</a>
+                <a href="{{ url_for('profile.game_history', username=user.username) | replace('%40', '@') }}" class="text-secondary">{{ _('Full match list') }}</a>
 
             </div>
         </div>
