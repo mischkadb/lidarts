@@ -116,9 +116,6 @@ def send_score_response(game, old_score=0, broadcast=False):
 
     computer_game = game.opponent_type.startswith('computer')
 
-    if not p1_current_leg_scores and not p2_current_leg_scores:
-        broadcast = False
-
     room = game.hashid if broadcast else request.sid
 
     emit(
