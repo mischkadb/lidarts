@@ -14,7 +14,7 @@ $(document).ready(function() {
         var accept_url = $('#accept_url').data()['url'];
         var id = this.id.replace('button-accept-friend-request-', '');
 
-        $.get(accept_url + id,
+        $.post(accept_url + id,
             function() {
                 $(document.getElementById('element-friend-request-' + id)).html('<strong style="color: #449944">Request accepted.</strong>');
             }
