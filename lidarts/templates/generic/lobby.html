@@ -97,7 +97,7 @@
                     <p>{{ form.username.label(class="control-label") }}:
                         {{ form.username(class="form-control") }}</p>
                     {% if form.errors %}
-                    {% for error in form.delay.errors %}
+                    {% for error in form.username.errors %}
                       <p class="font-weight-bold text-danger">{{ error }}</p>
                     {% endfor %}
                   {% endif %}
