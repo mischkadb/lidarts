@@ -13,10 +13,12 @@
             <div class="card-body">
                 <div class="card bg-light">
                     <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
-                        {% for message, username, average in messages[::-1] %}
-                        <p><strong><a href="{{ url_for('profile.overview', username=username | replace('%40', '@')) }}" class="text-dark">{{ username }}</a></strong>
+                        {% for message, username, average, country in messages[::-1] %}
+                        <p>
+                            {% if country %}<img src="/static/img/flags/{{ country | lower }}.png" style="margin-right: 5px">{% endif %}<strong><a href="{{ url_for('profile.overview', username=username | replace('%40', '@')) }}" class="text-dark">{{ username }}</a></strong>
                             <small class="text-secondary"> {{ moment(message.timestamp).format('HH:mm:ss') }} - Avg.: {{ average }}</small><br>
-                        {{ message.message|safe }}</p>
+                        {{ message.message|safe }}
+                        </p>
                         <hr>
                         {% endfor %}
                     </div>

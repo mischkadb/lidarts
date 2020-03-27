@@ -28,12 +28,23 @@ def broadcast_chat_message(message):
 
     statistics = {'average': user_statistic.average, 'doubles': user_statistic.doubles}
 
+    country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=message['user_id']).first()[0]
+    if country:
+        country = country.lower()
+
     author = User.query.with_entities(User.username) \
         .filter_by(id=new_message.author).first_or_404()[0]
 
-    emit('send_message', {'author': author, 'message': new_message.message, 'statistics': statistics,
-                          'timestamp': str(new_message.timestamp) + 'Z'},
-         broadcast=True)
+    emit(
+        'send_message',
+        {
+            'author': author, 
+            'message': new_message.message,
+            'statistics': statistics,
+            'timestamp': str(new_message.timestamp) + 'Z',
+            'country': country,
+        },
+        broadcast=True)
 
 
 @socketio.on('connect', namespace='/private_messages')

@@ -32,9 +32,15 @@ $(document).ready(function() {
         $('#online_players').html('');
         var user;
         for (user in msg['players']){
+            if (msg['players'][user]['country'] != null) {
+                flag = '<img src="/static/img/flags/' + msg['players'][user]['country'] + '.png" style="margin-right: 3px">'
+            } else {
+                flag = ''
+            };
             $('#online_players').append('<div class="card"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
                 + '<strong style="font-size: 20px;"><a href="' + profile_url + msg['players'][user]['username'] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
                 + '<img src="' + msg['players'][user]['avatar'] + '" height="50px" width="50px" class="avatar avatar-status avatar-status-' + msg['players'][user]['status'] + '">'
+                + flag
                 + msg['players'][user]['username'] + '</a></strong>');
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
             if (user_id == msg['players'][user]['id']) {
@@ -79,12 +85,18 @@ $(document).ready(function() {
     socket.on('send_message', function (msg) {
         // allow 1px inaccuracy by adding 1
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
-
-        $('#chatbox').append('<p><strong><a href="' + profile_url +
+        console.log(msg['country'])
+        if (msg['country'] != null) {
+            flag = '<img src="/static/img/flags/' + msg['country'] + '.png" style="margin-right: 5px">'
+        } else {
+            flag = ''
+        }
+        console.log(flag);
+        $('#chatbox').append('<p>' + flag + '<strong><a href="' + profile_url +
             msg['author'] +
             '" class="text-dark">' + msg['author'] + '</a></strong> <small class="text-secondary">' +
-            moment(msg['timestamp']).local().format('HH:mm:ss') +
-            ' - Avg.: ' + msg['statistics']['average'] + '</small><br>' +
+            moment(msg['timestamp']).local().format('HH:mm:ss')
+            + ' - Avg.: ' + msg['statistics']['average'] + '</small><br>' +
             msg['message'] + '</p><hr>'
         );
 

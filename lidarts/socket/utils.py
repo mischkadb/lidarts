@@ -2,7 +2,7 @@ from flask import request
 from flask_socketio import emit
 from flask_login import current_user
 from lidarts import db, avatars, socketio
-from lidarts.models import Game, User, UserStatistic
+from lidarts.models import Game, User, UserSettings, UserStatistic
 import math
 import json
 from datetime import datetime, timedelta
@@ -311,11 +311,12 @@ def broadcast_online_players(broadcast=True):
         User.query
         .filter(or_(User.is_online, User.last_seen > online_thresh_timestamp))
         .join(UserStatistic).add_columns(UserStatistic.average, UserStatistic.doubles)
+        .join(UserSettings).add_columns(UserSettings.country)
         .all())
 
     online_count = len(online_players)
 
-    for user, average, doubles in online_players:
+    for user, average, doubles, country in online_players:
         socketio.sleep(0)
         status = user.status
 
@@ -326,6 +327,8 @@ def broadcast_online_players(broadcast=True):
         avatar = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
         statistics = {'average': average, 'doubles': doubles}
 
+        country = country.lower() if country else None
+
         online_players_list.append(
             {
                 'id': user.id,
@@ -334,6 +337,7 @@ def broadcast_online_players(broadcast=True):
                 'status_prio': status_order.index(status),
                 'avatar': avatar,
                 'statistics': statistics,
+                'country': country,
             }
         )
 

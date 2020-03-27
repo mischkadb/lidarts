@@ -146,6 +146,7 @@ def chat():
         .order_by(Chatmessage.id.desc())
         .join(User).add_columns(User.username)
         .join(UserStatistic).add_columns(UserStatistic.average)
+        .join(UserSettings).add_columns(UserSettings.country)
         .limit(100)
         .all()
     )

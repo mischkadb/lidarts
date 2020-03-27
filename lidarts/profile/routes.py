@@ -62,6 +62,9 @@ def overview(username):
     )
 
     stats = UserStatistic.query.filter_by(user=user.id).first()
+    country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=user.id).first()[0]
+    if country:
+        country = country.lower()
 
     friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
     friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)
@@ -74,6 +77,7 @@ def overview(username):
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names, friend_list=friend_list,
                            recently_online=user.recently_online(),
+                           country=country,
                            stats=stats, avatar_url=avatar_url, title=lazy_gettext('Profile'))
 
 
@@ -188,6 +192,7 @@ def general_settings():
         settings.allow_challenges = True if form.allow_challenges.data == 'enabled' else False
         settings.allow_private_messages = True if form.allow_private_messages.data == 'enabled' else False
         settings.allow_friend_requests = True if form.allow_friend_requests.data == 'enabled' else False
+        settings.country = form.country.data if form.country.data and form.country.data != 'None' else None
         db.session.commit()
         flash(lazy_gettext("Settings saved."))
 
@@ -195,5 +200,6 @@ def general_settings():
     form.allow_challenges.data = 'enabled' if settings.allow_challenges else 'disabled'
     form.allow_private_messages.data = 'enabled' if settings.allow_private_messages else 'disabled'
     form.allow_friend_requests.data = 'enabled' if settings.allow_friend_requests else 'disabled'
+    form.country.data = settings.country if settings.country else None
     
     return render_template('profile/general_settings.html', form=form, title=lazy_gettext('General settings'))
