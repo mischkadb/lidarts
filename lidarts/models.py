@@ -179,6 +179,7 @@ class UserSettings(db.Model):
     allow_challenges = db.Column(db.Boolean, default=True)
     allow_private_messages = db.Column(db.Boolean, default=True)
     allow_friend_requests = db.Column(db.Boolean, default=True)
+    notification_sound = db.Column(db.Boolean, default=True)
     country = db.Column(db.String, default=None)
 
 

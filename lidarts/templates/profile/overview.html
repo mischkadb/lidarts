@@ -24,14 +24,16 @@
                 {% if current_user.id == user.id %}
                 <h5 class="card-title"><i class="fas fa-cog"></i> {{ _('Preferences') }}</h5>
                 <hr>
+                <p><a href="{{ url_for('profile.general_settings') }}" class="text-secondary">{{ _('General settings') }}</a></p>
                 <p><a href="{{ url_for('generic.private_messages') }}" class="text-secondary">{{ _('Private messages') }}</a></p>
-                <p><a href="" class="text-secondary">{{ _('Edit profile') }}</a></p>
+                <!--<p><a href="" class="text-secondary">{{ _('Edit profile') }}</a></p>-->
                 <p><a href="{{ url_for('profile.manage_friend_list') }}" class="text-secondary">{{ _('Manage friend list') }}</a></p>
                 <p><a href="{{ url_for('auth.change_username') }}" class="text-secondary">{{ _('Change display name') }}</a></p>
                 <p><a href="{{ url_for_security('change_password') }}" class="text-secondary">{{ _('Change password') }}</a></p>
                 <p><a href="{{ url_for('profile.change_avatar') }}" class="text-secondary">{{ _('Avatar settings') }}</a></p>
                 <p><a href="{{ url_for('profile.change_caller') }}" class="text-secondary">{{ _('Caller settings') }}</a></p>
                 <p><a href="{{ url_for('profile.change_cpu_delay') }}" class="text-secondary">{{ _('Trainer delay settings') }}</a></p>
+                
 
 
                 {% else %}

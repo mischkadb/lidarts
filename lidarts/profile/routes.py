@@ -4,8 +4,8 @@ from flask_login import current_user, login_required
 from lidarts import db, avatars, socketio
 from lidarts.generic.forms import UserSearchForm
 from lidarts.profile import bp
-from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm
-from lidarts.models import User, Game, Friendship, FriendshipRequest, UserStatistic
+from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm
+from lidarts.models import User, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic
 from sqlalchemy import desc
 from sqlalchemy.orm import aliased
 import os
@@ -175,3 +175,16 @@ def change_cpu_delay():
         db.session.commit()
     form.delay.data = current_user.cpu_delay
     return render_template('profile/change_cpu_delay.html', form=form, title=lazy_gettext('Trainer Delay'))
+
+
+@bp.route('/general_settings', methods=['GET', 'POST'])
+@login_required
+def general_settings():
+    form = GeneralSettingsForm(request.form)
+    settings = UserSettings.query.filter_by(user=current_user.id).first()
+    if form.validate_on_submit():
+        settings.notification_sound = True if form.notification_sound.data == 'enabled' else False
+        db.session.commit()
+        flash(lazy_gettext("Settings saved."))
+    form.notification_sound.data = 'enabled' if settings.notification_sound else 'disabled'
+    return render_template('profile/general_settings.html', form=form, title=lazy_gettext('General settings'))

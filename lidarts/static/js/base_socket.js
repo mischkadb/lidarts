@@ -6,24 +6,29 @@ $(document).ready(function() {
     // The connection URL has the following format:
     //     http[s]://<domain>:<port>[/<namespace>]
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {transports: ['websocket']});
+
+    var notification_sound_enabled = true;
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
     socket.on('connect', function () {
         console.log('Base socket connected');
+        socket.emit('user_heartbeat');
+        socket.emit('get_status');
+        socket.emit('init');
     });
 
     socket.on('disconnect', function () {
         console.log('Base socket disconnected');
-    });
-
-    socket.emit('user_heartbeat');
+    });   
+    
+    socket.on('settings', function (msg) {
+        notification_sound_enabled = msg['notification_sound'];
+    });   
 
     window.setInterval(function(){
         socket.emit('user_heartbeat');
-    }, 30000);
-
-    socket.emit('get_status');
+    }, 30000);   
     
     socket.on('status_reply', function (msg) {
         var indicator = $(document.getElementsByClassName('status-indicator'));
@@ -49,8 +54,11 @@ $(document).ready(function() {
             + msg['message'] + '</a><hr class="notification-seperator">'
         );
 
-        var audio = new Audio('/static/sounds/notification.mp3');
-        audio.play();
+        if (notification_sound_enabled == true){
+            var audio = new Audio('/static/sounds/notification.mp3');
+            audio.play();
+        }
+
     });
 
     $('#notification-dropdown').click( function() {

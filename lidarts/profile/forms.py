@@ -4,6 +4,7 @@ from wtforms import SelectField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, NumberRange
 
 callers = [('default', 'Lidarts default'), ('DartCall 2007', 'DartCall 2007'), ('lidartsUK', 'Lidarts UK')]
+enabled_disabled = [('enabled', lazy_gettext('Enabled')), ('disabled', lazy_gettext('Disabled'))]
 
 
 class ChangeCallerForm(FlaskForm):
@@ -15,3 +16,11 @@ class ChangeCPUDelayForm(FlaskForm):
     delay = IntegerField(lazy_gettext('Trainer delay'), validators=[DataRequired(), NumberRange(0, 30)])
     submit = SubmitField(lazy_gettext('Save'))
 
+
+class GeneralSettingsForm(FlaskForm):
+    notification_sound = SelectField(
+        lazy_gettext('Notification sound'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
+    submit = SubmitField(lazy_gettext('Save'))
