@@ -36,4 +36,10 @@ class GeneralSettingsForm(FlaskForm):
         validators=[DataRequired()],
     )
 
+    allow_friend_requests = SelectField(
+        lazy_gettext('Allow friend requests'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
+
     submit = SubmitField(lazy_gettext('Save'))

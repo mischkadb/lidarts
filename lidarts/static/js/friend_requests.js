@@ -4,18 +4,17 @@ $(document).ready(function() {
         var user_id = $('#profile_user_id').data()['id'];
         var send_request_url = $('#send_request_url').data()['url'];
 
-        $.post(send_request_url + user_id,
-            function() {
+        $.post(send_request_url + user_id)
+            .done(function() {
                 $(document.getElementById('send_friend_request')).html('<strong style="color: #449944">Request sent.</strong>');
-            }
-        );
+            });
     });
 
     $('.button-accept-friend-request').click( function (event) {
         var accept_url = $('#accept_url').data()['url'];
         var id = this.id.replace('button-accept-friend-request-', '');
 
-        $.post(accept_url + id,
+        $.get(accept_url + id,
             function() {
                 $(document.getElementById('element-friend-request-' + id)).html('<strong style="color: #449944">Request accepted.</strong>');
             }

@@ -256,6 +256,12 @@ def send_friend_request(id):
     id = int(id)
     if current_user.id == id:
         return 'error'
+
+    receiver_settings = UserSettings.query.filter_by(user=id).first()
+    if receiver_settings and not receiver_settings.allow_friend_requests:
+        print('disallowed')
+        return jsonify('error')
+
     friendship = Friendship.query \
         .filter(((Friendship.user1_id == id) & (Friendship.user2_id == current_user.id))
                 | ((Friendship.user2_id == id) & (Friendship.user1_id == current_user.id))).first()
