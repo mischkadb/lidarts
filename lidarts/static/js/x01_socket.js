@@ -300,6 +300,17 @@ $(document).ready(function() {
         $('.p1_darts_this_leg').text((msg.p1_current_leg.length)*3);
         $('.p2_darts_this_leg').text((msg.p2_current_leg.length)*3);
 
+        if (msg.p1_started_leg == true) {
+            $('.p1_leg_start_indicator').show();
+            $('.p2_leg_start_indicator').hide();
+        }
+
+        if (msg.p2_started_leg == true) {
+            $('.p2_leg_start_indicator').show();
+            $('.p1_leg_start_indicator').hide();
+        }
+        
+
         $('#p1_current_leg').text('');
         $.each(msg.p1_current_leg, function( index, value ){
             if ( index == msg.p1_current_leg.length-1 && !msg.p1_next_turn) {

@@ -108,6 +108,12 @@ def send_score_response(game, old_score=0, broadcast=False):
     p1_doubles = int(p1_legs_won / p1_darts_thrown_double * 10000) / 100 if p1_legs_won and p2_darts_thrown_double else 0
     p2_doubles = int(p2_legs_won / p2_darts_thrown_double * 10000) / 100 if p2_legs_won and p2_darts_thrown_double else 0
 
+    p1_started_leg = (
+        len(p1_current_leg_scores) > len(p2_current_leg_scores) 
+        or (len(p1_current_leg_scores) == len(p2_current_leg_scores) and game.p1_next_turn)
+    )
+    p2_started_leg = not p1_started_leg
+
     computer_game = game.opponent_type.startswith('computer')
 
     if not p1_current_leg_scores and not p2_current_leg_scores:
@@ -136,6 +142,7 @@ def send_score_response(game, old_score=0, broadcast=False):
             'p1_short_leg': p1_short_leg, 'p2_short_leg': p2_short_leg,
             'computer_game': computer_game,
             'p1_id': game.player1, 'p2_id': game.player2,
+            'p1_started_leg': p1_started_leg, 'p2_started_leg': p2_started_leg,
             'new_score': broadcast  # needed for score sound output
         },
         room=room)

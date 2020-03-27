@@ -7,9 +7,23 @@ h1 {
   font-size: 60px;
 }
 
-h2 {
-  font-size: 50px;
+.h1 {
+    font-size: 60px;
+    margin-bottom: 0px;
 }
+
+.h4 {
+    margin-bottom: 0px;
+}
+
+h2 {
+    font-size: 50px;
+}
+
+.h2 {
+    font-size: 50px;
+    margin-bottom: 0px;
+  }
 
 h3 {
   font-size: 30px;

@@ -40,8 +40,16 @@
                 </div>
 
                 <div class="card bg-danger text-center p1_turn_score_card" id="p1_turn_score_card">
-                    <div class="card-body">
-                        <h1 id="p1_score" class="card-text p1_score" style="font-weight: bold">-</h1>
+                    <div class="card-body">                                              
+                        <p class="card-text d-flex h-100">
+                            <!-- Bootstrap flex-fill does not create equal width flexboxes -->
+                            <!-- Using Bootstrap's media-body does the trick -->
+                            <span class="text-left h4 align-self-center media-body">
+                                <i class="fas fa-play-circle  p1_leg_start_indicator"></i>
+                            </span>
+                            <span id="p1_score" class="h1 p1_score font-weight-bold  media-body" >-</span>
+                            <span class="media-body"></span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -88,7 +96,15 @@
                 </div>
                 <div class="card bg-danger text-center p2_turn_score_card" id="p2_turn_score_card">
                     <div class="card-body">
-                        <h1 id="p2_score" class="card-text p2_score" style="font-weight: bold">-</h1>
+                        <p class="card-text d-flex h-100">
+                            <!-- Bootstrap flex-fill does not create equal width flexboxes -->
+                            <!-- Using Bootstrap's media-body does the trick -->
+                            <span class="text-left h4 align-self-center media-body">
+                                <i class="fas fa-play-circle  p2_leg_start_indicator"></i>
+                            </span>
+                            <span id="p2_score" class="h1 p2_score font-weight-bold  media-body" >-</span>
+                            <span class="media-body"></span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -105,7 +121,16 @@
 
         <div class="card text-center p1_turn_score_card" id="p1_turn_score_card_small">
             <div class="card-body score_card_body_small">
-                <h2 id="p1_score_small" class="card-text p1_score" style="font-weight: bold"></h2>
+                <!--<h2 id="p1_score_small" class="card-text p1_score" style="font-weight: bold"></h2>-->
+                <p class="card-text d-flex h-100">
+                    <!-- Bootstrap flex-fill does not create equal width flexboxes -->
+                    <!-- Using Bootstrap's media-body does the trick -->
+                    <span class="text-left h4 align-self-center media-body">
+                        <i class="fas fa-play-circle  p1_leg_start_indicator"></i>
+                    </span>
+                    <span id="p1_score_small" class="h2 p1_score font-weight-bold  media-body" >-</span>
+                    <span class="media-body"></span>
+                </p>
             </div>
         </div>
     </div>
@@ -120,7 +145,15 @@
 
         <div class="card text-center p2_turn_score_card" id="p2_turn_score_card_small">
             <div class="card-body score_card_body_small">
-                <h2 id="p2_score_small" class="card-text p2_score" style="font-weight: bold"></h2>
+                <p class="card-text d-flex h-100">
+                    <!-- Bootstrap flex-fill does not create equal width flexboxes -->
+                    <!-- Using Bootstrap's media-body does the trick -->
+                    <span class="text-left h4 align-self-center media-body">
+                        <i class="fas fa-play-circle  p2_leg_start_indicator"></i>
+                    </span>
+                    <span id="p2_score_small" class="h2 p2_score font-weight-bold  media-body" >-</span>
+                    <span class="media-body"></span>
+                </p>
             </div>
         </div>
     </div>
