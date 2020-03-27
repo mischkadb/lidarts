@@ -184,7 +184,9 @@ def general_settings():
     settings = UserSettings.query.filter_by(user=current_user.id).first()
     if form.validate_on_submit():
         settings.notification_sound = True if form.notification_sound.data == 'enabled' else False
+        settings.allow_challenges = True if form.allow_challenges.data == 'enabled' else False
         db.session.commit()
         flash(lazy_gettext("Settings saved."))
     form.notification_sound.data = 'enabled' if settings.notification_sound else 'disabled'
+    form.allow_challenges.data = 'enabled' if settings.allow_challenges else 'disabled'
     return render_template('profile/general_settings.html', form=form, title=lazy_gettext('General settings'))

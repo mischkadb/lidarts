@@ -1,8 +1,8 @@
-from flask import render_template, redirect, url_for, jsonify, request
+from flask import render_template, redirect, url_for, jsonify, request, flash
 from flask_babelex import lazy_gettext, gettext
 from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
-from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting
+from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings
 from lidarts import db
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
 from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names
@@ -101,6 +101,14 @@ def create(mode='x01', opponent_name=None):
         elif player1 and form.opponent.data == 'online':
             if form.opponent_name.data:
                 player2 = User.query.with_entities(User.id).filter(User.username.ilike(form.opponent_name.data)).first_or_404()
+
+                player2_settings = UserSettings.query.filter_by(user=player2.id).first()
+                if player2_settings and not player2_settings.allow_challenges:
+                    # player 2 does not allow challenge requests
+                    flash(gettext('Player does not allow challenges'), 'danger')
+                    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
+                           title=lazy_gettext('Create Game'))
+
                 message = gettext('New challenge')
                 notification = Notification(user=player2, message=message, author=current_user.username,
                                             type='challenge')

@@ -23,4 +23,10 @@ class GeneralSettingsForm(FlaskForm):
         choices=enabled_disabled,
         validators=[DataRequired()],
     )
+
+    allow_challenges = SelectField(
+        lazy_gettext('Allow challenges'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
     submit = SubmitField(lazy_gettext('Save'))
