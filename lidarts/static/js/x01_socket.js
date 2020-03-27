@@ -265,7 +265,8 @@ $(document).ready(function() {
             $('.p2_score').text(msg.p2_score);
         }
 
-        if (msg['new_score'] && muted == false) {
+        // length check is needed to mute caller when new leg is broadcasted
+        if (msg['new_score'] && muted == false && (msg['p1_current_leg'].length > 0 || msg['p2_current_leg'].length > 0)) {
             var audio = new Audio('/static/sounds/' + caller + '/' + score + '.mp3');
             audio.play();
         }
