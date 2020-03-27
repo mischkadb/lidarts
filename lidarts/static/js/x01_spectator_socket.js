@@ -279,6 +279,16 @@ $(document).ready(function() {
         $('.p1_doubles').text(msg.p1_doubles + '% ('+ msg.p1_legs_won + '/' + msg.p1_darts_thrown_double + ')');
         $('.p2_doubles').text(msg.p2_doubles + '% ('+ msg.p2_legs_won + '/' + msg.p2_darts_thrown_double + ')');
 
+        if (msg.p1_started_leg == true) {
+            $('.p1_leg_start_indicator').show();
+            $('.p2_leg_start_indicator').hide();
+        }
+
+        if (msg.p2_started_leg == true) {
+            $('.p2_leg_start_indicator').show();
+            $('.p1_leg_start_indicator').hide();
+        }
+
         $('#p1_current_leg').text('');
         $.each(msg.p1_current_leg, function( index, value ){
             if ( index == msg.p1_current_leg.length-1 && !msg.p1_next_turn) {
