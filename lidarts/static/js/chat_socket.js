@@ -17,7 +17,10 @@ $(document).ready(function() {
     var game_url = $('#game_url').data()['url'];
     var create_url = $('#create_url').data()['url'] + '/x01/';
     var private_messages_url = $('#private_messages_url').data()['url'];
-    var match_alerts_enabled = true
+    var match_alerts_enabled = true;
+    if ($('#match_alert').data()['enabled'] == 'False') {
+        match_alerts_enabled = false;
+    }
 
     // Event handler for new connections.
     // The callback function is invoked when a connection with the

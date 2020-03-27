@@ -158,6 +158,7 @@ def chat():
         match_alert = True
     else:
         match_alert = match_alert[0]
+        
     return render_template(
         'generic/chat.html', form=form, messages=messages,
         match_alert=match_alert, title=lazy_gettext('Chat')
