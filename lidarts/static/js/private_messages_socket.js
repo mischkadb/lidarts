@@ -62,6 +62,16 @@ $(document).ready(function() {
         if(isScrolledToBottom)
             chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;
     });
+    
+    socket.on('receiver_PMs_disabled', function () {
+        // allow 1px inaccuracy by adding 1
+        var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
+
+        $('#chatbox').append('<p><strong>Receiver disabled private messages.</strong></p><hr>');
+
+        if(isScrolledToBottom)
+            chatbox.scrollTop = chatbox.scrollHeight - chatbox.clientHeight;
+    });
 
 
     // Handler for the score input form.

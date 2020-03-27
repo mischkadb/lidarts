@@ -68,6 +68,12 @@ def send_game_chat_message(message):
 def send_private_message(message):
     message['message'] = bleach.clean(message['message'])
     receiver = message['receiver']
+
+    receiver_settings = UserSettings.query.filter_by(user=receiver).first()
+    if receiver_settings and not receiver_settings.allow_private_messages:
+        emit('receiver_PMs_disabled', room=request.sid)
+        return
+
     new_message = Privatemessage(message=message['message'], sender=current_user.id,
                                  receiver=receiver, timestamp=datetime.utcnow())
 

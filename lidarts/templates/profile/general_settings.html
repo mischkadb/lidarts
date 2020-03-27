@@ -12,11 +12,20 @@
                 <hr>
                 <form method="POST" class="form-horizontal">
                     {{ form.hidden_tag() }}
-                    <p>{{ form.notification_sound.label(class="control-label") }}:
-                        {{ form.notification_sound(class="form-control custom-select") }}</p>
+                    <p>
+                        {{ form.notification_sound.label(class="control-label") }}:
+                        {{ form.notification_sound(class="form-control custom-select") }}
+                    </p>
 
-                    <p>{{ form.allow_challenges.label(class="control-label") }}:
-                        {{ form.allow_challenges(class="form-control custom-select") }}</p>
+                    <p>
+                        {{ form.allow_challenges.label(class="control-label") }}:
+                        {{ form.allow_challenges(class="form-control custom-select") }}
+                    </p>
+
+                    <p>
+                        {{ form.allow_private_messages.label(class="control-label") }}:
+                        {{ form.allow_private_messages(class="form-control custom-select") }}
+                    </p>
 
                     <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
                 </form>

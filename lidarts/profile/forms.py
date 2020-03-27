@@ -29,4 +29,11 @@ class GeneralSettingsForm(FlaskForm):
         choices=enabled_disabled,
         validators=[DataRequired()],
     )
+
+    allow_private_messages = SelectField(
+        lazy_gettext('Allow private messages'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
+
     submit = SubmitField(lazy_gettext('Save'))
