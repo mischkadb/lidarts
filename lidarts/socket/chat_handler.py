@@ -17,6 +17,7 @@ def connect_chat():
 @socketio.on('broadcast_chat_message', namespace='/chat')
 def broadcast_chat_message(message):
     message['message'] = bleach.clean(message['message'])
+    message['message'] = bleach.linkify(message['message'])
     new_message = Chatmessage(message=message['message'], author=message['user_id'], timestamp=datetime.utcnow())
     db.session.add(new_message)
     user_statistic = UserStatistic.query.filter_by(user=message['user_id']).first()
@@ -51,6 +52,7 @@ def init(message):
 @socketio.on('broadcast_game_chat_message', namespace='/game_chat')
 def send_game_chat_message(message):
     message['message'] = bleach.clean(message['message'])
+    message['message'] = bleach.linkify(message['message'])
     hashid = message['hash_id']
     new_message = ChatmessageIngame(message=message['message'], author=message['user_id'],
                                     timestamp=datetime.utcnow(), game_hashid=hashid)
@@ -67,6 +69,7 @@ def send_game_chat_message(message):
 @socketio.on('broadcast_private_message', namespace='/private_messages')
 def send_private_message(message):
     message['message'] = bleach.clean(message['message'])
+    message['message'] = bleach.linkify(message['message'])
     receiver = message['receiver']
 
     receiver_settings = UserSettings.query.filter_by(user=receiver).first()
