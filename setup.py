@@ -19,6 +19,7 @@ setup(
         'Flask-Migrate',
         'Flask-Moment',
         'Flask-MonitoringDashboard',
+        'Flask-Script',
         'Flask-Security',
         'Flask-SocketIO',
         'Flask-SQLAlchemy',
