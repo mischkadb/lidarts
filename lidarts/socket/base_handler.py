@@ -22,7 +22,7 @@ def connect_client():
     join_room(current_user.username)
     notifications = Notification.query.filter_by(user=current_user.id).all()
     for notification in notifications:
-        send_notification(current_user.username, notification.message, notification.author, notification.type)
+        send_notification(current_user.username, notification.message, notification.author, notification.type, silent=True)
 
     emit('status_reply', {'status': current_user.status})
 

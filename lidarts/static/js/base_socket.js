@@ -54,7 +54,7 @@ $(document).ready(function() {
             + msg['message'] + '</a><hr class="notification-seperator">'
         );
 
-        if (notification_sound_enabled == true){
+        if (notification_sound_enabled == true && msg['silent'] == false){
             var audio = new Audio('/static/sounds/notification.mp3');
             audio.play();
         }
