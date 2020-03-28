@@ -62,10 +62,16 @@ def overview(username):
     )
 
     stats = UserStatistic.query.filter_by(user=user.id).first()
-    country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=user.id).first()[0]
-    if country:
-        country = country.lower()
 
+    country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=user.id).first()
+    if country:
+        country = country[0]
+    else:
+        country = UserSettings(user=user.id)
+        db.session.add(country)
+        db.session.commit()
+        country = None
+        
     friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
     friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)
 

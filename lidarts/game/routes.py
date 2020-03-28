@@ -222,9 +222,25 @@ def start(hashid, theme=None):
         statistics = collect_statistics(game, match_json)
         player_countries = [None, None]
         if game.player1:
-            player_countries[0] = UserSettings.query.with_entities(UserSettings.country).filter_by(user=game.player1).first()[0]
+            p1_country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=game.player1).first()
+            if not p1_country:
+                p1_country = UserSettings(user=game.player1)
+                db.session.add(p1_country)
+                db.session.commit()
+                p1_country = None
+            else:
+                p1_country = p1_country[0]
+            player_countries[0] = p1_country
         if game.player2 and game.player1 != game.player2:
-            player_countries[1] = UserSettings.query.with_entities(UserSettings.country).filter_by(user=game.player2).first()[0]
+            p2_country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=game.player2).first()
+            if not p2_country:
+                p2_country = UserSettings(user=game.player2)
+                db.session.add(p2_country)
+                db.session.commit()
+                p2_country = None
+            else:
+                p2_country = p2_country[0]
+            player_countries[1] = p2_country
 
         return render_template(
             'game/X01_completed.html',

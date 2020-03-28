@@ -28,9 +28,14 @@ def broadcast_chat_message(message):
 
     statistics = {'average': user_statistic.average, 'doubles': user_statistic.doubles}
 
-    country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=message['user_id']).first()[0]
+    country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=message['user_id']).first()
     if country:
-        country = country.lower()
+        country = country[0]
+    else:
+        country = UserSettings(user=message['user_id'])
+        db.session.add(country)
+        db.session.commit()
+        country = None
 
     author = User.query.with_entities(User.username) \
         .filter_by(id=new_message.author).first_or_404()[0]
