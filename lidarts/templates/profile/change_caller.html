@@ -16,6 +16,11 @@
                         {{ form.callers(class="form-control custom-select") }}</p>
 
                     <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
+
+                    <p>
+                        {{ _('Do you want to get yourself as caller option included?') }} 
+                        <a href="{{ url_for('generic.contact') }}">{{ _('Contact us!') }}</a>
+                    </p>
                 </form>
 
             </div>
