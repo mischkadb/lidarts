@@ -1,8 +1,12 @@
 from gevent import monkey
 monkey.patch_all()
 
-import psycogreen.gevent
-psycogreen.gevent.patch_psycopg()
+import importlib
+psycogreen_installed = importlib.util.find_spec("psycogreen")
+
+if psycogreen_installed:
+    import psycogreen.gevent
+    psycogreen.gevent.patch_psycopg()
 
 import babel
 from dotenv import load_dotenv
@@ -38,15 +42,17 @@ class JSONEncoder(BaseEncoder):
         return BaseEncoder.default(self, o)
 
 
-convention = {
-    "ix": 'ix_%(column_0_label)s',
-    "uq": "uq_%(table_name)s_%(column_0_name)s",
-    "ck": "ck_%(table_name)s_%(constraint_name)s",
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-    "pk": "pk_%(table_name)s"
-}
-
-metadata = MetaData(naming_convention=convention)
+if psycogreen_installed:
+    convention = {
+        "ix": 'ix_%(column_0_label)s',
+        "uq": "uq_%(table_name)s_%(column_0_name)s",
+        "ck": "ck_%(table_name)s_%(constraint_name)s",
+        "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+        "pk": "pk_%(table_name)s"
+    }
+    metadata = MetaData(naming_convention=convention)
+else:
+    metadata = MetaData()
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
