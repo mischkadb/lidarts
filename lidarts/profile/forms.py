@@ -3,11 +3,8 @@ from flask_babelex import lazy_gettext
 from flask_wtf import FlaskForm
 from wtforms import SelectField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, NumberRange
-import json
+from lidarts.profile.countries import COUNTRIES
 
-with open('lidarts/static/countries.json') as countries_file:
-    countries = sorted(json.load(countries_file).items(), key=lambda k: k[1])
-    countries.insert(0, ['None', 'None'])
 
 callers = [('default', 'Lidarts default'), ('DartCall 2007', 'DartCall 2007'), ('lidartsUK', 'Lidarts UK')]
 enabled_disabled = [('enabled', lazy_gettext('Enabled')), ('disabled', lazy_gettext('Disabled'))]
@@ -50,7 +47,7 @@ class GeneralSettingsForm(FlaskForm):
 
     country = SelectField(
         lazy_gettext('Country'),
-        choices=countries,
+        choices=COUNTRIES,
         validators=[DataRequired()],
     )
 
