@@ -32,8 +32,15 @@ $(document).ready(function() {
         $('#online_players').html('');
         var user;
         for (user in msg['players']){
+            // no border for lidarts logo as flag
+            if (msg['players'][user]['country'] == 'lidarts') {
+                country_flag_class = '';
+            } else {
+                country_flag_class = 'country-flag';
+            }
+
             if (msg['players'][user]['country'] != null) {
-                flag = '<img src="/static/img/flags/' + msg['players'][user]['country'] + '.png" style="margin-right: 3px" class="country-flag">'
+                flag = '<img src="/static/img/flags/' + msg['players'][user]['country'] + '.png" style="margin-right: 3px" class="' + country_flag_class + '">'
             } else {
                 flag = ''
             };
@@ -85,9 +92,14 @@ $(document).ready(function() {
     socket.on('send_message', function (msg) {
         // allow 1px inaccuracy by adding 1
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
-        console.log(msg['country'])
+        if (msg['country'] == 'lidarts') {
+            country_flag_class = '';
+        } else {
+            country_flag_class = 'country-flag';
+        }
+
         if (msg['country'] != null) {
-            flag = '<img src="/static/img/flags/' + msg['country'] + '.png" style="margin-right: 5px" class="country-flag">'
+            flag = '<img src="/static/img/flags/' + msg['country'] + '.png" style="margin-right: 5px" class="' + country_flag_class + '">'
         } else {
             flag = ''
         }
