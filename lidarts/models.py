@@ -135,8 +135,8 @@ class Chatmessage(db.Model):
 
 class ChatmessageIngame(db.Model):
     __tablename__ = 'chatmessages_ingame'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    game_hashid = db.Column(db.String(10), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    game_hashid = db.Column(db.String(10))
     author = db.Column(db.Integer, db.ForeignKey('users.id'))
     message = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime)

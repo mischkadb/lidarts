@@ -17,7 +17,7 @@ Installation
 ----
 
 To set up a development environment make sure you have Python 3.7 or later installed 
-and a PostgreSQL database running on your localhost.
+as well as Redis Server installed and running.
 
 Clone the repo
 ~~~
@@ -33,7 +33,7 @@ source venv/bin/activate
 
 Install dependencies
 ~~~
-pip install -r requirements.txt
+pip install -r requirements_dev.txt
 ~~~
 
 Create instance folder and copy example config
@@ -42,8 +42,15 @@ mkdir instance
 cp example/config.py instance/config.py
 ~~~
 
-Initialize the migration directory and the database tables
+Create the database
 ~~~
+python manager.py createdb
+~~~
+
+There is currently an issue with the migrations directory.
+Remove it and initialize it again
+~~~
+rm -r migrations
 flask db init
 flask db migrate
 flask db upgrade
@@ -51,5 +58,10 @@ flask db upgrade
 
 Run the development server with
 ~~~
-python run.py
+python manager.py runserver
 ~~~
+
+Usage
+-----
+
+Open `127.0.0.1:5000` in your browser. The index page should appear.

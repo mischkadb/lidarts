@@ -108,8 +108,10 @@ def create_app(test_config=None):
                       change_password_form=ExtendedChangePasswordForm,
                       reset_password_form=ExtendedResetPasswordForm)
     origins = app.config['CORS_ALLOWED_ORIGINS'] if 'CORS_ALLOWED_ORIGINS' in app.config else '*'
+    
     if 'ENGINEIO_MAX_DECODE_PACKETS' in app.config:
         Payload.max_decode_packets = app.config['ENGINEIO_MAX_DECODE_PACKETS']
+
     socketio.init_app(app, message_queue='redis://', async_mode='gevent',
                       cors_allowed_origins=origins,
                       # logger=True, engineio_logger=True,
