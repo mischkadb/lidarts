@@ -117,6 +117,7 @@ class Game(db.Model):
     begin = db.Column(db.DateTime)
     end = db.Column(db.DateTime)
     opponent_type = db.Column(db.String(10))
+    public_challenge = db.Column(db.Boolean)
 
     def set_hashid(self):
         self.hashid = secrets.token_urlsafe(8)[:8]
@@ -195,6 +196,7 @@ class X01Presetting(db.Model):
     out_mode = db.Column(db.String(15))
     opponent_type = db.Column(db.String(10))
     level = db.Column(db.Integer)
+    public_challenge = db.Column(db.Boolean)
 
 
 class UserStatistic(db.Model):

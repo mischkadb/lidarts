@@ -43,13 +43,23 @@
                         {{ form.type(class="form-control custom-select") }}</p>
 
                     <p>{{ form.opponent.label(class="col-form-label") }}:
-                        {{ form.opponent(class="custom-select", onchange="computercheck(this);") }}</p>
+                        {{ form.opponent(class="custom-select", onchange="computercheck(this);") }}
+                    </p>
 
                     <p {% if form.opponent.data != 'computer' %}style="display: none;"{% endif %} id="levels">{{ form.level.label(class="col-form-label") }}:
-                        {{ form.level(class="custom-select") }}</p>
+                        {{ form.level(class="custom-select") }}
+                    </p>
 
                     <p {% if form.opponent.data != 'online' %}style="display: none;"{% endif %}id="opponent_name">{{ form.opponent_name.label(class="col-form-label") }}:
-                        {{ form.opponent_name(class="form-control") }}</p>
+                        {{ form.opponent_name(class="form-control") }}
+                    </p>
+
+                    <p>
+                        <div class="custom-control custom-checkbox" {% if form.opponent.data != 'online' %}style="display: none;"{% endif %} id="public_challenge_div">
+                        {{ form.public_challenge(class="custom-control-input") }}
+                        {{ form.public_challenge.label(class="custom-control-label") }}
+                        </div>
+                    </p>
 
                     <p>{{ form.starter.label(class="col-form-label") }}:
                         {{ form.starter(class="custom-select") }}</p>
@@ -105,13 +115,16 @@
     function computercheck(that) {
         if (that.value == 'computer') {
             document.getElementById("levels").style.display = "block";
+            document.getElementById("public_challenge_div").style.display = "none";
             document.getElementById("opponent_name").style.display = "none";
 
         } else if (that.value == 'online') {
             document.getElementById("levels").style.display = "none";
-            document.getElementById("opponent_name").style.display = "block";
+            document.getElementById("public_challenge_div").style.display = "block";
+            document.getElementById("opponent_name").style.display = "block";            
         } else {
             document.getElementById("levels").style.display = "none";
+            document.getElementById("public_challenge_div").style.display = "none";
             document.getElementById("opponent_name").style.display = "none";
         }
     }

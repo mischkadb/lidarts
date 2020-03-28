@@ -171,6 +171,7 @@ def create_app(test_config=None):
     import lidarts.socket.base_handler
     import lidarts.socket.chat_handler
     import lidarts.socket.X01_game_handler
+    import lidarts.socket.public_challenge_handler
 
     return app
 

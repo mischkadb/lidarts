@@ -120,5 +120,6 @@
 <meta id="decline_challenge_url" data-url="{{ url_for('game.decline_challenge') }}">
 
 
+<script type="text/javascript" src="{{ url_for('static',filename='js/public_challenge_socket.js', version=config.VERSION) }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/friend_requests.js', version=config.VERSION) }}"></script>
 {% endblock %}
