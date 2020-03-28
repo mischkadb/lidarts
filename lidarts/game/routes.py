@@ -124,14 +124,16 @@ def create(mode='x01', opponent_name=None):
 
         match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
                                          2: {'scores': [], 'double_missed': []}}}})
-        game = Game(player1=player1, player2=player2, type=form.type.data,
-                    bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
-                    two_clear_legs=form.two_clear_legs.data,
-                    p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
-                    p1_score=int(form.type.data), p2_score=int(form.type.data),
-                    in_mode=form.in_mode.data, out_mode=form.out_mode.data,
-                    begin=datetime.utcnow(), match_json=match_json,
-                    status=status, opponent_type=form.opponent.data)
+        game = Game(
+            player1=player1, player2=player2, type=form.type.data,
+            bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
+            two_clear_legs=form.two_clear_legs.data,
+            p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
+            p1_score=int(form.type.data), p2_score=int(form.type.data),
+            in_mode=form.in_mode.data, out_mode=form.out_mode.data,
+            begin=datetime.utcnow(), match_json=match_json,
+            status=status, opponent_type=form.opponent.data,
+                    )
 
         # Preset saving
         if form.save_preset.data:
@@ -187,8 +189,7 @@ def statistics_set_leg(hashid, set_, leg):
 def start(hashid, theme=None):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
     # check if we found an opponent, logged in users only
-    if game.status == 'challenged' and current_user.is_authenticated \
-            and current_user.id != game.player1:
+    if game.status == 'challenged' and current_user.is_authenticated and current_user.id != game.player1:
         if not game.player2 or game.player2 == current_user.id:
             game.player2 = current_user.id
             game.status = 'started'
@@ -199,7 +200,7 @@ def start(hashid, theme=None):
             start_game(hashid)
 
     game_dict = game.as_dict()
-    
+
     player_names = get_player_names(game)
 
     game_dict['player1_name'] = player_names[0]
@@ -210,43 +211,63 @@ def start(hashid, theme=None):
     # for player1 and spectators while waiting
     if game.status == 'challenged':
         p2_name = get_name_by_id(game.player2) if game.player2 else None
-        return render_template('game/wait_for_opponent.html', game=game_dict, p2_name=p2_name,
-                               title=lazy_gettext("Waiting..."))
+        return render_template(
+            'game/wait_for_opponent.html',
+            game=game_dict,
+            p2_name=p2_name,
+            title=lazy_gettext('Waiting...'),
+            )
     # for everyone if the game is completed
-    if game.status in ('completed', 'aborted', 'declined'):
+    if game.status in {'completed', 'aborted', 'declined'}:
         statistics = collect_statistics(game, match_json)
-        return render_template('game/X01_completed.html', game=game_dict, match_json=match_json,
-                               stats=statistics, title=lazy_gettext('Match overview'))
+        player_countries = [None, None]
+        if game.player1:
+            player_countries[0] = UserSettings.query.with_entities(UserSettings.country).filter_by(user=game.player1).first()[0]
+        if game.player2 and game.player1 != game.player2:
+            player_countries[1] = UserSettings.query.with_entities(UserSettings.country).filter_by(user=game.player2).first()[0]
+
+        return render_template(
+            'game/X01_completed.html',
+            game=game_dict,
+            match_json=match_json,
+            stats=statistics,
+            countries=player_countries,
+            title=lazy_gettext('Match overview'),
+            )
+
     # for running games
+    form = ScoreForm()
+    chat_form = GameChatmessageForm()
+    chat_form_small = GameChatmessageForm()
+    caller = current_user.caller if current_user.is_authenticated else 'default'
+    cpu_delay = current_user.cpu_delay if current_user.is_authenticated else 0
+
+    user = current_user.id if current_user.is_authenticated else None
+
+    if user in {game.player1, game.player2}:
+        messages = ChatmessageIngame.query.filter_by(game_hashid=game.hashid).order_by(ChatmessageIngame.id.asc()).all()
     else:
-        form = ScoreForm()
-        chat_form = GameChatmessageForm()
-        chat_form_small = GameChatmessageForm()
-        caller = current_user.caller if current_user.is_authenticated else 'default'
-        cpu_delay = current_user.cpu_delay if current_user.is_authenticated else 0
+        messages = []
+    user_names = {}
 
-        user = current_user.id if current_user.is_authenticated else None
+    for message in messages:
+        user_names[message.author] = (
+            User.query
+            .with_entities(User.username)
+            .filter_by(id=message.author)
+            .first_or_404()[0]
+        )
 
-        if user == game.player1 or user == game.player2:
-            messages = ChatmessageIngame.query.filter_by(game_hashid=game.hashid).order_by(ChatmessageIngame.id.asc()).all()
-        else:
-            messages = []
-        user_names = {}
-
-        for message in messages:
-            user_names[message.author] = User.query.with_entities(User.username) \
-                .filter_by(id=message.author).first_or_404()[0]
-
-        if theme:
-            return render_template('game/X01_stream.html', game=game_dict, form=form,
-                                   match_json=match_json, caller=caller, cpu_delay=cpu_delay,
-                                   title=lazy_gettext('Stream overlay'),
-                                   chat_form=chat_form, chat_form_small=chat_form_small,
-                                   messages=messages, user_names=user_names)
-        return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json,
-                               caller=caller, cpu_delay=cpu_delay, title=lazy_gettext('Live Match'),
-                               chat_form=chat_form, chat_form_small=chat_form_small,
-                               messages=messages, user_names=user_names)
+    if theme:
+        return render_template('game/X01_stream.html', game=game_dict, form=form,
+                                match_json=match_json, caller=caller, cpu_delay=cpu_delay,
+                                title=lazy_gettext('Stream overlay'),
+                                chat_form=chat_form, chat_form_small=chat_form_small,
+                                messages=messages, user_names=user_names)
+    return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json,
+                            caller=caller, cpu_delay=cpu_delay, title=lazy_gettext('Live Match'),
+                            chat_form=chat_form, chat_form_small=chat_form_small,
+                            messages=messages, user_names=user_names)
 
 
 @bp.route('/decline_challenge/')
