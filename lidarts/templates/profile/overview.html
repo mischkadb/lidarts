@@ -11,7 +11,7 @@
                     <img src="{{ avatar_url }}" height="60px" width="60px" class="avatar border">
                     <i class="fas fa-circle {% if recently_online %}status-{{ user.status }}" title="User is {{ user.status }}"{% else %}text-secondary" title="User is offline"{% endif %} style="font-size: 20px;"></i>
                     {{ user.username }} {% if user.id in friend_list %}<i class="fas fa-user-friends" title="User is your friend."></i>{% endif %}
-                    {% if country %}<img src="/static/img/flags/{{ country }}.png">{% endif %}
+                    {% if country %}<img src="/static/img/flags/{{ country }}.png" class="country-flag">{% endif %}
                 </h3>
             </div>
         </div>

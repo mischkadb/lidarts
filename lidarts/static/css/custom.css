@@ -136,4 +136,6 @@ a.no-underline {
     margin: 5px 0px 5px 0px;
 }
 
-
+.country-flag {
+    border: 1px solid #444;
+}

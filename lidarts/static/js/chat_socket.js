@@ -33,7 +33,7 @@ $(document).ready(function() {
         var user;
         for (user in msg['players']){
             if (msg['players'][user]['country'] != null) {
-                flag = '<img src="/static/img/flags/' + msg['players'][user]['country'] + '.png" style="margin-right: 3px">'
+                flag = '<img src="/static/img/flags/' + msg['players'][user]['country'] + '.png" style="margin-right: 3px" class="country-flag">'
             } else {
                 flag = ''
             };
@@ -87,7 +87,7 @@ $(document).ready(function() {
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
         console.log(msg['country'])
         if (msg['country'] != null) {
-            flag = '<img src="/static/img/flags/' + msg['country'] + '.png" style="margin-right: 5px">'
+            flag = '<img src="/static/img/flags/' + msg['country'] + '.png" style="margin-right: 5px" class="country-flag">'
         } else {
             flag = ''
         }
