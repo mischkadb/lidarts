@@ -118,18 +118,17 @@ $(document).ready(function() {
 
 
     socket.on('send_system_message_new_game', function (msg) {
-        if (match_alerts_enabled == false) {
-            return;
-        };            
-
         // allow 1px inaccuracy by adding 1
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
 
-        $('#chatbox').append('<p>New game between <strong><a href="' + profile_url + msg['p1_name'] +'" class="text-secondary">' +
-            msg['p1_name'] +
-            '</a></strong> and <strong><a href="' + profile_url + msg['p2_name'] +'" class="text-secondary">' +
-            msg['p2_name'] +
-            '</a></strong>. <a href="' + game_url + msg['hashid'] + '">Watch</a></p><hr>'
+        $('#new-games-box').prepend(
+            '<p style="margin-bottom: 5px"><strong>'
+            + '<a href="' + profile_url + msg['p1_name'] +'" class="text-secondary">'
+            + msg['p1_name']
+            + '</a></strong> vs. <strong><a href="' + profile_url + msg['p2_name'] +'" class="text-secondary">'
+            + msg['p2_name']
+            + '</a></strong> <a href="' + game_url + msg['hashid'] + '">Watch</a></p>'
+            + '<hr style="margin-top: 5px; margin-bottom: 5px;">'
         );
 
         if(isScrolledToBottom)
@@ -156,14 +155,17 @@ $(document).ready(function() {
 
         }
 
-        $('#chatbox').append('<p>Game finished: <strong>' +
-            '<a href="' + profile_url + msg['p1_name'] +'" style="color: ' + color1 + '">' +
-            msg['p1_name'] +
-            '</a></strong> vs. <strong>' +
+        $('#latest-results-box').prepend('<p style="margin-bottom: 5px"><strong>' +
+            '<a href="' + profile_url + msg['p1_name'] +'" style="color: ' + color1 + '">'
+            + msg['p1_name'] + '</a></strong> ' 
+            + msg['p1_score'] + ':' + msg['p2_score']
+            + ' <strong>' +
             '<a href="' + profile_url + msg['p2_name'] +'" style="color: ' + color2 + '">' +
             msg['p2_name'] +
-            '</a></strong> (' + msg['p1_score'] + ':' + msg['p2_score'] + ') ' +
-            '<a href="' + game_url + msg['hashid'] + '">Game summary</a></p><hr>'
+            '</a></strong>'
+            + '<a href="' + game_url + msg['hashid'] + '"> Details</a></p>'
+            + '<hr style="margin-top: 5px; margin-bottom: 5px;">'
+
         );
 
         if(isScrolledToBottom)
@@ -205,7 +207,16 @@ $(document).ready(function() {
         }
     });
 
+    $('#left-column-toggle').click(function() {
+        $('#latest-results-window').toggleClass("d-block");
+        $('#latest-results-window').toggleClass("d-none");
+        $('#new-games-window').toggleClass("d-block");
+        $('#new-games-window').toggleClass("d-none");
+        $('#public-challenge-window').toggleClass("d-block");
+        $('#public-challenge-window').toggleClass("d-none");
+    });
 
+    
 
 });
 

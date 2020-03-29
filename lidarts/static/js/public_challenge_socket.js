@@ -12,6 +12,10 @@ $(document).ready(function() {
 
     socket.on('broadcast_public_challenges', function(msg) {
         $('#public_challenge_list').text('');
+        if (msg['public_challenges'].length == 0) {
+            $('#public_challenge_list').html('<center>------</center>');
+        } 
+
         for(i in msg['public_challenges']) {
             public_challenge = msg['public_challenges'][i]
 
@@ -34,13 +38,14 @@ $(document).ready(function() {
             }
             
             $('#public_challenge_list').append(
-                '<p><a href="' + public_challenge['hashid'] + '" class="text-dark mt-2"><strong>' + public_challenge['username'] + '</strong> | '
+                '<p><a href="game/' + public_challenge['hashid'] + '" class="text-dark mt-2"><strong>' + public_challenge['username'] + '</strong> | '
                 + 'Avg.: ' + public_challenge['average'] + '<br>'
                 + public_challenge['type'] + ' ' +  public_challenge['in_mode'] + '/' +  public_challenge['out_mode'] + ' | '
                 + 'bo' + public_challenge['bo_legs'] + ' legs'
                 + bo_sets
                 + two_clear_legs
                 + '</a></p>'
+                + '<hr>'
             );
         }
         

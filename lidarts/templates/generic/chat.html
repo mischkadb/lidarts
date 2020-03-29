@@ -5,39 +5,65 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/chat.css', version=config.VERSION) }}" />
 {% endblock %}
 
+{% block container %}
+<div class="container-fluid">
+{% endblock %}
+
 {% block app_content %}
 
 <div class="row justify-content-center">
-    <div class="col-sm-8">
-        <div class="card bg-light text-dark">
-            <div class="card-body">
-                <div class="card bg-light">
-                    <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
-                        {% for message, username, average, country in messages[::-1] %}
-                        <p>
-                            {% if country %}<img src="/static/img/flags/{{ country | lower }}.png" style="margin-right: 5px" class="
-                            {% if country != 'lidarts' -%}country-flag{% endif -%}">{% endif %}<strong><a href="{{ url_for('profile.overview', username=username | replace('%40', '@')) }}" class="text-dark">{{ username }}</a></strong>
-                            <small class="text-secondary"> {{ moment(message.timestamp).format('HH:mm:ss') }} - Avg.: {{ average }}</small><br>
-                        {{ message.message|safe }}
-                        </p>
-                        <hr>
-                        {% endfor %}
-                    </div>
-                </div>
+    <div class="col-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 p-1 order-3 order-md-1">
+        <div class="card bg-light text-dark d-none" id="public-challenge-window">
+            <div class="card-body" style="height: 600px; overflow-y: scroll;">
+                <p class="text-center font-weight-bold">{{ _('Public challenges') }}</p>
+                <hr class="hr-slim">
+                <div id="public_challenge_list"></div>
             </div>
+        </div>
+
+        <div class="card bg-light text-dark d-block" style="height: 300px; overflow-y: scroll;"  id="new-games-window">
+            <div class="card-body">
+                <p class="text-center font-weight-bold slim">{{ _('New games') }}</p>
+                <hr class="slim">
+                <span id="new-games-box"></span>
+            </div>
+        </div>
+
+        <div class="card bg-light text-dark mt-1 d-block" style="height: 300px; overflow-y: scroll;"  id="latest-results-window">
+            <div class="card-body">
+                <p class="text-center font-weight-bold slim">{{ _('Latest results') }}</p>
+                <hr class="slim">
+                <span id="latest-results-box"></span>
+            </div>
+        </div>                     
+
+        <button type="button" id="left-column-toggle" class="btn btn-secondary mt-2 active" data-toggle="button" autocomplete="off">
+            {% if show_public_challenges %}{{ _('Show match information') }}{% else %}{{ _('Show public challenges') }}{% endif %}
+        </button>
+    </div>
+    <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-4 p-1 order-first order-md-2">
+        <div class="card bg-light text-dark">
+                <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
+                    {% for message, username, average, country in messages[::-1] %}
+                    <p>
+                        {% if country %}<img src="/static/img/flags/{{ country | lower }}.png" style="margin-right: 5px" class="
+                        {% if country != 'lidarts' -%}country-flag{% endif -%}">{% endif %}<strong><a href="{{ url_for('profile.overview', username=username | replace('%40', '@')) }}" class="text-dark">{{ username }}</a></strong>
+                        <small class="text-secondary"> {{ moment(message.timestamp).format('HH:mm:ss') }} - Avg.: {{ average }}</small><br>
+                    {{ message.message|safe }}
+                    </p>
+                    <hr>
+                    {% endfor %}
+                </div>
         </div>
         <form id="message_input" method="POST" action="">
             {{ form.hidden_tag() }}
             {{ form.message(class="form-control", autocomplete="off", maxlength="500") }}
             {{ form.submit }}
         </form>
-        <button type="button" id="match-alert-toggle" class="btn btn-secondary {% if match_alert %}active{% endif %} mt-2" data-toggle="button" aria-pressed="true" autocomplete="off">
-            Match alerts {% if match_alert %}enabled{% else %}disabled{% endif %}
-        </button>
     </div>
-    <div class="col-sm-4">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 p-1 order-2 order-md-3">
         <div class="card bg-light text-dark">
-            <div class="card-body" id="online_players" style="height: 600px; overflow-y: scroll;">
+            <div class="card-body" id="online_players" style="height: 600px; overflow-y: scroll; padding-left: 2px; padding-right: 2px;">
             </div>
         </div>
         <p>{{ _('Online') }}: <span id="online-players-count"></span></p>
@@ -59,6 +85,8 @@
 
 <script src="{{ url_for('static', filename='js/jquery.powertip.min.js', crossorigin='anonymous') }}"></script>
 
+
+<script type="text/javascript" src="{{ url_for('static',filename='js/public_challenge_socket.js', version=config.VERSION) }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/chat_socket.js', version=config.VERSION) }}"></script>
 
 
