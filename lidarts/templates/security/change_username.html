@@ -13,6 +13,15 @@
                     {{ change_username_form.hidden_tag() }}
                     {{ render_input_with_errors(change_username_form.username) }}
 
+                <p>{{ _('You can change your username only once per month. Please confirm.') }}</p>
+                <p><div class="custom-control custom-checkbox">
+                    {{ change_username_form.confirmation(class="custom-control-input") }}
+                    {{ change_username_form.confirmation.label(class="custom-control-label") }}
+                    {% if change_username_form.confirmation.errors %}
+                    <ul class="errors text-danger">{% for error in change_username_form.confirmation.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                    </div>
+                </p>
                     <button type="submit" class="btn btn-info">{{ _('Submit') }}</button>
                 </form>
             </div>

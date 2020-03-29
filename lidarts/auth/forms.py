@@ -1,4 +1,4 @@
-from wtforms import StringField, PasswordField, validators
+from wtforms import BooleanField, StringField, PasswordField, validators
 from wtforms.validators import DataRequired, ValidationError
 from lidarts.models import User
 from flask_security import LoginForm
@@ -93,9 +93,4 @@ class ExtendedResetPasswordForm(ResetPasswordForm):
 
 
 class ChangeUsernameForm(Form, UniqueUsernameFormMixin):
-    pass
-
-
-
-
-
+    confirmation = BooleanField(lazy_gettext('Accept'), validators=[DataRequired()])

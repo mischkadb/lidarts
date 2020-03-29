@@ -216,3 +216,12 @@ class SocketConnections(db.Model):
     active = db.Column(db.Integer, default=0)
     total = db.Column(db.Integer, default=0)
     last_reset = db.Column(db.DateTime)
+
+
+class UsernameChange(db.Model):
+    __tablename__ = 'username_changes'
+    id = db.Column(db.Integer, primary_key=True)
+    user = db.Column(db.Integer)
+    old_name = db.Column(db.String(25))
+    new_name = db.Column(db.String(25))
+    timestamp = db.Column(db.DateTime)
