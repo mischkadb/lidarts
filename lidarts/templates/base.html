@@ -32,7 +32,7 @@
 
 <body>
 {% block navbar %}
-<nav class="navbar navbar-expand-md sticky-top navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark mb-4">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url_for('generic.index') }}">
             <img src="/static/img/logo_white2.png" width="39" height="20" alt="lidarts logo" class="mr-1"> Lidarts</a>
@@ -104,7 +104,9 @@
 {% block content %}
 {% block jumbotron %}{% endblock %}
 
+{% block container %}
 <div class="container">
+{% endblock %}
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for category, message in messages %}
