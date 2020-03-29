@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-03-29 14:47+0200\n"
-"PO-Revision-Date: 2020-03-29 14:52+0200\n"
+"POT-Creation-Date: 2020-03-29 20:17+0200\n"
+"PO-Revision-Date: 2020-03-29 20:20+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -63,13 +63,21 @@ msgstr "Passwort"
 msgid "Username or Email Address"
 msgstr "Benutzername oder E-Mail-Adresse"
 
-#: auth/routes.py:17
-msgid "Username changed."
-msgstr "Benutzername geändert."
+#: auth/forms.py:96 profile/forms.py:54
+msgid "Accept"
+msgstr "Bestätigen"
 
-#: auth/routes.py:21
+#: auth/routes.py:19 auth/routes.py:31 auth/routes.py:44
 msgid "Change username"
 msgstr "Benutzername ändern"
+
+#: auth/routes.py:30
+msgid "You can only change your username once per month. You need to wait until: "
+msgstr "Du kannst deinen Benutzernamen nur einmal pro Monat ändern. Bitte warte bis: "
+
+#: auth/routes.py:33
+msgid "Username changed."
+msgstr "Benutzername geändert."
 
 #: game/forms.py:7 statistics/forms.py:9
 msgid "Local"
@@ -229,7 +237,7 @@ msgstr "Deaktiviert"
 msgid "Caller"
 msgstr "Caller"
 
-#: profile/forms.py:15 profile/forms.py:20 profile/forms.py:54
+#: profile/forms.py:15 profile/forms.py:20 profile/forms.py:56
 msgid "Save"
 msgstr "Speichern"
 
@@ -257,46 +265,51 @@ msgstr "Freundschaftsanfragen erlauben"
 msgid "Country"
 msgstr "Land"
 
-#: profile/routes.py:40
+#: profile/routes.py:41
 msgid "Match History"
 msgstr "Spielverlauf"
 
-#: profile/routes.py:87 templates/base.html:93
+#: profile/routes.py:88 templates/base.html:93
 msgid "Profile"
 msgstr "Profil"
 
-#: profile/routes.py:138
+#: profile/routes.py:139
 msgid "Manage Friend List"
 msgstr "Freundesliste verwalten"
 
-#: profile/routes.py:146
+#: profile/routes.py:147
 msgid "Avatar deleted."
 msgstr "Avatar gelöscht"
 
-#: profile/routes.py:160
+#: profile/routes.py:161
 msgid "Avatar saved."
 msgstr "Avatar gespeichert"
 
-#: profile/routes.py:165
+#: profile/routes.py:166
 msgid "Avatar Settings"
 msgstr "Avatar einstellen"
 
-#: profile/routes.py:176
+#: profile/routes.py:177
 msgid "Caller Settings"
 msgstr "Caller einstellen"
 
-#: profile/routes.py:187
+#: profile/routes.py:188
 msgid "Trainer Delay"
 msgstr "Trainerverzögerung einstellen"
 
-#: profile/routes.py:203
-msgid "Settings saved."
-msgstr "Einstellungen gespeichert."
+#: profile/routes.py:207
+msgid "You can only change your country setting once per month. You need to wait until: "
+msgstr "Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte warte bis: "
 
-#: profile/routes.py:211 templates/profile/general_settings.html:11
+#: profile/routes.py:208 profile/routes.py:221
+#: templates/profile/general_settings.html:11
 #: templates/profile/overview.html:29
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
+
+#: profile/routes.py:213
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
 
 #: statistics/forms.py:9 statistics/forms.py:12
 msgid "All"
@@ -887,6 +900,10 @@ msgstr "Zurück"
 msgid "Next"
 msgstr "Weiter"
 
+#: templates/profile/general_settings.html:40
+msgid "You can change your country setting only once per month. Please confirm."
+msgstr "Die Ländereinstellung kann nur einmal pro Monat geändert werden. Bitte bestätigen."
+
 #: templates/profile/manage_friend_list.html:11
 msgid "Friends"
 msgstr "Freunde"
@@ -975,10 +992,14 @@ msgid "User not found"
 msgstr "Benutzer nicht gefunden"
 
 #: templates/security/change_password.html:18
-#: templates/security/change_username.html:16
+#: templates/security/change_username.html:25
 #: templates/security/forgot_password.html:16 tools/forms.py:14
 msgid "Submit"
 msgstr "Abschicken"
+
+#: templates/security/change_username.html:16
+msgid "You can change your username only once per month. Please confirm."
+msgstr "Du kannst deinen Benutzernamen nur einmal pro Monat ändern. Bitte bestätigen."
 
 #: templates/security/forgot_password.html:10
 msgid "Request a new password"
