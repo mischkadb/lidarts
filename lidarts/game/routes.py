@@ -222,6 +222,8 @@ def start(hashid, theme=None):
     # for player1 and spectators while waiting
     if game.status == 'challenged':
         if game.public_challenge:
+            if not current_user.is_authenticated:
+                return redirect(url_for('generic.index'))
             return render_template(
                 'game/wait_for_opponent_public_challenge.html',
                 game=game_dict,

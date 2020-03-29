@@ -3,6 +3,7 @@ from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
 from lidarts.models import Game, User, UserStatistic
+from datetime import datetime, timedelta
 
 
 def broadcast_public_challenges():
@@ -11,12 +12,16 @@ def broadcast_public_challenges():
         Game.query
         .filter_by(public_challenge=True)
         .filter_by(status='challenged')
-        .join(User, User.id == Game.player1).add_columns(User.username)
+        .join(User, User.id == Game.player1).add_columns(User.username, User.last_seen)
         .join(UserStatistic, UserStatistic.user == Game.player1).add_columns(UserStatistic.average)
         .order_by(Game.id).all()
     )
 
-    for game, username, average in public_challenges_query:
+    for game, username, last_seen, average in public_challenges_query:
+        if last_seen < datetime.utcnow() - timedelta(minutes=1):
+            game.status = 'aborted'
+            continue
+
         public_challenge = {
             'hashid': game.hashid,
             'username': username,
@@ -31,6 +36,7 @@ def broadcast_public_challenges():
         }
         public_challenges.append(public_challenge)
 
+    db.session.commit()
     emit(
         'broadcast_public_challenges',
         {'public_challenges': public_challenges},
@@ -40,11 +46,11 @@ def broadcast_public_challenges():
 
 
 @socketio.on('connect', namespace='/public_challenge')
-def connect():
+def connect_public_challenge():
     broadcast_public_challenges()
 
 
-@socketio.on('disconnect', namespace='/public_challenge')
+@socketio.on('disconnect', namespace='/public_challenge_waiting')
 def disconnect():
     public_challenges_query = (
         Game.query
