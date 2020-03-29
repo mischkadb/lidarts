@@ -12,7 +12,7 @@
 {% block app_content %}
 
 <div class="row justify-content-center">
-    <div class="col-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 p-1 order-3 order-md-1">
+    <div class="col-12 col-sm-10 col-md-10 col-lg-4 col-xl-3 p-1 order-3 order-lg-1">
         <div class="card bg-light text-dark d-none" id="public-challenge-window">
             <div class="card-body" style="height: 600px; overflow-y: scroll;">
                 <p class="text-center font-weight-bold">{{ _('Public challenges') }}</p>
@@ -41,7 +41,7 @@
             {% if show_public_challenges %}{{ _('Show match information') }}{% else %}{{ _('Show public challenges') }}{% endif %}
         </button>
     </div>
-    <div class="col-12 col-sm-6 col-md-5 col-lg-4 col-xl-4 p-1 order-first order-md-2">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 p-1 order-first order-lg-2">
         <div class="card bg-light text-dark">
                 <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
                     {% for message, username, average, country in messages[::-1] %}
@@ -61,7 +61,7 @@
             {{ form.submit }}
         </form>
     </div>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 p-1 order-2 order-md-3">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1 order-2 order-lg-3">
         <div class="card bg-light text-dark">
             <div class="card-body" id="online_players" style="height: 600px; overflow-y: scroll; padding-left: 2px; padding-right: 2px;">
             </div>
@@ -81,6 +81,7 @@
 <meta id="private_messages_url" data-url="{{ url_for('generic.private_messages') }}">
 <meta id="send_request_url" data-url="{{ url_for('generic.send_friend_request') }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
+<meta id="user_name" data-username="{{ current_user.username }}">
 <meta id="match_alert" data-enabled="{{ match_alert }}">
 
 <script src="{{ url_for('static', filename='js/jquery.powertip.min.js', crossorigin='anonymous') }}"></script>
