@@ -136,11 +136,7 @@ $(document).ready(function() {
     });
 
 
-    socket.on('send_system_message_game_completed', function (msg) {
-        if (match_alerts_enabled == false) {
-            return;
-        };     
-        
+    socket.on('send_system_message_game_completed', function (msg) {        
         // allow 1px inaccuracy by adding 1
         var isScrolledToBottom = chatbox.scrollHeight - chatbox.clientHeight <= chatbox.scrollTop + 1;
         var color1 = '#fbcc03';
