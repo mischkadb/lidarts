@@ -27,6 +27,11 @@
                         </div>
                     </div>
                 </a>
+
+                <hr>
+                <h5>{{ _('Public challenges') }} </h5>
+                <p>{{ _('Click to accept and play') }}</p>
+                <div class="" id="public_challenge_list"></div>
             </div>
         </div>
     </div>
@@ -109,16 +114,12 @@
     </div>
 </div>
 
-
-
-
 {% endblock %}
 
 {% block scripts %}
 <meta id="accept_url" data-url="{{ url_for('generic.accept_friend_request') }}">
 <meta id="decline_url" data-url="{{ url_for('generic.decline_friend_request') }}">
 <meta id="decline_challenge_url" data-url="{{ url_for('game.decline_challenge') }}">
-
 
 <script type="text/javascript" src="{{ url_for('static',filename='js/public_challenge_socket.js', version=config.VERSION) }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/friend_requests.js', version=config.VERSION) }}"></script>
