@@ -46,6 +46,14 @@ def connect():
 
 @socketio.on('disconnect', namespace='/public_challenge')
 def disconnect():
-    # print('Client disconnected', request.sid)
-    pass
-
+    public_challenges_query = (
+        Game.query
+        .filter_by(player1=current_user.id)
+        .filter_by(public_challenge=True)
+        .filter_by(status='challenged')
+        .all()
+    )
+    for game in public_challenges_query:
+        game.status = 'aborted'
+    db.session.commit()
+    broadcast_public_challenges()
