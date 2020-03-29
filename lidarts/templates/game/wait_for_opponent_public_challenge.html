@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+
+{% block app_content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-sm-8">
+        <div class="card">
+            <div class="card-body">
+                <p class="text-center">{{ _('Waiting for player to accept public challenge.') }} </p>
+                <h1 class="text-center"><i class="fas fa-spinner fa-spin"></i></h1>
+                <form action="{{ url_for('game.cancel_challenge', hashid=game.hashid) }}" class="text-center mt-3">
+                    <input type="submit" value="Cancel challenge" class="btn btn-dark" />
+                </form>
+
+                <p class="mt-2 text-center bg-dark text-light">{{ _('Wait here. Leaving this page will cancel the challenge.') }}</p>
+
+                <p class="mt-2 text-center bg-dark text-light">{{ _('This page will redirect you to the game once the challenge has been accepted.') }}</p>
+
+                <p>{{ _('Click to join another public challenge:') }}</p>
+
+                <div class="card">
+                    <div class="card-body" id="public_challenge_list">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<meta id="hash_id" data-hashid="{{ game.hashid }}">
+<meta id="user_id" data-id="{{ current_user.id }}">
+<meta id="user_name" data-username="{{ current_user.username }}">
+
+<script type="text/javascript" src="{{ url_for('static',filename='js/public_challenge_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/public_challenge_waiting_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/x01_waiting.js', version=config.VERSION) }}"></script>
+{% endblock %}

@@ -4,6 +4,7 @@ from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
 from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings
 from lidarts import db
+from lidarts.socket.public_challenge_handler import broadcast_public_challenges
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
 from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names
 from lidarts.socket.X01_game_handler import start_game
@@ -77,6 +78,7 @@ def create(mode='x01', opponent_name=None):
 
         in_mode = preset.in_mode if preset.in_mode else 'si'
         out_mode = preset.out_mode if preset.out_mode else 'do'
+        public_challenge = preset.public_challenge if preset.public_challenge else False
 
         form = CreateX01GameForm(
             opponent_name=opponent_name,
@@ -89,6 +91,7 @@ def create(mode='x01', opponent_name=None):
             level=level,
             in_mode=in_mode,
             out_mode=out_mode,
+            public_challenge=public_challenge,
         )
     else:
         pass  # no other game modes yet
@@ -100,6 +103,11 @@ def create(mode='x01', opponent_name=None):
             status = 'started'
         elif player1 and form.opponent.data == 'online':
             if form.opponent_name.data:
+                if form.public_challenge.data:
+                    # Public challenge flag and player name specified is not allowed
+                    flash(gettext('Public challenges must be created without an opponent name.'), 'danger')
+                    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
+                           title=lazy_gettext('Create Game'))
                 player2 = User.query.with_entities(User.id).filter(User.username.ilike(form.opponent_name.data)).first_or_404()
 
                 player2_settings = UserSettings.query.filter_by(user=player2.id).first()
@@ -133,7 +141,8 @@ def create(mode='x01', opponent_name=None):
             in_mode=form.in_mode.data, out_mode=form.out_mode.data,
             begin=datetime.utcnow(), match_json=match_json,
             status=status, opponent_type=form.opponent.data,
-                    )
+            public_challenge=form.public_challenge.data,
+            )
 
         # Preset saving
         if form.save_preset.data:
@@ -150,6 +159,7 @@ def create(mode='x01', opponent_name=None):
             preset.out_mode = form.out_mode.data
             preset.opponent_type = form.opponent.data
             preset.level = form.level.data
+            preset.public_challenge = form.public_challenge.data
 
             db.session.commit()
 
@@ -198,6 +208,7 @@ def start(hashid, theme=None):
             broadcast_new_game(game)
             # signal the waiting player and spectators
             start_game(hashid)
+            broadcast_public_challenges()
 
     game_dict = game.as_dict()
 
@@ -210,6 +221,15 @@ def start(hashid, theme=None):
 
     # for player1 and spectators while waiting
     if game.status == 'challenged':
+        if game.public_challenge:
+            if not current_user.is_authenticated:
+                return redirect(url_for('generic.index'))
+            return render_template(
+                'game/wait_for_opponent_public_challenge.html',
+                game=game_dict,
+                title=lazy_gettext('Waiting...'),
+                )
+
         p2_name = get_name_by_id(game.player2) if game.player2 else None
         return render_template(
             'game/wait_for_opponent.html',

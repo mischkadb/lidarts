@@ -74,3 +74,8 @@
 .chat-partner-active{
     background: #cccccc;
 }
+
+.slim{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
