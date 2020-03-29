@@ -4,6 +4,7 @@ from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
 from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings
 from lidarts import db
+from lidarts.socket.public_challenge_handler import broadcast_public_challenges
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
 from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names
 from lidarts.socket.X01_game_handler import start_game
@@ -207,6 +208,7 @@ def start(hashid, theme=None):
             broadcast_new_game(game)
             # signal the waiting player and spectators
             start_game(hashid)
+            broadcast_public_challenges()
 
     game_dict = game.as_dict()
 
