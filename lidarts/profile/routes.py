@@ -9,6 +9,7 @@ from lidarts.models import User, Game, Friendship, FriendshipRequest, UserSettin
 from sqlalchemy import desc
 from sqlalchemy.orm import aliased
 import os
+from datetime import datetime, timedelta
 
 
 @bp.route('/@/<username>/game_history')
@@ -198,7 +199,16 @@ def general_settings():
         settings.allow_challenges = True if form.allow_challenges.data == 'enabled' else False
         settings.allow_private_messages = True if form.allow_private_messages.data == 'enabled' else False
         settings.allow_friend_requests = True if form.allow_friend_requests.data == 'enabled' else False
-        settings.country = form.country.data if form.country.data and form.country.data != 'None' else None
+
+        if settings.country != form.country.data:
+            country_changed_recently = settings.last_country_change and settings.last_country_change > datetime.utcnow() - timedelta(days=30)
+            if settings.country and country_changed_recently:
+                cooldown_timestamp = (settings.last_country_change + timedelta(days=30)).strftime('%d.%m.%Y, %H:%M:%S')
+                flash(lazy_gettext('You can only change your country setting once per month. You need to wait until: ') + cooldown_timestamp + ' UTC.', 'danger')
+                return render_template('profile/general_settings.html', form=form, title=lazy_gettext('General settings'))
+
+            settings.country = form.country.data if form.country.data and form.country.data != 'None' else None
+            settings.last_country_change = datetime.utcnow()
         db.session.commit()
         flash(lazy_gettext("Settings saved."))
 

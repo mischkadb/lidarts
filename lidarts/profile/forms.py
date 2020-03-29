@@ -1,7 +1,7 @@
 from flask import url_for
 from flask_babelex import lazy_gettext
 from flask_wtf import FlaskForm
-from wtforms import SelectField, SubmitField, IntegerField
+from wtforms import BooleanField, SelectField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, NumberRange
 from lidarts.profile.countries import COUNTRIES
 
@@ -50,5 +50,7 @@ class GeneralSettingsForm(FlaskForm):
         choices=COUNTRIES,
         validators=[DataRequired()],
     )
+
+    accept_country_cooldown = BooleanField(lazy_gettext('Accept'), validators=[DataRequired()])
 
     submit = SubmitField(lazy_gettext('Save'))

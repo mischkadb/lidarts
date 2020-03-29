@@ -36,6 +36,16 @@
                         {{ form.country.label(class="control-label") }}:
                         {{ form.country(class="form-control custom-select") }}
                     </p>
+
+                    <p>{{ _('You can change your country setting only once per month. Please confirm.') }}</p>
+                    <p><div class="custom-control custom-checkbox">
+                        {{ form.accept_country_cooldown(class="custom-control-input") }}
+                        {{ form.accept_country_cooldown.label(class="custom-control-label") }}
+                        {% if form.accept_country_cooldown.errors %}
+                        <ul class="errors text-danger">{% for error in form.accept_country_cooldown.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                        {% endif %}
+                        </div>
+                    </p>
                     
                     <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
                 </form>

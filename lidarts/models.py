@@ -182,6 +182,7 @@ class UserSettings(db.Model):
     allow_friend_requests = db.Column(db.Boolean, default=True)
     notification_sound = db.Column(db.Boolean, default=True)
     country = db.Column(db.String, default=None)
+    last_country_change = db.Column(db.DateTime, default=None)
 
 
 class X01Presetting(db.Model):
