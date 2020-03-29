@@ -8,7 +8,8 @@ $(document).ready(function() {
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
-
+    var username = $('#user_name').data()['username'];
+    console.log(username);
 
     socket.on('broadcast_public_challenges', function(msg) {
         $('#public_challenge_list').text('');
@@ -18,6 +19,10 @@ $(document).ready(function() {
 
         for(i in msg['public_challenges']) {
             public_challenge = msg['public_challenges'][i]
+
+            if (public_challenge['username'] == username){
+                continue;
+            }
 
             if (public_challenge['two_clear_legs'] == true) {
                 two_clear_legs = ' | Two clear legs'
@@ -44,6 +49,7 @@ $(document).ready(function() {
                 + 'bo' + public_challenge['bo_legs'] + ' legs'
                 + bo_sets
                 + two_clear_legs
+                + closest_to_bull
                 + '</a></p>'
                 + '<hr>'
             );

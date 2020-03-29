@@ -120,6 +120,7 @@
 <meta id="accept_url" data-url="{{ url_for('generic.accept_friend_request') }}">
 <meta id="decline_url" data-url="{{ url_for('generic.decline_friend_request') }}">
 <meta id="decline_challenge_url" data-url="{{ url_for('game.decline_challenge') }}">
+<meta id="user_name" data-username="{{ current_user.username }}">
 
 <script type="text/javascript" src="{{ url_for('static',filename='js/public_challenge_socket.js', version=config.VERSION) }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/friend_requests.js', version=config.VERSION) }}"></script>

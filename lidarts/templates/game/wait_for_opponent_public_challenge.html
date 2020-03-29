@@ -33,6 +33,7 @@
 {% block scripts %}
 <meta id="hash_id" data-hashid="{{ game.hashid }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
+<meta id="user_name" data-username="{{ current_user.username }}">
 
 <script type="text/javascript" src="{{ url_for('static',filename='js/public_challenge_socket.js', version=config.VERSION) }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/x01_waiting.js', version=config.VERSION) }}"></script>
