@@ -204,12 +204,20 @@ $(document).ready(function() {
     });
 
     $('#left-column-toggle').click(function() {
+        if ($('#latest-results-window').hasClass('d-none'))
+        {
+            $('#left-column-toggle').text('Show public challenges');
+        } else {
+            $('#left-column-toggle').text('Show match information');
+        }
+
         $('#latest-results-window').toggleClass("d-block");
         $('#latest-results-window').toggleClass("d-none");
         $('#new-games-window').toggleClass("d-block");
         $('#new-games-window').toggleClass("d-none");
         $('#public-challenge-window').toggleClass("d-block");
         $('#public-challenge-window').toggleClass("d-none");
+
     });
 
     
