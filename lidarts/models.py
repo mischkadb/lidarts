@@ -28,6 +28,7 @@ class User(db.Model, UserMixin):
     cpu_delay = db.Column(db.Integer, default=0)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
+    registration_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
 
     requested_friend_reqs = db.relationship(
         'FriendshipRequest',
@@ -226,3 +227,19 @@ class UsernameChange(db.Model):
     old_name = db.Column(db.String(25))
     new_name = db.Column(db.String(25))
     timestamp = db.Column(db.DateTime)
+
+
+class Tournament(db.Model):
+    __tablename__ = 'tournaments'
+    id = db.Column(db.Integer, primary_key=True)
+    creator = db.Column(db.Integer, db.ForeignKey('users.id'))
+    hashid = db.Column(db.String(10), unique=True, default=secrets.token_urlsafe(8)[:8])
+    name = db.Column(db.String(50), nullable=False)
+    public = db.Column(db.Boolean, default=False)
+    note = db.Column(db.String(200))
+    external_link = db.Column(db.String(120))
+    start_timestamp = db.Column(db.DateTime)
+    creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+
+    def __init__(self, **kwargs):
+        super(Tournament, self).__init__(**kwargs)
