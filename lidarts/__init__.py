@@ -105,7 +105,14 @@ def create_app(test_config=None):
 
     # Initialize Flask extensions
     db.init_app(app)
-    migrate.init_app(app, db)
+
+    # To overcome the disability of sqlite to alter colums of a table
+    with app.app_context():
+        if db.engine.url.drivername == 'sqlite':
+            migrate.init_app(app, db, render_as_batch=True)
+        else:
+            migrate.init_app(app, db)
+
     mail.init_app(app)
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security.init_app(app, user_datastore,
