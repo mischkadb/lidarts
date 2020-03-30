@@ -55,6 +55,16 @@ class User(db.Model, UserMixin):
     friends_requested = association_proxy('received_friend_confs', 'requesting_friend')
     friends_received = association_proxy('requested_friend_confs', 'receiving_friend')
 
+    # used to save the settings of a user during a game (e.g. hide statistics)
+    # ingame_settings
+    ingame_keypad_visibility = db.Column(db.Boolean, default=True)
+    # keypad_position -> 0:default ; 1:full screen
+    ingame_keypad_position = db.Column(db.Integer, default=0)
+    ingame_statistics_visibility = db.Column(db.Boolean, default=True)
+    # streamoverlay -> False:normal theme ; True:streamoverlay
+    ingame_streamoverlay = db.Column(db.Boolean, default=False)
+    ingame_caller_mute = db.Column(db.Boolean, default=False)
+
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
