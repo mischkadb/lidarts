@@ -10,7 +10,7 @@ $(document).ready(function() {
     // server is established.
     var hashids = [];
 
-    for (var i = 0; i <= 8; i++){
+    for (var i = 0; i <= 26; i++){
        if($("#hash_id-" + (i+1)).length > 0) {
            hashids[i] = $('#hash_id-' + (i+1)).data()['hashid'];
        }

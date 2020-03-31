@@ -53,6 +53,8 @@ def live_games_overview():
     players_in_list = []
 
     for game in live_games:
+        if not game.player2 or game.player1 == game.player2:
+            continue
         socketio.sleep(0)
         game_dict = game.as_dict()
         player1_active = True
@@ -80,7 +82,7 @@ def live_games_overview():
             if game.player2:
                 players_in_list.append(game.player2)
 
-        if len(live_games_list) >= 9:
+        if len(live_games_list) >= 27:
             break
 
     return render_template('generic/watch.html', live_games=live_games_list, title=lazy_gettext('Live Games'))

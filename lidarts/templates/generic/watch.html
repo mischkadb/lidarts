@@ -19,7 +19,7 @@
 
 <div class="row">
     {% for game in live_games %}
-    <div class="col-4 mb-3">
+    <div class="col-6 col-lg-4 mb-3">
         <a href="{{ url_for('game.start', hashid=game.hashid) }}" class="no-underline">
             <div class="card bg-light text-dark">
                 <div class="card-body scoreboard_card">
