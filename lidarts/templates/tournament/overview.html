@@ -51,16 +51,16 @@
                             {{ render_error(form.public_tournament) }}
                         </p>
 
-                        <p class="visible-public-only d-none">
+                        <p class="visible-public-only {% if not form.public_tournament.data %}d-none{% endif %}">
                             {{ form.external_link.label(class="control-label") }}:
                             {{ form.external_link(class="form-control", autocomplete="off", maxlength="120") }}
                             <small>({{ _('Link to tournament website with more information') }})</small>
                             {{ render_error(form.external_link) }}
                         </p>
 
-                        <p class="visible-public-only d-none">
+                        <p class="visible-public-only {% if not form.public_tournament.data %}d-none{% endif %}">
                             {{ _('Start date and time:') }} <br>
-                            {{ form.start_date(class='datepicker') }} {{ form.start_time(class='time') }}
+                            {{ form.start_date(class='datepicker') }} {{ form.start_time(class='time', required=False) }}
                             {{ render_error(form.start_date) }}
                             {{ render_error(form.start_time) }}
                         </p>
@@ -82,9 +82,14 @@
                 <h5 class="card-title text-center">{{ _('Upcoming tournaments') }}</h5>
                 <hr>
                 <p class="card-text">
-                    {{ _('There are no upcoming public tournaments at the moment.') }}
-                </p>
-                
+                    {% if tournaments %}
+                        {% for tournament in tournaments %}
+                            {{ tournament.name }}
+                        {% endfor %}
+                    {% else %}
+                        {{ _('There are no upcoming public tournaments at the moment.') }}
+                    {% endif %}
+                </p>                
             </div>
         </div>
     </div>
