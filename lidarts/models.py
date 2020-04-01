@@ -139,14 +139,14 @@ class Chatmessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, db.ForeignKey('users.id'))
     message = db.Column(db.String(500))
-    timestamp = db.Column(db.DateTime, index=True)
+    timestamp = db.Column(db.DateTime, index=True, index=True)
     tournament_hashid = db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
 
 
 class ChatmessageIngame(db.Model):
     __tablename__ = 'chatmessages_ingame'
     id = db.Column(db.Integer, primary_key=True)
-    game_hashid = db.Column(db.String(10))
+    game_hashid = db.Column(db.String(10), index=True)
     author = db.Column(db.Integer, db.ForeignKey('users.id'))
     message = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime)
@@ -164,7 +164,7 @@ class Privatemessage(db.Model):
 class Notification(db.Model):
     __tablename__ = 'notifications'
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     message = db.Column(db.String(500))
     author = db.Column(db.String(30))
     type = db.Column(db.String(30))
@@ -212,7 +212,7 @@ class X01Presetting(db.Model):
 class UserStatistic(db.Model):
     __tablename__ = 'user_statistic'
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True, index=True)
     average = db.Column(db.Float, default=0)
     first9 = db.Column(db.Float, default=0)
     doubles = db.Column(db.Float, default=0)
