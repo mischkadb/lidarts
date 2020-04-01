@@ -199,7 +199,7 @@ def chat_broadcast_online_players_periodic():
 # should get called by a cronjob periodically
 @bp.route('/abort_long_started_games')
 def abort_long_started_games():
-    games = Game.query.filter((Game.status == 'started') & (Game.begin < (datetime.utcnow() - timedelta(days=3)))).all()
+    games = Game.query.filter(or_(Game.status == 'started', Game.status == 'challenged') & (Game.begin < (datetime.utcnow() - timedelta(days=3)))).all()
     for game in games:
         game.status = 'aborted'
         game.end = datetime.utcnow()
