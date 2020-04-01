@@ -139,7 +139,7 @@ class Chatmessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, db.ForeignKey('users.id'))
     message = db.Column(db.String(500))
-    timestamp = db.Column(db.DateTime, index=True, index=True)
+    timestamp = db.Column(db.DateTime, index=True)
     tournament_hashid = db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
 
 
