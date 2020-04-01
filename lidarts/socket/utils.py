@@ -301,7 +301,7 @@ def broadcast_game_aborted(game):
     emit('game_aborted', {'hashid': game.hashid}, room=game.hashid, namespace='/game', broadcast=True)
 
 
-def broadcast_online_players(broadcast=True, room=public_chat):
+def broadcast_online_players(broadcast=True, room='public_chat'):
     status_order = ['lfg', 'online', 'playing', 'busy']
     ingame_count = 0
     
