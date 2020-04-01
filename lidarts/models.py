@@ -102,8 +102,8 @@ class Game(db.Model):
     __tablename__ = 'games'
     id = db.Column(db.Integer, primary_key=True)
     hashid = db.Column(db.String(10), unique=True)
-    player1 = db.Column(db.Integer, db.ForeignKey('users.id'))
-    player2 = db.Column(db.Integer, db.ForeignKey('users.id'))
+    player1 = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+    player2 = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     bo_sets = db.Column(db.Integer, nullable=False)
     bo_legs = db.Column(db.Integer, nullable=False)
     two_clear_legs = db.Column(db.Boolean)
@@ -116,7 +116,7 @@ class Game(db.Model):
     p1_next_turn = db.Column(db.Boolean)
     closest_to_bull = db.Column(db.Boolean)
     closest_to_bull_json = db.Column(db.JSON)
-    status = db.Column(db.String(20))
+    status = db.Column(db.String(20), index=True)
     type = db.Column(db.Integer)
     match_json = db.Column(db.JSON)
     in_mode = db.Column(db.String(15))
@@ -139,7 +139,7 @@ class Chatmessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, db.ForeignKey('users.id'))
     message = db.Column(db.String(500))
-    timestamp = db.Column(db.DateTime)
+    timestamp = db.Column(db.DateTime, index=True)
     tournament_hashid = db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
 
 

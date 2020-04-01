@@ -9,15 +9,7 @@ from datetime import datetime
 
 @socketio.on('connect', namespace='/base')
 def connect_client():
-    connections = SocketConnections.query.first()
-    connections.active += 1
-    connections.total += 1
-
-    if not current_user.is_authenticated:
-        db.session.commit()
-        return
-
-    current_user.ping()   
+    current_user.ping()
 
     join_room(current_user.username)
     notifications = Notification.query.filter_by(user=current_user.id).all()
@@ -53,13 +45,7 @@ def heartbeat():
 
 @socketio.on('disconnect', namespace='/base')
 def disconnect_client():
-    connections = SocketConnections.query.first()
-    connections.active -= 1    
-
-    if not current_user.is_authenticated:
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        current_user.is_online = False
         db.session.commit()
-        return
-
-    current_user.last_seen = datetime.utcnow()
-    current_user.is_online = False
-    db.session.commit()
