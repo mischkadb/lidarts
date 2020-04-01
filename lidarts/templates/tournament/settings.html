@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% from "utils.html" import render_error %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/chat.css', version=config.VERSION) }}" />
+{% endblock %}
+
+{% block app_content %}
+
+
+<div class="row justify-content-center mt-2 mt-md-4">
+    <div class="col-12 col-md-6">
+        <div class="card bg-light text-dark bs-callout bs-callout-info ">
+            <div class="card-body text-center">
+                <h5 class="card-title text-center">{{ _('Edit tournament settings') }}</h5>
+                <hr>
+                <p class="card-text">
+                    <form method="POST" class="form-horizontal">
+                        {{ form.hidden_tag() }}
+                        <p>
+                            {{ form.name.label(class="control-label") }}:
+                            {{ form.name(class="form-control", autocomplete="off", maxlength="50") }}
+                            {{ render_error(form.name) }}
+                        </p>
+
+                        <p>
+                            {{ form.description.label(class="control-label") }}:
+                            {{ form.description(class="form-control", autocomplete="off", maxlength="1000") }}
+                            {{ render_error(form.description) }}
+                        </p>
+
+                        <p>
+                            <div class="custom-control custom-checkbox" id="public-checkbox">
+                                {{ form.public_tournament(class="custom-control-input") }}
+                                {{ form.public_tournament.label(class="custom-control-label") }}
+                            </div>
+                            <small>({{ _('Tournament will appear in the upcoming tournaments list') }})</small>
+                            {{ render_error(form.public_tournament) }}
+                        </p>
+
+                        <p class="visible-public-only">
+                            {{ form.external_url.label(class="control-label") }}:
+                            {{ form.external_url(class="form-control", autocomplete="off", maxlength="120") }}
+                            <small>({{ _('Link to tournament website with more information') }})</small>
+                            {{ render_error(form.external_url) }}
+                        </p>
+
+                        <p class="visible-public-only">
+                            {{ _('Start date and time:') }} <br>
+                            {{ form.start_date(class='datepicker') }} {{ form.start_time(class='time', required=False) }}
+                            {{ render_error(form.start_date) }}
+                            {{ render_error(form.start_time) }}
+                        </p>
+
+                        <p class="mt-4">
+                            {{ form.submit_save(class="btn btn-lg btn-info") }}
+                        </p>
+
+                        <p><a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}">{{ _('Back to tournament') }}</a></p>
+                    </form>
+    
+                </p>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static',filename='js/tournament/overview.js', version=config.VERSION) }}"></script>
+{% endblock %}

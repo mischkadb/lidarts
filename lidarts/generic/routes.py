@@ -13,6 +13,7 @@ from lidarts.game.forms import GameChatmessageForm
 from lidarts.profile.utils import get_user_status
 from lidarts.socket.utils import broadcast_online_players
 from sqlalchemy import desc, or_
+from sqlalchemy.orm import aliased
 from datetime import datetime, timedelta
 from collections import defaultdict
 import time
@@ -144,6 +145,7 @@ def chat():
     form = ChatmessageForm()
     messages = (
         Chatmessage.query
+        .filter_by(tournament_hashid=None)
         .filter(Chatmessage.timestamp > (datetime.utcnow() - timedelta(hours=3)))
         .order_by(Chatmessage.id.desc())
         .join(User).add_columns(User.username)
@@ -153,18 +155,36 @@ def chat():
         .all()
     )
 
-    match_alert = UserSettings.query.with_entities(UserSettings.match_alerts).filter_by(user=current_user.id).first()
-    if not match_alert:
-        match_alert = UserSettings(user=current_user.id)
-        db.session.add(match_alert)
-        db.session.commit()
-        match_alert = True
-    else:
-        match_alert = match_alert[0]
+    player1 = aliased(User)
+    player2 = aliased(User)
+    recent_results = (
+        Game.query
+        .filter_by(status='completed')
+        .join(player1, Game.player1 == player1.id).add_columns(player1.username)
+        .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
+        .order_by(Game.id.desc())
+        .limit(10)
+        .all()
+    )
+
+    new_games = (
+        Game.query
+        .filter_by(status='started')
+        .filter(Game.player1 != Game.player2)
+        .join(player1, Game.player1 == player1.id).add_columns(player1.username)
+        .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
+        .order_by(Game.id.desc())
+        .limit(10)
+        .all()
+    )
         
     return render_template(
-        'generic/chat.html', form=form, messages=messages,
-        match_alert=match_alert, title=lazy_gettext('Chat')
+        'generic/chat.html',
+        form=form,
+        messages=messages,
+        recent_results=recent_results,
+        new_games=new_games,
+        title=lazy_gettext('Chat'),
     )
 
 

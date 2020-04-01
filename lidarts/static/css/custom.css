@@ -139,3 +139,15 @@ a.no-underline {
 .country-flag {
     border: 1px solid #444;
 }
+
+.color-win {
+    color: #08aa03;
+}
+
+.color-draw {
+    color: #fbcc03;
+}
+
+.color-lose {
+    color: #ce0e03;
+}

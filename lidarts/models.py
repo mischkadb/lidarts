@@ -10,6 +10,12 @@ roles_users = db.Table('roles_users',
                        db.Column('user_id', db.Integer(), db.ForeignKey('users.id')),
                        db.Column('role_id', db.Integer(), db.ForeignKey('roles.id')))
 
+tournament_players_association_table = db.Table(
+    'association',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('tournament_id', db.Integer, db.ForeignKey('tournaments.id'), primary_key=True),
+)
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -28,6 +34,7 @@ class User(db.Model, UserMixin):
     cpu_delay = db.Column(db.Integer, default=0)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
+    registration_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
 
     requested_friend_reqs = db.relationship(
         'FriendshipRequest',
@@ -118,6 +125,7 @@ class Game(db.Model):
     end = db.Column(db.DateTime)
     opponent_type = db.Column(db.String(10))
     public_challenge = db.Column(db.Boolean)
+    tournament = db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
 
     def set_hashid(self):
         self.hashid = secrets.token_urlsafe(8)[:8]
@@ -132,6 +140,7 @@ class Chatmessage(db.Model):
     author = db.Column(db.Integer, db.ForeignKey('users.id'))
     message = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime)
+    tournament_hashid = db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
 
 
 class ChatmessageIngame(db.Model):
@@ -226,3 +235,26 @@ class UsernameChange(db.Model):
     old_name = db.Column(db.String(25))
     new_name = db.Column(db.String(25))
     timestamp = db.Column(db.DateTime)
+
+
+class Tournament(db.Model):
+    __tablename__ = 'tournaments'
+    id = db.Column(db.Integer, primary_key=True)
+    creator = db.Column(db.Integer, db.ForeignKey('users.id'))
+    hashid = db.Column(db.String(10), unique=True)
+    name = db.Column(db.String(50), nullable=False)
+    public = db.Column(db.Boolean, default=False)
+    description = db.Column(db.String(200))
+    external_url = db.Column(db.String(120))
+    start_timestamp = db.Column(db.DateTime)
+    creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    players = db.relationship(
+        'User',
+        secondary=tournament_players_association_table,
+        lazy=True,
+        backref=db.backref('tournaments', lazy=True),
+    )
+
+    def __init__(self, **kwargs):
+        super(Tournament, self).__init__(**kwargs)
+        self.hashid = secrets.token_urlsafe(8)[:8]

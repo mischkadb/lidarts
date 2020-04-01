@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-03-29 20:17+0200\n"
-"PO-Revision-Date: 2020-03-29 20:20+0200\n"
+"POT-Creation-Date: 2020-04-01 15:25+0200\n"
+"PO-Revision-Date: 2020-04-01 15:30+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -147,7 +147,7 @@ msgstr "Modus Out"
 msgid "Public challenge"
 msgstr "Herausforderung öffentlich"
 
-#: game/forms.py:41
+#: game/forms.py:41 tournament/forms.py:38
 msgid "Save settings"
 msgstr "Einstellungen speichern"
 
@@ -159,40 +159,40 @@ msgstr "Spiel beginnen"
 msgid "Submit message"
 msgstr "Nachricht senden"
 
-#: game/routes.py:108
+#: game/routes.py:110
 msgid "Public challenges must be created without an opponent name."
 msgstr "Öffentliche Herausforderungen müssen ohne Gegnernamen erstellt werden."
 
-#: game/routes.py:110 game/routes.py:118 game/routes.py:181
+#: game/routes.py:112 game/routes.py:120 game/routes.py:184
 #: templates/game/create_X01.html:9
 msgid "Create Game"
 msgstr "Spiel erstellen"
 
-#: game/routes.py:116
+#: game/routes.py:118
 msgid "Player does not allow challenges"
 msgstr "Spieler lässt keine Herausforderungen zu"
 
-#: game/routes.py:120
+#: game/routes.py:122
 msgid "New challenge"
 msgstr "Neue Herausforderung"
 
-#: game/routes.py:230 game/routes.py:238
+#: game/routes.py:233 game/routes.py:241
 msgid "Waiting..."
 msgstr "Warte..."
 
-#: game/routes.py:271
+#: game/routes.py:274
 msgid "Match overview"
 msgstr "Spielübersicht"
 
-#: game/routes.py:300
+#: game/routes.py:303
 msgid "Stream overlay"
 msgstr "Streamoverlay"
 
-#: game/routes.py:304
+#: game/routes.py:307
 msgid "Live Match"
 msgstr "Livespiel"
 
-#: game/utils.py:11 generic/routes.py:71
+#: game/utils.py:11 generic/routes.py:72
 msgid "Local Guest"
 msgstr "Lokaler Gast"
 
@@ -208,20 +208,20 @@ msgstr "Benutzer suchen"
 msgid "Search"
 msgstr "Suchen"
 
-#: generic/routes.py:86
+#: generic/routes.py:87
 msgid "Live Games"
 msgstr "Live Spiele"
 
-#: generic/routes.py:136 templates/base.html:49
+#: generic/routes.py:137 templates/base.html:49
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:165 templates/base.html:52 templates/game/X01.html:234
+#: generic/routes.py:185 templates/base.html:53 templates/game/X01.html:234
 #: templates/game/X01_stream.html:126
 msgid "Chat"
 msgstr "Chat"
 
-#: generic/routes.py:219
+#: generic/routes.py:239
 msgid "Private Messages"
 msgstr "Private Nachrichten"
 
@@ -269,7 +269,7 @@ msgstr "Land"
 msgid "Match History"
 msgstr "Spielverlauf"
 
-#: profile/routes.py:88 templates/base.html:93
+#: profile/routes.py:88 templates/base.html:94
 msgid "Profile"
 msgstr "Profil"
 
@@ -343,11 +343,11 @@ msgstr "Übernehmen"
 msgid "Home"
 msgstr "Startseite"
 
-#: templates/base.html:46 templates/base.html:51
+#: templates/base.html:46 templates/base.html:51 templates/generic/chat.html:44
 msgid "Watch"
 msgstr "Zuschauen"
 
-#: templates/base.html:47 templates/base.html:53
+#: templates/base.html:47 templates/base.html:54
 #: templates/profile/overview.html:99
 msgid "Statistics"
 msgstr "Statistiken"
@@ -356,70 +356,74 @@ msgstr "Statistiken"
 msgid "Play"
 msgstr "Spielen"
 
-#: templates/base.html:68
+#: templates/base.html:52 tournament/routes.py:81
+msgid "Tournaments"
+msgstr "Turniere"
+
+#: templates/base.html:69
 msgid "No new notifications"
 msgstr "Keine neuen Benachrichtigungen"
 
-#: templates/base.html:77 templates/security/login_user.html:9
+#: templates/base.html:78 templates/security/login_user.html:9
 #: templates/security/login_user.html:18
 #: templates/security/register_user.html:29
 msgid "Sign In"
 msgstr "Einloggen"
 
-#: templates/base.html:78 templates/security/register_user.html:10
+#: templates/base.html:79 templates/security/register_user.html:10
 #: templates/security/register_user.html:22
 msgid "Register"
 msgstr "Registrieren"
 
-#: templates/base.html:81
+#: templates/base.html:82
 msgid "Inbox"
 msgstr "Posteingang"
 
-#: templates/base.html:85
+#: templates/base.html:86
 msgid "Status"
 msgstr "Status"
 
-#: templates/base.html:88
+#: templates/base.html:89
 msgid "Looking for Game"
 msgstr "Suche nach Spiel"
 
-#: templates/base.html:89
+#: templates/base.html:90
 msgid "Busy"
 msgstr "Beschäftigt"
 
-#: templates/base.html:94
+#: templates/base.html:95
 msgid "Logout"
 msgstr "Abmelden"
 
-#: templates/base.html:127
+#: templates/base.html:128
 msgid "About"
 msgstr "Über"
 
-#: templates/base.html:128 templates/generic/contact.html:10
+#: templates/base.html:129 templates/generic/contact.html:10
 msgid "Contact"
 msgstr "Kontakt"
 
-#: templates/base.html:129
+#: templates/base.html:130
 msgid "Contribute"
 msgstr "Mitmachen"
 
-#: templates/base.html:130
+#: templates/base.html:131
 msgid "Changelog"
 msgstr "Changelog"
 
-#: templates/base.html:131
+#: templates/base.html:132
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: templates/base.html:132
+#: templates/base.html:133
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: templates/base.html:133
+#: templates/base.html:134
 msgid "Terms & Conditions"
 msgstr "AGB"
 
-#: templates/base.html:135
+#: templates/base.html:136
 msgid "Legal notice"
 msgstr "Impressum"
 
@@ -656,23 +660,23 @@ msgstr "Öffentliche Herausforderungen"
 msgid "New games"
 msgstr "Neue Spiele"
 
-#: templates/generic/chat.html:34
+#: templates/generic/chat.html:54 templates/tournament/details.html:47
 msgid "Latest results"
 msgstr "Neueste Ergebnisse"
 
-#: templates/generic/chat.html:41
+#: templates/generic/chat.html:81
 msgid "Show match information"
 msgstr "Zeige Spielinformationen"
 
-#: templates/generic/chat.html:41
+#: templates/generic/chat.html:81
 msgid "Show public challenges"
 msgstr "Zeige Herausforderungen"
 
-#: templates/generic/chat.html:69
+#: templates/generic/chat.html:109 templates/tournament/details.html:98
 msgid "Online"
 msgstr "Online"
 
-#: templates/generic/chat.html:70
+#: templates/generic/chat.html:110 templates/tournament/details.html:99
 msgid "Playing"
 msgstr "Im Spiel"
 
@@ -1105,6 +1109,118 @@ msgstr "Darts geworfen"
 #: templates/statistics/x01_overview_element.html:6
 msgid "Number of games / legs:"
 msgstr "Anzahl Spiele / Legs"
+
+#: templates/tournament/details.html:17 tournament/routes.py:126
+msgid "Tournament details"
+msgstr "Turnierdetails"
+
+#: templates/tournament/details.html:21
+msgid "Leave Tournament"
+msgstr "Turnier verlassen"
+
+#: templates/tournament/details.html:21
+msgid "Join Tournament"
+msgstr "Turnier beitreten"
+
+#: templates/tournament/details.html:26
+msgid "Create tournament game"
+msgstr "Turnierspiel erstellen"
+
+#: templates/tournament/details.html:39
+msgid "Edit settings"
+msgstr "Einstellungen bearbeiten"
+
+#: templates/tournament/overview.html:14
+msgid "Tournaments on Lidarts"
+msgstr "Turniere auf Lidarts"
+
+#: templates/tournament/overview.html:17
+msgid "Currently Lidarts does not host any tournaments. Several external communities use Lidarts to play their tournaments though."
+msgstr "Im Moment veranstaltet Lidarts selbst keine Turniere. Mehrere externe Communities spielen ihre Turnier jedoch auf Lidarts aus."
+
+#: templates/tournament/overview.html:20
+msgid "This area currently provides tournaments an own page similar to the chat. There is also a list of upcoming public tournaments."
+msgstr "Dieser Bereich stellt Turnieren eine eigene Seite ähnlich des Chats zur Verfügung. Es gibt auch eine Liste mit anstehenden, öffentlichen Turnieren."
+
+#: templates/tournament/overview.html:23
+msgid "Joining a tournament will only make you appear in the tournament's user list at the moment. It does not sign you up."
+msgstr "Das Beitreten eines Turniers fügt dich aktuell nur zur Onlineliste des Turniers hinzu. Du meldest dich damit nicht zum Turnier an."
+
+#: templates/tournament/overview.html:33
+msgid "Your tournaments"
+msgstr "Deine Turniere"
+
+#: templates/tournament/overview.html:41
+msgid "You have not created a tournament yet."
+msgstr "Du hast noch kein Turnier erstellt."
+
+#: templates/tournament/overview.html:54
+msgid "Create a new tournament"
+msgstr "Neues Turnier erstellen"
+
+#: templates/tournament/overview.html:76 templates/tournament/settings.html:37
+msgid "Tournament will appear in the upcoming tournaments list"
+msgstr "Turnier wird in der Liste der anstehenden Turniere erscheinen"
+
+#: templates/tournament/overview.html:83 templates/tournament/settings.html:44
+msgid "Link to tournament website with more information"
+msgstr "Link zur Turnierwebseite mit zusätzlichen Informationen"
+
+#: templates/tournament/overview.html:88 templates/tournament/settings.html:49
+msgid "Start date and time:"
+msgstr "Startdatum und -zeit:"
+
+#: templates/tournament/overview.html:108
+msgid "Upcoming tournaments"
+msgstr "Anstehende Turniere"
+
+#: templates/tournament/overview.html:119
+msgid "There are no upcoming public tournaments at the moment."
+msgstr "Es gibt aktuell keine öffentlichen, anstehenden Turniere."
+
+#: templates/tournament/settings.html:15
+msgid "Edit tournament settings"
+msgstr "Turniereinstellungen bearbeiten"
+
+#: templates/tournament/settings.html:59
+msgid "Back to tournament"
+msgstr "Zurück zum Turnier"
+
+#: tournament/forms.py:31
+msgid "Tournament name"
+msgstr "Turniername"
+
+#: tournament/forms.py:32
+msgid "Description"
+msgstr "Beschreibung"
+
+#: tournament/forms.py:33
+msgid "Open to the public"
+msgstr "Öffentlich"
+
+#: tournament/forms.py:34
+msgid "External URL"
+msgstr "Externe URL"
+
+#: tournament/forms.py:37
+msgid "Create Tournament"
+msgstr "Turnier erstellen"
+
+#: tournament/routes.py:20
+msgid "Start in the past is not allowed for public tournaments."
+msgstr "Der Turnierstart von öffentlichen Turnieren darf nicht in der Vergangenheit liegen."
+
+#: tournament/routes.py:24
+msgid "Start must be within the next 30 days."
+msgstr "Der Turnierstart muss in den nächsten 30 Tagen stattfinden."
+
+#: tournament/routes.py:33
+msgid "Tournament updated."
+msgstr "Turnier aktualisiert."
+
+#: tournament/routes.py:154
+msgid "Tournament settings"
+msgstr ""
 
 #~ msgid "Password must have at least 8 characters"
 #~ msgstr "Passwort muss aus mindestens 8 Zeichen bestehen"

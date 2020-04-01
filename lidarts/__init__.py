@@ -163,6 +163,9 @@ def create_app(test_config=None):
     from lidarts.statistics import bp as statistics_bp
     app.register_blueprint(statistics_bp)
 
+    from lidarts.tournament import bp as tournament_bp
+    app.register_blueprint(tournament_bp)
+
     from lidarts.generic.errors import not_found_error, internal_error
     app.register_error_handler(404, not_found_error)
     app.register_error_handler(500, internal_error)
@@ -172,6 +175,7 @@ def create_app(test_config=None):
     import lidarts.socket.chat_handler
     import lidarts.socket.X01_game_handler
     import lidarts.socket.public_challenge_handler
+    import lidarts.socket.tournament_handler
 
     return app
 
