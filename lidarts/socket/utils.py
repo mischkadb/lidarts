@@ -2,7 +2,7 @@ from flask import request
 from flask_socketio import emit
 from flask_login import current_user
 from lidarts import db, avatars, socketio
-from lidarts.models import Game, User, UserSettings, UserStatistic
+from lidarts.models import Game, Tournament, User, UserSettings, UserStatistic
 import math
 import json
 from datetime import datetime, timedelta
@@ -301,7 +301,7 @@ def broadcast_game_aborted(game):
     emit('game_aborted', {'hashid': game.hashid}, room=game.hashid, namespace='/game', broadcast=True)
 
 
-def broadcast_online_players(broadcast=True):
+def broadcast_online_players(broadcast=True, room=None):
     status_order = ['lfg', 'online', 'playing', 'busy']
     ingame_count = 0
     
@@ -310,9 +310,21 @@ def broadcast_online_players(broadcast=True):
     online_players = (
         User.query
         .filter(or_(User.is_online, User.last_seen > online_thresh_timestamp))
+    )
+
+    if room != 'public_chat':
+        online_players = (
+            online_players
+            .join(User.tournaments)
+            .filter(Tournament.hashid == room)
+        )
+
+    online_players = (
+        online_players
         .join(UserStatistic).add_columns(UserStatistic.average, UserStatistic.doubles)
         .join(UserSettings).add_columns(UserSettings.country)
-        .all())
+        .all()
+    )
 
     online_count = len(online_players)
 
@@ -347,7 +359,7 @@ def broadcast_online_players(broadcast=True):
         emit(
             'send_online_players', 
             {'players': online_players_list, 'ingame-count': ingame_count, 'online-count': online_count},
-            namespace='/chat', broadcast=True
+            namespace='/chat', room=room,
         )
     else:
         emit(
@@ -358,15 +370,21 @@ def broadcast_online_players(broadcast=True):
 
 
 def broadcast_new_game(game):
+    room = game.hashid if game.tournament else 'public_chat'
     p1_name, = User.query.with_entities(User.username).filter_by(id=game.player1).first_or_404()
     p2_name, = User.query.with_entities(User.username).filter_by(id=game.player2).first_or_404()
 
-    emit('send_system_message_new_game', {'hashid': game.hashid, 'p1_name': p1_name, 'p2_name': p2_name},
-         broadcast=True, namespace='/chat')
+    emit(
+        'send_system_message_new_game',
+        {'hashid': game.hashid, 'p1_name': p1_name, 'p2_name': p2_name},
+        namespace='/chat',
+        room=room,
+    )
     socketio.sleep(0)
 
 
 def broadcast_game_completed(game):
+    room = game.tournament if game.tournament else 'public_chat'
     p1_name, = User.query.with_entities(User.username).filter_by(id=game.player1).first_or_404()
     p2_name, = User.query.with_entities(User.username).filter_by(id=game.player2).first_or_404()
 
@@ -377,9 +395,18 @@ def broadcast_game_completed(game):
         p1_score = game.p1_legs
         p2_score = game.p2_legs
 
-    emit('send_system_message_game_completed', {'hashid': game.hashid, 'p1_name': p1_name, 'p2_name': p2_name,
-                                                'p1_score': p1_score, 'p2_score': p2_score},
-         broadcast=True, namespace='/chat')
+    emit(
+        'send_system_message_game_completed',
+        {
+            'hashid': game.hashid,
+            'p1_name': p1_name,
+            'p2_name': p2_name,
+            'p1_score': p1_score,
+            'p2_score': p2_score,
+        },
+        namespace='/chat',
+        room=room,
+    )
     socketio.sleep(0)
 
 

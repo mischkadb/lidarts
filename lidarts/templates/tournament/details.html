@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/jquery.powertip.min.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/chat.css', version=config.VERSION) }}" />
+{% endblock %}
+
+{% block container %}
+<div class="container-fluid">
+{% endblock %}
+
+{% block app_content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-10 col-lg-4 col-xl-3 p-1 order-3 order-lg-1">
+        <div class="card bg-light text-dark d-block" style="height: 300px; overflow-y: scroll;"  id="new-games-window">
+            <div class="card-body">
+                <p class="text-center font-weight-bold slim">{{ _('Tournament details') }}</p>
+                <hr class="slim">
+                <p class="card-text font-weight-bold slim">{{ tournament.name }}</p>
+                <button type="button" id="tournament-membership-button" class="btn mt-2 {% if in_tournament %}in-tournament btn-danger{% else %}btn-success{% endif %}" 6autocomplete="off">
+                    {% if in_tournament %}{{ _('Leave Tournament') }}{% else %}{{ _('Join Tournament') }}{% endif %}
+                </button>
+
+                <a href="{{ url_for('game.create', tournament_hashid=tournament.hashid) }}">
+                    <button type="button" class="btn mt-2 btn-info" autocomplete="off">
+                        {{ _('Create tournament game') }}
+                    </button>
+                </a>
+                {% if tournament.description %}
+                    <p class="card-text slim">{{ tournament.description }}</p>
+                {% endif %}                
+                {% if tournament.external_url %}
+                    <p class="card-text slim"><a href="{{ tournament.external_url }}">{{ tournament.external_url }}</a></p>
+                {% endif %}
+                {% if tournament.start_date %}
+                    <p class="card-text slim">{{ tournament.start_date }}</p>
+                {% endif %}
+                {% if current_user.id == tournament.creator %}
+                <p class="card-text slim"><a href="{{ url_for('tournament.settings', hashid=tournament.hashid) }}">{{ _('Edit settings') }}</a></p>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="card bg-light text-dark mt-1 d-block" style="height: 300px; overflow-y: scroll;"  id="latest-results-window">
+            <div class="card-body">
+                <p class="text-center font-weight-bold slim">{{ _('Latest results') }}</p>
+                <hr class="slim">
+                <span id="latest-results-box">
+                    {% for game, player1_username, player2_username in recent_results %}
+                        <p style="margin-bottom: 5px">
+                            <strong>
+                                <a href="{{ url_for('profile.overview', username=player1_username) }}" 
+                                class="color: {% if game.p1_sets > game.p2_sets %}color-win{% elif game.p1_sets == game.p2_sets %}color-draw{% else %}color-lose{% endif %}">
+                                    {{ player1_username }}
+                                </a>
+                            </strong>
+                            {{ game.p1_legs }}:{{ game.p2_legs }}
+                            <strong>
+                                <a href="{{ url_for('profile.overview', username=player2_username) }}" 
+                                class="{% if game.p1_sets > game.p2_sets %}color-lose{% elif game.p1_sets == game.p2_sets %}color-draw{% else %}color-win{% endif %}">
+                                    {{ player2_username }}
+                                </a>
+                            </strong>
+                            <a href="{{ url_for('game.start', hashid=game.hashid) }}">Details</a>
+                        </p>
+                        <hr style="margin-top: 5px; margin-bottom: 5px;">
+                    {% endfor %}
+                </span>
+            </div>
+        </div>          
+    </div>
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 p-1 order-first order-lg-2">
+        <div class="card bg-light text-dark">
+                <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
+                    {% for message, username, average, country in messages[::-1] %}
+                    <p>
+                        {% if country %}<img src="/static/img/flags/{{ country | lower }}.png" style="margin-right: 5px" class="
+                        {% if country != 'lidarts' -%}country-flag{% endif -%}">{% endif %}<strong><a href="{{ url_for('profile.overview', username=username | replace('%40', '@')) }}" class="text-dark">{{ username }}</a></strong>
+                        <small class="text-secondary"> {{ moment(message.timestamp).format('HH:mm:ss') }} - Avg.: {{ average }}</small><br>
+                    {{ message.message|safe }}
+                    </p>
+                    <hr>
+                    {% endfor %}
+                </div>
+        </div>
+        <form id="message_input" method="POST" action="">
+            {{ form.hidden_tag() }}
+            {{ form.message(class="form-control", autocomplete="off", maxlength="500") }}
+            {{ form.submit }}
+        </form>
+    </div>
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1 order-2 order-lg-3">
+        <div class="card bg-light text-dark">
+            <div class="card-body" id="online_players" style="height: 600px; overflow-y: scroll; padding-left: 2px; padding-right: 2px;">
+            </div>
+        </div>
+        <p>{{ _('Online') }}: <span id="online-players-count"></span></p>
+        <p>{{ _('Playing') }}: <span id="ingame-players-count"></span></p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<meta id="validation_url" data-url="{{ url_for('generic.validate_chat_message') }}">
+<meta id="profile_url" data-url="{{ url_for('profile.overview') | replace('%40', '@') }}">
+<meta id="game_url" data-url="{{ url_for('game.start') }}">
+<meta id="create_url" data-url="{{ url_for('game.create') }}">
+<meta id="private_messages_url" data-url="{{ url_for('generic.private_messages') }}">
+<meta id="send_request_url" data-url="{{ url_for('generic.send_friend_request') }}">
+<meta id="user_id" data-id="{{ current_user.id }}">
+<meta id="user_name" data-username="{{ current_user.username }}">
+<meta id="tournament_hashid" data-hashid="{{ request.path.split('/')[2] }}">
+<meta id="match_alert" data-enabled="{{ match_alert }}">
+
+<script src="{{ url_for('static', filename='js/jquery.powertip.min.js', crossorigin='anonymous') }}"></script>
+
+
+<script type="text/javascript" src="{{ url_for('static',filename='js/tournament/tournament_socket.js', version=config.VERSION) }}"></script>
+{% endblock %}

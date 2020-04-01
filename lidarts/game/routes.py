@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, jsonify, request, flash
 from flask_babelex import lazy_gettext, gettext
 from lidarts.game import bp
 from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
-from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings
+from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings, Tournament
 from lidarts import db
 from lidarts.socket.public_challenge_handler import broadcast_public_challenges
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
@@ -16,8 +16,10 @@ import json
 @bp.route('/create', methods=['GET', 'POST'])
 @bp.route('/create/<mode>', methods=['GET', 'POST'])
 @bp.route('/create/<mode>/<opponent_name>', methods=['GET', 'POST'])
+@bp.route('/create/tournament/<tournament_hashid>', methods=['GET', 'POST'])
+@bp.route('/create/tournament/<tournament_hashid>/<opponent_name>', methods=['GET', 'POST'])
 @login_required
-def create(mode='x01', opponent_name=None):
+def create(mode='x01', opponent_name=None, tournament_hashid=None):
     if mode == 'x01':
         preset = X01Presetting.query.filter_by(user=current_user.id).first()
         if not preset:
@@ -142,6 +144,7 @@ def create(mode='x01', opponent_name=None):
             begin=datetime.utcnow(), match_json=match_json,
             status=status, opponent_type=form.opponent.data,
             public_challenge=form.public_challenge.data,
+            tournament=tournament_hashid,
             )
 
         # Preset saving

@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% from "utils.html" import render_error %}
 
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/chat.css', version=config.VERSION) }}" />
+{% endblock %}
+
 {% block app_content %}
 
 <div class="row justify-content-center">
-    <div class="col-md-10 col-xl-8">
+    <div class="col-12 col-md-6">
         <div class="card bg-light text-dark bs-callout bs-callout-warning ">
             <div class="card-body">
                 <h5 class="card-title text-center">{{ _('Tournaments on Lidarts') }}</h5>
@@ -15,6 +19,28 @@
                 <p class="card-text">
                     {{ _('This area currently provides tournaments an own page similar to the chat. There is also a list of upcoming public tournaments.') }}
                 </p>
+                <p class="card-text">
+                    {{ _('Joining a tournament will only make you appear in the tournament\'s user list at the moment. It does not sign you up.') }}
+                </p>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 mt-2 mt-md-0">
+        <div class="card bg-light text-dark bs-callout bs-callout-danger" style="height: 300px; overflow-y: scroll;">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{ _('Your tournaments') }}</h5>
+                <hr>
+                <p class="card-text">
+                    {% if current_user.tournaments %}
+                        {% for tournament in current_user.tournaments[::-1] %}
+                            <p class="slim"><a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}">{{ tournament.name }}</a></p>
+                        {% endfor %}
+                    {% else %}
+                        {{ _('You have not created a tournament yet.') }}
+                    {% endif %}
+                </p>  
                 
             </div>
         </div>
@@ -51,14 +77,14 @@
                             {{ render_error(form.public_tournament) }}
                         </p>
 
-                        <p class="visible-public-only {% if not form.public_tournament.data %}d-none{% endif %}">
-                            {{ form.external_link.label(class="control-label") }}:
-                            {{ form.external_link(class="form-control", autocomplete="off", maxlength="120") }}
+                        <p class="visible-public-only">
+                            {{ form.external_url.label(class="control-label") }}:
+                            {{ form.external_url(class="form-control", autocomplete="off", maxlength="120") }}
                             <small>({{ _('Link to tournament website with more information') }})</small>
-                            {{ render_error(form.external_link) }}
+                            {{ render_error(form.external_url) }}
                         </p>
 
-                        <p class="visible-public-only {% if not form.public_tournament.data %}d-none{% endif %}">
+                        <p class="visible-public-only">
                             {{ _('Start date and time:') }} <br>
                             {{ form.start_date(class='datepicker') }} {{ form.start_time(class='time', required=False) }}
                             {{ render_error(form.start_date) }}
@@ -77,19 +103,22 @@
     </div>
 
     <div class="col-12 col-md-6 mt-2 mt-md-0">
-        <div class="card bg-light text-dark bs-callout bs-callout-success ">
+        <div class="card bg-light text-dark bs-callout bs-callout-success" style="height: 500px; overflow-y: scroll;">
             <div class="card-body">
                 <h5 class="card-title text-center">{{ _('Upcoming tournaments') }}</h5>
                 <hr>
                 <p class="card-text">
-                    {% if tournaments %}
-                        {% for tournament in tournaments %}
-                            {{ tournament.name }}
+                    {% if upcoming_tournaments %}
+                        {% for tournament in upcoming_tournaments %}
+                            <p class="slim">
+                                <a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}">{{ tournament.name }}</a>
+                                | Start: {{ moment(tournament.start_timestamp).format('DD.MM.YYYY HH:mm') }}
+                            </p>
                         {% endfor %}
                     {% else %}
                         {{ _('There are no upcoming public tournaments at the moment.') }}
                     {% endif %}
-                </p>                
+                </p>               
             </div>
         </div>
     </div>

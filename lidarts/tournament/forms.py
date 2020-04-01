@@ -27,10 +27,12 @@ class RequiredIf(DataRequired):
 
 
 class CreateTournamentForm(FlaskForm):
+
     name = StringField(lazy_gettext('Tournament name'),  validators=[DataRequired(), Length(min=3, max=50)])
     description = TextAreaField(lazy_gettext('Description'), validators=[Length(min=0, max=1000)])
     public_tournament = BooleanField(lazy_gettext('Open to the public'))
-    external_link = StringField(lazy_gettext('External link'), validators=[RequiredIf('public_tournament'), Length(min=1, max=120)])
+    external_url = StringField(lazy_gettext('External URL'), validators=[RequiredIf('public_tournament'), Length(min=1, max=120)])
     start_date = DateField('Start date', format='%Y-%m-%d', validators=[RequiredIf('public_tournament')])
     start_time = TimeField('Start time', validators=[RequiredIf('public_tournament')])
     submit = SubmitField(lazy_gettext('Create Tournament'))
+    submit_save = SubmitField(lazy_gettext('Save settings'))

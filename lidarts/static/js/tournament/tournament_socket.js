@@ -15,14 +15,15 @@ $(document).ready(function() {
     var user_id = $('#user_id').data()['id'];
     var profile_url = $('#profile_url').data()['url'];
     var game_url = $('#game_url').data()['url'];
-    var create_url = $('#create_url').data()['url'] + '/x01/';
     var private_messages_url = $('#private_messages_url').data()['url'];
+    var tournament_hashid = $('#tournament_hashid').data()['hashid'];
+    var create_url = $('#create_url').data()['url'] + '/tournament/' + tournament_hashid + '/';
 
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
     socket.on('connect', function () {
-        socket.emit('init', {});     
+        socket.emit('init', {hashid: tournament_hashid});     
     });
 
     socket.on('send_online_players', function (msg) {
@@ -179,7 +180,9 @@ $(document).ready(function() {
                 message_errors = errors;
                 if (jQuery.isEmptyObject(message_errors)) {
                     socket.emit('broadcast_chat_message', {
-                        message: $('#message').val(), user_id: user_id
+                        message: $('#message').val(),
+                        user_id: user_id,
+                        hashid: tournament_hashid
                     });
                 } else {
                 }
@@ -188,11 +191,10 @@ $(document).ready(function() {
         return false;
     });
 
-
     $('#left-column-toggle').click(function() {
         if ($('#latest-results-window').hasClass('d-none'))
         {
-            $('#left-column-toggle').text('Show public challenges');
+            $('#left-column-toggle').text('Show tournament details');
         } else {
             $('#left-column-toggle').text('Show match information');
         }
@@ -203,8 +205,26 @@ $(document).ready(function() {
         $('#new-games-window').toggleClass("d-none");
         $('#public-challenge-window').toggleClass("d-block");
         $('#public-challenge-window').toggleClass("d-none");
-
     });
+
+    $('#tournament-membership-button').click(function() {
+        if ($('#tournament-membership-button').hasClass('in-tournament'))
+        {
+            $('#tournament-membership-button').text('Join Tournament');
+            $('#tournament-membership-button').removeClass('in-tournament');
+            $('#tournament-membership-button').removeClass('btn-danger');
+            $('#tournament-membership-button').addClass('btn-success');
+            socket.emit('leave_tournament', {hashid: tournament_hashid});
+        } else {
+            $('#tournament-membership-button').text('Leave Tournament');
+            $('#tournament-membership-button').addClass('in-tournament');
+            $('#tournament-membership-button').removeClass('btn-success');
+            $('#tournament-membership-button').addClass('btn-danger');
+            socket.emit('join_tournament', {hashid: tournament_hashid});
+        }
+    });
+
+
 
     
 

@@ -25,7 +25,27 @@
             <div class="card-body">
                 <p class="text-center font-weight-bold slim">{{ _('New games') }}</p>
                 <hr class="slim">
-                <span id="new-games-box"></span>
+                <span id="new-games-box">
+                    {% for game, player1_username, player2_username in new_games %}
+                    <p style="margin-bottom: 5px">
+                        <strong>
+                            <a href="{{ url_for('profile.overview', username=player1_username) }}" 
+                            class="text-secondary">
+                                {{ player1_username }}
+                            </a>
+                        </strong>
+                        vs. 
+                        <strong>
+                            <a href="{{ url_for('profile.overview', username=player2_username) }}" 
+                            class="text-secondary">
+                                {{ player2_username }}
+                            </a>
+                        </strong>
+                        <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Watch') }}</a>
+                    </p>
+                    <hr style="margin-top: 5px; margin-bottom: 5px;">
+                {% endfor %}
+                </span>
             </div>
         </div>
 
@@ -33,7 +53,27 @@
             <div class="card-body">
                 <p class="text-center font-weight-bold slim">{{ _('Latest results') }}</p>
                 <hr class="slim">
-                <span id="latest-results-box"></span>
+                <span id="latest-results-box">
+                    {% for game, player1_username, player2_username in recent_results %}
+                    <p style="margin-bottom: 5px">
+                        <strong>
+                            <a href="{{ url_for('profile.overview', username=player1_username) }}" 
+                            class="color: {% if game.p1_sets > game.p2_sets %}color-win{% elif game.p1_sets == game.p2_sets %}color-draw{% else %}color-lose{% endif %}">
+                                {{ player1_username }}
+                            </a>
+                        </strong>
+                        {{ game.p1_legs }}:{{ game.p2_legs }}
+                        <strong>
+                            <a href="{{ url_for('profile.overview', username=player2_username) }}" 
+                            class="{% if game.p1_sets > game.p2_sets %}color-lose{% elif game.p1_sets == game.p2_sets %}color-draw{% else %}color-win{% endif %}">
+                                {{ player2_username }}
+                            </a>
+                        </strong>
+                        <a href="{{ url_for('game.start', hashid=game.hashid) }}">Details</a>
+                    </p>
+                    <hr style="margin-top: 5px; margin-bottom: 5px;">
+                {% endfor %}
+                </span>
             </div>
         </div>                     
 

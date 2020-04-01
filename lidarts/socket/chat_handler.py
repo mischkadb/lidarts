@@ -11,14 +11,30 @@ import bleach
 @socketio.on('connect', namespace='/chat')
 def connect_chat():
     # print('Client connected', request.sid)
-    broadcast_online_players(broadcast=False)
+    # broadcast_online_players(broadcast=False)
+    pass
+
+
+@socketio.on('init', namespace='/chat')
+def init(message):
+    room = message['hashid'] if 'hashid' in message else 'public_chat'
+    join_room(room)
+    broadcast_online_players(broadcast=False, room=room)
 
 
 @socketio.on('broadcast_chat_message', namespace='/chat')
 def broadcast_chat_message(message):
+    room = message['hashid'] if 'hashid' in message else 'public_chat'
+    tournament_hashid = message['hashid'] if 'hashid' in message else None
+
     message['message'] = bleach.clean(message['message'])
     message['message'] = bleach.linkify(message['message'])
-    new_message = Chatmessage(message=message['message'], author=message['user_id'], timestamp=datetime.utcnow())
+    new_message = Chatmessage(
+        message=message['message'],
+        author=message['user_id'],
+        timestamp=datetime.utcnow(),
+        tournament_hashid=tournament_hashid,    
+    )
     db.session.add(new_message)
     user_statistic = UserStatistic.query.filter_by(user=message['user_id']).first()
     if not user_statistic:
@@ -43,13 +59,14 @@ def broadcast_chat_message(message):
     emit(
         'send_message',
         {
-            'author': author, 
+            'author': author,
             'message': new_message.message,
             'statistics': statistics,
             'timestamp': str(new_message.timestamp) + 'Z',
             'country': country,
         },
-        broadcast=True)
+        room=room,
+    )
 
 
 @socketio.on('connect', namespace='/private_messages')
@@ -116,26 +133,6 @@ def send_private_message(message):
                                            sender_name=sender_name, receiver_name=receiver_name,
                                            receiver=message['receiver'], timestamp=str(datetime.utcnow()) + 'Z'),
          room=sender_name, broadcast=True)
-
-
-@socketio.on('enable_match_alert', namespace='/chat')
-def enable_match_alert():
-    settings = UserSettings.query.filter_by(user=current_user.id).first()
-    if not settings:
-        settings = UserSettings(user=current_user.id)
-        db.session.add()
-    settings.match_alerts = True
-    db.session.commit()
-
-
-@socketio.on('disable_match_alert', namespace='/chat')
-def disable_match_alert():
-    settings = UserSettings.query.filter_by(user=current_user.id).first()
-    if not settings:
-        settings = UserSettings(user=current_user.id)
-        db.session.add()
-    settings.match_alerts = False
-    db.session.commit()
 
 
 @socketio.on('disconnect', namespace='/chat')
