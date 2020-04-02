@@ -61,8 +61,12 @@
                         </div>
                     </p>
 
-                    <p>{{ form.starter.label(class="col-form-label") }}:
-                        {{ form.starter(class="custom-select") }}</p>
+                    <p {% if form.opponent.data != 'online' %}style="display: none;"{% endif %} id="tournaments">
+                        {{ form.tournament.label(class="col-form-label") }}:
+                        {{ form.tournament(class="custom-select") }}
+                    </p>
+
+
                 </div>
             </div>
         </div>
@@ -92,6 +96,9 @@
         <div class="col-md-4 col-sm-6 mb-sm-1">
             <div class="card">
                 <div class="card-body">
+                    <p>{{ form.starter.label(class="col-form-label") }}:
+                        {{ form.starter(class="custom-select") }}</p>
+
                     <p>{{ form.in_mode.label(class="col-form-label") }}:
                         {{ form.in_mode(class="custom-select") }}</p>
 
@@ -117,15 +124,17 @@
             document.getElementById("levels").style.display = "block";
             document.getElementById("public_challenge_div").style.display = "none";
             document.getElementById("opponent_name").style.display = "none";
-
+            document.getElementById("tournaments").style.display = "none";          
         } else if (that.value == 'online') {
             document.getElementById("levels").style.display = "none";
             document.getElementById("public_challenge_div").style.display = "block";
-            document.getElementById("opponent_name").style.display = "block";            
+            document.getElementById("opponent_name").style.display = "block";    
+            document.getElementById("tournaments").style.display = "block";        
         } else {
             document.getElementById("levels").style.display = "none";
             document.getElementById("public_challenge_div").style.display = "none";
             document.getElementById("opponent_name").style.display = "none";
+            document.getElementById("tournaments").style.display = "none";
         }
     }
 </script>

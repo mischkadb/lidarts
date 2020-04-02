@@ -39,6 +39,7 @@ class CreateX01GameForm(FlaskForm):
     out_mode = SelectField(lazy_gettext('Mode Out'), choices=out_choice, validators=[DataRequired()])
     public_challenge = BooleanField(lazy_gettext('Public challenge'))
     save_preset = BooleanField(lazy_gettext('Save settings'))
+    tournament = SelectField(lazy_gettext('Tournament'), choices=[])
     submit = SubmitField(lazy_gettext('Start game'))
 
 

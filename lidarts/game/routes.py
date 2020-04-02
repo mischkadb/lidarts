@@ -95,6 +95,12 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             out_mode=out_mode,
             public_challenge=public_challenge,
         )
+        tournaments = current_user.tournaments
+        tournament_choices = []
+        for tournament in tournaments:
+            tournament_choices.append((tournament.hashid, tournament.name))
+        tournament_choices.append(('-', '-'))
+        form.tournament.choices = tournament_choices[::-1]
     else:
         pass  # no other game modes yet
 
@@ -132,6 +138,8 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             player2 = None
             status = 'started'
 
+        tournament = form.tournament.data if form.tournament.data != '-' else None
+
         match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
                                          2: {'scores': [], 'double_missed': []}}}})
         game = Game(
@@ -144,7 +152,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             begin=datetime.utcnow(), match_json=match_json,
             status=status, opponent_type=form.opponent.data,
             public_challenge=form.public_challenge.data,
-            tournament=tournament_hashid,
+            tournament=tournament,
             )
 
         # Preset saving
