@@ -30,7 +30,7 @@
                     <p class="card-text slim">{{ tournament.description }}</p>
                 {% endif %}                
                 {% if tournament.external_url %}
-                    <p class="card-text slim"><a href="{{ tournament.external_url }}">{{ tournament.external_url }}</a></p>
+                    <p class="card-text slim"><a href="{% if tournament.external_url[:4] != 'http' %}//{% endif %}{{ tournament.external_url }}" target="_blank">{{ tournament.external_url }}</a></p>
                 {% endif %}
                 {% if tournament.start_date %}
                     <p class="card-text slim">{{ tournament.start_date }}</p>
