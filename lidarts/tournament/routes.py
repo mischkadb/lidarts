@@ -111,7 +111,7 @@ def details(hashid):
         .filter_by(status='completed')
         .join(player1, Game.player1 == player1.id).add_columns(player1.username)
         .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
-        .order_by(Game.id.desc())
+        .order_by(Game.end.desc())
         .limit(10)
         .all()
     )
