@@ -160,6 +160,8 @@ def chat():
     recent_results = (
         Game.query
         .filter_by(status='completed')
+        .filter(Game.end != None)
+        .filter(Game.player2 != None)
         .join(player1, Game.player1 == player1.id).add_columns(player1.username)
         .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
         .order_by(Game.end.desc())
@@ -173,7 +175,7 @@ def chat():
         .filter(Game.player1 != Game.player2)
         .join(player1, Game.player1 == player1.id).add_columns(player1.username)
         .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
-        .order_by(Game.end.desc())
+        .order_by(Game.id.desc())
         .limit(10)
         .all()
     )
