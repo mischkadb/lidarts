@@ -99,6 +99,9 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         tournament_choices = []
         for tournament in tournaments:
             tournament_choices.append((tournament.hashid, tournament.name))
+            if tournament_hashid and tournament_hashid == tournament.hashid:
+                form.tournament.default = tournament_hashid
+                form.process()
         tournament_choices.append(('-', '-'))
         form.tournament.choices = tournament_choices[::-1]
     else:
