@@ -16,7 +16,7 @@ $(document).ready(function() {
     var player1_id = $('#player1_id').data()['id'];
     var player2_id = $('#player2_id').data()['id'];
     socket.on('connect', function() {
-        socket.emit('init', {hashid: hashid['hashid'] });
+        socket.emit('init', {hashid: hashid['hashid'], heartbeats: true});
     });
 
     var caller = $('#caller').data()['caller'];

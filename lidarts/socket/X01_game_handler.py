@@ -158,13 +158,16 @@ def player_heartbeat(message):
     current_app.redis_client.sadd('last_seen_ingame_bulk_user_ids', user_id)
     #current_user.last_seen_ingame = datetime.utcnow()
     #db.session.commit()
-    emit('player_heartbeat_response', {'player_id_heartbeat': user_id}, room=message['hashid'])
+    emit('player_heartbeat_response', {'player_id_heartbeat': user_id}, room=f'{message["hashid"]}_heartbeats')
 
 
 @socketio.on('init', namespace='/game')
 def init(message):
     game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
     join_room(game.hashid)
+
+    if 'heartbeats' in message:
+        join_room(f'{game.hashid}_heartbeats')
     if game.closest_to_bull:
         return
     send_score_response(game, broadcast=False)
