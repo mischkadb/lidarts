@@ -314,7 +314,7 @@ def start(hashid, theme=None):
                                 title=lazy_gettext('Stream overlay'),
                                 chat_form=chat_form, chat_form_small=chat_form_small,
                                 messages=messages, user_names=user_names)
-    return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json,
+    return render_template('game/X01_webcam.html', game=game_dict, form=form, match_json=match_json,
                             caller=caller, cpu_delay=cpu_delay, title=lazy_gettext('Live Match'),
                             chat_form=chat_form, chat_form_small=chat_form_small,
                             messages=messages, user_names=user_names)

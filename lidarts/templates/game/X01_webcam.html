@@ -1,0 +1,559 @@
+{% extends "base.html" %}
+{% block css %}<link href="{{ url_for('static',filename='css/x01.css') }}" rel="stylesheet">{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-xl sticky-top navbar-dark bg-dark">
+
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <div class="row mb-2 text-secondary">
+                <a href="{{ url_for('generic.index') }}" class="text-secondary"> {{ _('Leave game') }}</a>
+                | <div id="abort-game" class="div-link">{{ _('Abort game') }}</div>
+                | <div id="hide-keypad" class="div-link">{{ _('Toggle Keypad visibility') }}</div>
+                | <div id="change-keypad" class="div-link">{{ _('Change keypad position') }}</div>
+                | <div id="hide-statistics" class="div-link">{{ _('Toggle statistics') }}</div>
+                | <a href="{{ url_for('game.start', hashid=game.hashid, theme='stream') }}" class="text-secondary">{{ _('Streamoverlay') }}</a>
+                | <div id="mute" class="div-link">{{ _('Mute caller') }}</div> <div id="unmute" style="display: none" class="div-link">{{ _('Unmute caller') }}</div>
+
+            </div>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block app_content %}
+
+<!-- PLAYERS AND SCORES-->
+<div class="row justify-content-center align-items-center text-light">
+    <!-- PLAYER 1 NAME AND SCORE -->
+    <div class="col-lg-5 col-md-6 d-none d-md-block">
+        <div class="card text-center bg-dark player_turn p1_turn_outer_card" id="p1_turn_outer_card">
+            <div class="card-body">
+                <div class="card bg-secondary text-center mb-1 p1_turn_name_card" id="p1_turn_name_card">
+                    <div class="card-body">
+                        <h3>{{ game.player1_name }}</h3>
+                    </div>
+                </div>
+
+                <div class="card bg-danger text-center p1_turn_score_card" id="p1_turn_score_card">
+                    <div class="card-body">                                              
+                        <p class="card-text d-flex h-100">
+                            <!-- Bootstrap flex-fill does not create equal width flexboxes -->
+                            <!-- Using Bootstrap's media-body does the trick -->
+                            <span class="text-left h4 align-self-center media-body">
+                                <i class="fas fa-play-circle  p1_leg_start_indicator"></i>
+                            </span>
+                            <span id="p1_score" class="h1 p1_score font-weight-bold  media-body" >-</span>
+                            <span class="media-body"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOP LEG AND SET COUNTER -->
+    <div class="col-lg-2 text-center bg-dark d-none d-lg-block" style="padding-left: 0px; padding-right: 0px;">
+        <div class="row text-danger">
+            <div class="col-6"><h3 id="p1_ingame"><i class="fas fa-plug"></i></h3></div>
+            <div class="col-6"><h3 id="p2_ingame"><i class="fas fa-plug"></i></h3></div>
+        </div>
+
+        <div class="row mb-3">
+            {% if game.bo_sets == 1 %}
+            <div class="col">Best of {{ game.bo_legs }} Legs</div>
+            {% else %}
+            <div class="col">Best of {{ game.bo_sets }} Sets</div>
+            {% endif %}
+        </div>
+        <div class="card bg-info">
+            <div class="card-body" style="padding-top: 10px; padding-bottom: 10px;">
+                <div class="row align-items-center mb-3">
+                    <div class="col-sm-3"><h4 class="card-text p1_sets" style="font-weight:bold"></h4></div>
+                    <div class="col-sm-6">Sets</div>
+                    <div class="col-sm-3"><h4 class="card-text p2_sets" style="font-weight:bold"></h4></div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-sm-3"><h4 class="card-text p1_legs" style="font-weight:bold"></h4></div>
+                    <div class="col-sm-6">Legs</div>
+                    <div class="col-sm-3"><h4 class="card-text p2_legs" style="font-weight:bold"></h4></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PLAYER 2 NAME AND SCORE -->
+    <div class="col-lg-5 col-md-6 d-none d-md-block">
+        <div class="card text-center bg-dark player_turn p2_turn_outer_card" id="p2_turn_outer_card">
+            <div class="card-body">
+                <div class="card bg-secondary text-center text-light mb-1 p2_turn_name_card" id="p2_turn_name_card">
+                    <div class="card-body">
+                        <h3>{{ game.player2_name }}</h3>
+                    </div>
+                </div>
+                <div class="card bg-danger text-center p2_turn_score_card" id="p2_turn_score_card">
+                    <div class="card-body">
+                        <p class="card-text d-flex h-100">
+                            <!-- Bootstrap flex-fill does not create equal width flexboxes -->
+                            <!-- Using Bootstrap's media-body does the trick -->
+                            <span class="text-left h4 align-self-center media-body">
+                                <i class="fas fa-play-circle  p2_leg_start_indicator"></i>
+                            </span>
+                            <span id="p2_score" class="h1 p2_score font-weight-bold  media-body" >-</span>
+                            <span class="media-body"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLAYER 1 NAME AND SCORE SMALL -->
+    <div class="col-6 d-md-none">
+        <div class="card text-center bg-dark mb-1 p1_turn_name_card" id="p1_turn_name_card_small">
+            <div class="card-body name_card_body_small">
+                <h3>{{ game.player1_name }}</h3>
+            </div>
+        </div>
+
+        <div class="card text-center p1_turn_score_card" id="p1_turn_score_card_small">
+            <div class="card-body score_card_body_small">
+                <!--<h2 id="p1_score_small" class="card-text p1_score" style="font-weight: bold"></h2>-->
+                <p class="card-text d-flex h-100">
+                    <!-- Bootstrap flex-fill does not create equal width flexboxes -->
+                    <!-- Using Bootstrap's media-body does the trick -->
+                    <span class="text-left h4 align-self-center media-body">
+                        <i class="fas fa-play-circle  p1_leg_start_indicator"></i>
+                    </span>
+                    <span id="p1_score_small" class="h2 p1_score font-weight-bold  media-body" >-</span>
+                    <span class="media-body"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLAYER 2 NAME AND SCORE SMALL -->
+    <div class="col-6 d-md-none">
+        <div class="card text-center bg-dark mb-1 p2_turn_name_card" id="p2_turn_name_card_small">
+            <div class="card-body name_card_body_small">
+                <h3>{{ game.player2_name }}</h3>
+            </div>
+        </div>
+
+        <div class="card text-center p2_turn_score_card" id="p2_turn_score_card_small">
+            <div class="card-body score_card_body_small">
+                <p class="card-text d-flex h-100">
+                    <!-- Bootstrap flex-fill does not create equal width flexboxes -->
+                    <!-- Using Bootstrap's media-body does the trick -->
+                    <span class="text-left h4 align-self-center media-body">
+                        <i class="fas fa-play-circle  p2_leg_start_indicator"></i>
+                    </span>
+                    <span id="p2_score_small" class="h2 p2_score font-weight-bold  media-body" >-</span>
+                    <span class="media-body"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if game.closest_to_bull %}
+<div class="row text-light  text-center mt-2" id="closest_to_bull_notification_div">
+    <div class="col-12">
+        <h3 id="closest_to_bull_notification">{{ _('Closest to bull begins. Please throw three darts at bull.') }}</h3>
+        {% if game.player1 == game.player2 %}<h5>{{ _('Local game. Player 1 throws all three darts first.') }}</h5>{% endif %}
+    </div>
+</div>
+{% endif %}
+
+<div class="row justify-content-center align-items-start text-center mt-2">
+    <!-- LEG AND SET COUNT SMALL -->
+    <div class="col-md-4 offset-md-1 col-6 d-lg-none">
+        <div class="card bg-info text-light">
+            <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
+                <div class="row">
+                    <div class="col-6">Sets: <strong class="p1_sets">{{ game.p1_sets }}</strong></div>
+                    <div class="col-6">Legs: <strong class="p1_legs">{{ game.p1_legs }}</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 offset-md-2 col-6 d-lg-none">
+        <div class="card bg-info text-light">
+            <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
+                <div class="row">
+                    <div class="col-6">Sets: <strong class="p2_sets">{{ game.p2_sets }}</strong></div>
+                    <div class="col-6">Legs: <strong class="p2_legs">{{ game.p2_legs }}</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-1"></div>
+
+</div>
+
+<div class="row justify-content-center align-items-start">
+    <!-- SCOREBOARD PLAYER 1 -->
+    <div class="col-lg-4 col-md-4 col-6 mt-3" id="p1_current_leg">
+    </div>
+
+    <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
+    <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block score-input">
+
+        <!-- GAME END CONFIRMATION -->
+        <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
+            <h4 class="text-light">{{ _('Game is completed.') }}</h4>
+            <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+        </form>
+
+        <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status != 'aborted' %} style="display: none" {% endif %}>
+            <h4 class="text-light">{{ _('Game was aborted.') }}</h4>
+            <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+        </form>
+
+        <div {% if not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
+            <form class="text-center score_input" id="score_input" method="POST" action="" autocomplete="off" {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
+            {{ form.hidden_tag() }}
+            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center mb-2">
+                {{ form.score_value(class="bg-light text-center form-control form-control-lg border-secondary score_value",
+                style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;") }}
+            </div>
+            <!-- UNDO BUTTON -->
+            <button type="button" id="undo-button" class="btn btn-lg btn-outline-info btn-block undo-button">{{ _('Undo last score') }}</button>
+            <button type="button" id="undo-button-active" class="btn btn-lg btn-warning btn-block undo-button-active" style="display: none">{{ _('Enter correct score') }}</button>
+
+            </form>
+
+            <ul class="nav nav-tabs mt-1 keypad" id="keypad_chat_tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" id="keypad-tab" data-toggle="tab" href="#input-keypad" aria-controls="home" aria-selected="true">{{ _('Keypad') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" id="chat-tab" data-toggle="tab" href="#chat" aria-controls="chat" aria-selected="false">{{ _('Chat') }}</a>
+                </li>
+            </ul>
+
+            <div class="tab-content keypad" id="keypad_chat_tab_content">
+                <!-- ONSCREEN KEYBOARD -->
+                <div id="input-keypad" class="tab-pane fade show active" role="tabpanel" aria-labelledby="keypad-tab">
+                    <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                        <button type="button" id="button-1" class="button-1 btn btn-xl btn-secondary w-100 rounded-0 btn-rnd-tl">1</button>
+                        <button type="button" id="button-2" class="button-2 btn btn-xl btn-secondary w-100">2</button>
+                        <button type="button" id="button-3" class="button-3 btn btn-xl btn-secondary w-100 rounded-0 btn-rnd-tr">3</button>
+                    </div>
+                    <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                        <button type="button" id="button-4" class="button-4 btn btn-xl btn-secondary w-100 rounded-0">4</button>
+                        <button type="button" id="button-5" class="button-5 btn btn-xl btn-secondary w-100">5</button>
+                        <button type="button" id="button-6" class="button-6 btn btn-xl btn-secondary w-100 rounded-0">6</button>
+                    </div>
+                    <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                        <button type="button" id="button-7" class="button-7 btn btn-xl btn-secondary w-100 rounded-0">7</button>
+                        <button type="button" id="button-8" class="button-8 btn btn-xl btn-secondary w-100">8</button>
+                        <button type="button" id="button-9" class="button-9 btn btn-xl btn-secondary w-100 rounded-0">9</button>
+                    </div>
+                    <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                        <button type="button" id="button-del" class="button-del btn btn-xl btn-danger w-100 rounded-0 btn-rnd-bl" style="font-size: 25px;"><i class="fas fa-times-circle" ></i></button>
+                        <button type="button" id="button-0" class="button-0 btn btn-xl btn-secondary w-100">0</button>
+                        <button type="button" id="button-conf" class="button-conf btn btn-xl btn-success w-100 rounded-0 btn-rnd-br" style="font-size: 25px;"><i class="fas fa-check-circle" ></i></button>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                    <div class="card bg-secondary text-dark">
+                        <div class="card-body" style="padding: 1px 1px 1px 1px;">
+                            <div class="card bg-secondary">
+                                <div class="card-body text-light chatbox" id="chatbox" style="height: 200px; overflow-y: scroll; padding: 1px 1px 1px 1px;">
+                                    {% for message in messages %}
+                                    <p><strong><span class="">{{ user_names[message.author] }}</span></strong>:
+                                        {{ message.message|safe }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="message_input" method="POST" action="">
+                        {{ chat_form.hidden_tag() }}
+                        {{ chat_form.message(class="form-control", autocomplete="off", maxlength="500") }}
+                        {{ chat_form.submit }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCOREBOARD PLAYER 2 -->
+    <div class="col-lg-4 col-md-4 col-6 mt-3" id="p2_current_leg">
+    </div>
+</div>
+
+<div id="meet"></div>
+
+<!-- GAME END CONFIRMATION SMALL -->
+<div class="col-sm-12 justify-content-center d-md-none confirm_completion" {% if game.status != 'completed' %} style="display: none" {% endif %}>
+    <h4 class="text-light">{{ _('Game is completed.') }}</h4>
+    <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+</div>
+
+<!-- STATISTICS -->
+<div class="row fixed-bottom statistics">
+    <div class="container">
+        <div class="row bg-secondary text-light">
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Leg Avg.</td>
+                        <td class="p1_leg_avg font-weight-bold">{{ p1_leg_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>Match Avg.</td>
+                        <td class="p1_match_avg font-weight-bold">{{ p1_match_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>First 9</td>
+                        <td class="p1_first9_avg font-weight-bold">{{ p1_first9_avg }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-1 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>100+</td>
+                        <td class="p1_100 font-weight-bold">{{ p1_100 }}</td>
+                    </tr>
+                    <tr>
+                        <td>140+</td>
+                        <td class="p1_140 font-weight-bold">{{ p1_140 }}</td>
+                    </tr>
+                    <tr>
+                        <td>180</td>
+                        <td class="p1_180 font-weight-bold">{{ p1_180 }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-3 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Doubles</td>
+                        <td class="p1_doubles font-weight-bold">{{ p1_doubles }}% ({{ p1_legs_won }}/{{ p1_darts_thrown_double }})</td>
+                    </tr>
+                    <tr>
+                        <td>High Finish</td>
+                        <td class="p1_high_finish font-weight-bold">{{ p1_high_finish }}</td>
+                    </tr>
+                    <tr>
+                        <td>Short Leg</td>
+                        <td class="p1_short_leg font-weight-bold">{{ p1_short_leg }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Leg Avg.</td>
+                        <td class="p2_leg_avg font-weight-bold">{{ p2_leg_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>Match Avg.</td>
+                        <td class="p2_match_avg font-weight-bold">{{ p2_match_avg }}</td>
+                    </tr>
+                    <tr>
+                        <td>First 9</td>
+                        <td class="p2_first9_avg font-weight-bold">{{ p2_first9_avg }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-1 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>100+</td>
+                        <td class="p2_100 font-weight-bold">{{ p2_100 }}</td>
+                    </tr>
+                    <tr>
+                        <td>140+</td>
+                        <td class="p2_140 font-weight-bold">{{ p2_140 }}</td>
+                    </tr>
+                    <tr>
+                        <td>180</td>
+                        <td class="p2_180 font-weight-bold">{{ p2_180 }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-3 d-none d-lg-block">
+                <table class="table table-sm stats-table">
+                    <tr>
+                        <td>Doubles</td>
+                        <td class="p2_doubles font-weight-bold">{{ p2_doubles }}% ({{ p2_legs_won }}/{{ p2_darts_thrown_double }})</td>
+                    </tr>
+                    <tr>
+                        <td>High Finish</td>
+                        <td class="p2_high_finish font-weight-bold">{{ p2_high_finish }}</td>
+                    </tr>
+                    <tr>
+                        <td>Short Leg</td>
+                        <td class="p2_short_leg font-weight-bold">{{ p2_short_leg }}</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ONSCREEN KEYBOARD SMALL SCREENS -->
+<div class="row fixed-bottom">
+    <div class="col-sm-12 d-md-none score-input">
+        <div {% if not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
+            <div class="score_input">
+                <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center">
+                    <input class="bg-light text-center form-control form-control-lg border-secondary score_value" id="score_value_sm"
+                           style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;" readonly>
+                </div>
+                <button type="button" id="undo-button-sm" class="btn btn-lg btn-outline-info btn-block undo-button">{{ _('Undo last score') }}</button>
+                <button type="button" id="undo-button-active-sm" class="btn btn-lg btn-warning btn-block undo-button-active" style="display: none">{{ _('Enter correct score') }}</button>
+            </div>
+
+
+            <ul class="nav nav-tabs mt-1 keypad" id="keypad_chat_tab_small" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" id="keypad-tab-small" data-toggle="tab" href="#input-keypad1" aria-controls="home" aria-selected="true">Keypad</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" id="chat-tab-small" data-toggle="tab" href="#chat_small" aria-controls="chat" aria-selected="false">
+                        Chat
+                        <span class="badge badge-danger notification-badge" id="notification-badge"></span>
+                    </a>
+                </li>
+            </ul>
+
+
+            <div class="tab-content keypad" id="keypad_chat_tab_content_small">
+                <div id="input-keypad1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="keypad-tab">
+                    <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                        <button type="button" id="button-sm-1" class="button-1 btn btn-xl btn-secondary w-100 rounded-0">1</button>
+                        <button type="button" id="button-sm-2" class="button-2 btn btn-xl btn-secondary w-100">2</button>
+                        <button type="button" id="button-sm-3" class="button-3 btn btn-xl btn-secondary w-100 rounded-0">3</button>
+                    </div>
+                    <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                        <button type="button" id="button-sm-4" class="button-4 btn btn-xl btn-secondary w-100 rounded-0">4</button>
+                        <button type="button" id="button-sm-5" class="button-5 btn btn-xl btn-secondary w-100">5</button>
+                        <button type="button" id="button-sm-6" class="button-6 btn btn-xl btn-secondary w-100 rounded-0">6</button>
+                    </div>
+                    <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                        <button type="button" id="button-sm-7" class="button-7 btn btn-xl btn-secondary w-100 rounded-0">7</button>
+                        <button type="button" id="button-sm-8" class="button-8 btn btn-xl btn-secondary w-100">8</button>
+                        <button type="button" id="button-sm-9" class="button-9 btn btn-xl btn-secondary w-100 rounded-0">9</button>
+                    </div>
+                    <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                        <button type="button" id="button-sm-del" class="button-del btn btn-xl btn-danger w-100 rounded-0" style="font-size: 25px;"><i class="fas fa-times-circle" ></i></button>
+                        <button type="button" id="button-sm-0" class="button-0 btn btn-xl btn-secondary w-100">0</button>
+                        <button type="button" id="button-sm-conf" class="button-conf btn btn-xl btn-success w-100 rounded-0" style="font-size: 25px;"><i class="fas fa-check-circle" ></i></button>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="chat_small" role="tabpanel" aria-labelledby="chat-tab">
+                    <div class="card bg-secondary text-dark">
+                        <div class="card-body" style="padding: 1px 1px 1px 1px;">
+                            <div class="card bg-secondary">
+                                <div class="card-body text-light chatbox" id="chatbox_small" style="height: 200px; overflow-y: scroll; padding: 1px 1px 1px 1px;">
+                                    {% for message in messages %}
+                                    <p><strong><span class="">{{ user_names[message.author] }}</span></strong>:
+                                        {{ message.message|safe }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="message_input_small" method="POST" action="">
+                        {{ chat_form_small.hidden_tag() }}
+                        {{ chat_form_small.message(class="form-control", autocomplete="off", maxlength="500", id="message_small") }}
+                        {{ chat_form_small.submit }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- GAME SHOT OVERLAY -->
+<div class="modal fade game-shot-modal" id="game-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <h2 class="text-center">Game Shot</h2>
+        </div>
+    </div>
+</div>
+
+<!-- MATCH SHOT OVERLAY -->
+<div class="modal fade match-shot-modal" id="match-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <h2 class="text-center">Game Shot and the match</h2>
+        </div>
+    </div>
+</div>
+
+<!-- MISSED AT DOUBLE OVERLAY -->
+<div class="modal fade" id="double-missed-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <h4 class="text-center">{{ _('How many darts missed at double?') }}</h4>
+            <button type="button" class="btn btn-primary double-missed-3 btn-lg mt-2" data-dismiss="modal" id="double-missed-3">3</button>
+            <button type="button" class="btn btn-primary double-missed-2 btn-lg mt-2" data-dismiss="modal" id="double-missed-2">2</button>
+            <button type="button" class="btn btn-primary double-missed-1 btn-lg mt-2" data-dismiss="modal" id="double-missed-1">1</button>
+            <button type="button" class="btn btn-primary double-missed-0 btn-lg mt-2 mb-2" data-dismiss="modal" id="double-missed-0">0</button>
+        </div>
+    </div>
+</div>
+
+<!-- DARTS TO FINISH OVERLAY -->
+<div class="modal fade" id="darts-to-finish-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <h4 class="text-center">{{ _('How many darts to finish?') }}</h4>
+            <button type="button" class="btn btn-primary btn-lg mt-2" data-dismiss="modal" id="to-finish-3">3</button>
+            <button type="button" class="btn btn-primary btn-lg mt-2" data-dismiss="modal" id="to-finish-2">2</button>
+            <button type="button" class="btn btn-primary btn-lg mt-2 mb-2" data-dismiss="modal" id="to-finish-1">1</button>
+        </div>
+    </div>
+</div>
+
+<!-- ABORT GAME MODAL -->
+<div class="modal fade abort-game-modal" id="abort-game-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <h3 class="text-center">{{ _('Abort game?') }}</h3>
+            <button type="button" class="btn btn-success btn-lg mt-2" data-dismiss="modal" id="abort-confirm">{{ _('Confirm') }}</button>
+            <button type="button" class="btn btn-danger btn-lg mt-2 mb-2" data-dismiss="modal" id="abort-cancel">{{ _('Cancel') }}</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scripts %}
+<meta id="hash_id" data-hashid="{{ game.hashid }}">
+<meta id="user_id" data-id="{{ current_user.id }}">
+<meta id="player1_id" data-id="{{ game.player1 }}">
+<meta id="player2_id" data-id="{{ game.player2 }}">
+<meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
+<meta id="caller" data-caller="{{ caller }}">
+<meta id="cpu_delay" data-cpu_delay="{{ cpu_delay }}">
+<meta id="out_mode" data-out_mode="{{ game.out_mode }}">
+<meta id="chat_validation_url" data-url="{{ url_for('generic.validate_game_chat_message') }}">
+
+
+{% if current_user.id == game.player1 or current_user.id == game.player2 %}
+<script type="text/javascript" src="{{ url_for('static',filename='js/x01_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game_chat_socket.js', version=config.VERSION) }}"></script>
+<script src='https://meet.jit.si/external_api.js'></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/webcam.js', version=config.VERSION) }}"></script>
+{% else %}
+<script type="text/javascript" src="{{ url_for('static',filename='js/x01_spectator_socket.js', version=config.VERSION) }}"></script>
+{% endif %}
+{% endblock %}
