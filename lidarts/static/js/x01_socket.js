@@ -12,6 +12,7 @@ $(document).ready(function() {
     var p1_next_turn;
     var p1_id;
     var p2_id;
+    var currentuser_id = $('#user_id').data()['id'];
 
     var game_completed = false;
 
@@ -28,11 +29,11 @@ $(document).ready(function() {
 
     var out_mode = $('#out_mode').data()['out_mode'];
 
-    socket.emit('player_heartbeat', {hashid: hashid['hashid']});
+    socket.emit('player_heartbeat', {hashid: hashid['hashid'], user_id: currentuser_id});
 
     window.setInterval(function(){
         /// call your function here
-        socket.emit('player_heartbeat', {hashid: hashid['hashid']});
+        socket.emit('player_heartbeat', {hashid: hashid['hashid'], user_id: currentuser_id});
     }, 15000);
 
     socket.on('game_aborted', function(msg) {

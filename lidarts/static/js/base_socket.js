@@ -8,14 +8,21 @@ $(document).ready(function() {
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {transports: ['websocket']});
 
     var notification_sound_enabled = false;
+    var is_authenticated = false;
+    if ($('#is_authenticated').data()['auth'] == 'True') {
+        is_authenticated = true
+    }
+    var user_id = $('#user_id').data()['id'];
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
     socket.on('connect', function () {
         console.log('Base socket connected');
-        socket.emit('user_heartbeat');
-        socket.emit('get_status');
-        socket.emit('init');
+        if (is_authenticated == true) {
+            socket.emit('user_heartbeat', {user_id: user_id});
+            socket.emit('get_status', {user_id: user_id});
+            socket.emit('init', {user_id: user_id});
+        }
     });
 
     socket.on('disconnect', function () {
@@ -26,9 +33,11 @@ $(document).ready(function() {
         notification_sound_enabled = msg['notification_sound'];
     });   
 
-    window.setInterval(function(){
-        socket.emit('user_heartbeat');
-    }, 30000);   
+    if (is_authenticated == true) {
+        window.setInterval(function(){
+            socket.emit('user_heartbeat', {user_id: user_id});
+        }, 30000);  
+    } 
     
     socket.on('status_reply', function (msg) {
         var indicator = $(document.getElementsByClassName('status-indicator'));

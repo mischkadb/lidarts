@@ -156,6 +156,8 @@
 <script type="text/javascript" src="{{ url_for('static',filename='js/socket.io.js') }}"></script>
 
 <meta id="status_url" data-url="{{ url_for('profile.set_status') }}">
+<meta id="is_authenticated" data-auth="{{ current_user.is_authenticated }}">
+<meta id="user_id" data-id="{{ current_user.id }}">
 <script type="text/javascript" src="{{ url_for('static',filename='js/base_socket.js', version=config.VERSION) }}"></script>
 
 

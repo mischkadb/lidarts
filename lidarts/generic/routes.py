@@ -282,7 +282,6 @@ def send_friend_request(id):
 
     receiver_settings = UserSettings.query.filter_by(user=id).first()
     if receiver_settings and not receiver_settings.allow_friend_requests:
-        print('disallowed')
         return jsonify('error')
 
     friendship = Friendship.query \

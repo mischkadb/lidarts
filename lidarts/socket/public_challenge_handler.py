@@ -10,8 +10,8 @@ def broadcast_public_challenges():
     public_challenges = []
     public_challenges_query = (
         Game.query
-        .filter_by(public_challenge=True)
         .filter_by(status='challenged')
+        .filter_by(public_challenge=True)
         .join(User, User.id == Game.player1).add_columns(User.username, User.last_seen)
         .join(UserStatistic, UserStatistic.user == Game.player1).add_columns(UserStatistic.average)
         .order_by(Game.id).all()

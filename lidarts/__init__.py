@@ -29,9 +29,8 @@ from engineio.payload import Payload
 from speaklater import _LazyString
 from sqlalchemy import MetaData
 
-from redis import Redis
+from redis import Redis, StrictRedis
 import rq
-
 
 # disable false positive pylint warning - https://github.com/PyCQA/pylint/issues/414
 class JSONEncoder(BaseEncoder):
@@ -135,6 +134,7 @@ def create_app(test_config=None):
     app.jinja_env.filters['datetime'] = format_datetime
 
     app.redis = Redis.from_url('redis://')
+    app.redis_client = StrictRedis()
     app.task_queue = rq.Queue('lidarts-tasks', connection=app.redis)
 
     if 'DASHBOARD_ENABLED' in app.config and app.config['DASHBOARD_ENABLED']:
