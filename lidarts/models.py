@@ -242,7 +242,7 @@ class Tournament(db.Model):
     hashid = db.Column(db.String(10), unique=True)
     name = db.Column(db.String(50), nullable=False)
     public = db.Column(db.Boolean, default=False)
-    description = db.Column(db.String(200))
+    description = db.Column(db.String(1000))
     external_url = db.Column(db.String(120))
     start_timestamp = db.Column(db.DateTime)
     creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
