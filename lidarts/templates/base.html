@@ -83,7 +83,9 @@
 
 
                     <div class="btn-group" role="group">
-                        <button id="statusDrop" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><i class="fas fa-circle status-indicator"></i> {{ _('Status') }}</button>
+                        <button id="statusDrop" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                            <i class="fas {% if current_user.is_backer %}fa-star{% else %}fa-circle{% endif %} status-indicator"></i> 
+                            {{ _('Status') }}</button>
                         <div class="dropdown-menu" aria-labelledby="statusDrop">
                             <a class="dropdown-item dropdown-status" id="dropdown-online" href="#"><i class="fas fa-circle status-online"></i> Online</a>
                             <a class="dropdown-item dropdown-status" id="dropdown-lfg" href="#"><i class="fas fa-circle status-lfg"></i> {{ _('Looking for Game') }}</a>

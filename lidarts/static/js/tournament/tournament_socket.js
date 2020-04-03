@@ -42,15 +42,25 @@ $(document).ready(function() {
             } else {
                 flag = ''
             };
+
+            if (msg['players'][user]['is_backer']) {
+                online_status_icon = '<i title="Lidarts backer" class="fas fa-star '
+                backer_name_icon = '<i title="Lidarts backer" class="fas fa-star"></i>'
+            } else {
+                online_status_icon = '<i class="fas fa-circle '
+                backer_name_icon = ''
+            }
+
             $('#online_players').append('<div class="card"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
                 + '<strong style="font-size: 20px;"><a href="' + profile_url + msg['players'][user]['username'] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
                 + '<img src="' + msg['players'][user]['avatar'] + '" height="50px" width="50px" class="avatar avatar-status avatar-status-' + msg['players'][user]['status'] + '">'
                 + flag
+                + backer_name_icon
                 + msg['players'][user]['username'] + '</a></strong>');
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
             if (user_id == msg['players'][user]['id']) {
                 $('#powertip-' + user).data('powertip', '<div><span class="text-dark font-weight-bold">' +
-                    '<i class="fas fa-circle status-' + msg['players'][user]['status'] + ' powerTip-status"></i>' +
+                    online_status_icon + 'status-' + msg['players'][user]['status'] + ' powerTip-status"></i>' +
                     '<a href="' + profile_url + msg['players'][user]['username'] + '" class="text-dark">' + msg['players'][user]['username'] + '</a></span></div>' +
                     '<hr style="margin: 2px 0px 5px 0px;">' +
                     '<span class="text-dark">Avg.: ' + msg['players'][user]['statistics']['average'] + ' | Doubles: ' + msg['players'][user]['statistics']['doubles'] + '%</span>' +
@@ -58,7 +68,7 @@ $(document).ready(function() {
                     '<div class="text-secondary">This is you.</div></div></div>');
             } else {
                 $('#powertip-' + user).data('powertip', '<div><span class="text-dark">' +
-                    '<i class="fas fa-circle status-' + msg['players'][user]['status'] + ' powerTip-status"></i>' +
+                    online_status_icon + 'status-' + msg['players'][user]['status'] + ' powerTip-status"></i>' +
                     '<a href="' + profile_url + msg['players'][user]['username'] + '" class="text-dark">' + msg['players'][user]['username'] + '</a></span></div>' +
                     '<hr style="margin: 2px 0px 5px 0px;">' +
                     '<span class="text-dark">Avg.: ' + msg['players'][user]['statistics']['average'] + ' | Doubles: ' + msg['players'][user]['statistics']['doubles'] + '%</span>' +

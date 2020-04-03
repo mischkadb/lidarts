@@ -350,6 +350,7 @@ def broadcast_online_players(broadcast=True, room='public_chat'):
                 'avatar': avatar,
                 'statistics': statistics,
                 'country': country,
+                'is_backer': user.is_backer,
             }
         )
 

@@ -36,6 +36,8 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
     registration_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    is_backer = db.Column(db.Boolean, default=False)
+    backer_until = db.Column(db.DateTime, default=None)
 
     requested_friend_reqs = db.relationship(
         'FriendshipRequest',
