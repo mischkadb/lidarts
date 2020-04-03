@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-01 15:25+0200\n"
-"PO-Revision-Date: 2020-04-01 15:30+0200\n"
+"POT-Creation-Date: 2020-04-03 15:49+0200\n"
+"PO-Revision-Date: 2020-04-03 15:50+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgstr "Passwort"
 msgid "Username or Email Address"
 msgstr "Benutzername oder E-Mail-Adresse"
 
-#: auth/forms.py:96 profile/forms.py:54
+#: auth/forms.py:96 profile/forms.py:63
 msgid "Accept"
 msgstr "Bestätigen"
 
@@ -133,7 +133,7 @@ msgstr "Best of Legs"
 
 #: game/forms.py:37
 msgid "Two Clear Legs"
-msgstr ""
+msgstr "Two Clear Legs"
 
 #: game/forms.py:38 statistics/forms.py:33
 msgid "Mode In"
@@ -152,47 +152,51 @@ msgid "Save settings"
 msgstr "Einstellungen speichern"
 
 #: game/forms.py:42
+msgid "Tournament"
+msgstr "Turnier"
+
+#: game/forms.py:43
 msgid "Start game"
 msgstr "Spiel beginnen"
 
-#: game/forms.py:47 generic/forms.py:9
+#: game/forms.py:48 generic/forms.py:9
 msgid "Submit message"
 msgstr "Nachricht senden"
 
-#: game/routes.py:110
+#: game/routes.py:119
 msgid "Public challenges must be created without an opponent name."
 msgstr "Öffentliche Herausforderungen müssen ohne Gegnernamen erstellt werden."
 
-#: game/routes.py:112 game/routes.py:120 game/routes.py:184
+#: game/routes.py:121 game/routes.py:129 game/routes.py:195
 #: templates/game/create_X01.html:9
 msgid "Create Game"
 msgstr "Spiel erstellen"
 
-#: game/routes.py:118
+#: game/routes.py:127
 msgid "Player does not allow challenges"
 msgstr "Spieler lässt keine Herausforderungen zu"
 
-#: game/routes.py:122
+#: game/routes.py:131
 msgid "New challenge"
 msgstr "Neue Herausforderung"
 
-#: game/routes.py:233 game/routes.py:241
+#: game/routes.py:244 game/routes.py:252
 msgid "Waiting..."
 msgstr "Warte..."
 
-#: game/routes.py:274
+#: game/routes.py:285
 msgid "Match overview"
 msgstr "Spielübersicht"
 
-#: game/routes.py:303
+#: game/routes.py:322
 msgid "Stream overlay"
-msgstr "Streamoverlay"
+msgstr "Stream overlay"
 
-#: game/routes.py:307
+#: game/routes.py:325
 msgid "Live Match"
 msgstr "Livespiel"
 
-#: game/utils.py:11 generic/routes.py:72
+#: game/utils.py:11 generic/routes.py:74
 msgid "Local Guest"
 msgstr "Lokaler Gast"
 
@@ -208,60 +212,65 @@ msgstr "Benutzer suchen"
 msgid "Search"
 msgstr "Suchen"
 
-#: generic/routes.py:87
+#: generic/routes.py:89
 msgid "Live Games"
 msgstr "Live Spiele"
 
-#: generic/routes.py:137 templates/base.html:49
+#: generic/routes.py:139 templates/base.html:49
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:185 templates/base.html:53 templates/game/X01.html:234
-#: templates/game/X01_stream.html:126
+#: generic/routes.py:189 templates/base.html:53 templates/game/X01.html:238
+#: templates/game/X01_stream.html:130
 msgid "Chat"
 msgstr "Chat"
 
-#: generic/routes.py:239
+#: generic/routes.py:243
 msgid "Private Messages"
 msgstr "Private Nachrichten"
 
-#: profile/forms.py:10
+#: profile/forms.py:9
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: profile/forms.py:10
+#: profile/forms.py:9
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: profile/forms.py:14
+#: profile/forms.py:13
 msgid "Caller"
 msgstr "Caller"
 
-#: profile/forms.py:15 profile/forms.py:20 profile/forms.py:56
+#: profile/forms.py:14 profile/forms.py:19 profile/forms.py:53
+#: profile/forms.py:65
 msgid "Save"
 msgstr "Speichern"
 
-#: profile/forms.py:19
+#: profile/forms.py:18
 msgid "Trainer delay"
 msgstr "Trainerverzögerung"
 
-#: profile/forms.py:25
+#: profile/forms.py:24
 msgid "Notification sound"
 msgstr "Benachrichtigungston"
 
-#: profile/forms.py:31
+#: profile/forms.py:30
 msgid "Allow challenges"
 msgstr "Herausforderungen erlauben"
 
-#: profile/forms.py:37
+#: profile/forms.py:36
 msgid "Allow private messages"
 msgstr "Private Nachrichten erlauben"
 
-#: profile/forms.py:43
+#: profile/forms.py:42
 msgid "Allow friend requests"
 msgstr "Freundschaftsanfragen erlauben"
 
-#: profile/forms.py:49
+#: profile/forms.py:48
+msgid "Checkout suggestions"
+msgstr "Finishwege anzeigen"
+
+#: profile/forms.py:58
 msgid "Country"
 msgstr "Land"
 
@@ -297,19 +306,19 @@ msgstr "Caller einstellen"
 msgid "Trainer Delay"
 msgstr "Trainerverzögerung einstellen"
 
-#: profile/routes.py:207
+#: profile/routes.py:205 profile/routes.py:218
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#: profile/routes.py:212
 msgid "You can only change your country setting once per month. You need to wait until: "
 msgstr "Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte warte bis: "
 
-#: profile/routes.py:208 profile/routes.py:221
+#: profile/routes.py:213 profile/routes.py:228
 #: templates/profile/general_settings.html:11
 #: templates/profile/overview.html:29
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
-
-#: profile/routes.py:213
-msgid "Settings saved."
-msgstr "Einstellungen gespeichert."
 
 #: statistics/forms.py:9 statistics/forms.py:12
 msgid "All"
@@ -459,61 +468,61 @@ msgstr "Caller stumm"
 msgid "Unmute caller"
 msgstr "Caller aktivieren"
 
-#: templates/game/X01.html:165 templates/game/X01_stream.html:57
+#: templates/game/X01.html:169 templates/game/X01_stream.html:57
 msgid "Closest to bull begins. Please throw three darts at bull."
 msgstr "Ausbullen. Bitte drei Darts auf Bull werfen."
 
-#: templates/game/X01.html:166 templates/game/X01_stream.html:58
+#: templates/game/X01.html:170 templates/game/X01_stream.html:58
 msgid "Local game. Player 1 throws all three darts first."
 msgstr "Lokales Spiel. Spieler 1 wirft zuerst alle drei Darts."
 
-#: templates/game/X01.html:207 templates/game/X01.html:293
-#: templates/game/X01_stream.html:99 templates/game/X01_stream.html:185
+#: templates/game/X01.html:211 templates/game/X01.html:297
+#: templates/game/X01_stream.html:103 templates/game/X01_stream.html:190
 msgid "Game is completed."
 msgstr "Spiel ist beendet."
 
-#: templates/game/X01.html:208 templates/game/X01.html:213
-#: templates/game/X01.html:294 templates/game/X01_stream.html:100
-#: templates/game/X01_stream.html:105 templates/game/X01_stream.html:186
+#: templates/game/X01.html:212 templates/game/X01.html:217
+#: templates/game/X01.html:298 templates/game/X01_stream.html:104
+#: templates/game/X01_stream.html:109 templates/game/X01_stream.html:191
 msgid "Game overview"
 msgstr "Spielübersicht"
 
-#: templates/game/X01.html:212 templates/game/X01_completed.html:12
-#: templates/game/X01_stream.html:104
+#: templates/game/X01.html:216 templates/game/X01_completed.html:12
+#: templates/game/X01_stream.html:108
 msgid "Game was aborted."
 msgstr "Spiel wurde abgebrochen."
 
-#: templates/game/X01.html:224 templates/game/X01.html:411
-#: templates/game/X01_stream.html:116 templates/game/X01_stream.html:303
+#: templates/game/X01.html:228 templates/game/X01.html:415
+#: templates/game/X01_stream.html:120 templates/game/X01_stream.html:308
 msgid "Undo last score"
 msgstr "Letzten Score ändern"
 
-#: templates/game/X01.html:225 templates/game/X01.html:412
-#: templates/game/X01_stream.html:117 templates/game/X01_stream.html:304
+#: templates/game/X01.html:229 templates/game/X01.html:416
+#: templates/game/X01_stream.html:121 templates/game/X01_stream.html:309
 msgid "Enter correct score"
 msgstr "Korrekten Score eingeben"
 
-#: templates/game/X01.html:231 templates/game/X01_stream.html:123
+#: templates/game/X01.html:235 templates/game/X01_stream.html:127
 msgid "Keypad"
 msgstr "Tastatur"
 
-#: templates/game/X01.html:500 templates/game/X01_stream.html:392
+#: templates/game/X01.html:504 templates/game/X01_stream.html:397
 msgid "How many darts missed at double?"
 msgstr "Wieviele Darts auf Doppel verfehlt?"
 
-#: templates/game/X01.html:513 templates/game/X01_stream.html:405
+#: templates/game/X01.html:517 templates/game/X01_stream.html:410
 msgid "How many darts to finish?"
 msgstr "Wieviele Darts für den Checkout?"
 
-#: templates/game/X01.html:525 templates/game/X01_stream.html:417
+#: templates/game/X01.html:529 templates/game/X01_stream.html:422
 msgid "Abort game?"
 msgstr "Spiel abbrechen?"
 
-#: templates/game/X01.html:526 templates/game/X01_stream.html:418
+#: templates/game/X01.html:530 templates/game/X01_stream.html:423
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: templates/game/X01.html:527 templates/game/X01_stream.html:419
+#: templates/game/X01.html:531 templates/game/X01_stream.html:424
 msgid "Cancel"
 msgstr "Zurück"
 
@@ -904,7 +913,11 @@ msgstr "Zurück"
 msgid "Next"
 msgstr "Weiter"
 
-#: templates/profile/general_settings.html:40
+#: templates/profile/general_settings.html:50
+msgid "Country settings"
+msgstr "Ländereinstellungen"
+
+#: templates/profile/general_settings.html:59
 msgid "You can change your country setting only once per month. Please confirm."
 msgstr "Die Ländereinstellung kann nur einmal pro Monat geändert werden. Bitte bestätigen."
 
@@ -1220,7 +1233,7 @@ msgstr "Turnier aktualisiert."
 
 #: tournament/routes.py:154
 msgid "Tournament settings"
-msgstr ""
+msgstr "Turniereinstellungen"
 
 #~ msgid "Password must have at least 8 characters"
 #~ msgstr "Passwort muss aus mindestens 8 Zeichen bestehen"

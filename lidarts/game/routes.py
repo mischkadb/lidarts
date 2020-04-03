@@ -305,6 +305,8 @@ def start(hashid, theme=None):
             settings = UserSettings(user=user)
             db.session.add(settings)
             db.session.commit(settings)
+    else:
+        settings = {'checkout_suggestions': False}
 
     user_names = {}
     for message in messages:
@@ -315,10 +317,15 @@ def start(hashid, theme=None):
             .first_or_404()[0]
         )
 
-    template = 'game/X01_stream.html' if theme else 'game/X01.html'
+    if theme:
+        template = 'game/X01_stream.html'
+        title = lazy_gettext('Stream overlay')
+    else:
+        template = 'game/X01.html'
+        title = lazy_gettext('Live Match')
 
     return render_template(template, game=game_dict, form=form, match_json=match_json,
-                            caller=caller, cpu_delay=cpu_delay, title=lazy_gettext('Live Match'),
+                            caller=caller, cpu_delay=cpu_delay, title=title,
                             chat_form=chat_form, chat_form_small=chat_form_small,
                             messages=messages, user_names=user_names,
                             settings=settings)
