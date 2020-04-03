@@ -62,11 +62,7 @@ class User(db.Model, UserMixin):
     )
     friends_requested = association_proxy('received_friend_confs', 'requesting_friend')
     friends_received = association_proxy('requested_friend_confs', 'receiving_friend')
-
-    def __init__(self, **kwargs):
-        super(User, self).__init__(**kwargs)
-        self.alternative_id = self.id
-
+    
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
@@ -190,6 +186,7 @@ class UserSettings(db.Model):
     notification_sound = db.Column(db.Boolean, default=True)
     country = db.Column(db.String, default=None)
     last_country_change = db.Column(db.DateTime, default=None)
+    checkout_suggestions = db.Column(db.Boolean, default=False)
 
 
 class X01Presetting(db.Model):

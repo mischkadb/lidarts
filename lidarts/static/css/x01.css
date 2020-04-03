@@ -4,11 +4,11 @@ body {
 }
 
 h1 {
-  font-size: 60px;
+  font-size: 70px;
 }
 
 .h1 {
-    font-size: 60px;
+    font-size: 70px;
     margin-bottom: 0px;
 }
 
@@ -126,4 +126,9 @@ form .form-control:focus{
 .div-link:hover{
    color:#545b62;
    text-decoration: underline;
+}
+
+.padding-small {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }

@@ -89,10 +89,14 @@
 <div class="row justify-content-center align-items-start">
     <!-- SCOREBOARD PLAYER 1 -->
     <div class="col-lg-4 col-md-4 col-6 mt-3" id="p1_current_leg">
+        <p><span class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
     </div>
 
     <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
     <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block score-input">
+
+        <p class="text-light text-center mb-2 {% if game.player1 != current_user.id or not settings.checkout_suggestions %}d-none{% endif %}"><span class="p1_checkout_suggestion"></span></p>
+        <p class="text-light text-center mb-2 {% if game.player2 != current_user.id or not settings.checkout_suggestions %}d-none{% endif %}"><span class="p2_checkout_suggestion"></span></p>
 
         <!-- GAME END CONFIRMATION -->
         <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
@@ -176,7 +180,8 @@
     </div>
 
     <!-- SCOREBOARD PLAYER 2 -->
-    <div class="col-lg-4 col-md-4 col-6 mt-3" id="p2_current_leg">
+    <div class="col-lg-4 col-md-4 col-6 mt-3" >
+        <span id="p2_current_leg"></span>
     </div>
 </div>
 

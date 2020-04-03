@@ -2,6 +2,7 @@ from flask import current_app, request
 from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
+from lidarts.game.checkout_suggestions import checkout_suggestions
 from lidarts.models import Game
 from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.computer import get_computer_score
@@ -114,6 +115,9 @@ def send_score_response(game, old_score=0, broadcast=False):
     )
     p2_started_leg = not p1_started_leg
 
+    p1_checkout_suggestion = checkout_suggestions[game.p1_score].replace('-', ' ') if game.p1_score in checkout_suggestions else None
+    p2_checkout_suggestion = checkout_suggestions[game.p2_score].replace('-', ' ') if game.p2_score in checkout_suggestions else None
+
     computer_game = game.opponent_type.startswith('computer')
 
     room = game.hashid if broadcast else request.sid
@@ -140,6 +144,7 @@ def send_score_response(game, old_score=0, broadcast=False):
             'computer_game': computer_game,
             'p1_id': game.player1, 'p2_id': game.player2,
             'p1_started_leg': p1_started_leg, 'p2_started_leg': p2_started_leg,
+            'p1_checkout_suggestion': p1_checkout_suggestion, 'p2_checkout_suggestion': p2_checkout_suggestion, 
             'new_score': broadcast  # needed for score sound output
         },
         room=room)

@@ -5,7 +5,6 @@ from wtforms import BooleanField, SelectField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, NumberRange
 from lidarts.profile.countries import COUNTRIES
 
-
 callers = [('default', 'Lidarts default'), ('mischka', 'Lidarts mischka'), ('DartCall 2007', 'DartCall 2007')]
 enabled_disabled = [('enabled', lazy_gettext('Enabled')), ('disabled', lazy_gettext('Disabled'))]
 
@@ -45,6 +44,16 @@ class GeneralSettingsForm(FlaskForm):
         validators=[DataRequired()],
     )
 
+    checkout_suggestions = SelectField(
+        lazy_gettext('Checkout suggestions'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
+
+    submit = SubmitField(lazy_gettext('Save'))
+
+
+class ChangeCountryForm(FlaskForm):
     country = SelectField(
         lazy_gettext('Country'),
         choices=COUNTRIES,

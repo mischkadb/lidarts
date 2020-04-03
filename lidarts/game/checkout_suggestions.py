@@ -1,5 +1,5 @@
-dict = {
-    170: 'T20-T20-Bull',
+checkout_suggestions = {
+	170: 'T20-T20-Bull',
 	167: 'T20-T19-Bull',
 	164: 'T19-T19-Bull',
 	161: 'T20-T17-Bull',

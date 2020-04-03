@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from lidarts import db, avatars, socketio
 from lidarts.generic.forms import UserSearchForm
 from lidarts.profile import bp
-from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm
+from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm
 from lidarts.models import User, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic
 from sqlalchemy import desc
 from sqlalchemy.orm import aliased
@@ -191,7 +191,8 @@ def change_cpu_delay():
 @bp.route('/general_settings', methods=['GET', 'POST'])
 @login_required
 def general_settings():
-    form = GeneralSettingsForm(request.form)
+    form = GeneralSettingsForm()
+    country_form = ChangeCountryForm()
     settings = UserSettings.query.filter_by(user=current_user.id).first()
 
     if form.validate_on_submit():
@@ -199,23 +200,29 @@ def general_settings():
         settings.allow_challenges = True if form.allow_challenges.data == 'enabled' else False
         settings.allow_private_messages = True if form.allow_private_messages.data == 'enabled' else False
         settings.allow_friend_requests = True if form.allow_friend_requests.data == 'enabled' else False
+        settings.checkout_suggestions = True if form.checkout_suggestions.data == 'enabled' else False
+        db.session.commit()
+        flash(lazy_gettext("Settings saved."))
 
-        if settings.country != form.country.data:
+    if country_form.validate_on_submit():
+        if settings.country != country_form.country.data:
             country_changed_recently = settings.last_country_change and settings.last_country_change > datetime.utcnow() - timedelta(days=30)
             if settings.country and country_changed_recently:
                 cooldown_timestamp = (settings.last_country_change + timedelta(days=30)).strftime('%d.%m.%Y, %H:%M:%S')
                 flash(lazy_gettext('You can only change your country setting once per month. You need to wait until: ') + cooldown_timestamp + ' UTC.', 'danger')
-                return render_template('profile/general_settings.html', form=form, title=lazy_gettext('General settings'))
+                return render_template('profile/general_settings.html', form=form, country_form=country_form, title=lazy_gettext('General settings'))
 
-            settings.country = form.country.data if form.country.data and form.country.data != 'None' else None
+            settings.country = country_form.country.data if country_form.country.data and country_form.country.data != 'None' else None
             settings.last_country_change = datetime.utcnow()
         db.session.commit()
         flash(lazy_gettext("Settings saved."))
+
 
     form.notification_sound.data = 'enabled' if settings.notification_sound else 'disabled'
     form.allow_challenges.data = 'enabled' if settings.allow_challenges else 'disabled'
     form.allow_private_messages.data = 'enabled' if settings.allow_private_messages else 'disabled'
     form.allow_friend_requests.data = 'enabled' if settings.allow_friend_requests else 'disabled'
-    form.country.data = settings.country if settings.country else None
+    form.checkout_suggestions.data = 'enabled' if settings.checkout_suggestions else 'disabled'
+    country_form.country.data = settings.country if settings.country else None
     
-    return render_template('profile/general_settings.html', form=form, title=lazy_gettext('General settings'))
+    return render_template('profile/general_settings.html', form=form, country_form=country_form, title=lazy_gettext('General settings'))

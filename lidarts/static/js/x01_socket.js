@@ -302,6 +302,9 @@ $(document).ready(function() {
         $('.p1_darts_this_leg').text((msg.p1_current_leg.length)*3);
         $('.p2_darts_this_leg').text((msg.p2_current_leg.length)*3);
 
+        $('.p1_checkout_suggestion').text(msg.p1_checkout_suggestion);
+        $('.p2_checkout_suggestion').text(msg.p2_checkout_suggestion);
+
         if (msg.p1_started_leg == true) {
             $('.p1_leg_start_indicator').show();
             $('.p2_leg_start_indicator').hide();

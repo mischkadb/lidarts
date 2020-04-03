@@ -298,8 +298,15 @@ def start(hashid, theme=None):
         messages = ChatmessageIngame.query.filter_by(game_hashid=game.hashid).order_by(ChatmessageIngame.id.asc()).all()
     else:
         messages = []
-    user_names = {}
 
+    if user:
+        settings = UserSettings.query.filter_by(user=user).first()
+        if not settings:
+            settings = UserSettings(user=user)
+            db.session.add(settings)
+            db.session.commit(settings)
+
+    user_names = {}
     for message in messages:
         user_names[message.author] = (
             User.query
@@ -308,16 +315,13 @@ def start(hashid, theme=None):
             .first_or_404()[0]
         )
 
-    if theme:
-        return render_template('game/X01_stream.html', game=game_dict, form=form,
-                                match_json=match_json, caller=caller, cpu_delay=cpu_delay,
-                                title=lazy_gettext('Stream overlay'),
-                                chat_form=chat_form, chat_form_small=chat_form_small,
-                                messages=messages, user_names=user_names)
-    return render_template('game/X01.html', game=game_dict, form=form, match_json=match_json,
+    template = 'game/X01_stream.html' if theme else 'game/X01.html'
+
+    return render_template(template, game=game_dict, form=form, match_json=match_json,
                             caller=caller, cpu_delay=cpu_delay, title=lazy_gettext('Live Match'),
                             chat_form=chat_form, chat_form_small=chat_form_small,
-                            messages=messages, user_names=user_names)
+                            messages=messages, user_names=user_names,
+                            settings=settings)
 
 
 @bp.route('/decline_challenge/')

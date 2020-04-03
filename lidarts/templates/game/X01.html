@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="card bg-danger text-center p1_turn_score_card" id="p1_turn_score_card">
-                    <div class="card-body">                                              
+                    <div class="card-body padding-small">                                              
                         <p class="card-text d-flex h-100">
                             <!-- Bootstrap flex-fill does not create equal width flexboxes -->
                             <!-- Using Bootstrap's media-body does the trick -->
@@ -50,6 +50,7 @@
                             <span id="p1_score" class="h1 p1_score font-weight-bold  media-body" >-</span>
                             <span class="media-body"></span>
                         </p>
+                        <p><span class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
                     </div>
                 </div>
             </div>
@@ -95,7 +96,7 @@
                     </div>
                 </div>
                 <div class="card bg-danger text-center p2_turn_score_card" id="p2_turn_score_card">
-                    <div class="card-body">
+                    <div class="card-body padding-small">
                         <p class="card-text d-flex h-100">
                             <!-- Bootstrap flex-fill does not create equal width flexboxes -->
                             <!-- Using Bootstrap's media-body does the trick -->
@@ -105,6 +106,7 @@
                             <span id="p2_score" class="h1 p2_score font-weight-bold  media-body" >-</span>
                             <span class="media-body"></span>
                         </p>
+                        <p><span class="p2_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
                     </div>
                 </div>
             </div>
@@ -130,6 +132,7 @@
                     </span>
                     <span id="p1_score_small" class="h2 p1_score font-weight-bold  media-body" >-</span>
                     <span class="media-body"></span>
+                    <p><span class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
                 </p>
             </div>
         </div>
@@ -153,6 +156,7 @@
                     </span>
                     <span id="p2_score_small" class="h2 p2_score font-weight-bold  media-body" >-</span>
                     <span class="media-body"></span>
+                    <p><span class="p2_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
                 </p>
             </div>
         </div>
