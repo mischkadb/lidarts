@@ -20,6 +20,7 @@ tournament_players_association_table = db.Table(
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
+    alternative_id = db.Column(db.Integer, index=True, unique=True)
     username = db.Column(db.String(25), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String(128))
@@ -61,6 +62,10 @@ class User(db.Model, UserMixin):
     )
     friends_requested = association_proxy('received_friend_confs', 'requesting_friend')
     friends_received = association_proxy('requested_friend_confs', 'receiving_friend')
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+        self.alternative_id = self.id
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
