@@ -28,12 +28,13 @@
                 </a>
                 {% if tournament.description %}
                     <p class="card-text slim">{{ tournament.description }}</p>
-                {% endif %}                
+                {% endif %}     
+                <p class="card-text slim"><a href="{{ url_for('generic.live_games_overview', tournament_hashid=tournament.hashid) }}">{{ _('Watch live games') }}</a></p>
                 {% if tournament.external_url %}
-                    <p class="card-text slim"><a href="{% if tournament.external_url[:4] != 'http' %}//{% endif %}{{ tournament.external_url }}" target="_blank">{{ tournament.external_url }}</a></p>
+                    <p class="card-text slim">{{ _('URL') }}: <a href="{% if tournament.external_url[:4] != 'http' %}//{% endif %}{{ tournament.external_url }}" target="_blank">{{ tournament.external_url }}</a></p>
                 {% endif %}
                 {% if tournament.start_date %}
-                    <p class="card-text slim">{{ tournament.start_date }}</p>
+                    <p class="card-text slim">{{ _('Start') }}: {{ tournament.start_date }}</p>
                 {% endif %}
                 {% if current_user.id == tournament.creator %}
                 <p class="card-text slim"><a href="{{ url_for('tournament.settings', hashid=tournament.hashid) }}">{{ _('Edit settings') }}</a></p>

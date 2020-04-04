@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-03 15:49+0200\n"
-"PO-Revision-Date: 2020-04-03 15:50+0200\n"
+"POT-Creation-Date: 2020-04-04 15:08+0200\n"
+"PO-Revision-Date: 2020-04-04 15:09+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgstr "Passwort"
 msgid "Username or Email Address"
 msgstr "Benutzername oder E-Mail-Adresse"
 
-#: auth/forms.py:96 profile/forms.py:63
+#: auth/forms.py:96 profile/forms.py:69
 msgid "Accept"
 msgstr "Bestätigen"
 
@@ -196,7 +196,7 @@ msgstr "Stream overlay"
 msgid "Live Match"
 msgstr "Livespiel"
 
-#: game/utils.py:11 generic/routes.py:74
+#: game/utils.py:11 generic/routes.py:80
 msgid "Local Guest"
 msgstr "Lokaler Gast"
 
@@ -212,20 +212,20 @@ msgstr "Benutzer suchen"
 msgid "Search"
 msgstr "Suchen"
 
-#: generic/routes.py:89
+#: generic/routes.py:95
 msgid "Live Games"
 msgstr "Live Spiele"
 
-#: generic/routes.py:139 templates/base.html:49
+#: generic/routes.py:145 templates/base.html:50
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:189 templates/base.html:53 templates/game/X01.html:238
+#: generic/routes.py:211 templates/base.html:54 templates/game/X01.html:238
 #: templates/game/X01_stream.html:130
 msgid "Chat"
 msgstr "Chat"
 
-#: generic/routes.py:243
+#: generic/routes.py:265
 msgid "Private Messages"
 msgstr "Private Nachrichten"
 
@@ -241,8 +241,8 @@ msgstr "Deaktiviert"
 msgid "Caller"
 msgstr "Caller"
 
-#: profile/forms.py:14 profile/forms.py:19 profile/forms.py:53
-#: profile/forms.py:65
+#: profile/forms.py:14 profile/forms.py:19 profile/forms.py:59
+#: profile/forms.py:71
 msgid "Save"
 msgstr "Speichern"
 
@@ -270,7 +270,11 @@ msgstr "Freundschaftsanfragen erlauben"
 msgid "Checkout suggestions"
 msgstr "Finishwege anzeigen"
 
-#: profile/forms.py:58
+#: profile/forms.py:54
+msgid "Show averages in user list"
+msgstr "Averages in Userliste anzeigen"
+
+#: profile/forms.py:64
 msgid "Country"
 msgstr "Land"
 
@@ -278,7 +282,7 @@ msgstr "Land"
 msgid "Match History"
 msgstr "Spielverlauf"
 
-#: profile/routes.py:88 templates/base.html:94
+#: profile/routes.py:88 templates/base.html:97
 msgid "Profile"
 msgstr "Profil"
 
@@ -306,15 +310,15 @@ msgstr "Caller einstellen"
 msgid "Trainer Delay"
 msgstr "Trainerverzögerung einstellen"
 
-#: profile/routes.py:205 profile/routes.py:218
+#: profile/routes.py:206 profile/routes.py:219
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: profile/routes.py:212
+#: profile/routes.py:213
 msgid "You can only change your country setting once per month. You need to wait until: "
 msgstr "Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte warte bis: "
 
-#: profile/routes.py:213 profile/routes.py:228
+#: profile/routes.py:214 profile/routes.py:230
 #: templates/profile/general_settings.html:11
 #: templates/profile/overview.html:29
 msgid "General settings"
@@ -348,91 +352,91 @@ msgstr "Filter"
 msgid "Apply"
 msgstr "Übernehmen"
 
-#: templates/base.html:45
+#: templates/base.html:46
 msgid "Home"
 msgstr "Startseite"
 
-#: templates/base.html:46 templates/base.html:51 templates/generic/chat.html:44
+#: templates/base.html:47 templates/base.html:52 templates/generic/chat.html:44
 msgid "Watch"
 msgstr "Zuschauen"
 
-#: templates/base.html:47 templates/base.html:54
+#: templates/base.html:48 templates/base.html:55
 #: templates/profile/overview.html:99
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/base.html:50 templates/generic/lobby.html:21
+#: templates/base.html:51 templates/generic/lobby.html:21
 msgid "Play"
 msgstr "Spielen"
 
-#: templates/base.html:52 tournament/routes.py:81
+#: templates/base.html:53 tournament/routes.py:81
 msgid "Tournaments"
 msgstr "Turniere"
 
-#: templates/base.html:69
+#: templates/base.html:70
 msgid "No new notifications"
 msgstr "Keine neuen Benachrichtigungen"
 
-#: templates/base.html:78 templates/security/login_user.html:9
+#: templates/base.html:79 templates/security/login_user.html:9
 #: templates/security/login_user.html:18
 #: templates/security/register_user.html:29
 msgid "Sign In"
 msgstr "Einloggen"
 
-#: templates/base.html:79 templates/security/register_user.html:10
+#: templates/base.html:80 templates/security/register_user.html:10
 #: templates/security/register_user.html:22
 msgid "Register"
 msgstr "Registrieren"
 
-#: templates/base.html:82
+#: templates/base.html:83
 msgid "Inbox"
 msgstr "Posteingang"
 
-#: templates/base.html:86
+#: templates/base.html:89
 msgid "Status"
 msgstr "Status"
 
-#: templates/base.html:89
+#: templates/base.html:92
 msgid "Looking for Game"
 msgstr "Suche nach Spiel"
 
-#: templates/base.html:90
+#: templates/base.html:93
 msgid "Busy"
 msgstr "Beschäftigt"
 
-#: templates/base.html:95
+#: templates/base.html:98
 msgid "Logout"
 msgstr "Abmelden"
 
-#: templates/base.html:128
+#: templates/base.html:131
 msgid "About"
 msgstr "Über"
 
-#: templates/base.html:129 templates/generic/contact.html:10
+#: templates/base.html:132 templates/generic/contact.html:10
 msgid "Contact"
 msgstr "Kontakt"
 
-#: templates/base.html:130
+#: templates/base.html:133
 msgid "Contribute"
 msgstr "Mitmachen"
 
-#: templates/base.html:131
+#: templates/base.html:134
 msgid "Changelog"
 msgstr "Changelog"
 
-#: templates/base.html:132
+#: templates/base.html:135
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: templates/base.html:133
+#: templates/base.html:136
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: templates/base.html:134
+#: templates/base.html:137
 msgid "Terms & Conditions"
 msgstr "AGB"
 
-#: templates/base.html:136
+#: templates/base.html:139
 msgid "Legal notice"
 msgstr "Impressum"
 
@@ -669,7 +673,7 @@ msgstr "Öffentliche Herausforderungen"
 msgid "New games"
 msgstr "Neue Spiele"
 
-#: templates/generic/chat.html:54 templates/tournament/details.html:47
+#: templates/generic/chat.html:54 templates/tournament/details.html:48
 msgid "Latest results"
 msgstr "Neueste Ergebnisse"
 
@@ -681,11 +685,11 @@ msgstr "Zeige Spielinformationen"
 msgid "Show public challenges"
 msgstr "Zeige Herausforderungen"
 
-#: templates/generic/chat.html:109 templates/tournament/details.html:98
+#: templates/generic/chat.html:109 templates/tournament/details.html:99
 msgid "Online"
 msgstr "Online"
 
-#: templates/generic/chat.html:110 templates/tournament/details.html:99
+#: templates/generic/chat.html:110 templates/tournament/details.html:100
 msgid "Playing"
 msgstr "Im Spiel"
 
@@ -873,7 +877,7 @@ msgstr "Freunde online"
 msgid "None"
 msgstr "Keine"
 
-#: templates/generic/watch.html:12
+#: templates/generic/watch.html:16
 msgid "There are no live games at the moment."
 msgstr "Es gibt gerade keine Livespiele."
 
@@ -913,11 +917,11 @@ msgstr "Zurück"
 msgid "Next"
 msgstr "Weiter"
 
-#: templates/profile/general_settings.html:50
+#: templates/profile/general_settings.html:55
 msgid "Country settings"
 msgstr "Ländereinstellungen"
 
-#: templates/profile/general_settings.html:59
+#: templates/profile/general_settings.html:64
 msgid "You can change your country setting only once per month. Please confirm."
 msgstr "Die Ländereinstellung kann nur einmal pro Monat geändert werden. Bitte bestätigen."
 
@@ -1123,7 +1127,7 @@ msgstr "Darts geworfen"
 msgid "Number of games / legs:"
 msgstr "Anzahl Spiele / Legs"
 
-#: templates/tournament/details.html:17 tournament/routes.py:126
+#: templates/tournament/details.html:17 tournament/routes.py:141
 msgid "Tournament details"
 msgstr "Turnierdetails"
 
@@ -1139,7 +1143,19 @@ msgstr "Turnier beitreten"
 msgid "Create tournament game"
 msgstr "Turnierspiel erstellen"
 
-#: templates/tournament/details.html:39
+#: templates/tournament/details.html:32
+msgid "Watch live games"
+msgstr "Livespiele ansehen"
+
+#: templates/tournament/details.html:34
+msgid "URL"
+msgstr "URL"
+
+#: templates/tournament/details.html:37
+msgid "Start"
+msgstr "Start"
+
+#: templates/tournament/details.html:40
 msgid "Edit settings"
 msgstr "Einstellungen bearbeiten"
 
@@ -1231,7 +1247,7 @@ msgstr "Der Turnierstart muss in den nächsten 30 Tagen stattfinden."
 msgid "Tournament updated."
 msgstr "Turnier aktualisiert."
 
-#: tournament/routes.py:154
+#: tournament/routes.py:169
 msgid "Tournament settings"
 msgstr "Turniereinstellungen"
 
