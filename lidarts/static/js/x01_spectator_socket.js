@@ -451,6 +451,11 @@ $(document).ready(function() {
         $('.confirm_completion').show();
     });
 
+    // Toggle keypad
+    $('#hide-statistics').click(function() {
+        $('.statistics').toggle();
+    });
+
     $('#mute').click(function() {
         muted = true;
         $('#unmute').show();
