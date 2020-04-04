@@ -187,6 +187,13 @@ def chat():
         .limit(10)
         .all()
     )
+
+    settings = UserSettings.query.filter_by(user=current_user.id).first()
+    if not settings:
+        settings = UserSettings(user=current_user.id)
+        db.session.add(settings)
+        db.session.commit()
+    
         
     return render_template(
         'generic/chat.html',
@@ -194,6 +201,7 @@ def chat():
         messages=messages,
         recent_results=recent_results,
         new_games=new_games,
+        show_average_in_chat_list=settings.show_average_in_chat_list,
         title=lazy_gettext('Chat'),
     )
 

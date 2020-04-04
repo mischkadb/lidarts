@@ -50,6 +50,12 @@ class GeneralSettingsForm(FlaskForm):
         validators=[DataRequired()],
     )
 
+    show_average_in_chat_list = SelectField(
+        lazy_gettext('Show averages in user list'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
+
     submit = SubmitField(lazy_gettext('Save'))
 
 

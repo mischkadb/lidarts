@@ -201,6 +201,7 @@ def general_settings():
         settings.allow_private_messages = True if form.allow_private_messages.data == 'enabled' else False
         settings.allow_friend_requests = True if form.allow_friend_requests.data == 'enabled' else False
         settings.checkout_suggestions = True if form.checkout_suggestions.data == 'enabled' else False
+        settings.show_average_in_chat_list = True if form.show_average_in_chat_list.data == 'enabled' else False
         db.session.commit()
         flash(lazy_gettext("Settings saved."))
 
@@ -223,6 +224,7 @@ def general_settings():
     form.allow_private_messages.data = 'enabled' if settings.allow_private_messages else 'disabled'
     form.allow_friend_requests.data = 'enabled' if settings.allow_friend_requests else 'disabled'
     form.checkout_suggestions.data = 'enabled' if settings.checkout_suggestions else 'disabled'
+    form.show_average_in_chat_list.data = 'enabled' if settings.show_average_in_chat_list else 'disabled'    
     country_form.country.data = settings.country if settings.country else None
     
     return render_template('profile/general_settings.html', form=form, country_form=country_form, title=lazy_gettext('General settings'))

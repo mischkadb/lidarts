@@ -189,6 +189,7 @@ class UserSettings(db.Model):
     country = db.Column(db.String, default=None)
     last_country_change = db.Column(db.DateTime, default=None)
     checkout_suggestions = db.Column(db.Boolean, default=False)
+    show_average_in_chat_list = db.Column(db.Boolean, default=False)
 
 
 class X01Presetting(db.Model):

@@ -116,6 +116,12 @@ def details(hashid):
         .all()
     )
 
+    settings = UserSettings.query.filter_by(user=current_user.id).first()
+    if not settings:
+        settings = UserSettings(user=current_user.id)
+        db.session.add(settings)
+        db.session.commit()
+
     for game, _, _ in recent_results:
         if game.bo_sets > 1:
             game.p1_final_score = game.p1_sets
@@ -131,6 +137,7 @@ def details(hashid):
         messages=messages,
         in_tournament=in_tournament,
         recent_results=recent_results,
+        show_average_in_chat_list=settings.show_average_in_chat_list,
         title=lazy_gettext('Tournament details'),
     )
 

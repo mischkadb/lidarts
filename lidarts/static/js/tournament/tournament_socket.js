@@ -18,6 +18,7 @@ $(document).ready(function() {
     var private_messages_url = $('#private_messages_url').data()['url'];
     var tournament_hashid = $('#tournament_hashid').data()['hashid'];
     var create_url = $('#create_url').data()['url'] + '/tournament/' + tournament_hashid + '/';
+    var show_average_in_chat_list = $('#show_average_in_chat_list').data()['bool'];
 
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
@@ -35,6 +36,12 @@ $(document).ready(function() {
                 country_flag_class = '';
             } else {
                 country_flag_class = 'country-flag';
+            }
+            
+            if (show_average_in_chat_list == 'True') {
+                player_average = '<small>Avg.: ' + msg['players'][user]['statistics']['average'] + '</small>';
+            } else {
+                player_average = '';
             }
 
             if (msg['players'][user]['country'] != null) {
@@ -56,7 +63,8 @@ $(document).ready(function() {
                 + '<img src="' + msg['players'][user]['avatar'] + '" height="50px" width="50px" class="avatar avatar-status avatar-status-' + msg['players'][user]['status'] + '">'
                 + flag
                 + backer_name_icon
-                + msg['players'][user]['username'] + '</a></strong>');
+                + msg['players'][user]['username'] + '</a></strong> '
+                + player_average);
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
             if (user_id == msg['players'][user]['id']) {
                 $('#powertip-' + user).data('powertip', '<div><span class="text-dark font-weight-bold">' +
