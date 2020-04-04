@@ -178,6 +178,11 @@ def init(message):
     send_score_response(game, broadcast=False)
 
 
+@socketio.on('listen_new_games', namespace='/game')
+def init(message):
+    join_room('new_games')
+
+
 @socketio.on('init_waiting', namespace='/game')
 def init_waiting(message):
     game = Game.query.filter_by(hashid=message['hashid']).first_or_404()

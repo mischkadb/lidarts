@@ -48,8 +48,14 @@ def contribute():
 
 
 @bp.route('/watch')
-def live_games_overview():
-    live_games = Game.query.filter((Game.status == 'started')).order_by(Game.begin.desc()).limit(50).all()
+@bp.route('/watch/tournament/<tournament_hashid>')
+def live_games_overview(tournament_hashid=None):
+    live_games = Game.query.filter((Game.status == 'started'))
+    
+    if tournament_hashid:
+        live_games = live_games.filter_by(tournament=tournament_hashid)
+
+    live_games = live_games.order_by(Game.begin.desc()).limit(50).all()
     live_games_list = []
     players_in_list = []
 

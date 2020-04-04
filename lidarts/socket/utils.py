@@ -383,6 +383,21 @@ def broadcast_new_game(game):
     )
     socketio.sleep(0)
 
+    emit(
+        'new_game',
+        {
+            'hashid': game.hashid,
+            'p1_name': p1_name,
+            'p2_name': p2_name,
+            'tournament': game.tournament,
+            'bo_sets': game.bo_sets,
+            'bo_legs': game.bo_legs,
+        },
+        namespace='/game',
+        room='new_games',
+    )
+    socketio.sleep(0)
+
 
 def broadcast_game_completed(game):
     room = game.tournament if game.tournament else 'public_chat'

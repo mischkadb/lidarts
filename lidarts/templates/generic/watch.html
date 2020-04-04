@@ -3,10 +3,14 @@
 
 {% block app_content %}
 
-{% if not live_games %}
-<div class="row justify-content-center">
+{% block container %}
+<div class="container-fluid">
+{% endblock %}
 
-    <div class="col-8 mb-3">
+{% if not live_games %}
+<div class="row justify-content-center" id="no_live_games">
+
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 mb-3">
         <div class="card bg-light text-dark text-center">
             <div class="card-body">
                 <p><h3>{{ _('There are no live games at the moment.') }}</h3></p>
@@ -17,9 +21,9 @@
 {% endif %}
 
 
-<div class="row">
+<div class="row" id="scoreboards_row">
     {% for game in live_games %}
-    <div class="col-12 col-md-6 col-lg-4 mb-3">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3" id='scoreboard_{{ game.hashid }}'>
         <a href="{{ url_for('game.start', hashid=game.hashid) }}" class="no-underline">
             <div class="card bg-light text-dark">
                 <div class="card-body scoreboard_card">
@@ -58,6 +62,9 @@
     <meta id="hash_id-{{ loop.index }}" data-hashid="{{ game.hashid }}">
     {% endfor %}
 </div>
+
+<meta id="endpoint" data-endpoint="{{ request.path }}">
+<meta id="game_url" data-url="{{ url_for('game.start') }}">
 
 {% endblock %}
 

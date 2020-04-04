@@ -9,6 +9,14 @@ $(document).ready(function() {
     // The callback function is invoked when a connection with the
     // server is established.
     var hashids = [];
+    var endpoint = $('#endpoint').data()['endpoint'];
+    var game_url = $('#game_url').data()['url'];
+    var tournament_hashid = null;
+
+    if (endpoint.includes('tournament')) {
+        endpoint = endpoint.split('/');
+        tournament_hashid = endpoint[endpoint.length - 1]
+    }
 
     for (var i = 0; i <= 26; i++){
        if($("#hash_id-" + (i+1)).length > 0) {
@@ -18,13 +26,64 @@ $(document).ready(function() {
 
     socket.on('connect', function() {
         for (var i = 0; i < hashids.length; i++) {
-            socket.emit('init', {hashid: hashids[i] });
+            socket.emit('init', {hashid: hashids[i]});
         }
+
+        socket.emit('listen_new_games', {hashid: hashids[i]});
+    });    
+
+    socket.on('new_game', function(msg) {
+        $('#no_live_games').hide();        
+
+        if (tournament_hashid && msg.tournament != tournament_hashid) {
+            return;
+        }
+        socket.emit('init', {hashid: msg.hashid});
+        if (msg.bo_sets == 1){
+            game_bo = msg.bo_legs;
+            set_column_dnone = 'd-none';
+        } else {
+            game_bo = msg.bo_sets;
+            set_column_dnone = ''
+        }
+
+        $('#scoreboards_row').prepend(
+            '<div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3" id="scoreboard_' + msg.hashid + '">'
+            + '<a href="' + game_url + msg.hashid + '" class="no-underline">'
+            + '<div class="card bg-light text-dark">'
+            + '<div class="card-body scoreboard_card">'
+            + '<table class="table table-sm bg-dark text-light stats-table text-center">'
+            + '<tr class="">'
+            + '<td class="text-left border border-right-0 border-secondary"><h5>Best of ' + game_bo + '</h5></td>'
+            + '<td class="border border-right-0 border-secondary score_field ' + set_column_dnone + '"><h5>Sets</h5></td>'
+            + '<td class="border border-secondary score_field"><h5>Legs</h5></td>'
+            + '<td class="bg-light border border-bottom-0 border-light score_field"></td>'
+            + '<td class="bg-light border border-light" style="width: 10px"></td>'
+            + '</tr>'
+            + '<tr class="">'
+            + '<td class="bg-light text-dark border border-secondary text-left player_name"><h5><span>' + msg.p1_name + '</span></h5></td>'
+            + '<td class="bg-danger border border-secondary ' + set_column_dnone + '"><h4 class="p1_sets_' + msg.hashid + '"></h4></td>'
+            + '<td class="bg-danger border border-secondary"><h4 class="p1_legs_' + msg.hashid + '"></h4></td>'
+            + '<td class="bg-danger border border-secondary"><h4 class="p1_score_' + msg.hashid + '"></h4></td>'
+            + '<td class="bg-light  text-dark"><h4 class="p1_turn_incidator_' + msg.hashid + '"></h4></td>'
+            + '</tr>'
+            + '<tr class="">'
+            + '<td class="bg-light text-dark border border-secondary text-left player_name"><h5><span>' + msg.p2_name + '</span></h5></td>'
+            + '<td class="bg-danger border border-secondary ' + set_column_dnone + '"><h4 class="p2_sets_' + msg.hashid + '"></h4></td>'
+            + '<td class="bg-danger border border-secondary"><h4 class="p2_legs_' + msg.hashid + '"></h4></td>'
+            + '<td class="bg-danger border border-secondary"><h4 class="p2_score_' + msg.hashid + '"></h4></td>'
+            + '<td class="bg-light  text-dark"><h4 class="p2_turn_incidator_' + msg.hashid + '"></h4></td>'
+            + '</tr>'
+            + '</table>'
+            + '</div>'
+            + '</div>'
+            + '</a>'
+            + '</div>'
+        );
 
     });
 
     socket.on('game_shot', function(msg) {
-
         // show current leg and set scores
         $('.p1_sets_' + msg.hashid).text(msg.p1_sets);
         $('.p2_sets_' + msg.hashid).text(msg.p2_sets);
@@ -137,6 +196,8 @@ $(document).ready(function() {
         $('.p2_legs_' + msg.hashid).text(msg.p2_legs);
 
         if (msg.p1_won) {
+            $('.p1_turn_incidator_' + msg.hashid).html('<i class="fas fa-crown"></i>');
+            $('.p2_turn_incidator_' + msg.hashid).html('');
             jQuery({Counter: msg.p1_last_leg[msg.p1_last_leg.length-1]}).animate({Counter: -1}, {
                 duration: 1000,
                 easing: 'swing',
@@ -148,6 +209,8 @@ $(document).ready(function() {
             $('.p1_score_' + msg.hashid).html(msg.p1_score);
         }
         if (!msg.p1_won) {
+            $('.p1_turn_incidator_' + msg.hashid).html('');
+            $('.p2_turn_incidator_' + msg.hashid).html('<i class="fas fa-crown"></i>');
             jQuery({Counter: msg.p2_last_leg[msg.p2_last_leg.length-1]}).animate({Counter: -1}, {
                 duration: 1000,
                 easing: 'swing',
@@ -158,6 +221,10 @@ $(document).ready(function() {
         } else {
             $('.p2_score_' + msg.hashid).html(msg.p2_score);
         }
+
+        setTimeout(function(){
+            $('#scoreboard_' + msg.hashid).remove();
+          }, 10000);
     });
 
 
