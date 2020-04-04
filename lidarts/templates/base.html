@@ -21,6 +21,7 @@
     <!-- Custom CSS -->
     {% block css %}
     <link href="{{ url_for('static',filename='css/custom.css', version=config.VERSION) }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/sticky-footer.css', version=config.VERSION) }}" rel="stylesheet">
     {% endblock %}
 
     {% block head %}
@@ -124,9 +125,9 @@
 {% endblock %}
 
 {% block footer %}
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-12 text-secondary text-center">
+<footer class="footer">
+    <div class="container">
+        <div class="text-secondary text-center">
             <a href="{{ url_for('generic.about') }}" class="text-secondary">{{ _('About') }}</a> |
             <a href="{{ url_for('generic.contact') }}" class="text-secondary">{{ _('Contact') }}</a> |
             <a href="{{ url_for('generic.contribute') }}" class="text-secondary">{{ _('Contribute') }}</a> |
@@ -136,11 +137,9 @@
             <a href="{{ url_for('legal.terms_and_conditions') }}" class="text-secondary">{{ _('Terms & Conditions') }}</a> |
             <a href="{{ url_for('legal.disclaimer') }}" class="text-secondary">Disclaimer</a> |
             <a href="{{ url_for('legal.legal_notice') }}" class="text-secondary">{{ _('Legal notice') }}</a>
-
-
         </div>
     </div>
-</div>
+</footer>
 {% endblock %}
 
 
