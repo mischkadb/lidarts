@@ -116,6 +116,14 @@ def details(hashid):
         .all()
     )
 
+    for game, _, _ in recent_results:
+        if game.bo_sets > 1:
+            game.p1_final_score = game.p1_sets
+            game.p2_final_score = game.p2_sets
+        else:
+            game.p1_final_score = game.p1_legs
+            game.p2_final_score = game.p2_legs
+
     return render_template(
         'tournament/details.html',
         tournament=tournament,

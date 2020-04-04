@@ -62,7 +62,7 @@
                                 {{ player1_username }}
                             </a>
                         </strong>
-                        {{ game.p1_legs }}:{{ game.p2_legs }}
+                        {{ game.p1_final_score }}:{{ game.p2_final_score }}
                         <strong>
                             <a href="{{ url_for('profile.overview', username=player2_username) }}" 
                             class="{% if game.p1_sets > game.p2_sets %}color-lose{% elif game.p1_sets == game.p2_sets %}color-draw{% else %}color-win{% endif %}">
