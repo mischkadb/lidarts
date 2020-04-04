@@ -99,14 +99,14 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         tournament_choices = []
         for tournament in tournaments:
             tournament_choices.append((tournament.hashid, tournament.name))
-            if tournament_hashid and tournament_hashid == tournament.hashid:
+            if tournament_hashid and tournament_hashid == tournament.hashid and request.method == 'GET':
                 form.tournament.default = tournament_hashid
                 form.process()
         tournament_choices.append(('-', '-'))
         form.tournament.choices = tournament_choices[::-1]
     else:
         pass  # no other game modes yet
-
+    
     if form.validate_on_submit():
         player1 = current_user.id if current_user.is_authenticated else None
         if player1 and form.opponent.data == 'local':
