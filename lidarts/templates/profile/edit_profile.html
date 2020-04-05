@@ -10,18 +10,18 @@
     <div class="col-md-8 order-2">
         <div class="card bg-light text-dark bs-callout bs-callout-info text-center">
             <div class="card-body">
-                <h5 class="card-title">{{ _('Trainer delay (in seconds)') }}</h5>
-                <p>{{ _('Note: There is a base delay of ~3 seconds. The custom delay will be added to this.') }}</p>
+                <h5 class="card-title">{{ _('Change profile text') }}</h5>
                 <hr>
                 <form method="POST" class="form-horizontal">
                     {{ form.hidden_tag() }}
-                    <p>{{ form.delay.label(class="control-label") }}:
-                        {{ form.delay(class="form-control") }}</p>
+                    <p>
+                        {{ form.bio(class="form-control", rows="10", column="50", maxlength="2000") }}</p>
                     {% if form.errors %}
-                    {% for error in form.delay.errors %}
+                    {% for error in form.bio.errors %}
                       <p class="font-weight-bold text-danger">{{ error }}</p>
                     {% endfor %}
                   {% endif %}
+                  <p><small>{{ _('Introduce yourself, your interests, social media etc.') }}</small></p>
 
                     <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
                 </form>

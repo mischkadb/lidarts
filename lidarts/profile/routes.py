@@ -4,11 +4,13 @@ from flask_login import current_user, login_required
 from lidarts import db, avatars, socketio
 from lidarts.generic.forms import UserSearchForm
 from lidarts.profile import bp
-from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm
+from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm, EditProfileForm
 from lidarts.models import User, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic
 from sqlalchemy import desc
 from sqlalchemy.orm import aliased
+import bleach
 import os
+import re
 from datetime import datetime, timedelta
 
 
@@ -64,12 +66,25 @@ def overview(username):
 
     stats = UserStatistic.query.filter_by(user=user.id).first()
 
-    country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=user.id).first()
-    if country:
-        country = country[0]
-    else:
-        country = UserSettings(user=user.id)
-        db.session.add(country)
+    country, profile_text = (
+        UserSettings.query
+        .with_entities(UserSettings.country, UserSettings.profile_text)
+        .filter_by(user=user.id)
+        .first()
+    )
+
+    if profile_text:
+        profile_text = re.sub(
+            r'(\bhttps:\/\/i\.imgur\.com\/\w+.\w+)',
+            '<img src="' + r'\1' + '">',
+            profile_text,
+        )
+        profile_text = bleach.linkify(profile_text)
+        profile_text = profile_text.replace('\n', '<br>')
+
+    if not country:
+        settings = UserSettings(user=user.id)
+        db.session.add(settings)
         db.session.commit()
         country = None
         
@@ -84,8 +99,28 @@ def overview(username):
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names, friend_list=friend_list,
                            recently_online=user.recently_online(),
-                           country=country,
+                           country=country, profile_text=profile_text,
                            stats=stats, avatar_url=avatar_url, title=lazy_gettext('Profile'))
+
+
+@bp.route('/edit_profile/', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    user_settings = (
+        UserSettings.query
+        .filter_by(user=current_user.id)
+        .first()
+    )
+    if form.validate_on_submit():
+        bio_cleaned = bleach.clean(form.bio.data)
+        user_settings.profile_text = bio_cleaned
+        db.session.commit()
+        flash(lazy_gettext('Profile text saved.'))
+    if user_settings.profile_text:
+        form.bio.data = user_settings.profile_text
+
+    return render_template('profile/edit_profile.html', form=form)
 
 
 @bp.route('/set_status/')

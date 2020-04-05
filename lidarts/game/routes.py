@@ -76,7 +76,14 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             two_clear_legs = False
 
         level = preset.level if preset.level else 1
-        opponent = preset.opponent_type if preset.opponent_type else 'online'
+
+        if request.args.get('opponent_name'):
+            opponent_name = request.args.get('opponent_name')
+            
+        if opponent_name:
+            opponent = 'online'
+        else:
+            opponent = preset.opponent_type if preset.opponent_type else 'online'
 
         in_mode = preset.in_mode if preset.in_mode else 'si'
         out_mode = preset.out_mode if preset.out_mode else 'do'

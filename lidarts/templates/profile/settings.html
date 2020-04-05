@@ -1,0 +1,18 @@
+{% block settings %}
+<div class="col-12 col-lg-3 col-xl-4 order-4 order-lg-1 mt-2 mt-lg-0">
+    <div class="card bg-light text-dark ">
+        <div class="card-body">
+            <p><a href="{{ url_for('profile.general_settings') }}" class="text-secondary">{{ _('General settings') }}</a></p>
+            <p><a href="{{ url_for('profile.edit_profile') }}" class="text-secondary">{{ _('Edit profile text') }}</a></p>
+            <p><a href="{{ url_for('profile.manage_friend_list') }}" class="text-secondary">{{ _('Manage friend list') }}</a></p>
+            <p><a href="{{ url_for('auth.change_username') }}" class="text-secondary">{{ _('Change display name') }}</a></p>
+            <p><a href="{{ url_for_security('change_password') }}" class="text-secondary">{{ _('Change password') }}</a></p>
+            <p><a href="{{ url_for('profile.change_avatar') }}" class="text-secondary">{{ _('Avatar settings') }}</a></p>
+            <p><a href="{{ url_for('profile.change_caller') }}" class="text-secondary">{{ _('Caller settings') }}</a></p>
+            <p><a href="{{ url_for('profile.change_cpu_delay') }}" class="text-secondary">{{ _('Trainer delay settings') }}</a></p>                
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,12 +1,17 @@
 from flask import url_for
 from flask_babelex import lazy_gettext
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, SelectField, SubmitField, IntegerField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms import BooleanField, SelectField, SubmitField, IntegerField, TextAreaField
+from wtforms.validators import DataRequired, NumberRange, Length
 from lidarts.profile.countries import COUNTRIES
 
 callers = [('default', 'Lidarts default'), ('mischka', 'Lidarts mischka'), ('DartCall 2007', 'DartCall 2007')]
 enabled_disabled = [('enabled', lazy_gettext('Enabled')), ('disabled', lazy_gettext('Disabled'))]
+
+
+class EditProfileForm(FlaskForm):
+    bio = TextAreaField(lazy_gettext('Description'), validators=[Length(min=0, max=2000)])
+    submit = SubmitField(lazy_gettext('Save'))
 
 
 class ChangeCallerForm(FlaskForm):

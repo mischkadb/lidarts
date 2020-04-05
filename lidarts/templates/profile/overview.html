@@ -3,7 +3,7 @@
 {% block app_content %}
 
 
-<div class="row ">
+<div class="row justify-content-between">
     <div class="col-auto mb-3">
         <div class="card bg-light text-dark">
             <div class="card-body">
@@ -12,49 +12,46 @@
                     <i class="fas {% if user.is_backer %}fa-star{% else %}fa-circle{% endif %} {% if recently_online %}status-{{ user.status }}" title="User is {{ user.status }}"{% else %}text-secondary" title="User is offline"{% endif %} style="font-size: 20px;"></i>
                     {{ user.username }} {% if user.id in friend_list %}<i class="fas fa-user-friends" title="User is your friend."></i>{% endif %}
                     {% if country %}<img src="/static/img/flags/{{ country }}.png" class="{% if country != 'lidarts' -%}country-flag{% endif -%}">{% endif %}
+                    
                 </h3>
             </div>
         </div>
     </div>
 
+    <div class="col-auto mb-3">
+        <div class="card bg-light text-dark">
+            <div class="card-body">
+                <h3 class="card-text">
+                    {% if current_user.id == user.id %}
+                    <a href="{{ url_for('profile.general_settings') }}" class="btn btn-secondary" role="button"><i class="fas fa-cog"></i> {{ _('Preferences') }}</a>       
+                    {% else %}
+                    <button class="btn btn-secondary" role="button" id="send_friend_request">
+                        <i class="fas fa-user-friends"></i> {{ _('Friend request') }}
+                    </button>       
+                    <a href="{{ url_for('game.create', opponent_name=user.username) }}" class="btn btn-secondary" role="button"><i class="fas fa-dice"></i> {{ _('Challenge to game') }}</a>
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 <div class="row justify-content-center">
-    <div class="col-md-4">
+    <div class="col-12 col-lg-6 col-xl-4">
         <div class="card bg-light text-dark bs-callout bs-callout-info">
             <div class="card-body">
-                {% if current_user.id == user.id %}
-                <h5 class="card-title"><i class="fas fa-cog"></i> {{ _('Preferences') }}</h5>
-                <hr>
-                <p><a href="{{ url_for('profile.general_settings') }}" class="text-secondary">{{ _('General settings') }}</a></p>
-                <p><a href="{{ url_for('generic.private_messages') }}" class="text-secondary">{{ _('Private messages') }}</a></p>
-                <!--<p><a href="" class="text-secondary">{{ _('Edit profile') }}</a></p>-->
-                <p><a href="{{ url_for('profile.manage_friend_list') }}" class="text-secondary">{{ _('Manage friend list') }}</a></p>
-                <p><a href="{{ url_for('auth.change_username') }}" class="text-secondary">{{ _('Change display name') }}</a></p>
-                <p><a href="{{ url_for_security('change_password') }}" class="text-secondary">{{ _('Change password') }}</a></p>
-                <p><a href="{{ url_for('profile.change_avatar') }}" class="text-secondary">{{ _('Avatar settings') }}</a></p>
-                <p><a href="{{ url_for('profile.change_caller') }}" class="text-secondary">{{ _('Caller settings') }}</a></p>
-                <p><a href="{{ url_for('profile.change_cpu_delay') }}" class="text-secondary">{{ _('Trainer delay settings') }}</a></p>
-                
-
-
+                {% if profile_text %}
+                {{ profile_text | safe }}
                 {% else %}
-                <h5 class="card-title"><i class="fas fa-users"></i> {{ _('Interaction') }}</h5>
-                <hr>
-
-                {% if user.id not in friend_list %}<p>
-                    <a href="#" class="text-secondary" id="send_friend_request">{{ _('Send friend request') }}</a>
-                </p>
-                {% endif %}
-
-                <p><a href="{{ url_for('game.create', mode='x01', opponent_name=user.username) }}" class="text-secondary">{{ _('Challenge to game') }}</a></p>
-
+                {{ user.username }} {{ _('has not entered a profile text yet.') }}
                 {% endif %}
             </div>
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-12 mt-2 col-md-6 mt-lg-0 col-xl-4">
         <div class="card bg-light text-dark  bs-callout bs-callout-warning">
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-history"></i> {{ _('Recent games') }}</h5>
@@ -89,7 +86,7 @@
     </div>
 
 
-    <div class="col-md-4">
+    <div class="col-12 mt-2 col-md-6 col-xl-4 mt-xl-0">
         <div class="card bg-light bs-callout bs-callout-danger text-secondary">
             <div class="card-body">
                 <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Statistics (501 SI/DO)') }}</h5>

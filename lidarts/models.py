@@ -37,6 +37,7 @@ class User(db.Model, UserMixin):
                             backref=db.backref('users', lazy='dynamic'))
     registration_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
     is_backer = db.Column(db.Boolean, default=False)
+    is_verified = db.Column(db.Boolean, default=False)
     backer_until = db.Column(db.DateTime, default=None)
 
     requested_friend_reqs = db.relationship(
@@ -190,6 +191,7 @@ class UserSettings(db.Model):
     last_country_change = db.Column(db.DateTime, default=None)
     checkout_suggestions = db.Column(db.Boolean, default=False)
     show_average_in_chat_list = db.Column(db.Boolean, default=False)
+    profile_text = db.Column(db.String(2000), default=None)
 
 
 class X01Presetting(db.Model):

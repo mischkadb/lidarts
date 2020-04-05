@@ -4,8 +4,10 @@
 
 
 
-<div class="row justify-content-center">
-    <div class="col-md-4 col-xl-4">
+<div class="row">
+    {% include 'profile/settings.html' %}
+
+    <div class="col-md-6 col-lg-4 col-xl-4 order-2">
         <div class="card bg-light text-dark bs-callout bs-callout-info">
             <div class="card-body">
                 <h5 class="card-title">{{ _('Friends') }}</h5>
@@ -21,7 +23,7 @@
         </div>
     </div>
 
-    <div class="col-md-4 col-xl-4">
+    <div class="col-md-6 col-lg-4 col-xl-4 mt-2 mt-md-0 order-3">
         <div class="card bg-light text-dark  bs-callout bs-callout-warning">
             <div class="card-body">
                 <h5 class="card-title">{{ _('Pending requests') }}</h5>

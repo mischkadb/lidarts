@@ -3,8 +3,10 @@
 {% block app_content %}
 {% from "/security/_macros.html" import render_input_with_errors, render_field %}
 
-<div class="row justify-content-center">
-    <div class="col-lg-4 col-md-6 col-sm-10 ">
+<div class="row">
+    {% include 'profile/settings.html' %}
+
+    <div class="col-lg-6 col-md-8 col-sm-10 order-2">
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title">{{ _('Change display name') }}</h3>
