@@ -44,13 +44,15 @@
                 <div class="card bg-danger text-center p1_turn_score_card" id="p1_turn_score_card">
                     <div class="card-body padding-small">                                              
                         <p class="card-text d-flex h-100">
-                            <!-- Bootstrap flex-fill does not create equal width flexboxes -->
-                            <!-- Using Bootstrap's media-body does the trick -->
-                            <span class="text-left h4 align-self-center media-body">
-                                <i class="fas fa-play-circle  p1_leg_start_indicator"></i>
-                            </span>
-                            <span id="p1_score" class="h1 p1_score font-weight-bold  media-body" >-</span>
-                            <span class="media-body"></span>
+                            <div class="row">
+                                <div class="col-1 h4 align-self-center">
+                                    <i class="fas fa-play-circle  p1_leg_start_indicator"></i>
+                                </div>
+                                <div class="col-10">
+                                    <span id="p1_score" class="h1 p1_score text-center font-weight-bold" >-</span>
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
                         </p>
                         <p><span class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
                     </div>
@@ -100,13 +102,15 @@
                 <div class="card bg-danger text-center p2_turn_score_card" id="p2_turn_score_card">
                     <div class="card-body padding-small">
                         <p class="card-text d-flex h-100">
-                            <!-- Bootstrap flex-fill does not create equal width flexboxes -->
-                            <!-- Using Bootstrap's media-body does the trick -->
-                            <span class="text-left h4 align-self-center media-body">
-                                <i class="fas fa-play-circle  p2_leg_start_indicator"></i>
-                            </span>
-                            <span id="p2_score" class="h1 p2_score font-weight-bold  media-body" >-</span>
-                            <span class="media-body"></span>
+                            <div class="row">
+                                <div class="col-1 h4 align-self-center">
+                                    <i class="fas fa-play-circle  p2_leg_start_indicator"></i>
+                                </div>
+                                <div class="col-10">
+                                    <span id="p2_score" class="h1 p2_score font-weight-bold " >-</span>
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
                         </p>
                         <p><span class="p2_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
                     </div>
@@ -117,23 +121,25 @@
 
     <!-- PLAYER 1 NAME AND SCORE SMALL -->
     <div class="col-6 d-md-none">
-        <div class="card text-center bg-dark mb-1 p1_turn_name_card" id="p1_turn_name_card_small">
+        <div class="card text-center bg-secondary mb-1 p1_turn_name_card" id="p1_turn_name_card_small">
             <div class="card-body name_card_body_small">
                 <h3>{{ game.player1_name }}</h3>
             </div>
         </div>
 
-        <div class="card text-center p1_turn_score_card" id="p1_turn_score_card_small">
+        <div class="card text-center bg-danger p1_turn_score_card" id="p1_turn_score_card_small">
             <div class="card-body score_card_body_small">
                 <!--<h2 id="p1_score_small" class="card-text p1_score" style="font-weight: bold"></h2>-->
                 <p class="card-text d-flex h-100">
-                    <!-- Bootstrap flex-fill does not create equal width flexboxes -->
-                    <!-- Using Bootstrap's media-body does the trick -->
-                    <span class="text-left h4 align-self-center media-body">
-                        <i class="fas fa-play-circle  p1_leg_start_indicator"></i>
-                    </span>
-                    <span id="p1_score_small" class="h2 p1_score font-weight-bold  media-body" >-</span>
-                    <span class="media-body"></span>
+                    <div class="row">
+                        <div class="col-2 h4 align-self-center">
+                            <i class="fas fa-play-circle  p1_leg_start_indicator"></i>
+                        </div>
+                        <div class="col-8">
+                            <span id="p1_score_small" class="h2 p1_score text-center font-weight-bold" >-</span>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
                     <p><span class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
                 </p>
             </div>
@@ -142,22 +148,24 @@
 
     <!-- PLAYER 2 NAME AND SCORE SMALL -->
     <div class="col-6 d-md-none">
-        <div class="card text-center bg-dark mb-1 p2_turn_name_card" id="p2_turn_name_card_small">
+        <div class="card text-center bg-secondary mb-1 p2_turn_name_card" id="p2_turn_name_card_small">
             <div class="card-body name_card_body_small">
                 <h3>{{ game.player2_name }}</h3>
             </div>
         </div>
 
-        <div class="card text-center p2_turn_score_card" id="p2_turn_score_card_small">
+        <div class="card text-center bg-danger p2_turn_score_card" id="p2_turn_score_card_small">
             <div class="card-body score_card_body_small">
                 <p class="card-text d-flex h-100">
-                    <!-- Bootstrap flex-fill does not create equal width flexboxes -->
-                    <!-- Using Bootstrap's media-body does the trick -->
-                    <span class="text-left h4 align-self-center media-body">
-                        <i class="fas fa-play-circle  p2_leg_start_indicator"></i>
-                    </span>
-                    <span id="p2_score_small" class="h2 p2_score font-weight-bold  media-body" >-</span>
-                    <span class="media-body"></span>
+                    <div class="row">
+                        <div class="col-2 h4 align-self-center">
+                            <i class="fas fa-play-circle  p2_leg_start_indicator"></i>
+                        </div>
+                        <div class="col-8">
+                            <span id="p2_score_small" class="h2 p2_score text-center font-weight-bold" >-</span>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
                     <p><span class="p2_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
                 </p>
             </div>

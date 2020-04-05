@@ -67,38 +67,50 @@ $(document).ready(function() {
 
     socket.on('closest_to_bull_score', function(msg) {
         $('#closest_to_bull_notification').text('Throw three darts at bull.');
-        $('#p1_score').html('');
-        $('#p2_score').html('');
+        $('#p1_score').html('<span id="p1_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
+        $('#p2_score').html('<span id="p2_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
+        $('#p1_score_small').html('<span id="p1_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
+        $('#p2_score_small').html('<span id="p2_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
         if (msg.p1_score.length == 0){  $('#p1_score').html('-'); }
         if (msg.p2_score.length == 0){  $('#p2_score').html('-'); }
         $.each(msg.p1_score, function( index, value ){
-            $('#p1_score').append(' ' + value);
+            $('#p1_score_c2b').append(' ' + value);
+            $('#p1_score_c2b_small').append(' ' + value);
         });
         $.each(msg.p2_score, function( index, value ){
-            $('#p2_score').append(' ' + value);
+            $('#p2_score_c2b').append(' ' + value);
+            $('#p2_score_c2b_small').append(' ' + value);
         });
     });
 
     socket.on('closest_to_bull_draw', function(msg) {
-        $('#p1_score').html('');
-        $('#p2_score').html('');
+        $('#p1_score').html('<span id="p1_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
+        $('#p2_score').html('<span id="p2_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
+        $('#p1_score_small').html('<span id="p1_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
+        $('#p2_score_small').html('<span id="p2_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
         $.each(msg.p1_score, function( index, value ){
-            $('#p1_score').append(' ' + value);
+            $('#p1_score_c2b').append(' ' + value);
+            $('#p1_score_c2b_small').append(' ' + value);
         });
         $.each(msg.p2_score, function( index, value ){
-            $('#p2_score').append(' ' + value);
+            $('#p2_score_c2b').append(' ' + value);
+            $('#p2_score_c2b_small').append(' ' + value);
         });
         $('#closest_to_bull_notification').text('Draw. Throw again.');
     });
 
     socket.on('closest_to_bull_completed', function(msg) {
-        $('#p1_score').html('');
-        $('#p2_score').html('');
+        $('#p1_score').html('<span id="p1_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
+        $('#p2_score').html('<span id="p2_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
+        $('#p1_score_small').html('<span id="p1_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
+        $('#p2_score_small').html('<span id="p2_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
         $.each(msg.p1_score, function( index, value ){
-            $('#p1_score').append(' ' + value);
+            $('#p1_score_c2b').append(' ' + value);
+            $('#p1_score_c2b_small').append(' ' + value);
         });
         $.each(msg.p2_score, function( index, value ){
-            $('#p2_score').append(' ' + value);
+            $('#p2_score_c2b').append(' ' + value);
+            $('#p2_score_c2b_small').append(' ' + value);
         });
         if (msg.p1_won) {
             $('#closest_to_bull_notification').text('Player 1 to throw first. Game on!');
