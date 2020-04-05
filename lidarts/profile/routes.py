@@ -66,12 +66,22 @@ def overview(username):
 
     stats = UserStatistic.query.filter_by(user=user.id).first()
 
-    country, profile_text = (
+    settings = (
         UserSettings.query
         .with_entities(UserSettings.country, UserSettings.profile_text)
         .filter_by(user=user.id)
         .first()
     )
+
+    if not settings:
+        settings = UserSettings(user=user.id)
+        db.session.add(settings)
+        db.session.commit()
+        country = None
+        profile_text = None
+    else:
+        country, profile_text = settings
+
 
     if profile_text:
         profile_text = re.sub(
@@ -81,12 +91,6 @@ def overview(username):
         )
         profile_text = bleach.linkify(profile_text)
         profile_text = profile_text.replace('\n', '<br>')
-
-    if not country:
-        settings = UserSettings(user=user.id)
-        db.session.add(settings)
-        db.session.commit()
-        country = None
         
     friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)
     friend_query2 = Friendship.query.with_entities(Friendship.user1_id).filter_by(user2_id=current_user.id)

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-04 15:08+0200\n"
-"PO-Revision-Date: 2020-04-04 15:09+0200\n"
+"POT-Creation-Date: 2020-04-05 20:57+0200\n"
+"PO-Revision-Date: 2020-04-05 20:59+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -63,7 +63,7 @@ msgstr "Passwort"
 msgid "Username or Email Address"
 msgstr "Benutzername oder E-Mail-Adresse"
 
-#: auth/forms.py:96 profile/forms.py:69
+#: auth/forms.py:96 profile/forms.py:74
 msgid "Accept"
 msgstr "Bestätigen"
 
@@ -163,36 +163,36 @@ msgstr "Spiel beginnen"
 msgid "Submit message"
 msgstr "Nachricht senden"
 
-#: game/routes.py:119
+#: game/routes.py:126
 msgid "Public challenges must be created without an opponent name."
 msgstr "Öffentliche Herausforderungen müssen ohne Gegnernamen erstellt werden."
 
-#: game/routes.py:121 game/routes.py:129 game/routes.py:195
+#: game/routes.py:128 game/routes.py:136 game/routes.py:202
 #: templates/game/create_X01.html:9
 msgid "Create Game"
 msgstr "Spiel erstellen"
 
-#: game/routes.py:127
+#: game/routes.py:134
 msgid "Player does not allow challenges"
 msgstr "Spieler lässt keine Herausforderungen zu"
 
-#: game/routes.py:131
+#: game/routes.py:138
 msgid "New challenge"
 msgstr "Neue Herausforderung"
 
-#: game/routes.py:244 game/routes.py:252
+#: game/routes.py:251 game/routes.py:259
 msgid "Waiting..."
 msgstr "Warte..."
 
-#: game/routes.py:285
+#: game/routes.py:292
 msgid "Match overview"
 msgstr "Spielübersicht"
 
-#: game/routes.py:322
+#: game/routes.py:329
 msgid "Stream overlay"
 msgstr "Stream overlay"
 
-#: game/routes.py:325
+#: game/routes.py:332
 msgid "Live Match"
 msgstr "Livespiel"
 
@@ -220,7 +220,7 @@ msgstr "Live Spiele"
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:211 templates/base.html:54 templates/game/X01.html:238
+#: generic/routes.py:211 templates/base.html:54 templates/game/X01.html:248
 #: templates/game/X01_stream.html:130
 msgid "Chat"
 msgstr "Chat"
@@ -237,90 +237,97 @@ msgstr "Aktiviert"
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: profile/forms.py:13
-msgid "Caller"
-msgstr "Caller"
+#: profile/forms.py:13 tournament/forms.py:32
+msgid "Description"
+msgstr "Beschreibung"
 
-#: profile/forms.py:14 profile/forms.py:19 profile/forms.py:59
-#: profile/forms.py:71
+#: profile/forms.py:14 profile/forms.py:19 profile/forms.py:24
+#: profile/forms.py:64 profile/forms.py:76
 msgid "Save"
 msgstr "Speichern"
 
 #: profile/forms.py:18
+msgid "Caller"
+msgstr "Caller"
+
+#: profile/forms.py:23
 msgid "Trainer delay"
 msgstr "Trainerverzögerung"
 
-#: profile/forms.py:24
+#: profile/forms.py:29
 msgid "Notification sound"
 msgstr "Benachrichtigungston"
 
-#: profile/forms.py:30
+#: profile/forms.py:35
 msgid "Allow challenges"
 msgstr "Herausforderungen erlauben"
 
-#: profile/forms.py:36
+#: profile/forms.py:41
 msgid "Allow private messages"
 msgstr "Private Nachrichten erlauben"
 
-#: profile/forms.py:42
+#: profile/forms.py:47
 msgid "Allow friend requests"
 msgstr "Freundschaftsanfragen erlauben"
 
-#: profile/forms.py:48
+#: profile/forms.py:53
 msgid "Checkout suggestions"
 msgstr "Finishwege anzeigen"
 
-#: profile/forms.py:54
+#: profile/forms.py:59
 msgid "Show averages in user list"
 msgstr "Averages in Userliste anzeigen"
 
-#: profile/forms.py:64
+#: profile/forms.py:69
 msgid "Country"
 msgstr "Land"
 
-#: profile/routes.py:41
+#: profile/routes.py:43
 msgid "Match History"
 msgstr "Spielverlauf"
 
-#: profile/routes.py:88 templates/base.html:97
+#: profile/routes.py:103 templates/base.html:97
 msgid "Profile"
 msgstr "Profil"
 
-#: profile/routes.py:139
+#: profile/routes.py:119
+msgid "Profile text saved."
+msgstr "Profiltext gespeichert."
+
+#: profile/routes.py:174
 msgid "Manage Friend List"
 msgstr "Freundesliste verwalten"
 
-#: profile/routes.py:147
+#: profile/routes.py:182
 msgid "Avatar deleted."
 msgstr "Avatar gelöscht"
 
-#: profile/routes.py:161
+#: profile/routes.py:196
 msgid "Avatar saved."
 msgstr "Avatar gespeichert"
 
-#: profile/routes.py:166
+#: profile/routes.py:201
 msgid "Avatar Settings"
 msgstr "Avatar einstellen"
 
-#: profile/routes.py:177
+#: profile/routes.py:212
 msgid "Caller Settings"
 msgstr "Caller einstellen"
 
-#: profile/routes.py:188
+#: profile/routes.py:223
 msgid "Trainer Delay"
 msgstr "Trainerverzögerung einstellen"
 
-#: profile/routes.py:206 profile/routes.py:219
+#: profile/routes.py:241 profile/routes.py:254
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: profile/routes.py:213
+#: profile/routes.py:248
 msgid "You can only change your country setting once per month. You need to wait until: "
 msgstr "Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte warte bis: "
 
-#: profile/routes.py:214 profile/routes.py:230
-#: templates/profile/general_settings.html:11
-#: templates/profile/overview.html:29
+#: profile/routes.py:249 profile/routes.py:265
+#: templates/profile/general_settings.html:13 templates/profile/settings.html:5
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
 
@@ -361,7 +368,7 @@ msgid "Watch"
 msgstr "Zuschauen"
 
 #: templates/base.html:48 templates/base.html:55
-#: templates/profile/overview.html:99
+#: templates/profile/overview.html:96
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -444,89 +451,89 @@ msgstr "Impressum"
 msgid "Leave game"
 msgstr "Spiel verlassen"
 
-#: templates/game/X01.html:15 templates/game/X01_stream.html:8
+#: templates/game/X01.html:16 templates/game/X01_stream.html:8
 msgid "Abort game"
 msgstr "Spiel abbrechen"
 
-#: templates/game/X01.html:16 templates/game/X01_stream.html:9
+#: templates/game/X01.html:17 templates/game/X01_stream.html:9
 msgid "Toggle Keypad visibility"
 msgstr "Tastatur ein/ausblenden"
 
-#: templates/game/X01.html:17 templates/game/X01_stream.html:10
+#: templates/game/X01.html:18 templates/game/X01_stream.html:10
 msgid "Change keypad position"
 msgstr "Tastaturposition umschalten"
 
-#: templates/game/X01.html:18 templates/game/X01_stream.html:11
+#: templates/game/X01.html:20 templates/game/X01_stream.html:11
 msgid "Toggle statistics"
 msgstr "Statistiken ein/ausblenden"
 
-#: templates/game/X01.html:19
+#: templates/game/X01.html:21
 msgid "Streamoverlay"
 msgstr "Streamoverlay"
 
-#: templates/game/X01.html:20 templates/game/X01_stream.html:13
+#: templates/game/X01.html:22 templates/game/X01_stream.html:13
 msgid "Mute caller"
 msgstr "Caller stumm"
 
-#: templates/game/X01.html:20 templates/game/X01_stream.html:13
+#: templates/game/X01.html:22 templates/game/X01_stream.html:13
 msgid "Unmute caller"
 msgstr "Caller aktivieren"
 
-#: templates/game/X01.html:169 templates/game/X01_stream.html:57
+#: templates/game/X01.html:179 templates/game/X01_stream.html:57
 msgid "Closest to bull begins. Please throw three darts at bull."
 msgstr "Ausbullen. Bitte drei Darts auf Bull werfen."
 
-#: templates/game/X01.html:170 templates/game/X01_stream.html:58
+#: templates/game/X01.html:180 templates/game/X01_stream.html:58
 msgid "Local game. Player 1 throws all three darts first."
 msgstr "Lokales Spiel. Spieler 1 wirft zuerst alle drei Darts."
 
-#: templates/game/X01.html:211 templates/game/X01.html:297
+#: templates/game/X01.html:221 templates/game/X01.html:307
 #: templates/game/X01_stream.html:103 templates/game/X01_stream.html:190
 msgid "Game is completed."
 msgstr "Spiel ist beendet."
 
-#: templates/game/X01.html:212 templates/game/X01.html:217
-#: templates/game/X01.html:298 templates/game/X01_stream.html:104
+#: templates/game/X01.html:222 templates/game/X01.html:227
+#: templates/game/X01.html:308 templates/game/X01_stream.html:104
 #: templates/game/X01_stream.html:109 templates/game/X01_stream.html:191
 msgid "Game overview"
 msgstr "Spielübersicht"
 
-#: templates/game/X01.html:216 templates/game/X01_completed.html:12
+#: templates/game/X01.html:226 templates/game/X01_completed.html:12
 #: templates/game/X01_stream.html:108
 msgid "Game was aborted."
 msgstr "Spiel wurde abgebrochen."
 
-#: templates/game/X01.html:228 templates/game/X01.html:415
+#: templates/game/X01.html:238 templates/game/X01.html:425
 #: templates/game/X01_stream.html:120 templates/game/X01_stream.html:308
 msgid "Undo last score"
 msgstr "Letzten Score ändern"
 
-#: templates/game/X01.html:229 templates/game/X01.html:416
+#: templates/game/X01.html:239 templates/game/X01.html:426
 #: templates/game/X01_stream.html:121 templates/game/X01_stream.html:309
 msgid "Enter correct score"
 msgstr "Korrekten Score eingeben"
 
-#: templates/game/X01.html:235 templates/game/X01_stream.html:127
+#: templates/game/X01.html:245 templates/game/X01_stream.html:127
 msgid "Keypad"
 msgstr "Tastatur"
 
-#: templates/game/X01.html:504 templates/game/X01_stream.html:397
+#: templates/game/X01.html:514 templates/game/X01_stream.html:397
 msgid "How many darts missed at double?"
 msgstr "Wieviele Darts auf Doppel verfehlt?"
 
-#: templates/game/X01.html:517 templates/game/X01_stream.html:410
+#: templates/game/X01.html:527 templates/game/X01_stream.html:410
 msgid "How many darts to finish?"
 msgstr "Wieviele Darts für den Checkout?"
 
-#: templates/game/X01.html:529 templates/game/X01_stream.html:422
+#: templates/game/X01.html:539 templates/game/X01_stream.html:422
 msgid "Abort game?"
 msgstr "Spiel abbrechen?"
 
-#: templates/game/X01.html:530 templates/game/X01_stream.html:423
+#: templates/game/X01.html:540 templates/game/X01_stream.html:423
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: templates/game/X01.html:531 templates/game/X01_stream.html:424
+#: templates/game/X01.html:541 templates/game/X01_stream.html:424
 msgid "Cancel"
 msgstr "Zurück"
 
@@ -881,29 +888,37 @@ msgstr "Keine"
 msgid "There are no live games at the moment."
 msgstr "Es gibt gerade keine Livespiele."
 
-#: templates/profile/change_avatar.html:15
+#: templates/profile/change_avatar.html:17
 msgid "Delete"
 msgstr "Löschen"
 
-#: templates/profile/change_avatar.html:19
+#: templates/profile/change_avatar.html:21
 msgid "Upload"
 msgstr "Hochladen"
 
-#: templates/profile/change_caller.html:21
+#: templates/profile/change_caller.html:23
 msgid "Do you want to get yourself as caller option included?"
 msgstr "Möchtest du als Calleroption auswählbar sein?"
 
-#: templates/profile/change_caller.html:22
+#: templates/profile/change_caller.html:24
 msgid "Contact us!"
 msgstr "Kontaktiere uns!"
 
-#: templates/profile/change_cpu_delay.html:11
+#: templates/profile/change_cpu_delay.html:13
 msgid "Trainer delay (in seconds)"
 msgstr "Verzögerung des Trainers (in Sekunden)"
 
-#: templates/profile/change_cpu_delay.html:12
+#: templates/profile/change_cpu_delay.html:14
 msgid "Note: There is a base delay of ~3 seconds. The custom delay will be added to this."
 msgstr "Hinweis: Es gibt eine Grundverzögerung von ~3 Sekunden. Die benutzerdefinierte Verzögerung wird hinzuaddiert."
+
+#: templates/profile/edit_profile.html:13
+msgid "Change profile text"
+msgstr "Profiltext ändern"
+
+#: templates/profile/edit_profile.html:24
+msgid "Introduce yourself, your interests, social media etc."
+msgstr "Schreib etwas über dich, deine Interessen, Social Media etc."
 
 #: templates/profile/game_history.html:10
 msgid "Game history of"
@@ -917,108 +932,102 @@ msgstr "Zurück"
 msgid "Next"
 msgstr "Weiter"
 
-#: templates/profile/general_settings.html:55
+#: templates/profile/general_settings.html:57
 msgid "Country settings"
 msgstr "Ländereinstellungen"
 
-#: templates/profile/general_settings.html:64
+#: templates/profile/general_settings.html:66
 msgid "You can change your country setting only once per month. Please confirm."
 msgstr "Die Ländereinstellung kann nur einmal pro Monat geändert werden. Bitte bestätigen."
 
-#: templates/profile/manage_friend_list.html:11
+#: templates/profile/manage_friend_list.html:13
 msgid "Friends"
 msgstr "Freunde"
 
-#: templates/profile/manage_friend_list.html:27
+#: templates/profile/manage_friend_list.html:29
 msgid "Pending requests"
 msgstr "Ausstehende Anfragen"
 
-#: templates/profile/overview.html:27
+#: templates/profile/overview.html:26
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: templates/profile/overview.html:30
-msgid "Private messages"
-msgstr "Private Nachrichten"
+#: templates/profile/overview.html:29
+msgid "Friend request"
+msgstr "Freundschaftsanfrage"
 
 #: templates/profile/overview.html:31
-msgid "Edit profile"
-msgstr "Profil bearbeiten"
-
-#: templates/profile/overview.html:32
-msgid "Manage friend list"
-msgstr "Freundesliste verwalten"
-
-#: templates/profile/overview.html:33
-#: templates/security/change_username.html:10
-msgid "Change display name"
-msgstr "Anzeigenamen ändern"
-
-#: templates/profile/overview.html:34
-#: templates/security/change_password.html:10
-msgid "Change password"
-msgstr "Passwort ändern"
-
-#: templates/profile/overview.html:35
-msgid "Avatar settings"
-msgstr "Avatareinstellungen"
-
-#: templates/profile/overview.html:36
-msgid "Caller settings"
-msgstr "Callereinstellungen"
-
-#: templates/profile/overview.html:37
-msgid "Trainer delay settings"
-msgstr "Trainerverzögerung einstellen"
-
-#: templates/profile/overview.html:42
-msgid "Interaction"
-msgstr "Interaktion"
-
-#: templates/profile/overview.html:46
-msgid "Send friend request"
-msgstr "Freundschaftsanfrage senden"
-
-#: templates/profile/overview.html:50
 msgid "Challenge to game"
 msgstr "Zu Spiel herausfordern"
 
-#: templates/profile/overview.html:60
+#: templates/profile/overview.html:48
+msgid "has not entered a profile text yet."
+msgstr "hat noch keinen Profiltext angegeben."
+
+#: templates/profile/overview.html:57
 msgid "Recent games"
 msgstr "Neueste Spiele"
 
-#: templates/profile/overview.html:75
+#: templates/profile/overview.html:72
 msgid "Full match list"
 msgstr "Vollständige Spielliste"
 
-#: templates/profile/overview.html:85
+#: templates/profile/overview.html:82
 msgid "Statistics (501 SI/DO)"
 msgstr "Statistiken (501 SI/DO)"
 
-#: templates/profile/overview.html:87
+#: templates/profile/overview.html:84
 msgid "Number of games:"
 msgstr "Anzahl Spiele:"
 
-#: templates/profile/overview.html:88
+#: templates/profile/overview.html:85
 #: templates/statistics/x01_overview_element.html:7
 msgid "Darts thrown:"
 msgstr "Darts geworfen:"
 
-#: templates/profile/overview.html:100
+#: templates/profile/overview.html:97
 msgid "X01"
 msgstr "X01"
+
+#: templates/profile/settings.html:6
+msgid "Edit profile text"
+msgstr "Profiltext bearbeiten"
+
+#: templates/profile/settings.html:7
+msgid "Manage friend list"
+msgstr "Freundesliste verwalten"
+
+#: templates/profile/settings.html:8 templates/security/change_username.html:12
+msgid "Change display name"
+msgstr "Anzeigenamen ändern"
+
+#: templates/profile/settings.html:9 templates/security/change_password.html:12
+msgid "Change password"
+msgstr "Passwort ändern"
+
+#: templates/profile/settings.html:10
+msgid "Avatar settings"
+msgstr "Avatareinstellungen"
+
+#: templates/profile/settings.html:11
+msgid "Caller settings"
+msgstr "Callereinstellungen"
+
+#: templates/profile/settings.html:12
+msgid "Trainer delay settings"
+msgstr "Trainerverzögerung einstellen"
 
 #: templates/profile/user_not_found.html:9
 msgid "User not found"
 msgstr "Benutzer nicht gefunden"
 
-#: templates/security/change_password.html:18
-#: templates/security/change_username.html:25
+#: templates/security/change_password.html:20
+#: templates/security/change_username.html:27
 #: templates/security/forgot_password.html:16 tools/forms.py:14
 msgid "Submit"
 msgstr "Abschicken"
 
-#: templates/security/change_username.html:16
+#: templates/security/change_username.html:18
 msgid "You can change your username only once per month. Please confirm."
 msgstr "Du kannst deinen Benutzernamen nur einmal pro Monat ändern. Bitte bestätigen."
 
@@ -1219,10 +1228,6 @@ msgstr "Zurück zum Turnier"
 msgid "Tournament name"
 msgstr "Turniername"
 
-#: tournament/forms.py:32
-msgid "Description"
-msgstr "Beschreibung"
-
 #: tournament/forms.py:33
 msgid "Open to the public"
 msgstr "Öffentlich"
@@ -1411,3 +1416,15 @@ msgstr "Turniereinstellungen"
 
 #~ msgid "Average per Game"
 #~ msgstr "Average pro Spiel"
+
+#~ msgid "Private messages"
+#~ msgstr "Private Nachrichten"
+
+#~ msgid "Edit profile"
+#~ msgstr "Profil bearbeiten"
+
+#~ msgid "Interaction"
+#~ msgstr "Interaktion"
+
+#~ msgid "Send friend request"
+#~ msgstr "Freundschaftsanfrage senden"
