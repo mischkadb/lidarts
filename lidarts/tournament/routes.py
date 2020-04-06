@@ -85,7 +85,12 @@ def overview():
 @bp.route('/<hashid>')
 @login_required
 def details(hashid):
-    tournament = Tournament.query.filter_by(hashid=hashid).first_or_404()
+    tournament, creator_name = (
+        Tournament.query
+        .filter_by(hashid=hashid)
+        .join(User, User.id == Tournament.creator).add_columns(User.username)
+        .first_or_404()
+    )
 
     form = ChatmessageForm()
     messages = (
@@ -100,7 +105,6 @@ def details(hashid):
         .all()
     )
 
-    tournament = Tournament.query.filter_by(hashid=hashid).first()
     in_tournament = tournament in current_user.tournaments
 
     player1 = aliased(User)
@@ -137,6 +141,7 @@ def details(hashid):
         messages=messages,
         in_tournament=in_tournament,
         recent_results=recent_results,
+        creator_name=creator_name,
         show_average_in_chat_list=settings.show_average_in_chat_list,
         title=lazy_gettext('Tournament details'),
     )

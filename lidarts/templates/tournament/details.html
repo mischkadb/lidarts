@@ -29,6 +29,7 @@
                 {% if tournament.description %}
                     <p class="card-text slim">{{ tournament.description }}</p>
                 {% endif %}     
+                {{ _('Creator') }}: <a href="{{ url_for('profile.overview', username=creator_name) }}">{{ creator_name }}</a>
                 <p class="card-text slim"><a href="{{ url_for('generic.live_games_overview', tournament_hashid=tournament.hashid) }}">{{ _('Watch live games') }}</a></p>
                 {% if tournament.external_url %}
                     <p class="card-text slim">{{ _('URL') }}: <a href="{% if tournament.external_url[:4] != 'http' %}//{% endif %}{{ tournament.external_url }}" target="_blank">{{ tournament.external_url }}</a></p>
