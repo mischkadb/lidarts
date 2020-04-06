@@ -4,6 +4,7 @@ from flask_login import current_user
 from lidarts import socketio, db
 from lidarts.models import User, Chatmessage, Privatemessage, Notification, Game, ChatmessageIngame, UserStatistic, UserSettings
 from lidarts.socket.utils import broadcast_online_players, send_notification
+from lidarts.utils.linker import linker
 from datetime import datetime
 import bleach
 
@@ -28,7 +29,7 @@ def broadcast_chat_message(message):
     tournament_hashid = message['hashid'] if 'hashid' in message else None
 
     message['message'] = bleach.clean(message['message'])
-    message['message'] = bleach.linkify(message['message'])
+    message['message'] = linker.linkify(message['message'])
     new_message = Chatmessage(
         message=message['message'],
         author=message['user_id'],
@@ -85,7 +86,7 @@ def init(message):
 @socketio.on('broadcast_game_chat_message', namespace='/game_chat')
 def send_game_chat_message(message):
     message['message'] = bleach.clean(message['message'])
-    message['message'] = bleach.linkify(message['message'])
+    message['message'] = linker.linkify(message['message'])
     hashid = message['hash_id']
     new_message = ChatmessageIngame(message=message['message'], author=message['user_id'],
                                     timestamp=datetime.utcnow(), game_hashid=hashid)
@@ -102,7 +103,7 @@ def send_game_chat_message(message):
 @socketio.on('broadcast_private_message', namespace='/private_messages')
 def send_private_message(message):
     message['message'] = bleach.clean(message['message'])
-    message['message'] = bleach.linkify(message['message'])
+    message['message'] = linker.linkify(message['message'])
     receiver = message['receiver']
 
     receiver_settings = UserSettings.query.filter_by(user=receiver).first()

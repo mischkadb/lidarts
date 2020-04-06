@@ -8,6 +8,7 @@ from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralS
 from lidarts.models import User, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic
 from sqlalchemy import desc
 from sqlalchemy.orm import aliased
+from lidarts.utils.linker import linker
 import bleach
 import os
 import re
@@ -89,7 +90,7 @@ def overview(username):
             '<img src="' + r'\1' + '">',
             profile_text,
         )
-        profile_text = bleach.linkify(profile_text)
+        profile_text = linker.linkify(profile_text)
         profile_text = profile_text.replace('\n', '<br>')
         
     friend_query1 = Friendship.query.with_entities(Friendship.user2_id).filter_by(user1_id=current_user.id)

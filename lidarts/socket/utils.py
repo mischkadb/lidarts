@@ -302,17 +302,16 @@ def broadcast_game_aborted(game):
 
 
 def broadcast_online_players(broadcast=True, room='public_chat'):
-    status_order = ['lfg', 'online', 'playing', 'busy']
+    status_order = ['lfg', 'online', 'playing', 'busy', 'offline']
     ingame_count = 0
     
     online_players_list = []
     online_thresh_timestamp = datetime.utcnow() - timedelta(minutes=1)
-    online_players = (
-        User.query
-        .filter(or_(User.is_online, User.last_seen > online_thresh_timestamp))
-    )
+    online_players = User.query
 
-    if room != 'public_chat':
+    if room == 'public_chat':
+        online_players = online_players.filter(or_(User.is_online, User.last_seen > online_thresh_timestamp))
+    else:
         online_players = (
             online_players
             .join(User.tournaments)
@@ -320,7 +319,7 @@ def broadcast_online_players(broadcast=True, room='public_chat'):
         )
 
     online_players = (
-        online_players
+        online_players        
         .join(UserStatistic).add_columns(UserStatistic.average, UserStatistic.doubles)
         .join(UserSettings).add_columns(UserSettings.country)
         .all()
@@ -335,6 +334,10 @@ def broadcast_online_players(broadcast=True, room='public_chat'):
         if user.last_seen_ingame and user.last_seen_ingame > (datetime.utcnow() - timedelta(seconds=35)):
             status = 'playing'
             ingame_count += 1
+
+        if user.last_seen and user.last_seen < (datetime.utcnow() - timedelta(seconds=60)):
+            status = 'offline'
+            online_count -= 1
 
         avatar = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
         statistics = {'average': average, 'doubles': doubles}
@@ -358,7 +361,7 @@ def broadcast_online_players(broadcast=True, room='public_chat'):
 
     if broadcast:
         emit(
-            'send_online_players', 
+            'send_online_players',
             {'players': online_players_list, 'ingame-count': ingame_count, 'online-count': online_count},
             namespace='/chat', room=room,
         )
