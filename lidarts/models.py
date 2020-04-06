@@ -16,6 +16,12 @@ tournament_players_association_table = db.Table(
     db.Column('tournament_id', db.Integer, db.ForeignKey('tournaments.id'), primary_key=True),
 )
 
+tournament_banned_players_association_table = db.Table(
+    'tournament_banned_players_association',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('tournament_id', db.Integer, db.ForeignKey('tournaments.id'), primary_key=True),
+)
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -244,6 +250,7 @@ class Tournament(db.Model):
     hashid = db.Column(db.String(10), unique=True)
     name = db.Column(db.String(50), nullable=False)
     public = db.Column(db.Boolean, default=False)
+    registration_open = db.Column(db.Boolean, default=True)
     description = db.Column(db.String(1000))
     external_url = db.Column(db.String(120))
     start_timestamp = db.Column(db.DateTime)
@@ -253,6 +260,12 @@ class Tournament(db.Model):
         secondary=tournament_players_association_table,
         lazy=True,
         backref=db.backref('tournaments', lazy=True),
+    )
+    banned_players = db.relationship(
+        'User',
+        secondary=tournament_banned_players_association_table,
+        lazy=True,
+        backref=db.backref('tournaments_banned', lazy=True),
     )
 
     def __init__(self, **kwargs):

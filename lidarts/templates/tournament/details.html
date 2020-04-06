@@ -17,15 +17,16 @@
                 <p class="text-center font-weight-bold slim">{{ _('Tournament details') }}</p>
                 <hr class="slim">
                 <p class="card-text font-weight-bold slim">{{ tournament.name }}</p>
-                <button type="button" id="tournament-membership-button" class="btn mt-2 {% if in_tournament %}in-tournament btn-danger{% else %}btn-success{% endif %}" 6autocomplete="off">
+                <button type="button" id="tournament-membership-button" class="btn mt-2 {% if in_tournament %}in-tournament btn-danger{% elif not tournament.registration_open %}d-none{% else %}btn-success{% endif %}" autocomplete="off">
                     {% if in_tournament %}{{ _('Leave Tournament') }}{% else %}{{ _('Join Tournament') }}{% endif %}
                 </button>
 
-                <a href="{{ url_for('game.create', tournament_hashid=tournament.hashid) }}">
+                <a href="{{ url_for('game.create', tournament_hashid=tournament.hashid) }}" id="createTournamentGame" {% if not in_tournament %}style="display: None">{% endif %}
                     <button type="button" class="btn mt-2 btn-info" autocomplete="off">
                         {{ _('Create tournament game') }}
                     </button>
                 </a>
+
                 {% if tournament.description %}
                     <p class="card-text slim">{{ tournament.description }}</p>
                 {% endif %}     

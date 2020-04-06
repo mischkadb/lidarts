@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-05 20:57+0200\n"
-"PO-Revision-Date: 2020-04-05 20:59+0200\n"
+"POT-Creation-Date: 2020-04-06 15:22+0200\n"
+"PO-Revision-Date: 2020-04-06 15:25+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -237,7 +237,7 @@ msgstr "Aktiviert"
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: profile/forms.py:13 tournament/forms.py:32
+#: profile/forms.py:13 tournament/forms.py:31
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -282,51 +282,51 @@ msgstr "Averages in Userliste anzeigen"
 msgid "Country"
 msgstr "Land"
 
-#: profile/routes.py:43
+#: profile/routes.py:44
 msgid "Match History"
 msgstr "Spielverlauf"
 
-#: profile/routes.py:103 templates/base.html:97
+#: profile/routes.py:108 templates/base.html:97
 msgid "Profile"
 msgstr "Profil"
 
-#: profile/routes.py:119
+#: profile/routes.py:124
 msgid "Profile text saved."
 msgstr "Profiltext gespeichert."
 
-#: profile/routes.py:174
+#: profile/routes.py:179
 msgid "Manage Friend List"
 msgstr "Freundesliste verwalten"
 
-#: profile/routes.py:182
+#: profile/routes.py:187
 msgid "Avatar deleted."
 msgstr "Avatar gelöscht"
 
-#: profile/routes.py:196
+#: profile/routes.py:201
 msgid "Avatar saved."
 msgstr "Avatar gespeichert"
 
-#: profile/routes.py:201
+#: profile/routes.py:206
 msgid "Avatar Settings"
 msgstr "Avatar einstellen"
 
-#: profile/routes.py:212
+#: profile/routes.py:217
 msgid "Caller Settings"
 msgstr "Caller einstellen"
 
-#: profile/routes.py:223
+#: profile/routes.py:228
 msgid "Trainer Delay"
 msgstr "Trainerverzögerung einstellen"
 
-#: profile/routes.py:241 profile/routes.py:254
+#: profile/routes.py:246 profile/routes.py:259
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: profile/routes.py:248
+#: profile/routes.py:253
 msgid "You can only change your country setting once per month. You need to wait until: "
 msgstr "Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte warte bis: "
 
-#: profile/routes.py:249 profile/routes.py:265
+#: profile/routes.py:254 profile/routes.py:270
 #: templates/profile/general_settings.html:13 templates/profile/settings.html:5
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
@@ -376,7 +376,7 @@ msgstr "Statistiken"
 msgid "Play"
 msgstr "Spielen"
 
-#: templates/base.html:53 tournament/routes.py:81
+#: templates/base.html:53 tournament/routes.py:82
 msgid "Tournaments"
 msgstr "Turniere"
 
@@ -680,7 +680,7 @@ msgstr "Öffentliche Herausforderungen"
 msgid "New games"
 msgstr "Neue Spiele"
 
-#: templates/generic/chat.html:54 templates/tournament/details.html:48
+#: templates/generic/chat.html:54 templates/tournament/details.html:50
 msgid "Latest results"
 msgstr "Neueste Ergebnisse"
 
@@ -692,11 +692,11 @@ msgstr "Zeige Spielinformationen"
 msgid "Show public challenges"
 msgstr "Zeige Herausforderungen"
 
-#: templates/generic/chat.html:109 templates/tournament/details.html:99
+#: templates/generic/chat.html:109 templates/tournament/details.html:101
 msgid "Online"
 msgstr "Online"
 
-#: templates/generic/chat.html:110 templates/tournament/details.html:100
+#: templates/generic/chat.html:110 templates/tournament/details.html:102
 msgid "Playing"
 msgstr "Im Spiel"
 
@@ -1136,7 +1136,7 @@ msgstr "Darts geworfen"
 msgid "Number of games / legs:"
 msgstr "Anzahl Spiele / Legs"
 
-#: templates/tournament/details.html:17 tournament/routes.py:141
+#: templates/tournament/details.html:17 tournament/routes.py:151
 msgid "Tournament details"
 msgstr "Turnierdetails"
 
@@ -1152,19 +1152,23 @@ msgstr "Turnier beitreten"
 msgid "Create tournament game"
 msgstr "Turnierspiel erstellen"
 
-#: templates/tournament/details.html:32
+#: templates/tournament/details.html:33
+msgid "Creator"
+msgstr "Ersteller"
+
+#: templates/tournament/details.html:34
 msgid "Watch live games"
 msgstr "Livespiele ansehen"
 
-#: templates/tournament/details.html:34
+#: templates/tournament/details.html:36
 msgid "URL"
 msgstr "URL"
 
-#: templates/tournament/details.html:37
+#: templates/tournament/details.html:39
 msgid "Start"
 msgstr "Start"
 
-#: templates/tournament/details.html:40
+#: templates/tournament/details.html:42
 msgid "Edit settings"
 msgstr "Einstellungen bearbeiten"
 
@@ -1200,11 +1204,11 @@ msgstr "Neues Turnier erstellen"
 msgid "Tournament will appear in the upcoming tournaments list"
 msgstr "Turnier wird in der Liste der anstehenden Turniere erscheinen"
 
-#: templates/tournament/overview.html:83 templates/tournament/settings.html:44
+#: templates/tournament/overview.html:83 templates/tournament/settings.html:53
 msgid "Link to tournament website with more information"
 msgstr "Link zur Turnierwebseite mit zusätzlichen Informationen"
 
-#: templates/tournament/overview.html:88 templates/tournament/settings.html:49
+#: templates/tournament/overview.html:88 templates/tournament/settings.html:58
 msgid "Start date and time:"
 msgstr "Startdatum und -zeit:"
 
@@ -1220,17 +1224,85 @@ msgstr "Es gibt aktuell keine öffentlichen, anstehenden Turniere."
 msgid "Edit tournament settings"
 msgstr "Turniereinstellungen bearbeiten"
 
-#: templates/tournament/settings.html:59
+#: templates/tournament/settings.html:46
+msgid "Players are able to join the tournament."
+msgstr "Spieler können dem Turnier beitreten."
+
+#: templates/tournament/settings.html:68
 msgid "Back to tournament"
 msgstr "Zurück zum Turnier"
 
-#: tournament/forms.py:31
+#: templates/tournament/settings.html:80
+msgid "Manage player list"
+msgstr "Spielerliste verwalten"
+
+#: templates/tournament/settings.html:98
+msgid "Banned players"
+msgstr "Gebannte Spieler"
+
+#: templates/tournament/settings.html:103
+#: templates/tournament/settings.html:174
+msgid "Unban"
+msgstr "Entbannen"
+
+#: templates/tournament/settings.html:119
+msgid "Kick player"
+msgstr "Rauswerfen"
+
+#: templates/tournament/settings.html:125
+msgid "Do you want to kick "
+msgstr "Rauswurf von Spieler "
+
+#: templates/tournament/settings.html:125
+#: templates/tournament/settings.html:169
+msgid "The player will be able to join the tournament again."
+msgstr "Der Spieler kann dem Turnier erneut beitreten."
+
+#: templates/tournament/settings.html:129
+#: templates/tournament/settings.html:151
+#: templates/tournament/settings.html:173
+msgid "Close"
+msgstr "Schließen"
+
+#: templates/tournament/settings.html:130
+msgid "Kick"
+msgstr "Rauswerfen"
+
+#: templates/tournament/settings.html:141
+msgid "Ban player"
+msgstr "Verbannen"
+
+#: templates/tournament/settings.html:147
+msgid "Do you want to ban "
+msgstr "Verbannen von Spieler "
+
+#: templates/tournament/settings.html:147
+msgid "The player will NOT be able to join the tournament again."
+msgstr "Der Spieler wird dem Turnier NICHT wieder beitreten können."
+
+#: templates/tournament/settings.html:152
+msgid "Ban"
+msgstr "Bannen"
+
+#: templates/tournament/settings.html:163
+msgid "Unban player"
+msgstr "Entbannen"
+
+#: templates/tournament/settings.html:169
+msgid "Do you want to unban "
+msgstr "Entbannen von Spieler "
+
+#: tournament/forms.py:30
 msgid "Tournament name"
 msgstr "Turniername"
 
-#: tournament/forms.py:33
+#: tournament/forms.py:32
 msgid "Open to the public"
 msgstr "Öffentlich"
+
+#: tournament/forms.py:33
+msgid "Player registration is open"
+msgstr "Spieleranmeldung ist offen"
 
 #: tournament/forms.py:34
 msgid "External URL"
@@ -1248,11 +1320,15 @@ msgstr "Der Turnierstart von öffentlichen Turnieren darf nicht in der Vergangen
 msgid "Start must be within the next 30 days."
 msgstr "Der Turnierstart muss in den nächsten 30 Tagen stattfinden."
 
-#: tournament/routes.py:33
+#: tournament/routes.py:34
 msgid "Tournament updated."
 msgstr "Turnier aktualisiert."
 
-#: tournament/routes.py:169
+#: tournament/routes.py:97
+msgid "You were banned from this tournament."
+msgstr "Du wurdest von diesem Turnier gebannt."
+
+#: tournament/routes.py:180
 msgid "Tournament settings"
 msgstr "Turniereinstellungen"
 

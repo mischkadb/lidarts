@@ -232,12 +232,14 @@ $(document).ready(function() {
             $('#tournament-membership-button').removeClass('in-tournament');
             $('#tournament-membership-button').removeClass('btn-danger');
             $('#tournament-membership-button').addClass('btn-success');
+            $('#createTournamentGame').hide();            
             socket.emit('leave_tournament', {hashid: tournament_hashid});
         } else {
             $('#tournament-membership-button').text('Leave Tournament');
             $('#tournament-membership-button').addClass('in-tournament');
             $('#tournament-membership-button').removeClass('btn-success');
             $('#tournament-membership-button').addClass('btn-danger');
+            $('#createTournamentGame').show();
             socket.emit('join_tournament', {hashid: tournament_hashid});
         }
     });

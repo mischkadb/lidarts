@@ -30,6 +30,7 @@ def handle_form(form, update=False, tournament=None):
         tournament.description = form.description.data
         tournament.external_url = form.external_url.data
         tournament.start_timestamp = start_timestamp
+        tournament.registration_open = form.registration_open.data
         flash(lazy_gettext('Tournament updated.'), 'success')
 
     else:
@@ -91,6 +92,10 @@ def details(hashid):
         .join(User, User.id == Tournament.creator).add_columns(User.username)
         .first_or_404()
     )
+    
+    if current_user in tournament.banned_players:
+        flash(lazy_gettext('You were banned from this tournament.'), 'danger')
+        return redirect(url_for('generic.lobby'))
 
     form = ChatmessageForm()
     messages = (
@@ -163,6 +168,7 @@ def settings(hashid):
         form.public_tournament.data = tournament.public
         form.description.data = tournament.description
         form.external_url.data = tournament.external_url
+        form.registration_open.data = tournament.registration_open
         if tournament.start_timestamp:
             form.start_date.data = datetime.date(tournament.start_timestamp)
             form.start_time.data = datetime.time(tournament.start_timestamp)
