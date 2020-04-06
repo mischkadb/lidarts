@@ -362,6 +362,8 @@ def cancel_challenge(hashid):
 @bp.route('/abort_game/<hashid>', methods=['POST'])
 def abort_game(hashid):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
+    if game.status == 'completed':
+        return redirect(url_for('generic.lobby'))
     game.status = "aborted"
     game.end = datetime.utcnow()
     broadcast_game_aborted(game)
