@@ -23,6 +23,7 @@ MAIL_USE_SSL = False
 
 UPLOADS_DEFAULT_DEST = 'static/'
 UPLOADS_DEFAULT_URL = '/static/'
+UPLOADED_FILES_DENY = ['svg', 'webp']
 
 VERSION = '0.6.2-13'
 

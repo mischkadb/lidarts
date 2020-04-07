@@ -339,7 +339,7 @@ def broadcast_online_players(broadcast=True, room='public_chat'):
             status = 'offline'
             online_count -= 1
 
-        avatar = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
+        avatar = avatars.url(f'{user.id}_thumbnail.jpg') if user.avatar else avatars.url('default.png')
         statistics = {'average': average, 'doubles': doubles}
 
         country = country.lower() if country else None

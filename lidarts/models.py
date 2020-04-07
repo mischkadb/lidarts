@@ -32,6 +32,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(128))
     active = db.Column(db.Boolean)
     avatar = db.Column(db.String(15), default=None)
+    avatar_version = db.Column(db.Integer, default=0)
     last_seen = db.Column(db.DateTime, default=datetime.utcnow())
     last_seen_ingame = db.Column(db.DateTime, default=datetime.utcnow())
     is_online = db.Column(db.Boolean, default=False)

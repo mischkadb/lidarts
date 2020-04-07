@@ -11,7 +11,9 @@ from sqlalchemy.orm import aliased
 from lidarts.utils.linker import linker
 import bleach
 import os
+from PIL import Image
 import re
+import time
 from datetime import datetime, timedelta
 
 
@@ -99,7 +101,7 @@ def overview(username):
     friend_list = friend_query1.union(friend_query2).all()
     friend_list = [r for (r,) in friend_list]
 
-    avatar_url = avatars.url(user.avatar) if user.avatar else avatars.url('default.png')
+    avatar_url = avatars.url(f'{user.id}_thumbnail.jpg') if user.avatar else avatars.url('default.png')
 
     return render_template('profile/overview.html', user=user, games=games,
                            player_names=player_names, friend_list=friend_list,
@@ -183,7 +185,11 @@ def manage_friend_list():
 @login_required
 def delete_avatar():
     if current_user.avatar:
-        os.remove(os.path.join(current_app.config['UPLOADS_DEFAULT_DEST'], 'avatars', current_user.avatar))
+        try:
+            os.remove(os.path.join(current_app.config['UPLOADS_DEFAULT_DEST'], 'avatars', current_user.avatar))
+            os.remove(os.path.join(current_app.config['UPLOADS_DEFAULT_DEST'], 'avatars', f'{current_user.id}_thumbnail.jpg'))
+        except:
+            pass
         flash(lazy_gettext("Avatar deleted."))
     current_user.avatar = None
     db.session.commit()
@@ -196,7 +202,16 @@ def change_avatar():
     if request.method == 'POST' and 'avatar' in request.files:
         delete_avatar()
         filename = avatars.save(request.files['avatar'], name='{}.'.format(current_user.id))
+        image = os.path.join(current_app.config['UPLOADS_DEFAULT_DEST'], 'avatars', filename)
+        if image.split('.')[-1].lower() not in ['jpg', 'jpeg', 'gif', 'png']:
+            flash(lazy_gettext('Wrong image format.'))
+            return redirect(url_for('profile.change_avatar'))
+        im = Image.open(image)
+        rgb_im = im.convert('RGB')
+        rgb_im.thumbnail((64, 64), Image.BICUBIC)
+        rgb_im.save(os.path.join(current_app.config['UPLOADS_DEFAULT_DEST'], 'avatars', f'{current_user.id}_thumbnail.jpg'), "JPEG")
         current_user.avatar = filename
+        current_user.avatar_version = int(time.time())
         db.session.commit()
         flash(lazy_gettext("Avatar saved."))
         return redirect(url_for('profile.change_avatar'))
