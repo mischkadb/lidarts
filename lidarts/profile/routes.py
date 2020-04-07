@@ -87,7 +87,7 @@ def overview(username):
     if profile_text:
         profile_text = re.sub(
             r'(\bhttps:\/\/i\.imgur\.com\/\w+.\w+)',
-            '<img src="' + r'\1' + '">',
+            '<img src="' + r'\1' + '" style="max-width: 100%">',
             profile_text,
         )
         profile_text = linker.linkify(profile_text)
