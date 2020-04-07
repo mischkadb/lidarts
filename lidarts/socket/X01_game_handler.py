@@ -160,7 +160,7 @@ def connect():
 @socketio.on('player_heartbeat', namespace='/game')
 def player_heartbeat(message):
     user_id = message['user_id']
-    current_app.redis_client.sadd('last_seen_ingame_bulk_user_ids', user_id)
+    current_app.redis.sadd('last_seen_ingame_bulk_user_ids', user_id)
     #current_user.last_seen_ingame = datetime.utcnow()
     #db.session.commit()
     emit('player_heartbeat_response', {'player_id_heartbeat': user_id}, room=f'{message["hashid"]}_heartbeats')

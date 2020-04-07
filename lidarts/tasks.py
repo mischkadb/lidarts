@@ -4,13 +4,11 @@ from lidarts.models import Game, User, UserStatistic
 import json
 from sqlalchemy import or_
 from datetime import datetime
-from redis import StrictRedis
 import time
 import logging
 
 app = create_app()
 app.app_context().push()
-redis_client = StrictRedis()
 
 
 def calc_stats(player_id, max_games=None, max_darts=None):
@@ -99,14 +97,14 @@ def bulk_update_last_seen():
     #mappings = []
     timestamp = datetime.utcnow()
     while True:
-        user_id = redis_client.spop('last_seen_bulk_user_ids')
+        user_id = app.redis.spop('last_seen_bulk_user_ids')
         if not user_id:
             break
         user = User.query.filter_by(id=int(user_id)).update({'last_seen': timestamp})
         socketio.sleep(0)
 
     while True:
-        user_id = redis_client.spop('last_seen_ingame_bulk_user_ids')
+        user_id = app.redis.spop('last_seen_ingame_bulk_user_ids')
         if not user_id:
             break
         user = User.query.filter_by(id=int(user_id)).update({'last_seen_ingame': timestamp})

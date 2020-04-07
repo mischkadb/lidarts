@@ -7,7 +7,7 @@ app = create_app()
 app.app_context().push()
 
 def register_scheduler():
-    scheduler = Scheduler('lidarts-bulk', connection=Redis())
+    scheduler = Scheduler('lidarts-bulk', connection=app.redis)
     list_of_job_instances = scheduler.get_jobs()
     for job in list_of_job_instances:
         scheduler.cancel(job)

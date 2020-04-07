@@ -14,7 +14,7 @@ def connect_client():
         return
 
     # current_user.ping()
-    current_app.redis_client.sadd('last_seen_bulk_user_ids', current_user.id)
+    current_app.redis.sadd('last_seen_bulk_user_ids', current_user.id)
 
     join_room(current_user.username)
     notifications = Notification.query.filter_by(user=current_user.id).all()
@@ -46,7 +46,7 @@ def init(message):
 def heartbeat(message):
     user_id = message['user_id']
     # current_user.ping()
-    current_app.redis_client.sadd('last_seen_bulk_user_ids', user_id)
+    current_app.redis.sadd('last_seen_bulk_user_ids', user_id)
 
 
 @socketio.on('disconnect', namespace='/base')
@@ -56,4 +56,4 @@ def disconnect_client():
     #current_user.last_seen = datetime.utcnow()
     #current_user.is_online = False
     #db.session.commit()
-    current_app.redis_client.sadd('last_seen_bulk_user_ids', current_user.id)
+    current_app.redis.sadd('last_seen_bulk_user_ids', current_user.id)

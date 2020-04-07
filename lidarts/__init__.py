@@ -133,9 +133,16 @@ def create_app(test_config=None):
     # filter for jinja
     app.jinja_env.filters['datetime'] = format_datetime
 
-    app.redis = Redis.from_url('redis://')
-    app.redis_client = StrictRedis()
-    app.task_queue = rq.Queue('lidarts-tasks', connection=app.redis)
+    if 'REDIS_URL' in app.config:  
+        # app.redis = Redis.from_url('redis://')
+        # app.redis_client = StrictRedis()
+        app.redis = StrictRedis(
+            host=app.config['REDIS_URL'],
+            password=app.config['REDIS_PASSWORD'],
+        )
+        app.task_queue = rq.Queue('lidarts-tasks', connection=app.redis)
+    else:
+        app.redis = StrictRedis.from_url('redis://')
 
     if 'DASHBOARD_ENABLED' in app.config and app.config['DASHBOARD_ENABLED']:
         dashboard.config.init_from(file=os.path.join(app.instance_path, 'dashboard.cfg'))
