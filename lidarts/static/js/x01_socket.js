@@ -27,6 +27,7 @@ $(document).ready(function() {
     var cpu_delay = $('#cpu_delay').data()['cpu_delay'];
     var muted = false;
     var score_input_delay = $('#score_input_delay').data()['delay'];
+    var audio = new Audio();
     if (score_input_delay == 'None' || score_input_delay == 0) {
         score_input_delay = false;
     }
@@ -178,7 +179,7 @@ $(document).ready(function() {
         });
 
         if (muted == false) {
-            var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
+            audio.src = '/static/sounds/' + caller + '/game_shot.mp3';
             audio.play();
         }
 
@@ -284,7 +285,7 @@ $(document).ready(function() {
 
         // length check is needed to mute caller when new leg is broadcasted
         if (msg['new_score'] && muted == false && (msg['p1_current_leg'].length > 0 || msg['p2_current_leg'].length > 0)) {
-            var audio = new Audio('/static/sounds/' + caller + '/' + score + '.mp3');
+            audio.src = '/static/sounds/' + caller + '/' + score + '.mp3';
             audio.play();
         }
 
@@ -477,7 +478,7 @@ $(document).ready(function() {
         });
 
         if (muted == false){
-            var audio = new Audio('/static/sounds/' + caller + '/game_shot_match.mp3');
+            audio.src = '/static/sounds/' + caller + '/game_shot_match.mp3';
             audio.play();
         }
 
@@ -948,7 +949,39 @@ $(document).ready(function() {
         undo_active = false;
     });
 
+    $('#appleActivateSound').click(function() {
+        audio.play();
+        $('#appleActivateSound').hide();
+    });
 
+    function getOS() {
+        var userAgent = window.navigator.userAgent,
+            platform = window.navigator.platform,
+            macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+            windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+            iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+            os = null;
+      
+        if (macosPlatforms.indexOf(platform) !== -1) {
+          os = 'Mac OS';
+        } else if (iosPlatforms.indexOf(platform) !== -1) {
+          os = 'iOS';
+        } else if (windowsPlatforms.indexOf(platform) !== -1) {
+          os = 'Windows';
+        } else if (/Android/.test(userAgent)) {
+          os = 'Android';
+        } else if (!os && /Linux/.test(platform)) {
+          os = 'Linux';
+        }
+      
+        return os;
+      }
+
+    var os = getOS();
+    if (os == 'Mac OS' || os == 'iOS') {
+        $('#appleActivateSound').show();
+    }
+      
 });
 
 
