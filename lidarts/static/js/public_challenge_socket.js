@@ -41,6 +41,12 @@ $(document).ready(function() {
             } else {
                 bo_sets = ''
             }
+
+            if (public_challenge['score_input_delay'] > 0) {
+                score_input_delay = ' | Input block: ' + public_challenge['score_input_delay'] + 's'
+            } else {
+                score_input_delay = ''
+            }
             
             $('#public_challenge_list').append(
                 '<p><a href="game/' + public_challenge['hashid'] + '" class="text-dark mt-2"><strong>' + public_challenge['username'] + '</strong> | '
@@ -50,6 +56,7 @@ $(document).ready(function() {
                 + bo_sets
                 + two_clear_legs
                 + closest_to_bull
+                + score_input_delay
                 + '</a></p>'
                 + '<hr>'
             );

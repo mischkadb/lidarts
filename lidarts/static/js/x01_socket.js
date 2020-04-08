@@ -26,6 +26,10 @@ $(document).ready(function() {
     var caller = $('#caller').data()['caller'];
     var cpu_delay = $('#cpu_delay').data()['cpu_delay'];
     var muted = false;
+    var score_input_delay = $('#score_input_delay').data()['delay'];
+    if (score_input_delay == 'None' || score_input_delay == 0) {
+        score_input_delay = false;
+    }
 
     var out_mode = $('#out_mode').data()['out_mode'];
 
@@ -405,8 +409,29 @@ $(document).ready(function() {
                 socket.emit('send_score', {hashid: hashid['hashid'],
                     user_id: user_id['id'], computer: true});
             }, 3000 + (cpu_delay * 1000));
-
         }
+
+        if (score_input_delay) {
+            form_disabled = true;
+            $(".score_value").prop('readonly', true);
+            $('.score_value').val(score_input_delay);
+            setTimeout(function() {
+                form_disabled = false;
+                $(".score_value").prop('readonly', false);
+            }, (score_input_delay * 1000));
+
+            var timeleft = score_input_delay - 1;
+            var timer = setInterval(function(){
+                if(timeleft <= 0){
+                    clearInterval(timer);
+                    $('.score_value').val('');
+                } else {
+                    $('.score_value').val(timeleft);
+                }
+                timeleft -= 1;
+            }, 1000);
+        }
+        
     });
     // Remove turn indicators when game is over and show link to game overview
     socket.on('game_completed', function(msg) {
@@ -666,8 +691,13 @@ $(document).ready(function() {
     var score_errors = [];
     var double_missed = 0;
     var to_finish = 0;
+    var form_disabled = false;
 
     $('form#score_input').submit(function(event) {
+        console.log(form_disabled);
+        if (form_disabled) {
+            return false;
+        }
         $('#score_error').text('');
         var score_value = $('#score_value').val();
 
@@ -700,6 +730,10 @@ $(document).ready(function() {
         var score_input_sm = document.getElementById('score_value_sm');
         var message_input = document.getElementById('message');
         var message_input_small = document.getElementById('message_small');
+
+        if (form_disabled && (document.activeElement != message_input && document.activeElement != message_input_small)) {
+            return;
+        }
 
         if (document.activeElement != score_input && document.activeElement != score_input_sm
             && document.activeElement != message_input && document.activeElement != message_input_small
@@ -784,36 +818,70 @@ $(document).ready(function() {
 
     // onscreen keyboard functions
     $('.button-1').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val($('.score_value').val() + '1');
     });
+    
     $('.button-2').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val($('.score_value').val() + '2');
     });
     $('.button-3').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val($('.score_value').val() + '3');
     });
     $('.button-4').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val($('.score_value').val() + '4');
     });
     $('.button-5').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val($('.score_value').val() + '5');
     });
     $('.button-6').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val($('.score_value').val() + '6');
     });
     $('.button-7').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val($('.score_value').val() + '7');
     });
     $('.button-8').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val($('.score_value').val() + '8');
     });
     $('.button-9').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val($('.score_value').val() + '9');
     });
     $('.button-0').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val($('.score_value').val() + '0');
     });
     $('.button-del').click(function() {
+        if (form_disabled) {
+            return;
+        }
         $('.score_value').val('');
     });
     $('.button-conf').click(function() {

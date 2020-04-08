@@ -75,6 +75,13 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         else:
             two_clear_legs = False
 
+        if request.args.get('delay'):
+            score_input_delay = request.args.get('delay')
+        elif preset.score_input_delay:
+            score_input_delay = preset.score_input_delay
+        else:
+            score_input_delay = 0
+
         level = preset.level if preset.level else 1
 
         if request.args.get('opponent_name'):
@@ -101,6 +108,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             in_mode=in_mode,
             out_mode=out_mode,
             public_challenge=public_challenge,
+            score_input_delay=score_input_delay,
         )
         tournaments = current_user.tournaments
         tournament_choices = []
@@ -162,7 +170,8 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             begin=datetime.utcnow(), match_json=match_json,
             status=status, opponent_type=form.opponent.data,
             public_challenge=form.public_challenge.data,
-            tournament=tournament,
+            tournament=tournament, 
+            score_input_delay=form.score_input_delay.data,
             )
 
         # Preset saving
@@ -181,6 +190,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             preset.opponent_type = form.opponent.data
             preset.level = form.level.data
             preset.public_challenge = form.public_challenge.data
+            preset.score_input_delay = form.score_input_delay.data
 
             db.session.commit()
 

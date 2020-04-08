@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-06 15:22+0200\n"
-"PO-Revision-Date: 2020-04-06 15:25+0200\n"
+"POT-Creation-Date: 2020-04-08 13:23+0200\n"
+"PO-Revision-Date: 2020-04-08 13:24+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -147,52 +147,56 @@ msgstr "Modus Out"
 msgid "Public challenge"
 msgstr "Herausforderung öffentlich"
 
-#: game/forms.py:41 tournament/forms.py:38
+#: game/forms.py:41
+msgid "Score input block"
+msgstr "Eingabe blockieren"
+
+#: game/forms.py:42 tournament/forms.py:38
 msgid "Save settings"
 msgstr "Einstellungen speichern"
 
-#: game/forms.py:42
+#: game/forms.py:43
 msgid "Tournament"
 msgstr "Turnier"
 
-#: game/forms.py:43
+#: game/forms.py:44
 msgid "Start game"
 msgstr "Spiel beginnen"
 
-#: game/forms.py:48 generic/forms.py:9
+#: game/forms.py:49 generic/forms.py:9
 msgid "Submit message"
 msgstr "Nachricht senden"
 
-#: game/routes.py:126
+#: game/routes.py:134
 msgid "Public challenges must be created without an opponent name."
 msgstr "Öffentliche Herausforderungen müssen ohne Gegnernamen erstellt werden."
 
-#: game/routes.py:128 game/routes.py:136 game/routes.py:202
+#: game/routes.py:136 game/routes.py:144 game/routes.py:212
 #: templates/game/create_X01.html:9
 msgid "Create Game"
 msgstr "Spiel erstellen"
 
-#: game/routes.py:134
+#: game/routes.py:142
 msgid "Player does not allow challenges"
 msgstr "Spieler lässt keine Herausforderungen zu"
 
-#: game/routes.py:138
+#: game/routes.py:146
 msgid "New challenge"
 msgstr "Neue Herausforderung"
 
-#: game/routes.py:251 game/routes.py:259
+#: game/routes.py:261 game/routes.py:269
 msgid "Waiting..."
 msgstr "Warte..."
 
-#: game/routes.py:292
+#: game/routes.py:302
 msgid "Match overview"
 msgstr "Spielübersicht"
 
-#: game/routes.py:329
+#: game/routes.py:339
 msgid "Stream overlay"
 msgstr "Stream overlay"
 
-#: game/routes.py:332
+#: game/routes.py:342
 msgid "Live Match"
 msgstr "Livespiel"
 
@@ -282,51 +286,55 @@ msgstr "Averages in Userliste anzeigen"
 msgid "Country"
 msgstr "Land"
 
-#: profile/routes.py:44
+#: profile/routes.py:46
 msgid "Match History"
 msgstr "Spielverlauf"
 
-#: profile/routes.py:108 templates/base.html:97
+#: profile/routes.py:110 templates/base.html:97
 msgid "Profile"
 msgstr "Profil"
 
-#: profile/routes.py:124
+#: profile/routes.py:126
 msgid "Profile text saved."
 msgstr "Profiltext gespeichert."
 
-#: profile/routes.py:179
+#: profile/routes.py:181
 msgid "Manage Friend List"
 msgstr "Freundesliste verwalten"
 
-#: profile/routes.py:187
+#: profile/routes.py:193
 msgid "Avatar deleted."
 msgstr "Avatar gelöscht"
 
-#: profile/routes.py:201
+#: profile/routes.py:207
+msgid "Wrong image format."
+msgstr "Falsches Bildformat."
+
+#: profile/routes.py:216
 msgid "Avatar saved."
 msgstr "Avatar gespeichert"
 
-#: profile/routes.py:206
+#: profile/routes.py:221
 msgid "Avatar Settings"
 msgstr "Avatar einstellen"
 
-#: profile/routes.py:217
+#: profile/routes.py:232
 msgid "Caller Settings"
 msgstr "Caller einstellen"
 
-#: profile/routes.py:228
+#: profile/routes.py:243
 msgid "Trainer Delay"
 msgstr "Trainerverzögerung einstellen"
 
-#: profile/routes.py:246 profile/routes.py:259
+#: profile/routes.py:261 profile/routes.py:274
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: profile/routes.py:253
+#: profile/routes.py:268
 msgid "You can only change your country setting once per month. You need to wait until: "
 msgstr "Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte warte bis: "
 
-#: profile/routes.py:254 profile/routes.py:270
+#: profile/routes.py:269 profile/routes.py:285
 #: templates/profile/general_settings.html:13 templates/profile/settings.html:5
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
@@ -578,6 +586,10 @@ msgstr "Normales Theme"
 #: templates/game/create_X01.html:16
 msgid "Game Mode"
 msgstr "Spielmodus"
+
+#: templates/game/create_X01.html:112
+msgid "Blocks score input after new score. In seconds."
+msgstr "Blockiert Punkteeingabe nach jedem Score. In Sekunden."
 
 #: templates/game/wait_for_opponent.html:10
 msgid "Waiting for"

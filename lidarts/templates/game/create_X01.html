@@ -104,6 +104,13 @@
 
                     <p>{{ form.out_mode.label(class="col-form-label") }}:
                         {{ form.out_mode(class="custom-select") }}</p>
+
+
+                    <p>
+                        {{ form.score_input_delay.label(class="col-form-label") }}:
+                        {{ form.score_input_delay(class="custom-select") }}
+                        <small>{{ _('Blocks score input after new score. In seconds.') }}</small>
+                    </p>
                 </div>
             </div>
         </div>

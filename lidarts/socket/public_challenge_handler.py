@@ -32,6 +32,7 @@ def broadcast_public_challenges():
             'out_mode': game.out_mode,
             'two_clear_legs': game.two_clear_legs,
             'closest_to_bull': game.closest_to_bull,
+            'score_input_delay': game.score_input_delay,
             'average': average,
         }
         public_challenges.append(public_challenge)
