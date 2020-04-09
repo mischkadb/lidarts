@@ -1,6 +1,7 @@
 body {
   font-family: 'Open Sans', sans-serif;
   background: #343a40 !important;
+  margin-bottom: 100px; /* Margin bottom by footer height */
 }
 
 h1 {
@@ -132,3 +133,4 @@ form .form-control:focus{
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
