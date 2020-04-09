@@ -338,11 +338,11 @@ def start(hashid, theme=None):
         template = 'game/X01_stream.html'
     else:
         title = lazy_gettext('Stream overlay')
-        title = lazy_gettext('Live Match')
         template = 'game/X01.html'
 
-    return render_template(template, game=game_dict, form=form, match_json=match_json,
                             caller=caller, cpu_delay=cpu_delay, title=title,
+    return render_template(template, game=game_dict, form=form, match_json=match_json,
+        title = lazy_gettext('Live Match')
                             chat_form=chat_form, chat_form_small=chat_form_small,
                             messages=messages, user_names=user_names,
                             settings=settings)
