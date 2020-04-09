@@ -110,6 +110,7 @@ dashboard.db
 lidarts/game/fix\.py
 
 lidarts/static/avatars/
+static/avatars/
 
 \.flaskenv
 
