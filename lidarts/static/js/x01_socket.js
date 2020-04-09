@@ -146,14 +146,14 @@ $(document).ready(function() {
                     '<div id="new_score_fadein">' +
                     '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
+                    '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div></div>"
                 );
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p1_current_leg').prepend(
                     '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
+                    '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div>"
                 )
             };
         });
@@ -164,14 +164,14 @@ $(document).ready(function() {
             if ( index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type) {
                 $('#p2_current_leg').prepend(
                     '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3 class="turn-index">' + (index + 1) + '</h3></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
                     '<div class="col-2"></div></div></div>'
                 );
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3 class="turn-index">' + (index + 1) + '</h3></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
                     '<div class="col-2"></div></div></div>'
                 )
@@ -340,14 +340,14 @@ $(document).ready(function() {
                     '<div id="new_score_fadein">' +
                     '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
+                    '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div></div>"
                 );
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p1_current_leg').prepend(
                     '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
+                    '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div>"
                 )
             };
         });
@@ -356,14 +356,14 @@ $(document).ready(function() {
             if ( index == msg.p2_current_leg.length-1 && msg.p1_next_turn) {
                 $('#p2_current_leg').prepend(
                     '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3 class="turn-index">' + (index + 1) + '</h3></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
                     '<div class="col-2"></div></div></div>'
                 );
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3 class="turn-index">' + (index + 1) + '</h3></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
                     '<div class="col-2"></div></div></div>'
                 )
@@ -447,14 +447,14 @@ $(document).ready(function() {
                     '<div id="new_score_fadein">' +
                     '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
+                    '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div></div>"
                 );
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p1_current_leg').prepend(
                     '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
+                    '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div>"
                 )
             };
         });
@@ -463,14 +463,14 @@ $(document).ready(function() {
             if ( index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type) {
                 $('#p2_current_leg').prepend(
                     '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3 class="turn-index">' + (index + 1) + '</h3></div>' +
+                    '<div class="col-8 text-center turn-index"><h2 style="font-weight: bold">' + value + '</h2></div>' +
                     '<div class="col-2"></div></div></div>'
                 );
                 $('#new_score_fadein').hide().fadeIn(2000);
             } else {
                 $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
+                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3 class="turn-index">' + (index + 1) + '</h3></div>' +
                     '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
                     '<div class="col-2"></div></div></div>'
                 )

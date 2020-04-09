@@ -130,6 +130,8 @@ class Game(db.Model):
     opponent_type = db.Column(db.String(10))
     public_challenge = db.Column(db.Boolean)
     score_input_delay = db.Column(db.Integer, default=0)
+    webcam = db.Column(db.Boolean, default=False)
+    jitsi_hashid = db.Column(db.String(10), unique=True)
     tournament = db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
 
     def set_hashid(self):
