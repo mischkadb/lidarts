@@ -11,15 +11,17 @@ from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user, login_required
 from datetime import datetime
 import json
+import secrets
 
 
 @bp.route('/create', methods=['GET', 'POST'])
+@bp.route('/create/webcam/<webcam>', methods=['GET', 'POST'])
 @bp.route('/create/<mode>', methods=['GET', 'POST'])
 @bp.route('/create/<mode>/<opponent_name>', methods=['GET', 'POST'])
 @bp.route('/create/tournament/<tournament_hashid>', methods=['GET', 'POST'])
 @bp.route('/create/tournament/<tournament_hashid>/<opponent_name>', methods=['GET', 'POST'])
 @login_required
-def create(mode='x01', opponent_name=None, tournament_hashid=None):
+def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=False):
     if mode == 'x01':
         preset = X01Presetting.query.filter_by(user=current_user.id).first()
         if not preset:
@@ -156,6 +158,9 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             player2 = None
             status = 'started'
 
+        webcam = True if webcam else False
+        jitsi_hashid = secrets.token_urlsafe(8)[:8] if webcam else None
+
         tournament = form.tournament.data if form.tournament.data != '-' else None
 
         match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
@@ -172,6 +177,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             public_challenge=form.public_challenge.data,
             tournament=tournament, 
             score_input_delay=form.score_input_delay.data,
+            webcam=webcam, jitsi_hashid=jitsi_hashid,
             )
 
         # Preset saving
@@ -340,6 +346,9 @@ def start(hashid, theme=None):
     else:
         template = 'game/X01.html'
         title = lazy_gettext('Live Match')
+
+    if game.webcam and current_user.is_authenticated and current_user.id in (game.player1, game.player2):
+        template = 'game/X01_webcam.html'
 
     return render_template(template, game=game_dict, form=form, match_json=match_json,
                             caller=caller, cpu_delay=cpu_delay, title=title,

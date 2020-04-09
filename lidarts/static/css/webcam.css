@@ -1,0 +1,15 @@
+.outer-scoreboard-body{
+    padding: 5px 5px 5px 5px;
+}
+
+.scoreboard-name-body{
+    padding: 5px 5px 5px 5px;
+}
+
+.scoreboard-score-body{
+    padding: 5px 5px 5px 5px;
+}
+
+.turn-index{
+    font-size: 15px;
+}
