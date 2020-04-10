@@ -47,6 +47,12 @@ $(document).ready(function() {
             } else {
                 score_input_delay = ''
             }
+
+            if (public_challenge['webcam']) {
+                webcam = ' | Webcam'
+            } else {
+                webcam = ''
+            }
             
             $('#public_challenge_list').append(
                 '<p><a href="game/' + public_challenge['hashid'] + '" class="text-dark mt-2"><strong>' + public_challenge['username'] + '</strong> | '
@@ -57,6 +63,7 @@ $(document).ready(function() {
                 + two_clear_legs
                 + closest_to_bull
                 + score_input_delay
+                + webcam
                 + '</a></p>'
                 + '<hr>'
             );

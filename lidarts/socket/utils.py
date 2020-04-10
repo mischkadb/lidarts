@@ -2,7 +2,7 @@ from flask import request
 from flask_socketio import emit
 from flask_login import current_user
 from lidarts import db, avatars, socketio
-from lidarts.models import Game, Tournament, User, UserSettings, UserStatistic
+from lidarts.models import Game, Tournament, User, UserSettings, UserStatistic, WebcamSettings
 import math
 import json
 from datetime import datetime, timedelta
@@ -322,12 +322,13 @@ def broadcast_online_players(broadcast=True, room='public_chat'):
         online_players        
         .join(UserStatistic).add_columns(UserStatistic.average, UserStatistic.doubles)
         .join(UserSettings).add_columns(UserSettings.country)
+        .join(WebcamSettings, isouter=True).add_columns(WebcamSettings.activated)
         .all()
     )
 
     online_count = len(online_players)
 
-    for user, average, doubles, country in online_players:
+    for user, average, doubles, country, webcam in online_players:
         socketio.sleep(0)
         status = user.status
 
@@ -343,6 +344,7 @@ def broadcast_online_players(broadcast=True, room='public_chat'):
         statistics = {'average': average, 'doubles': doubles}
 
         country = country.lower() if country else None
+        webcam = webcam if webcam else False
 
         online_players_list.append(
             {
@@ -354,6 +356,7 @@ def broadcast_online_players(broadcast=True, room='public_chat'):
                 'statistics': statistics,
                 'country': country,
                 'is_backer': user.is_backer,
+                'webcam': webcam
             }
         )
 

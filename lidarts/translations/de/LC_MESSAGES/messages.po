@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-08 13:23+0200\n"
-"PO-Revision-Date: 2020-04-08 13:24+0200\n"
+"POT-Creation-Date: 2020-04-10 15:42+0200\n"
+"PO-Revision-Date: 2020-04-10 15:53+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -167,36 +167,53 @@ msgstr "Spiel beginnen"
 msgid "Submit message"
 msgstr "Nachricht senden"
 
-#: game/routes.py:134
+#: game/forms.py:53
+msgid "I have read the text above, understand the limitations and have a webcam setup to play."
+msgstr "Ich habe obigen Text gelesen, verstehe die Limitierungen und habe eine aufgebaute Webcam zum Spielen."
+
+#: game/forms.py:54
+msgid "(Optional) I allow my opponents to stream and record our game including my webcam video and audio."
+msgstr "(Optional) Ich erlaube meinen Gegnern unser Spiel, inklusive meinem Bild und Ton, aufzunehmen oder zu streamen."
+
+#: game/forms.py:55 templates/game/X01.html:541
+#: templates/game/X01_stream.html:423 templates/game/X01_webcam.html:360
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#: game/routes.py:141
 msgid "Public challenges must be created without an opponent name."
 msgstr "Öffentliche Herausforderungen müssen ohne Gegnernamen erstellt werden."
 
-#: game/routes.py:136 game/routes.py:144 game/routes.py:212
-#: templates/game/create_X01.html:9
+#: game/routes.py:143 game/routes.py:151 game/routes.py:172 game/routes.py:234
+#: templates/game/create_X01.html:17
 msgid "Create Game"
 msgstr "Spiel erstellen"
 
-#: game/routes.py:142
+#: game/routes.py:149
 msgid "Player does not allow challenges"
 msgstr "Spieler lässt keine Herausforderungen zu"
 
-#: game/routes.py:146
+#: game/routes.py:153
 msgid "New challenge"
 msgstr "Neue Herausforderung"
 
-#: game/routes.py:261 game/routes.py:269
+#: game/routes.py:170
+msgid "Player 2 does not have webcam games enabled."
+msgstr "Spieler 2 hat Webcamspiele nicht aktiviert."
+
+#: game/routes.py:289 game/routes.py:297
 msgid "Waiting..."
 msgstr "Warte..."
 
-#: game/routes.py:302
+#: game/routes.py:330
 msgid "Match overview"
 msgstr "Spielübersicht"
 
-#: game/routes.py:339
+#: game/routes.py:367
 msgid "Stream overlay"
 msgstr "Stream overlay"
 
-#: game/routes.py:342
+#: game/routes.py:370
 msgid "Live Match"
 msgstr "Livespiel"
 
@@ -224,8 +241,8 @@ msgstr "Live Spiele"
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:211 templates/base.html:54 templates/game/X01.html:248
-#: templates/game/X01_stream.html:130
+#: generic/routes.py:211 templates/base.html:54 templates/game/X01.html:249
+#: templates/game/X01_stream.html:130 templates/game/X01_webcam.html:166
 msgid "Chat"
 msgstr "Chat"
 
@@ -456,10 +473,12 @@ msgid "Legal notice"
 msgstr "Impressum"
 
 #: templates/game/X01.html:14 templates/game/X01_stream.html:7
+#: templates/game/X01_webcam.html:17
 msgid "Leave game"
 msgstr "Spiel verlassen"
 
 #: templates/game/X01.html:16 templates/game/X01_stream.html:8
+#: templates/game/X01_webcam.html:18
 msgid "Abort game"
 msgstr "Spiel abbrechen"
 
@@ -472,76 +491,89 @@ msgid "Change keypad position"
 msgstr "Tastaturposition umschalten"
 
 #: templates/game/X01.html:20 templates/game/X01_stream.html:11
+#: templates/game/X01_webcam.html:19
 msgid "Toggle statistics"
 msgstr "Statistiken ein/ausblenden"
 
-#: templates/game/X01.html:21
+#: templates/game/X01.html:21 templates/game/X01_webcam.html:20
 msgid "Streamoverlay"
 msgstr "Streamoverlay"
 
 #: templates/game/X01.html:22 templates/game/X01_stream.html:13
+#: templates/game/X01_webcam.html:21
 msgid "Mute caller"
 msgstr "Caller stumm"
 
 #: templates/game/X01.html:22 templates/game/X01_stream.html:13
+#: templates/game/X01_webcam.html:21
 msgid "Unmute caller"
 msgstr "Caller aktivieren"
 
-#: templates/game/X01.html:179 templates/game/X01_stream.html:57
+#: templates/game/X01.html:23
+msgid "Activate Sound (Apple)"
+msgstr "Sound aktivieren (Apple)"
+
+#: templates/game/X01.html:180 templates/game/X01_stream.html:57
+#: templates/game/X01_webcam.html:101
 msgid "Closest to bull begins. Please throw three darts at bull."
 msgstr "Ausbullen. Bitte drei Darts auf Bull werfen."
 
-#: templates/game/X01.html:180 templates/game/X01_stream.html:58
+#: templates/game/X01.html:181 templates/game/X01_stream.html:58
+#: templates/game/X01_webcam.html:102
 msgid "Local game. Player 1 throws all three darts first."
 msgstr "Lokales Spiel. Spieler 1 wirft zuerst alle drei Darts."
 
-#: templates/game/X01.html:221 templates/game/X01.html:307
+#: templates/game/X01.html:222 templates/game/X01.html:308
 #: templates/game/X01_stream.html:103 templates/game/X01_stream.html:190
+#: templates/game/X01_webcam.html:142
 msgid "Game is completed."
 msgstr "Spiel ist beendet."
 
-#: templates/game/X01.html:222 templates/game/X01.html:227
-#: templates/game/X01.html:308 templates/game/X01_stream.html:104
+#: templates/game/X01.html:223 templates/game/X01.html:228
+#: templates/game/X01.html:309 templates/game/X01_stream.html:104
 #: templates/game/X01_stream.html:109 templates/game/X01_stream.html:191
+#: templates/game/X01_webcam.html:143 templates/game/X01_webcam.html:148
 msgid "Game overview"
 msgstr "Spielübersicht"
 
-#: templates/game/X01.html:226 templates/game/X01_completed.html:12
-#: templates/game/X01_stream.html:108
+#: templates/game/X01.html:227 templates/game/X01_completed.html:12
+#: templates/game/X01_stream.html:108 templates/game/X01_webcam.html:147
 msgid "Game was aborted."
 msgstr "Spiel wurde abgebrochen."
 
-#: templates/game/X01.html:238 templates/game/X01.html:425
-#: templates/game/X01_stream.html:120 templates/game/X01_stream.html:308
-msgid "Undo last score"
-msgstr "Letzten Score ändern"
-
 #: templates/game/X01.html:239 templates/game/X01.html:426
-#: templates/game/X01_stream.html:121 templates/game/X01_stream.html:309
-msgid "Enter correct score"
-msgstr "Korrekten Score eingeben"
+#: templates/game/X01_stream.html:120 templates/game/X01_stream.html:308
+#: templates/game/X01_webcam.html:159
+msgid "Undo last score"
+msgstr "Score rückgängig"
 
-#: templates/game/X01.html:245 templates/game/X01_stream.html:127
+#: templates/game/X01.html:240 templates/game/X01.html:427
+#: templates/game/X01_stream.html:121 templates/game/X01_stream.html:309
+#: templates/game/X01_webcam.html:160
+msgid "Enter correct score"
+msgstr "Korrektur eingeben"
+
+#: templates/game/X01.html:246 templates/game/X01_stream.html:127
 msgid "Keypad"
 msgstr "Tastatur"
 
-#: templates/game/X01.html:514 templates/game/X01_stream.html:397
+#: templates/game/X01.html:515 templates/game/X01_stream.html:397
+#: templates/game/X01_webcam.html:334
 msgid "How many darts missed at double?"
 msgstr "Wieviele Darts auf Doppel verfehlt?"
 
-#: templates/game/X01.html:527 templates/game/X01_stream.html:410
+#: templates/game/X01.html:528 templates/game/X01_stream.html:410
+#: templates/game/X01_webcam.html:347
 msgid "How many darts to finish?"
 msgstr "Wieviele Darts für den Checkout?"
 
-#: templates/game/X01.html:539 templates/game/X01_stream.html:422
+#: templates/game/X01.html:540 templates/game/X01_stream.html:422
+#: templates/game/X01_webcam.html:359
 msgid "Abort game?"
 msgstr "Spiel abbrechen?"
 
-#: templates/game/X01.html:540 templates/game/X01_stream.html:423
-msgid "Confirm"
-msgstr "Bestätigen"
-
-#: templates/game/X01.html:541 templates/game/X01_stream.html:424
+#: templates/game/X01.html:542 templates/game/X01_stream.html:424
+#: templates/game/X01_webcam.html:361
 msgid "Cancel"
 msgstr "Zurück"
 
@@ -583,11 +615,19 @@ msgstr "Kürzestes Leg"
 msgid "Normal theme"
 msgstr "Normales Theme"
 
-#: templates/game/create_X01.html:16
+#: templates/game/create_X01.html:7
+msgid "Try out webcam games"
+msgstr "Teste Spiel mit Webcam"
+
+#: templates/game/create_X01.html:19
+msgid "with webcam (experimental)"
+msgstr "mit Webcam (experimentell)"
+
+#: templates/game/create_X01.html:27
 msgid "Game Mode"
 msgstr "Spielmodus"
 
-#: templates/game/create_X01.html:112
+#: templates/game/create_X01.html:123
 msgid "Blocks score input after new score. In seconds."
 msgstr "Blockiert Punkteeingabe nach jedem Score. In Sekunden."
 
@@ -623,6 +663,39 @@ msgstr "Warte hier. Das Verlassen der Seite bricht die Herausforderung ab."
 #: templates/game/wait_for_opponent_public_challenge.html:20
 msgid "Click to join another public challenge:"
 msgstr "Klicke, um eine andere öffentliche Herausforderung anzunehmen:"
+
+#: templates/game/webcam_consent.html:9
+msgid "Webcam games"
+msgstr "Spiel mit Webcam"
+
+#: templates/game/webcam_consent.html:15
+msgid "Lidarts offers X01 webcam games between two players in an experimental testing stage. We currently try an external service for video and audio communication called Jitsi."
+msgstr "Lidarts ermöglicht X01 Spiele mit Webcam zwischen zwei Spielern in einer experimentellen Phase. Derzeit testen wir Jitsi als externe Plattform für Video- und Audiokommunikation."
+
+#: templates/game/webcam_consent.html:16
+msgid "In order to play you need a webcam pointed towards your dart board and a desktop PC with a modern browser, e.g. Google Chrome or Firefox."
+msgstr "Um spielen zu können brauchst du eine Webcam, die auf dein Dartboard ausgerichtet ist, sowie einen Desktop-PC mit modernem Browser wie Google Chrome oder Firefox."
+
+#: templates/game/webcam_consent.html:17
+msgid "Mobile devices are not supported. We currently also provide no support for setup. You can try \n"
+"                        Jitsi Meet "
+msgstr "Mobile Geräte werden nicht unterstützt. Wir können derzeit auch keine Hilfe beim Aufbau bereitstellen. Testen kannst du Jitsi Meet "
+
+#: templates/game/webcam_consent.html:18
+msgid "here"
+msgstr "hier"
+
+#: templates/game/webcam_consent.html:18
+msgid "If you do not get your webcam to work there it will not work on Lidarts either."
+msgstr "Wenn deine Webcam dort nicht funktioniert, dann wird sie auch auf Lidarts nicht funktionieren."
+
+#: templates/game/webcam_consent.html:19
+msgid "Although there is no ruleset for webcam play yet we call on your fairness and sportsmanship."
+msgstr "Obwohl es noch kein festes Regelwerk für Webcamspiele gibt appellieren wir an deine Fairness und sportliches Verhalten."
+
+#: templates/game/webcam_consent.html:20
+msgid "We need feedback in order to improve webcam play in the future. We encourage you to send your experience via email at contact@lidarts.org"
+msgstr "Wir brauchen Rückmeldungen, um das Spielen mit Webcams in Zukunft zu verbessern. Gerne kannst du uns deine Erfahrungen per E-Mail an contact@lidarts.org schicken."
 
 #: templates/generic/404.html:10
 msgid "404 Error"

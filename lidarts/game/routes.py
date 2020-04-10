@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for, jsonify, request, flash
 from flask_babelex import lazy_gettext, gettext
 from lidarts.game import bp
-from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm
-from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings, Tournament
+from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm, WebcamConsentForm
+from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings, Tournament, WebcamSettings
 from lidarts import db
 from lidarts.socket.public_challenge_handler import broadcast_public_challenges
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
@@ -21,7 +21,7 @@ import secrets
 @bp.route('/create/tournament/<tournament_hashid>', methods=['GET', 'POST'])
 @bp.route('/create/tournament/<tournament_hashid>/<opponent_name>', methods=['GET', 'POST'])
 @login_required
-def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=False):
+def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=None):
     if mode == 'x01':
         preset = X01Presetting.query.filter_by(user=current_user.id).first()
         if not preset:
@@ -123,7 +123,12 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=False)
         form.tournament.choices = tournament_choices[::-1]
     else:
         pass  # no other game modes yet
-    
+
+    if webcam:
+        webcam_query = WebcamSettings.query.filter_by(user=current_user.id).first()
+        if not webcam_query:
+            return redirect(url_for('game.webcam_consent'))
+
     if form.validate_on_submit():
         player1 = current_user.id if current_user.is_authenticated else None
         if player1 and form.opponent.data == 'local':
@@ -158,8 +163,19 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=False)
             player2 = None
             status = 'started'
 
-        webcam = True if webcam else False
-        jitsi_hashid = secrets.token_urlsafe(8)[:8] if webcam else None
+        if webcam:
+            if player2:
+                webcam_player2 = WebcamSettings.query.filter_by(user=player2).first()
+                if not webcam_player2 or not webcam_player2.activated:
+                    flash(gettext('Player 2 does not have webcam games enabled.'), 'danger')
+                    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
+                            webcam=webcam, title=lazy_gettext('Create Game'))
+
+            webcam = True
+            jitsi_hashid = secrets.token_urlsafe(8)[:8]
+        else:
+            webcam = False
+            jitsi_hashid = None
 
         tournament = form.tournament.data if form.tournament.data != '-' else None
 
@@ -215,7 +231,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=False)
         db.session.commit()
         return redirect(url_for('game.start', hashid=game.hashid))
     return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
-                           title=lazy_gettext('Create Game'))
+                           title=lazy_gettext('Create Game'), webcam=webcam)
 
 
 @bp.route('/<hashid>/statistics/<set_>/<leg>')
@@ -237,6 +253,12 @@ def start(hashid, theme=None):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
     # check if we found an opponent, logged in users only
     if game.status == 'challenged' and current_user.is_authenticated and current_user.id != game.player1:
+        # Check webcam consent
+        if game.webcam:
+            webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
+            if not webcam_settings or not webcam_settings.activated:
+                return redirect(url_for('game.webcam_consent'))
+
         if not game.player2 or game.player2 == current_user.id:
             game.player2 = current_user.id
             game.status = 'started'
@@ -349,12 +371,15 @@ def start(hashid, theme=None):
 
     if game.webcam and current_user.is_authenticated and current_user.id in (game.player1, game.player2):
         template = 'game/X01_webcam.html'
+        webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
+    else:
+        webcam_settings = None
 
     return render_template(template, game=game_dict, form=form, match_json=match_json,
                             caller=caller, cpu_delay=cpu_delay, title=title,
                             chat_form=chat_form, chat_form_small=chat_form_small,
                             messages=messages, user_names=user_names,
-                            settings=settings)
+                            settings=settings, webcam_settings=webcam_settings)
 
 
 @bp.route('/decline_challenge/')
@@ -388,3 +413,21 @@ def abort_game(hashid):
     broadcast_game_aborted(game)
     db.session.commit()
     return redirect(url_for('generic.lobby'))
+
+
+@bp.route('/webcam_consent', methods=['GET', 'POST'])
+def webcam_consent():
+    webcam_query = WebcamSettings.query.filter_by(user=current_user.id).first()
+    if webcam_query:
+        return redirect(url_for('game.create', webcam=True))
+    form = WebcamConsentForm()
+    if form.validate_on_submit():
+        webcam_consent = WebcamSettings(
+            user=current_user.id,
+            activated=True,
+            stream_consent=form.stream_consent.data
+        )
+        db.session.add(webcam_consent)
+        db.session.commit()
+        return redirect(url_for('game.create', webcam=True))
+    return render_template('game/webcam_consent.html', form=form)

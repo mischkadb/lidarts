@@ -1,21 +1,32 @@
 {% extends "base.html" %}
 
 {% block app_content %}
+{% if not webcam %}
+<div class="row d-none d-lg-block">
+    <div class="col-12 text-center">
+        <h3><a href="{{ url_for('game.create', webcam=True) }}">{{ _('Try out webcam games') }}</a></h3>
+    </div>
+</div>
+{% endif %}
+
 <div class="row justify-content-center mb-2">
-    <div class="col-sm-6 text-center">
+    <div class="col-12 col-md-6 text-center">
         <div class="card">
             <div class="card-body">
                 <div class="row justify-content-center">
                     <h1>{{ _('Create Game') }}</h1>
+                    {% if webcam %}
+                    <h3 class="text-warning">{{ _('with webcam (experimental)') }}</h3>
+                    {% endif %}
                 </div>
 
                 <hr>
 
                 <div class="row justify-content-center text-secondary">
-                    <div class="col-sm-6 text-right align-self-center ">
+                    <div class="col-6 text-right align-self-center ">
                         {{ _('Game Mode') }}:
                     </div>
-                    <div class="col-sm-6 align-self-center text-left">
+                    <div class="col-6 align-self-center text-left">
                         <div class="dropdown show">
                             <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 X01
@@ -36,7 +47,7 @@
     {{ form.hidden_tag() }}
 
     <div class="row justify-content-center text-secondary">
-        <div class="col-md-4 col-sm-6">
+        <div class="col-lg-4 col-sm-6">
             <div class="card">
                 <div class="card-body">
                     <p>{{ form.type.label(class="control-label") }}:
@@ -70,7 +81,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-sm-6">
+        <div class="col-lg-4 col-sm-6">
             <div class="card">
                 <div class="card-body">
                     <p>{{ form.bo_sets.label(class="col-form-label") }}:
@@ -93,7 +104,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-sm-6 mb-sm-1">
+        <div class="col-lg-4 col-sm-6 mb-sm-1">
             <div class="card">
                 <div class="card-body">
                     <p>{{ form.starter.label(class="col-form-label") }}:

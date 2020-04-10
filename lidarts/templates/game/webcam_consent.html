@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div class="row justify-content-center mb-2">
+    <div class="col-12 col-md-10 text-center">
+        <div class="card">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <h1>{{ _('Webcam games') }}</h1>
+                </div>
+
+                <hr>
+
+                <div class="row text-left text-secondary">
+                    <p>{{ _('Lidarts offers X01 webcam games between two players in an experimental testing stage. We currently try an external service for video and audio communication called Jitsi.') }}</p>
+                    <p>{{ _('In order to play you need a webcam pointed towards your dart board and a desktop PC with a modern browser, e.g. Google Chrome or Firefox.') }}</p>
+                    <p>{{ _('Mobile devices are not supported. We currently also provide no support for setup. You can try 
+                        Jitsi Meet ') }} <a href="https://meet.jit.si/">{{ _('here') }}</a>. {{ _('If you do not get your webcam to work there it will not work on Lidarts either.') }}</p>
+                    <p>{{ _('Although there is no ruleset for webcam play yet we call on your fairness and sportsmanship.') }}</p>
+                    <p>{{ _('We need feedback in order to improve webcam play in the future. We encourage you to send your experience via email at contact@lidarts.org') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="" method="post" class="form-horizontal">
+    {{ form.hidden_tag() }}
+
+    <div class="row justify-content-center text-secondary">
+        <div class="col-md-10 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <p>
+                        <div class="custom-control custom-checkbox">
+                        {{ form.webcam_consent(class="custom-control-input") }}
+                        {{ form.webcam_consent.label(class="custom-control-label") }}
+                        </div>
+                        {% if form.webcam_consent.errors %}
+                            {% for error in form.webcam_consent.errors %}
+                            <p class="text-danger">{{ error }}</p>
+                            {% endfor %}                            
+                        {% endif %}
+                    </p>
+
+                    <p>
+                        <div class="custom-control custom-checkbox">
+                        {{ form.stream_consent(class="custom-control-input") }}
+                        {{ form.stream_consent.label(class="custom-control-label") }}
+                        </div>
+                    </p>
+
+                    <div class="row justify-content-center text-center">
+                        {{ form.submit(class="btn btn-lg btn-info") }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+{% endblock %}

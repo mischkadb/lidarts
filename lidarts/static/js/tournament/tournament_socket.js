@@ -52,10 +52,16 @@ $(document).ready(function() {
 
             if (msg['players'][user]['is_backer']) {
                 online_status_icon = '<i title="Lidarts backer" class="fas fa-star '
-                backer_name_icon = '<i title="Lidarts backer" class="fas fa-star"></i>'
+                backer_name_icon = '<i title="Lidarts backer" class="fas fa-star fa-xs"></i>'
             } else {
                 online_status_icon = '<i class="fas fa-circle '
                 backer_name_icon = ''
+            }
+
+            if (msg['players'][user]['webcam']) {
+                webcam_icon = '<i title="Can play with webcam" class="fas fa-camera fa-xs"></i>'
+            } else {
+                webcam_icon = ''
             }
 
             $('#online_players').append('<div class="card"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
@@ -64,6 +70,7 @@ $(document).ready(function() {
                 + flag
                 + backer_name_icon
                 + msg['players'][user]['username'] + '</a></strong> '
+                + webcam_icon + ' '
                 + player_average);
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
             if (user_id == msg['players'][user]['id']) {

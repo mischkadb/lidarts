@@ -47,3 +47,9 @@ class CreateX01GameForm(FlaskForm):
 class GameChatmessageForm(FlaskForm):
     message = StringField('Message', validators=[DataRequired(), Length(max=500)])
     submit = SubmitField(lazy_gettext('Submit message'))
+
+
+class WebcamConsentForm(FlaskForm):
+    webcam_consent = BooleanField(lazy_gettext('I have read the text above, understand the limitations and have a webcam setup to play.'), validators=[DataRequired()], default=False)
+    stream_consent = BooleanField(lazy_gettext('(Optional) I allow my opponents to stream and record our game including my webcam video and audio.'), default=False)
+    submit = SubmitField(lazy_gettext('Confirm'))

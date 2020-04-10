@@ -276,3 +276,11 @@ class Tournament(db.Model):
     def __init__(self, **kwargs):
         super(Tournament, self).__init__(**kwargs)
         self.hashid = secrets.token_urlsafe(8)[:8]
+
+
+class WebcamSettings(db.Model):
+    __tablename__ = 'webcam_settings'
+    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    activated = db.Column(db.Boolean, default=False)
+    stream_consent = db.Column(db.Boolean, default=False)
+    flip_preview = db.Column(db.Boolean, default=True)
