@@ -8,7 +8,7 @@ $(document).ready(function() {
     }
 
     configoverwrite = {
-        disableLocalVideoFlip: flip,
+        disableLocalVideoFlip: true,
     }
 
     ifaceoverwrite = {
@@ -22,6 +22,8 @@ $(document).ready(function() {
         AUTHENTICATION_ENABLE: false,
         DISABLE_RINGING: true,
         MOBILE_APP_PROMO: false,
+        DISPLAY_WELCOME_PAGE_CONTENT: false,
+        DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
     }
 
     const domain = 'meet.jit.si';
