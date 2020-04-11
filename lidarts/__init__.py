@@ -149,6 +149,9 @@ def create_app(test_config=None):
         dashboard.bind(app)
 
     # Load all blueprints
+    from lidarts.api import bp as api_bp
+    app.register_blueprint(api_bp)
+
     from lidarts.generic import bp as generic_bp
     app.register_blueprint(generic_bp)
 
