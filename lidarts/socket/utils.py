@@ -320,8 +320,8 @@ def broadcast_online_players(broadcast=True, room='public_chat'):
 
     online_players = (
         online_players        
-        .join(UserStatistic).add_columns(UserStatistic.average, UserStatistic.doubles)
-        .join(UserSettings).add_columns(UserSettings.country)
+        .join(UserStatistic, isouter=True).add_columns(UserStatistic.average, UserStatistic.doubles)
+        .join(UserSettings, isouter=True).add_columns(UserSettings.country)
         .join(WebcamSettings, isouter=True).add_columns(WebcamSettings.activated)
         .all()
     )
@@ -341,6 +341,8 @@ def broadcast_online_players(broadcast=True, room='public_chat'):
             online_count -= 1
 
         avatar = avatars.url(f'{user.id}_thumbnail.jpg') if user.avatar else avatars.url('default.png')
+        average = average if average else 0
+        doubles = doubles if doubles else 0
         statistics = {'average': average, 'doubles': doubles}
 
         country = country.lower() if country else None
