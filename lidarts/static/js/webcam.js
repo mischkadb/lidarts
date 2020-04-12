@@ -8,7 +8,7 @@ $(document).ready(function() {
     }
 
     configoverwrite = {
-        disableLocalVideoFlip: true,
+        disableLocalVideoFlip: flip,
     }
 
     ifaceoverwrite = {
@@ -31,7 +31,6 @@ $(document).ready(function() {
         roomName: 'lidarts-' + hashid,
         parentNode: document.querySelector('#meet'),
         noSSL: false,
-        height: 800,
         configOverwrite: configoverwrite,
         interfaceConfigOverwrite: ifaceoverwrite,
     };
