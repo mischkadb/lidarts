@@ -15,6 +15,7 @@ $(document).ready(function() {
         TOOLBAR_BUTTONS: [ 'microphone', 'camera', 
         'fodeviceselection', 
         'settings',
+        'tileview',
         'videoquality'],
         GENERATE_ROOMNAMES_ON_WELCOME_PAGE: false,
         DISPLAY_WELCOME_PAGE_CONTENT: false,

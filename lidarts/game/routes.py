@@ -369,22 +369,22 @@ def start(hashid, theme=None):
         )
 
     if theme:
-        template = 'game/X01_stream.html'
         title = lazy_gettext('Stream overlay')
     else:
-        template = 'game/X01.html'
         title = lazy_gettext('Live Match')
 
     if game.webcam and current_user.is_authenticated and current_user.id in (game.player1, game.player2):
         template = 'game/X01_webcam.html'
         webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
     else:
+        template = 'game/X01.html'
         webcam_settings = None
 
     return render_template(template, game=game_dict, form=form, match_json=match_json,
                             caller=caller, cpu_delay=cpu_delay, title=title,
                             chat_form=chat_form, chat_form_small=chat_form_small,
                             messages=messages, user_names=user_names,
+                            stream=theme,
                             settings=settings, webcam_settings=webcam_settings)
 
 

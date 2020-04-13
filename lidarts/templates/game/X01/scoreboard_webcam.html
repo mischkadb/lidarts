@@ -1,0 +1,61 @@
+
+        <!-- PLAYERS AND SCORES-->
+        <div class="row justify-content-center align-items-center text-light">
+            <div class="col-6">
+                <div class="card text-center bg-dark player_turn p1_turn_outer_card" id="p1_turn_outer_card">
+                    <div class="card-body outer-scoreboard-body">
+                        <div class="card bg-secondary text-center mb-1 p1_turn_name_card" id="p1_turn_name_card">
+                            <div class="card-body scoreboard-name-body">
+                                <h3>{{ game.player1_name }}</h3>
+                            </div>
+                        </div>
+
+                        <div class="card bg-danger text-center p1_turn_score_card" id="p1_turn_score_card">
+                            <div class="card-body scoreboard-score-body">                                              
+                                <p class="card-text">
+                                    <div class="d-flex d-row justify-content-between">
+                                        <div class="d-flex d-column h4 align-self-center" style="width: 30px;">
+                                            <i class="fas fa-play-circle  p1_leg_start_indicator" style="display:none"></i>
+                                        </div>
+                                        <div class="d-flex d-column" style="height: 84px;">
+                                            <span id="p1_score" class="h1 p1_score text-center font-weight-bold d-flex d-column h-100" >-</span>
+                                        </div>
+                                        <div clas="d-flex d-column" style="width: 30px;"></div>
+                                    </div>
+                                </p>
+                                <p><span class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PLAYER 2 NAME AND SCORE -->
+            <div class="col-6">
+                <div class="card text-center bg-dark player_turn p2_turn_outer_card" id="p2_turn_outer_card">
+                    <div class="card-body outer-scoreboard-body">
+                        <div class="card bg-secondary text-center text-light mb-1 p2_turn_name_card" id="p2_turn_name_card">
+                            <div class="card-body scoreboard-name-body">
+                                <h3>{{ game.player2_name }}</h3>
+                            </div>
+                        </div>
+                        <div class="card bg-danger text-center p2_turn_score_card" id="p2_turn_score_card">
+                            <div class="card-body scoreboard-score-body">
+                                <p class="card-text">
+                                    <div class="d-flex d-row justify-content-between">
+                                        <div class="d-flex d-column h4 align-self-center" style="width: 30px;">
+                                            <i class="fas fa-play-circle p2_leg_start_indicator" style="display:none"></i>
+                                        </div>
+                                        <div class="d-flex d-column" style="height: 84px;">
+                                            <span id="p2_score" class="h1 p2_score text-center font-weight-bold d-flex d-column h-100" >-</span>
+                                        </div>
+                                        <div clas="d-flex d-column" style="width: 30px;"></div>
+                                    </div>
+                                </p>
+                                <p><span class="p2_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
