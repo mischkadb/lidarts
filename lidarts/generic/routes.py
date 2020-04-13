@@ -420,6 +420,11 @@ def notifications_read():
     return jsonify('success')
 
 
+@bp.route('/faq')
+def faq():
+    return render_template('generic/faq.html')
+
+
 @bp.before_app_first_request
 def before_first_request():
     """Set all users to offline and resets socket connection counter."""

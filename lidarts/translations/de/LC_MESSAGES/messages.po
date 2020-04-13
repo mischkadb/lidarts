@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-10 15:42+0200\n"
-"PO-Revision-Date: 2020-04-10 15:53+0200\n"
+"POT-Creation-Date: 2020-04-12 21:22+0200\n"
+"PO-Revision-Date: 2020-04-12 21:36+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -307,51 +307,51 @@ msgstr "Land"
 msgid "Match History"
 msgstr "Spielverlauf"
 
-#: profile/routes.py:110 templates/base.html:97
+#: profile/routes.py:114 templates/base.html:97
 msgid "Profile"
 msgstr "Profil"
 
-#: profile/routes.py:126
+#: profile/routes.py:130
 msgid "Profile text saved."
 msgstr "Profiltext gespeichert."
 
-#: profile/routes.py:181
+#: profile/routes.py:185
 msgid "Manage Friend List"
 msgstr "Freundesliste verwalten"
 
-#: profile/routes.py:193
+#: profile/routes.py:197
 msgid "Avatar deleted."
 msgstr "Avatar gelöscht"
 
-#: profile/routes.py:207
+#: profile/routes.py:211
 msgid "Wrong image format."
 msgstr "Falsches Bildformat."
 
-#: profile/routes.py:216
+#: profile/routes.py:220
 msgid "Avatar saved."
 msgstr "Avatar gespeichert"
 
-#: profile/routes.py:221
+#: profile/routes.py:225
 msgid "Avatar Settings"
 msgstr "Avatar einstellen"
 
-#: profile/routes.py:232
+#: profile/routes.py:236
 msgid "Caller Settings"
 msgstr "Caller einstellen"
 
-#: profile/routes.py:243
+#: profile/routes.py:247
 msgid "Trainer Delay"
 msgstr "Trainerverzögerung einstellen"
 
-#: profile/routes.py:261 profile/routes.py:274
+#: profile/routes.py:265 profile/routes.py:278
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: profile/routes.py:268
+#: profile/routes.py:272
 msgid "You can only change your country setting once per month. You need to wait until: "
 msgstr "Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte warte bis: "
 
-#: profile/routes.py:269 profile/routes.py:285
+#: profile/routes.py:273 profile/routes.py:289
 #: templates/profile/general_settings.html:13 templates/profile/settings.html:5
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
@@ -393,7 +393,7 @@ msgid "Watch"
 msgstr "Zuschauen"
 
 #: templates/base.html:48 templates/base.html:55
-#: templates/profile/overview.html:96
+#: templates/profile/overview.html:130
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -449,26 +449,30 @@ msgid "Contact"
 msgstr "Kontakt"
 
 #: templates/base.html:133
+msgid "FAQ"
+msgstr "FAQ"
+
+#: templates/base.html:134
 msgid "Contribute"
 msgstr "Mitmachen"
 
-#: templates/base.html:134
+#: templates/base.html:135
 msgid "Changelog"
 msgstr "Changelog"
 
-#: templates/base.html:135
+#: templates/base.html:136
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: templates/base.html:136
+#: templates/base.html:137
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: templates/base.html:137
+#: templates/base.html:138
 msgid "Terms & Conditions"
 msgstr "AGB"
 
-#: templates/base.html:139
+#: templates/base.html:140
 msgid "Legal notice"
 msgstr "Impressum"
 
@@ -889,6 +893,130 @@ msgstr "oder"
 msgid "contact me"
 msgstr "kontaktiere mich"
 
+#: templates/generic/faq.html:6
+msgid "Frequently Asked Questions"
+msgstr "Häufig gestellte Fragen"
+
+#: templates/generic/faq.html:8
+msgid "What do I need to play?"
+msgstr "Was benötige ich, um zu spielen?"
+
+#: templates/generic/faq.html:9
+msgid "To play you need a computer or a mobile device with a modern browser. Obviously you also need a darts setup."
+msgstr "Zum Spielen wird ein Computer oder mobiles Gerät mit einem modernen Browser benötigt. Zusätzlich benötigt man ein Setup zum Darts spielen."
+
+#: templates/generic/faq.html:11
+msgid "How do I find someone to play?"
+msgstr "Wie finde ich jemanden zum Spielen?"
+
+#: templates/generic/faq.html:12
+msgid "If you did not arrange a game with someone yet there are two easy options: Either join the chat and ask/look for a game there, or you can set up a public challenge when creating a game which will be visible to everyone else."
+msgstr "Wenn noch kein Spiel mit jemandem arrangiert wurde, gibt es zwei einfache Optionen: Entweder über den Chat nach einem Spiel fragen/suchen oder eine öffentliche Herausforderung bei der Spielerstellung auswählen, die dann für alle anderen sichtbar ist."
+
+#: templates/generic/faq.html:14
+msgid "How does 'closest to bull' work?"
+msgstr "Wie funktioniert das Ausbullen?"
+
+#: templates/generic/faq.html:15
+msgid "In order to determine the starting player you throw three darts at bull. Enter and submit each dart score individually in order of throw. Darts outside of bull count as 0. The first better result over the other player begins. This means that for example 25-0-0 beats 0-50-50 as player 1 had a better result with an earlier dart."
+msgstr "Um den Startspieler zu bestimmen werden drei Darts aufs Bull geworfen. Jeden Dart-Score einzeln in der Reihenfolge des Wurfs eingeben und abschicken. Darts außerhalb des Bulls zählen als 0. Das erste bessere Ergebnis gegenüber dem anderen Spieler beginnt. Das bedeutet, dass zum Beispiel 25-0-0 besser als 0-50-50 ist, da Spieler 1 ein besseres Ergebnis mit einem früheren Dart hatte."
+
+#: templates/generic/faq.html:17
+msgid "Can I play cricket or other variants?"
+msgstr "Kann ich Cricket oder andere Varianten spielen?"
+
+#: templates/generic/faq.html:18
+msgid "Currently only X01 games are available. Cricket will be available soon. More dart games might follow."
+msgstr "Derzeit sind nur X01-Spiele verfügbar. Cricket wird in Kürze verfügbar sein. Weitere Dart-Spiele könnten folgen."
+
+#: templates/generic/faq.html:20
+msgid "Can I use my webcam and see my opponent's throw?"
+msgstr "Kann ich meine Webcam verwenden und den Wurf meines Gegners sehen?"
+
+#: templates/generic/faq.html:21
+msgid "Lidarts supports experimental webcam games over Jitsi Meet, a video conferencing service. You can also play without a webcam based on trust."
+msgstr "Lidarts unterstützt experimentelle Webcam-Spiele über Jitsi Meet, einen Videokonferenzdienst. Man kann auch ohne Webcam auf vertrauensbasis spielen."
+
+#: templates/generic/faq.html:23
+msgid "How do I set up my webcam?"
+msgstr "Wie richte ich meine Webcam ein?"
+
+#: templates/generic/faq.html:24
+msgid "You need to connect your webcam (or smartphone with appropiate software) to your computer. Before your first game you have to agree to the current"
+msgstr "Die Webcam (oder Smartphone mit entsprechender Software) muss mit dem Computer verbunden werden. Vor Ihrem ersten Spiel muss man dem"
+
+#: templates/generic/faq.html:24
+msgid "webcam service notice"
+msgstr "Webcam-Hinweistext zustimmen"
+
+#: templates/generic/faq.html:24
+msgid "Create a game normally on the webcam page afterwards."
+msgstr "Erstelle danach ein Spiel über den Webcambereich."
+
+#: templates/generic/faq.html:26
+msgid "Can I play steel and/or e-darts?"
+msgstr "Kann ich Steel und/oder E-Darts spielen?"
+
+#: templates/generic/faq.html:27
+msgid "Both variants are welcome to play on Lidarts."
+msgstr "Beide Varianten sind auf Lidarts willkommen."
+
+#: templates/generic/faq.html:29
+msgid "Can I host and play in tournaments?"
+msgstr "Kann ich Turniere veranstalten bzw. in Turnieren spielen?"
+
+#: templates/generic/faq.html:30
+msgid "Currently tournament organizers can create a separate room with a tournament-specific chat, user list and result box. For brackets you need to use an external service. It will be possible to automate tournaments on Lidarts soon."
+msgstr "Derzeit können Turnierveranstalter einen eigenen Raum mit einem Chat, Spielerliste und Ergebnisübersicht erstellen. Das Turnierbracket muss extern verwaltet werden. Es wird demnächst auch möglich sein, Turniere auf Lidarts zu automatisieren."
+
+#: templates/generic/faq.html:32
+msgid "How do I send private messages?"
+msgstr "Wie versende ich private Nachrichten?"
+
+#: templates/generic/faq.html:33
+msgid "Open your inbox, enter the recipient's username in the box below and compose a new message."
+msgstr "Öffne den Posteingang, gib den Benutzernamen des Empfängers in das Feld unten ein und verfasse eine neue Nachricht."
+
+#: templates/generic/faq.html:35
+msgid "How do I add someone to my friend list?"
+msgstr "Wie füge ich jemanden zu meiner Freundesliste hinzu?"
+
+#: templates/generic/faq.html:36
+msgid "You need to know your friend's username. Use the user search box in the lobby to find his profile. Click the friend request link there and wait for him to confirm."
+msgstr "Du musst den Benutzernamen des Freundes kennen. Verwende das Suchfeld in der Lobby, um sein Profil zu finden. Klicke dort auf den Link für die Freundschaftsanfrage und warte, bis er dies bestätigt."
+
+#: templates/generic/faq.html:38
+msgid "Where can I change my country flag / caller voice / username / password etc."
+msgstr "Wo kann ich meine Länderflagge / Caller-Stimme / Benutzername / Passwort usw. ändern."
+
+#: templates/generic/faq.html:39
+msgid "In your profile there is a settings button with lots of options. We highly recommend to look through the options before you play."
+msgstr "Im Profil gibt es einen Button für die Einstellungen mit vielen Optionen. Es wird empfohlen, sich die Optionen vor dem ersten Spiel anzusehen."
+
+#: templates/generic/faq.html:41
+msgid "My opponent throws so fast. What can I do?"
+msgstr "Mein Gegner wirft so schnell. Was kann ich tun?"
+
+#: templates/generic/faq.html:42
+msgid "There are usually two types of online players: Those who wait for their opponent to throw and those who don't. If you feel stressed you can set up an input block time upon game creating. We recommend between 5 and 10 seconds."
+msgstr "Es gibt in der Regel zwei Arten von Online-Spielern: Diejenigen, die darauf warten, dass der Gegner wirft, und diejenigen, die es nicht tun. Wenn du dich gestresst fühlst, kannst du eine Eingabeblockzeit in der Spielerstellung einstellen. Wir empfehlen zwischen 5 und 10 Sekunden."
+
+#: templates/generic/faq.html:44
+msgid "What do the status colors mean?"
+msgstr "Was bedeuten die Statusfarben?"
+
+#: templates/generic/faq.html:45
+msgid "Players can set most of these statuses manually. Green = online, yellow = Not available, purple = Looking for game, blue = currently playing, grey = offline."
+msgstr "Spieler können die meisten dieser Stati manuell festlegen. Grün = online, gelb = Nicht verfügbar, violett = Spielsuche, blau = aktuell im Spiel, grau = offline."
+
+#: templates/generic/faq.html:47
+msgid "I found a bug / have a question or feature request / someone is cheating."
+msgstr "Ich habe einen Fehler gefunden/ haben eine Frage oder einen Vorschlag / jemand betrügt."
+
+#: templates/generic/faq.html:48
+msgid "Contact us."
+msgstr "Kontaktiere uns."
+
 #: templates/generic/inbox.html:26
 msgid "Enter name"
 msgstr "Namen eingeben"
@@ -918,8 +1046,12 @@ msgid "forever free online darts website."
 msgstr "für immer kostenlose Onlinedarts-Webseite."
 
 #: templates/generic/index.html:9
-msgid "Lidarts.org is still in beta. It may be slow, unreliable or crash at any time. The website is actively worked on to add new features and improve the experience."
-msgstr "Lidarts.org befindet sich noch in der Beta-Phase. Die Seite kann langsam oder unzuverlässig sein bzw. jederzeit abstürzen. Es wird kontinuierlich an der Seite gearbeitet, um neue Funktionen hinzuzufügen und das Erlebnis zu verbessern."
+msgid "Play darts against real opponents. With a webcam or without. Or train against the computer."
+msgstr "Spiele Darts gegen echte Gegner. Mit einer Webcam oder ohne. Oder trainiere gegen den Computer."
+
+#: templates/generic/index.html:9
+msgid "No costs, no ads, no trackers."
+msgstr "Keine Kosten, keine Werbung, keine Tracker."
 
 #: templates/generic/index.html:12
 msgid "Learn more"
@@ -1070,7 +1202,15 @@ msgstr "Anzahl Spiele:"
 msgid "Darts thrown:"
 msgstr "Darts geworfen:"
 
-#: templates/profile/overview.html:97
+#: templates/profile/overview.html:95
+msgid "Winrates (501 SI/DO)"
+msgstr "Siegquote (501 SI/DO)"
+
+#: templates/profile/overview.html:96
+msgid "(grouped by opponent average)"
+msgstr "(gruppiert nach Average des Gegners)"
+
+#: templates/profile/overview.html:131
 msgid "X01"
 msgstr "X01"
 
@@ -1589,3 +1729,18 @@ msgstr "Turniereinstellungen"
 
 #~ msgid "Send friend request"
 #~ msgstr "Freundschaftsanfrage senden"
+
+#~ msgid ""
+#~ "Lidarts.org is still in beta. It "
+#~ "may be slow, unreliable or crash "
+#~ "at any time. The website is "
+#~ "actively worked on to add new "
+#~ "features and improve the experience."
+#~ msgstr ""
+#~ "Lidarts.org befindet sich noch in der"
+#~ " Beta-Phase. Die Seite kann langsam"
+#~ " oder unzuverlässig sein bzw. jederzeit "
+#~ "abstürzen. Es wird kontinuierlich an der"
+#~ " Seite gearbeitet, um neue Funktionen "
+#~ "hinzuzufügen und das Erlebnis zu "
+#~ "verbessern."

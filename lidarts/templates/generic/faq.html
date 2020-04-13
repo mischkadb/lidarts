@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+    <div class="container">
+        <h2>{{ _('Frequently Asked Questions' )}}</h2>
+        <hr class="my-4">
+        <h4 class="mt-2 anchor" id="What do I need to play">{{ _('What do I need to play?') }}</h4>
+        <p>{{ _('To play you need a computer or a mobile device with a modern browser. Obviously you also need a darts setup.') }}</p>
+
+        <h4 class="mt-4">{{ _('How do I find someone to play?') }}</h4>
+        <p>{{ _('If you did not arrange a game with someone yet there are two easy options: Either join the chat and ask/look for a game there, or you can set up a public challenge when creating a game which will be visible to everyone else.') }}</p>
+
+        <h4 class="mt-4">{{ _('How does \'closest to bull\' work?') }}</h4>
+        <p>{{ _('In order to determine the starting player you throw three darts at bull. Enter and submit each dart score individually in order of throw. Darts outside of bull count as 0. The first better result over the other player begins. This means that for example 25-0-0 beats 0-50-50 as player 1 had a better result with an earlier dart.') }}</p>
+
+        <h4 class="mt-4">{{ _('Can I play cricket or other variants?') }}</h4>
+        <p>{{ _('Currently only X01 games are available. Cricket will be available soon. More dart games might follow.') }}</p>
+
+        <h4 class="mt-4">{{ _('Can I use my webcam and see my opponent\'s throw?') }}</h4>
+        <p>{{ _('Lidarts supports experimental webcam games over Jitsi Meet, a video conferencing service. You can also play without a webcam based on trust.') }}</p>
+
+        <h4 class="mt-4">{{ _('How do I set up my webcam?') }}</h4>
+        <p>{{ _('You need to connect your webcam (or smartphone with appropiate software) to your computer. Before your first game you have to agree to the current') }} <a href="{{ url_for('game.create', webcam=True) }}">{{ _('webcam service notice') }}</a>. {{ _('Create a game normally on the webcam page afterwards.') }}</p>
+
+        <h4 class="mt-4">{{ _('Can I play steel and/or e-darts?') }}</h4>
+        <p>{{ _('Both variants are welcome to play on Lidarts.') }}</p>
+
+        <h4 class="mt-4">{{ _('Can I host and play in tournaments?') }}</h4>
+        <p>{{ _('Currently tournament organizers can create a separate room with a tournament-specific chat, user list and result box. For brackets you need to use an external service. It will be possible to automate tournaments on Lidarts soon.') }}</p>
+
+        <h4 class="mt-4">{{ _('How do I send private messages?') }}</h4>
+        <p>{{ _('Open your inbox, enter the recipient\'s username in the box below and compose a new message.') }}</p>
+
+        <h4 class="mt-4">{{ _('How do I add someone to my friend list?') }}</h4>
+        <p>{{ _('You need to know your friend\'s username. Use the user search box in the lobby to find his profile. Click the friend request link there and wait for him to confirm.') }}</p>
+
+        <h4 class="mt-4">{{ _('Where can I change my country flag / caller voice / username / password etc.') }}</h4>
+        <p>{{ _('In your profile there is a settings button with lots of options. We highly recommend to look through the options before you play.') }}</p>
+
+        <h4 class="mt-4">{{ _('My opponent throws so fast. What can I do?') }}</h4>
+        <p>{{ _('There are usually two types of online players: Those who wait for their opponent to throw and those who don\'t. If you feel stressed you can set up an input block time upon game creating. We recommend between 5 and 10 seconds.') }}</p>
+
+        <h4 class="mt-4">{{ _('What do the status colors mean?') }}</h4>
+        <p>{{ _('Players can set most of these statuses manually. Green = online, yellow = Not available, purple = Looking for game, blue = currently playing, grey = offline.') }}</p>
+   
+        <h4 class="mt-4">{{ _('I found a bug / have a question or feature request / someone is cheating.') }}</h4>
+        <p><a href="{{ url_for('generic.contact') }}">{{ _('Contact us.') }}</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block app_content %}
+
+{% endblock %}
