@@ -21,7 +21,6 @@ $(document).ready(function() {
         INVITATION_POWERED_BY: false,
         AUTHENTICATION_ENABLE: false,
         DISABLE_RINGING: true,
-        MOBILE_APP_PROMO: false,
         DISPLAY_WELCOME_PAGE_CONTENT: false,
         DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
     }

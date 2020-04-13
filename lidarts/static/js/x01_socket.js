@@ -53,7 +53,9 @@ $(document).ready(function() {
         $('#p2_ingame').show()
     }, 35000);
 
-    function p1_current_leg_new_score(msg, index, value, current_leg, p1_last_leg_sum=0) {
+    function p1_current_leg_new_score(msg, index, value, current_leg, p1_last_leg_sum) {
+        p1_last_leg_sum = typeof p1_last_leg_sum !== 'undefined' ? p1_last_leg_sum : 0;
+
         if (current_leg) {
             check = (index == msg.p1_current_leg.length-1 && !msg.p1_next_turn)
         } else {
@@ -87,7 +89,8 @@ $(document).ready(function() {
         };
     }
 
-    function p2_current_leg_new_score(msg, index, value, current_leg, p1_last_leg_sum=0) {
+    function p2_current_leg_new_score(msg, index, value, current_leg, p1_last_leg_sum) {
+        p1_last_leg_sum = typeof p1_last_leg_sum !== 'undefined' ? p1_last_leg_sum : 0;
         if (current_leg) {
             check = (index == msg.p2_current_leg.length-1 && msg.p1_next_turn)
         } else {
