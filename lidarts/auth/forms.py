@@ -6,6 +6,7 @@ from flask_security.forms import Form, PasswordConfirmFormMixin, NextFormMixin, 
     RegisterFormMixin, UniqueEmailFormMixin, NewPasswordFormMixin, ValidatorMixin, \
     ChangePasswordForm, ResetPasswordForm
 from flask_babelex import _, lazy_gettext
+from sqlalchemy import func
 
 
 class Required(ValidatorMixin, validators.DataRequired):
@@ -44,7 +45,7 @@ def valid_password(form, field):
 
 
 def unique_username(form, field):
-    user = User.query.filter(User.username.ilike(field.data)).first()
+    user = User.query.filter(func.lower(User.username) == func.lower(field.data)).first()
     if user is not None:
         raise ValidationError(lazy_gettext('Username is already taken'))
 

@@ -15,6 +15,7 @@ from PIL import Image
 import re
 import time
 from datetime import datetime, timedelta
+from sqlalchemy import func
 
 
 @bp.route('/@/<username>/game_history')
@@ -51,7 +52,7 @@ def game_history(username):
 @login_required
 def overview(username):
     player_names = {}
-    user = User.query.filter(User.username.ilike(username)).first()
+    user = User.query.filter(func.lower(User.username)  == func.lower(username)).first()
     if not user:
         return redirect(url_for('profile.user_not_found', username=username))
     player1 = aliased(User)
@@ -68,6 +69,10 @@ def overview(username):
     )
 
     stats = UserStatistic.query.filter_by(user=user.id).first()
+    if not stats:
+        stats = UserStatistic(user=user.id)
+        db.session.add(stats)
+        db.session.commit()
 
     settings = (
         UserSettings.query

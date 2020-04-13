@@ -12,6 +12,7 @@ from flask_login import current_user, login_required
 from datetime import datetime
 import json
 import secrets
+from sqlalchemy import func
 
 
 @bp.route('/create', methods=['GET', 'POST'])
@@ -141,7 +142,12 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=None):
                     flash(gettext('Public challenges must be created without an opponent name.'), 'danger')
                     return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
                            title=lazy_gettext('Create Game'))
-                player2 = User.query.with_entities(User.id).filter(User.username.ilike(form.opponent_name.data)).first_or_404()
+                player2 = (
+                    User.query
+                    .with_entities(User.id)
+                    .filter(func.lower(User.username) == func.lower(form.opponent_name.data))
+                    .first_or_404()
+                )
 
                 player2_settings = UserSettings.query.filter_by(user=player2.id).first()
                 if player2_settings and not player2_settings.allow_challenges:
