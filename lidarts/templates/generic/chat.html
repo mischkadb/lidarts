@@ -14,14 +14,14 @@
 <div class="row justify-content-center">
     <div class="col-12 col-sm-10 col-md-10 col-lg-4 col-xl-3 p-1 order-3 order-lg-1">
         <div class="card bg-light text-dark d-none" id="public-challenge-window">
-            <div class="card-body" style="height: 600px; overflow-y: scroll;">
+            <div class="card-body" style="height: 75vh; overflow-y: scroll;">
                 <p class="text-center font-weight-bold">{{ _('Public challenges') }}</p>
                 <hr class="hr-slim">
                 <div id="public_challenge_list"></div>
             </div>
         </div>
 
-        <div class="card bg-light text-dark d-block" style="height: 300px; overflow-y: scroll;"  id="new-games-window">
+        <div class="card bg-light text-dark d-block" style="height: 37.5vh; overflow-y: scroll;"  id="new-games-window">
             <div class="card-body">
                 <p class="text-center font-weight-bold slim">{{ _('New games') }}</p>
                 <hr class="slim">
@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <div class="card bg-light text-dark mt-1 d-block" style="height: 300px; overflow-y: scroll;"  id="latest-results-window">
+        <div class="card bg-light text-dark mt-1 d-block" style="height: 37.5vh; overflow-y: scroll;"  id="latest-results-window">
             <div class="card-body">
                 <p class="text-center font-weight-bold slim">{{ _('Latest results') }}</p>
                 <hr class="slim">
@@ -83,7 +83,7 @@
     </div>
     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 p-1 order-first order-lg-2">
         <div class="card bg-light text-dark">
-                <div class="card-body" id="chatbox" style="height: 600px; overflow-y: scroll;">
+                <div class="card-body" id="chatbox" style="height: 75vh; overflow-y: scroll;">
                     {% for message, username, average, country in messages[::-1] %}
                     <p>
                         {% if country %}<img src="/static/img/flags/{{ country | lower }}.png" style="margin-right: 5px" class="
@@ -103,7 +103,7 @@
     </div>
     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1 order-2 order-lg-3">
         <div class="card bg-light text-dark">
-            <div class="card-body" id="online_players" style="height: 600px; overflow-y: scroll; padding-left: 2px; padding-right: 2px;">
+            <div class="card-body" id="online_players" style="height: 75vh; overflow-y: scroll; padding-left: 2px; padding-right: 2px;">
             </div>
         </div>
         <p>{{ _('Online') }}: <span id="online-players-count"></span></p>
