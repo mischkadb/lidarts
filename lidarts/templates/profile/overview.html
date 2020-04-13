@@ -99,9 +99,43 @@
 
             </div>
         </div>
+
+        <div class="card bg-light bs-callout bs-callout-danger text-secondary mt-2">
+            <div class="card-body">
+                <h5 class="card-title text-dark"><i class="fas fa-percent"></i> {{ _('Winrates (501 SI/DO)') }} </h5>
+                <small>{{ _('(grouped by opponent average)') }}</small>
+                <hr>
+                <p>
+                    &lt;30: {% if stats.matches_u30 > 0 %}{{ ((stats.wins_u30 / stats.matches_u30)*100)|round|int }}% ({{ stats.wins_u30 }}/{{ stats.matches_u30 }}) {% else %}-{% endif %}
+                </p>
+                <p>
+                    30-40: {% if stats.matches30_40 > 0 %}{{ ((stats.wins30_40 / stats.matches30_40)*100)|round|int }}% ({{ stats.wins30_40 }}/{{ stats.matches30_40 }}) {% else %}-{% endif %}
+                </p>
+                <p>
+                    40-50: {% if stats.matches40_50 > 0 %}{{ ((stats.wins40_50 / stats.matches40_50)*100)|round|int }}% ({{ stats.wins40_50 }}/{{ stats.matches40_50 }}) {% else %}-{% endif %}
+                </p>
+                <p>
+                    50-60: {% if stats.matches50_60 > 0 %}{{ ((stats.wins50_60 / stats.matches50_60)*100)|round|int }}% ({{ stats.wins50_60 }}/{{ stats.matches50_60 }}) {% else %}-{% endif %}
+                </p>
+                <p>
+                    60-70: {% if stats.matches60_70 > 0 %}{{ ((stats.wins60_70 / stats.matches60_70)*100)|round|int }}% ({{ stats.wins60_70 }}/{{ stats.matches60_70 }}) {% else %}-{% endif %}
+                </p>
+                <p>
+                    70-80: {% if stats.matches70_80 > 0 %}{{ ((stats.wins70_80 / stats.matches70_80)*100)|round|int }}% ({{ stats.wins70_80 }}/{{ stats.matches70_80 }}) {% else %}-{% endif %}
+                </p> 
+                <p>
+                    80-90: {% if stats.matches80_90 > 0 %}{{ ((stats.wins80_90 / stats.matches80_90)*100)|round|int }}% ({{ stats.wins80_90 }}/{{ stats.matches80_90 }}) {% else %}-{% endif %}
+                </p>
+                <p>
+                    &gt;90: {% if stats.matches_o90 > 0 %}{{ ((stats.wins_o90 / stats.matches_o90)*100)|round|int }}% ({{ stats.wins_o90 }}/{{ stats.matches_o90 }}) {% else %}-{% endif %}
+                </p>
+
+
+            </div>
+        </div>
+
         {% if current_user.id == user.id %}
-        <br>
-        <div class="card bg-light bs-callout bs-callout-danger text-secondary">
+        <div class="card bg-light bs-callout bs-callout-danger text-secondary mt-2">
             <div class="card-body">
                 <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Statistics') }}</h5>
                 <p><a href="{{ url_for('statistics.x01') }}" class="text-secondary">{{ _('X01') }}</a></p>

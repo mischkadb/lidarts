@@ -229,6 +229,22 @@ class UserStatistic(db.Model):
     doubles = db.Column(db.Float, default=0)
     total_games = db.Column(db.Integer, default=0)
     darts_thrown = db.Column(db.Integer, default=0)
+    matches_u30 = db.Column(db.Integer, default=0)
+    matches30_40 = db.Column(db.Integer, default=0)
+    matches40_50 = db.Column(db.Integer, default=0)
+    matches50_60 = db.Column(db.Integer, default=0)
+    matches60_70 = db.Column(db.Integer, default=0)
+    matches70_80 = db.Column(db.Integer, default=0)
+    matches80_90 = db.Column(db.Integer, default=0)
+    matches_o90 = db.Column(db.Integer, default=0)
+    wins_u30 = db.Column(db.Integer, default=0)
+    wins30_40 = db.Column(db.Integer, default=0)
+    wins40_50 = db.Column(db.Integer, default=0)
+    wins50_60 = db.Column(db.Integer, default=0)
+    wins60_70 = db.Column(db.Integer, default=0)
+    wins70_80 = db.Column(db.Integer, default=0)
+    wins80_90 = db.Column(db.Integer, default=0)
+    wins_o90 = db.Column(db.Integer, default=0)
 
 
 class SocketConnections(db.Model):
