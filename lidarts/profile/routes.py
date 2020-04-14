@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from lidarts import db, avatars, socketio
 from lidarts.generic.forms import UserSearchForm
 from lidarts.profile import bp
-from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm, EditProfileForm, WebcamSettingsForm
+from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm, EditProfileForm, WebcamSettingsForm, LivestreamSettingsForm
 from lidarts.models import User, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic, WebcamSettings
 from sqlalchemy import desc
 from sqlalchemy.orm import aliased
@@ -312,3 +312,19 @@ def webcam_settings():
     form.force_scoreboard_page.data = 'enabled' if settings.force_scoreboard_page else 'disabled'
     
     return render_template('profile/webcam_settings.html', form=form, title=lazy_gettext('Webcam settings'))
+
+
+@bp.route('/livestream_settings', methods=['GET', 'POST'])
+@login_required
+def livestream_settings():
+    form = LivestreamSettingsForm()
+    settings = UserSettings.query.filter_by(user=current_user.id).first()
+
+    if form.validate_on_submit():
+        settings.channel_id = form.channel_id.data
+        db.session.commit()
+        flash(lazy_gettext("Settings saved."))
+
+    form.channel_id.data = settings.channel_id
+    
+    return render_template('profile/livestream_settings.html', form=form, title=lazy_gettext('Livestream settings'))

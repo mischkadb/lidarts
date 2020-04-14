@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block css %}
+<link href="{{ url_for('static',filename='css/x01.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block navbar %}
+{% include 'game/X01/navbar.html' %}
+{% endblock %}
+
+{% block container %}
+<div class="container-fluid">
+{% endblock %}
+
+{% block app_content %}
+
+<div class="row">
+    <div class="col-md-5 d-none d-md-block">
+        {% if stream %}
+        {% include 'game/X01/scoreboard_stream.html' %}
+        {% else %}
+        {% include 'game/X01/scoreboard_webcam.html' %}
+        {% endif %}
+
+        {% if game.closest_to_bull %}
+        <div class="row text-light  text-center mt-2" id="closest_to_bull_notification_div">
+            <div class="col-12">
+                <h3 id="closest_to_bull_notification">{{ _('Closest to bull begins. Please throw three darts at bull.') }}</h3>
+                {% if game.player1 == game.player2 %}<h5>{{ _('Local game. Player 1 throws all three darts first.') }}</h5>{% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row justify-content-center align-items-start text-center mt-2">
+            <!-- LEG AND SET COUNT SMALL -->
+            <div class="col-6">
+                <div class="card bg-info text-light">
+                    <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
+                        <div class="row justify-content-center">
+                            {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p1_sets">{{ game.p1_sets }}</strong></div>{% endif %}
+                            <div class="col-6">Legs: <strong class="p1_legs">{{ game.p1_legs }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card bg-info text-light">
+                    <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
+                        <div class="row justify-content-center">
+                            {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p2_sets">{{ game.p2_sets }}</strong></div>{% endif %}
+                            <div class="col-6">Legs: <strong class="p2_legs">{{ game.p2_legs }}</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row justify-content-center align-items-start mt-2">
+            <!-- SCOREBOARD PLAYER 1 -->
+            <div class="col-3 mt-2" id="p1_current_leg_webcam" style="padding-left: 2px; padding-right: 5px">
+            </div>
+
+            <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
+            <div class="col-5 score-input">
+
+                <!-- GAME END CONFIRMATION -->
+                <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
+                    <h4 class="text-light">{{ _('Game is completed.') }}</h4>
+                    <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+                </form>
+
+                <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status != 'aborted' %} style="display: none" {% endif %}>
+                    <h4 class="text-light">{{ _('Game was aborted.') }}</h4>
+                    <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+                </form>
+
+            </div>
+
+            <!-- SCOREBOARD PLAYER 2 -->
+            <div class="col-3 mt-2" id="p2_current_leg_webcam" style="padding-left: 2px; padding-right: 5px">
+            </div>
+        </div>
+
+        {% include 'game/X01/statistics.html' %}
+
+    </div>
+
+    <div class="col-7" style="height: 75vh;" id="youtube_embed">
+        {% if channel_ids[0] %}
+        <iframe style="width: 100%; height: 35vh;" src="https://www.youtube-nocookie.com/embed/live_stream?channel={{ channel_ids[0] }}&autoplay=1" frameborder="0" allow="autoplay; encryped-media;" allowfullscreen></iframe>
+        {% endif %}
+        {% if channel_ids[1] %}
+        <iframe style="width: 100%; height: 35vh;" src="https://www.youtube-nocookie.com/embed/live_stream?channel=12345{{ channel_ids[1] }}&autoplay=1" frameborder="0" allow="autoplay; encryped-media;" allowfullscreen></iframe>
+        {% endif %}
+    </div>
+</div>
+
+{% include 'game/X01/modals.html' %}
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block scripts %}
+<meta id="hash_id" data-hashid="{{ game.hashid }}">
+<meta id="user_id" data-id="{{ current_user.id }}">
+<meta id="player1_id" data-id="{{ game.player1 }}">
+<meta id="player2_id" data-id="{{ game.player2 }}">
+<meta id="caller" data-caller="{{ caller }}">
+<meta id="out_mode" data-out_mode="{{ game.out_mode }}">
+
+<script type="text/javascript" src="{{ url_for('static',filename='js/x01_spectator_socket.js', version=config.VERSION) }}"></script>
+{% endblock %}

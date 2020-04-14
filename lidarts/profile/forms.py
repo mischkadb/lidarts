@@ -1,7 +1,7 @@
 from flask import url_for
 from flask_babelex import lazy_gettext
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, SelectField, SubmitField, IntegerField, TextAreaField
+from wtforms import BooleanField, SelectField, SubmitField, IntegerField, TextAreaField, StringField
 from wtforms.validators import DataRequired, NumberRange, Length
 from lidarts.profile.countries import COUNTRIES
 
@@ -107,4 +107,9 @@ class WebcamSettingsForm(FlaskForm):
         validators=[DataRequired()],
     )
 
+    submit = SubmitField(lazy_gettext('Save'))
+
+
+class LivestreamSettingsForm(FlaskForm):
+    channel_id = StringField(lazy_gettext('Channel ID'), validators=[Length(min=15, max=30)])
     submit = SubmitField(lazy_gettext('Save'))

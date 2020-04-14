@@ -380,20 +380,37 @@ def start(hashid, theme=None):
     else:
         title = lazy_gettext('Live Match')
 
+    channel_ids = [None, None]
     if game.webcam and current_user.is_authenticated and current_user.id in (game.player1, game.player2):
         template = 'game/X01_webcam.html'
         webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
         if webcam_settings and webcam_settings.force_scoreboard_page:
             template = 'game/X01.html'
     else:
-        template = 'game/X01.html'
-        webcam_settings = None
+        if game.webcam:
+            p1_webcam_settings = WebcamSettings.query.filter_by(user=game.player1).first()
+            p2_webcam_settings = WebcamSettings.query.filter_by(user=game.player2).first() if game.player2 else None
+            p1_user_settings = UserSettings.query.filter_by(user=game.player1).first()
+            p2_user_settings = UserSettings.query.filter_by(user=game.player2).first() if game.player2 else None
+            if (
+                p1_webcam_settings.stream_consent and p2_webcam_settings and p2_webcam_settings.stream_consent
+                and (p1_user_settings.channel_id or p1_user_settings.channel_id)
+            ):
+                template = 'game/X01_watch_webcam.html'
+                channel_ids[0] = p1_user_settings.channel_id
+                channel_ids[1] = p2_user_settings.channel_id
+            else:
+                template = 'game/X01.html'
+            webcam_settings = None
+        else:
+            template = 'game/X01.html'
+            webcam_settings = None
 
     return render_template(template, game=game_dict, form=form, match_json=match_json,
                             caller=caller, cpu_delay=cpu_delay, title=title,
                             chat_form=chat_form, chat_form_small=chat_form_small,
                             messages=messages, user_names=user_names,
-                            stream=theme,
+                            stream=theme, channel_ids=channel_ids,
                             settings=settings, webcam_settings=webcam_settings)
 
 

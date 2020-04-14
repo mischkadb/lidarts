@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-14 13:14+0200\n"
-"PO-Revision-Date: 2020-04-14 13:19+0200\n"
+"POT-Creation-Date: 2020-04-14 17:43+0200\n"
+"PO-Revision-Date: 2020-04-14 17:46+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -241,16 +241,16 @@ msgstr "Suchen"
 msgid "Live Games"
 msgstr "Live Spiele"
 
-#: generic/routes.py:156 templates/base.html:50
+#: generic/routes.py:160 templates/base.html:50
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:222 templates/base.html:54 templates/game/X01.html:88
+#: generic/routes.py:226 templates/base.html:54 templates/game/X01.html:88
 #: templates/game/X01_stream.html:97 templates/game/X01_webcam.html:93
 msgid "Chat"
 msgstr "Chat"
 
-#: generic/routes.py:276
+#: generic/routes.py:280
 msgid "Private Messages"
 msgstr "Private Nachrichten"
 
@@ -268,6 +268,7 @@ msgstr "Beschreibung"
 
 #: profile/forms.py:14 profile/forms.py:19 profile/forms.py:24
 #: profile/forms.py:64 profile/forms.py:76 profile/forms.py:110
+#: profile/forms.py:115
 msgid "Save"
 msgstr "Speichern"
 
@@ -327,6 +328,10 @@ msgstr "Folge-Modus für mobile Geräte"
 msgid "Show only scoreboard on main device"
 msgstr "Zeige nur Scoreboard auf Hauptgerät"
 
+#: profile/forms.py:114
+msgid "Channel ID"
+msgstr "Channel ID"
+
 #: profile/routes.py:47
 msgid "Match History"
 msgstr "Spielverlauf"
@@ -368,6 +373,7 @@ msgid "Trainer Delay"
 msgstr "Trainerverzögerung einstellen"
 
 #: profile/routes.py:266 profile/routes.py:279 profile/routes.py:306
+#: profile/routes.py:326
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
@@ -384,6 +390,11 @@ msgstr "Allgemeine Einstellungen"
 #: templates/profile/webcam_settings.html:13
 msgid "Webcam settings"
 msgstr "Webcam-Einstellungen"
+
+#: profile/routes.py:330 templates/profile/livestream_settings.html:13
+#: templates/profile/settings.html:8
+msgid "Livestream settings"
+msgstr "Livestream-Einstellungen"
 
 #: statistics/forms.py:9 statistics/forms.py:12
 msgid "All"
@@ -506,30 +517,33 @@ msgid "Legal notice"
 msgstr "Impressum"
 
 #: templates/game/X01.html:19 templates/game/X01_stream.html:24
-#: templates/game/X01_webcam.html:28
+#: templates/game/X01_watch_webcam.html:27 templates/game/X01_webcam.html:28
 msgid "Closest to bull begins. Please throw three darts at bull."
 msgstr "Ausbullen. Bitte drei Darts auf Bull werfen."
 
 #: templates/game/X01.html:20 templates/game/X01_stream.html:25
-#: templates/game/X01_webcam.html:29
+#: templates/game/X01_watch_webcam.html:28 templates/game/X01_webcam.html:29
 msgid "Local game. Player 1 throws all three darts first."
 msgstr "Lokales Spiel. Spieler 1 wirft zuerst alle drei Darts."
 
 #: templates/game/X01.html:61 templates/game/X01.html:147
 #: templates/game/X01_stream.html:70 templates/game/X01_stream.html:157
-#: templates/game/X01_webcam.html:69
+#: templates/game/X01_watch_webcam.html:68 templates/game/X01_webcam.html:69
 msgid "Game is completed."
 msgstr "Spiel ist beendet."
 
 #: templates/game/X01.html:62 templates/game/X01.html:67
 #: templates/game/X01.html:148 templates/game/X01_stream.html:71
 #: templates/game/X01_stream.html:76 templates/game/X01_stream.html:158
-#: templates/game/X01_webcam.html:70 templates/game/X01_webcam.html:75
+#: templates/game/X01_watch_webcam.html:69
+#: templates/game/X01_watch_webcam.html:74 templates/game/X01_webcam.html:70
+#: templates/game/X01_webcam.html:75
 msgid "Game overview"
 msgstr "Spielübersicht"
 
 #: templates/game/X01.html:66 templates/game/X01_completed.html:14
-#: templates/game/X01_stream.html:75 templates/game/X01_webcam.html:74
+#: templates/game/X01_stream.html:75 templates/game/X01_watch_webcam.html:73
+#: templates/game/X01_webcam.html:74
 msgid "Game was aborted."
 msgstr "Spiel wurde abgebrochen."
 
@@ -1189,6 +1203,38 @@ msgstr "Ländereinstellungen"
 msgid "You can change your country setting only once per month. Please confirm."
 msgstr "Die Ländereinstellung kann nur einmal pro Monat geändert werden. Bitte bestätigen."
 
+#: templates/profile/livestream_settings.html:16
+msgid "You can stream your board in webcam games to spectators. You will need a Google account for YouTube. Log in and copy your Channel ID here:"
+msgstr "Du kannst dein Board in Webcam-Spielen an Zuschauer streamen. Benötigt wird ein Google-Konto für YouTube. Logge dich ein und kopiere die Channel-ID hier:"
+
+#: templates/profile/livestream_settings.html:18
+msgid "and paste it in the box below."
+msgstr "und füge es in das Feld unten ein."
+
+#: templates/profile/livestream_settings.html:21
+msgid "There are two options to start a livestream."
+msgstr "Es gibt zwei Möglichkeiten, einen Livestream zu starten."
+
+#: templates/profile/livestream_settings.html:24
+msgid "You can use the \"Start live stream\" option in Jitsi Meet which requires the secret stream key. You can find yours here: "
+msgstr "Du kannst die Option \"Start live stream\" in Jitsi Meet verwenden, die den geheimen Stream-Key erfordert. Den findest du hier: "
+
+#: templates/profile/livestream_settings.html:26
+msgid "Paste it into the stream key box in Jitsi and click on \"Start live stream\"."
+msgstr "Füge ihn in die Stream-Key-Box in Jitsi ein und klicke auf \"Start live stream\"."
+
+#: templates/profile/livestream_settings.html:27
+msgid "If you get a \"All streamers are currently busy\" error Jitsi has no free streamers at the moment. There is nothing Lidarts can do in that case."
+msgstr "Wenn du eine \"All streamers are currently busy\" Fehler bekommst, dann hat Jitsi im Moment keine freien Streamer. Lidarts kann in dem Fall nicht aushelfen."
+
+#: templates/profile/livestream_settings.html:30
+msgid "The second option is starting a YouTube live stream with an external software. We recommend "
+msgstr "Die zweite Option ist das Starten eines YouTube-Livestreams mit einer externen Software. Wir empfehlen"
+
+#: templates/profile/livestream_settings.html:32
+msgid "You can find many tutorials on the internet. It requires some setup work."
+msgstr "Du kannst viele Tutorials dazu im Internet finden. Es erfordert eines an Arbeit zum Einstellen."
+
 #: templates/profile/manage_friend_list.html:13
 msgid "Friends"
 msgstr "Freunde"
@@ -1246,33 +1292,33 @@ msgstr "(gruppiert nach Average des Gegners)"
 msgid "X01"
 msgstr "X01"
 
-#: templates/profile/settings.html:9
+#: templates/profile/settings.html:10
 msgid "Edit profile text"
 msgstr "Profiltext bearbeiten"
 
-#: templates/profile/settings.html:10
+#: templates/profile/settings.html:11
 msgid "Manage friend list"
 msgstr "Freundesliste verwalten"
 
-#: templates/profile/settings.html:11
+#: templates/profile/settings.html:12
 #: templates/security/change_username.html:12
 msgid "Change display name"
 msgstr "Anzeigenamen ändern"
 
-#: templates/profile/settings.html:12
+#: templates/profile/settings.html:13
 #: templates/security/change_password.html:12
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: templates/profile/settings.html:13
+#: templates/profile/settings.html:14
 msgid "Avatar settings"
 msgstr "Avatareinstellungen"
 
-#: templates/profile/settings.html:14
+#: templates/profile/settings.html:15
 msgid "Caller settings"
 msgstr "Callereinstellungen"
 
-#: templates/profile/settings.html:15
+#: templates/profile/settings.html:16
 msgid "Trainer delay settings"
 msgstr "Trainerverzögerung einstellen"
 

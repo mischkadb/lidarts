@@ -204,6 +204,7 @@ class UserSettings(db.Model):
     checkout_suggestions = db.Column(db.Boolean, default=False)
     show_average_in_chat_list = db.Column(db.Boolean, default=False)
     profile_text = db.Column(db.String(2000), default=None)
+    channel_id = db.Column(db.String(30), default=None)
 
 
 class X01Presetting(db.Model):

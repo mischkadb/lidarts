@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+
+
+<div class="row ">
+    {% include 'profile/settings.html' %}
+
+    <div class="col-md-12 col-lg-9 col-xl-8 order-2">
+        <div class="card bg-light text-dark bs-callout bs-callout-info text-left">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{ _('Livestream settings') }}</h5>
+                <hr>
+                <p>
+                    {{ _('You can stream your board in webcam games to spectators. You will need a Google account for YouTube. Log in and copy your Channel ID here:') }}
+                    <a href="https://www.youtube.com/account_advanced">https://www.youtube.com/account_advanced</a> 
+                    {{ _('and paste it in the box below.') }}
+                </p>
+                <p>
+                    {{ _('There are two options to start a livestream.') }} 
+                </p>
+                <p>
+                    {{ _('You can use the "Start live stream" option in Jitsi Meet which requires the secret stream key. You can find yours here: ') }}
+                    <a href="https://www.youtube.com/live_dashboard?nv=1">https://www.youtube.com/live_dashboard</a>. 
+                    {{ _('Paste it into the stream key box in Jitsi and click on "Start live stream".') }}
+                    {{ _('If you get a "All streamers are currently busy" error Jitsi has no free streamers at the moment. There is nothing Lidarts can do in that case.') }}
+                 </p>
+                <p>
+                    {{ _('The second option is starting a YouTube live stream with an external software. We recommend ') }}
+                    <a href="https://obsproject.com">OBS Studio</a>. 
+                    {{ _('You can find many tutorials on the internet. It requires some setup work.') }}
+               </p>
+
+                <form method="POST" class="form-horizontal">
+                    {{ form.hidden_tag() }}
+                    <p>{{ form.channel_id.label(class="control-label") }}:
+                        {{ form.channel_id(class="form-control") }}</p>
+                    {% if form.errors %}
+                    {% for error in form.channel_id.errors %}
+                        <p class="font-weight-bold text-danger">{{ error }}</p>
+                    {% endfor %}
+                    {% endif %}
+
+                    <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
