@@ -1,10 +1,12 @@
 {% extends "base.html" %}
-
+{% block container %}
+<div class="container-fluid">
+{% endblock %}
 
 {% block app_content %}
 
 <div class="row justify-content-center mb-2">
-    <div class="col-xl-8 col-lg-10 col-sm-12">
+    <div class="col-xl-10 col-12">
         <div class="card bg-light">
 
             <div class="card-body">
@@ -33,72 +35,87 @@
                 </div>-->
 
                 <div class="row justify-content-center align-items-center mb-2">
-                    <div class="col-sm-5 text-center text-light">
-                        <div class="card bg-dark">
-                            <div class="card-body player_name_card">
-                                <h1>
-                                    {% if countries[0] %}<img src="/static/img/flags/{{ countries[0] }}.png" style="margin-right: 5px" class="
-                                    {% if countries[0] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
-                                    <a href="{{ url_for('profile.overview', username= game.player1_name) }}" class="text-light">{{ game.player1_name }}</a>
-                                </h1>
-                            </div>
-                            <div class="card-footer
-                            {% if game.p1_sets > game.p2_sets %}bg-success border-success
-                            {% elif game.p1_sets < game.p2_sets %}bg-danger border-danger
-                            {% else %}bg-warning border-warning{% endif %}"></div>
+                    <div class="col-6 text-center text-light">
+                                <div class="card bg-dark">
+                                    <div class="card-body player_name_card">
+                                        <h1 class="d-none d-md-block">
+                                            {% if countries[0] %}<img src="/static/img/flags/{{ countries[0] }}.png" style="margin-right: 5px" class="
+                                            {% if countries[0] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            <a href="{{ url_for('profile.overview', username= game.player1_name) }}" class="text-light">{{ game.player1_name }}</a>
+                                        </h1>
+                                        <h3 class="d-block d-md-none">
+                                            {% if countries[0] %}<img src="/static/img/flags/{{ countries[0] }}.png" style="margin-right: 5px" class="
+                                            {% if countries[0] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            <a href="{{ url_for('profile.overview', username= game.player1_name) }}" class="text-light">{{ game.player1_name }}</a>
+                                        </h3>
+                                    </div>
+                                    <div class="card-footer
+                                    {% if game.p1_sets > game.p2_sets %}bg-success border-success
+                                    {% elif game.p1_sets < game.p2_sets %}bg-danger border-danger
+                                    {% else %}bg-warning border-warning{% endif %}"></div>
+                                </div>
                         </div>
-                    </div>
 
-                    <div class="col-sm-2 text-center"><h1>vs.</h1></div>
 
-                    <div class="col-sm-5 text-center text-light">
-                        <div class="card bg-dark">
-                            <div class="card-body player_name_card">
-                                <h1>
-                                    {% if countries[1] %}<img src="/static/img/flags/{{ countries[1] }}.png" style="margin-right: 5px" class="
-                                    {% if countries[1] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
-                                    {% if game.player2 and game.player1 != game.player2 -%}
-                                    <a href="{{ url_for('profile.overview', username= game.player2_name) }}" class="text-light">
-                                    {% endif -%}
-                                    {{ game.player2_name }}
-                                    {% if game.player2 and game.player1 != game.player2 -%}
-                                    </a>
-                                    {% endif -%}
-                                    
-                                </h1>
-                            </div>
-                            <div class="card-footer
-                            {% if game.p1_sets < game.p2_sets %}bg-success border-success
-                            {% elif game.p1_sets > game.p2_sets %}bg-danger border-danger
-                            {% else %}bg-warning border-warning{% endif %}"></div>
-                        </div>
+
+                    <div class="col-6 text-center text-light">
+                                <div class="card bg-dark">
+                                    <div class="card-body player_name_card">
+                                        <h1 class="d-none d-md-block">
+                                            {% if countries[1] %}<img src="/static/img/flags/{{ countries[1] }}.png" style="margin-right: 5px" class="
+                                            {% if countries[1] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            {% if game.player2 and game.player1 != game.player2 -%}
+                                            <a href="{{ url_for('profile.overview', username= game.player2_name) }}" class="text-light">
+                                            {% endif -%}
+                                            {{ game.player2_name }}
+                                            {% if game.player2 and game.player1 != game.player2 -%}
+                                            </a>
+                                            {% endif -%}                                            
+                                        </h1>
+                                        <h3 class="d-block d-md-none">
+                                            {% if countries[1] %}<img src="/static/img/flags/{{ countries[1] }}.png" style="margin-right: 5px" class="
+                                            {% if countries[1] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            {% if game.player2 and game.player1 != game.player2 -%}
+                                            <a href="{{ url_for('profile.overview', username= game.player2_name) }}" class="text-light">
+                                            {% endif -%}
+                                            {{ game.player2_name }}
+                                            {% if game.player2 and game.player1 != game.player2 -%}
+                                            </a>
+                                            {% endif -%}                                            
+                                        </h3>
+                                    </div>
+                                    <div class="card-footer
+                                    {% if game.p1_sets < game.p2_sets %}bg-success border-success
+                                    {% elif game.p1_sets > game.p2_sets %}bg-danger border-danger
+                                    {% else %}bg-warning border-warning{% endif %}"></div>
+                                </div>
                     </div>
                 </div>
 
 
                 <div class="row justify-content-center align-items-center">
-                    <div class="col-xl-4 col-lg-6 col-sm-8 text-center text-light">
+                    <div class="col-xl-4 col-lg-6 col-8 text-center text-light">
                         <div class="card bg-info">
                             <div class="card-body player_name_card">
                                 <div class="row justify-content-center align-items-center text-center">
                                     {% if game.bo_sets > 1 %}
-                                    <div class="col-sm-3">
+                                    <div class="col-3">
                                         <h3>{{ game.p1_sets }}</h3>
                                     </div>
 
-                                    <div class="col-sm-6"><h3>Sets</h3></div>
+                                    <div class="col-6"><h3>Sets</h3></div>
 
-                                    <div class="col-sm-3">
+                                    <div class="col-3">
                                         <h3>{{ game.p2_sets }}</h3>
                                     </div>
                                     {% else %}
-                                    <div class="col-sm-3">
+                                    <div class="col-3">
                                         <h3>{{ game.p1_legs }}</h3>
                                     </div>
 
-                                    <div class="col-sm-6"><h5>Legs</h5></div>
+                                    <div class="col-6"><h5>Legs</h5></div>
 
-                                    <div class="col-sm-3">
+                                    <div class="col-3">
                                         <h3>{{ game.p2_legs }}</h3>
                                     </div>
                                     {% endif %}
@@ -113,7 +130,7 @@
 </div>
 
 <div class="row justify-content-center mb-2">
-    <div class="col-xl-8 col-lg-10 col-sm-12">
+    <div class="col-xl-6 col-lg-8 col-sm-12">
         <div class="card bg-light">
             <div class="card-body">
 
@@ -221,7 +238,7 @@
 </div>
 
 <div class="row justify-content-center">
-    <div class="col-sm-12">
+    <div class="col-sm-12 col-xl-10">
         <div class="card bg-light text-dark">
             <div class="card-body">
                 <div class="row justify-content-center">

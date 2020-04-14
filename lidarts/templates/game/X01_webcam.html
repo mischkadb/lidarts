@@ -15,7 +15,7 @@
 {% block app_content %}
 
 <div class="row">
-    <div class="col-5">
+    <div class="col-md-5 d-none d-md-block">
         {% if stream %}
         {% include 'game/X01/scoreboard_stream.html' %}
         {% else %}
@@ -149,8 +149,7 @@
 <meta id="cpu_delay" data-cpu_delay="{{ cpu_delay }}">
 <meta id="score_input_delay" data-delay="{{ game.score_input_delay }}">
 <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
-<meta id="jitsi-hashid" data-hashid="{{ game.jitsi_hashid }}">
-<meta id="local-video-flip" data-hashid="{{ webcam_settings.flip_preview }}">
+<meta id="jitsi-settings" data-hashid="{{ game.jitsi_hashid }}" data-app="{{ webcam_settings.mobile_app }}">
 <meta id="chat_validation_url" data-url="{{ url_for('generic.validate_game_chat_message') }}">
 
 
@@ -159,6 +158,9 @@
 <script type="text/javascript" src="{{ url_for('static',filename='js/game_chat_socket.js', version=config.VERSION) }}"></script>
 <script src='https://meet.jit.si/external_api.js'></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/webcam.js', version=config.VERSION) }}"></script>
+{% if current_user.webcam_settings and current_user.webcam_settings.mobile_follower_mode %}
+<script type="text/javascript" src="{{ url_for('static',filename='js/webcam_request_follow.js', version=config.VERSION) }}"></script>
+{% endif %}
 {% else %}
 <script type="text/javascript" src="{{ url_for('static',filename='js/x01_spectator_socket.js', version=config.VERSION) }}"></script>
 {% endif %}

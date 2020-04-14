@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+
+
+<div class="row ">
+    {% include 'profile/settings.html' %}
+
+    <div class="col-md-8 col-lg-7 col-xl-6 order-2">
+        <div class="card bg-light text-dark bs-callout bs-callout-info text-center">
+            <div class="card-body">
+                <h5 class="card-title">{{ _('Webcam settings') }}</h5>
+                <hr>
+                <form method="POST" class="form-horizontal">
+                    {{ form.hidden_tag() }}
+                    <p>
+                        {{ form.activated.label(class="control-label") }}:
+                        {{ form.activated(class="form-control custom-select") }}
+                    </p>
+
+                    <p>
+                        {{ form.stream_consent.label(class="control-label") }}:
+                        {{ form.stream_consent(class="form-control custom-select") }}
+                        <small>{{ _('Optional. Your video and sound may be live streamed by Lidarts or your opponent.') }}</small>
+                    </p>
+
+                    <p>
+                        {{ form.mobile_app.label(class="control-label") }}:
+                        {{ form.mobile_app(class="form-control custom-select") }}
+                        <small>{{ _('Forces use of Jitsi Meet mobile app. Try this if video capture does not work on your mobile browser.') }}</small>
+                    </p>
+
+                    <p>
+                        {{ form.mobile_follower_mode.label(class="control-label") }}:
+                        {{ form.mobile_follower_mode(class="form-control custom-select") }}
+                        <small>{{ _('Enables follow page in lobby. Your mobile device can be called to your games from another device to capture video.') }}</small>
+                    </p>
+
+                    <p>
+                        {{ form.force_scoreboard_page.label(class="control-label") }}:
+                        {{ form.force_scoreboard_page(class="form-control custom-select") }}
+                        <small>{{ _('Loads only the scoreboard without webcam image in your webcam games. Useful for mobile score-only devices.') }}</small>
+                    </p>
+                    
+                    <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

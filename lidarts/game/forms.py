@@ -38,6 +38,7 @@ class CreateX01GameForm(FlaskForm):
     in_mode = SelectField(lazy_gettext('Mode In'), choices=in_choice, validators=[DataRequired()])
     out_mode = SelectField(lazy_gettext('Mode Out'), choices=out_choice, validators=[DataRequired()])
     public_challenge = BooleanField(lazy_gettext('Public challenge'))
+    webcam = BooleanField(lazy_gettext('Webcam game'))
     score_input_delay = IntegerField(lazy_gettext('Score input block'), default=0, validators=[NumberRange(min=0, max=15)])
     save_preset = BooleanField(lazy_gettext('Save settings'))
     tournament = SelectField(lazy_gettext('Tournament'), choices=[])

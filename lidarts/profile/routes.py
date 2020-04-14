@@ -4,8 +4,8 @@ from flask_login import current_user, login_required
 from lidarts import db, avatars, socketio
 from lidarts.generic.forms import UserSearchForm
 from lidarts.profile import bp
-from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm, EditProfileForm
-from lidarts.models import User, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic
+from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm, EditProfileForm, WebcamSettingsForm
+from lidarts.models import User, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic, WebcamSettings
 from sqlalchemy import desc
 from sqlalchemy.orm import aliased
 from lidarts.utils.linker import linker
@@ -288,3 +288,27 @@ def general_settings():
     country_form.country.data = settings.country if settings.country else None
     
     return render_template('profile/general_settings.html', form=form, country_form=country_form, title=lazy_gettext('General settings'))
+
+
+@bp.route('/webcam_settings', methods=['GET', 'POST'])
+@login_required
+def webcam_settings():
+    form = WebcamSettingsForm()
+    settings = WebcamSettings.query.filter_by(user=current_user.id).first()
+
+    if form.validate_on_submit():
+        settings.activated = True if form.activated.data == 'enabled' else False
+        settings.stream_consent = True if form.stream_consent.data == 'enabled' else False
+        settings.mobile_app = True if form.mobile_app.data == 'enabled' else False
+        settings.mobile_follower_mode = True if form.mobile_follower_mode.data == 'enabled' else False
+        settings.force_scoreboard_page = True if form.force_scoreboard_page.data == 'enabled' else False
+        db.session.commit()
+        flash(lazy_gettext("Settings saved."))
+
+    form.activated.data = 'enabled' if settings.activated else 'disabled'
+    form.stream_consent.data = 'enabled' if settings.stream_consent else 'disabled'
+    form.mobile_app.data = 'enabled' if settings.mobile_app else 'disabled'
+    form.mobile_follower_mode.data = 'enabled' if settings.mobile_follower_mode else 'disabled'
+    form.force_scoreboard_page.data = 'enabled' if settings.force_scoreboard_page else 'disabled'
+    
+    return render_template('profile/webcam_settings.html', form=form, title=lazy_gettext('Webcam settings'))

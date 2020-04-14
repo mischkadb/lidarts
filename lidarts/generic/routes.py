@@ -6,7 +6,7 @@ from lidarts.generic import bp
 from lidarts.generic.forms import UserSearchForm
 from lidarts.models import (
     Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, 
-    Notification, UserSettings, UserStatistic, SocketConnections
+    Notification, UserSettings, UserStatistic, SocketConnections, WebcamSettings,
 )
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.forms import GameChatmessageForm
@@ -137,11 +137,26 @@ def lobby():
 
     for friend in online_friend_list:
         if friend not in player_names:
-            player_names[friend] = User.query.with_entities(User.username) \
-                .filter_by(id=friend).first_or_404()[0]
+            player_names[friend] = (
+                User.query.with_entities(User.username)
+                .filter_by(id=friend)
+                .first_or_404()[0]
+            )
+
+    mobile_follower_mode = (
+        WebcamSettings.query
+        .with_entities(WebcamSettings.mobile_follower_mode)
+        .filter_by(user=current_user.id)
+        .first()
+    )
+    if mobile_follower_mode:
+        mobile_follower_mode = mobile_follower_mode[0]
+    else:
+        mobile_follower_mode = False
 
     return render_template('generic/lobby.html', games_in_progress=games_in_progress, player_names=player_names,
                            friend_requests=friend_requests, online_friend_list=online_friend_list, form=form,
+                           mobile_follower_mode=mobile_follower_mode,
                            challenges=challenges, title=lazy_gettext('Lobby'))
 
 

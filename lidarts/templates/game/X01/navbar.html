@@ -21,6 +21,9 @@
                 {% endif %}
                 | <div id="mute" class="div-link">{{ _('Mute caller') }}</div> <div id="unmute" style="display: none" class="div-link">{{ _('Unmute caller') }}</div>
                 <div id="appleActivateSound" class="div-link" style="display: none">| {{ _('Activate Sound (Apple)') }}</div>
+                {% if game.webcam and current_user.is_authenticated and current_user.webcam_settings and current_user.webcam_settings.mobile_follower_mode %}
+                | <div id="summon-webcam" class="div-link">{{ _('Summon webcam') }}</div>
+                {% endif %}
 
             </div>
         </div>

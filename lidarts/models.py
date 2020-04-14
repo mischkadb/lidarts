@@ -3,6 +3,7 @@ from lidarts import db
 from datetime import datetime, timedelta
 import secrets
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import relationship
 
 
 # Define models
@@ -46,6 +47,7 @@ class User(db.Model, UserMixin):
     is_backer = db.Column(db.Boolean, default=False)
     is_verified = db.Column(db.Boolean, default=False)
     backer_until = db.Column(db.DateTime, default=None)
+    webcam_settings = relationship("WebcamSettings", uselist=False, back_populates="user_object")
 
     requested_friend_reqs = db.relationship(
         'FriendshipRequest',
@@ -217,6 +219,7 @@ class X01Presetting(db.Model):
     opponent_type = db.Column(db.String(10))
     level = db.Column(db.Integer)
     public_challenge = db.Column(db.Boolean)
+    webcam = db.Column(db.Boolean)
     score_input_delay = db.Column(db.Integer)
 
 
@@ -297,6 +300,10 @@ class Tournament(db.Model):
 class WebcamSettings(db.Model):
     __tablename__ = 'webcam_settings'
     user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user_object = relationship("User", back_populates="webcam_settings")
     activated = db.Column(db.Boolean, default=False)
     stream_consent = db.Column(db.Boolean, default=False)
-    flip_preview = db.Column(db.Boolean, default=True)
+    mobile_app = db.Column(db.Boolean, default=False)
+    mobile_follower_mode = db.Column(db.Boolean, default=False)
+    force_scoreboard_page = db.Column(db.Boolean, default=False)
+    latest_jitsi_hashid = db.Column(db.String(10), default=None)

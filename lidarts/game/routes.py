@@ -16,13 +16,12 @@ from sqlalchemy import func
 
 
 @bp.route('/create', methods=['GET', 'POST'])
-@bp.route('/create/webcam/<webcam>', methods=['GET', 'POST'])
 @bp.route('/create/<mode>', methods=['GET', 'POST'])
 @bp.route('/create/<mode>/<opponent_name>', methods=['GET', 'POST'])
 @bp.route('/create/tournament/<tournament_hashid>', methods=['GET', 'POST'])
 @bp.route('/create/tournament/<tournament_hashid>/<opponent_name>', methods=['GET', 'POST'])
 @login_required
-def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=None):
+def create(mode='x01', opponent_name=None, tournament_hashid=None):
     if mode == 'x01':
         preset = X01Presetting.query.filter_by(user=current_user.id).first()
         if not preset:
@@ -85,11 +84,18 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=None):
         else:
             score_input_delay = 0
 
+        if request.args.get('webcam'):
+            webcam = request.args.get('webcam')
+        elif preset.webcam:
+            webcam = preset.webcam
+        else:
+            webcam = False
+
         level = preset.level if preset.level else 1
 
         if request.args.get('opponent_name'):
             opponent_name = request.args.get('opponent_name')
-            
+
         if opponent_name:
             opponent = 'online'
         else:
@@ -112,6 +118,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=None):
             out_mode=out_mode,
             public_challenge=public_challenge,
             score_input_delay=score_input_delay,
+            webcam=webcam,
         )
         tournaments = current_user.tournaments
         tournament_choices = []
@@ -125,10 +132,11 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=None):
     else:
         pass  # no other game modes yet
 
-    if webcam:
-        webcam_query = WebcamSettings.query.filter_by(user=current_user.id).first()
-        if not webcam_query:
+    webcam_query = WebcamSettings.query.filter_by(user=current_user.id).first()
+    if not webcam_query or not webcam_query.activated:
+        if form.webcam.data:
             return redirect(url_for('game.webcam_consent'))
+        form.webcam.render_kw = {'disabled': 'disabled'}
 
     if form.validate_on_submit():
         player1 = current_user.id if current_user.is_authenticated else None
@@ -169,18 +177,16 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=None):
             player2 = None
             status = 'started'
 
-        if webcam:
+        if form.webcam.data:
             if player2:
                 webcam_player2 = WebcamSettings.query.filter_by(user=player2).first()
                 if not webcam_player2 or not webcam_player2.activated:
                     flash(gettext('Player 2 does not have webcam games enabled.'), 'danger')
                     return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
-                            webcam=webcam, title=lazy_gettext('Create Game'))
+                            title=lazy_gettext('Create Game'))
 
-            webcam = True
             jitsi_hashid = secrets.token_urlsafe(8)[:8]
         else:
-            webcam = False
             jitsi_hashid = None
 
         tournament = form.tournament.data if form.tournament.data != '-' else None
@@ -199,7 +205,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=None):
             public_challenge=form.public_challenge.data,
             tournament=tournament, 
             score_input_delay=form.score_input_delay.data,
-            webcam=webcam, jitsi_hashid=jitsi_hashid,
+            webcam=form.webcam.data, jitsi_hashid=jitsi_hashid,
             )
 
         # Preset saving
@@ -219,6 +225,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=None):
             preset.level = form.level.data
             preset.public_challenge = form.public_challenge.data
             preset.score_input_delay = form.score_input_delay.data
+            preset.webcam = form.webcam.data
 
             db.session.commit()
 
@@ -237,7 +244,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None, webcam=None):
         db.session.commit()
         return redirect(url_for('game.start', hashid=game.hashid))
     return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
-                           title=lazy_gettext('Create Game'), webcam=webcam)
+                           title=lazy_gettext('Create Game'))
 
 
 @bp.route('/<hashid>/statistics/<set_>/<leg>')
@@ -376,6 +383,8 @@ def start(hashid, theme=None):
     if game.webcam and current_user.is_authenticated and current_user.id in (game.player1, game.player2):
         template = 'game/X01_webcam.html'
         webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
+        if webcam_settings and webcam_settings.force_scoreboard_page:
+            template = 'game/X01.html'
     else:
         template = 'game/X01.html'
         webcam_settings = None
@@ -424,16 +433,33 @@ def abort_game(hashid):
 @bp.route('/webcam_consent', methods=['GET', 'POST'])
 def webcam_consent():
     webcam_query = WebcamSettings.query.filter_by(user=current_user.id).first()
-    if webcam_query:
+    if webcam_query and webcam_query.activated:
         return redirect(url_for('game.create', webcam=True))
     form = WebcamConsentForm()
     if form.validate_on_submit():
-        webcam_consent = WebcamSettings(
-            user=current_user.id,
-            activated=True,
-            stream_consent=form.stream_consent.data
-        )
-        db.session.add(webcam_consent)
+        if webcam_query:
+            webcam_query.activated = True
+            webcam_query.stream_consent = form.stream_consent.data
+        else:
+            webcam_consent = WebcamSettings(
+                user=current_user.id,
+                activated=True,
+                stream_consent=form.stream_consent.data
+            )
+            db.session.add(webcam_consent)
         db.session.commit()
         return redirect(url_for('game.create', webcam=True))
     return render_template('game/webcam_consent.html', form=form)
+
+
+@bp.route('/webcam_follow', methods=['GET', 'POST'])
+def webcam_follow():
+    webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
+    if not webcam_settings or not webcam_settings.activated or not webcam_settings.mobile_follower_mode:
+        return redirect(url_for('game.create', webcam=False))
+    
+    
+    return render_template(
+        'game/X01/webcam_follow.html',
+        webcam_settings=webcam_settings,        
+    )

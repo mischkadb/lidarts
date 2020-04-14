@@ -74,3 +74,37 @@ class ChangeCountryForm(FlaskForm):
     accept_country_cooldown = BooleanField(lazy_gettext('Accept'), validators=[DataRequired()])
 
     submit = SubmitField(lazy_gettext('Save'))
+
+
+class WebcamSettingsForm(FlaskForm):
+    activated = SelectField(
+        lazy_gettext('Webcam activated'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
+
+    stream_consent = SelectField(
+        lazy_gettext('Allow streaming'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
+
+    mobile_app = SelectField(
+        lazy_gettext('Use Jitsi mobile app'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
+
+    mobile_follower_mode = SelectField(
+        lazy_gettext('Mobile follow mode'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
+
+    force_scoreboard_page = SelectField(
+        lazy_gettext('Show only scoreboard on main device'),
+        choices=enabled_disabled,
+        validators=[DataRequired()],
+    )
+
+    submit = SubmitField(lazy_gettext('Save'))

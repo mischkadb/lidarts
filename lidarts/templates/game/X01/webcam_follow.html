@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block css %}
+<link href="{{ url_for('static',filename='css/webcam.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+{% block app_content %}
+<div class="row">
+    <div class="col-12">
+        <p>{{ _('Your camera device waits on this page for you to request it in the game menu.') }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12" style="height: 75vh;" id="meet" allow="microphone; camera">
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<meta id="jitsi-settings" data-hashid="{{ webcam_settings.latest_jitsi_hashid }}" data-app="{{ webcam_settings.mobile_app }}">
+
+<script src='https://meet.jit.si/external_api.js'></script>
+{% if webcam_settings.latest_jitsi_hashid %}
+<script type="text/javascript" src="{{ url_for('static',filename='js/webcam.js', version=config.VERSION) }}"></script>
+{% endif %}
+<script type="text/javascript" src="{{ url_for('static',filename='js/webcam_follow.js', version=config.VERSION) }}"></script>
+{% endblock %}

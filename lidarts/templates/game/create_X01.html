@@ -1,23 +1,12 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-{% if not webcam %}
-<div class="row d-none d-lg-block">
-    <div class="col-12 text-center">
-        <h3><a href="{{ url_for('game.create', webcam=True) }}">{{ _('Try out webcam games') }}</a></h3>
-    </div>
-</div>
-{% endif %}
-
 <div class="row justify-content-center mb-2">
     <div class="col-12 col-md-6 text-center">
         <div class="card">
             <div class="card-body">
                 <div class="row justify-content-center">
                     <h1>{{ _('Create Game') }}</h1>
-                    {% if webcam %}
-                    <h3 class="text-warning">{{ _('with webcam (experimental)') }}</h3>
-                    {% endif %}
                 </div>
 
                 <hr>
@@ -94,6 +83,15 @@
                         {{ form.two_clear_legs(class="custom-control-input") }}
                         {{ form.two_clear_legs.label(class="custom-control-label") }}
                         </div>
+                    </p>
+
+                    <p><div class="custom-control custom-checkbox">
+                        {{ form.webcam(class="custom-control-input") }}
+                        {{ form.webcam.label(class="custom-control-label") }}
+                        </div>
+                        {% if form.webcam.render_kw and 'disabled' in form.webcam.render_kw %}
+                        <small><a href="{{ url_for('game.webcam_consent') }}">{{ _('You have to activate webcam games first.') }}</a></small>
+                        {% endif %}
                     </p>
 
                     <p><div class="custom-control custom-checkbox">

@@ -1,20 +1,23 @@
 $(document).ready(function() {
-    var hashid = $('#jitsi-hashid').data()['hashid'];
-    var flip = $('#local-video-flip').data()['flip'];
-    if (flip == 'True') {
-        flip = true;
+    var hashid = $('#jitsi-settings').data()['hashid'];
+    
+    var jitsi_app = $('#jitsi-settings').data()['app'];
+    if (jitsi_app == 'True') {
+        jitsi_app = true;
     } else {
-        flip = false;
+        jitsi_app = false;
     }
 
     configoverwrite = {
-        disableLocalVideoFlip: flip,
+        // disableDeepLinking enables Jitsi on mobile browsers
+        // needs to be false for app notice
+        disableDeepLinking: !jitsi_app,
     }
 
     ifaceoverwrite = {
         TOOLBAR_BUTTONS: [ 'microphone', 'camera', 
-        'fodeviceselection', 
-        'settings',
+        'fodeviceselection', 'fullscreen',
+        'settings', 'livestreaming',
         'tileview',
         'videoquality'],
         GENERATE_ROOMNAMES_ON_WELCOME_PAGE: false,
@@ -24,6 +27,7 @@ $(document).ready(function() {
         DISABLE_RINGING: true,
         DISPLAY_WELCOME_PAGE_CONTENT: false,
         DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
+        MOBILE_APP_PROMO: jitsi_app,
     }
 
     const domain = 'meet.jit.si';

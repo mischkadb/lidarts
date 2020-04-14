@@ -13,9 +13,19 @@
     </div>
 </div>
 
+<div class="row mb-3">
+    <div class="col-auto">
+        <div class="card bg-light text-dark">
+            <div class="card-body">
+                <h4 class="card-text">{{ _('New on Lidarts:') }} <a href="{{ url_for('game.webcam_consent') }}">{{ _('Webcam games') }}</a></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="row justify-content-center">
-    <div class="col-md-4">
+    <div class="col-md-6 col-lg-4">
         <div class="card bg-light text-dark bs-callout bs-callout-info">
             <div class="card-body">
                 <h5 class="card-title"><i class="fas fa-gamepad"></i> {{ _('Play') }}</h5>
@@ -27,15 +37,27 @@
                         </div>
                     </div>
                 </a>
-
+                
                 <hr>
+
+                {% if mobile_follower_mode %}
+                <a href="{{ url_for('game.webcam_follow') }}" class="no-underline">
+                    <div class="card bg-secondary text-light text-center">
+                        <div class="card-body">
+                            <h5 class="card-text">{{ _('Webcam follow page') }}</h5>
+                        </div>
+                    </div>
+                </a>
+                <hr>
+                {% endif %}
+
                 <h5>{{ _('Public challenges') }} </h5>
                 <p>{{ _('Click to accept and play') }}</p>
                 <div class="" id="public_challenge_list"></div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6 col-lg-4 mt-2 mt-md-0">
         <div class="card bg-light text-secondary bs-callout bs-callout-warning">
             <div class="card-body">
                 <h5 class="card-title text-dark"><i class="fas fa-envelope"></i> {{ _('Notifications') }}</h5>
@@ -81,7 +103,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6 col-lg-4 mt-2 mt-lg-0">
         <div class="card bg-light text-secondary bs-callout bs-callout-danger">
             <div class="card-body">
                 <h5 class="card-title text-dark"><i class="fas fa-user-friends"></i> {{ _('Friends online') }}</h5>
@@ -118,6 +140,7 @@
 
 {% block scripts %}
 <meta id="accept_url" data-url="{{ url_for('generic.accept_friend_request') }}">
+<meta id="game_url" data-url="{{ url_for('game.start') }}">
 <meta id="decline_url" data-url="{{ url_for('generic.decline_friend_request') }}">
 <meta id="decline_challenge_url" data-url="{{ url_for('game.decline_challenge') }}">
 <meta id="user_name" data-username="{{ current_user.username }}">
