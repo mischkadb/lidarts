@@ -9,6 +9,7 @@ $(document).ready(function() {
     // The callback function is invoked when a connection with the
     // server is established.
     var username = $('#user_name').data()['username'];
+    var game_url = $('#game_url').data()['url'];
     console.log(username);
 
     socket.on('broadcast_public_challenges', function(msg) {
@@ -55,7 +56,7 @@ $(document).ready(function() {
             }
             
             $('#public_challenge_list').append(
-                '<p><a href="game/' + public_challenge['hashid'] + '" class="text-dark mt-2"><strong>' + public_challenge['username'] + '</strong> | '
+                '<p><a href="' + game_url + public_challenge['hashid'] + '" class="text-dark mt-2"><strong>' + public_challenge['username'] + '</strong> | '
                 + 'Avg.: ' + public_challenge['average'] + '<br>'
                 + public_challenge['type'] + ' ' +  public_challenge['in_mode'] + '/' +  public_challenge['out_mode'] + ' | '
                 + 'bo' + public_challenge['bo_legs'] + ' legs'
