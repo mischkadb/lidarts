@@ -380,12 +380,17 @@ def start(hashid, theme=None):
     else:
         title = lazy_gettext('Live Match')
 
+    stream_consent = True
     channel_ids = [None, None]
     if game.webcam and current_user.is_authenticated and current_user.id in (game.player1, game.player2):
         template = 'game/X01_webcam.html'
         webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
         if webcam_settings and webcam_settings.force_scoreboard_page:
             template = 'game/X01.html'
+        p1_webcam_settings = WebcamSettings.query.filter_by(user=game.player1).first()
+        p2_webcam_settings = WebcamSettings.query.filter_by(user=game.player2).first() if game.player2 else None
+        if not p1_webcam_settings.stream_consent or (p2_webcam_settings and not p2_webcam_settings.stream_consent):
+            stream_consent = False
     else:
         if game.webcam:
             p1_webcam_settings = WebcamSettings.query.filter_by(user=game.player1).first()
@@ -411,7 +416,9 @@ def start(hashid, theme=None):
                             chat_form=chat_form, chat_form_small=chat_form_small,
                             messages=messages, user_names=user_names,
                             stream=theme, channel_ids=channel_ids,
-                            settings=settings, webcam_settings=webcam_settings)
+                            settings=settings, webcam_settings=webcam_settings,
+                            stream_consent=stream_consent,
+                            )
 
 
 @bp.route('/decline_challenge/')
