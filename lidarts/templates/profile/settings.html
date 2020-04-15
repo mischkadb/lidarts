@@ -6,6 +6,8 @@
             {% if current_user.webcam_settings and current_user.webcam_settings.activated %}
             <p><a href="{{ url_for('profile.webcam_settings') }}" class="text-secondary">{{ _('Webcam settings') }}</a></p>
             <p><a href="{{ url_for('profile.livestream_settings') }}" class="text-secondary">{{ _('Livestream settings') }}</a></p>
+            {% else %}
+            <p><a href="{{ url_for('game.webcam_consent') }}" class="text-secondary">{{ _('Activate webcam') }}</a></p>
             {% endif %}
             <p><a href="{{ url_for('profile.edit_profile') }}" class="text-secondary">{{ _('Edit profile text') }}</a></p>
             <p><a href="{{ url_for('profile.manage_friend_list') }}" class="text-secondary">{{ _('Manage friend list') }}</a></p>
