@@ -2,7 +2,7 @@ from flask import url_for
 from flask_babelex import lazy_gettext
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, SelectField, SubmitField, IntegerField, TextAreaField, StringField
-from wtforms.validators import DataRequired, NumberRange, Length
+from wtforms.validators import DataRequired, NumberRange, Length, Regexp
 from lidarts.profile.countries import COUNTRIES
 
 callers = [('default', 'Lidarts default'), ('mischka', 'Lidarts mischka'), ('DartCall 2007', 'DartCall 2007')]
@@ -111,5 +111,5 @@ class WebcamSettingsForm(FlaskForm):
 
 
 class LivestreamSettingsForm(FlaskForm):
-    channel_id = StringField(lazy_gettext('Channel ID'), validators=[Length(min=15, max=30)])
+    channel_id = StringField(lazy_gettext('Channel ID'), validators=[Length(min=15, max=30), Regexp('^UC\w+$')])
     submit = SubmitField(lazy_gettext('Save'))
