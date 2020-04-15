@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-04-14 17:43+0200\n"
-"PO-Revision-Date: 2020-04-14 17:46+0200\n"
+"PO-Revision-Date: 2020-04-14 17:51+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -1225,7 +1225,7 @@ msgstr "Füge ihn in die Stream-Key-Box in Jitsi ein und klicke auf \"Start live
 
 #: templates/profile/livestream_settings.html:27
 msgid "If you get a \"All streamers are currently busy\" error Jitsi has no free streamers at the moment. There is nothing Lidarts can do in that case."
-msgstr "Wenn du eine \"All streamers are currently busy\" Fehler bekommst, dann hat Jitsi im Moment keine freien Streamer. Lidarts kann in dem Fall nicht aushelfen."
+msgstr "Wenn du einen \"All streamers are currently busy\" Fehler bekommst, dann hat Jitsi im Moment keine freien Streamer. Lidarts kann in dem Fall nicht aushelfen."
 
 #: templates/profile/livestream_settings.html:30
 msgid "The second option is starting a YouTube live stream with an external software. We recommend "
@@ -1233,7 +1233,7 @@ msgstr "Die zweite Option ist das Starten eines YouTube-Livestreams mit einer ex
 
 #: templates/profile/livestream_settings.html:32
 msgid "You can find many tutorials on the internet. It requires some setup work."
-msgstr "Du kannst viele Tutorials dazu im Internet finden. Es erfordert eines an Arbeit zum Einstellen."
+msgstr "Du kannst viele Tutorials dazu im Internet finden. Es erfordert einiges an Arbeit zum Einstellen."
 
 #: templates/profile/manage_friend_list.html:13
 msgid "Friends"

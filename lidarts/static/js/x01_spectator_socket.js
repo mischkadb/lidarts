@@ -21,6 +21,7 @@ $(document).ready(function() {
 
     var caller = $('#caller').data()['caller'];
     var muted = false;
+    var audio = new Audio();
 
     socket.on('game_aborted', function(msg) {
         $('.score_input').hide();
@@ -33,6 +34,77 @@ $(document).ready(function() {
     var p2_ingame_timer = setInterval(function(){
         $('#p2_ingame').show()
     }, 35000);
+
+    function p1_current_leg_new_score(msg, index, value, current_leg, p1_last_leg_sum) {
+        p1_last_leg_sum = typeof p1_last_leg_sum !== 'undefined' ? p1_last_leg_sum : 0;
+
+        if (current_leg) {
+            check = (index == msg.p1_current_leg.length-1 && !msg.p1_next_turn)
+        } else {
+            check = (index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type)
+        }
+        if (check) {
+            $('#p1_current_leg').prepend(
+                '<div class="new_score_fadein">' +
+                '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
+                '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div></div>"
+            );
+            $('#p1_current_leg_webcam').prepend(
+                '<div class="new_score_fadein">' +
+                '<div class="row text-light d-flex align-items-center justify-content-end">' +
+                '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div></div>"
+            );                
+            $('.new_score_fadein').hide().fadeIn(2000);
+        } else {
+            $('#p1_current_leg').prepend(
+                '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
+                '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div>"
+            );
+            $('#p1_current_leg_webcam').prepend(
+                '<div class="row text-light d-flex align-items-center justify-content-end">' +
+                '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div></div>"
+            );     
+        };
+    }
+
+    function p2_current_leg_new_score(msg, index, value, current_leg, p1_last_leg_sum) {
+        p1_last_leg_sum = typeof p1_last_leg_sum !== 'undefined' ? p1_last_leg_sum : 0;
+        if (current_leg) {
+            check = (index == msg.p2_current_leg.length-1 && msg.p1_next_turn)
+        } else {
+            check = (index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type)
+        }
+        if (check) {
+            $('#p2_current_leg').prepend(
+                '<div class="new_score_fadein">' +
+                '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3 class="turn-index">' + (index + 1) + '</h3></div>' +
+                '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                '<div class="col-2"></div></div></div>'
+            );
+            $('#p2_current_leg_webcam').prepend(
+                '<div class="new_score_fadein">' +
+                '<div class="row text-light d-flex align-items-center justify-content-begin"><div class="col-2 text-left text-secondary"><h3 class="turn-index">' + (index + 1) + '</h3></div>' +
+                '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                '</div></div>'
+            );
+            $('.new_score_fadein').hide().fadeIn(2000);
+        } else {
+            $('#p2_current_leg').prepend(
+                '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3 class="turn-index">' + (index + 1) + '</h3></div>' +
+                '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                '<div class="col-2"></div></div></div>'
+            );
+            $('#p2_current_leg_webcam').prepend(
+                '<div class="row text-light d-flex align-items-center justify-content-begin"><div class="col-2 text-left text-secondary"><h3 class="turn-index">' + (index + 1) + '</h3></div>' +
+                '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
+                '</div></div>'
+            );
+        }
+    }
 
     socket.on('player_heartbeat_response', function(msg) {
         if (msg.player_id_heartbeat === player1_id) {
@@ -110,45 +182,18 @@ $(document).ready(function() {
         // display all single scores for player 1
         $.each(msg.p1_last_leg, function( index, value ){
             // fade in latest score
-            if ( index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type) {
-                $('#p1_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p1_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
-                )
-            };
+            p1_current_leg_new_score(msg, index, value, false, p1_last_leg_sum);
         });
         // display all single scores for player 2
         $('#p2_current_leg').text('');
-        $.each(msg.p2_last_leg, function( index, value ){
+        $('#p2_current_leg_webcam').text('');
+        $.each(msg.p2_last_leg, function( index, value){
             // fade in latest score
-            if ( index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type) {
-                $('#p2_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                )
-            }
+            p2_current_leg_new_score(msg, index, value, false, p1_last_leg_sum);
         });
 
         if (muted == false) {
-            var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
+            audio.src = '/static/sounds/' + caller + '/game_shot.mp3';
             audio.play();
         }
 
@@ -248,7 +293,7 @@ $(document).ready(function() {
 
         // length check is needed to mute caller when new leg is broadcasted
         if (msg['new_score'] && muted == false && (msg['p1_current_leg'].length > 0 || msg['p2_current_leg'].length > 0)) {
-            var audio = new Audio('/static/sounds/' + caller + '/' + score + '.mp3');
+            audio.src = '/static/sounds/' + caller + '/' + score + '.mp3';
             audio.play();
         }
 
@@ -291,40 +336,14 @@ $(document).ready(function() {
         }
 
         $('#p1_current_leg').text('');
+        $('#p1_current_leg_webcam').text('');
         $.each(msg.p1_current_leg, function( index, value ){
-            if ( index == msg.p1_current_leg.length-1 && !msg.p1_next_turn) {
-                $('#p1_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p1_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
-                )
-            };
+            p1_current_leg_new_score(msg, index, value, true);
         });
         $('#p2_current_leg').text('');
+        $('#p2_current_leg_webcam').text('');
         $.each(msg.p2_current_leg, function( index, value ){
-            if ( index == msg.p2_current_leg.length-1 && msg.p1_next_turn) {
-                $('#p2_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                )
-            }
+            p2_current_leg_new_score(msg, index, value, true);
         });
 
         // Colored turn indicators.
@@ -366,48 +385,22 @@ $(document).ready(function() {
     // Remove turn indicators when game is over and show link to game overview
     socket.on('game_completed', function(msg) {
         $('#p1_current_leg').text('');
+        $('#p1_current_leg_webcam').text('');
         var p1_last_leg_sum = 0;
         if (msg.p1_last_leg.length > 0) {
             p1_last_leg_sum = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
         }
         $.each(msg.p1_last_leg, function( index, value ){
-            if ( index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type) {
-                $('#p1_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p1_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
-                )
-            };
+            p1_current_leg_new_score(msg, index, value, false, p1_last_leg_sum);
         });
         $('#p2_current_leg').text('');
+        $('#p2_current_leg_webcam').text('');
         $.each(msg.p2_last_leg, function( index, value ){
-            if ( index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type) {
-                $('#p2_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                )
-            }
+            p2_current_leg_new_score(msg, index, value, false, p1_last_leg_sum);
         });
 
         if (muted == false){
-            var audio = new Audio('/static/sounds/' + caller + '/game_shot_match.mp3');
+            audio.src = '/static/sounds/' + caller + '/game_shot_match.mp3';
             audio.play();
         }
 
@@ -467,6 +460,40 @@ $(document).ready(function() {
         $('#mute').show();
         $('#unmute').hide();
     });
+
+    $('#appleActivateSound').click(function() {
+        audio.play();
+        $('#appleActivateSound').hide();
+    });
+
+    function getOS() {
+        var userAgent = window.navigator.userAgent,
+            platform = window.navigator.platform,
+            macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+            windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+            iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+            os = null;
+      
+        if (macosPlatforms.indexOf(platform) !== -1) {
+          os = 'Mac OS';
+        } else if (iosPlatforms.indexOf(platform) !== -1) {
+          os = 'iOS';
+        } else if (windowsPlatforms.indexOf(platform) !== -1) {
+          os = 'Windows';
+        } else if (/Android/.test(userAgent)) {
+          os = 'Android';
+        } else if (!os && /Linux/.test(platform)) {
+          os = 'Linux';
+        }
+      
+        return os;
+      }
+
+    var os = getOS();
+    if (os == 'Mac OS' || os == 'iOS') {
+        $('#appleActivateSound').show();
+    }
+      
 
 });
 
