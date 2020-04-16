@@ -21,6 +21,10 @@
                 <p>{{ _('Lidarts generates no money - it is free for everyone, we do not sell ads nor your data. The downside is the lack of a budget for marketing.
                     We rely on users to make Lidarts known to darts players. So tell your friends, invite them to play and spread the word!') }} </p>
 
+                <h4 class="mt-4">{{ _('Translations') }}</h4>
+                <hr>
+                <p>{{ _('The main language on Lidarts is English. Currently there is only a German translation available. If you are fluent in English and another language of your choice you can') }} <a href="{{ url_for('generic.contact') }}">{{ _('contact') }}</a> {{ _('us and translate parts of Lidarts or the entire website for your community. ') }}</p>
+
 
                 <h4 class="mt-4">{{ _('Graphics') }}</h4>
                 <hr>
@@ -37,6 +41,20 @@
                 <hr>
                 <p>{{ _('Of course you are more than welcome to join Lidarts and develop on the project. At the current stage I am all by myself and try to get the project contribution-ready.
                     If you are interested to get started take a look at the') }} <a href="https://github.com/mischkadb/lidarts">{{ _('GitHub repo') }}</a> {{ _('or') }} <a href="{{ url_for('generic.contact') }}">{{ _('contact me') }}</a>.</p>
+
+                <h4 class="mt-4">{{ _('Donations') }}</h4>
+                <hr>
+                <p>{{ _('All features on Lidarts are free. However it requires money to pay for our servers and hosting. You can donate to the project to keep it free for others and smooth for everyone. Although you cannot buy access to any exclusive features, your contribution is acknowledged with a star next to your name on Lidarts for a month. Include your Lidarts username in your donation.') }}</a></p>
+                <p>{{ _('Please note that Lidarts is not a registered non-profit organization by German law. All donations are taxed as the developer\'s income.') }}</p>
+                <div class="text-center">
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick" />
+                        <input type="hidden" name="hosted_button_id" value="RY4AAQVPN7KTS" />
+                        <input type="image" src="https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                        <img alt="" border="0" src="https://www.paypal.com/en_DE/i/scr/pixel.gif" width="1" height="1" />
+                    </form>
+                </div>
+                
 
 
 

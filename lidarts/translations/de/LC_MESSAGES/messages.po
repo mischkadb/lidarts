@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-16 11:19+0200\n"
-"PO-Revision-Date: 2020-04-16 11:11+0200\n"
+"POT-Creation-Date: 2020-04-16 12:02+0200\n"
+"PO-Revision-Date: 2020-04-16 12:06+0200\n"
 "Last-Translator: \n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
+"X-Generator: Poedit 2.3\n"
 
 #: auth/forms.py:21
 msgid "Password must have at least 8 characters"
@@ -28,12 +29,11 @@ msgstr "Benutzername wird benötigt"
 
 #: auth/forms.py:43
 msgid ""
-"Password must have at least 15 characters OR contain at least two out of "
-"these: lowercase letter, uppercase letter, number, symbol."
+"Password must have at least 15 characters OR contain at least two out of these: "
+"lowercase letter, uppercase letter, number, symbol."
 msgstr ""
 "Passwort muss mindestens 15 Zeichen enthalten ODER mindestens zwei der "
-"folgenden Elemente enthalten: Kleinbuchstabe, Großbuchstabe, Zahl, "
-"Symbol."
+"folgenden Elemente enthalten: Kleinbuchstabe, Großbuchstabe, Zahl, Symbol."
 
 #: auth/forms.py:50
 msgid "Username is already taken"
@@ -78,8 +78,7 @@ msgstr "Benutzername ändern"
 #: auth/routes.py:30
 msgid "You can only change your username once per month. You need to wait until: "
 msgstr ""
-"Du kannst deinen Benutzernamen nur einmal pro Monat ändern. Bitte warte "
-"bis: "
+"Du kannst deinen Benutzernamen nur einmal pro Monat ändern. Bitte warte bis: "
 
 #: auth/routes.py:33
 msgid "Username changed."
@@ -179,19 +178,19 @@ msgstr "Nachricht senden"
 
 #: game/forms.py:54
 msgid ""
-"I have read the text above, understand the limitations and have a webcam "
-"setup to play."
+"I have read the text above, understand the limitations and have a webcam setup "
+"to play."
 msgstr ""
 "Ich habe obigen Text gelesen, verstehe die Limitierungen und habe eine "
 "aufgebaute Webcam zum Spielen."
 
 #: game/forms.py:55
 msgid ""
-"(Optional) I allow my opponents to stream and record our game including "
-"my webcam video and audio."
+"(Optional) I allow my opponents to stream and record our game including my "
+"webcam video and audio."
 msgstr ""
-"(Optional) Ich erlaube meinen Gegnern unser Spiel, inklusive meinem Bild "
-"und Ton, aufzunehmen oder zu streamen."
+"(Optional) Ich erlaube meinen Gegnern unser Spiel, inklusive meinem Bild und "
+"Ton, aufzunehmen oder zu streamen."
 
 #: game/forms.py:56 templates/game/X01/modals.html:49
 #: templates/game/X01_stream.html:390
@@ -280,9 +279,8 @@ msgstr "Deaktiviert"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: profile/forms.py:14 profile/forms.py:19 profile/forms.py:24
-#: profile/forms.py:64 profile/forms.py:76 profile/forms.py:110
-#: profile/forms.py:115
+#: profile/forms.py:14 profile/forms.py:19 profile/forms.py:24 profile/forms.py:64
+#: profile/forms.py:76 profile/forms.py:110 profile/forms.py:115
 msgid "Save"
 msgstr "Speichern"
 
@@ -393,11 +391,10 @@ msgstr "Einstellungen gespeichert."
 
 #: profile/routes.py:273
 msgid ""
-"You can only change your country setting once per month. You need to wait"
-" until: "
+"You can only change your country setting once per month. You need to wait "
+"until: "
 msgstr ""
-"Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte "
-"warte bis: "
+"Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte warte bis: "
 
 #: profile/routes.py:274 profile/routes.py:290
 #: templates/profile/general_settings.html:13 templates/profile/settings.html:5
@@ -468,8 +465,7 @@ msgid "No new notifications"
 msgstr "Keine neuen Benachrichtigungen"
 
 #: templates/base.html:79 templates/security/login_user.html:9
-#: templates/security/login_user.html:18
-#: templates/security/register_user.html:29
+#: templates/security/login_user.html:18 templates/security/register_user.html:29
 msgid "Sign In"
 msgstr "Einloggen"
 
@@ -553,9 +549,8 @@ msgstr "Spiel ist beendet."
 #: templates/game/X01.html:62 templates/game/X01.html:67
 #: templates/game/X01.html:148 templates/game/X01_stream.html:71
 #: templates/game/X01_stream.html:76 templates/game/X01_stream.html:158
-#: templates/game/X01_watch_webcam.html:69
-#: templates/game/X01_watch_webcam.html:74 templates/game/X01_webcam.html:70
-#: templates/game/X01_webcam.html:75
+#: templates/game/X01_watch_webcam.html:69 templates/game/X01_watch_webcam.html:74
+#: templates/game/X01_webcam.html:70 templates/game/X01_webcam.html:75
 msgid "Game overview"
 msgstr "Spielübersicht"
 
@@ -682,11 +677,9 @@ msgstr "Warte auf"
 #: templates/game/wait_for_opponent.html:16
 #: templates/game/wait_for_opponent_public_challenge.html:18
 msgid ""
-"This page will redirect you to the game once the challenge has been "
-"accepted."
+"This page will redirect you to the game once the challenge has been accepted."
 msgstr ""
-"Diese Seite leitet dich weiter, sobald die Herausforderung angenommen "
-"wurde."
+"Diese Seite leitet dich weiter, sobald die Herausforderung angenommen wurde."
 
 #: templates/game/wait_for_opponent.html:18
 msgid "You are not logged in. Log in to play in this game."
@@ -695,8 +688,7 @@ msgstr "Du bist nicht eingeloggt. Bitte einloggen um in diesem Spiel zu spielen.
 #: templates/game/wait_for_opponent.html:19
 msgid "Share this link to invite another player (must be logged in):"
 msgstr ""
-"Teile diesen Link, um einen anderen Spieler einzuladen (muss eingeloggt "
-"sein):"
+"Teile diesen Link, um einen anderen Spieler einzuladen (muss eingeloggt sein):"
 
 #: templates/game/wait_for_opponent.html:21
 msgid "Copy text"
@@ -720,13 +712,13 @@ msgstr "Spiel mit Webcam"
 
 #: templates/game/webcam_consent.html:15
 msgid ""
-"Lidarts offers X01 webcam games between two players in an experimental "
-"testing stage. We currently try an external service for video and audio "
-"communication called Jitsi."
+"Lidarts offers X01 webcam games between two players in an experimental testing "
+"stage. We currently try an external service for video and audio communication "
+"called Jitsi."
 msgstr ""
 "Lidarts ermöglicht X01 Spiele mit Webcam zwischen zwei Spielern in einer "
-"experimentellen Phase. Derzeit testen wir Jitsi als externe Plattform für"
-" Video- und Audiokommunikation."
+"experimentellen Phase. Derzeit testen wir Jitsi als externe Plattform für "
+"Video- und Audiokommunikation."
 
 #: templates/game/webcam_consent.html:16
 msgid ""
@@ -734,17 +726,17 @@ msgid ""
 "desktop PC with a modern browser, e.g. Google Chrome or Firefox."
 msgstr ""
 "Um spielen zu können brauchst du eine Webcam, die auf dein Dartboard "
-"ausgerichtet ist, sowie einen Desktop-PC mit modernem Browser wie Google "
-"Chrome oder Firefox."
+"ausgerichtet ist, sowie einen Desktop-PC mit modernem Browser wie Google Chrome "
+"oder Firefox."
 
 #: templates/game/webcam_consent.html:17
 msgid ""
-"Mobile devices are not supported. We currently also provide no support "
-"for setup. You can try \n"
+"Mobile devices are not supported. We currently also provide no support for "
+"setup. You can try \n"
 "                        Jitsi Meet "
 msgstr ""
-"Mobile Geräte werden nicht unterstützt. Wir können derzeit auch keine "
-"Hilfe beim Aufbau bereitstellen. Testen kannst du Jitsi Meet "
+"Mobile Geräte werden nicht unterstützt. Wir können derzeit auch keine Hilfe "
+"beim Aufbau bereitstellen. Testen kannst du Jitsi Meet "
 
 #: templates/game/webcam_consent.html:18
 msgid "here"
@@ -752,28 +744,27 @@ msgstr "hier"
 
 #: templates/game/webcam_consent.html:18
 msgid ""
-"If you do not get your webcam to work there it will not work on Lidarts "
-"either."
+"If you do not get your webcam to work there it will not work on Lidarts either."
 msgstr ""
-"Wenn deine Webcam dort nicht funktioniert, dann wird sie auch auf Lidarts"
-" nicht funktionieren."
+"Wenn deine Webcam dort nicht funktioniert, dann wird sie auch auf Lidarts nicht "
+"funktionieren."
 
 #: templates/game/webcam_consent.html:19
 msgid ""
-"Although there is no ruleset for webcam play yet we call on your fairness"
-" and sportsmanship."
+"Although there is no ruleset for webcam play yet we call on your fairness and "
+"sportsmanship."
 msgstr ""
-"Obwohl es noch kein festes Regelwerk für Webcamspiele gibt appellieren "
-"wir an deine Fairness und sportliches Verhalten."
+"Obwohl es noch kein festes Regelwerk für Webcamspiele gibt appellieren wir an "
+"deine Fairness und sportliches Verhalten."
 
 #: templates/game/webcam_consent.html:20
 msgid ""
-"We need feedback in order to improve webcam play in the future. We "
-"encourage you to send your experience via email at contact@lidarts.org"
+"We need feedback in order to improve webcam play in the future. We encourage "
+"you to send your experience via email at contact@lidarts.org"
 msgstr ""
 "Wir brauchen Rückmeldungen, um das Spielen mit Webcams in Zukunft zu "
-"verbessern. Gerne kannst du uns deine Erfahrungen per E-Mail an "
-"contact@lidarts.org schicken"
+"verbessern. Gerne kannst du uns deine Erfahrungen per E-Mail an contact@lidarts."
+"org schicken"
 
 #: templates/game/X01/navbar.html:20
 msgid "Streamoverlay"
@@ -793,11 +784,9 @@ msgstr "Mindestens ein Spieler gestattet kein Streaming."
 
 #: templates/game/X01/webcam_follow.html:10
 msgid ""
-"Your camera device waits on this page for you to request it in the game "
-"menu."
+"Your camera device waits on this page for you to request it in the game menu."
 msgstr ""
-"Dein Kamera-Gerät wartet auf dieser Seite, bis du es im Spielmenü "
-"herbeirufst."
+"Dein Kamera-Gerät wartet auf dieser Seite, bis du es im Spielmenü herbeirufst."
 
 #: templates/generic/404.html:10
 msgid "404 Error"
@@ -839,13 +828,13 @@ msgstr "Onlinedarts-Scoring-Webseite."
 
 #: templates/generic/about.html:13
 msgid ""
-"Still being in a very early stage, the main goal for Lidarts' future is "
-"to provide darts players an online service to play against real players "
-"and to help in their daily training."
+"Still being in a very early stage, the main goal for Lidarts' future is to "
+"provide darts players an online service to play against real players and to "
+"help in their daily training."
 msgstr ""
-"Lidarts befindet sich noch in einer frühen Entwicklungsphase. Das "
-"Hauptziel ist, Dartspielern einen Onlineservice bereitzustellen, um gegen"
-" echte Gegner anzutreten und im täglichen Training auszuhelfen."
+"Lidarts befindet sich noch in einer frühen Entwicklungsphase. Das Hauptziel "
+"ist, Dartspielern einen Onlineservice bereitzustellen, um gegen echte Gegner "
+"anzutreten und im täglichen Training auszuhelfen."
 
 #: templates/generic/about.html:13
 msgid "Many features are planned and wait for completion."
@@ -897,12 +886,11 @@ msgstr "Im Spiel"
 
 #: templates/generic/contact.html:12
 msgid ""
-"There are a few ways to contact us, more to come soon! No matter the "
-"reason, we try to reply as quickly as possible."
+"There are a few ways to contact us, more to come soon! No matter the reason, we "
+"try to reply as quickly as possible."
 msgstr ""
-"Es gibt mehrere Möglichkeiten uns zu kontaktieren. Weitere werden bald "
-"folgen! Egal aus welchem Grund du uns kontaktierst, wir versuchen, "
-"zeitnah zu antworten."
+"Es gibt mehrere Möglichkeiten uns zu kontaktieren. Weitere werden bald folgen! "
+"Egal aus welchem Grund du uns kontaktierst, wir versuchen, zeitnah zu antworten."
 
 #: templates/generic/contact.html:13
 msgid "At the moment we can provide you support in English or German."
@@ -918,11 +906,11 @@ msgstr "Wirke mit bei lidarts.org"
 
 #: templates/generic/contribute.html:12
 msgid ""
-"Lidarts relies on volunteers to develop and maintain the project. There "
-"are several ways you can help out."
+"Lidarts relies on volunteers to develop and maintain the project. There are "
+"several ways you can help out."
 msgstr ""
-"Lidarts ist auf Freiwillige angewiesen, die das Projekt weiterentwickeln "
-"und pflegen. Es gibt mehrere Wege, auf denen auch du aushelfen kannst."
+"Lidarts ist auf Freiwillige angewiesen, die das Projekt weiterentwickeln und "
+"pflegen. Es gibt mehrere Wege, auf denen auch du aushelfen kannst."
 
 #: templates/generic/contribute.html:14
 msgid "Play and provide feedback"
@@ -930,18 +918,18 @@ msgstr "Spiele und gib Feedback"
 
 #: templates/generic/contribute.html:16
 msgid ""
-"During development I try to test the features the best I can. But there "
-"will still be bugs that make it through to the live server.\n"
-"                    If you encounter any bugs or problems during play or "
-"you have ideas or feedback to improve the site, please"
+"During development I try to test the features the best I can. But there will "
+"still be bugs that make it through to the live server.\n"
+"                    If you encounter any bugs or problems during play or you "
+"have ideas or feedback to improve the site, please"
 msgstr ""
-"Im Laufe der Entwicklung versuche ich, alle Funktionen auf Herz und "
-"Nieren zu prüfen. Dennoch werden es Fehler bis auf den Liveserver "
-"schaffen. \n"
-"Falls du irgendwelche Fehler oder Probleme während des Spielens findest "
-"oder Ideen oder Anregungen hast, die Seite zu verbessern, bitte"
+"Im Laufe der Entwicklung versuche ich, alle Funktionen auf Herz und Nieren zu "
+"prüfen. Dennoch werden es Fehler bis auf den Liveserver schaffen. \n"
+"Falls du irgendwelche Fehler oder Probleme während des Spielens findest oder "
+"Ideen oder Anregungen hast, die Seite zu verbessern, bitte"
 
-#: templates/generic/contribute.html:17 templates/generic/contribute.html:27
+#: templates/generic/contribute.html:17 templates/generic/contribute.html:26
+#: templates/generic/contribute.html:31
 msgid "contact"
 msgstr "kontaktiere"
 
@@ -951,102 +939,147 @@ msgstr "Erzähl deinen Freunden"
 
 #: templates/generic/contribute.html:21
 msgid ""
-"Lidarts generates no money - it is free for everyone, we do not sell ads "
-"nor your data. The downside is the lack of a budget for marketing.\n"
-"                    We rely on users to make Lidarts known to darts "
-"players. So tell your friends, invite them to play and spread the word!"
+"Lidarts generates no money - it is free for everyone, we do not sell ads nor "
+"your data. The downside is the lack of a budget for marketing.\n"
+"                    We rely on users to make Lidarts known to darts players. So "
+"tell your friends, invite them to play and spread the word!"
 msgstr ""
-"Lidarts erwirtschaftet kein Geld - es ist für jeden komplett kostenfrei, "
-"wir verkaufen weder Werbung noch deine Daten. Ein Nachteil ist ein "
-"fehlendes Budget für Marketing.\n"
-"Wir setzen auf unsere Nutzer, um Lidarts unter Dartspielern bekannt zu "
-"machen. Also erzähl es deinen Freunden und lade sie auf ein Spiel ein!"
+"Lidarts erwirtschaftet kein Geld - es ist für jeden komplett kostenfrei, wir "
+"verkaufen weder Werbung noch deine Daten. Ein Nachteil ist ein fehlendes Budget "
+"für Marketing.\n"
+"Wir setzen auf unsere Nutzer, um Lidarts unter Dartspielern bekannt zu machen. "
+"Also erzähl es deinen Freunden und lade sie auf ein Spiel ein!"
 
-#: templates/generic/contribute.html:25 templates/statistics/x01.html:124
+#: templates/generic/contribute.html:24
+msgid "Translations"
+msgstr "Übersetzungen"
+
+#: templates/generic/contribute.html:26
+msgid ""
+"The main language on Lidarts is English. Currently there is only a German "
+"translation available. If you are fluent in English and another language of "
+"your choice you can"
+msgstr ""
+"Die Hauptsprache auf Lidarts ist Englisch. Aktuell existiert zusätzlich nur "
+"eine deutsche Übersetzung. Wenn du fließend Englisch und eine weitere Sprache "
+"beherrscht, dann kannst du uns"
+
+#: templates/generic/contribute.html:26
+msgid ""
+"us and translate parts of Lidarts or the entire website for your community. "
+msgstr ""
+"und teile von Lidarts oder die gesamte Webseite für deine Community übersetzen. "
+
+#: templates/generic/contribute.html:29 templates/statistics/x01.html:124
 msgid "Graphics"
 msgstr "Grafiken"
 
-#: templates/generic/contribute.html:27
+#: templates/generic/contribute.html:31
 msgid ""
 "The design of the website is not finished, but Lidarts mainly lacks some "
-"graphics to improve the look. Do you have the know-how to create graphics"
-" for Lidarts? If so,"
+"graphics to improve the look. Do you have the know-how to create graphics for "
+"Lidarts? If so,"
 msgstr ""
-"Das Design der Seite ist noch nicht fertiggestellt, aber Lidarts benötigt"
-" hauptsächlich ein paar Grafiken zur Aufhübschung. Hast du die "
-"Fähigkeiten, für Lidarts ein paar Grafiken zu erstellen? Falls ja,"
+"Das Design der Seite ist noch nicht fertiggestellt, aber Lidarts benötigt "
+"hauptsächlich ein paar Grafiken zur Aufhübschung. Hast du die Fähigkeiten, für "
+"Lidarts ein paar Grafiken zu erstellen? Falls ja,"
 
-#: templates/generic/contribute.html:27
+#: templates/generic/contribute.html:31
 msgid "us."
 msgstr "uns."
 
-#: templates/generic/contribute.html:31
+#: templates/generic/contribute.html:35
 msgid ""
-"I am not a web designer and the website reflects that. At some point "
-"Lidarts will need a redesign and some help would be greatly appreciated."
-"\n"
-"                    You can help out with design ideas: Create a visual "
-"concept with Paint, Photoshop or whatever you like and"
+"I am not a web designer and the website reflects that. At some point Lidarts "
+"will need a redesign and some help would be greatly appreciated.\n"
+"                    You can help out with design ideas: Create a visual concept "
+"with Paint, Photoshop or whatever you like and"
 msgstr ""
-"Ich bin kein Webdesigner und das sieht man der Webseite an. Früher oder "
-"später braucht Lidarts ein frisches Auftreten und über etwas Hilfe würde "
-"ich mich riesig freuen.\n"
-"Du kannst mit Designideen aushelfen: Erstelle ein visuelles Konzept mit "
-"Paint, Photoshop oder wie auch immer du magst und"
+"Ich bin kein Webdesigner und das sieht man der Webseite an. Früher oder später "
+"braucht Lidarts ein frisches Auftreten und über etwas Hilfe würde ich mich "
+"riesig freuen.\n"
+"Du kannst mit Designideen aushelfen: Erstelle ein visuelles Konzept mit Paint, "
+"Photoshop oder wie auch immer du magst und"
 
-#: templates/generic/contribute.html:32
+#: templates/generic/contribute.html:36
 msgid "send it to me."
 msgstr "sende es mir zu."
 
-#: templates/generic/contribute.html:33
+#: templates/generic/contribute.html:37
 msgid ""
-"Or even better: you can work directly on the frontend and implement your "
-"ideas if you have some knowledge about HTML, CSS and JavaScript."
+"Or even better: you can work directly on the frontend and implement your ideas "
+"if you have some knowledge about HTML, CSS and JavaScript."
 msgstr ""
 "Oder noch besser: du kannst direkt am Frontend arbeiten und deine Ideen "
 "umsetzen, falls du etwas HTML, CSS und JavaScript beherrschst."
 
-#: templates/generic/contribute.html:34
+#: templates/generic/contribute.html:38
 msgid "Interested?"
 msgstr "Interessiert?"
 
-#: templates/generic/contribute.html:34
+#: templates/generic/contribute.html:38
 msgid "Contact Lidarts"
 msgstr "Kontaktiere Lidarts"
 
-#: templates/generic/contribute.html:34
+#: templates/generic/contribute.html:38
 msgid "or visit the"
 msgstr "oder besuche das"
 
-#: templates/generic/contribute.html:36
+#: templates/generic/contribute.html:40
 msgid "Programming"
 msgstr "Programmierung"
 
-#: templates/generic/contribute.html:38
+#: templates/generic/contribute.html:42
 msgid ""
-"Of course you are more than welcome to join Lidarts and develop on the "
-"project. At the current stage I am all by myself and try to get the "
-"project contribution-ready.\n"
-"                    If you are interested to get started take a look at "
-"the"
+"Of course you are more than welcome to join Lidarts and develop on the project. "
+"At the current stage I am all by myself and try to get the project contribution-"
+"ready.\n"
+"                    If you are interested to get started take a look at the"
 msgstr ""
-"Selbstverständlich bist du herzlichst eingeladen Lidarts beizutreten und "
-"am Projekt mitzuentwickeln. Zum aktuellen Stand bin ich in der "
-"Entwicklung auf mich allein gestellt und versuche, das Projekt für "
-"Mitarbeit bereit zu machen.\n"
+"Selbstverständlich bist du herzlichst eingeladen Lidarts beizutreten und am "
+"Projekt mitzuentwickeln. Zum aktuellen Stand bin ich in der Entwicklung auf "
+"mich allein gestellt und versuche, das Projekt für Mitarbeit bereit zu machen.\n"
 "Falls du Interesse am Einstieg hast, dann wirf einen Blick auf das"
 
-#: templates/generic/contribute.html:39
+#: templates/generic/contribute.html:43
 msgid "GitHub repo"
 msgstr "GitHub repo"
 
-#: templates/generic/contribute.html:39
+#: templates/generic/contribute.html:43
 msgid "or"
 msgstr "oder"
 
-#: templates/generic/contribute.html:39
+#: templates/generic/contribute.html:43
 msgid "contact me"
 msgstr "kontaktiere mich"
+
+#: templates/generic/contribute.html:45
+msgid "Donations"
+msgstr "Spenden"
+
+#: templates/generic/contribute.html:47
+msgid ""
+"All features on Lidarts are free. However it requires money to pay for our "
+"servers and hosting. You can donate to the project to keep it free for others "
+"and smooth for everyone. Although you cannot buy access to any exclusive "
+"features, your contribution is acknowledged with a star next to your name on "
+"Lidarts for a month. Include your Lidarts username in your donation."
+msgstr ""
+"Alle Funktionen auf Lidarts sind kostenlos. Es fallen dennoch Kosten an, um "
+"unsere Server und das Hosting zu bezahlen. Du kannst mit einer freiwilligen "
+"Zahlung das Projekt für andere kostenlos und für alle flüssig laufend erhalten. "
+"Obwohl du dir deine zusätzlichen Funktionen kaufen kannst, wird dein Beitrag "
+"mit einem Stern neben deinem Namen auf Lidarts anerkannt. Gib dafür deinen "
+"Nutzernamen auf Lidarts bei der Zahlung an."
+
+#: templates/generic/contribute.html:48
+msgid ""
+"Please note that Lidarts is not a registered non-profit organization by German "
+"law. All donations are taxed as the developer's income."
+msgstr ""
+"Bitte beachte, dass Lidarts keine registrierte Nicht-Profit-Organisation nach "
+"deutschem Recht ist. Alle Zuwendungen werden als Einkommen des Entwicklers "
+"versteuert."
 
 #: templates/generic/faq.html:6
 msgid "Frequently Asked Questions"
@@ -1058,11 +1091,11 @@ msgstr "Was benötige ich, um zu spielen?"
 
 #: templates/generic/faq.html:9
 msgid ""
-"To play you need a computer or a mobile device with a modern browser. "
-"Obviously you also need a darts setup."
+"To play you need a computer or a mobile device with a modern browser. Obviously "
+"you also need a darts setup."
 msgstr ""
-"Zum Spielen wird ein Computer oder mobiles Gerät mit einem modernen "
-"Browser benötigt. Zusätzlich benötigt man ein Setup zum Darts spielen."
+"Zum Spielen wird ein Computer oder mobiles Gerät mit einem modernen Browser "
+"benötigt. Zusätzlich benötigt man ein Setup zum Darts spielen."
 
 #: templates/generic/faq.html:11
 msgid "How do I find someone to play?"
@@ -1070,15 +1103,14 @@ msgstr "Wie finde ich jemanden zum Spielen?"
 
 #: templates/generic/faq.html:12
 msgid ""
-"If you did not arrange a game with someone yet there are two easy "
-"options: Either join the chat and ask/look for a game there, or you can "
-"set up a public challenge when creating a game which will be visible to "
-"everyone else."
+"If you did not arrange a game with someone yet there are two easy options: "
+"Either join the chat and ask/look for a game there, or you can set up a public "
+"challenge when creating a game which will be visible to everyone else."
 msgstr ""
-"Wenn noch kein Spiel mit jemandem arrangiert wurde, gibt es zwei einfache"
-" Optionen: Entweder über den Chat nach einem Spiel fragen/suchen oder "
-"eine öffentliche Herausforderung bei der Spielerstellung auswählen, die "
-"dann für alle anderen sichtbar ist."
+"Wenn noch kein Spiel mit jemandem arrangiert wurde, gibt es zwei einfache "
+"Optionen: Entweder über den Chat nach einem Spiel fragen/suchen oder eine "
+"öffentliche Herausforderung bei der Spielerstellung auswählen, die dann für "
+"alle anderen sichtbar ist."
 
 #: templates/generic/faq.html:14
 msgid "How does 'closest to bull' work?"
@@ -1086,18 +1118,17 @@ msgstr "Wie funktioniert das Ausbullen?"
 
 #: templates/generic/faq.html:15
 msgid ""
-"In order to determine the starting player you throw three darts at bull. "
-"Enter and submit each dart score individually in order of throw. Darts "
-"outside of bull count as 0. The first better result over the other player"
-" begins. This means that for example 25-0-0 beats 0-50-50 as player 1 had"
-" a better result with an earlier dart."
+"In order to determine the starting player you throw three darts at bull. Enter "
+"and submit each dart score individually in order of throw. Darts outside of "
+"bull count as 0. The first better result over the other player begins. This "
+"means that for example 25-0-0 beats 0-50-50 as player 1 had a better result "
+"with an earlier dart."
 msgstr ""
-"Um den Startspieler zu bestimmen werden drei Darts aufs Bull geworfen. "
-"Jeden Dart-Score einzeln in der Reihenfolge des Wurfs eingeben und "
-"abschicken. Darts außerhalb des Bulls zählen als 0. Das erste bessere "
-"Ergebnis gegenüber dem anderen Spieler beginnt. Das bedeutet, dass zum "
-"Beispiel 25-0-0 besser als 0-50-50 ist, da Spieler 1 ein besseres "
-"Ergebnis mit einem früheren Dart hatte."
+"Um den Startspieler zu bestimmen werden drei Darts aufs Bull geworfen. Jeden "
+"Dart-Score einzeln in der Reihenfolge des Wurfs eingeben und abschicken. Darts "
+"außerhalb des Bulls zählen als 0. Das erste bessere Ergebnis gegenüber dem "
+"anderen Spieler beginnt. Das bedeutet, dass zum Beispiel 25-0-0 besser als "
+"0-50-50 ist, da Spieler 1 ein besseres Ergebnis mit einem früheren Dart hatte."
 
 #: templates/generic/faq.html:17
 msgid "Can I play cricket or other variants?"
@@ -1105,11 +1136,11 @@ msgstr "Kann ich Cricket oder andere Varianten spielen?"
 
 #: templates/generic/faq.html:18
 msgid ""
-"Currently only X01 games are available. Cricket will be available soon. "
-"More dart games might follow."
+"Currently only X01 games are available. Cricket will be available soon. More "
+"dart games might follow."
 msgstr ""
-"Derzeit sind nur X01-Spiele verfügbar. Cricket wird in Kürze verfügbar "
-"sein. Weitere Dart-Spiele könnten folgen."
+"Derzeit sind nur X01-Spiele verfügbar. Cricket wird in Kürze verfügbar sein. "
+"Weitere Dart-Spiele könnten folgen."
 
 #: templates/generic/faq.html:20
 msgid "Can I use my webcam and see my opponent's throw?"
@@ -1121,8 +1152,7 @@ msgid ""
 "conferencing service. You can also play without a webcam based on trust."
 msgstr ""
 "Lidarts unterstützt experimentelle Webcam-Spiele über Jitsi Meet, einen "
-"Videokonferenzdienst. Man kann auch ohne Webcam auf vertrauensbasis "
-"spielen."
+"Videokonferenzdienst. Man kann auch ohne Webcam auf vertrauensbasis spielen."
 
 #: templates/generic/faq.html:23
 msgid "How do I set up my webcam?"
@@ -1130,11 +1160,11 @@ msgstr "Wie richte ich meine Webcam ein?"
 
 #: templates/generic/faq.html:24
 msgid ""
-"You need to connect your webcam (or smartphone with appropiate software) "
-"to your computer. Before your first game you have to agree to the current"
+"You need to connect your webcam (or smartphone with appropiate software) to "
+"your computer. Before your first game you have to agree to the current"
 msgstr ""
-"Die Webcam (oder Smartphone mit entsprechender Software) muss mit dem "
-"Computer verbunden werden. Vor Ihrem ersten Spiel muss man dem"
+"Die Webcam (oder Smartphone mit entsprechender Software) muss mit dem Computer "
+"verbunden werden. Vor Ihrem ersten Spiel muss man dem"
 
 #: templates/generic/faq.html:24
 msgid "webcam service notice"
@@ -1158,15 +1188,14 @@ msgstr "Kann ich Turniere veranstalten bzw. in Turnieren spielen?"
 
 #: templates/generic/faq.html:30
 msgid ""
-"Currently tournament organizers can create a separate room with a "
-"tournament-specific chat, user list and result box. For brackets you need"
-" to use an external service. It will be possible to automate tournaments "
-"on Lidarts soon."
+"Currently tournament organizers can create a separate room with a tournament-"
+"specific chat, user list and result box. For brackets you need to use an "
+"external service. It will be possible to automate tournaments on Lidarts soon."
 msgstr ""
 "Derzeit können Turnierveranstalter einen eigenen Raum mit einem Chat, "
-"Spielerliste und Ergebnisübersicht erstellen. Das Turnierbracket muss "
-"extern verwaltet werden. Es wird demnächst auch möglich sein, Turniere "
-"auf Lidarts zu automatisieren."
+"Spielerliste und Ergebnisübersicht erstellen. Das Turnierbracket muss extern "
+"verwaltet werden. Es wird demnächst auch möglich sein, Turniere auf Lidarts zu "
+"automatisieren."
 
 #: templates/generic/faq.html:32
 msgid "How do I send private messages?"
@@ -1174,11 +1203,11 @@ msgstr "Wie versende ich private Nachrichten?"
 
 #: templates/generic/faq.html:33
 msgid ""
-"Open your inbox, enter the recipient's username in the box below and "
-"compose a new message."
+"Open your inbox, enter the recipient's username in the box below and compose a "
+"new message."
 msgstr ""
-"Öffne den Posteingang, gib den Benutzernamen des Empfängers in das Feld "
-"unten ein und verfasse eine neue Nachricht."
+"Öffne den Posteingang, gib den Benutzernamen des Empfängers in das Feld unten "
+"ein und verfasse eine neue Nachricht."
 
 #: templates/generic/faq.html:35
 msgid "How do I add someone to my friend list?"
@@ -1186,29 +1215,28 @@ msgstr "Wie füge ich jemanden zu meiner Freundesliste hinzu?"
 
 #: templates/generic/faq.html:36
 msgid ""
-"You need to know your friend's username. Use the user search box in the "
-"lobby to find his profile. Click the friend request link there and wait "
-"for him to confirm."
+"You need to know your friend's username. Use the user search box in the lobby "
+"to find his profile. Click the friend request link there and wait for him to "
+"confirm."
 msgstr ""
-"Du musst den Benutzernamen des Freundes kennen. Verwende das Suchfeld in "
-"der Lobby, um sein Profil zu finden. Klicke dort auf den Link für die "
+"Du musst den Benutzernamen des Freundes kennen. Verwende das Suchfeld in der "
+"Lobby, um sein Profil zu finden. Klicke dort auf den Link für die "
 "Freundschaftsanfrage und warte, bis er dies bestätigt."
 
 #: templates/generic/faq.html:38
 msgid ""
-"Where can I change my country flag / caller voice / username / password "
-"etc."
+"Where can I change my country flag / caller voice / username / password etc."
 msgstr ""
-"Wo kann ich meine Länderflagge / Caller-Stimme / Benutzername / Passwort "
-"usw. ändern."
+"Wo kann ich meine Länderflagge / Caller-Stimme / Benutzername / Passwort usw. "
+"ändern."
 
 #: templates/generic/faq.html:39
 msgid ""
-"In your profile there is a settings button with lots of options. We "
-"highly recommend to look through the options before you play."
+"In your profile there is a settings button with lots of options. We highly "
+"recommend to look through the options before you play."
 msgstr ""
-"Im Profil gibt es einen Button für die Einstellungen mit vielen Optionen."
-" Es wird empfohlen, sich die Optionen vor dem ersten Spiel anzusehen."
+"Im Profil gibt es einen Button für die Einstellungen mit vielen Optionen. Es "
+"wird empfohlen, sich die Optionen vor dem ersten Spiel anzusehen."
 
 #: templates/generic/faq.html:41
 msgid "My opponent throws so fast. What can I do?"
@@ -1217,14 +1245,13 @@ msgstr "Mein Gegner wirft so schnell. Was kann ich tun?"
 #: templates/generic/faq.html:42
 msgid ""
 "There are usually two types of online players: Those who wait for their "
-"opponent to throw and those who don't. If you feel stressed you can set "
-"up an input block time upon game creating. We recommend between 5 and 10 "
-"seconds."
+"opponent to throw and those who don't. If you feel stressed you can set up an "
+"input block time upon game creating. We recommend between 5 and 10 seconds."
 msgstr ""
-"Es gibt in der Regel zwei Arten von Online-Spielern: Diejenigen, die "
-"darauf warten, dass der Gegner wirft, und diejenigen, die es nicht tun. "
-"Wenn du dich gestresst fühlst, kannst du eine Eingabeblockzeit in der "
-"Spielerstellung einstellen. Wir empfehlen zwischen 5 und 10 Sekunden."
+"Es gibt in der Regel zwei Arten von Online-Spielern: Diejenigen, die darauf "
+"warten, dass der Gegner wirft, und diejenigen, die es nicht tun. Wenn du dich "
+"gestresst fühlst, kannst du eine Eingabeblockzeit in der Spielerstellung "
+"einstellen. Wir empfehlen zwischen 5 und 10 Sekunden."
 
 #: templates/generic/faq.html:44
 msgid "What do the status colors mean?"
@@ -1232,19 +1259,18 @@ msgstr "Was bedeuten die Statusfarben?"
 
 #: templates/generic/faq.html:45
 msgid ""
-"Players can set most of these statuses manually. Green = online, yellow ="
-" Not available, purple = Looking for game, blue = currently playing, grey"
-" = offline."
+"Players can set most of these statuses manually. Green = online, yellow = Not "
+"available, purple = Looking for game, blue = currently playing, grey = offline."
 msgstr ""
-"Spieler können die meisten dieser Stati manuell festlegen. Grün = online,"
-" gelb = Nicht verfügbar, violett = Spielsuche, blau = aktuell im Spiel, "
-"grau = offline."
+"Spieler können die meisten dieser Stati manuell festlegen. Grün = online, gelb "
+"= Nicht verfügbar, violett = Spielsuche, blau = aktuell im Spiel, grau = "
+"offline."
 
 #: templates/generic/faq.html:47
 msgid "I found a bug / have a question or feature request / someone is cheating."
 msgstr ""
-"Ich habe einen Fehler gefunden/ haben eine Frage oder einen Vorschlag / "
-"jemand betrügt."
+"Ich habe einen Fehler gefunden/ haben eine Frage oder einen Vorschlag / jemand "
+"betrügt."
 
 #: templates/generic/faq.html:48
 msgid "Contact us."
@@ -1280,11 +1306,11 @@ msgstr "für immer kostenlose Onlinedarts-Webseite."
 
 #: templates/generic/index.html:9
 msgid ""
-"Play darts against real opponents. With a webcam or without. Or train "
-"against the computer."
+"Play darts against real opponents. With a webcam or without. Or train against "
+"the computer."
 msgstr ""
-"Spiele Darts gegen echte Gegner. Mit einer Webcam oder ohne. Oder "
-"trainiere gegen den Computer."
+"Spiele Darts gegen echte Gegner. Mit einer Webcam oder ohne. Oder trainiere "
+"gegen den Computer."
 
 #: templates/generic/index.html:9
 msgid "No costs, no ads, no trackers."
@@ -1361,9 +1387,9 @@ msgstr "Es gibt gerade keine Livespiele."
 
 #: templates/generic/webcam_tutorial_en.html:14
 msgid ""
-"In order to play with a webcam you need a modern browser (Chrome or "
-"Firefox, latest version) and a camera. We highly recommend a USB-webcam, "
-"but a smartphone will likely also work."
+"In order to play with a webcam you need a modern browser (Chrome or Firefox, "
+"latest version) and a camera. We highly recommend a USB-webcam, but a "
+"smartphone will likely also work."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:16
@@ -1384,8 +1410,8 @@ msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:24
 msgid ""
-"You can now start webcam games and receive webcam game challenges! The "
-"next step depends on your camera device."
+"You can now start webcam games and receive webcam game challenges! The next "
+"step depends on your camera device."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:26
@@ -1394,15 +1420,14 @@ msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:27
 msgid ""
-"Connect your USB webcam to your computer. If your computer does not "
-"recognize the webcam install the appropiate driver from the webcam "
-"manufacturer."
+"Connect your USB webcam to your computer. If your computer does not recognize "
+"the webcam install the appropiate driver from the webcam manufacturer."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:28
 msgid ""
-"To test the camera image we will create a local game without an opponent."
-" Click on \"Play\":"
+"To test the camera image we will create a local game without an opponent. Click "
+"on \"Play\":"
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:30
@@ -1411,28 +1436,27 @@ msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:32
 msgid ""
-"At the first time your browser will ask for webcam and microphone "
-"permission. Click on allow:"
+"At the first time your browser will ask for webcam and microphone permission. "
+"Click on allow:"
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:34
 msgid ""
-"You are done! The webcam screen on the right should now show your own "
-"webcam video. You can now play against real opponents and they will see "
-"your board."
+"You are done! The webcam screen on the right should now show your own webcam "
+"video. You can now play against real opponents and they will see your board."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:35
 msgid ""
 "The preview image is flipped by default, but your opponent will see it "
-"correctly. You can flip your local image by right clicking on the small "
-"preview screen and pressing \"flip\":"
+"correctly. You can flip your local image by right clicking on the small preview "
+"screen and pressing \"flip\":"
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:37
 msgid ""
-"If you have multiple cameras installed (e.g. on a laptop with built-in "
-"camera) you can select the correct camera in the Jitsi settings:"
+"If you have multiple cameras installed (e.g. on a laptop with built-in camera) "
+"you can select the correct camera in the Jitsi settings:"
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:41
@@ -1441,14 +1465,14 @@ msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:42
 msgid ""
-"There are a couple of options to play with a smartphone as webcam. Try "
-"them to find out which method works best for you."
+"There are a couple of options to play with a smartphone as webcam. Try them to "
+"find out which method works best for you."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:45
 msgid ""
-"It's possible for your computer to detect your smartphone as a webcam. "
-"You will need a program like"
+"It's possible for your computer to detect your smartphone as a webcam. You will "
+"need a program like"
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:46
@@ -1457,20 +1481,20 @@ msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:47
 msgid ""
-"Start the mobile app first. You will see the \"Wifi IP\" on your device. "
-"You will need this in the next step."
+"Start the mobile app first. You will see the \"Wifi IP\" on your device. You "
+"will need this in the next step."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:48
 msgid ""
-"Start the Droidcam client application on your computer and enter the "
-"\"Wifi IP\" from your smartphone. Press start."
+"Start the Droidcam client application on your computer and enter the \"Wifi IP"
+"\" from your smartphone. Press start."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:50
 msgid ""
-"Your computer should now recognize your smartphone as a webcam device. "
-"You can now proceed to the camera test in the USB webcam section above."
+"Your computer should now recognize your smartphone as a webcam device. You can "
+"now proceed to the camera test in the USB webcam section above."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:52
@@ -1479,8 +1503,8 @@ msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:53
 msgid ""
-"There's a chance you do not need to install any additional app at all. "
-"Enable the follow mode which you can find in the webcam settings."
+"There's a chance you do not need to install any additional app at all. Enable "
+"the follow mode which you can find in the webcam settings."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:55
@@ -1505,28 +1529,26 @@ msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:60
 msgid ""
-"Check your smartphone. It should now reload the page automatically and "
-"ask for camera and microphone permissions. Press accept."
+"Check your smartphone. It should now reload the page automatically and ask for "
+"camera and microphone permissions. Press accept."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:61
 msgid ""
-"That's it! As long as your smartphone is on the \"Webcam follow page\" "
-"you can summon it in your games with one click."
+"That's it! As long as your smartphone is on the \"Webcam follow page\" you can "
+"summon it in your games with one click."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:62
 msgid ""
-"There is an issue on Android smartphones with the camera selection. By "
-"default the front camera is activated. You can try to switch it in the "
-"Jitsi settings:"
+"There is an issue on Android smartphones with the camera selection. By default "
+"the front camera is activated. You can try to switch it in the Jitsi settings:"
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:65
 msgid ""
-"If you get a permission error upon switching to the back camera, try to "
-"reload the page. After a reload the correct camera was selected in our "
-"tests."
+"If you get a permission error upon switching to the back camera, try to reload "
+"the page. After a reload the correct camera was selected in our tests."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:67
@@ -1535,9 +1557,9 @@ msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:68
 msgid ""
-"If you tried the previous section, but the camera does not work, you can "
-"try the official free Jitsi Meet app. Download and install it from the "
-"Play/App store."
+"If you tried the previous section, but the camera does not work, you can try "
+"the official free Jitsi Meet app. Download and install it from the Play/App "
+"store."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:69
@@ -1550,21 +1572,20 @@ msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:74
 msgid ""
-"If you want to use a combination of a tablet for scoring and a smartphone"
-" as a camera there is an option to get the scoreboard only on your "
-"tablet."
+"If you want to use a combination of a tablet for scoring and a smartphone as a "
+"camera there is an option to get the scoreboard only on your tablet."
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:75
 msgid ""
-"Open the webcam settings and enable both follow mode and the scoreboard-"
-"only option:"
+"Open the webcam settings and enable both follow mode and the scoreboard-only "
+"option:"
 msgstr ""
 
 #: templates/generic/webcam_tutorial_en.html:77
 msgid ""
-"Now repeat the steps from the \"Follow Mode\" section. On your tablet you"
-" will only see the scoreboard without the video."
+"Now repeat the steps from the \"Follow Mode\" section. On your tablet you will "
+"only see the scoreboard without the video."
 msgstr ""
 
 #: templates/profile/change_avatar.html:17
@@ -1589,11 +1610,11 @@ msgstr "Verzögerung des Trainers (in Sekunden)"
 
 #: templates/profile/change_cpu_delay.html:14
 msgid ""
-"Note: There is a base delay of ~3 seconds. The custom delay will be added"
-" to this."
+"Note: There is a base delay of ~3 seconds. The custom delay will be added to "
+"this."
 msgstr ""
-"Hinweis: Es gibt eine Grundverzögerung von ~3 Sekunden. Die "
-"benutzerdefinierte Verzögerung wird hinzuaddiert."
+"Hinweis: Es gibt eine Grundverzögerung von ~3 Sekunden. Die benutzerdefinierte "
+"Verzögerung wird hinzuaddiert."
 
 #: templates/profile/edit_profile.html:13
 msgid "Change profile text"
@@ -1627,12 +1648,11 @@ msgstr ""
 
 #: templates/profile/livestream_settings.html:16
 msgid ""
-"You can stream your board in webcam games to spectators. You will need a "
-"Google account for YouTube. Log in and copy your Channel ID here:"
+"You can stream your board in webcam games to spectators. You will need a Google "
+"account for YouTube. Log in and copy your Channel ID here:"
 msgstr ""
-"Du kannst dein Board in Webcam-Spielen an Zuschauer streamen. Benötigt "
-"wird ein Google-Konto für YouTube. Logge dich ein und kopiere die "
-"Channel-ID hier:"
+"Du kannst dein Board in Webcam-Spielen an Zuschauer streamen. Benötigt wird ein "
+"Google-Konto für YouTube. Logge dich ein und kopiere die Channel-ID hier:"
 
 #: templates/profile/livestream_settings.html:18
 msgid "and paste it in the box below."
@@ -1644,52 +1664,49 @@ msgstr "Es gibt zwei Möglichkeiten, einen Livestream zu starten."
 
 #: templates/profile/livestream_settings.html:24
 msgid ""
-"You can use the \"Start live stream\" option in Jitsi Meet which requires"
-" the secret stream key. You can find yours here: "
+"You can use the \"Start live stream\" option in Jitsi Meet which requires the "
+"secret stream key. You can find yours here: "
 msgstr ""
-"Du kannst die Option \"Start live stream\" in Jitsi Meet verwenden, die "
-"den geheimen Stream-Key erfordert. Den findest du hier: "
+"Du kannst die Option \"Start live stream\" in Jitsi Meet verwenden, die den "
+"geheimen Stream-Key erfordert. Den findest du hier: "
 
 #: templates/profile/livestream_settings.html:26
 msgid ""
-"Paste it into the stream key box in Jitsi and click on \"Start live "
-"stream\"."
+"Paste it into the stream key box in Jitsi and click on \"Start live stream\"."
 msgstr ""
-"Füge ihn in die Stream-Key-Box in Jitsi ein und klicke auf \"Start live "
-"stream\"."
+"Füge ihn in die Stream-Key-Box in Jitsi ein und klicke auf \"Start live stream"
+"\"."
 
 #: templates/profile/livestream_settings.html:27
 msgid ""
-"If you get a \"All streamers are currently busy\" error Jitsi has no free"
-" streamers at the moment. There is nothing Lidarts can do in that case."
+"If you get a \"All streamers are currently busy\" error Jitsi has no free "
+"streamers at the moment. There is nothing Lidarts can do in that case."
 msgstr ""
-"Wenn du einen \"All streamers are currently busy\" Fehler bekommst, dann "
-"hat Jitsi im Moment keine freien Streamer. Lidarts kann in dem Fall nicht"
-" aushelfen."
+"Wenn du einen \"All streamers are currently busy\" Fehler bekommst, dann hat "
+"Jitsi im Moment keine freien Streamer. Lidarts kann in dem Fall nicht aushelfen."
 
 #: templates/profile/livestream_settings.html:30
 msgid ""
-"The second option is starting a YouTube live stream with an external "
-"software. We recommend "
+"The second option is starting a YouTube live stream with an external software. "
+"We recommend "
 msgstr ""
-"Die zweite Option ist das Starten eines YouTube-Livestreams mit einer "
-"externen Software. Wir empfehlen "
+"Die zweite Option ist das Starten eines YouTube-Livestreams mit einer externen "
+"Software. Wir empfehlen "
 
 #: templates/profile/livestream_settings.html:32
 msgid "You can find many tutorials on the internet. It requires some setup work."
 msgstr ""
-"Du kannst viele Tutorials dazu im Internet finden. Es erfordert einiges "
-"an Arbeit zum Einstellen."
+"Du kannst viele Tutorials dazu im Internet finden. Es erfordert einiges an "
+"Arbeit zum Einstellen."
 
 #: templates/profile/livestream_settings.html:35
 msgid ""
-"Livestreams will only be shown if both players allowed to have their "
-"games streamed by the other party. You can enable this in the webcam "
-"settings."
+"Livestreams will only be shown if both players allowed to have their games "
+"streamed by the other party. You can enable this in the webcam settings."
 msgstr ""
 "Livestreams werden Zuschauern nur angezeigt, wenn beide Spieler ihr "
-"Einverständnis zum Streaming gegeben haben. Das Einverständnis kann in "
-"den Webcam-Einstellungen geändert werden."
+"Einverständnis zum Streaming gegeben haben. Das Einverständnis kann in den "
+"Webcam-Einstellungen geändert werden."
 
 #: templates/profile/manage_friend_list.html:13
 msgid "Friends"
@@ -1760,13 +1777,11 @@ msgstr "Profiltext bearbeiten"
 msgid "Manage friend list"
 msgstr "Freundesliste verwalten"
 
-#: templates/profile/settings.html:14
-#: templates/security/change_username.html:12
+#: templates/profile/settings.html:14 templates/security/change_username.html:12
 msgid "Change display name"
 msgstr "Anzeigenamen ändern"
 
-#: templates/profile/settings.html:15
-#: templates/security/change_password.html:12
+#: templates/profile/settings.html:15 templates/security/change_password.html:12
 msgid "Change password"
 msgstr "Passwort ändern"
 
@@ -1788,35 +1803,34 @@ msgstr "Benutzer nicht gefunden"
 
 #: templates/profile/webcam_settings.html:26
 msgid ""
-"Optional. Your video and sound may be live streamed by Lidarts or your "
-"opponent."
+"Optional. Your video and sound may be live streamed by Lidarts or your opponent."
 msgstr ""
-"Optional. Dein Bild und Ton darf von Lidarts oder deinem Gegner live "
-"gestreamt werden."
+"Optional. Dein Bild und Ton darf von Lidarts oder deinem Gegner live gestreamt "
+"werden."
 
 #: templates/profile/webcam_settings.html:32
 msgid ""
-"Forces use of Jitsi Meet mobile app. Try this if video capture does not "
-"work on your mobile browser."
+"Forces use of Jitsi Meet mobile app. Try this if video capture does not work on "
+"your mobile browser."
 msgstr ""
-"Erzwingt die Nutzung der Jitsi Meet Mobilapp. Teste diese Option, wenn "
-"die Videoaufnahme in deinem mobilen Browser nicht funktioniert."
+"Erzwingt die Nutzung der Jitsi Meet Mobilapp. Teste diese Option, wenn die "
+"Videoaufnahme in deinem mobilen Browser nicht funktioniert."
 
 #: templates/profile/webcam_settings.html:38
 msgid ""
-"Enables follow page in lobby. Your mobile device can be called to your "
-"games from another device to capture video."
+"Enables follow page in lobby. Your mobile device can be called to your games "
+"from another device to capture video."
 msgstr ""
-"Aktiviert Webcam-Folgeseite in der Lobby. Dein Mobilgerät kann dir in "
-"deinen Spielen folgen, um Videos aufzunehmen."
+"Aktiviert Webcam-Folgeseite in der Lobby. Dein Mobilgerät kann dir in deinen "
+"Spielen folgen, um Videos aufzunehmen."
 
 #: templates/profile/webcam_settings.html:44
 msgid ""
-"Loads only the scoreboard without webcam image in your webcam games. "
-"Useful for mobile score-only devices."
+"Loads only the scoreboard without webcam image in your webcam games. Useful for "
+"mobile score-only devices."
 msgstr ""
-"Lädt nur das Scoreboard ohne Webcambild in deinen Spielen. Nützlich für "
-"mobile Geräte, die nur zur Punkteingabe dienen."
+"Lädt nur das Scoreboard ohne Webcambild in deinen Spielen. Nützlich für mobile "
+"Geräte, die nur zur Punkteingabe dienen."
 
 #: templates/security/change_password.html:20
 #: templates/security/change_username.html:27
@@ -1827,8 +1841,7 @@ msgstr "Abschicken"
 #: templates/security/change_username.html:18
 msgid "You can change your username only once per month. Please confirm."
 msgstr ""
-"Du kannst deinen Benutzernamen nur einmal pro Monat ändern. Bitte "
-"bestätigen."
+"Du kannst deinen Benutzernamen nur einmal pro Monat ändern. Bitte bestätigen."
 
 #: templates/security/forgot_password.html:10
 msgid "Request a new password"
@@ -1846,16 +1859,15 @@ msgstr "Registrieren"
 msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
-#: templates/security/login_user.html:27
-#: templates/security/reset_password.html:10
+#: templates/security/login_user.html:27 templates/security/reset_password.html:10
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
 #: templates/security/register_user.html:20
 msgid "By registering you confirm that you agree to our"
 msgstr ""
-"Die Registrierung beinhaltet die Bestätigung für das Lesen und "
-"Akzeptieren unserer"
+"Die Registrierung beinhaltet die Bestätigung für das Lesen und Akzeptieren "
+"unserer"
 
 #: templates/security/register_user.html:20
 msgid "Terms and Conditions"
@@ -1979,28 +1991,27 @@ msgstr "Turniere auf Lidarts"
 
 #: templates/tournament/overview.html:17
 msgid ""
-"Currently Lidarts does not host any tournaments. Several external "
-"communities use Lidarts to play their tournaments though."
+"Currently Lidarts does not host any tournaments. Several external communities "
+"use Lidarts to play their tournaments though."
 msgstr ""
 "Im Moment veranstaltet Lidarts selbst keine Turniere. Mehrere externe "
 "Communities spielen ihre Turnier jedoch auf Lidarts aus."
 
 #: templates/tournament/overview.html:20
 msgid ""
-"This area currently provides tournaments an own page similar to the chat."
-" There is also a list of upcoming public tournaments."
+"This area currently provides tournaments an own page similar to the chat. There "
+"is also a list of upcoming public tournaments."
 msgstr ""
 "Dieser Bereich stellt Turnieren eine eigene Seite ähnlich des Chats zur "
-"Verfügung. Es gibt auch eine Liste mit anstehenden, öffentlichen "
-"Turnieren."
+"Verfügung. Es gibt auch eine Liste mit anstehenden, öffentlichen Turnieren."
 
 #: templates/tournament/overview.html:23
 msgid ""
-"Joining a tournament will only make you appear in the tournament's user "
-"list at the moment. It does not sign you up."
+"Joining a tournament will only make you appear in the tournament's user list at "
+"the moment. It does not sign you up."
 msgstr ""
-"Das Beitreten eines Turniers fügt dich aktuell nur zur Onlineliste des "
-"Turniers hinzu. Du meldest dich damit nicht zum Turnier an."
+"Das Beitreten eines Turniers fügt dich aktuell nur zur Onlineliste des Turniers "
+"hinzu. Du meldest dich damit nicht zum Turnier an."
 
 #: templates/tournament/overview.html:33
 msgid "Your tournaments"
@@ -2054,8 +2065,7 @@ msgstr "Spielerliste verwalten"
 msgid "Banned players"
 msgstr "Gebannte Spieler"
 
-#: templates/tournament/settings.html:103
-#: templates/tournament/settings.html:174
+#: templates/tournament/settings.html:103 templates/tournament/settings.html:174
 msgid "Unban"
 msgstr "Entbannen"
 
@@ -2067,13 +2077,11 @@ msgstr "Rauswerfen"
 msgid "Do you want to kick "
 msgstr "Rauswurf von Spieler "
 
-#: templates/tournament/settings.html:125
-#: templates/tournament/settings.html:169
+#: templates/tournament/settings.html:125 templates/tournament/settings.html:169
 msgid "The player will be able to join the tournament again."
 msgstr "Der Spieler kann dem Turnier erneut beitreten."
 
-#: templates/tournament/settings.html:129
-#: templates/tournament/settings.html:151
+#: templates/tournament/settings.html:129 templates/tournament/settings.html:151
 #: templates/tournament/settings.html:173
 msgid "Close"
 msgstr "Schließen"
@@ -2129,8 +2137,8 @@ msgstr "Turnier erstellen"
 #: tournament/routes.py:20
 msgid "Start in the past is not allowed for public tournaments."
 msgstr ""
-"Der Turnierstart von öffentlichen Turnieren darf nicht in der "
-"Vergangenheit liegen."
+"Der Turnierstart von öffentlichen Turnieren darf nicht in der Vergangenheit "
+"liegen."
 
 #: tournament/routes.py:24
 msgid "Start must be within the next 30 days."
@@ -2170,18 +2178,13 @@ msgstr "Turniereinstellungen"
 #~ msgstr "Freundschaftsanfrage senden"
 
 #~ msgid ""
-#~ "Lidarts.org is still in beta. It "
-#~ "may be slow, unreliable or crash "
-#~ "at any time. The website is "
-#~ "actively worked on to add new "
-#~ "features and improve the experience."
+#~ "Lidarts.org is still in beta. It may be slow, unreliable or crash at any "
+#~ "time. The website is actively worked on to add new features and improve the "
+#~ "experience."
 #~ msgstr ""
-#~ "Lidarts.org befindet sich noch in der"
-#~ " Beta-Phase. Die Seite kann langsam"
-#~ " oder unzuverlässig sein bzw. jederzeit "
-#~ "abstürzen. Es wird kontinuierlich an der"
-#~ " Seite gearbeitet, um neue Funktionen "
-#~ "hinzuzufügen und das Erlebnis zu "
+#~ "Lidarts.org befindet sich noch in der Beta-Phase. Die Seite kann langsam "
+#~ "oder unzuverlässig sein bzw. jederzeit abstürzen. Es wird kontinuierlich an "
+#~ "der Seite gearbeitet, um neue Funktionen hinzuzufügen und das Erlebnis zu "
 #~ "verbessern."
 
 #~ msgid "Try out webcam games"
@@ -2192,7 +2195,3 @@ msgstr "Turniereinstellungen"
 
 #~ msgid "Activate webcam"
 #~ msgstr "Webcamspiel aktivieren"
-
-#~ msgid "Webcam-Anleitung"
-#~ msgstr ""
-
