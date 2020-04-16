@@ -24,10 +24,12 @@
                 {% if game.webcam and current_user.is_authenticated and (game.player1 == current_user.id or game.player2 == current_user.id) and current_user.webcam_settings and current_user.webcam_settings.mobile_follower_mode %}
                 | <div id="summon-webcam" class="div-link">{{ _('Summon webcam') }}</div>
                 {% endif %}
+                {% if game.webcam and not stream_consent %}
                 | <span class="fa-stack fa-2x" style="font-size: 0.7em" title="{{ _('At least one player does not allow streaming.') }}">
                     <i class="fas fa-video fa-stack-1x text-white"></i>
                     <i class="fas fa-ban fa-stack-2x text-danger"></i>
                   </span>
+                {% endif %}
 
             </div>
         </div>
