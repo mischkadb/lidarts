@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-12">
+        <div class="card bg-light text-dark bs-callout bs-callout-info text-center">
+            <div class="card-body text-left">
+                <h2 class="card-title text-center">{{ _('Webcam tutorial') }}</h2>
+                <hr>
+                <h5><a href="{{ url_for('generic.webcam_tutorial_de') }}">Deutsche Version / German version</a></h5>
+                <hr>
+                <p>{{ _('In order to play with a webcam you need a modern browser (Chrome or Firefox, latest version) and a camera. We highly recommend a USB-webcam, but a smartphone will likely also work.') }}</p>
+
+                <p>{{ _('First you need to confirm our webcam service notice. Open your profile:') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/profile.png') }}">
+                <p class="mt-2">{{ _('Open the preferences:') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/preferences.png') }}">
+                <p class="mt-2">{{ _('Now open the webcam activation page:') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/webcam_activate.png') }}">
+                <p class="mt-2">{{ _('Read the text, activate the checkbox and confirm:') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/webcam_confirmation.png') }}">
+                <p class="mt-2">{{ _('You can now start webcam games and receive webcam game challenges! The next step depends on your camera device.') }}</p>
+                <hr>
+                <h4>{{ _('USB webcam') }}</h4>
+                <p>{{ _('Connect your USB webcam to your computer. If your computer does not recognize the webcam install the appropiate driver from the webcam manufacturer.') }}</p>
+                <p>{{ _('To test the camera image we will create a local game without an opponent. Click on "Play":') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/play.png') }}">
+                <p class="mt-2">{{ _('Now set up a local webcam game and start:') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/game_creation.png') }}">
+                <p class="mt-2">{{ _('At the first time your browser will ask for webcam and microphone permission. Click on allow:') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/allow.png') }}">
+                <p class="mt-2">{{ _('You are done! The webcam screen on the right should now show your own webcam video. You can now play against real opponents and they will see your board.') }}</p>
+                <p>{{ _('The preview image is flipped by default, but your opponent will see it correctly. You can flip your local image by right clicking on the small preview screen and pressing "flip":') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/flip.png') }}">
+                <p class="mt-2">{{ _('If you have multiple cameras installed (e.g. on a laptop with built-in camera) you can select the correct camera in the Jitsi settings:') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/jitsi_settings.png') }}">
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/multicam.png') }}">
+                <hr>
+                <h4>{{ _('Smartphone as webcam') }}</h4>
+                <p>{{ _('There are a couple of options to play with a smartphone as webcam. Try them to find out which method works best for you.') }}</p>
+                <hr>
+                <h5>Droidcam</h5>
+                <p>{{ _('It\'s possible for your computer to detect your smartphone as a webcam. You will need a program like') }} <a href="https://www.dev47apps.com/">Droidcam</a>.</p>
+                <p>{{ _('Download the mobile app and the desktop client and install both.') }}</p>
+                <p>{{ _('Start the mobile app first. You will see the "Wifi IP" on your device. You will need this in the next step.') }}</p>
+                <p>{{ _('Start the Droidcam client application on your computer and enter the "Wifi IP" from your smartphone. Press start.') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/droidcam.png') }}">
+                <p class="mt-2">{{ _('Your computer should now recognize your smartphone as a webcam device. You can now proceed to the camera test in the USB webcam section above.') }}</p>
+                <hr>
+                <h5>{{ _('Follow Mode on Lidarts') }}</h5>
+                <p>{{ _('There\'s a chance you do not need to install any additional app at all. Enable the follow mode which you can find in the webcam settings.') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/enable_follow_mode.png') }}">
+                <p class="mt-2"><b>{{ _('On your camera device (smartphone):') }}</b> {{ _('Open the follow page in the lobby and stay there.') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/webcam_follow_page.png') }}">
+                <p class="mt-2"><b>{{ _('On your computer:') }}</b> {{ _('Create a local webcam game as shown in the "USB webcam" section.') }}</p>
+                <p>{{ _('Once you are in the game click on "Summon webcam" in the menu.') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/summon_webcam.png') }}">
+                <p class="mt-2">{{ _('Check your smartphone. It should now reload the page automatically and ask for camera and microphone permissions. Press accept.') }}</p>
+                <p>{{ _('That\'s it! As long as your smartphone is on the "Webcam follow page" you can summon it in your games with one click.') }}</p>
+                <p>{{ _('There is an issue on Android smartphones with the camera selection. By default the front camera is activated. You can try to switch it in the Jitsi settings:') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/jitsi_settings.png') }}">
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/multicam.png') }}">
+                <p class="mt-2">{{ _('If you get a permission error upon switching to the back camera, try to reload the page. After a reload the correct camera was selected in our tests.') }}</p>
+                <hr>
+                <h5>{{ _('Jitsi Meet app') }}</h5>
+                <p>{{ _('If you tried the previous section, but the camera does not work, you can try the official free Jitsi Meet app. Download and install it from the Play/App store.') }}</p>
+                <p>{{ _('Activate the mobile app setting in the webcam settings:') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/jitsi_app.png') }}">
+                <p class="mt-2">Try the steps from the "Follow Mode" section again. After summoning the smartphone you will now be able to open the video conference in the Jitsi Meet app.') }}</p>
+                <hr>
+                <h5>{{ _('Tablet + smartphone') }}</h5>
+                <p>{{ _('If you want to use a combination of a tablet for scoring and a smartphone as a camera there is an option to get the scoreboard only on your tablet.') }}</p>
+                <p>{{ _('Open the webcam settings and enable both follow mode and the scoreboard-only option:') }}</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/scoreboard_only.png') }}">
+                <p class="mt-2">{{ _('Now repeat the steps from the "Follow Mode" section. On your tablet you will only see the scoreboard without the video.') }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-12">
+        <div class="card bg-light text-dark bs-callout bs-callout-info text-center">
+            <div class="card-body text-left">
+                <h2 class="card-title text-center">Webcam-Anleitung</h2>
+                <hr>
+                <h5><a href="{{ url_for('generic.webcam_tutorial_en') }}">English version / Englische Version</a></h5>
+                <hr>
+                <p>Um mit einer Webcam zu spielen benötigst du einen modernen Browser (Chrome oder Firefox, neueste Version) und eine Kamera. Wir empfehlen eine USB-Webcam. Ein Smartphone als Kamera funktioniert in vielen Fällen jedoch auch.</p>
+
+                <p>Zunächst musst du dem Hinweistext für das Webcamspiel zustimmen. Öffne dein Profil:</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/profil.png') }}">
+                <p class="mt-2">Öffne die Einstellungen:</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/einstellungen.png') }}">
+                <p class="mt-2">Klicke nun auf Webcam-Spiele aktivieren:</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/webcam_aktivieren.png') }}">
+                <p class="mt-2">Lies dir den Text durch, markiere die Auswahlbox und bestätige:</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/webcam_bestätigung.png') }}">
+                <p class="mt-2">Du kannst nun Webcam-Spiele starten und Herausforderungen zu Webcam-Spielen erhalten! Der nächste Schritt ist von deinem Kameragerät abhängig.</p>
+                <hr>
+                <h4>USB webcam</h4>
+                <p>Verbinde die USB-Webcam mit deinem Computer. Falls dein Computer die Webcam nicht selbstständig erkennt, installiere den passenden Treiber vom Hersteller.</p>
+                <p>Um das Kamerabild zu testen starten wir ein lokales Spiel ohne Gegner. Klicke auf "Spielen":</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/spielen.png') }}">
+                <p class="mt-2">Stelle ein lokales Webcamspiel ein und starte das Spiel:</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/spielerstellung.png') }}">
+                <p class="mt-2">Beim ersten Start wird dich dein Browser nach der Berechtigung für Kamera und Mikrofon fragen. Klicke auf Zulassen:</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/zulassen.png') }}">
+                <p class="mt-2">Das wars schon! Der Webcam-Bildschirm auf der rechten Seite sollte nun dein eigenes Webcambild anzeigen. Du bist nun bereit für ein Spiel gegen einen realen Gegner, der dein Board sehen kann.</p>
+                <p>Das Vorschaubild ist standardmäßig gespiegelt, doch dein Gegner sieht es korrekt. Du kannst dennoch die Vorschau korrekt anzeigen lassen, indem du einen Rechtsklick auf dein kleines Vorschaubild machst und auf "flip" drückst:</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/flip.png') }}">
+                <p class="mt-2">Falls du mehrere Kameras installiert hast (z.B. die eingebaute Kamera deines Laptops), dann kannst du die richtige Kamera in den Jitsi-Settings auswählen.</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/jitsi_settings.png') }}">
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/multicam.png') }}">
+                <hr>
+                <h4>Smartphone als Webcam</h4>
+                <p>Es gibt mehrere Optionen, um mit einem Smartphone als Webcam zu spielen. Teste sie aus, um die Methode zu finden, die bei dir am besten funktioniert.</p>
+                <hr>
+                <h5>Droidcam</h5>
+                <p>Es ist möglich, deinen Computer das Smartphone als Webcam erkennen zu lassen. Dafür benötigst du ein Programm wie <a href="https://www.dev47apps.com/">Droidcam</a>.</p>
+                <p>Lade die App auf dein Smartphone und installiere den Desktop-Client auf deinem Computer.</p>
+                <p>Starte zuerst die mobile App. Dein Smartphoen zeigt seine "Wifi IP" an. Die benötigst du im nächsten Schritt.</p>
+                <p>Starte das Droidcam-Programm auf deinem Computer und gib die "Wifi IP" deines Smartphones ein. Drücke danach auf Start.</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/droidcam.png') }}">
+                <p class="mt-2">Dein Computer sollte dein Smartphone als Webcam erkennen. Du kannst nun mit dem Kameratest aus der "USB-Webcam" Sektion oben weitermachen.</p>
+                <hr>
+                <h5>Folge-Modus auf Lidarts</h5>
+                <p>Es ist gut möglich, dass du überhaupt keine zustätzliche App auf deinem Smartphone installieren musst. Aktiviere den Folge-Modus in den Webcameinstellungen auf Lidarts.</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/folgemodus_aktivieren.png') }}">
+                <p class="mt-2"><b>Auf deinem Kameragerät (Smartphone):</b> Öffne die Webcam-Folgeseite in der Lobby und warte dort.</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/webcam_folgeseite.png') }}">
+                <p class="mt-2"><b>Auf deinem Computer:</b> Erstelle ein lokales Webcamspiel wie in der "USB webcam" Sektion beschrieben.</p>
+                <p>Sobald du im Spiel bist klicke im Menü oben auf "Webcam herbeirufen".</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/webcam_herbeirufen.png') }}">
+                <p class="mt-2">Schau auf dein Smartphone. Es sollte nun die Seite automatisch neuladen und nach der Berechtigung für Kamera und Mikrofon fragen. Drücke auf Zustimmen.</p>
+                <p>Das wars! Solange dein Smartphone auf der Webcam-Folgeseite ist, kannst du es im Spiel jederzeit mit einem Klick herbeirufen.</p>
+                <p>Auf Android-Geräten gibt es ein Problem mit der Auswahl der korrekten Kamera. Standardmäßig ist die Frontkamera aktiviert. Versuche, die Kamera in den Jitsi-Settings zu ändern:</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/jitsi_settings.png') }}">
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/en/multicam.png') }}">
+                <p class="mt-2">Wenn du einen "Permission Error" (Berechtigungsfehler) bekommst, lade die Seite neu. In unseren Tests war nach dem Neuladen der Seite die korrekte Kamera ausgewählt.</p>
+                <hr>
+                <h5>Jitsi Meet app</h5>
+                <p>Wenn du im vorherigen Abschnitt die Kamera nicht zum Laufen bekommen hast, versuche es mit der kostenlosen Jitsi Meet App. Downloade und installiere sie vom Play/Appstore.</p>
+                <p>Aktiviere die Jitsi App Einstellung in den Webcam-Einstellungen:</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/jitsi_app.png') }}">
+                <p class="mt-2">Versuche es erneut mit den Schritten aus dem "Folge-Modus" Bereich. Nachdem du dein Smartphone im Spiel "herbeigerufen" hast, kannst du die Jitsi Meet App öffnen.</p>
+                <hr>
+                <h5>Tablet + Smartphone</h5>
+                <p>Wenn du eine Kombination aus Tablet für die Punkteeingabe und Smartphone als Webcam verwenden willst, dann gibt es die Möglichkeit, auf dem Tablet nur die Punkte angezeigt zu bekommen.</p>
+                <p>Öffne die Webcam-Einstellungen und aktiviere den Folge-Modus und die Scoreboard-Anzeige auf dem Hauptgerät:</p>
+                <img src="{{ url_for('static', filename='img/webcam_tutorial/de/hauptgerät.png') }}">
+                <p class="mt-2">Befolge nun erneut die Schritte aus dem Abschnitt "Folge-Modus". Auf deinem Tablet werden nun nur die Punktestände ohne das Webcam-Bild angezeigt.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

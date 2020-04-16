@@ -12,6 +12,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ _('Webcam settings') }}</h5>
                 <hr>
+                <h5><a href="{{ url_for('generic.webcam_tutorial_en') }}">{{ _('Webcam tutorial') }}</a></h5>
                 <form method="POST" class="form-horizontal">
                     {{ form.hidden_tag() }}
                     <p>

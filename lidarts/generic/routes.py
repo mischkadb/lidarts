@@ -440,6 +440,16 @@ def faq():
     return render_template('generic/faq.html')
 
 
+@bp.route('/webcam_tutorial/en')
+def webcam_tutorial_en():
+    return render_template('generic/webcam_tutorial_en.html')
+
+
+@bp.route('/webcam_tutorial/de')
+def webcam_tutorial_de():
+    return render_template('generic/webcam_tutorial_de.html')
+
+
 @bp.before_app_first_request
 def before_first_request():
     """Set all users to offline and resets socket connection counter."""
