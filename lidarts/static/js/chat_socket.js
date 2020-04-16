@@ -190,24 +190,23 @@ $(document).ready(function() {
 
 
     // Handler for the score input form.
-    var validation_url = $('#validation_url').data();
-    var message_errors = [];
+    var submit_cooldown = false;
     $('form#message_input').submit(function (event) {
-        $.post(
-            // Various errors that are caught if you enter something wrong.
-            validation_url,
-            $("#message_input").serialize(),
-            function (errors) {
-                message_errors = errors;
-                if (jQuery.isEmptyObject(message_errors)) {
-                    socket.emit('broadcast_chat_message', {
-                        message: $('#message').val(), user_id: user_id
-                    });
-                } else {
-                }
+        event.preventDefault(); 
+        if (submit_cooldown == true || $('#message').val().length == 0) {
+            return;
+        }
+        socket.emit(
+            'broadcast_chat_message',
+            {message: $('#message').val(), user_id: user_id},
+            function () {
                 $('input[name=message]').val('');
-            });
-        return false;
+                submit_cooldown = true;
+                setTimeout(function(){ 
+                    submit_cooldown = false;
+                }, 300);
+            }
+        );       
     });
 
 

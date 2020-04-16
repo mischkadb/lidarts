@@ -40,46 +40,42 @@ $(document).ready(function() {
     });
 
 
-    // Handler for the score input form.
-    var validation_url = $('#chat_validation_url').data();
-    var message_errors = [];
+    var submit_cooldown = false;
     $('form#message_input').submit(function (event) {
-        $.post(
-            // Various errors that are caught if you enter something wrong.
-            validation_url,
-            $("#message_input").serialize(),
-            function (errors) {
-                message_errors = errors;
-                if (jQuery.isEmptyObject(message_errors)) {
-                    socket.emit('broadcast_game_chat_message', {
-                        message: $('#message').val(), user_id: user_id, hash_id: hashid['hashid']
-                    });
-                } else {
-                }
+        event.preventDefault(); 
+        if (submit_cooldown == true || $('#message').val().length == 0) {
+            return;
+        }
+        socket.emit(
+            'broadcast_game_chat_message',
+            {message: $('#message').val(), user_id: user_id, hash_id: hashid['hashid']},
+            function () {
                 $('input[name=message]').val('');
-            });
-        return false;
+                submit_cooldown = true;
+                setTimeout(function(){ 
+                    submit_cooldown = false;
+                }, 300);
+            }
+        );       
     });
 
     $('form#message_input_small').submit(function (event) {
-    $.post(
-        // Various errors that are caught if you enter something wrong.
-        validation_url,
-        $("#message_input_small").serialize(),
-        function (errors) {
-            message_errors = errors;
-            if (jQuery.isEmptyObject(message_errors)) {
-                socket.emit('broadcast_game_chat_message', {
-                    message: $('#message_small').val(), user_id: user_id, hash_id: hashid['hashid']
-                });
-            } else {
+        event.preventDefault(); 
+        if (submit_cooldown == true || $('#message_small').val().length == 0) {
+            return;
+        }
+        socket.emit(
+            'broadcast_game_chat_message',
+            {message: $('#message_small').val(), user_id: user_id, hash_id: hashid['hashid']},
+            function () {
+                $('input[name=message]').val('');
+                submit_cooldown = true;
+                setTimeout(function(){ 
+                    submit_cooldown = false;
+                }, 300);
             }
-            $('input[name=message]').val('');
-        });
-    return false;
-});
-
-
+        );       
+    });
 
 });
 

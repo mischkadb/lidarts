@@ -75,25 +75,24 @@ $(document).ready(function() {
 
 
     // Handler for the score input form.
-    var validation_url = $('#validation_url').data();
-    var message_errors = [];
+    var submit_cooldown = false;
     $('form#message_input').submit(function (event) {
-        $.post(
-            // Various errors that are caught if you enter something wrong.
-            validation_url,
-            $("#message_input").serialize(),
-            function (errors) {
-                message_errors = errors;
-                if (jQuery.isEmptyObject(message_errors)) {
-                    var chat_partner = document.getElementsByClassName('chat-partner-active')[0].id.replace('chat_partner_', '');
-                    socket.emit('broadcast_private_message', {
-                        message: $('#message').val(), receiver: chat_partner
-                    });
-                } else {
-                }
+        event.preventDefault(); 
+        if (submit_cooldown == true || $('#message').val().length == 0) {
+            return;
+        }
+        var chat_partner = document.getElementsByClassName('chat-partner-active')[0].id.replace('chat_partner_', '');
+        socket.emit(
+            'broadcast_private_message',
+            {message: $('#message').val(), receiver: chat_partner},
+            function () {
                 $('input[name=message]').val('');
-            });
-        return false;
+                submit_cooldown = true;
+                setTimeout(function(){ 
+                    submit_cooldown = false;
+                }, 300);
+            }
+        );       
     });
 
     $('#chat_partners').delegate('.chat-partner', 'click', function (event) {
