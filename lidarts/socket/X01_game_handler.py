@@ -332,10 +332,24 @@ def send_score(message):
         p1_last_leg = last_leg['1']['scores']
         p2_last_leg = last_leg['2']['scores']
         p1_won = sum(p1_last_leg) == game.type
-        emit('game_shot', {'hashid': game.hashid, 'p1_last_leg': p1_last_leg, 'p2_last_leg': p2_last_leg,
-                           'p1_won': p1_won, 'type': game.type, 'p1_sets': game.p1_sets,
-                           'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
-             room=game.hashid, broadcast=True, namespace='/game')
+        emit(
+            'game_shot',
+            {
+                'hashid': game.hashid,
+                'p1_last_leg': p1_last_leg,
+                'p2_last_leg': p2_last_leg,
+                'p1_won': p1_won,
+                'type': game.type,
+                'p1_sets': game.p1_sets,
+                'p2_sets': game.p2_sets,
+                'p1_legs': game.p1_legs,
+                'p2_legs': game.p2_legs,
+                'to_finish': message['to_finish'],
+            },
+            room=game.hashid,
+            broadcast=True,
+            namespace='/game'
+        )
     else:
         send_score_response(game, old_score, broadcast=True)
 

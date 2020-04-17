@@ -235,6 +235,8 @@ $(document).ready(function() {
         $('.p2_legs').text(msg.p2_legs);
 
         // popup for game shot
+        $('.checkDart').text(msg.to_finish);
+
         $('#game-shot-modal').modal('show');
         if (msg.p1_won) {
             var last_score = msg.type;
@@ -688,7 +690,6 @@ $(document).ready(function() {
     var form_disabled = false;
 
     $('form#score_input').submit(function(event) {
-        console.log(form_disabled);
         if (form_disabled) {
             return false;
         }
@@ -923,7 +924,6 @@ $(document).ready(function() {
     $('#abort-confirm').click(function() {
         var hashid = $('#hash_id').data()['hashid'];
         var abort_url = $('#abort_url').data()['url'];
-        console.log(abort_url + hashid);
         $.post(abort_url + hashid);
     });
 
