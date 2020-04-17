@@ -135,3 +135,6 @@ form .form-control:focus{
     padding-bottom: 5px;
 }
 
+button {
+    touch-action: manipulation;
+}
