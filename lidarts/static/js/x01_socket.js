@@ -437,9 +437,13 @@ $(document).ready(function() {
             form_disabled = true;
             $(".score_value").prop('readonly', true);
             $('.score_value').val(score_input_delay);
+            $('.score_value').removeClass('bg-light');
+            $('.score_value').addClass('bg-warning');
             setTimeout(function() {
                 form_disabled = false;
                 $(".score_value").prop('readonly', false);
+                $('.score_value').addClass('bg-light');
+                $('.score_value').removeClass('bg-warning');
             }, (score_input_delay * 1000));
 
             var timeleft = score_input_delay - 1;
