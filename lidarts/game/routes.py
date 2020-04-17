@@ -347,7 +347,7 @@ def start(hashid, theme=None):
     form = ScoreForm()
     chat_form = GameChatmessageForm()
     chat_form_small = GameChatmessageForm()
-    caller = current_user.caller if current_user.is_authenticated else 'default'
+    caller = 'default'
     cpu_delay = current_user.cpu_delay if current_user.is_authenticated else 0
 
     user = current_user.id if current_user.is_authenticated else None
@@ -363,6 +363,7 @@ def start(hashid, theme=None):
             settings = UserSettings(user=user)
             db.session.add(settings)
             db.session.commit(settings)
+        caller = settings.caller
     else:
         settings = {'checkout_suggestions': False}
 

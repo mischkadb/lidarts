@@ -205,6 +205,7 @@ class UserSettings(db.Model):
     show_average_in_chat_list = db.Column(db.Boolean, default=False)
     profile_text = db.Column(db.String(2000), default=None)
     channel_id = db.Column(db.String(30), default=None)
+    caller = db.Column(db.String(30), db.ForeignKey('callers.name'), default='default')
 
 
 class X01Presetting(db.Model):
@@ -308,3 +309,9 @@ class WebcamSettings(db.Model):
     mobile_follower_mode = db.Column(db.Boolean, default=False)
     force_scoreboard_page = db.Column(db.Boolean, default=False)
     latest_jitsi_hashid = db.Column(db.String(10), default=None)
+
+
+class Caller(db.Model):
+    __tablename__ = 'callers'
+    name = db.Column(db.String(30), primary_key=True)
+    display_name = db.Column(db.String(50), default=None)

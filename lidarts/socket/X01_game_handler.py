@@ -175,6 +175,7 @@ def init(message):
         join_room(f'{game.hashid}_heartbeats')
     if game.closest_to_bull:
         return
+
     send_score_response(game, broadcast=False)
 
 

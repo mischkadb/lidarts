@@ -5,7 +5,7 @@ from lidarts import db, avatars, socketio
 from lidarts.generic.forms import UserSearchForm
 from lidarts.profile import bp
 from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm, EditProfileForm, WebcamSettingsForm, LivestreamSettingsForm
-from lidarts.models import User, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic, WebcamSettings
+from lidarts.models import Caller, User, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic, WebcamSettings
 from sqlalchemy import desc
 from sqlalchemy.orm import aliased
 from lidarts.utils.linker import linker
@@ -233,11 +233,23 @@ def change_avatar():
 @bp.route('/change_caller', methods=['GET', 'POST'])
 @login_required
 def change_caller():
+    callers = Caller.query.all()
+    caller_list = []
+    for caller in callers:
+        caller_list.append((caller.name, caller.display_name))
     form = ChangeCallerForm(request.form)
-    if form.validate_on_submit():
-        current_user.caller = form.callers.data
+    form.callers.choices = caller_list
+    settings = UserSettings.query.filter_by(user=current_user.id).first()
+    if not settings:
+        settings = UserSettings(user=current_user.id)
+        db.session.add(settings)
         db.session.commit()
-    form.callers.data = current_user.caller
+
+    if form.validate_on_submit():        
+        settings.caller = form.callers.data
+        db.session.commit()
+        flash(lazy_gettext('Settings saved.'))
+    form.callers.data = settings.caller
     return render_template('profile/change_caller.html', form=form, title=lazy_gettext('Caller Settings'))
 
 

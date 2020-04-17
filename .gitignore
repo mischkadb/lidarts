@@ -111,6 +111,8 @@ lidarts/game/fix\.py
 
 lidarts/static/avatars/
 static/avatars/
+lidarts/static/sounds/shorty
+lidarts/static/sounds/stoffi
 
 \.flaskenv
 

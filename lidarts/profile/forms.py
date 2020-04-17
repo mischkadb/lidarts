@@ -5,7 +5,6 @@ from wtforms import BooleanField, SelectField, SubmitField, IntegerField, TextAr
 from wtforms.validators import DataRequired, NumberRange, Length, Regexp
 from lidarts.profile.countries import COUNTRIES
 
-callers = [('default', 'Lidarts default'), ('mischka', 'Lidarts mischka'), ('DartCall 2007', 'DartCall 2007')]
 enabled_disabled = [('enabled', lazy_gettext('Enabled')), ('disabled', lazy_gettext('Disabled'))]
 
 
@@ -15,7 +14,7 @@ class EditProfileForm(FlaskForm):
 
 
 class ChangeCallerForm(FlaskForm):
-    callers = SelectField(lazy_gettext('Caller'), choices=callers, validators=[DataRequired()])
+    callers = SelectField(lazy_gettext('Caller'), validators=[DataRequired()])
     submit = SubmitField(lazy_gettext('Save'))
 
 
