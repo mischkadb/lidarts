@@ -112,6 +112,7 @@ def create_app(test_config=None):
                       register_form=ExtendedRegisterForm,
                       change_password_form=ExtendedChangePasswordForm,
                       reset_password_form=ExtendedResetPasswordForm)
+
     origins = app.config['CORS_ALLOWED_ORIGINS'] if 'CORS_ALLOWED_ORIGINS' in app.config else '*'
     
     if 'ENGINEIO_MAX_DECODE_PACKETS' in app.config:
@@ -143,6 +144,11 @@ def create_app(test_config=None):
     else:
         app.redis = StrictRedis.from_url('redis://')
     app.task_queue = rq.Queue('lidarts-tasks', connection=app.redis)
+
+    # Flask-Security mails need to be sent in background
+    @security.send_mail_task 
+    def delay_flask_security_mail(msg):
+        app.task_queue.enqueue('lidarts.tasks.send_mail', msg)
 
     if 'DASHBOARD_ENABLED' in app.config and app.config['DASHBOARD_ENABLED']:
         dashboard.config.init_from(file=os.path.join(app.instance_path, 'dashboard.cfg'))

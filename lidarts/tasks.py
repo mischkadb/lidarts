@@ -1,5 +1,5 @@
 from lidarts import create_app
-from lidarts import db, socketio
+from lidarts import db, mail, socketio
 from lidarts.models import Game, User, UserStatistic
 import json
 from sqlalchemy import or_
@@ -190,3 +190,7 @@ def bulk_update_last_seen():
     #db.session.bulk_update_mappings(User, mappings)
     db.session.commit()
     logging.info(time.perf_counter() - start_time)
+
+
+def send_mail(msg):
+    mail.send(msg)
