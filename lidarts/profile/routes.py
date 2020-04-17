@@ -205,8 +205,12 @@ def delete_avatar():
 @login_required
 def change_avatar():
     if request.method == 'POST' and 'avatar' in request.files:
+        avatar_file = request.files['avatar']
+        if avatar_file.filename == '':
+            flash(lazy_gettext('No selected file'), 'danger')
+            return redirect(request.url)
         delete_avatar()
-        filename = avatars.save(request.files['avatar'], name='{}.'.format(current_user.id))
+        filename = avatars.save(avatar_file, name='{}.'.format(current_user.id))
         image = os.path.join(current_app.config['UPLOADS_DEFAULT_DEST'], 'avatars', filename)
         if image.split('.')[-1].lower() not in ['jpg', 'jpeg', 'gif', 'png']:
             flash(lazy_gettext('Wrong image format.'))
