@@ -192,21 +192,19 @@ $(document).ready(function() {
 
 
     // Handler for the score input form.
-    var submit_cooldown = false;
+    var waiting_for_ack = false;
     $('form#message_input').submit(function (event) {
         event.preventDefault(); 
-        if (submit_cooldown == true || $('#message').val().length == 0) {
+        if (waiting_for_ack == true || $('#message').val().length == 0) {
             return;
         }
+        waiting_for_ack = true;
         socket.emit(
             'broadcast_chat_message',
             {message: $('#message').val(), user_id: user_id},
             function () {
                 $('input[name=message]').val('');
-                submit_cooldown = true;
-                setTimeout(function(){ 
-                    submit_cooldown = false;
-                }, 300);
+                waiting_for_ack = false;
             }
         );       
     });

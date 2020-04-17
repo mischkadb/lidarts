@@ -40,39 +40,35 @@ $(document).ready(function() {
     });
 
 
-    var submit_cooldown = false;
+    var waiting_for_ack = false;
     $('form#message_input').submit(function (event) {
         event.preventDefault(); 
-        if (submit_cooldown == true || $('#message').val().length == 0) {
+        if (waiting_for_ack == true || $('#message').val().length == 0) {
             return;
         }
+        waiting_for_ack = true;
         socket.emit(
             'broadcast_game_chat_message',
             {message: $('#message').val(), user_id: user_id, hash_id: hashid['hashid']},
             function () {
                 $('input[name=message]').val('');
-                submit_cooldown = true;
-                setTimeout(function(){ 
-                    submit_cooldown = false;
-                }, 300);
+                waiting_for_ack = false;
             }
         );       
     });
 
     $('form#message_input_small').submit(function (event) {
         event.preventDefault(); 
-        if (submit_cooldown == true || $('#message_small').val().length == 0) {
+        if (waiting_for_ack == true || $('#message_small').val().length == 0) {
             return;
         }
+        waiting_for_ack = true;
         socket.emit(
             'broadcast_game_chat_message',
             {message: $('#message_small').val(), user_id: user_id, hash_id: hashid['hashid']},
             function () {
                 $('input[name=message]').val('');
-                submit_cooldown = true;
-                setTimeout(function(){ 
-                    submit_cooldown = false;
-                }, 300);
+                waiting_for_ack = false;
             }
         );       
     });
