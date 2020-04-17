@@ -316,11 +316,24 @@ def send_score(message):
             if game.player2 and game.player1 != game.player2:
                 rq_job = current_app.task_queue.enqueue('lidarts.tasks.calc_cached_stats', game.player2)
 
-        emit('game_completed', {'hashid': game.hashid, 'p1_last_leg': p1_last_leg,
-                                'p2_last_leg': p2_last_leg, 'p1_won': p1_won,
-                                'type': game.type, 'p1_sets': game.p1_sets,
-                                'p2_sets': game.p2_sets, 'p1_legs': game.p1_legs, 'p2_legs': game.p2_legs},
-             room=game.hashid, broadcast=True, namespace='/game')
+        emit(
+            'game_completed',
+            {
+                'hashid': game.hashid,
+                'p1_last_leg': p1_last_leg,
+                'p2_last_leg': p2_last_leg,
+                'p1_won': p1_won,
+                'type': game.type,
+                'p1_sets': game.p1_sets,
+                'p2_sets': game.p2_sets,
+                'p1_legs': game.p1_legs,
+                'p2_legs': game.p2_legs,
+                'to_finish': message['to_finish'],
+            },
+            room=game.hashid,
+            broadcast=True,
+            namespace='/game'
+        )
 
     elif old_set_count < len(match_json) or old_leg_count < len(match_json[str(len(match_json))]):
         if len(match_json[str(len(match_json))]) == 1:  # new set

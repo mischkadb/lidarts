@@ -204,6 +204,7 @@ $(document).ready(function() {
         $('.p2_legs').text(msg.p2_legs);
 
         // popup for game shot
+        $('.checkDart').text(msg.to_finish);
         $('#game-shot-modal').modal('show');
         if (msg.p1_won) {
             var last_score = msg.type;
@@ -409,6 +410,7 @@ $(document).ready(function() {
         $('.p1_legs').text(msg.p1_legs);
         $('.p2_legs').text(msg.p2_legs);
 
+        $('.checkDart').text(msg.to_finish);
         $('#match-shot-modal').modal('show');
         if (msg.p1_won) {
             jQuery({Counter: msg.p1_last_leg[msg.p1_last_leg.length-1]}).animate({Counter: -1}, {
