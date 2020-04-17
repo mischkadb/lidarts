@@ -28,6 +28,7 @@ $(document).ready(function() {
         DISPLAY_WELCOME_PAGE_CONTENT: false,
         DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
         MOBILE_APP_PROMO: jitsi_app,
+        MAXIMUM_ZOOMING_COEFFICIENT: 1.0,
     }
 
     const domain = 'meet.jit.si';
