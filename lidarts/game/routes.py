@@ -426,6 +426,8 @@ def start(hashid, theme=None):
 def decline_challenge(id_):
     id_ = int(id_)
     game = Game.query.filter_by(id=id_).first_or_404()
+    if game.status != 'challenged':
+        return jsonify('success')
     game.status = "declined"
     game.end = datetime.utcnow()
     db.session.commit()
@@ -435,6 +437,8 @@ def decline_challenge(id_):
 @bp.route('/cancel_challenge/<hashid>')
 def cancel_challenge(hashid):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
+    if game.status != 'challenged':
+        return redirect(url_for('generic.lobby'))
     game.status = "declined"
     game.end = datetime.utcnow()
     db.session.commit()
