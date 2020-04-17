@@ -223,6 +223,7 @@ def chat():
         recent_results=recent_results,
         new_games=new_games,
         show_average_in_chat_list=settings.show_average_in_chat_list,
+        country=settings.country,
         title=lazy_gettext('Chat'),
     )
 

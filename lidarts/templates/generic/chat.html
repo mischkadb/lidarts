@@ -103,9 +103,18 @@
     </div>
     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1 order-2 order-lg-3">
         <div class="card bg-light text-dark">
-            <div class="card-body" id="online_players" style="height: 75vh; overflow-y: scroll; padding-left: 2px; padding-right: 2px;">
+            <div class="card-body" id="online_players" style="height: 65vh; overflow-y: scroll; padding-left: 2px; padding-right: 2px;">
             </div>
         </div>
+        <p><input type="text" class="form-control" id="usernameFilter" aria-describedby="usernameFilter" placeholder="{{ _('Filter users') }}"></p>
+        <p>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="countryFilter">
+                <label class="form-check-label" for="countryFilter">
+                    {{ _('From your country') }}
+                </label>
+            </div>
+        </p>
         <p>{{ _('Online') }}: <span id="online-players-count"></span></p>
         <p>{{ _('Playing') }}: <span id="ingame-players-count"></span></p>
     </div>
@@ -123,6 +132,7 @@
 <meta id="user_id" data-id="{{ current_user.id }}">
 <meta id="user_name" data-username="{{ current_user.username }}">
 <meta id="show_average_in_chat_list" data-bool="{{ show_average_in_chat_list }}">
+<meta id="countryData" data-country="{{ country }}">
 
 <script src="{{ url_for('static', filename='js/jquery.powertip.min.js', crossorigin='anonymous') }}"></script>
 

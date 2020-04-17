@@ -148,6 +148,7 @@ def details(hashid):
         recent_results=recent_results,
         creator_name=creator_name,
         show_average_in_chat_list=settings.show_average_in_chat_list,
+        country=settings.country,
         title=lazy_gettext('Tournament details'),
     )
 

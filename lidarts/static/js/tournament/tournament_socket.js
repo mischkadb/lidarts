@@ -45,7 +45,7 @@ $(document).ready(function() {
             }
 
             if (msg['players'][user]['country'] != null) {
-                flag = '<img src="/static/img/flags/' + msg['players'][user]['country'] + '.png" style="margin-right: 3px" class="' + country_flag_class + '">'
+                flag = '<img src="/static/img/flags/' + msg['players'][user]['country'] + '.png" style="margin-right: 3px" class="' + country_flag_class + '" data-country="' + msg['players'][user]['country'] + '">'
             } else {
                 flag = ''
             };
@@ -64,12 +64,12 @@ $(document).ready(function() {
                 webcam_icon = ''
             }
 
-            $('#online_players').append('<div class="card"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
+            $('#online_players').append('<div class="card onlineUserCard"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
                 + '<strong style="font-size: 20px;"><a href="' + profile_url + msg['players'][user]['username'] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
                 + '<img src="' + msg['players'][user]['avatar'] + '" height="50px" width="50px" class="avatar avatar-status avatar-status-' + msg['players'][user]['status'] + '">'
                 + flag
                 + backer_name_icon
-                + msg['players'][user]['username'] + '</a></strong> '
+                + '<span class="username">' + msg['players'][user]['username'] + '</span></a></strong> '
                 + webcam_icon + ' '
                 + player_average);
             $('#powertip-' + user).powerTip({placement: 'w', mouseOnToPopup: 'True'});
@@ -98,6 +98,7 @@ $(document).ready(function() {
         $('#online-players-count').html(msg['online-count']);
         $('#ingame-players-count').html(msg['ingame-count']);
 
+        filterUserList();
     });
 
     $(document).on('click', '.button-send-friend-request', function (event) {
@@ -250,8 +251,32 @@ $(document).ready(function() {
         }
     });
 
+    var userCountry = $('#countryData').data()['country'];
+    function filterUserList() {
+        var onlineUserCards = document.getElementsByClassName("onlineUserCard");
+        var filter = document.getElementById('usernameFilter').value.toUpperCase();
+        for (i = 0; i < onlineUserCards.length; i++) {
+            username = onlineUserCards[i].getElementsByClassName('username')[0].textContent;
+            country = onlineUserCards[i].querySelectorAll('[data-country=' + userCountry + ']');
+            if (username.toUpperCase().indexOf(filter) > -1 
+                && ($('#countryFilter').prop("checked") == false 
+                    || ($('#countryFilter').prop("checked") == true && country.length > 0)
+                    )
+            ) {
+                onlineUserCards[i].style.display = "";
+            } else {
+                onlineUserCards[i].style.display = "none";
+            }
+          }
+    }
 
+    $("#usernameFilter").keyup(function() {
+        filterUserList();
+    });
 
+    $('#countryFilter').change(function() {
+        filterUserList();
+    }); 
     
 
 });
