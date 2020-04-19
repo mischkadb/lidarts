@@ -5,7 +5,7 @@ from lidarts import db, socketio
 from lidarts.generic import bp
 from lidarts.generic.forms import UserSearchForm
 from lidarts.models import (
-    Game, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, 
+    Game, CricketGame, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, 
     Notification, UserSettings, UserStatistic, SocketConnections, WebcamSettings,
 )
 from lidarts.generic.forms import ChatmessageForm
