@@ -3,6 +3,7 @@ from lidarts import db
 from datetime import datetime, timedelta
 import secrets
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import relationship
 
 
@@ -109,8 +110,6 @@ class GameBase(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     hashid = db.Column(db.String(10), unique=True)
-    player1 = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
-    player2 = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     bo_sets = db.Column(db.Integer, nullable=False)
     bo_legs = db.Column(db.Integer, nullable=False)
     two_clear_legs = db.Column(db.Boolean)
@@ -131,15 +130,19 @@ class GameBase(db.Model):
     score_input_delay = db.Column(db.Integer, default=0)
     webcam = db.Column(db.Boolean, default=False)
     jitsi_hashid = db.Column(db.String(10), unique=True)
-    tournament = db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
+
+
+    @declared_attr
+    def tournament(cls):
+        return db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
 
     @declared_attr
     def player1(cls):
-        return db.Column(db.Integer, db.ForeignKey('users.id'))
+        return db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
 
     @declared_attr
     def player2(cls):
-        return db.Column(db.Integer, db.ForeignKey('users.id'))
+        return db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
 
     def set_hashid(self):
         self.hashid = secrets.token_urlsafe(8)[:8]
