@@ -38,7 +38,6 @@
 
 <form action="" method="post" class="form-horizontal">
     {{ form.hidden_tag() }}
-
     <div class="row justify-content-center text-secondary">
         <div class="col-lg-4 col-sm-6">
             <div class="card">
@@ -114,6 +113,7 @@
                     <p>{{ form.starter.label(class="col-form-label") }}:
                         {{ form.starter(class="custom-select") }}</p>
 
+                    {% if form.in_mode %}
                     <p>{{ form.in_mode.label(class="col-form-label") }}:
                         {{ form.in_mode(class="custom-select") }}</p>
                     {% endif %}
@@ -121,7 +121,7 @@
                     {% if form.out_mode %}
                     <p>{{ form.out_mode.label(class="col-form-label") }}:
                         {{ form.out_mode(class="custom-select") }}</p>
-
+                    {% endif %}
 
                     <p>
                         {{ form.score_input_delay.label(class="col-form-label") }}:
@@ -131,7 +131,6 @@
                 </div>
             </div>
         </div>
-        {% endif %}
         <div class="col-sm-6"></div>
     </div>
     <div class="row justify-content-center text-center">

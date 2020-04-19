@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for, jsonify, request, flash
 from flask_babelex import lazy_gettext, gettext
 from lidarts.game import bp
-from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm, WebcamConsentForm
-from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings, Tournament, WebcamSettings
+from lidarts.game.forms import CreateCricketGameForm, CreateX01GameForm, ScoreForm, GameChatmessageForm, WebcamConsentForm
+from lidarts.models import CricketGame, Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings, Tournament, WebcamSettings
 from lidarts import db
 from lidarts.socket.public_challenge_handler import broadcast_public_challenges
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
