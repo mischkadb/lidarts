@@ -110,6 +110,7 @@ class GameBase(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     hashid = db.Column(db.String(10), unique=True)
+    variant = db.Column(db.String(50))
     bo_sets = db.Column(db.Integer, nullable=False)
     bo_legs = db.Column(db.Integer, nullable=False)
     two_clear_legs = db.Column(db.Boolean)
@@ -117,11 +118,12 @@ class GameBase(db.Model):
     p2_sets = db.Column(db.Integer)
     p1_legs = db.Column(db.Integer)
     p2_legs = db.Column(db.Integer)
+    p1_score = db.Column(db.Integer)
+    p2_score = db.Column(db.Integer)
     p1_next_turn = db.Column(db.Boolean)
     closest_to_bull = db.Column(db.Boolean)
     closest_to_bull_json = db.Column(db.JSON)
     status = db.Column(db.String(20), index=True)
-    type = db.Column(db.Integer)
     match_json = db.Column(db.JSON)
     begin = db.Column(db.DateTime)
     end = db.Column(db.DateTime)
@@ -153,9 +155,6 @@ class GameBase(db.Model):
 
 class Game(GameBase):
     __tablename__ = 'games'
-
-    p1_score = db.Column(db.Integer)
-    p2_score = db.Column(db.Integer)
     type = db.Column(db.Integer)
     in_mode = db.Column(db.String(15))
     out_mode = db.Column(db.String(15))
@@ -240,6 +239,20 @@ class X01Presetting(db.Model):
     type = db.Column(db.Integer)
     in_mode = db.Column(db.String(15))
     out_mode = db.Column(db.String(15))
+    opponent_type = db.Column(db.String(10))
+    level = db.Column(db.Integer)
+    public_challenge = db.Column(db.Boolean)
+    webcam = db.Column(db.Boolean)
+    score_input_delay = db.Column(db.Integer)
+
+
+class CricketPresetting(db.Model):
+    __tablename__ = 'cricket_presettings'
+    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    bo_sets = db.Column(db.Integer)
+    bo_legs = db.Column(db.Integer)
+    two_clear_legs = db.Column(db.Boolean)
+    starter = db.Column(db.String(25))
     opponent_type = db.Column(db.String(10))
     level = db.Column(db.Integer)
     public_challenge = db.Column(db.Boolean)

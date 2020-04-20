@@ -246,9 +246,10 @@
 
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
-<script type="text/javascript" src="{{ url_for('static',filename='js/x01_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_socket.js', version=config.VERSION) }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/game_chat_socket.js', version=config.VERSION) }}"></script>
 {% if current_user.webcam_settings and current_user.webcam_settings.mobile_follower_mode %}
+<meta id="jitsi-settings" data-hashid="{{ game.jitsi_hashid }}" data-app="{{ webcam_settings.mobile_app }}">
 <script type="text/javascript" src="{{ url_for('static',filename='js/webcam_request_follow.js', version=config.VERSION) }}"></script>
 {% endif %}
 {% else %}

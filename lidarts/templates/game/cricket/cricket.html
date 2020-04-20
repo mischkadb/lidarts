@@ -282,12 +282,10 @@
 
 {% block scripts %}
 <meta id="hash_id" data-hashid="{{ game.hashid }}">
-<meta id="validation_url" data-url="{{ url_for('game.validate_score') }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
 <meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
 <meta id="caller" data-caller="{{ caller }}">
 <meta id="cpu_delay" data-cpu_delay="{{ cpu_delay }}">
-<meta id="chat_validation_url" data-url="{{ url_for('generic.validate_game_chat_message') }}">
 
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
