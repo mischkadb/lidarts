@@ -155,7 +155,17 @@
 <!-- GAME END CONFIRMATION SMALL -->
 <div class="col-sm-12 justify-content-center d-md-none confirm_completion" {% if game.status != 'completed' %} style="display: none" {% endif %}>
     <h4 class="text-light">{{ _('Game is completed.') }}</h4>
-    <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+    <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a></p>
+    {% if game.player2 and game.player1 != game.player2 %}
+    <div class="rematch">
+        <p><a href="#" class="rematch-offer">{{ _('Offer rematch') }}</a></p>
+        <p><a href="#" class="rematch-accept" style="display:none">{{ _('Accept rematch') }}</a></p>
+    </div>
+    <p class="rematch-sent text-light" style="display:none">{{ _('Rematch offer sent') }}</p>
+    {% endif %}
+    {% if game.tournament %}
+    <p><a href="{{ url_for('tournament.details', hashid=game.tournament) }}">{{ _('Back to tournament') }}</a></p>
+    {% endif %}
 </div>
 
 {% include 'game/X01/statistics.html' %}
