@@ -12,7 +12,7 @@ from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.forms import GameChatmessageForm
 from lidarts.profile.utils import get_user_status
 from lidarts.socket.utils import broadcast_online_players
-from sqlalchemy import desc, or_
+from sqlalchemy import desc, or_, func
 from sqlalchemy.orm import aliased
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -249,8 +249,10 @@ def abort_long_started_games():
 
 @bp.route('/get_id_by_username/')
 @bp.route('/get_id_by_username/<username>')
-def get_id_by_username(username):
-    user = User.query.filter_by(username=username).first()
+def get_id_by_username(username=None):
+    if not username:
+        return jsonify('error')        
+    user = User.query.filter(func.lower(User.username) == func.lower(username)).first()
     if not user:
         return jsonify('error')
     return jsonify(user.id)
