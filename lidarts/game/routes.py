@@ -460,6 +460,7 @@ def abort_game(hashid):
 
 
 @bp.route('/webcam_consent', methods=['GET', 'POST'])
+@login_required
 def webcam_consent():
     webcam_query = WebcamSettings.query.filter_by(user=current_user.id).first()
     if webcam_query and webcam_query.activated:
@@ -482,6 +483,7 @@ def webcam_consent():
 
 
 @bp.route('/webcam_follow', methods=['GET', 'POST'])
+@login_required
 def webcam_follow():
     webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
     if not webcam_settings or not webcam_settings.activated or not webcam_settings.mobile_follower_mode:
