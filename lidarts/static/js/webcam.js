@@ -21,7 +21,6 @@ $(document).ready(function() {
         'tileview',
         'videoquality'],
         GENERATE_ROOMNAMES_ON_WELCOME_PAGE: false,
-        DISPLAY_WELCOME_PAGE_CONTENT: false,
         INVITATION_POWERED_BY: false,
         AUTHENTICATION_ENABLE: false,
         DISABLE_RINGING: true,
@@ -29,6 +28,7 @@ $(document).ready(function() {
         DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
         MOBILE_APP_PROMO: jitsi_app,
         MAXIMUM_ZOOMING_COEFFICIENT: 1.0,
+        SHOW_CHROME_EXTENSION_BANNER: false,
     }
 
     const domain = 'meet.jit.si';
@@ -40,6 +40,7 @@ $(document).ready(function() {
         interfaceConfigOverwrite: ifaceoverwrite,
     };
     const api = new JitsiMeetExternalAPI(domain, options);
+    api.executeCommand('subject', ' ');
 });
 
 
