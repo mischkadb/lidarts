@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-17 14:36+0200\n"
-"PO-Revision-Date: 2020-04-17 12:41\n"
+"POT-Creation-Date: 2020-04-21 19:25+0200\n"
+"PO-Revision-Date: 2020-04-21 17:29\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,7 @@ msgstr "Passwort"
 msgid "Username or Email Address"
 msgstr "Benutzername oder E-Mail-Adresse"
 
-#: auth/forms.py:97 profile/forms.py:74
+#: auth/forms.py:97 profile/forms.py:73
 msgid "Accept"
 msgstr "Bestätigen"
 
@@ -144,7 +144,8 @@ msgstr "Modus Out"
 msgid "Public challenge"
 msgstr "Herausforderung öffentlich"
 
-#: game/forms.py:41
+#: game/forms.py:41 templates/game/X01_completed.html:151
+#: templates/profile/game_history.html:30 templates/profile/overview.html:72
 msgid "Webcam game"
 msgstr "Webcam-Spiel"
 
@@ -177,7 +178,7 @@ msgid "(Optional) I allow my opponents to stream and record our game including m
 msgstr "(Optional) Ich erlaube meinen Gegnern unser Spiel, inklusive meinem Bild und Ton, aufzunehmen oder zu streamen."
 
 #: game/forms.py:56 templates/game/X01/modals.html:51
-#: templates/game/X01_stream.html:390
+#: templates/game/X01_stream.html:410
 msgid "Confirm"
 msgstr "Bestätigen"
 
@@ -210,11 +211,11 @@ msgstr "Warte..."
 msgid "Match overview"
 msgstr "Spielübersicht"
 
-#: game/routes.py:379
+#: game/routes.py:380
 msgid "Stream overlay"
 msgstr "Stream overlay"
 
-#: game/routes.py:381
+#: game/routes.py:382
 msgid "Live Match"
 msgstr "Livespiel"
 
@@ -242,90 +243,90 @@ msgstr "Live Spiele"
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:227 templates/base.html:54 templates/game/X01.html:88
-#: templates/game/X01_stream.html:97 templates/game/X01_webcam.html:101
+#: generic/routes.py:227 templates/base.html:54 templates/game/X01.html:98
+#: templates/game/X01_stream.html:107 templates/game/X01_webcam.html:111
 msgid "Chat"
 msgstr "Chat"
 
-#: generic/routes.py:281
+#: generic/routes.py:283
 msgid "Private Messages"
 msgstr "Private Nachrichten"
 
-#: profile/forms.py:9
+#: profile/forms.py:8
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: profile/forms.py:9
+#: profile/forms.py:8
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: profile/forms.py:13 tournament/forms.py:31
+#: profile/forms.py:12 tournament/forms.py:31
 msgid "Description"
 msgstr "Beschreibung"
 
-#: profile/forms.py:14 profile/forms.py:19 profile/forms.py:24
-#: profile/forms.py:64 profile/forms.py:76 profile/forms.py:110
-#: profile/forms.py:115
+#: profile/forms.py:13 profile/forms.py:18 profile/forms.py:23
+#: profile/forms.py:63 profile/forms.py:75 profile/forms.py:109
+#: profile/forms.py:114
 msgid "Save"
 msgstr "Speichern"
 
-#: profile/forms.py:18
+#: profile/forms.py:17
 msgid "Caller"
 msgstr "Caller"
 
-#: profile/forms.py:23
+#: profile/forms.py:22
 msgid "Trainer delay"
 msgstr "Trainerverzögerung"
 
-#: profile/forms.py:29
+#: profile/forms.py:28
 msgid "Notification sound"
 msgstr "Benachrichtigungston"
 
-#: profile/forms.py:35
+#: profile/forms.py:34
 msgid "Allow challenges"
 msgstr "Herausforderungen erlauben"
 
-#: profile/forms.py:41
+#: profile/forms.py:40
 msgid "Allow private messages"
 msgstr "Private Nachrichten erlauben"
 
-#: profile/forms.py:47
+#: profile/forms.py:46
 msgid "Allow friend requests"
 msgstr "Freundschaftsanfragen erlauben"
 
-#: profile/forms.py:53
+#: profile/forms.py:52
 msgid "Checkout suggestions"
 msgstr "Finishwege anzeigen"
 
-#: profile/forms.py:59
+#: profile/forms.py:58
 msgid "Show averages in user list"
 msgstr "Averages in Userliste anzeigen"
 
-#: profile/forms.py:69
+#: profile/forms.py:68
 msgid "Country"
 msgstr "Land"
 
-#: profile/forms.py:81
+#: profile/forms.py:80
 msgid "Webcam activated"
 msgstr "Webcam aktiviert"
 
-#: profile/forms.py:87
+#: profile/forms.py:86
 msgid "Allow streaming"
 msgstr "Streamen erlauben"
 
-#: profile/forms.py:93
+#: profile/forms.py:92
 msgid "Use Jitsi mobile app"
 msgstr "Nutze Jitsi App für mobile Geräte"
 
-#: profile/forms.py:99
+#: profile/forms.py:98
 msgid "Mobile follow mode"
 msgstr "Folge-Modus für mobile Geräte"
 
-#: profile/forms.py:105
+#: profile/forms.py:104
 msgid "Show only scoreboard on main device"
 msgstr "Zeige nur Scoreboard auf Hauptgerät"
 
-#: profile/forms.py:114
+#: profile/forms.py:113
 msgid "Channel ID"
 msgstr "Kanal-ID"
 
@@ -349,46 +350,50 @@ msgstr "Freundesliste verwalten"
 msgid "Avatar deleted."
 msgstr "Avatar gelöscht."
 
-#: profile/routes.py:212
+#: profile/routes.py:210
+msgid "No selected file"
+msgstr "Keine Datei ausgewählt"
+
+#: profile/routes.py:216
 msgid "Wrong image format."
 msgstr "Falsches Bildformat."
 
-#: profile/routes.py:221
+#: profile/routes.py:225
 msgid "Avatar saved."
 msgstr "Avatar gespeichert."
 
-#: profile/routes.py:226
+#: profile/routes.py:230
 msgid "Avatar Settings"
 msgstr "Avatar einstellen"
 
-#: profile/routes.py:237
-msgid "Caller Settings"
-msgstr "Caller einstellen"
-
-#: profile/routes.py:248
-msgid "Trainer Delay"
-msgstr "Trainerverzögerung einstellen"
-
-#: profile/routes.py:266 profile/routes.py:279 profile/routes.py:306
-#: profile/routes.py:326
+#: profile/routes.py:251 profile/routes.py:282 profile/routes.py:295
+#: profile/routes.py:322 profile/routes.py:342
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: profile/routes.py:273
+#: profile/routes.py:253
+msgid "Caller Settings"
+msgstr "Caller einstellen"
+
+#: profile/routes.py:264
+msgid "Trainer Delay"
+msgstr "Trainerverzögerung einstellen"
+
+#: profile/routes.py:289
 msgid "You can only change your country setting once per month. You need to wait until: "
 msgstr "Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte warte bis: "
 
-#: profile/routes.py:274 profile/routes.py:290
+#: profile/routes.py:290 profile/routes.py:306
 #: templates/profile/general_settings.html:13 templates/profile/settings.html:5
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
 
-#: profile/routes.py:314 templates/profile/settings.html:7
+#: profile/routes.py:330 templates/profile/settings.html:7
 #: templates/profile/webcam_settings.html:13
 msgid "Webcam settings"
 msgstr "Webcam-Einstellungen"
 
-#: profile/routes.py:330 templates/profile/livestream_settings.html:13
+#: profile/routes.py:346 templates/profile/livestream_settings.html:13
 #: templates/profile/settings.html:8
 msgid "Livestream settings"
 msgstr "Livestream-Einstellungen"
@@ -430,7 +435,7 @@ msgid "Watch"
 msgstr "Zuschauen"
 
 #: templates/base.html:48 templates/base.html:55
-#: templates/profile/overview.html:130
+#: templates/profile/overview.html:134
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -523,40 +528,64 @@ msgstr "Ausbullen. Bitte drei Darts auf Bull werfen."
 msgid "Local game. Player 1 throws all three darts first."
 msgstr "Lokales Spiel. Spieler 1 wirft zuerst alle drei Darts."
 
-#: templates/game/X01.html:61 templates/game/X01.html:147
-#: templates/game/X01_stream.html:70 templates/game/X01_stream.html:157
+#: templates/game/X01.html:61 templates/game/X01.html:157
+#: templates/game/X01_stream.html:70 templates/game/X01_stream.html:167
 #: templates/game/X01_watch_webcam.html:76 templates/game/X01_webcam.html:77
 msgid "Game is completed."
 msgstr "Spiel ist beendet."
 
-#: templates/game/X01.html:62 templates/game/X01.html:67
-#: templates/game/X01.html:148 templates/game/X01_stream.html:71
-#: templates/game/X01_stream.html:76 templates/game/X01_stream.html:158
+#: templates/game/X01.html:62 templates/game/X01.html:77
+#: templates/game/X01.html:158 templates/game/X01_stream.html:71
+#: templates/game/X01_stream.html:86 templates/game/X01_stream.html:168
 #: templates/game/X01_watch_webcam.html:77
 #: templates/game/X01_watch_webcam.html:82 templates/game/X01_webcam.html:78
-#: templates/game/X01_webcam.html:83
+#: templates/game/X01_webcam.html:93
 msgid "Game overview"
 msgstr "Spielübersicht"
 
-#: templates/game/X01.html:66 templates/game/X01_completed.html:14
-#: templates/game/X01_stream.html:75 templates/game/X01_watch_webcam.html:81
+#: templates/game/X01.html:65 templates/game/X01.html:161
+#: templates/game/X01_stream.html:74 templates/game/X01_stream.html:171
+#: templates/game/X01_webcam.html:81
+msgid "Offer rematch"
+msgstr "Revanche anbieten"
+
+#: templates/game/X01.html:66 templates/game/X01.html:162
+#: templates/game/X01_stream.html:75 templates/game/X01_stream.html:172
 #: templates/game/X01_webcam.html:82
+msgid "Accept rematch"
+msgstr "Revanche annehmen"
+
+#: templates/game/X01.html:68 templates/game/X01.html:164
+#: templates/game/X01_stream.html:77 templates/game/X01_stream.html:174
+#: templates/game/X01_webcam.html:84
+msgid "Rematch offer sent"
+msgstr "Revangeangebot gesendet"
+
+#: templates/game/X01.html:71 templates/game/X01.html:167
+#: templates/game/X01_stream.html:80 templates/game/X01_stream.html:177
+#: templates/game/X01_webcam.html:87 templates/tournament/settings.html:68
+msgid "Back to tournament"
+msgstr "Zurück zum Turnier"
+
+#: templates/game/X01.html:76 templates/game/X01_completed.html:14
+#: templates/game/X01_stream.html:85 templates/game/X01_watch_webcam.html:81
+#: templates/game/X01_webcam.html:92
 msgid "Game was aborted."
 msgstr "Spiel wurde abgebrochen."
 
-#: templates/game/X01.html:78 templates/game/X01.html:162
-#: templates/game/X01_stream.html:87 templates/game/X01_stream.html:275
-#: templates/game/X01_webcam.html:94
+#: templates/game/X01.html:88 templates/game/X01.html:182
+#: templates/game/X01_stream.html:97 templates/game/X01_stream.html:295
+#: templates/game/X01_webcam.html:104
 msgid "Undo last score"
 msgstr "Score rückgängig"
 
-#: templates/game/X01.html:79 templates/game/X01.html:163
-#: templates/game/X01_stream.html:88 templates/game/X01_stream.html:276
-#: templates/game/X01_webcam.html:95
+#: templates/game/X01.html:89 templates/game/X01.html:183
+#: templates/game/X01_stream.html:98 templates/game/X01_stream.html:296
+#: templates/game/X01_webcam.html:105
 msgid "Enter correct score"
 msgstr "Korrektur eingeben"
 
-#: templates/game/X01.html:85 templates/game/X01_stream.html:94
+#: templates/game/X01.html:95 templates/game/X01_stream.html:104
 msgid "Keypad"
 msgstr "Tastatur"
 
@@ -584,12 +613,16 @@ msgstr "Minuten"
 msgid "seconds"
 msgstr "Sekunden"
 
-#: templates/game/X01_completed.html:172
+#: templates/game/X01_completed.html:151
+msgid " Webcam game"
+msgstr " Webcam-Spiel"
+
+#: templates/game/X01_completed.html:180
 #: templates/statistics/x01_detail_element.html:42
 msgid "Highest Finish"
 msgstr "Höchstes Finish"
 
-#: templates/game/X01_completed.html:178
+#: templates/game/X01_completed.html:186
 #: templates/statistics/x01_detail_element.html:14
 msgid "Shortest Leg"
 msgstr "Kürzestes Leg"
@@ -626,19 +659,19 @@ msgstr "Caller stumm"
 msgid "Unmute caller"
 msgstr "Caller aktivieren"
 
-#: templates/game/X01/modals.html:25 templates/game/X01_stream.html:364
+#: templates/game/X01/modals.html:25 templates/game/X01_stream.html:384
 msgid "How many darts missed at double?"
 msgstr "Wieviele Darts auf Doppel verfehlt?"
 
-#: templates/game/X01/modals.html:38 templates/game/X01_stream.html:377
+#: templates/game/X01/modals.html:38 templates/game/X01_stream.html:397
 msgid "How many darts to finish?"
 msgstr "Wieviele Darts für den Checkout?"
 
-#: templates/game/X01/modals.html:50 templates/game/X01_stream.html:389
+#: templates/game/X01/modals.html:50 templates/game/X01_stream.html:409
 msgid "Abort game?"
 msgstr "Spiel abbrechen?"
 
-#: templates/game/X01/modals.html:52 templates/game/X01_stream.html:391
+#: templates/game/X01/modals.html:52 templates/game/X01_stream.html:411
 msgid "Cancel"
 msgstr "Zurück"
 
@@ -1470,32 +1503,32 @@ msgstr "hat noch keinen Profiltext angegeben."
 msgid "Recent games"
 msgstr "Neueste Spiele"
 
-#: templates/profile/overview.html:72
+#: templates/profile/overview.html:76
 msgid "Full match list"
 msgstr "Vollständige Spielliste"
 
-#: templates/profile/overview.html:82
+#: templates/profile/overview.html:86
 msgid "Statistics (501 SI/DO)"
 msgstr "Statistiken (501 SI/DO)"
 
-#: templates/profile/overview.html:84
+#: templates/profile/overview.html:88
 msgid "Number of games:"
 msgstr "Anzahl Spiele:"
 
-#: templates/profile/overview.html:85
+#: templates/profile/overview.html:89
 #: templates/statistics/x01_overview_element.html:7
 msgid "Darts thrown:"
 msgstr "Darts geworfen:"
 
-#: templates/profile/overview.html:95
+#: templates/profile/overview.html:99
 msgid "Winrates (501 SI/DO)"
 msgstr "Siegquote (501 SI/DO)"
 
-#: templates/profile/overview.html:96
+#: templates/profile/overview.html:100
 msgid "(grouped by opponent average)"
 msgstr "(gruppiert nach Average des Gegners)"
 
-#: templates/profile/overview.html:131
+#: templates/profile/overview.html:135
 msgid "X01"
 msgstr ""
 
@@ -1759,10 +1792,6 @@ msgstr "Turniereinstellungen bearbeiten"
 #: templates/tournament/settings.html:46
 msgid "Players are able to join the tournament."
 msgstr "Spieler können dem Turnier beitreten."
-
-#: templates/tournament/settings.html:68
-msgid "Back to tournament"
-msgstr "Zurück zum Turnier"
 
 #: templates/tournament/settings.html:80
 msgid "Manage player list"

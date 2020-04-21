@@ -279,6 +279,8 @@ def private_messages():
             user_names[other_user.id] = other_user.username
             status[other_user.id] = get_user_status(other_user)
 
+    messages_dict = {k: v for k, v in sorted(messages_dict.items(), key=lambda item: item[1][-1]['timestamp'], reverse=True)}
+
     return render_template('generic/inbox.html', form=form, messages=messages_dict,
                            user_names=user_names, status=status, title=lazy_gettext('Private Messages'))
 
