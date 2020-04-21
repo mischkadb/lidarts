@@ -58,7 +58,8 @@
                 <hr>
                 {% for game, player1_name, player2_name in games %}
 
-                <p class="text-secondary"><a href="{{ url_for('game.start', hashid=game.hashid) }}"
+                <p class="text-secondary">
+                    <a href="{{ url_for('game.start', hashid=game.hashid) }}"
                                              class="
                                              {%- if game.status == 'started' %}text-started
                                              {%- elif game.player1 != game.player2 and
@@ -77,7 +78,10 @@
                     {%- elif game.player1 != user.id %} {{ player1_name }}
                     {%- elif game.player2 != user.id %} {{ player2_name }}
                     {%- else %} local guest{% endif %}
-                    - {{ game.type }} {{ game.in_mode }}/{{ game.out_mode }} [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
+                    | {{ game.type }} {{ game.in_mode }}/{{ game.out_mode }} | {% if game.bo_sets > 1 %}{{ game.p1_sets }}:{{ game.p2_sets }}{% else %}{{ game.p1_legs }}:{{ game.p2_legs }}{% endif %}
+                    {% if game.webcam %} <i title="{{ _('Webcam game') }}" class="fas fa-camera"></i>{% endif %}
+                    </a>
+                </p>
                 {% endfor %}
                 <a href="{{ url_for('profile.game_history', username=user.username) | replace('%40', '@') }}" class="text-secondary">{{ _('Full match list') }}</a>
 

@@ -35,7 +35,7 @@
                             <h4 >
                             </h4>
 
-                            <h5>{{ game.type }} {{ game.in_mode }}/{{ game.out_mode }}</h5>
+                            <h5>{{ game.type }} {{ game.in_mode }}/{{ game.out_mode }} {% if game.webcam %} <i title="{{ _('Webcam game') }}" class="fas fa-camera"></i>{% endif %}</h5>
                             <h6>                                
                                 {{ moment(game.begin).format('DD.MM.YYYY HH:mm') }}
                             </h6>

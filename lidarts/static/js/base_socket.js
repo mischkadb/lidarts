@@ -58,7 +58,6 @@ $(document).ready(function() {
         } else {
             link = '/private_messages'
         }
-        console.log(msg['webcam'])
         if (msg['webcam'] == true) {
             webcam_icon = ' <i class="fas fa-camera fa-xs"></i> '
         } else {

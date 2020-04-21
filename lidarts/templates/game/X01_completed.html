@@ -135,12 +135,20 @@
             <div class="card-body">
 
                 {% if game.end and game.begin %}
-                <div class="row justify-content-center align-items-center mb-2">
+                <div class="row justify-content-center align-items-center">
                     <div class="col-sm-8 text-center text-secondary">
                         <p>{{ _('Match start')}}: {{ moment(game.begin).format('DD.MM.YYYY HH:mm') }}</p>
                         <p>{{ _('Match duration') }}: {{ ((game.end - game.begin).seconds // 3600)}} {{ _('hours') }},
                             {{ ((game.end - game.begin).seconds % 3600) // 60}} {{ _('minutes') }},
                             {{ ((game.end - game.begin).seconds % 60)}} {{ _('seconds') }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if game.webcam %}      
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-sm-8 text-center text-secondary">
+                        <p><i title="{{ _('Webcam game') }}" class="fas fa-camera"></i> {{ _(' Webcam game') }}</p>
                     </div>
                 </div>
                 {% endif %}
