@@ -168,7 +168,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 notification = Notification(user=player2, message=message, author=current_user.username,
                                             type='challenge')
                 db.session.add(notification)
-                send_notification(form.opponent_name.data, message, current_user.username, 'challenge')
+                send_notification(form.opponent_name.data, message, current_user.username, 'challenge', webcam=form.webcam.data)
             else:
                 player2 = None
             status = 'challenged'

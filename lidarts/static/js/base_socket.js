@@ -58,9 +58,17 @@ $(document).ready(function() {
         } else {
             link = '/private_messages'
         }
+        console.log(msg['webcam'])
+        if (msg['webcam'] == true) {
+            webcam_icon = ' <i class="fas fa-camera fa-xs"></i> '
+        } else {
+            webcam_icon = ''
+        }
+
+
         $('#notification-dropdown-menu').prepend(
             '<a class="dropdown-item" href="' + link + '"><strong>' + msg['author'] + '</strong><br>'
-            + msg['message'] + '</a><hr class="notification-seperator">'
+            + msg['message'] + webcam_icon + '</a><hr class="notification-seperator">'
         );
 
         if (notification_sound_enabled == true && msg['silent'] == false){

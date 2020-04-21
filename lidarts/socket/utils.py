@@ -434,11 +434,11 @@ def broadcast_game_completed(game):
     socketio.sleep(0)
 
 
-def send_notification(username, message, author, type, silent=False):
+def send_notification(username, message, author, type, silent=False, webcam=False):
     emit(
         'send_notification',
         {
-            'message': message, 'author': author, 'type': type, 'silent': silent,
+            'message': message, 'author': author, 'type': type, 'webcam': webcam, 'silent': silent,
         },
         room=username, namespace='/base',
         )
