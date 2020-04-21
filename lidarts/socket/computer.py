@@ -263,6 +263,10 @@ def get_computer_score(hashid):
         thrown_score, field_hit = throw_dart(target, computer)
         if (game.in_mode == 'di' and field_hit[0] != 'D') and (game.p2_score == game.type):
             thrown_score = 0
+        if (game.out_mode == 'do' and field_hit[0] != 'D') and (remaining_score == thrown_score):
+            thrown_score = 0
+        if (game.out_mode == 'mo' and field_hit[0] not in ('D', 'T')) and (remaining_score == thrown_score):
+            thrown_score = 0
         thrown_score_total += thrown_score
         remaining_score -= thrown_score
         # don't keep throwing if leg won or busted
