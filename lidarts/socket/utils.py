@@ -299,7 +299,8 @@ def process_closest_to_bull(game, score_value, computer=False):
 
 
 def broadcast_game_aborted(game):
-    emit('game_aborted', {'hashid': game.hashid}, room=game.hashid, namespace='/game', broadcast=True)
+    namespace = '/game' if game.variant == 'x01' else '/game/cricket'
+    emit('game_aborted', {'hashid': game.hashid}, room=game.hashid, namespace=namespace, broadcast=True)
 
 
 def broadcast_online_players(broadcast=True, room='public_chat'):
