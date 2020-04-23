@@ -158,11 +158,6 @@ def init_waiting(message):
     join_room(game.hashid)
 
 
-@socketio.on('start_game', namespace='/game/cricket')
-def start_game(hashid):
-    emit('start_game', room=hashid, broadcast=True, namespace='/game')
-
-
 @socketio.on('send_score', namespace='/game/cricket')
 def send_score(message):
     hashid = message['hashid']
