@@ -79,7 +79,6 @@ def overview(username):
         .order_by(desc(CricketGame.id)).limit(10).all()
     )
     games.extend(cricket_games)
-    print(games[0][0].begin)
     games.sort(key=lambda game: game[0].begin, reverse=True)
 
     stats = UserStatistic.query.filter_by(user=user.id).first()
