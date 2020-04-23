@@ -2,21 +2,16 @@
 {% block css %}<link href="{{ url_for('static',filename='css/x01.css') }}" rel="stylesheet">{% endblock %}
 
 {% block navbar %}
-<div class="container-fluid">
-    <div class="row mb-2 text-secondary">
-        <a href="{{ url_for('generic.index') }}" class="text-secondary"> {{ _('Leave game') }}</a>
-        | <div id="abort-game" class="div-link">{{ _('Abort game') }}</div>
-                | <div id="hide-keypad" class="div-link">{{ _('Toggle Keypad visibility') }}</div>
-                | <div id="change-keypad" class="div-link">{{ _('Change keypad position') }}</div>
-                | <div id="hide-statistics" class="div-link">{{ _('Toggle statistics') }}</div>
-        | <a href="{{ url_for('game.start', hashid=game.hashid) }}" class="text-secondary">{{ _('Normal theme') }}</a>
-        | <div id="mute" class="div-link">{{ _('Mute caller') }}</div> <div id="unmute" style="display: none" class="div-link">{{ _('Unmute caller') }}</div>
-    </div>
-</div>
+{% include 'game/game_navbar.html' %}
 {% endblock %}
 
 {% block app_content %}
 
+{% if stream %}
+{% include 'game/x01/scoreboard_stream.html' %}
+{% else %}
+{% include 'game/x01/scoreboard_normal.html' %}
+{% endif %}
 
 {% if game.closest_to_bull %}
 <div class="row text-light  text-center mt-2" id="closest_to_bull_notification_div">
@@ -56,14 +51,10 @@
 <div class="row justify-content-center align-items-start">
     <!-- SCOREBOARD PLAYER 1 -->
     <div class="col-lg-4 col-md-4 col-6 mt-3" id="p1_current_leg">
-        <p><span class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
     </div>
 
     <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
     <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block score-input">
-
-        <p class="text-light text-center mb-2 {% if game.player1 != current_user.id or not settings.checkout_suggestions %}d-none{% endif %}"><span class="p1_checkout_suggestion"></span></p>
-        <p class="text-light text-center mb-2 {% if game.player2 != current_user.id or not settings.checkout_suggestions %}d-none{% endif %}"><span class="p2_checkout_suggestion"></span></p>
 
         <!-- GAME END CONFIRMATION -->
         <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
@@ -148,7 +139,7 @@
                     </div>
                     <form id="message_input" method="POST" action="">
                         {{ chat_form.hidden_tag() }}
-                        {{ chat_form.message(class="form-control", autocomplete="off") }}
+                        {{ chat_form.message(class="form-control", autocomplete="off", maxlength="500") }}
                         {{ chat_form.submit }}
                     </form>
                 </div>
@@ -157,8 +148,7 @@
     </div>
 
     <!-- SCOREBOARD PLAYER 2 -->
-    <div class="col-lg-4 col-md-4 col-6 mt-3" >
-        <span id="p2_current_leg"></span>
+    <div class="col-lg-4 col-md-4 col-6 mt-3" id="p2_current_leg">
     </div>
 </div>
 
@@ -178,110 +168,7 @@
     {% endif %}
 </div>
 
-<!-- STATISTICS -->
-<div class="row fixed-bottom statistics">
-    <div class="container">
-        <div class="row bg-secondary text-light">
-            <div class="col-lg-2 d-none d-lg-block">
-                <table class="table table-sm stats-table">
-                    <tr>
-                        <td>Leg Avg.</td>
-                        <td class="p1_leg_avg font-weight-bold">{{ p1_leg_avg }}</td>
-                    </tr>
-                    <tr>
-                        <td>Match Avg.</td>
-                        <td class="p1_match_avg font-weight-bold">{{ p1_match_avg }}</td>
-                    </tr>
-                    <tr>
-                        <td>First 9</td>
-                        <td class="p1_first9_avg font-weight-bold">{{ p1_first9_avg }}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-lg-1 d-none d-lg-block">
-                <table class="table table-sm stats-table">
-                    <tr>
-                        <td>100+</td>
-                        <td class="p1_100 font-weight-bold">{{ p1_100 }}</td>
-                    </tr>
-                    <tr>
-                        <td>140+</td>
-                        <td class="p1_140 font-weight-bold">{{ p1_140 }}</td>
-                    </tr>
-                    <tr>
-                        <td>180</td>
-                        <td class="p1_180 font-weight-bold">{{ p1_180 }}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-lg-3 d-none d-lg-block">
-                <table class="table table-sm stats-table">
-                    <tr>
-                        <td>Doubles</td>
-                        <td class="p1_doubles font-weight-bold">{{ p1_doubles }}% ({{ p1_legs_won }}/{{ p1_darts_thrown_double }})</td>
-                    </tr>
-                    <tr>
-                        <td>High Finish</td>
-                        <td class="p1_high_finish font-weight-bold">{{ p1_high_finish }}</td>
-                    </tr>
-                    <tr>
-                        <td>Short Leg</td>
-                        <td class="p1_short_leg font-weight-bold">{{ p1_short_leg }}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-lg-2 d-none d-lg-block">
-                <table class="table table-sm stats-table">
-                    <tr>
-                        <td>Leg Avg.</td>
-                        <td class="p2_leg_avg font-weight-bold">{{ p2_leg_avg }}</td>
-                    </tr>
-                    <tr>
-                        <td>Match Avg.</td>
-                        <td class="p2_match_avg font-weight-bold">{{ p2_match_avg }}</td>
-                    </tr>
-                    <tr>
-                        <td>First 9</td>
-                        <td class="p2_first9_avg font-weight-bold">{{ p2_first9_avg }}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-lg-1 d-none d-lg-block">
-                <table class="table table-sm stats-table">
-                    <tr>
-                        <td>100+</td>
-                        <td class="p2_100 font-weight-bold">{{ p2_100 }}</td>
-                    </tr>
-                    <tr>
-                        <td>140+</td>
-                        <td class="p2_140 font-weight-bold">{{ p2_140 }}</td>
-                    </tr>
-                    <tr>
-                        <td>180</td>
-                        <td class="p2_180 font-weight-bold">{{ p2_180 }}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-lg-3 d-none d-lg-block">
-                <table class="table table-sm stats-table">
-                    <tr>
-                        <td>Doubles</td>
-                        <td class="p2_doubles font-weight-bold">{{ p2_doubles }}% ({{ p2_legs_won }}/{{ p2_darts_thrown_double }})</td>
-                    </tr>
-                    <tr>
-                        <td>High Finish</td>
-                        <td class="p2_high_finish font-weight-bold">{{ p2_high_finish }}</td>
-                    </tr>
-                    <tr>
-                        <td>Short Leg</td>
-                        <td class="p2_short_leg font-weight-bold">{{ p2_short_leg }}</td>
-                    </tr>
-                </table>
-            </div>
-
-        </div>
-    </div>
-</div>
+{% include 'game/x01/statistics.html' %}
 
 <!-- ONSCREEN KEYBOARD SMALL SCREENS -->
 <div class="row fixed-bottom">
@@ -349,7 +236,7 @@
                     </div>
                     <form id="message_input_small" method="POST" action="">
                         {{ chat_form_small.hidden_tag() }}
-                        {{ chat_form_small.message(class="form-control", autocomplete="off", id="message_small") }}
+                        {{ chat_form_small.message(class="form-control", autocomplete="off", maxlength="500", id="message_small") }}
                         {{ chat_form_small.submit }}
                     </form>
                 </div>
@@ -358,60 +245,7 @@
     </div>
 </div>
 
-
-<!-- GAME SHOT OVERLAY -->
-<div class="modal fade game-shot-modal" id="game-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <h2 class="text-center">Game Shot</h2>
-        </div>
-    </div>
-</div>
-
-<!-- MATCH SHOT OVERLAY -->
-<div class="modal fade match-shot-modal" id="match-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <h2 class="text-center">Game Shot and the match</h2>
-        </div>
-    </div>
-</div>
-
-<!-- MISSED AT DOUBLE OVERLAY -->
-<div class="modal fade" id="double-missed-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <h4 class="text-center">{{ _('How many darts missed at double?') }}</h4>
-            <button type="button" class="btn btn-primary double-missed-3 btn-lg mt-2" data-dismiss="modal" id="double-missed-3">3</button>
-            <button type="button" class="btn btn-primary double-missed-2 btn-lg mt-2" data-dismiss="modal" id="double-missed-2">2</button>
-            <button type="button" class="btn btn-primary double-missed-1 btn-lg mt-2" data-dismiss="modal" id="double-missed-1">1</button>
-            <button type="button" class="btn btn-primary double-missed-0 btn-lg mt-2 mb-2" data-dismiss="modal" id="double-missed-0">0</button>
-        </div>
-    </div>
-</div>
-
-<!-- DARTS TO FINISH OVERLAY -->
-<div class="modal fade" id="darts-to-finish-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <h4 class="text-center">{{ _('How many darts to finish?') }}</h4>
-            <button type="button" class="btn btn-primary btn-lg mt-2" data-dismiss="modal" id="to-finish-3">3</button>
-            <button type="button" class="btn btn-primary btn-lg mt-2" data-dismiss="modal" id="to-finish-2">2</button>
-            <button type="button" class="btn btn-primary btn-lg mt-2 mb-2" data-dismiss="modal" id="to-finish-1">1</button>
-        </div>
-    </div>
-</div>
-
-<!-- ABORT GAME MODAL -->
-<div class="modal fade abort-game-modal" id="abort-game-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-            <h3 class="text-center">{{ _('Abort game?') }}</h3>
-            <button type="button" class="btn btn-success btn-lg mt-2" data-dismiss="modal" id="abort-confirm">{{ _('Confirm') }}</button>
-            <button type="button" class="btn btn-danger btn-lg mt-2 mb-2" data-dismiss="modal" id="abort-cancel">{{ _('Cancel') }}</button>
-        </div>
-    </div>
-</div>
+{% include 'game/modals.html' %}
 
 {% endblock %}
 
@@ -433,9 +267,13 @@
 
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
-<script type="text/javascript" src="{{ url_for('static',filename='js/x01_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_socket.js', version=config.VERSION) }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/game_chat_socket.js', version=config.VERSION) }}"></script>
+{% if current_user.webcam_settings and current_user.webcam_settings.mobile_follower_mode %}
+<meta id="jitsi-settings" data-hashid="{{ game.jitsi_hashid }}" data-app="{{ webcam_settings.mobile_app }}">
+<script type="text/javascript" src="{{ url_for('static',filename='js/webcam_request_follow.js', version=config.VERSION) }}"></script>
+{% endif %}
 {% else %}
-<script type="text/javascript" src="{{ url_for('static',filename='js/x01_spectator_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_spectator_socket.js', version=config.VERSION) }}"></script>
 {% endif %}
 {% endblock %}

@@ -217,11 +217,13 @@ def player_heartbeat(message):
 
 @socketio.on('init', namespace='/game')
 def init(message):
-    game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
-    join_room(game.hashid)
+    game = Game.query.filter_by(hashid=message['hashid']).first()
+    join_room(message['hashid'])
 
     if 'heartbeats' in message:
-        join_room(f'{game.hashid}_heartbeats')
+        join_room(f'{message["hashid"]}_heartbeats')
+    if not game:
+        return
     if game.closest_to_bull:
         return
 
@@ -235,7 +237,9 @@ def init(message):
 
 @socketio.on('init_waiting', namespace='/game')
 def init_waiting(message):
-    game = Game.query.filter_by(hashid=message['hashid']).first_or_404()
+    game = Game.query.filter_by(hashid=message['hashid']).first()
+    if not game:
+        CricketGame.query.filter_by(hashid=message['hashid']).first()
     join_room(game.hashid)
 
 

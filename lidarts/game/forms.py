@@ -26,23 +26,37 @@ class ScoreForm(FlaskForm):
     submit = SubmitField(lazy_gettext('Submit score'))
 
 
-class CreateX01GameForm(FlaskForm):
-    type = SelectField(lazy_gettext('Game type'), choices=game_types, validators=[DataRequired()])
-    opponent = SelectField(lazy_gettext('Opponent'), default='online', choices=opponents, validators=[DataRequired()])
-    opponent_name = StringField(lazy_gettext('Opponent name'))
-    level = SelectField(lazy_gettext('Level'), choices=level)
-    starter = SelectField(lazy_gettext('First to throw'), choices=starter, validators=[DataRequired()])
+class CricketScoreForm(FlaskForm):
+    score_value = IntegerField(lazy_gettext('Score'), validators=[InputRequired(),
+                                                    NumberRange(min=0, max=180),
+                                                    impossible_numbers_check])
+    submit = SubmitField(lazy_gettext('Submit score'))
+
+
+class CreateGameForm(FlaskForm):
     bo_sets = SelectField(lazy_gettext('Best of Sets'), choices=bo_choice, validators=[DataRequired()])
     bo_legs = SelectField(lazy_gettext('Best of Legs'), choices=bo_choice, validators=[DataRequired()])
     two_clear_legs = BooleanField(lazy_gettext('Two Clear Legs'))
-    in_mode = SelectField(lazy_gettext('Mode In'), choices=in_choice, validators=[DataRequired()])
-    out_mode = SelectField(lazy_gettext('Mode Out'), choices=out_choice, validators=[DataRequired()])
+    starter = SelectField(lazy_gettext('First to throw'), choices=starter, validators=[DataRequired()])
+    opponent = SelectField(lazy_gettext('Opponent'), default='online', choices=opponents, validators=[DataRequired()])
+    opponent_name = StringField(lazy_gettext('Opponent name'))
+    level = SelectField(lazy_gettext('Level'), choices=level)
     public_challenge = BooleanField(lazy_gettext('Public challenge'))
     webcam = BooleanField(lazy_gettext('Webcam game'))
     score_input_delay = IntegerField(lazy_gettext('Score input block'), default=0, validators=[NumberRange(min=0, max=15)])
     save_preset = BooleanField(lazy_gettext('Save settings'))
     tournament = SelectField(lazy_gettext('Tournament'), choices=[])
     submit = SubmitField(lazy_gettext('Start game'))
+
+
+class CreateX01GameForm(CreateGameForm):
+    type = SelectField(lazy_gettext('Game type'), choices=game_types, validators=[DataRequired()])
+    in_mode = SelectField(lazy_gettext('Mode In'), choices=in_choice, validators=[DataRequired()])
+    out_mode = SelectField(lazy_gettext('Mode Out'), choices=out_choice, validators=[DataRequired()])
+
+
+class CreateCricketGameForm(CreateGameForm):
+    pass
 
 
 class GameChatmessageForm(FlaskForm):

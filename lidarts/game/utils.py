@@ -31,6 +31,8 @@ def get_name_by_id(id_):
 
 
 def collect_statistics(game, match_json):
+    if game.variant == 'cricket':
+        return
 
     stats = defaultdict(int)
     p1_scores = []
@@ -148,3 +150,82 @@ def collect_statistics(game, match_json):
     stats['p2_darts_thrown_double'] = p2_darts_thrown_double
 
     return stats
+
+cricket_leg_default = {
+    1: {
+        'scores': [],
+        'points': 0,
+        'fields': {
+            15: {
+                'marks': 0,
+                'score': 0,
+            },
+            16: {
+                'marks': 0,
+                'score': 0,
+            },
+            17: {
+                'marks': 0,
+                'score': 0,
+            },
+            18: {
+                'marks': 0,
+                'score': 0,
+            },
+            15: {
+                'marks': 0,
+                'score': 0,
+            },
+            19: {
+                'marks': 0,
+                'score': 0,
+            },
+            20: {
+                'marks': 0,
+                'score': 0,
+            },
+            25: {
+                'marks': 0,
+                'score': 0,
+            },
+        }
+    },
+    2: {
+        'scores': [],
+        'points': 0,
+        'fields': {
+            15: {
+                'marks': 0,
+                'score': 0,
+            },
+            16: {
+                'marks': 0,
+                'score': 0,
+            },
+            17: {
+                'marks': 0,
+                'score': 0,
+            },
+            18: {
+                'marks': 0,
+                'score': 0,
+            },
+            15: {
+                'marks': 0,
+                'score': 0,
+            },
+            19: {
+                'marks': 0,
+                'score': 0,
+            },
+            20: {
+                'marks': 0,
+                'score': 0,
+            },
+            25: {
+                'marks': 0,
+                'score': 0,
+            },
+        },
+    },
+}

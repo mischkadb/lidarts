@@ -18,11 +18,15 @@
                     <div class="col-6 align-self-center text-left">
                         <div class="dropdown show">
                             <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% if 'cricket' in request.path %}
+                                Cricket
+                                {% else %}
                                 X01
+                                {% endif %}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="gameModeDropdown">
                                 <a class="dropdown-item" href="{{ url_for('game.create') }}/x01">X01</a>
-                                <a class="dropdown-item" href="#">-</a>
+                                <!--<a class="dropdown-item" href="{{ url_for('game.create') }}/cricket">Cricket</a>-->
                             </div>
                         </div>
                     </div>
@@ -34,13 +38,14 @@
 
 <form action="" method="post" class="form-horizontal">
     {{ form.hidden_tag() }}
-
     <div class="row justify-content-center text-secondary">
         <div class="col-lg-4 col-sm-6">
             <div class="card">
                 <div class="card-body">
+                    {% if form.type %}
                     <p>{{ form.type.label(class="control-label") }}:
                         {{ form.type(class="form-control custom-select") }}</p>
+                    {% endif %}
 
                     <p>{{ form.opponent.label(class="col-form-label") }}:
                         {{ form.opponent(class="custom-select", onchange="computercheck(this);") }}
@@ -108,12 +113,15 @@
                     <p>{{ form.starter.label(class="col-form-label") }}:
                         {{ form.starter(class="custom-select") }}</p>
 
+                    {% if form.in_mode %}
                     <p>{{ form.in_mode.label(class="col-form-label") }}:
                         {{ form.in_mode(class="custom-select") }}</p>
+                    {% endif %}
 
+                    {% if form.out_mode %}
                     <p>{{ form.out_mode.label(class="col-form-label") }}:
                         {{ form.out_mode(class="custom-select") }}</p>
-
+                    {% endif %}
 
                     <p>
                         {{ form.score_input_delay.label(class="col-form-label") }}:

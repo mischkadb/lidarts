@@ -1,12 +1,16 @@
 from flask import render_template, redirect, url_for, jsonify, request, flash
 from flask_babelex import lazy_gettext, gettext
 from lidarts.game import bp
-from lidarts.game.forms import CreateX01GameForm, ScoreForm, GameChatmessageForm, WebcamConsentForm
-from lidarts.models import Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings, Tournament, WebcamSettings
+from lidarts.game.forms import CreateCricketGameForm, CreateX01GameForm, ScoreForm, GameChatmessageForm, WebcamConsentForm
+from lidarts.models import CricketGame, Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings, Tournament, WebcamSettings
 from lidarts import db
 from lidarts.socket.public_challenge_handler import broadcast_public_challenges
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
-from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names
+from lidarts.game.cricket.prepare_form import prepare_cricket_form
+from lidarts.game.cricket.save_preset import save_cricket_preset
+from lidarts.game.X01.prepare_form import prepare_x01_form
+from lidarts.game.X01.save_preset import save_x01_preset
+from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names, cricket_leg_default
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user, login_required
 from datetime import datetime
@@ -23,114 +27,9 @@ from sqlalchemy import func
 @login_required
 def create(mode='x01', opponent_name=None, tournament_hashid=None):
     if mode == 'x01':
-        preset = X01Presetting.query.filter_by(user=current_user.id).first()
-        if not preset:
-            preset = X01Presetting(user=current_user.id)
-            db.session.add(preset)
-            db.session.commit()
-        
-        if request.args.get('type'):
-            x01_type = request.args.get('type') if request.args.get('type') in ['170', '301', '501', '1001'] else '170'
-        elif preset.type:
-            x01_type = preset.type
-        else:
-            x01_type = 501
-
-        if request.args.get('starter'):
-            starter_short = {
-                '1': 'me',
-                '2': 'opponent',
-                'bull': 'closest_to_bull',
-            }
-            starter = starter_short[request.args.get('starter')] if request.args.get('starter') in starter_short else 'me'
-        elif preset.starter:
-            starter = preset.starter
-        else:
-            starter = 'me'
-
-        if request.args.get('sets'):
-            bo_sets = request.args.get('sets')
-            try:
-                bo_sets = bo_sets if int(bo_sets) < 30 else 1
-            except (ValueError, TypeError):
-                bo_sets = 1
-        elif preset.bo_sets:
-            bo_sets = preset.bo_sets
-        else:
-            bo_sets = 1        
-
-        if request.args.get('legs'):
-            bo_legs = request.args.get('legs')
-            try:
-                bo_legs = bo_legs if int(bo_legs) < 30 else 1
-            except (ValueError, TypeError):
-                bo_legs = 1
-        elif preset.bo_legs:
-            bo_legs = preset.bo_legs
-        else:
-            bo_legs = 5
-
-        if request.args.get('2cl'):
-            two_clear_legs = request.args.get('2cl')
-        elif preset.two_clear_legs:
-            two_clear_legs = preset.two_clear_legs
-        else:
-            two_clear_legs = False
-
-        if request.args.get('delay'):
-            score_input_delay = request.args.get('delay')
-        elif preset.score_input_delay:
-            score_input_delay = preset.score_input_delay
-        else:
-            score_input_delay = 0
-
-        if request.args.get('webcam'):
-            webcam = request.args.get('webcam')
-        elif preset.webcam:
-            webcam = preset.webcam
-        else:
-            webcam = False
-
-        level = preset.level if preset.level else 1
-
-        if request.args.get('opponent_name'):
-            opponent_name = request.args.get('opponent_name')
-
-        if opponent_name:
-            opponent = 'online'
-        else:
-            opponent = preset.opponent_type if preset.opponent_type else 'online'
-
-        in_mode = preset.in_mode if preset.in_mode else 'si'
-        out_mode = preset.out_mode if preset.out_mode else 'do'
-        public_challenge = preset.public_challenge if preset.public_challenge else False
-
-        form = CreateX01GameForm(
-            opponent_name=opponent_name,
-            opponent=opponent,
-            type=x01_type,
-            starter=starter,
-            bo_sets=bo_sets,
-            bo_legs=bo_legs,
-            two_clear_legs=two_clear_legs,
-            level=level,
-            in_mode=in_mode,
-            out_mode=out_mode,
-            public_challenge=public_challenge,
-            score_input_delay=score_input_delay,
-            webcam=webcam,
-        )
-        tournaments = current_user.tournaments
-        tournament_choices = []
-        for tournament in tournaments:
-            tournament_choices.append((tournament.hashid, tournament.name))
-            if tournament_hashid and tournament_hashid == tournament.hashid and request.method == 'GET':
-                form.tournament.default = tournament_hashid
-                form.process()
-        tournament_choices.append(('-', '-'))
-        form.tournament.choices = tournament_choices[::-1]
+        form = prepare_x01_form(opponent_name, tournament_hashid)
     else:
-        pass  # no other game modes yet
+        form = prepare_cricket_form(opponent_name, tournament_hashid)        
 
     webcam_query = WebcamSettings.query.filter_by(user=current_user.id).first()
     if not webcam_query or not webcam_query.activated:
@@ -148,7 +47,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 if form.public_challenge.data:
                     # Public challenge flag and player name specified is not allowed
                     flash(gettext('Public challenges must be created without an opponent name.'), 'danger')
-                    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
+                    return render_template('game/create_game.html', form=form, opponent_name=opponent_name,
                            title=lazy_gettext('Create Game'))
                 player2 = (
                     User.query
@@ -161,7 +60,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 if player2_settings and not player2_settings.allow_challenges:
                     # player 2 does not allow challenge requests
                     flash(gettext('Player does not allow challenges'), 'danger')
-                    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
+                    return render_template('game/create_game.html', form=form, opponent_name=opponent_name,
                            title=lazy_gettext('Create Game'))
 
                 message = gettext('New challenge')
@@ -182,7 +81,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 webcam_player2 = WebcamSettings.query.filter_by(user=player2).first()
                 if not webcam_player2 or not webcam_player2.activated:
                     flash(gettext('Player 2 does not have webcam games enabled.'), 'danger')
-                    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
+                    return render_template('game/create_game.html', form=form, opponent_name=opponent_name,
                             title=lazy_gettext('Create Game'))
 
             jitsi_hashid = secrets.token_urlsafe(8)[:8]
@@ -191,43 +90,56 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
 
         tournament = form.tournament.data if form.tournament.data != '-' else None
 
-        match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
+        if mode == 'x01':
+            match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
                                          2: {'scores': [], 'double_missed': []}}}})
-        game = Game(
-            player1=player1, player2=player2, type=form.type.data,
-            bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
-            two_clear_legs=form.two_clear_legs.data,
-            p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
-            p1_score=int(form.type.data), p2_score=int(form.type.data),
-            in_mode=form.in_mode.data, out_mode=form.out_mode.data,
-            begin=datetime.utcnow(), match_json=match_json,
-            status=status, opponent_type=form.opponent.data,
-            public_challenge=form.public_challenge.data,
-            tournament=tournament, 
-            score_input_delay=form.score_input_delay.data,
-            webcam=form.webcam.data, jitsi_hashid=jitsi_hashid,
+            game = Game(
+                player1=player1, player2=player2, type=form.type.data,
+                variant='x01',
+                bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
+                two_clear_legs=form.two_clear_legs.data,
+                p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
+                p1_score=int(form.type.data), p2_score=int(form.type.data),
+                in_mode=form.in_mode.data, out_mode=form.out_mode.data,
+                begin=datetime.utcnow(), match_json=match_json,
+                status=status, opponent_type=form.opponent.data,
+                public_challenge=form.public_challenge.data,
+                tournament=tournament, 
+                score_input_delay=form.score_input_delay.data,
+                webcam=form.webcam.data, jitsi_hashid=jitsi_hashid,
+                )
+        elif mode == 'cricket':
+            match_json = json.dumps(
+                {
+                    1: {
+                        1: cricket_leg_default.copy(),
+                    },
+                },
             )
+            game = CricketGame(
+                player1=player1, player2=player2, variant='cricket',
+                bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
+                two_clear_legs=form.two_clear_legs.data,
+                p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
+                p1_score=0, p2_score=0,
+                begin=datetime.utcnow(), match_json=match_json,
+                status=status, opponent_type=form.opponent.data,
+                public_challenge=form.public_challenge.data,
+                tournament=tournament, 
+                score_input_delay=form.score_input_delay.data,
+                webcam=form.webcam.data, jitsi_hashid=jitsi_hashid,
+                )
+        else:
+            pass
 
         # Preset saving
         if form.save_preset.data:
-            preset = X01Presetting.query.filter_by(user=current_user.id).first()
-            if not preset:
-                preset = X01Presetting(user=current_user.id)
-                db.session.add(preset)
-            preset.bo_sets = form.bo_sets.data
-            preset.bo_legs = form.bo_legs.data
-            preset.two_clear_legs = form.two_clear_legs.data
-            preset.starter = form.starter.data
-            preset.type = form.type.data
-            preset.in_mode = form.in_mode.data
-            preset.out_mode = form.out_mode.data
-            preset.opponent_type = form.opponent.data
-            preset.level = form.level.data
-            preset.public_challenge = form.public_challenge.data
-            preset.score_input_delay = form.score_input_delay.data
-            preset.webcam = form.webcam.data
-
-            db.session.commit()
+            if mode == 'x01':
+                save_x01_preset(form)
+            elif mode == 'cricket':
+                save_cricket_preset(form)
+            else:
+                pass
 
         if game.opponent_type.startswith('computer'):
             game.opponent_type += form.level.data
@@ -243,8 +155,8 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         game.set_hashid()
         db.session.commit()
         return redirect(url_for('game.start', hashid=game.hashid))
-    return render_template('game/create_X01.html', form=form, opponent_name=opponent_name,
-                           title=lazy_gettext('Create Game'))
+    return render_template('game/create_game.html', form=form,
+                           opponent_name=opponent_name, title=lazy_gettext('Create Game'))
 
 
 @bp.route('/<hashid>/statistics/<set_>/<leg>')
@@ -263,7 +175,9 @@ def statistics_set_leg(hashid, set_, leg):
 @bp.route('/<hashid>')
 @bp.route('/<hashid>/<theme>')
 def start(hashid, theme=None):
-    game = Game.query.filter_by(hashid=hashid).first_or_404()
+    game = Game.query.filter_by(hashid=hashid).first()
+    if not game:
+        game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
     # check if we found an opponent, logged in users only
     if game.status == 'challenged' and current_user.is_authenticated and current_user.id != game.player1:
         # Check webcam consent
@@ -335,7 +249,7 @@ def start(hashid, theme=None):
             player_countries[1] = p2_country
 
         return render_template(
-            'game/X01_completed.html',
+            f'game/{game.variant}/completed.html',
             game=game_dict,
             match_json=match_json,
             stats=statistics,
@@ -384,10 +298,12 @@ def start(hashid, theme=None):
     stream_consent = True
     channel_ids = [None, None]
     if game.webcam and current_user.is_authenticated and current_user.id in (game.player1, game.player2):
-        template = 'game/X01_webcam.html'
+        # webcam base template
+        template = 'webcam'
         webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
         if webcam_settings and webcam_settings.force_scoreboard_page:
-            template = 'game/X01.html'
+            # force normal game template
+            template = 'game'
         p1_webcam_settings = WebcamSettings.query.filter_by(user=game.player1).first()
         p2_webcam_settings = WebcamSettings.query.filter_by(user=game.player2).first() if game.player2 else None
         if not p1_webcam_settings.stream_consent or (p2_webcam_settings and not p2_webcam_settings.stream_consent):
@@ -402,17 +318,19 @@ def start(hashid, theme=None):
                 p1_webcam_settings.stream_consent and p2_webcam_settings and p2_webcam_settings.stream_consent
                 and (p1_user_settings.channel_id or p1_user_settings.channel_id)
             ):
-                template = 'game/X01_watch_webcam.html'
+                # consent was given by both players, render watch page
+                template = 'watch_webcam'
                 channel_ids[0] = p1_user_settings.channel_id
                 channel_ids[1] = p2_user_settings.channel_id
             else:
-                template = 'game/X01.html'
+                # no consent for spectators
+                template = 'game'
             webcam_settings = None
         else:
-            template = 'game/X01.html'
+            template = 'game'
             webcam_settings = None
 
-    return render_template(template, game=game_dict, form=form, match_json=match_json,
+    return render_template(f'game/{game.variant}/{template}.html', game=game_dict, form=form, match_json=match_json,
                             caller=caller, cpu_delay=cpu_delay, title=title,
                             chat_form=chat_form, chat_form_small=chat_form_small,
                             messages=messages, user_names=user_names,
@@ -449,7 +367,9 @@ def cancel_challenge(hashid):
 @bp.route('/abort_game/')
 @bp.route('/abort_game/<hashid>', methods=['POST'])
 def abort_game(hashid):
-    game = Game.query.filter_by(hashid=hashid).first_or_404()
+    game = Game.query.filter_by(hashid=hashid).first()
+    if not game:
+        game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
     if game.status == 'completed':
         return redirect(url_for('generic.lobby'))
     game.status = "aborted"
@@ -491,6 +411,6 @@ def webcam_follow():
     
     
     return render_template(
-        'game/X01/webcam_follow.html',
+        'game/x01/webcam_follow.html',
         webcam_settings=webcam_settings,        
     )

@@ -78,7 +78,7 @@
                     {%- elif game.player1 != user.id %} {{ player1_name }}
                     {%- elif game.player2 != user.id %} {{ player2_name }}
                     {%- else %} local guest{% endif %}
-                    | {{ game.type }} {{ game.in_mode }}/{{ game.out_mode }} | {% if game.bo_sets > 1 %}{{ game.p1_sets }}:{{ game.p2_sets }}{% else %}{{ game.p1_legs }}:{{ game.p2_legs }}{% endif %}
+                    - {% if game.variant == 'x01' %}{{ game.type }} {{ game.in_mode }}/{{ game.out_mode }}{% else %}Cricket{% endif %} [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
                     {% if game.webcam %} <i title="{{ _('Webcam game') }}" class="fas fa-camera"></i>{% endif %}
                     </a>
                 </p>

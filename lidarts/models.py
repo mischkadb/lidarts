@@ -3,6 +3,7 @@ from lidarts import db
 from datetime import datetime, timedelta
 import secrets
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import relationship
 
 
@@ -104,12 +105,12 @@ class Role(db.Model, RoleMixin):
     description = db.Column(db.String(255))
 
 
-class Game(db.Model):
-    __tablename__ = 'games'
+class GameBase(db.Model):
+    __abstract__ = True
+
     id = db.Column(db.Integer, primary_key=True)
     hashid = db.Column(db.String(10), unique=True)
-    player1 = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
-    player2 = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+    variant = db.Column(db.String(50))
     bo_sets = db.Column(db.Integer, nullable=False)
     bo_legs = db.Column(db.Integer, nullable=False)
     two_clear_legs = db.Column(db.Boolean)
@@ -123,10 +124,7 @@ class Game(db.Model):
     closest_to_bull = db.Column(db.Boolean)
     closest_to_bull_json = db.Column(db.JSON)
     status = db.Column(db.String(20), index=True)
-    type = db.Column(db.Integer)
     match_json = db.Column(db.JSON)
-    in_mode = db.Column(db.String(15))
-    out_mode = db.Column(db.String(15))
     begin = db.Column(db.DateTime)
     end = db.Column(db.DateTime)
     opponent_type = db.Column(db.String(10))
@@ -134,13 +132,36 @@ class Game(db.Model):
     score_input_delay = db.Column(db.Integer, default=0)
     webcam = db.Column(db.Boolean, default=False)
     jitsi_hashid = db.Column(db.String(10), unique=True)
-    tournament = db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
+
+
+    @declared_attr
+    def tournament(cls):
+        return db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
+
+    @declared_attr
+    def player1(cls):
+        return db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+
+    @declared_attr
+    def player2(cls):
+        return db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
 
     def set_hashid(self):
         self.hashid = secrets.token_urlsafe(8)[:8]
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+
+class Game(GameBase):
+    __tablename__ = 'games'
+    type = db.Column(db.Integer)
+    in_mode = db.Column(db.String(15))
+    out_mode = db.Column(db.String(15))
+
+
+class CricketGame(GameBase):
+    __tablename__ = 'games_cricket'
 
 
 class Chatmessage(db.Model):
@@ -218,6 +239,20 @@ class X01Presetting(db.Model):
     type = db.Column(db.Integer)
     in_mode = db.Column(db.String(15))
     out_mode = db.Column(db.String(15))
+    opponent_type = db.Column(db.String(10))
+    level = db.Column(db.Integer)
+    public_challenge = db.Column(db.Boolean)
+    webcam = db.Column(db.Boolean)
+    score_input_delay = db.Column(db.Integer)
+
+
+class CricketPresetting(db.Model):
+    __tablename__ = 'cricket_presettings'
+    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    bo_sets = db.Column(db.Integer)
+    bo_legs = db.Column(db.Integer)
+    two_clear_legs = db.Column(db.Boolean)
+    starter = db.Column(db.String(25))
     opponent_type = db.Column(db.String(10))
     level = db.Column(db.Integer)
     public_challenge = db.Column(db.Boolean)

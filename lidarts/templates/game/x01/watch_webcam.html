@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block navbar %}
-{% include 'game/X01/navbar.html' %}
+{% include 'game/game_navbar.html' %}
 {% endblock %}
 
 {% block container %}
@@ -16,9 +16,9 @@
 <div class="row">
     <div class="col-md-5 d-none d-md-block">
         {% if stream %}
-        {% include 'game/X01/scoreboard_stream.html' %}
+        {% include 'game/x01/scoreboard_stream.html' %}
         {% else %}
-        {% include 'game/X01/scoreboard_webcam.html' %}
+        {% include 'game/x01/scoreboard_webcam.html' %}
         {% endif %}
 
         {% if game.closest_to_bull %}
@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        {% include 'game/X01/statistics.html' %}
+        {% include 'game/x01/statistics.html' %}
 
     </div>
 
@@ -103,7 +103,7 @@
     </div>
 </div>
 
-{% include 'game/X01/modals.html' %}
+{% include 'game/modals.html' %}
 
 {% endblock %}
 
@@ -118,5 +118,5 @@
 <meta id="caller" data-caller="{{ caller }}">
 <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
 
-<script type="text/javascript" src="{{ url_for('static',filename='js/x01_spectator_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_spectator_socket.js', version=config.VERSION) }}"></script>
 {% endblock %}

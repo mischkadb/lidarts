@@ -5,7 +5,7 @@ from lidarts import db, avatars, socketio
 from lidarts.generic.forms import UserSearchForm
 from lidarts.profile import bp
 from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm, EditProfileForm, WebcamSettingsForm, LivestreamSettingsForm
-from lidarts.models import Caller, User, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic, WebcamSettings
+from lidarts.models import Caller, User, CricketGame, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic, WebcamSettings
 from sqlalchemy import desc
 from sqlalchemy.orm import aliased
 from lidarts.utils.linker import linker
@@ -68,6 +68,20 @@ def overview(username):
         .order_by(desc(Game.id)).limit(10).all()
     )
 
+    cricket_games = (
+        CricketGame.query
+        .filter(
+            ((CricketGame.player1 == user.id) | (CricketGame.player2 == user.id)) & (CricketGame.status != 'challenged')
+            & (CricketGame.status != 'declined') & (CricketGame.status != 'aborted')
+        )
+        .join(player1, CricketGame.player1 == player1.id).add_columns(player1.username)
+        .join(player2, CricketGame.player2 == player2.id, isouter=True).add_columns(player2.username)
+        .order_by(desc(CricketGame.id)).limit(10).all()
+    )
+    games.extend(cricket_games)
+    print(games[0][0].begin)
+    games.sort(key=lambda game: game[0].begin, reverse=True)
+
     stats = UserStatistic.query.filter_by(user=user.id).first()
     if not stats:
         stats = UserStatistic(user=user.id)
@@ -108,7 +122,7 @@ def overview(username):
 
     avatar_url = avatars.url(f'{user.id}_thumbnail.jpg') if user.avatar else avatars.url('default.png')
 
-    return render_template('profile/overview.html', user=user, games=games,
+    return render_template('profile/overview.html', user=user, games=games[:10],
                            player_names=player_names, friend_list=friend_list,
                            recently_online=user.recently_online(),
                            country=country, profile_text=profile_text,
