@@ -201,7 +201,7 @@ def create_app(test_config=None):
 @babelobject.localeselector
 def get_locale():
     for lang in request.accept_languages.values():
-        if lang[:2] in ['de', 'en']:
+        if lang[:2] in ['da', 'de', 'en']:
             return lang[:2]
 
     return 'en'

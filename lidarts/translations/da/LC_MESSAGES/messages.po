@@ -1,0 +1,1896 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-04-21 19:25+0200\n"
+"PO-Revision-Date: 2020-04-23 18:24\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Danish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
+"X-Crowdin-Language: da\n"
+"X-Crowdin-File: messages.pot\n"
+"Language: da_DK\n"
+
+#: auth/forms.py:21
+msgid "Password must have at least 8 characters"
+msgstr "Adgangskoden skal indeholde mindst 8 tegn"
+
+#: auth/forms.py:23
+msgid "Username is required"
+msgstr "Brugernavn er påkrævet"
+
+#: auth/forms.py:43
+msgid "Password must have at least 15 characters OR contain at least two out of these: lowercase letter, uppercase letter, number, symbol."
+msgstr "Adgangskoden skal indeholde mindst 15 tegn ELLER indeholde mindst to af disse: små bogstaver, store bogstaver, tal, symbol."
+
+#: auth/forms.py:50
+msgid "Username is already taken"
+msgstr "Brugernavnet er allerede taget"
+
+#: auth/forms.py:56
+msgid "Username must start with a letter, number or \"([\""
+msgstr "Brugernavnet skal starte med et bogstav, et tal eller \"([\""
+
+#: auth/forms.py:58
+msgid "Username must end with a letter or a number or \")]\""
+msgstr "Brugernavnet skal slutte med et bogstav eller et tal eller \")]\""
+
+#: auth/forms.py:62
+msgid "Username contains invalid symbols."
+msgstr "Brugernavnet indeholder ugyldige symboler."
+
+#: auth/forms.py:64
+msgid "Two special characters in a row are not allowed."
+msgstr "To specialtegn i træk er ikke tilladt."
+
+#: auth/forms.py:70
+msgid "Username"
+msgstr "Brugernavn"
+
+#: auth/forms.py:80 auth/forms.py:89 auth/forms.py:93
+msgid "Password"
+msgstr "Adgangskode"
+
+#: auth/forms.py:85
+msgid "Username or Email Address"
+msgstr "Brugernavn eller email"
+
+#: auth/forms.py:97 profile/forms.py:73
+msgid "Accept"
+msgstr "Acceptere"
+
+#: auth/routes.py:19 auth/routes.py:31 auth/routes.py:44
+msgid "Change username"
+msgstr "Skift brugernavn"
+
+#: auth/routes.py:30
+msgid "You can only change your username once per month. You need to wait until: "
+msgstr "Du kan kun ændre dit brugernavn én gang om måneden. Du skal vente til: "
+
+#: auth/routes.py:33
+msgid "Username changed."
+msgstr "Brugernavn Skiftet."
+
+#: game/forms.py:7 statistics/forms.py:9
+msgid "Local"
+msgstr "Lokal"
+
+#: game/forms.py:9
+msgid "Me"
+msgstr "Mig"
+
+#: game/forms.py:9 game/forms.py:31 statistics/forms.py:28
+msgid "Opponent"
+msgstr "Modstander"
+
+#: game/forms.py:10
+msgid "Closest to Bull"
+msgstr "Tættest Bull"
+
+#: game/forms.py:19
+msgid "Invalid number."
+msgstr "Ugyldigt nummer."
+
+#: game/forms.py:23
+msgid "Score"
+msgstr "Score"
+
+#: game/forms.py:26
+msgid "Submit score"
+msgstr "Indsend score"
+
+#: game/forms.py:30 statistics/forms.py:27
+msgid "Game type"
+msgstr "Spiltype"
+
+#: game/forms.py:32 statistics/forms.py:32
+msgid "Opponent name"
+msgstr "Modstanderes Navn"
+
+#: game/forms.py:33 statistics/forms.py:30
+msgid "Level"
+msgstr "Niveau"
+
+#: game/forms.py:34
+msgid "First to throw"
+msgstr "Først til at kaste"
+
+#: game/forms.py:35
+msgid "Best of Sets"
+msgstr "Bedst af Kampe"
+
+#: game/forms.py:36
+msgid "Best of Legs"
+msgstr "Bedst af sæt"
+
+#: game/forms.py:37
+msgid "Two Clear Legs"
+msgstr "Vind med 2 sæt"
+
+#: game/forms.py:38 statistics/forms.py:33
+msgid "Mode In"
+msgstr "Tilstand i"
+
+#: game/forms.py:39 statistics/forms.py:34
+msgid "Mode Out"
+msgstr "Tilstand ud"
+
+#: game/forms.py:40
+msgid "Public challenge"
+msgstr "Offentlig udfordring"
+
+#: game/forms.py:41 templates/game/X01_completed.html:151
+#: templates/profile/game_history.html:30 templates/profile/overview.html:72
+msgid "Webcam game"
+msgstr "Webcam spil"
+
+#: game/forms.py:42
+msgid "Score input block"
+msgstr "Blok for point input"
+
+#: game/forms.py:43 tournament/forms.py:38
+msgid "Save settings"
+msgstr "Gem indstillinger"
+
+#: game/forms.py:44
+msgid "Tournament"
+msgstr "Turnering"
+
+#: game/forms.py:45
+msgid "Start game"
+msgstr "Start Spil"
+
+#: game/forms.py:50 generic/forms.py:9
+msgid "Submit message"
+msgstr "Send besked"
+
+#: game/forms.py:54
+msgid "I have read the text above, understand the limitations and have a webcam setup to play."
+msgstr "Jeg har læst teksten ovenfor, forstå de begrænsninger og har et webcam setup til at spille."
+
+#: game/forms.py:55
+msgid "(Optional) I allow my opponents to stream and record our game including my webcam video and audio."
+msgstr "(Valgfrit) Jeg tillader mine modstandere at streame og optage vores spil, herunder mit webcam video og lyd."
+
+#: game/forms.py:56 templates/game/X01/modals.html:51
+#: templates/game/X01_stream.html:410
+msgid "Confirm"
+msgstr "Bekræft"
+
+#: game/routes.py:150
+msgid "Public challenges must be created without an opponent name."
+msgstr "Offentlige udfordringer skal skabes uden et modstandernavn."
+
+#: game/routes.py:152 game/routes.py:165 game/routes.py:186 game/routes.py:247
+#: templates/game/create_X01.html:9
+msgid "Create Game"
+msgstr "Opret spil"
+
+#: game/routes.py:163
+msgid "Player does not allow challenges"
+msgstr "Spilleren tillader ikke udfordringer"
+
+#: game/routes.py:167
+msgid "New challenge"
+msgstr "Ny udfordring"
+
+#: game/routes.py:184
+msgid "Player 2 does not have webcam games enabled."
+msgstr "Spiller 2 har ikke webcam spil aktiveret."
+
+#: game/routes.py:302 game/routes.py:310
+msgid "Waiting..."
+msgstr "Venter..."
+
+#: game/routes.py:343
+msgid "Match overview"
+msgstr "Oversigt over kamp"
+
+#: game/routes.py:380
+msgid "Stream overlay"
+msgstr "Overlejring af stream"
+
+#: game/routes.py:382
+msgid "Live Match"
+msgstr "Direkte Kamp"
+
+#: game/utils.py:11 generic/routes.py:80
+msgid "Local Guest"
+msgstr "Lokal Gæst"
+
+#: game/utils.py:25
+msgid "Guest"
+msgstr "Gæst"
+
+#: generic/forms.py:13
+msgid "Search user"
+msgstr "Søger Bruger"
+
+#: generic/forms.py:14
+msgid "Search"
+msgstr "Søger"
+
+#: generic/routes.py:95
+msgid "Live Games"
+msgstr "Direkte Spil"
+
+#: generic/routes.py:160 templates/base.html:50
+msgid "Lobby"
+msgstr "Lobby"
+
+#: generic/routes.py:227 templates/base.html:54 templates/game/X01.html:98
+#: templates/game/X01_stream.html:107 templates/game/X01_webcam.html:111
+msgid "Chat"
+msgstr "Chat"
+
+#: generic/routes.py:283
+msgid "Private Messages"
+msgstr "Private Beskeder"
+
+#: profile/forms.py:8
+msgid "Enabled"
+msgstr "Aktiveret"
+
+#: profile/forms.py:8
+msgid "Disabled"
+msgstr "Deaktiveret"
+
+#: profile/forms.py:12 tournament/forms.py:31
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: profile/forms.py:13 profile/forms.py:18 profile/forms.py:23
+#: profile/forms.py:63 profile/forms.py:75 profile/forms.py:109
+#: profile/forms.py:114
+msgid "Save"
+msgstr "Gem"
+
+#: profile/forms.py:17
+msgid "Caller"
+msgstr "Kalderen"
+
+#: profile/forms.py:22
+msgid "Trainer delay"
+msgstr "Træner forsinkelse"
+
+#: profile/forms.py:28
+msgid "Notification sound"
+msgstr "Lyd af beskeder"
+
+#: profile/forms.py:34
+msgid "Allow challenges"
+msgstr "Tillad udfordringer"
+
+#: profile/forms.py:40
+msgid "Allow private messages"
+msgstr "Tillad private beskeder"
+
+#: profile/forms.py:46
+msgid "Allow friend requests"
+msgstr "Tillad venneanmodninger"
+
+#: profile/forms.py:52
+msgid "Checkout suggestions"
+msgstr "Lukker forslag"
+
+#: profile/forms.py:58
+msgid "Show averages in user list"
+msgstr "Vis gennemsnit på brugerlisten"
+
+#: profile/forms.py:68
+msgid "Country"
+msgstr "Land"
+
+#: profile/forms.py:80
+msgid "Webcam activated"
+msgstr "Webcam aktiveret"
+
+#: profile/forms.py:86
+msgid "Allow streaming"
+msgstr "Tillad streaming"
+
+#: profile/forms.py:92
+msgid "Use Jitsi mobile app"
+msgstr "Brug jitsi-mobilapp"
+
+#: profile/forms.py:98
+msgid "Mobile follow mode"
+msgstr "Mobilopfølgningstilstand"
+
+#: profile/forms.py:104
+msgid "Show only scoreboard on main device"
+msgstr "Vis kun resultattavle på hovedenheden"
+
+#: profile/forms.py:113
+msgid "Channel ID"
+msgstr "Kanal id"
+
+#: profile/routes.py:47
+msgid "Match History"
+msgstr "Kamp historik"
+
+#: profile/routes.py:115 templates/base.html:97
+msgid "Profile"
+msgstr "Profil"
+
+#: profile/routes.py:131
+msgid "Profile text saved."
+msgstr "Profiltekst gemt."
+
+#: profile/routes.py:186
+msgid "Manage Friend List"
+msgstr "Administrer venneliste"
+
+#: profile/routes.py:198
+msgid "Avatar deleted."
+msgstr "Avatar slettet."
+
+#: profile/routes.py:210
+msgid "No selected file"
+msgstr "Ingen fil valgt"
+
+#: profile/routes.py:216
+msgid "Wrong image format."
+msgstr "Forkert billedformat."
+
+#: profile/routes.py:225
+msgid "Avatar saved."
+msgstr "Avatar Gemt."
+
+#: profile/routes.py:230
+msgid "Avatar Settings"
+msgstr "Avatar indstillinger"
+
+#: profile/routes.py:251 profile/routes.py:282 profile/routes.py:295
+#: profile/routes.py:322 profile/routes.py:342
+msgid "Settings saved."
+msgstr "Indstillinger gemt."
+
+#: profile/routes.py:253
+msgid "Caller Settings"
+msgstr "Indstillinger for Kalderen"
+
+#: profile/routes.py:264
+msgid "Trainer Delay"
+msgstr "Træner Forsinkelse"
+
+#: profile/routes.py:289
+msgid "You can only change your country setting once per month. You need to wait until: "
+msgstr "Du kan kun ændre din landeindstilling én gang om måneden. Du skal vente til: "
+
+#: profile/routes.py:290 profile/routes.py:306
+#: templates/profile/general_settings.html:13 templates/profile/settings.html:5
+msgid "General settings"
+msgstr "Generelle indstillinger"
+
+#: profile/routes.py:330 templates/profile/settings.html:7
+#: templates/profile/webcam_settings.html:13
+msgid "Webcam settings"
+msgstr "Indstillinger for webcam"
+
+#: profile/routes.py:346 templates/profile/livestream_settings.html:13
+#: templates/profile/settings.html:8
+msgid "Livestream settings"
+msgstr "Livestream indstillinger"
+
+#: statistics/forms.py:9 statistics/forms.py:12
+msgid "All"
+msgstr "Alle"
+
+#: statistics/forms.py:17
+msgid "Last ... games"
+msgstr "Sidste... Spil"
+
+#: statistics/forms.py:18
+msgid "From ... to ..."
+msgstr "Fra... Til..."
+
+#: statistics/forms.py:20
+msgid "From"
+msgstr "Fra"
+
+#: statistics/forms.py:22
+msgid "to"
+msgstr "til"
+
+#: statistics/forms.py:24
+msgid "Filter"
+msgstr "Filter"
+
+#: statistics/forms.py:25
+msgid "Apply"
+msgstr "Anvende"
+
+#: templates/base.html:46
+msgid "Home"
+msgstr "Hjem"
+
+#: templates/base.html:47 templates/base.html:52 templates/generic/chat.html:44
+msgid "Watch"
+msgstr "Se"
+
+#: templates/base.html:48 templates/base.html:55
+#: templates/profile/overview.html:134
+msgid "Statistics"
+msgstr "Statistik"
+
+#: templates/base.html:51 templates/generic/lobby.html:31
+msgid "Play"
+msgstr "Spil"
+
+#: templates/base.html:53 tournament/routes.py:82
+msgid "Tournaments"
+msgstr "Turnering"
+
+#: templates/base.html:70
+msgid "No new notifications"
+msgstr "Ingen nye meddelelser"
+
+#: templates/base.html:79 templates/security/login_user.html:9
+#: templates/security/login_user.html:18
+#: templates/security/register_user.html:29
+msgid "Sign In"
+msgstr "Log På"
+
+#: templates/base.html:80 templates/security/register_user.html:10
+#: templates/security/register_user.html:22
+msgid "Register"
+msgstr "Registrer"
+
+#: templates/base.html:83
+msgid "Inbox"
+msgstr "Indbakke"
+
+#: templates/base.html:89
+msgid "Status"
+msgstr "Status"
+
+#: templates/base.html:92
+msgid "Looking for Game"
+msgstr "Leder efter spil"
+
+#: templates/base.html:93
+msgid "Busy"
+msgstr "Optaget"
+
+#: templates/base.html:98
+msgid "Logout"
+msgstr "Log af"
+
+#: templates/base.html:131
+msgid "About"
+msgstr "Om"
+
+#: templates/base.html:132 templates/generic/contact.html:10
+msgid "Contact"
+msgstr "Kontakt"
+
+#: templates/base.html:133
+msgid "FAQ"
+msgstr "FAQ"
+
+#: templates/base.html:134
+msgid "Contribute"
+msgstr "Bidrage"
+
+#: templates/base.html:135
+msgid "Changelog"
+msgstr "Skift Log"
+
+#: templates/base.html:136
+msgid "Source Code"
+msgstr "Kildekode"
+
+#: templates/base.html:137
+msgid "Privacy"
+msgstr "Privatliv"
+
+#: templates/base.html:138
+msgid "Terms & Conditions"
+msgstr "Vilkår & betingelser"
+
+#: templates/base.html:140
+msgid "Legal notice"
+msgstr "Juridisk meddelelse"
+
+#: templates/game/X01.html:19 templates/game/X01_stream.html:24
+#: templates/game/X01_watch_webcam.html:27 templates/game/X01_webcam.html:28
+msgid "Closest to bull begins. Please throw three darts at bull."
+msgstr "Tættest på Bull begynder. Vær venlig at kaste tre dart mod Bull."
+
+#: templates/game/X01.html:20 templates/game/X01_stream.html:25
+#: templates/game/X01_watch_webcam.html:28 templates/game/X01_webcam.html:29
+msgid "Local game. Player 1 throws all three darts first."
+msgstr "Lokalt spil. Spiller 1 kaster alle tre dart først."
+
+#: templates/game/X01.html:61 templates/game/X01.html:157
+#: templates/game/X01_stream.html:70 templates/game/X01_stream.html:167
+#: templates/game/X01_watch_webcam.html:76 templates/game/X01_webcam.html:77
+msgid "Game is completed."
+msgstr "Spillet er slut."
+
+#: templates/game/X01.html:62 templates/game/X01.html:77
+#: templates/game/X01.html:158 templates/game/X01_stream.html:71
+#: templates/game/X01_stream.html:86 templates/game/X01_stream.html:168
+#: templates/game/X01_watch_webcam.html:77
+#: templates/game/X01_watch_webcam.html:82 templates/game/X01_webcam.html:78
+#: templates/game/X01_webcam.html:93
+msgid "Game overview"
+msgstr "Oversigt over spillet"
+
+#: templates/game/X01.html:65 templates/game/X01.html:161
+#: templates/game/X01_stream.html:74 templates/game/X01_stream.html:171
+#: templates/game/X01_webcam.html:81
+msgid "Offer rematch"
+msgstr "Tilbyde revanche"
+
+#: templates/game/X01.html:66 templates/game/X01.html:162
+#: templates/game/X01_stream.html:75 templates/game/X01_stream.html:172
+#: templates/game/X01_webcam.html:82
+msgid "Accept rematch"
+msgstr "Accepter revanche"
+
+#: templates/game/X01.html:68 templates/game/X01.html:164
+#: templates/game/X01_stream.html:77 templates/game/X01_stream.html:174
+#: templates/game/X01_webcam.html:84
+msgid "Rematch offer sent"
+msgstr "Revanche tilbud sendt"
+
+#: templates/game/X01.html:71 templates/game/X01.html:167
+#: templates/game/X01_stream.html:80 templates/game/X01_stream.html:177
+#: templates/game/X01_webcam.html:87 templates/tournament/settings.html:68
+msgid "Back to tournament"
+msgstr "Tilbage til Turnering"
+
+#: templates/game/X01.html:76 templates/game/X01_completed.html:14
+#: templates/game/X01_stream.html:85 templates/game/X01_watch_webcam.html:81
+#: templates/game/X01_webcam.html:92
+msgid "Game was aborted."
+msgstr "Spillet blev afbrudt."
+
+#: templates/game/X01.html:88 templates/game/X01.html:182
+#: templates/game/X01_stream.html:97 templates/game/X01_stream.html:295
+#: templates/game/X01_webcam.html:104
+msgid "Undo last score"
+msgstr "Fortryd sidste score"
+
+#: templates/game/X01.html:89 templates/game/X01.html:183
+#: templates/game/X01_stream.html:98 templates/game/X01_stream.html:296
+#: templates/game/X01_webcam.html:105
+msgid "Enter correct score"
+msgstr "Indtast korrekt score"
+
+#: templates/game/X01.html:95 templates/game/X01_stream.html:104
+msgid "Keypad"
+msgstr "Tastatur"
+
+#: templates/game/X01_completed.html:17
+msgid "Challenge was declined or withdrawn."
+msgstr "Udfordringen blev afvist eller trukket tilbage."
+
+#: templates/game/X01_completed.html:140
+msgid "Match start"
+msgstr "Kamp start"
+
+#: templates/game/X01_completed.html:141
+msgid "Match duration"
+msgstr "Kampens varighed"
+
+#: templates/game/X01_completed.html:141
+msgid "hours"
+msgstr "Timer"
+
+#: templates/game/X01_completed.html:142
+msgid "minutes"
+msgstr "Minutter"
+
+#: templates/game/X01_completed.html:143
+msgid "seconds"
+msgstr "Sekunder"
+
+#: templates/game/X01_completed.html:151
+msgid " Webcam game"
+msgstr " Webcam spil"
+
+#: templates/game/X01_completed.html:180
+#: templates/statistics/x01_detail_element.html:42
+msgid "Highest Finish"
+msgstr "Højeste Lukker"
+
+#: templates/game/X01_completed.html:186
+#: templates/statistics/x01_detail_element.html:14
+msgid "Shortest Leg"
+msgstr "Laveste Sæt"
+
+#: templates/game/X01/navbar.html:10 templates/game/X01_stream.html:7
+msgid "Leave game"
+msgstr "Forlad spillet"
+
+#: templates/game/X01/navbar.html:12 templates/game/X01_stream.html:8
+msgid "Abort game"
+msgstr "Afbryde spillet"
+
+#: templates/game/X01/navbar.html:13 templates/game/X01_stream.html:9
+msgid "Toggle Keypad visibility"
+msgstr "Slå tastatursynlighed til/fra"
+
+#: templates/game/X01/navbar.html:14 templates/game/X01_stream.html:10
+msgid "Change keypad position"
+msgstr "Ændre tastaturposition"
+
+#: templates/game/X01/navbar.html:16 templates/game/X01_stream.html:11
+msgid "Toggle statistics"
+msgstr "Slå statistik til/fra"
+
+#: templates/game/X01/navbar.html:18 templates/game/X01_stream.html:12
+msgid "Normal theme"
+msgstr "Normalt tema"
+
+#: templates/game/X01/navbar.html:22 templates/game/X01_stream.html:13
+msgid "Mute caller"
+msgstr "Slå lyd fra Kalderen"
+
+#: templates/game/X01/navbar.html:22 templates/game/X01_stream.html:13
+msgid "Unmute caller"
+msgstr "Slå lyden til Kalderen"
+
+#: templates/game/X01/modals.html:25 templates/game/X01_stream.html:384
+msgid "How many darts missed at double?"
+msgstr "Hvor mange pile misset på double?"
+
+#: templates/game/X01/modals.html:38 templates/game/X01_stream.html:397
+msgid "How many darts to finish?"
+msgstr "Hvor mange pile på at lukket?"
+
+#: templates/game/X01/modals.html:50 templates/game/X01_stream.html:409
+msgid "Abort game?"
+msgstr "Afbryde spillet?"
+
+#: templates/game/X01/modals.html:52 templates/game/X01_stream.html:411
+msgid "Cancel"
+msgstr "Annullere"
+
+#: templates/game/create_X01.html:16
+msgid "Game Mode"
+msgstr "Spiltilstand"
+
+#: templates/game/create_X01.html:93
+msgid "You have to activate webcam games first."
+msgstr "Du er nødt til at aktivere webcam spil først."
+
+#: templates/game/create_X01.html:121
+msgid "Blocks score input after new score. In seconds."
+msgstr "blok score input efter nye score. På få sekunder."
+
+#: templates/game/wait_for_opponent.html:10
+msgid "Waiting for"
+msgstr "Venter på"
+
+#: templates/game/wait_for_opponent.html:16
+#: templates/game/wait_for_opponent_public_challenge.html:18
+msgid "This page will redirect you to the game once the challenge has been accepted."
+msgstr "Denne side vil omdirigere dig til spillet, når udfordringen er blevet accepteret."
+
+#: templates/game/wait_for_opponent.html:18
+msgid "You are not logged in. Log in to play in this game."
+msgstr "Du er ikke logget på. Log på for at spille i dette spil."
+
+#: templates/game/wait_for_opponent.html:19
+msgid "Share this link to invite another player (must be logged in):"
+msgstr "Del dette link for at invitere en anden spiller (skal være logget på):"
+
+#: templates/game/wait_for_opponent.html:21
+msgid "Copy text"
+msgstr "Kopiere tekst"
+
+#: templates/game/wait_for_opponent_public_challenge.html:10
+msgid "Waiting for player to accept public challenge."
+msgstr "Venter på spilleren til at acceptere offentlig udfordring."
+
+#: templates/game/wait_for_opponent_public_challenge.html:16
+msgid "Wait here. Leaving this page will cancel the challenge."
+msgstr "Vent her. Hvis du forlader denne side, annulleres udfordringen."
+
+#: templates/game/wait_for_opponent_public_challenge.html:20
+msgid "Click to join another public challenge:"
+msgstr "Klik for at deltage i en anden offentlig udfordring:"
+
+#: templates/game/webcam_consent.html:9 templates/generic/lobby.html:20
+msgid "Webcam games"
+msgstr "Webcam spil"
+
+#: templates/game/webcam_consent.html:15
+msgid "Lidarts offers X01 webcam games between two players in an experimental testing stage. We currently try an external service for video and audio communication called Jitsi."
+msgstr "Lidarts tilbyder X01 webcam spil mellem to spillere i en eksperimentel test fase. Vi forsøger i øjeblikket en ekstern tjeneste til video-og lydkommunikation kaldet Jitsi."
+
+#: templates/game/webcam_consent.html:16
+msgid "In order to play you need a webcam pointed towards your dart board and a desktop PC with a modern browser, e.g. Google Chrome or Firefox."
+msgstr "For at spille du har brug for et webcam pegede mod din Dart skive og en stationær pc med en moderne browser, fx Google Chrome eller Firefox."
+
+#: templates/game/webcam_consent.html:17
+msgid "Mobile devices are not supported. We currently also provide no support for setup. You can try \n"
+"                        Jitsi Meet "
+msgstr "Mobilenheder understøttes ikke. Vi yder i øjeblikket heller ingen support til opsætningen. Du kan prøve \n"
+"Jitsi Meet "
+
+#: templates/game/webcam_consent.html:18
+msgid "here"
+msgstr "Her"
+
+#: templates/game/webcam_consent.html:18
+msgid "If you do not get your webcam to work there it will not work on Lidarts either."
+msgstr "Hvis du ikke får dit webcam til at virke der vil det ikke virke på Lidarts"
+
+#: templates/game/webcam_consent.html:19
+msgid "Although there is no ruleset for webcam play yet we call on your fairness and sportsmanship."
+msgstr "Selv om der ikke er nogen regelsæt for webcam spil endnu opfordrer vi til din retfærdighed og sportsånd."
+
+#: templates/game/webcam_consent.html:20
+msgid "We need feedback in order to improve webcam play in the future. We encourage you to send your experience via email at contact@lidarts.org"
+msgstr "Vi har brug for feedback for at forbedre webcam spille i fremtiden. Vi opfordrer dig til at sende din oplevelse via e-mail på contact@lidarts.org"
+
+#: templates/game/X01/modals.html:6 templates/game/X01/modals.html:16
+msgid "Check dart:"
+msgstr "Tjek dart:"
+
+#: templates/game/X01/navbar.html:20
+msgid "Streamoverlay"
+msgstr "Streamoverlay"
+
+#: templates/game/X01/navbar.html:23
+msgid "Activate Sound (Apple)"
+msgstr "Aktiver lyd (Apple)"
+
+#: templates/game/X01/navbar.html:25
+msgid "Summon webcam"
+msgstr "Indkalde webcam"
+
+#: templates/game/X01/navbar.html:28
+msgid "At least one player does not allow streaming."
+msgstr "Mindst én spiller tillader ikke streaming."
+
+#: templates/game/X01/webcam_follow.html:10
+msgid "Your camera device waits on this page for you to request it in the game menu."
+msgstr "Kameraenheden venter på denne side, før du anmoder om den i spilmenuen."
+
+#: templates/generic/404.html:10
+msgid "404 Error"
+msgstr "404 Fejl"
+
+#: templates/generic/404.html:12
+msgid "Oops, you've visited a page that does not exist."
+msgstr "Ups, du har besøgt en side, der ikke eksisterer."
+
+#: templates/generic/404.html:13 templates/generic/500.html:13
+msgid "If you've found a bug please contact us at contact@lidarts.org. Thank you!"
+msgstr "Hvis du har fundet en fejl, bedes du kontakte os på contact@lidarts.org. Tak!"
+
+#: templates/generic/500.html:10
+msgid "500 Error"
+msgstr "500 Fejl"
+
+#: templates/generic/500.html:12
+msgid "Oh no, something went wrong."
+msgstr "Åh nej, noget gik galt."
+
+#: templates/generic/about.html:10
+msgid "About lidarts.org"
+msgstr "Om lidarts.org"
+
+#: templates/generic/about.html:12
+msgid "Lidarts is a"
+msgstr "Lidarts er en"
+
+#: templates/generic/about.html:12
+msgid "free/libre, open-source"
+msgstr "gratis, Åben-Kilde"
+
+#: templates/generic/about.html:12
+msgid "online darts scoring website."
+msgstr "online dart score hjemmeside."
+
+#: templates/generic/about.html:13
+msgid "Still being in a very early stage, the main goal for Lidarts' future is to provide darts players an online service to play against real players and to help in their daily training."
+msgstr "Stadig i en meget tidlig fase, det vigtigste mål for Lidarts fremtid er at give dart spillere en online mulighed til at spille mod rigtige spillere og til at hjælpe i deres daglige træning."
+
+#: templates/generic/about.html:13
+msgid "Many features are planned and wait for completion."
+msgstr "Mange funktioner er planlagt og venter på færdiggørelse."
+
+#: templates/generic/about.html:14
+msgid "The entire project is driven by volunteers. Everyone is invited to"
+msgstr "Hele projektet er drevet af frivillige. Alle er inviteret til"
+
+#: templates/generic/about.html:14
+msgid "contribute"
+msgstr "Bidrage"
+
+#: templates/generic/about.html:15
+msgid "DartCall 2007 caller pack created by Horst Girtew."
+msgstr "DartCall 2007 opkaldspakke skabt af Horst Girtew."
+
+#: templates/generic/about.html:16
+msgid "Sound effects obtained from"
+msgstr "Lydeffekter indhentet fra"
+
+#: templates/generic/chat.html:18 templates/generic/lobby.html:54
+msgid "Public challenges"
+msgstr "Offentlige udfordringer"
+
+#: templates/generic/chat.html:26
+msgid "New games"
+msgstr "Nyt spil"
+
+#: templates/generic/chat.html:54 templates/tournament/details.html:50
+msgid "Latest results"
+msgstr "Seneste resultater"
+
+#: templates/generic/chat.html:81
+msgid "Show match information"
+msgstr "Vis kamp oplysninger"
+
+#: templates/generic/chat.html:81
+msgid "Show public challenges"
+msgstr "Vis offentlige udfordringer"
+
+#: templates/generic/chat.html:109 templates/tournament/details.html:101
+msgid "Filter users"
+msgstr "Filtrer brugere"
+
+#: templates/generic/chat.html:114 templates/tournament/details.html:106
+msgid "From your country"
+msgstr "Fra dit land"
+
+#: templates/generic/chat.html:118 templates/tournament/details.html:110
+msgid "Online"
+msgstr "Online"
+
+#: templates/generic/chat.html:119 templates/tournament/details.html:111
+msgid "Playing"
+msgstr "Spil"
+
+#: templates/generic/contact.html:12
+msgid "There are a few ways to contact us, more to come soon! No matter the reason, we try to reply as quickly as possible."
+msgstr "Der er et par måder at kontakte os, mere til at komme snart! Uanset årsagen forsøger vi at svare så hurtigt som muligt."
+
+#: templates/generic/contact.html:13
+msgid "At the moment we can provide you support in English or German."
+msgstr "I øjeblikket kan vi yde dig støtte på engelsk eller tysk."
+
+#: templates/generic/contact.html:16
+msgid "lidarts on GitHub"
+msgstr "lidarts på GitHub"
+
+#: templates/generic/contribute.html:10
+msgid "Contribute to lidarts.org"
+msgstr "Bidrage til lidarts.org"
+
+#: templates/generic/contribute.html:12
+msgid "Lidarts relies on volunteers to develop and maintain the project. There are several ways you can help out."
+msgstr "Lidarts er afhængig af frivillige til at udvikle og vedligeholde projektet. Der er flere måder, du kan hjælpe."
+
+#: templates/generic/contribute.html:14
+msgid "Play and provide feedback"
+msgstr "Spil og giv feedback"
+
+#: templates/generic/contribute.html:16
+msgid "During development I try to test the features the best I can. But there will still be bugs that make it through to the live server.\n"
+"                    If you encounter any bugs or problems during play or you have ideas or feedback to improve the site, please"
+msgstr "Under udviklingen forsøger jeg at teste funktionerne bedst muligt. Men der vil stadig være fejl, der gør det igennem til live-serveren.\n"
+"Hvis du støder på fejl eller problemer under spillet, eller du har ideer eller feedback til at forbedre webstedet, bedes du"
+
+#: templates/generic/contribute.html:17 templates/generic/contribute.html:26
+#: templates/generic/contribute.html:31
+msgid "contact"
+msgstr "Kontakt"
+
+#: templates/generic/contribute.html:19
+msgid "Tell your friends"
+msgstr "Fortæl dine venner"
+
+#: templates/generic/contribute.html:21
+msgid "Lidarts generates no money - it is free for everyone, we do not sell ads nor your data. The downside is the lack of a budget for marketing.\n"
+"                    We rely on users to make Lidarts known to darts players. So tell your friends, invite them to play and spread the word!"
+msgstr "Lidarts genererer ingen penge - det er gratis for alle, vi sælger ikke annoncer eller dine data. Ulempen er manglen på et budget for markedsføring.\n"
+"Vi er afhængige af brugere til at gøre Lidarts kendt for dart spillere. Så fortæl dine venner, invitere dem til at spille og sprede ordet!"
+
+#: templates/generic/contribute.html:24
+msgid "Translations"
+msgstr "Oversættelser"
+
+#: templates/generic/contribute.html:26
+msgid "The main language on Lidarts is English. Currently there is only a German translation available. If you are fluent in English and another language of your choice you can"
+msgstr "Hovedsproget på Lidarts er engelsk. I øjeblikket er der kun en tysk oversættelse til rådighed. Hvis du taler flydende engelsk og et andet sprog efter eget valg, kan du"
+
+#: templates/generic/contribute.html:26
+msgid "us and translate parts of Lidarts or the entire website for your community. "
+msgstr "os og oversætte dele af Lidarts eller hele hjemmesiden for dit fællesskabet. "
+
+#: templates/generic/contribute.html:29 templates/statistics/x01.html:124
+msgid "Graphics"
+msgstr "Grafik"
+
+#: templates/generic/contribute.html:31
+msgid "The design of the website is not finished, but Lidarts mainly lacks some graphics to improve the look. Do you have the know-how to create graphics for Lidarts? If so,"
+msgstr "Udformningen af hjemmesiden er ikke færdig, men Lidarts mangler primært noget grafik for at forbedre udseendet. Har du den viden til at skabe grafik til Lidarts? Hvis det er tilfældet,"
+
+#: templates/generic/contribute.html:31
+msgid "us."
+msgstr "us."
+
+#: templates/generic/contribute.html:35
+msgid "I am not a web designer and the website reflects that. At some point Lidarts will need a redesign and some help would be greatly appreciated.\n"
+"                    You can help out with design ideas: Create a visual concept with Paint, Photoshop or whatever you like and"
+msgstr "Jeg er ikke en webdesigner og hjemmesiden afspejler det. På et tidspunkt Lidarts får brug for en redesign og noget hjælp ville være meget værdsat.\n"
+"Du kan hjælpe med designideer: Skab et visuelt koncept med Paint, Photoshop eller hvad du vil"
+
+#: templates/generic/contribute.html:36
+msgid "send it to me."
+msgstr "send det til mig"
+
+#: templates/generic/contribute.html:37
+msgid "Or even better: you can work directly on the frontend and implement your ideas if you have some knowledge about HTML, CSS and JavaScript."
+msgstr "Eller endnu bedre: du kan arbejde direkte på frontend og gennemføre dine ideer, hvis du har en vis viden om HTML, CSS og JavaScript."
+
+#: templates/generic/contribute.html:38
+msgid "Interested?"
+msgstr "Interesseret?"
+
+#: templates/generic/contribute.html:38
+msgid "Contact Lidarts"
+msgstr "Kontakt Lidarts"
+
+#: templates/generic/contribute.html:38
+msgid "or visit the"
+msgstr "eller besøge"
+
+#: templates/generic/contribute.html:40
+msgid "Programming"
+msgstr "Programmering"
+
+#: templates/generic/contribute.html:42
+msgid "Of course you are more than welcome to join Lidarts and develop on the project. At the current stage I am all by myself and try to get the project contribution-ready.\n"
+"                    If you are interested to get started take a look at the"
+msgstr "Selvfølgelig er du mere end velkommen til at deltage Lidarts og udvikle på projektet. På nuværende tidspunkt er jeg helt alene og forsøger at få projektet sat klar til at yde bidrag.\n"
+"Hvis du er interesseret i at komme i gang, skal du tage et kig på"
+
+#: templates/generic/contribute.html:43
+msgid "GitHub repo"
+msgstr "Github repo"
+
+#: templates/generic/contribute.html:43
+msgid "or"
+msgstr "eller"
+
+#: templates/generic/contribute.html:43
+msgid "contact me"
+msgstr "kontakt mig"
+
+#: templates/generic/contribute.html:45
+msgid "Donations"
+msgstr "Donationer"
+
+#: templates/generic/contribute.html:47
+msgid "All features on Lidarts are free. However it requires money to pay for our servers and hosting. You can donate to the project to keep it free for others and smooth for everyone. Although you cannot buy access to any exclusive features, your contribution is acknowledged with a star next to your name on Lidarts for a month. Include your Lidarts username in your donation."
+msgstr "Alle funktioner på Lidarts er gratis. Men det kræver penge til at betale for vores servere og hosting. Du kan donere til projektet for at holde det gratis for andre og glat for alle. Selvom du ikke kan købe adgang til eksklusive funktioner, anerkendes dit bidrag med en stjerne ved siden af dit navn på Lidarts i en måned. Medtag dit Lidarts brugernavn i din donation."
+
+#: templates/generic/contribute.html:48
+msgid "Please note that Lidarts is not a registered non-profit organization by German law. All donations are taxed as the developer's income."
+msgstr "Bemærk venligst, at Lidarts ikke er en registreret non-profit organisation i henhold til tysk lovgivning. Alle donationer beskattes som udviklerens indkomst."
+
+#: templates/generic/faq.html:6
+msgid "Frequently Asked Questions"
+msgstr "Ofte stillede spørgsmål"
+
+#: templates/generic/faq.html:8
+msgid "What do I need to play?"
+msgstr "Hvad skal jeg bruge for at spille?"
+
+#: templates/generic/faq.html:9
+msgid "To play you need a computer or a mobile device with a modern browser. Obviously you also need a darts setup."
+msgstr "For at spille du har brug for en computer eller en mobil enhed med en moderne browser. Selvfølgelig har du også brug for en dart skive"
+
+#: templates/generic/faq.html:11
+msgid "How do I find someone to play?"
+msgstr "Hvordan finder jeg nogen at spille mod?"
+
+#: templates/generic/faq.html:12
+msgid "If you did not arrange a game with someone yet there are two easy options: Either join the chat and ask/look for a game there, or you can set up a public challenge when creating a game which will be visible to everyone else."
+msgstr "Hvis du ikke har arrangeret et spil med nogen, er der to nemme muligheder: Enten deltage i chatten og spørge / kigge efter et spil der, eller du kan oprette en offentlig udfordring, når du opretter et spil, som vil være synlige for alle andre."
+
+#: templates/generic/faq.html:14
+msgid "How does 'closest to bull' work?"
+msgstr "Hvordan virker 'tættest på bull' arbejde?"
+
+#: templates/generic/faq.html:15
+msgid "In order to determine the starting player you throw three darts at bull. Enter and submit each dart score individually in order of throw. Darts outside of bull count as 0. The first better result over the other player begins. This means that for example 25-0-0 beats 0-50-50 as player 1 had a better result with an earlier dart."
+msgstr "For at bestemme den begyndende spiller du kaster tre dart på bull. Indtast og indsende hver dart score individuelt i rækkefølge efter kast. Dart uden for bull tæller som 0. Det første bedre resultat i forhold til den anden spiller begynder. Det betyder, at for eksempel 25-0-0 slag 0-50-50 som spiller 1 havde et bedre resultat med en tidligere dart."
+
+#: templates/generic/faq.html:17
+msgid "Can I play cricket or other variants?"
+msgstr "Kan jeg spille cricket eller andre varianter?"
+
+#: templates/generic/faq.html:18
+msgid "Currently only X01 games are available. Cricket will be available soon. More dart games might follow."
+msgstr "I øjeblikket er kun X01-spil tilgængelige. Cricket vil snart være tilgængelig. Flere dart spil kan følger."
+
+#: templates/generic/faq.html:20
+msgid "Can I use my webcam and see my opponent's throw?"
+msgstr "Kan jeg bruge mit webcam og se min modstanders kast?"
+
+#: templates/generic/faq.html:21
+msgid "Lidarts supports experimental webcam games over Jitsi Meet, a video conferencing service. You can also play without a webcam based on trust."
+msgstr "Lidarts understøtter eksperimentelle webcam spil over Jitsi Meet, en videokonference service. Du kan også spille uden et webcam baseret på tillid."
+
+#: templates/generic/faq.html:23
+msgid "How do I set up my webcam?"
+msgstr "Hvordan konfigurerer jeg mit webcam?"
+
+#: templates/generic/faq.html:24
+msgid "You need to connect your webcam (or smartphone with appropiate software) to your computer. Before your first game you have to agree to the current"
+msgstr "Du skal slutte dit webcam (eller smartphone med Passende software) til din computer. Før dit første spil skal du acceptere den nuværende"
+
+#: templates/generic/faq.html:24
+msgid "webcam service notice"
+msgstr "webcam service meddelelse"
+
+#: templates/generic/faq.html:24
+msgid "Create a game normally on the webcam page afterwards."
+msgstr "Opret et spil normalt på webcam side bagefter."
+
+#: templates/generic/faq.html:26
+msgid "Can I play steel and/or e-darts?"
+msgstr "Kan jeg spille stål eller edart?"
+
+#: templates/generic/faq.html:27
+msgid "Both variants are welcome to play on Lidarts."
+msgstr "Begge varianter er velkomne til at spille på Lidarts."
+
+#: templates/generic/faq.html:29
+msgid "Can I host and play in tournaments?"
+msgstr "Kan jeg være vært og spille i turneringer?"
+
+#: templates/generic/faq.html:30
+msgid "Currently tournament organizers can create a separate room with a tournament-specific chat, user list and result box. For brackets you need to use an external service. It will be possible to automate tournaments on Lidarts soon."
+msgstr "I øjeblikket kan turneringsarrangører oprette et separat rum med en turneringsspecifik chat, brugerliste og resultatboks. For parenteser skal du bruge en ekstern tjeneste. Det vil være muligt at automatisere turneringer på Lidarts snart."
+
+#: templates/generic/faq.html:32
+msgid "How do I send private messages?"
+msgstr "Hvordan sender jeg private beskeder?"
+
+#: templates/generic/faq.html:33
+msgid "Open your inbox, enter the recipient's username in the box below and compose a new message."
+msgstr "Åbn din indbakke, indtast modtagerens brugernavn i feltet nedenfor og skriv en ny besked."
+
+#: templates/generic/faq.html:35
+msgid "How do I add someone to my friend list?"
+msgstr "Hvordan føjer jeg en person til min venneliste?"
+
+#: templates/generic/faq.html:36
+msgid "You need to know your friend's username. Use the user search box in the lobby to find his profile. Click the friend request link there and wait for him to confirm."
+msgstr "Du skal kende din vens brugernavn. Brug brugersøgefeltet i lobbyen til at finde sin profil. Klik på linket til venneanmodning der, og vent på, at han bekræfter det."
+
+#: templates/generic/faq.html:38
+msgid "Where can I change my country flag / caller voice / username / password etc."
+msgstr "Hvor kan jeg ændre mit land flag / opkalds stemme / brugernavn / password osv."
+
+#: templates/generic/faq.html:39
+msgid "In your profile there is a settings button with lots of options. We highly recommend to look through the options before you play."
+msgstr "I din profil er der en indstillingsknap med masser af muligheder. Vi anbefaler på det kraftigste at kigge mulighederne igennem, før du spiller."
+
+#: templates/generic/faq.html:41
+msgid "My opponent throws so fast. What can I do?"
+msgstr "Min modstander kaster så hurtigt. Hvad kan jeg gøre?"
+
+#: templates/generic/faq.html:42
+msgid "There are usually two types of online players: Those who wait for their opponent to throw and those who don't. If you feel stressed you can set up an input block time upon game creating. We recommend between 5 and 10 seconds."
+msgstr "Der er normalt to typer af online spillere: Dem, der venter på deres modstander til at kaste, og dem, der ikke gør. Hvis du føler dig stresset, kan du oprette en input blok tid efter spil skabe. Vi anbefaler mellem 5 og 10 sekunder."
+
+#: templates/generic/faq.html:44
+msgid "What do the status colors mean?"
+msgstr "Hvad betyder statusfarverne?"
+
+#: templates/generic/faq.html:45
+msgid "Players can set most of these statuses manually. Green = online, yellow = Not available, purple = Looking for game, blue = currently playing, grey = offline."
+msgstr "Spillere kan indstille de fleste af disse statusser manuelt. Grøn = online, gul = Ikke tilgængelig, lilla = Leder du efter spil, blå = spiller i øjeblikket, grå = offline."
+
+#: templates/generic/faq.html:47
+msgid "I found a bug / have a question or feature request / someone is cheating."
+msgstr "Jeg fandt en fejl / har et spørgsmål eller funktion anmodning / nogen snyder."
+
+#: templates/generic/faq.html:48
+msgid "Contact us."
+msgstr "Kontakt os"
+
+#: templates/generic/inbox.html:26
+msgid "Enter name"
+msgstr "Angiv navn"
+
+#: templates/generic/inbox.html:27
+msgid "Compose new message"
+msgstr "Opret ny meddelelse"
+
+#: templates/generic/inbox.html:39
+msgid "Chat with"
+msgstr "Chat med"
+
+#: templates/generic/index.html:6
+msgid "Welcome to lidarts.org!"
+msgstr "Velkommen på lidarts.org!"
+
+#: templates/generic/index.html:7
+msgid "lidarts.org is an"
+msgstr "lidarts.org er en"
+
+#: templates/generic/index.html:7
+msgid "open-source"
+msgstr "åben kilde"
+
+#: templates/generic/index.html:7
+msgid "forever free online darts website."
+msgstr "evigt gratis online dart hjemmeside."
+
+#: templates/generic/index.html:9
+msgid "Play darts against real opponents. With a webcam or without. Or train against the computer."
+msgstr "Spil dart mod rigtige modstandere. Med et webcam eller uden. Eller træn mod computeren."
+
+#: templates/generic/index.html:9
+msgid "No costs, no ads, no trackers."
+msgstr "Ingen omkostninger, ingen annoncer, ingen trackere."
+
+#: templates/generic/index.html:12
+msgid "Learn more"
+msgstr "Lær mere"
+
+#: templates/generic/index.html:13
+msgid "Sign Up now"
+msgstr "Tilmeld dig nu"
+
+#: templates/generic/lobby.html:10
+msgid "Welcome back"
+msgstr "Velkommen tilbage"
+
+#: templates/generic/lobby.html:20
+msgid "New on Lidarts:"
+msgstr "Nyt om Lidarts:"
+
+#: templates/generic/lobby.html:20 templates/generic/webcam_tutorial_en.html:10
+#: templates/profile/webcam_settings.html:15
+msgid "Webcam tutorial"
+msgstr "Webcam Tutorial"
+
+#: templates/generic/lobby.html:20
+msgid "Livestreaming"
+msgstr "Livestreaming"
+
+#: templates/generic/lobby.html:36
+msgid "Create a game"
+msgstr "Opret spil"
+
+#: templates/generic/lobby.html:47
+msgid "Webcam follow page"
+msgstr "Webcam følge side"
+
+#: templates/generic/lobby.html:55
+msgid "Click to accept and play"
+msgstr "Klik for at acceptere og spille"
+
+#: templates/generic/lobby.html:63
+msgid "Notifications"
+msgstr "Meddelelser"
+
+#: templates/generic/lobby.html:67
+msgid "Challenges:"
+msgstr "Udfordringer:"
+
+#: templates/generic/lobby.html:80
+msgid "Games in progress:"
+msgstr "Igangværende spil:"
+
+#: templates/generic/lobby.html:82
+msgid "local guest"
+msgstr "Lokal gæst"
+
+#: templates/generic/lobby.html:93
+msgid "New friend requests"
+msgstr "Nye venneanmodninger"
+
+#: templates/generic/lobby.html:110
+msgid "Friends online"
+msgstr "Venner online"
+
+#: templates/generic/lobby.html:112
+msgid "None"
+msgstr "Ingen"
+
+#: templates/generic/watch.html:16
+msgid "There are no live games at the moment."
+msgstr "Der er ingen live spil i øjeblikket."
+
+#: templates/generic/webcam_tutorial_en.html:14
+msgid "In order to play with a webcam you need a modern browser (Chrome or Firefox, latest version) and a camera. We highly recommend a USB-webcam, but a smartphone will likely also work."
+msgstr "For at spille med et webcam skal du bruge en moderne browser (Chrome eller Firefox, nyeste version) og et kamera. Vi anbefaler stærkt et USB-webcam, men en smartphone vil sandsynligvis også fungere."
+
+#: templates/generic/webcam_tutorial_en.html:16
+msgid "First you need to confirm our webcam service notice. Open your profile:"
+msgstr "Først skal du bekræfte vores webcam service varsel. Åbn din profil:"
+
+#: templates/generic/webcam_tutorial_en.html:18
+msgid "Open the preferences:"
+msgstr "Åbn indstillingerne:"
+
+#: templates/generic/webcam_tutorial_en.html:20
+msgid "Now open the webcam activation page:"
+msgstr "Nu åbne webcam aktivering side:"
+
+#: templates/generic/webcam_tutorial_en.html:22
+msgid "Read the text, activate the checkbox and confirm:"
+msgstr "Læs teksten, aktivere afkrydsningsfeltet og bekræfte:"
+
+#: templates/generic/webcam_tutorial_en.html:24
+msgid "You can now start webcam games and receive webcam game challenges! The next step depends on your camera device."
+msgstr "Du kan nu starte webcam spil og modtage webcam spil udfordringer! Det næste trin afhænger af kameraenheden."
+
+#: templates/generic/webcam_tutorial_en.html:26
+msgid "USB webcam"
+msgstr "USB webcam"
+
+#: templates/generic/webcam_tutorial_en.html:27
+msgid "Connect your USB webcam to your computer. If your computer does not recognize the webcam install the appropiate driver from the webcam manufacturer."
+msgstr "Opret forbindelse til dit USB-webcam til computeren. Hvis computeren ikke genkender webcam'et, skal du installere den ekstra driver fra webproducenten."
+
+#: templates/generic/webcam_tutorial_en.html:28
+msgid "To test the camera image we will create a local game without an opponent. Click on \"Play\":"
+msgstr "For at teste kamerabilledet vil vi skabe et lokalt spil uden en modstander. Klik på \"Afspil\":"
+
+#: templates/generic/webcam_tutorial_en.html:30
+msgid "Now set up a local webcam game and start:"
+msgstr "Nu oprette en lokal webcam spil og starte:"
+
+#: templates/generic/webcam_tutorial_en.html:32
+msgid "At the first time your browser will ask for webcam and microphone permission. Click on allow:"
+msgstr "Ved første gang vil din browser bede om webcam og mikrofon tilladelse. Klik på tillad:"
+
+#: templates/generic/webcam_tutorial_en.html:34
+msgid "You are done! The webcam screen on the right should now show your own webcam video. You can now play against real opponents and they will see your board."
+msgstr "Du er færdig! Webcam skærmen til højre bør nu vise din egen webcam video. Du kan nu spille mod rigtige modstandere, og de vil se dit bord."
+
+#: templates/generic/webcam_tutorial_en.html:35
+msgid "The preview image is flipped by default, but your opponent will see it correctly. You can flip your local image by right clicking on the small preview screen and pressing \"flip\":"
+msgstr "Eksempelbilledet spejlvendes som standard, men din modstander vil se det korrekt. Du kan spejlvende dit lokale billede ved at højreklikke på den lille eksempelskærm og trykke på \"flip\":"
+
+#: templates/generic/webcam_tutorial_en.html:37
+msgid "If you have multiple cameras installed (e.g. on a laptop with built-in camera) you can select the correct camera in the Jitsi settings:"
+msgstr "Hvis du har flere kameraer installeret (f.eks. på en bærbar computer med indbygget kamera), kan du vælge det korrekte kamera i Jitsi-indstillingerne:"
+
+#: templates/generic/webcam_tutorial_en.html:41
+msgid "Smartphone as webcam"
+msgstr "Smartphone som webcam"
+
+#: templates/generic/webcam_tutorial_en.html:42
+msgid "There are a couple of options to play with a smartphone as webcam. Try them to find out which method works best for you."
+msgstr "Der er et par muligheder for at spille med en smartphone som webcam. Prøv dem for at finde ud af, hvilken metode der fungerer bedst for dig."
+
+#: templates/generic/webcam_tutorial_en.html:45
+msgid "It's possible for your computer to detect your smartphone as a webcam. You will need a program like"
+msgstr "Det er muligt for din computer at registrere din smartphone som webcam. Du skal bruge et program som"
+
+#: templates/generic/webcam_tutorial_en.html:46
+msgid "Download the mobile app and the desktop client and install both."
+msgstr "Download mobilappen og skrivebordsklienten, og installer begge dele."
+
+#: templates/generic/webcam_tutorial_en.html:47
+msgid "Start the mobile app first. You will see the \"Wifi IP\" on your device. You will need this in the next step."
+msgstr "Start mobilappen først. Du vil se \"Wifi IP\" på din enhed. Du får brug for dette i næste trin."
+
+#: templates/generic/webcam_tutorial_en.html:48
+msgid "Start the Droidcam client application on your computer and enter the \"Wifi IP\" from your smartphone. Press start."
+msgstr "Start Droidcam klient program på din computer og indtast \"Wifi IP\" fra din smartphone. Tryk på start."
+
+#: templates/generic/webcam_tutorial_en.html:50
+msgid "Your computer should now recognize your smartphone as a webcam device. You can now proceed to the camera test in the USB webcam section above."
+msgstr "Din computer bør nu genkende din smartphone som en webcam enhed. Du kan nu gå videre til kameratesten i afsnittet USB-webcam ovenfor."
+
+#: templates/generic/webcam_tutorial_en.html:52
+msgid "Follow Mode on Lidarts"
+msgstr "Følg Tilstand på Lidarts"
+
+#: templates/generic/webcam_tutorial_en.html:53
+msgid "There's a chance you do not need to install any additional app at all. Enable the follow mode which you can find in the webcam settings."
+msgstr "Der er en chance for, at du ikke behøver at installere yderligere app overhovedet. Aktivér den følgetilstand, som du kan finde i webcamindstillingerne."
+
+#: templates/generic/webcam_tutorial_en.html:55
+msgid "On your camera device (smartphone):"
+msgstr "På din kameraenhed (smartphone):"
+
+#: templates/generic/webcam_tutorial_en.html:55
+msgid "Open the follow page in the lobby and stay there."
+msgstr "Åbn den følgende side i lobbyen og bliv der."
+
+#: templates/generic/webcam_tutorial_en.html:57
+msgid "On your computer:"
+msgstr "På din computer:"
+
+#: templates/generic/webcam_tutorial_en.html:57
+msgid "Create a local webcam game as shown in the \"USB webcam\" section."
+msgstr "Opret et lokalt webcamspil som vist i afsnittet \"USB webcam\"."
+
+#: templates/generic/webcam_tutorial_en.html:58
+msgid "Once you are in the game click on \"Summon webcam\" in the menu."
+msgstr "Når du er i spillet klik på \"Tilkald webcam\" i menuen."
+
+#: templates/generic/webcam_tutorial_en.html:60
+msgid "Check your smartphone. It should now reload the page automatically and ask for camera and microphone permissions. Press accept."
+msgstr "Tjek din smartphone. Det bør nu genindlæse siden automatisk og bede om kamera og mikrofon tilladelser. Tryk på acceptér."
+
+#: templates/generic/webcam_tutorial_en.html:61
+msgid "That's it! As long as your smartphone is on the \"Webcam follow page\" you can summon it in your games with one click."
+msgstr "Sådan, det er det! Så længe din smartphone er på \"Webcam følg side\" kan du indkalde den i dine spil med et enkelt klik."
+
+#: templates/generic/webcam_tutorial_en.html:62
+msgid "There is an issue on Android smartphones with the camera selection. By default the front camera is activated. You can try to switch it in the Jitsi settings:"
+msgstr "Der er et problem på Android smartphones med kameraet udvælgelse. Frontkameraet er som standard aktiveret. Du kan prøve at skifte den i Jitsi-indstillingerne:"
+
+#: templates/generic/webcam_tutorial_en.html:65
+msgid "If you get a permission error upon switching to the back camera, try to reload the page. After a reload the correct camera was selected in our tests."
+msgstr "Hvis du får en tilladelsesfejl, når du skifter til bagkameraet, kan du prøve at genindlæse siden. Efter en genindlæse det korrekte kamera blev valgt i vores tests."
+
+#: templates/generic/webcam_tutorial_en.html:67
+msgid "Jitsi Meet app"
+msgstr "Jitsi Meet app"
+
+#: templates/generic/webcam_tutorial_en.html:68
+msgid "If you tried the previous section, but the camera does not work, you can try the official free Jitsi Meet app. Download and install it from the Play/App store."
+msgstr "Hvis du har prøvet det foregående afsnit, men kameraet ikke virker, kan du prøve den officielle gratis Jitsi Meet app. Download og installere det fra Play / App Store."
+
+#: templates/generic/webcam_tutorial_en.html:69
+msgid "Activate the mobile app setting in the webcam settings:"
+msgstr "Aktivér indstillingen for mobilapp i webcamindstillingerne:"
+
+#: templates/generic/webcam_tutorial_en.html:73
+msgid "Tablet + smartphone"
+msgstr "Tablet + smartphone"
+
+#: templates/generic/webcam_tutorial_en.html:74
+msgid "If you want to use a combination of a tablet for scoring and a smartphone as a camera there is an option to get the scoreboard only on your tablet."
+msgstr "Hvis du vil bruge en kombination af en tablet til at score og en smartphone som kamera, er der en mulighed for kun at få resultattavlen på din tablet."
+
+#: templates/generic/webcam_tutorial_en.html:75
+msgid "Open the webcam settings and enable both follow mode and the scoreboard-only option:"
+msgstr "Åbn webcamindstillingerne, og aktivér både følgetilstand og mulighed for resultattavle:"
+
+#: templates/generic/webcam_tutorial_en.html:77
+msgid "Now repeat the steps from the \"Follow Mode\" section. On your tablet you will only see the scoreboard without the video."
+msgstr "Gentag nu trinnene fra afsnittet \"Følg tilstand\". På din tablet kan du kun se resultattavlen uden videoen."
+
+#: templates/profile/change_avatar.html:17
+msgid "Delete"
+msgstr "Slet"
+
+#: templates/profile/change_avatar.html:21
+msgid "Upload"
+msgstr "Upload"
+
+#: templates/profile/change_caller.html:23
+msgid "Do you want to get yourself as caller option included?"
+msgstr "Ønsker du at få dig selv som kalder mulighed inkluderet?"
+
+#: templates/profile/change_caller.html:24
+msgid "Contact us!"
+msgstr "Kontakt os!"
+
+#: templates/profile/change_cpu_delay.html:13
+msgid "Trainer delay (in seconds)"
+msgstr "Træner forsinkelse (i sekunder)"
+
+#: templates/profile/change_cpu_delay.html:14
+msgid "Note: There is a base delay of ~3 seconds. The custom delay will be added to this."
+msgstr "Bemærk: Der er en basisforsinkelse på ~ 3 sekunder. Den brugerdefinerede forsinkelse føjes til dette."
+
+#: templates/profile/edit_profile.html:13
+msgid "Change profile text"
+msgstr "Ændre profiltekst"
+
+#: templates/profile/edit_profile.html:24
+msgid "Introduce yourself, your interests, social media etc."
+msgstr "Præsenter dig selv, dine interesser, sociale medier osv."
+
+#: templates/profile/game_history.html:10
+msgid "Game history of"
+msgstr "Spil historie"
+
+#: templates/profile/game_history.html:46
+msgid "Previous"
+msgstr "Tidligere"
+
+#: templates/profile/game_history.html:54
+msgid "Next"
+msgstr "Næste"
+
+#: templates/profile/general_settings.html:57
+msgid "Country settings"
+msgstr "Landeindstillinger"
+
+#: templates/profile/general_settings.html:66
+msgid "You can change your country setting only once per month. Please confirm."
+msgstr "Du kan kun ændre din landeindstilling én gang om måneden. Bekræft venligst."
+
+#: templates/profile/livestream_settings.html:16
+msgid "You can stream your board in webcam games to spectators. You will need a Google account for YouTube. Log in and copy your Channel ID here:"
+msgstr "Du kan streame din dart skive i webcam spil til tilskuere. Du skal have en Google-konto til YouTube. Log ind og kopiér dit kanal-id her:"
+
+#: templates/profile/livestream_settings.html:18
+msgid "and paste it in the box below."
+msgstr "og indsæt den i boksen nedenfor."
+
+#: templates/profile/livestream_settings.html:21
+msgid "There are two options to start a livestream."
+msgstr "Der er to muligheder for at starte en livestream."
+
+#: templates/profile/livestream_settings.html:24
+msgid "You can use the \"Start live stream\" option in Jitsi Meet which requires the secret stream key. You can find yours here: "
+msgstr "Du kan bruge indstillingen \"Start livestream\" i Jitsi Meet, som kræver den hemmelige stream-tast. Du kan finde din her: "
+
+#: templates/profile/livestream_settings.html:26
+msgid "Paste it into the stream key box in Jitsi and click on \"Start live stream\"."
+msgstr "Indsæt det i stream-nøgleboksen i Jitsi, og klik på \"Start livestream\"."
+
+#: templates/profile/livestream_settings.html:27
+msgid "If you get a \"All streamers are currently busy\" error Jitsi has no free streamers at the moment. There is nothing Lidarts can do in that case."
+msgstr "Hvis du får en \"Alle streamere er optaget i øjeblikket\" fejl Jitsi har ingen gratis streamers i øjeblikket. Der er intet Lidarts kan gøre i dette tilfælde."
+
+#: templates/profile/livestream_settings.html:30
+msgid "The second option is starting a YouTube live stream with an external software. We recommend "
+msgstr "Den anden mulighed er at starte en YouTube live stream med en ekstern software. Vi anbefaler "
+
+#: templates/profile/livestream_settings.html:32
+msgid "You can find many tutorials on the internet. It requires some setup work."
+msgstr "Du kan finde mange tutorials på internettet. Det kræver nogle setup arbejde"
+
+#: templates/profile/livestream_settings.html:35
+msgid "Livestreams will only be shown if both players allowed to have their games streamed by the other party. You can enable this in the webcam settings."
+msgstr "Livestreams vil kun blive vist, hvis begge spillere har lov til at få deres spil streamet af den anden part. Du kan aktivere dette i webcamindstillingerne."
+
+#: templates/profile/manage_friend_list.html:13
+msgid "Friends"
+msgstr "Venner"
+
+#: templates/profile/manage_friend_list.html:29
+msgid "Pending requests"
+msgstr "Ventende anmodninger"
+
+#: templates/profile/overview.html:26
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: templates/profile/overview.html:29
+msgid "Friend request"
+msgstr "Venneanmodning"
+
+#: templates/profile/overview.html:31
+msgid "Challenge to game"
+msgstr "Udfordring til spil"
+
+#: templates/profile/overview.html:48
+msgid "has not entered a profile text yet."
+msgstr "har endnu ikke indtastet en profiltekst."
+
+#: templates/profile/overview.html:57
+msgid "Recent games"
+msgstr "Seneste spil"
+
+#: templates/profile/overview.html:76
+msgid "Full match list"
+msgstr "Fuld spil liste"
+
+#: templates/profile/overview.html:86
+msgid "Statistics (501 SI/DO)"
+msgstr "Statistik (501 SI/DO)"
+
+#: templates/profile/overview.html:88
+msgid "Number of games:"
+msgstr "Antal spil:"
+
+#: templates/profile/overview.html:89
+#: templates/statistics/x01_overview_element.html:7
+msgid "Darts thrown:"
+msgstr "Pile kastet:"
+
+#: templates/profile/overview.html:99
+msgid "Winrates (501 SI/DO)"
+msgstr "Vind satser (501 SI/DO)"
+
+#: templates/profile/overview.html:100
+msgid "(grouped by opponent average)"
+msgstr "(grupper efter modstandergennemsnit)"
+
+#: templates/profile/overview.html:135
+msgid "X01"
+msgstr "X01"
+
+#: templates/profile/settings.html:10
+msgid "Activate webcam games"
+msgstr "Aktiver webcam spil"
+
+#: templates/profile/settings.html:12
+msgid "Edit profile text"
+msgstr "Redigere profiltekst"
+
+#: templates/profile/settings.html:13
+msgid "Manage friend list"
+msgstr "Administrer venneliste"
+
+#: templates/profile/settings.html:14
+#: templates/security/change_username.html:12
+msgid "Change display name"
+msgstr "Ændre vist navn"
+
+#: templates/profile/settings.html:15
+#: templates/security/change_password.html:12
+msgid "Change password"
+msgstr "Skift adgangskode"
+
+#: templates/profile/settings.html:16
+msgid "Avatar settings"
+msgstr "Avatar indstillinger"
+
+#: templates/profile/settings.html:17
+msgid "Caller settings"
+msgstr "Indstillinger for Kalderen"
+
+#: templates/profile/settings.html:18
+msgid "Trainer delay settings"
+msgstr "Indstillinger for trænerforsinkelse"
+
+#: templates/profile/user_not_found.html:9
+msgid "User not found"
+msgstr "Brugeren blev ikke fundet"
+
+#: templates/profile/webcam_settings.html:26
+msgid "Optional. Your video and sound may be live streamed by Lidarts or your opponent."
+msgstr "Valgfri. Din video og lyd kan livestreames af Lidarts eller din modstander."
+
+#: templates/profile/webcam_settings.html:32
+msgid "Forces use of Jitsi Meet mobile app. Try this if video capture does not work on your mobile browser."
+msgstr "Tvinger brugen af Jitsi Meet mobil app. Prøv dette, hvis videooptagelse ikke virker på din mobil browser."
+
+#: templates/profile/webcam_settings.html:38
+msgid "Enables follow page in lobby. Your mobile device can be called to your games from another device to capture video."
+msgstr "Aktiverer følg side i lobbyen. Din mobilenhed kan kaldes til dine spil fra en anden enhed for at optage video."
+
+#: templates/profile/webcam_settings.html:44
+msgid "Loads only the scoreboard without webcam image in your webcam games. Useful for mobile score-only devices."
+msgstr "Indlæser kun resultattavlen uden webcam billede i dit webcam spil. Nyttigt for mobile score-only enheder."
+
+#: templates/security/change_password.html:20
+#: templates/security/change_username.html:27
+#: templates/security/forgot_password.html:16 tools/forms.py:14
+msgid "Submit"
+msgstr "Indsende"
+
+#: templates/security/change_username.html:18
+msgid "You can change your username only once per month. Please confirm."
+msgstr "Du kan kun ændre dit brugernavn én gang om måneden. Bekræft venligst."
+
+#: templates/security/forgot_password.html:10
+msgid "Request a new password"
+msgstr "Anmod om en ny adgangskode"
+
+#: templates/security/login_user.html:24
+msgid "No account yet?"
+msgstr "Ingen konto endnu?"
+
+#: templates/security/login_user.html:25
+msgid "Sign Up"
+msgstr "Tilmeld dig"
+
+#: templates/security/login_user.html:26
+msgid "Forgot your password?"
+msgstr "Glemt din adgangskode?"
+
+#: templates/security/login_user.html:27
+#: templates/security/reset_password.html:10
+msgid "Reset password"
+msgstr "Nulstil adgangskode"
+
+#: templates/security/register_user.html:20
+msgid "By registering you confirm that you agree to our"
+msgstr "Ved at registrere dig bekræfte, at du accepterer vores"
+
+#: templates/security/register_user.html:20
+msgid "Terms and Conditions"
+msgstr "Vilkår og betingelser"
+
+#: templates/security/register_user.html:28
+msgid "Already have an account?"
+msgstr "Har du allerede en konto?"
+
+#: templates/statistics/x01.html:103
+msgid "Overview"
+msgstr "Oversigt over"
+
+#: templates/statistics/x01.html:106 templates/statistics/x01.html:159
+msgid "Overall"
+msgstr "Samlede"
+
+#: templates/statistics/x01.html:109 templates/statistics/x01.html:133
+msgid "Today"
+msgstr "Idag"
+
+#: templates/statistics/x01.html:112 templates/statistics/x01.html:139
+msgid "Current Week"
+msgstr "Denne Uge"
+
+#: templates/statistics/x01.html:115 templates/statistics/x01.html:145
+msgid "Current Month"
+msgstr "Denne Måned"
+
+#: templates/statistics/x01.html:118 templates/statistics/x01.html:153
+msgid "Current Year"
+msgstr "Dette År"
+
+#: templates/statistics/x01.html:121 templates/statistics/x01.html:165
+msgid "Custom"
+msgstr "Tilpas"
+
+#: templates/statistics/x01.html:240
+msgid "Overall average per game"
+msgstr "Samlet gennemsnit pr. spil"
+
+#: templates/statistics/x01_detail_element.html:5
+msgid "General"
+msgstr "Generelle"
+
+#: templates/statistics/x01_detail_element.html:7
+msgid "Number of games"
+msgstr "Antal spil"
+
+#: templates/statistics/x01_detail_element.html:8
+msgid "Games Won"
+msgstr "Spil Vundet"
+
+#: templates/statistics/x01_detail_element.html:9
+msgid "Games Lost"
+msgstr "Spil Tabt"
+
+#: templates/statistics/x01_detail_element.html:10
+msgid "Games Draw"
+msgstr "Spil Uafgjort"
+
+#: templates/statistics/x01_detail_element.html:11
+msgid "Number of Legs"
+msgstr "Antal Sæt"
+
+#: templates/statistics/x01_detail_element.html:12
+msgid "Legs Won"
+msgstr "Sæt Vundet"
+
+#: templates/statistics/x01_detail_element.html:13
+msgid "Legs Lost"
+msgstr "Sæt Tabt"
+
+#: templates/statistics/x01_detail_element.html:15
+msgid "Darts thrown"
+msgstr "Pile brugt"
+
+#: templates/statistics/x01_overview_element.html:6
+msgid "Number of games / legs:"
+msgstr "Antal spil/sæt:"
+
+#: templates/tournament/details.html:17 tournament/routes.py:152
+msgid "Tournament details"
+msgstr "Turneringsdetaljer"
+
+#: templates/tournament/details.html:21
+msgid "Leave Tournament"
+msgstr "Forlad Turnering"
+
+#: templates/tournament/details.html:21
+msgid "Join Tournament"
+msgstr "Deltag i turnering"
+
+#: templates/tournament/details.html:26
+msgid "Create tournament game"
+msgstr "Opret turneringspil"
+
+#: templates/tournament/details.html:33
+msgid "Creator"
+msgstr "Skaberen"
+
+#: templates/tournament/details.html:34
+msgid "Watch live games"
+msgstr "Se live spil"
+
+#: templates/tournament/details.html:36
+msgid "URL"
+msgstr "Url"
+
+#: templates/tournament/details.html:39
+msgid "Start"
+msgstr "Start"
+
+#: templates/tournament/details.html:42
+msgid "Edit settings"
+msgstr "Rediger indstillinger"
+
+#: templates/tournament/overview.html:14
+msgid "Tournaments on Lidarts"
+msgstr "Turneringer på Lidarts"
+
+#: templates/tournament/overview.html:17
+msgid "Currently Lidarts does not host any tournaments. Several external communities use Lidarts to play their tournaments though."
+msgstr "I øjeblikket lidarts ikke vært for nogen turneringer. Flere eksterne samfund bruger Lidarts til at spille deres turneringer selv."
+
+#: templates/tournament/overview.html:20
+msgid "This area currently provides tournaments an own page similar to the chat. There is also a list of upcoming public tournaments."
+msgstr "Dette område giver i øjeblikket turneringer en egen side, der ligner chatten. Der er også en liste over kommende offentlige turneringer."
+
+#: templates/tournament/overview.html:23
+msgid "Joining a tournament will only make you appear in the tournament's user list at the moment. It does not sign you up."
+msgstr "Deltagelse i en turnering vil kun få dig til at blive vist på turneringens brugerliste i øjeblikket. Det betyder ikke tilmelde dig."
+
+#: templates/tournament/overview.html:33
+msgid "Your tournaments"
+msgstr "Dine turneringer"
+
+#: templates/tournament/overview.html:41
+msgid "You have not created a tournament yet."
+msgstr "Du har ikke oprettet en turnering endnu."
+
+#: templates/tournament/overview.html:54
+msgid "Create a new tournament"
+msgstr "Opret en ny turnering"
+
+#: templates/tournament/overview.html:76 templates/tournament/settings.html:37
+msgid "Tournament will appear in the upcoming tournaments list"
+msgstr "Turneringen vises på listen over kommende turneringer"
+
+#: templates/tournament/overview.html:83 templates/tournament/settings.html:53
+msgid "Link to tournament website with more information"
+msgstr "Link til turneringens hjemmeside med mere information"
+
+#: templates/tournament/overview.html:88 templates/tournament/settings.html:58
+msgid "Start date and time:"
+msgstr "Startdato og klokkeslæt:"
+
+#: templates/tournament/overview.html:108
+msgid "Upcoming tournaments"
+msgstr "Kommende turneringer"
+
+#: templates/tournament/overview.html:119
+msgid "There are no upcoming public tournaments at the moment."
+msgstr "Der er ingen kommende offentlige turneringer i øjeblikket."
+
+#: templates/tournament/settings.html:15
+msgid "Edit tournament settings"
+msgstr "Rediger turneringsindstillinger"
+
+#: templates/tournament/settings.html:46
+msgid "Players are able to join the tournament."
+msgstr "Spillere er i stand til at deltage i turneringen."
+
+#: templates/tournament/settings.html:80
+msgid "Manage player list"
+msgstr "Administrer spillerliste"
+
+#: templates/tournament/settings.html:98
+msgid "Banned players"
+msgstr "Forbudte spillere"
+
+#: templates/tournament/settings.html:103
+#: templates/tournament/settings.html:174
+msgid "Unban"
+msgstr "Ikke udeluk spillere"
+
+#: templates/tournament/settings.html:119
+msgid "Kick player"
+msgstr "Spark spiller"
+
+#: templates/tournament/settings.html:125
+msgid "Do you want to kick "
+msgstr "Vil du sparke "
+
+#: templates/tournament/settings.html:125
+#: templates/tournament/settings.html:169
+msgid "The player will be able to join the tournament again."
+msgstr "Spilleren vil være i stand til at deltage i turneringen igen."
+
+#: templates/tournament/settings.html:129
+#: templates/tournament/settings.html:151
+#: templates/tournament/settings.html:173
+msgid "Close"
+msgstr "Luk"
+
+#: templates/tournament/settings.html:130
+msgid "Kick"
+msgstr "Spark"
+
+#: templates/tournament/settings.html:141
+msgid "Ban player"
+msgstr "Udeluk spiller"
+
+#: templates/tournament/settings.html:147
+msgid "Do you want to ban "
+msgstr "Ønsker du at udeluk "
+
+#: templates/tournament/settings.html:147
+msgid "The player will NOT be able to join the tournament again."
+msgstr "Spilleren vil IKKE være i stand til at deltage i turneringen igen."
+
+#: templates/tournament/settings.html:152
+msgid "Ban"
+msgstr "Udeluk"
+
+#: templates/tournament/settings.html:163
+msgid "Unban player"
+msgstr "Ikke udeluk spiller"
+
+#: templates/tournament/settings.html:169
+msgid "Do you want to unban "
+msgstr "Vil du udeluk "
+
+#: tournament/forms.py:30
+msgid "Tournament name"
+msgstr "Turneringsnavn"
+
+#: tournament/forms.py:32
+msgid "Open to the public"
+msgstr "Åben for offentligheden"
+
+#: tournament/forms.py:33
+msgid "Player registration is open"
+msgstr "Spillerregistrering er åben"
+
+#: tournament/forms.py:34
+msgid "External URL"
+msgstr "Ekstern URL adresse"
+
+#: tournament/forms.py:37
+msgid "Create Tournament"
+msgstr "Opret turnering"
+
+#: tournament/routes.py:20
+msgid "Start in the past is not allowed for public tournaments."
+msgstr "Start i fortiden er ikke tilladt for offentlige turneringer."
+
+#: tournament/routes.py:24
+msgid "Start must be within the next 30 days."
+msgstr "Start skal være inden for de næste 30 dage."
+
+#: tournament/routes.py:34
+msgid "Tournament updated."
+msgstr "Turneringen er opdateret."
+
+#: tournament/routes.py:97
+msgid "You were banned from this tournament."
+msgstr "Du blev udelukket fra denne turnering."
+
+#: tournament/routes.py:181
+msgid "Tournament settings"
+msgstr "Turneringsindstillinger"
+
