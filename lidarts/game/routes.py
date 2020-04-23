@@ -341,10 +341,11 @@ def start(hashid, theme=None):
 
 
 @bp.route('/decline_challenge/')
-@bp.route('/decline_challenge/<id_>', methods=['POST'])
-def decline_challenge(id_):
-    id_ = int(id_)
-    game = Game.query.filter_by(id=id_).first_or_404()
+@bp.route('/decline_challenge/<hashid>', methods=['POST'])
+def decline_challenge(hashid):
+    game = Game.query.filter_by(hashid=hashid).first()
+    if not game:
+        game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
     if game.status != 'challenged':
         return jsonify('success')
     game.status = "declined"
@@ -355,7 +356,9 @@ def decline_challenge(id_):
 
 @bp.route('/cancel_challenge/<hashid>')
 def cancel_challenge(hashid):
-    game = Game.query.filter_by(hashid=hashid).first_or_404()
+    game = Game.query.filter_by(hashid=hashid).first()
+    if not game:
+        CricketGame = Game.query.filter_by(hashid=hashid).first_or_404()
     if game.status != 'challenged':
         return redirect(url_for('generic.lobby'))
     game.status = "declined"

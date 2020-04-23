@@ -120,6 +120,8 @@ def lobby():
 
     # get challenges
     challenges = Game.query.filter_by(status='challenged', player2=current_user.id).all()
+    cricket_challenges = CricketGame.query.filter_by(status='challenged', player2=current_user.id).all()
+    challenges.extend(cricket_challenges)
     for game in challenges:
         player_names[game.player1] = User.query.with_entities(User.username) \
             .filter_by(id=game.player1).first_or_404()[0]

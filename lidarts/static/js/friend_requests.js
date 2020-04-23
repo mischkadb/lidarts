@@ -34,11 +34,11 @@ $(document).ready(function() {
 
     $('.decline-challenge').click( function (event) {
         var decline_challenge_url = $('#decline_challenge_url').data()['url'];
-        var id = this.id.replace('decline-challenge-', '');
+        var hashid = this.id.replace('decline-challenge-', '');
 
-        $.post(decline_challenge_url + id,
+        $.post(decline_challenge_url + hashid,
             function() {
-                $(document.getElementById('element-decline-challenge-' + id)).html('<strong style="color: #bb4444">Challenge declined.</strong>');
+                $(document.getElementById('element-decline-challenge-' + hashid)).html('<strong style="color: #bb4444">Challenge declined.</strong>');
             }
         );
     });
