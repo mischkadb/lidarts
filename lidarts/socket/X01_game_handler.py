@@ -8,6 +8,8 @@ from lidarts.socket.utils import process_score, current_turn_user_id, process_cl
 from lidarts.socket.computer import get_computer_score
 import json
 from datetime import datetime
+import secrets
+
 
 def send_score_response(game, old_score=0, broadcast=False):
     match_json = json.loads(game.match_json)
@@ -149,6 +151,53 @@ def send_score_response(game, old_score=0, broadcast=False):
         },
         room=room)
     socketio.sleep(0)
+
+
+def create_rematch(hashid):
+    game = Game.query.filter_by(hashid=hashid).first_or_404()
+
+    match_json = json.dumps(
+        {
+            1: {
+                1: {
+                    1: {
+                        'scores': [],
+                        'double_missed': []
+                        },
+                    2: {
+                        'scores': [],
+                        'double_missed': []
+                        }
+                    }
+                }
+        }
+    )
+
+    rematch = Game(
+        player1=game.player1, player2=game.player2, type=game.type,
+        bo_sets=game.bo_sets, bo_legs=game.bo_legs,
+        two_clear_legs=game.two_clear_legs,
+        p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
+        p1_score=int(game.type), p2_score=int(game.type),
+        in_mode=game.in_mode, out_mode=game.out_mode,
+        begin=datetime.utcnow(), match_json=match_json,
+        status='started', opponent_type=game.opponent_type,
+        public_challenge=False,
+        tournament=game.tournament, 
+        score_input_delay=game.score_input_delay,
+        webcam=game.webcam, jitsi_hashid=secrets.token_urlsafe(8)[:8],
+    )
+    rematch.p1_next_turn = True
+    if game.closest_to_bull_json:
+        closest_to_bull_json = json.dumps({1: [], 2: []})
+        rematch.closest_to_bull_json = closest_to_bull_json
+        rematch.closest_to_bull = True
+    db.session.add(rematch)
+    db.session.commit()  # needed to get a game id for the hashid
+    rematch.set_hashid()
+    db.session.commit()
+
+    return rematch.hashid
 
 
 @socketio.on('connect', namespace='/game')

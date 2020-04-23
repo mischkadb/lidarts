@@ -2,12 +2,14 @@ from flask import request
 from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
+from lidarts.game.utils import cricket_leg_default
 from lidarts.models import CricketGame, User
 from lidarts.socket.game.cricket.utils import process_score
 from lidarts.socket.utils import current_turn_user_id, process_closest_to_bull
 from lidarts.socket.game.cricket.computer import get_computer_score
 import json
 from datetime import datetime, timedelta
+import secrets
 
 
 def calculate_footer_stats(match_json, last_leg=False):
@@ -156,6 +158,43 @@ def init(message):
 def init_waiting(message):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
     join_room(game.hashid)
+
+
+def create_rematch(hashid):
+    game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
+
+    match_json = json.dumps(
+        {
+            1: {
+                1: cricket_leg_default.copy()
+            }
+        }
+    )
+
+    rematch = CricketGame(
+        player1=game.player1, player2=game.player2,
+        bo_sets=game.bo_sets, bo_legs=game.bo_legs,
+        two_clear_legs=game.two_clear_legs,
+        p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
+        p1_score=0, p2_score=0,
+        begin=datetime.utcnow(), match_json=match_json,
+        status='started', opponent_type=game.opponent_type,
+        public_challenge=False,
+        tournament=game.tournament, 
+        score_input_delay=game.score_input_delay,
+        webcam=game.webcam, jitsi_hashid=secrets.token_urlsafe(8)[:8],
+    )
+    rematch.p1_next_turn = True
+    if game.closest_to_bull_json:
+        closest_to_bull_json = json.dumps({1: [], 2: []})
+        rematch.closest_to_bull_json = closest_to_bull_json
+        rematch.closest_to_bull = True
+    db.session.add(rematch)
+    db.session.commit()  # needed to get a game id for the hashid
+    rematch.set_hashid()
+    db.session.commit()
+
+    return rematch.hashid
 
 
 @socketio.on('send_score', namespace='/game/cricket')

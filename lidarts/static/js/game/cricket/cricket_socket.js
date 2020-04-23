@@ -14,6 +14,7 @@ $(document).ready(function() {
     var p2_id;
 
     var game_completed = false;
+    var game_url = $('#game_url').data()['url'];
     var caller = $('#caller').data()['caller'];
 
     var hashid = $('#hash_id').data();
@@ -21,7 +22,6 @@ $(document).ready(function() {
         socket.emit('init', {hashid: hashid['hashid'] });
     });
 
-    var cpu_delay = $('#cpu_delay').data()['cpu_delay'];
     var muted = false;
 
     socket.emit('player_heartbeat', {hashid: hashid['hashid']});
@@ -669,6 +669,26 @@ $(document).ready(function() {
         $('.undo-button').show();
         $('.undo-button-active').hide();
         undo_active = false;
+    });
+
+    $('.rematch-offer').click(function() {
+        socket.emit('send_rematch_offer', {hashid: hashid['hashid']});
+        $('.rematch').hide();
+        $('.rematch-sent').show();
+    });
+
+    socket.on('rematch_offer', function() {
+        $('.rematch-offer').hide();
+        $('.rematch-accept').show();
+    });
+
+    $('.rematch-accept').click(function() {
+        $('.rematch-accept').hide();
+        socket.emit('accept_rematch_offer', {hashid: hashid['hashid']});
+    });
+
+    socket.on('start_rematch', function(msg) {
+        window.location.replace(game_url + msg['hashid']);
     });
 
     $('#appleActivateSound').click(function() {

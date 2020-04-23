@@ -346,7 +346,17 @@
     <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block score-input">
         <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
             <h4 class="text-light">{{ _('Game is completed.') }}</h4>
-            <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+            <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a></p>
+            {% if game.player2 and game.player1 != game.player2 %}
+            <div class="rematch">
+                <p><a href="#" class="rematch-offer">{{ _('Offer rematch') }}</a></p>
+                <p><a href="#" class="rematch-accept" style="display:none">{{ _('Accept rematch') }}</a></p>
+            </div>
+            <p class="rematch-sent text-light" style="display:none">{{ _('Rematch offer sent') }}</p>
+            {% endif %}
+            {% if game.tournament %}
+            <p><a href="{{ url_for('tournament.details', hashid=game.tournament) }}">{{ _('Back to tournament') }}</a></p>
+            {% endif %}
         </form>
 
         <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status != 'aborted' %} style="display: none" {% endif %}>
@@ -453,6 +463,7 @@
 <meta id="hash_id" data-hashid="{{ game.hashid }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
 <meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
+<meta id="game_url" data-url="{{ url_for('game.start') }}">
 <meta id="caller" data-caller="{{ caller }}">
 <meta id="cpu_delay" data-cpu_delay="{{ cpu_delay }}">
 
