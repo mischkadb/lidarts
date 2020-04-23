@@ -160,6 +160,17 @@ def init_waiting(message):
     join_room(game.hashid)
 
 
+@socketio.on('send_rematch_offer', namespace='/game/cricket')
+def send_rematch_offer(message):
+    emit('rematch_offer', room=message['hashid'], namespace='/game/cricket')
+
+
+@socketio.on('accept_rematch_offer', namespace='/game/cricket')
+def accept_rematch_offer(message):
+    hashid = create_rematch(message['hashid'])
+    emit('start_rematch', {'hashid': hashid}, room=message['hashid'], namespace='/game/cricket')
+
+
 def create_rematch(hashid):
     game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
 
@@ -183,6 +194,7 @@ def create_rematch(hashid):
         tournament=game.tournament, 
         score_input_delay=game.score_input_delay,
         webcam=game.webcam, jitsi_hashid=secrets.token_urlsafe(8)[:8],
+        variant='cricket',
     )
     rematch.p1_next_turn = True
     if game.closest_to_bull_json:

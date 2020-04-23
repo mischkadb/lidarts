@@ -186,6 +186,7 @@ def create_rematch(hashid):
         tournament=game.tournament, 
         score_input_delay=game.score_input_delay,
         webcam=game.webcam, jitsi_hashid=secrets.token_urlsafe(8)[:8],
+        variant='x01',
     )
     rematch.p1_next_turn = True
     if game.closest_to_bull_json:

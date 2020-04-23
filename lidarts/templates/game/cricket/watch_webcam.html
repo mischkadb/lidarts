@@ -391,7 +391,17 @@
             <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block score-input">
                 <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
                     <h4 class="text-light">{{ _('Game is completed.') }}</h4>
-                    <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+                    <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a></p>
+                    {% if game.player2 and game.player1 != game.player2 %}
+                    <div class="rematch">
+                        <p><a href="#" class="rematch-offer">{{ _('Offer rematch') }}</a></p>
+                        <p><a href="#" class="rematch-accept" style="display:none">{{ _('Accept rematch') }}</a></p>
+                    </div>
+                    <p class="rematch-sent text-light" style="display:none">{{ _('Rematch offer sent') }}</p>
+                    {% endif %}
+                    {% if game.tournament %}
+                    <p><a href="{{ url_for('tournament.details', hashid=game.tournament) }}">{{ _('Back to tournament') }}</a></p>
+                    {% endif %}
                 </form>
 
                 <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status != 'aborted' %} style="display: none" {% endif %}>
@@ -433,6 +443,7 @@
 <meta id="player2_id" data-id="{{ game.player2 }}">
 <meta id="caller" data-caller="{{ caller }}">
 <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
+<meta id="game_url" data-url="{{ url_for('game.start') }}">
 
 <script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_spectator_socket.js', version=config.VERSION) }}"></script>
 {% endblock %}
