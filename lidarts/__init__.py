@@ -190,6 +190,7 @@ def create_app(test_config=None):
     import lidarts.socket.base_handler
     import lidarts.socket.chat_handler
     import lidarts.socket.X01_game_handler
+    import lidarts.socket.game.cricket.cricket_game_handler
     import lidarts.socket.public_challenge_handler
     import lidarts.socket.tournament_handler
     import lidarts.socket.webcam_follow_handler

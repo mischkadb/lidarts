@@ -7,3 +7,4 @@ graft lidarts/utils
 graft migrations
 graft tests
 global-exclude *.pyc
+recursive-include lidarts/game/ *.py

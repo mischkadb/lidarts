@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+
+{% block app_content %}
+
+<div class="row justify-content-center mb-2">
+    <div class="col-xl-8 col-lg-10 col-sm-12">
+        <div class="card bg-light">
+
+            <div class="card-body">
+                {% if game.status == 'aborted' %}
+                <h2 class="card-title text-center bg-danger text-light font-weight-bold">{{ _('Game was aborted.') }}</h2>
+                {% endif %}
+                {% if game.status == 'declined' %}
+                <h2 class="card-title text-center bg-danger text-light font-weight-bold">{{ _('Challenge was declined or withdrawn.') }}</h2>
+                {% endif %}
+
+
+                <div class="row justify-content-center align-items-center mb-2">
+                    <div class="col-sm-5 text-center text-light">
+                        <div class="card bg-dark">
+                            <div class="card-body player_name_card"><h1>{{ game.player1_name }}</h1></div>
+                            <div class="card-footer
+                            {% if game.p1_sets > game.p2_sets %}bg-success border-success
+                            {% elif game.p1_sets < game.p2_sets %}bg-danger border-danger
+                            {% else %}bg-warning border-warning{% endif %}"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2 text-center"><h1>vs.</h1></div>
+
+                    <div class="col-sm-5 text-center text-light">
+                        <div class="card bg-dark">
+                            <div class="card-body player_name_card"><h1>{{ game.player2_name }}</h1></div>
+                            <div class="card-footer
+                            {% if game.p1_sets < game.p2_sets %}bg-success border-success
+                            {% elif game.p1_sets > game.p2_sets %}bg-danger border-danger
+                            {% else %}bg-warning border-warning{% endif %}"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-xl-4 col-lg-6 col-sm-8 text-center text-light">
+                        <div class="card bg-info">
+                            <div class="card-body player_name_card">
+                                <div class="row justify-content-center align-items-center text-center">
+                                    {% if game.bo_sets > 1 %}
+                                    <div class="col-sm-3">
+                                        <h3>{{ game.p1_sets }}</h3>
+                                    </div>
+
+                                    <div class="col-sm-6"><h3>Sets</h3></div>
+
+                                    <div class="col-sm-3">
+                                        <h3>{{ game.p2_sets }}</h3>
+                                    </div>
+                                    {% else %}
+                                    <div class="col-sm-3">
+                                        <h3>{{ game.p1_legs }}</h3>
+                                    </div>
+
+                                    <div class="col-sm-6"><h5>Legs</h5></div>
+
+                                    <div class="col-sm-3">
+                                        <h3>{{ game.p2_legs }}</h3>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mb-2">
+    <div class="col-xl-8 col-lg-10 col-sm-12">
+        <div class="card bg-light">
+            <div class="card-body">
+
+                {% if game.end and game.begin %}
+                <div class="row justify-content-center align-items-center mb-2">
+                    <div class="col-sm-8 text-center text-secondary">
+                        <p>{{ _('Match duration') }}: {{ ((game.end - game.begin).seconds // 3600)}} {{ _('hours') }},
+                            {{ ((game.end - game.begin).seconds % 3600) // 60}} {{ _('minutes') }},
+                            {{ ((game.end - game.begin).seconds % 60)}} {{ _('seconds') }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

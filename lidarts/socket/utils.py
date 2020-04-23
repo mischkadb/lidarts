@@ -2,7 +2,7 @@ from flask import request
 from flask_socketio import emit
 from flask_login import current_user
 from lidarts import db, avatars, socketio
-from lidarts.models import Game, Tournament, User, UserSettings, UserStatistic, WebcamSettings
+from lidarts.models import CricketGame, Game, Tournament, User, UserSettings, UserStatistic, WebcamSettings
 import math
 import json
 from datetime import datetime, timedelta
@@ -199,8 +199,9 @@ def process_score(game, score_value, double_missed, to_finish):
     return game
 
 
-def current_turn_user_id(hashid):
-    game = Game.query.filter_by(hashid=hashid).first_or_404()
+def current_turn_user_id(hashid, cricket=False):
+    query_class = CricketGame if cricket else Game
+    game = query_class.query.filter_by(hashid=hashid).first_or_404()
     return game.player1 if game.p1_next_turn else game.player2
 
 

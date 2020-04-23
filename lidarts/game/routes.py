@@ -10,7 +10,7 @@ from lidarts.game.cricket.prepare_form import prepare_cricket_form
 from lidarts.game.cricket.save_preset import save_cricket_preset
 from lidarts.game.X01.prepare_form import prepare_x01_form
 from lidarts.game.X01.save_preset import save_x01_preset
-from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names
+from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names, cricket_leg_default
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user, login_required
 from datetime import datetime
@@ -90,10 +90,9 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
 
         tournament = form.tournament.data if form.tournament.data != '-' else None
 
-        match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
-                                         2: {'scores': [], 'double_missed': []}}}})
-
         if mode == 'x01':
+            match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
+                                         2: {'scores': [], 'double_missed': []}}}})
             game = Game(
                 player1=player1, player2=player2, type=form.type.data,
                 variant='x01',
@@ -110,6 +109,13 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 webcam=form.webcam.data, jitsi_hashid=jitsi_hashid,
                 )
         elif mode == 'cricket':
+            match_json = json.dumps(
+                {
+                    1: {
+                        1: cricket_leg_default.copy(),
+                    },
+                },
+            )
             game = CricketGame(
                 player1=player1, player2=player2, variant='cricket',
                 bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
@@ -242,10 +248,8 @@ def start(hashid, theme=None):
                 p2_country = p2_country[0]
             player_countries[1] = p2_country
 
-        game_completed_template = 'game/X01/completed.html' if game.variant == 'x01' else 'game/cricket/completed.html'
-
         return render_template(
-            game_completed_template,
+            f'game/{game.variant}/completed.html',
             game=game_dict,
             match_json=match_json,
             stats=statistics,
@@ -294,10 +298,12 @@ def start(hashid, theme=None):
     stream_consent = True
     channel_ids = [None, None]
     if game.webcam and current_user.is_authenticated and current_user.id in (game.player1, game.player2):
-        template = 'game/X01/X01_webcam.html' if game.variant == 'x01' else 'game/cricket/cricket_webcam.html'
+        # webcam base template
+        template = 'webcam'
         webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
         if webcam_settings and webcam_settings.force_scoreboard_page:
-            template = 'game/X01/X01.html' if game.variant == 'x01' else 'game/cricket/cricket.html'
+            # force normal game template
+            template = 'game'
         p1_webcam_settings = WebcamSettings.query.filter_by(user=game.player1).first()
         p2_webcam_settings = WebcamSettings.query.filter_by(user=game.player2).first() if game.player2 else None
         if not p1_webcam_settings.stream_consent or (p2_webcam_settings and not p2_webcam_settings.stream_consent):
@@ -312,17 +318,19 @@ def start(hashid, theme=None):
                 p1_webcam_settings.stream_consent and p2_webcam_settings and p2_webcam_settings.stream_consent
                 and (p1_user_settings.channel_id or p1_user_settings.channel_id)
             ):
-                template = 'game/X01/X01_watch_webcam.html' if game.variant == 'x01' else 'game/cricket/cricket_watch_webcam.html'
+                # consent was given by both players, render watch page
+                template = 'watch_webcam'
                 channel_ids[0] = p1_user_settings.channel_id
                 channel_ids[1] = p2_user_settings.channel_id
             else:
-                template = 'game/X01/X01.html' if game.variant == 'x01' else 'game/cricket/cricket.html'
+                # no consent for spectators
+                template = 'game'
             webcam_settings = None
         else:
-            template = 'game/X01/X01.html' if game.variant == 'x01' else 'game/cricket/cricket.html'
+            template = 'game'
             webcam_settings = None
 
-    return render_template(template, game=game_dict, form=form, match_json=match_json,
+    return render_template(f'game/{game.variant}/{template}.html', game=game_dict, form=form, match_json=match_json,
                             caller=caller, cpu_delay=cpu_delay, title=title,
                             chat_form=chat_form, chat_form_small=chat_form_small,
                             messages=messages, user_names=user_names,
@@ -399,6 +407,6 @@ def webcam_follow():
     
     
     return render_template(
-        'game/X01/webcam_follow.html',
+        'game/x01/webcam_follow.html',
         webcam_settings=webcam_settings,        
     )

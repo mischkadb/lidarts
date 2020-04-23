@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // namespace for the game handling
-    namespace = '/game';
+    namespace = '/game/cricket';
     // Connect to the Socket.IO server.
     // The connection URL has the following format:
     //     http[s]://<domain>:<port>[/<namespace>]
@@ -8,16 +8,19 @@ $(document).ready(function() {
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
+
     var p1_next_turn;
     var p1_id;
     var p2_id;
+
+    var game_completed = false;
+    var caller = $('#caller').data()['caller'];
 
     var hashid = $('#hash_id').data();
     socket.on('connect', function() {
         socket.emit('init', {hashid: hashid['hashid'] });
     });
 
-    var caller = $('#caller').data()['caller'];
     var muted = false;
 
     socket.on('game_aborted', function(msg) {
@@ -85,75 +88,129 @@ $(document).ready(function() {
 
     });
 
-
-    socket.on('game_shot', function(msg) {
-        $('#p1_current_leg').text('');
-
-        // display old scores for a short time
-        var p1_last_leg_sum = 0;
-        if (msg.p1_last_leg.length > 0) {
-            p1_last_leg_sum = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
-        }
-        // display all single scores for player 1
-        $.each(msg.p1_last_leg, function( index, value ){
-            // fade in latest score
-            if ( index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type) {
-                $('#p1_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p1_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
-                )
-            };
-        });
-        // display all single scores for player 2
-        $('#p2_current_leg').text('');
-        $.each(msg.p2_last_leg, function( index, value ){
-            // fade in latest score
-            if ( index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type) {
-                $('#p2_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                )
-            }
-        });
-
-        if (muted == false) {
-            var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
-            audio.play();
-        }
-
+    function update_scoreboards(msg) {
         // show current leg and set scores
         $('.p1_sets').text(msg.p1_sets);
         $('.p2_sets').text(msg.p2_sets);
         $('.p1_legs').text(msg.p1_legs);
         $('.p2_legs').text(msg.p2_legs);
 
+        // statistics
+        $('.p1_leg_mpr').text(msg.p1_leg_mpr);
+        $('.p2_leg_mpr').text(msg.p2_leg_mpr);
+        $('.p1_match_mpr').text(msg.p1_match_mpr);
+        $('.p2_match_mpr').text(msg.p2_match_mpr);
+
+        var score_display = {
+            0: '0',
+            15: 'S15',
+            16: 'S16',
+            17: 'S17',
+            18: 'S18',
+            19: 'S19',
+            20: 'S20',
+            25: 'S25',
+            30: 'D15',
+            32: 'D16',
+            34: 'D17',
+            36: 'D18',
+            38: 'D19',
+            40: 'D20',
+            50: 'D25',
+            45: 'T15',
+            48: 'T16',
+            51: 'T17',
+            54: 'T18',
+            57: 'T19',
+            60: 'T20',
+        }
+
+        if (msg.p1_current_leg.length > 0) {
+            if (msg.p1_next_turn && msg.p1_current_leg[msg.p1_current_leg.length - 1].length == 3) {
+                $('#p1_last_round').text('');
+            } else {
+                $('#p1_last_round').text('');
+                msg.p1_current_leg[msg.p1_current_leg.length - 1].forEach(function(score, index) {
+                    $('#p1_last_round').append(score_display[score] + ' ');
+                });
+            }
+        } else {
+            $('#p1_last_round').text('');
+        }
+
+        if (msg.p2_current_leg.length > 0) {
+            if (!msg.p1_next_turn && msg.p2_current_leg.length > 0 && msg.p2_current_leg[msg.p2_current_leg.length - 1].length == 3) {
+                $('#p2_last_round').text('');
+            } else {
+                $('#p2_last_round').text('');
+                msg.p2_current_leg[msg.p2_current_leg.length - 1].forEach(function(score, index) {
+                    $('#p2_last_round').append(score_display[score] + ' ');
+                });
+            }
+        } else {
+            $('#p2_last_round').text('');
+        }
+
+        $.each(msg.p1_current_fields, function(index, value){
+            for (i = 1; i <= 3; i++) {
+                if (value['score'] > 0) {
+                    $('#marks-p1-' + index + '-score').text(value['score']);
+                } else {
+                    $('#marks-p1-' + index + '-score').text('');
+                }
+
+                if (value['marks'] >= i) {
+                    $('#marks-p1-' + index + '-' + i).show();
+                } else {
+                    $('#marks-p1-' + index + '-' + i).hide();
+                }
+                
+                if (value['marks'] == 3 && msg.p2_current_fields[index]['marks'] == 3) {
+                    $('#score-button-S' + index).addClass('disabled');
+                    $('#score-button-D' + index).addClass('disabled');
+                    if (index < 25) {
+                        $('#score-button-T' + index).addClass('disabled');
+                    }                    
+                } else {
+                    $('#score-button-S' + index).removeClass('disabled');
+                    $('#score-button-D' + index).removeClass('disabled');
+                    if (index < 25) {
+                        $('#score-button-T' + index).removeClass('disabled');
+                    }  
+                }
+            }            
+        });
+
+        $.each(msg.p2_current_fields, function(index, value){
+            for (i = 1; i <= 3; i++) {
+                if (value['score'] > 0) {
+                    $('#marks-p2-' + index + '-score').text(value['score']);
+                } else {
+                    $('#marks-p2-' + index + '-score').text('');
+                }
+
+                if (value['marks'] >= i) {
+                    $('#marks-p2-' + index + '-' + i).show();
+                } else {
+                    $('#marks-p2-' + index + '-' + i).hide();
+                }
+            }            
+        });
+    }
+
+    socket.on('game_shot', function(msg) {
+        if (muted == false) {
+            var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
+            audio.play();
+        }
+
+        update_scoreboards(msg);
+
         // popup for game shot
         $('#game-shot-modal').modal('show');
         if (msg.p1_won) {
-            var last_score = msg.type;
-            for (var i = 0; i < msg.p1_last_leg.length-1; i++) {
-                last_score -= msg.p1_last_leg[i] << 0;
-            }
             // score substraction animation
-            jQuery({Counter: last_score}).animate({Counter: -1}, {
+            jQuery({Counter:  msg.p1_old_score}).animate({Counter: msg.p1_last_score-1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -164,21 +221,18 @@ $(document).ready(function() {
                     $('#game-shot-modal').modal('hide');
                 }, 1500);
                 // move on after 3 seconds
-                //setTimeout(function() {
-                //    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
-                //}, 3000);
+                setTimeout(function() {
+                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                }, 3000);
             });
         } else {
-            $('.p1_score').html(msg.p1_score);
+            $('.p1_score').html(msg.p1_last_score);
         }
+        
         if (!msg.p1_won) {
-            var last_score = msg.type;
-            for (var i = 0; i < msg.p2_last_leg.length-1; i++) {
-                last_score -= msg.p2_last_leg[i] << 0;
-            }
             // score substraction animation
-            jQuery({Counter: last_score}).animate({Counter: -1}, {
-                duration: 1500,
+            jQuery({Counter: msg.p2_old_score}).animate({Counter: msg.p2_last_score-1}, {
+                duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p2_score').text(Math.ceil(this.Counter));
@@ -188,12 +242,12 @@ $(document).ready(function() {
                     $('#game-shot-modal').modal('hide');
                 }, 1500);
                 // move on after 3 seconds
-                //setTimeout(function() {
-                //    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
-                //}, 3000);
+                setTimeout(function() {
+                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                }, 3000);
             });
         } else {
-            $('.p2_score').text(msg.p2_score);
+            $('.p2_score').text(msg.p2_last_score);
         }
 
     });
@@ -206,102 +260,39 @@ $(document).ready(function() {
 
         var score = 0;
 
-        if ( !msg.p1_next_turn && msg.old_score > msg.p1_score) {
+        if ( msg.p1_old_score < msg.p1_score) {
             // score substraction animation
-            score = msg.old_score - msg.p1_score;
-            jQuery({Counter: msg.old_score}).animate({Counter: msg.p1_score-1}, {
+            jQuery({Counter: msg.p1_old_score}).animate({Counter: msg.p1_score-1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p1_score').text(Math.ceil(this.Counter));
+                },
+                complete: function () {
+                    $('.p1_score').html(msg.p1_score);
                 }
             });
         } else {
             $('.p1_score').html(msg.p1_score);
         }
-        if ( msg.p1_next_turn && msg.old_score > msg.p2_score) {
-            score = msg.old_score - msg.p2_score;
+        if ( msg.p2_old_score < msg.p2_score) {
+            score = msg.p2_score - msg.p2_old_score;
             // score substraction animation
-            jQuery({Counter: msg.old_score}).animate({Counter: msg.p2_score-1}, {
+            jQuery({Counter: msg.p2_old_score}).animate({Counter: msg.p2_score-1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p2_score').text(Math.ceil(this.Counter));
+                },
+                complete: function () {
+                    $('.p2_score').html(msg.p2_score);
                 }
             });
         } else {
             $('.p2_score').text(msg.p2_score);
         }
 
-        if (msg['new_score'] && muted == false) {
-            var audio = new Audio('/static/sounds/' + caller + '/' + score + '.mp3');
-            audio.play();
-        }
-
-        // show current leg and set scores
-        $('.p1_sets').text(msg.p1_sets);
-        $('.p2_sets').text(msg.p2_sets);
-        $('.p1_legs').text(msg.p1_legs);
-        $('.p2_legs').text(msg.p2_legs);
-
-        // statistics
-        $('.p1_leg_avg').text(msg.p1_leg_avg);
-        $('.p2_leg_avg').text(msg.p2_leg_avg);
-        $('.p1_match_avg').text(msg.p1_match_avg);
-        $('.p2_match_avg').text(msg.p2_match_avg);
-        $('.p1_first9_avg').text(msg.p1_first9_avg);
-        $('.p2_first9_avg').text(msg.p2_first9_avg);
-        $('.p1_100').text(msg.p1_100);
-        $('.p2_100').text(msg.p2_100);
-        $('.p1_140').text(msg.p1_140);
-        $('.p2_140').text(msg.p2_140);
-        $('.p1_180').text(msg.p1_180);
-        $('.p2_180').text(msg.p2_180);
-        $('.p1_doubles').text(msg.p1_doubles);
-        $('.p2_doubles').text(msg.p2_doubles);
-        $('.p1_high_finish').text(msg.p1_high_finish);
-        $('.p2_high_finish').text(msg.p2_high_finish);
-        $('.p1_short_leg').text(msg.p1_short_leg);
-        $('.p2_short_leg').text(msg.p2_short_leg);
-        $('.p1_doubles').text(msg.p1_doubles + '% ('+ msg.p1_legs_won + '/' + msg.p1_darts_thrown_double + ')');
-        $('.p2_doubles').text(msg.p2_doubles + '% ('+ msg.p2_legs_won + '/' + msg.p2_darts_thrown_double + ')');
-
-        $('#p1_current_leg').text('');
-        $.each(msg.p1_current_leg, function( index, value ){
-            if ( index == msg.p1_current_leg.length-1 && !msg.p1_next_turn) {
-                $('#p1_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p1_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
-                )
-            };
-        });
-        $('#p2_current_leg').text('');
-        $.each(msg.p2_current_leg, function( index, value ){
-            if ( index == msg.p2_current_leg.length-1 && msg.p1_next_turn) {
-                $('#p2_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                )
-            }
-        });
+        update_scoreboards(msg);
 
         // Colored turn indicators.
         if (msg.p1_next_turn) {
@@ -338,63 +329,27 @@ $(document).ready(function() {
             $('.p2_turn_incidator').html('<i class="fas fa-angle-left"></i>');
         }
 
+        if (msg.computer_game && !msg.p1_next_turn) {
+            setTimeout(function() {
+                socket.emit('send_score', {hashid: hashid['hashid'],
+                    user_id: user_id['id'], computer: true});
+            }, 2000);
+
+        }
     });
     // Remove turn indicators when game is over and show link to game overview
     socket.on('game_completed', function(msg) {
-        $('#p1_current_leg').text('');
-        var p1_last_leg_sum = 0;
-        if (msg.p1_last_leg.length > 0) {
-            p1_last_leg_sum = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
-        }
-        $.each(msg.p1_last_leg, function( index, value ){
-            if ( index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type) {
-                $('#p1_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p1_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
-                )
-            };
-        });
-        $('#p2_current_leg').text('');
-        $.each(msg.p2_last_leg, function( index, value ){
-            if ( index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type) {
-                $('#p2_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                )
-            }
-        });
-
         if (muted == false){
             var audio = new Audio('/static/sounds/' + caller + '/game_shot_match.mp3');
             audio.play();
         }
 
-        $('.p1_sets').text(msg.p1_sets);
-        $('.p2_sets').text(msg.p2_sets);
-        $('.p1_legs').text(msg.p1_legs);
-        $('.p2_legs').text(msg.p2_legs);
+        update_scoreboards(msg);
 
         $('#match-shot-modal').modal('show');
         if (msg.p1_won) {
-            jQuery({Counter: msg.p1_last_leg[msg.p1_last_leg.length-1]}).animate({Counter: -1}, {
+            // score substraction animation
+            jQuery({Counter:  msg.p1_old_score}).animate({Counter: msg.p1_last_score-1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -406,10 +361,12 @@ $(document).ready(function() {
                 }, 1500);
             });
         } else {
-            $('.p1_score').html(msg.p1_score);
+            $('.p1_score').html(msg.p1_last_score);
         }
+        
         if (!msg.p1_won) {
-            jQuery({Counter: msg.p2_last_leg[msg.p2_last_leg.length-1]}).animate({Counter: -1}, {
+            // score substraction animation
+            jQuery({Counter: msg.p2_old_score}).animate({Counter: msg.p2_last_score-1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -421,10 +378,17 @@ $(document).ready(function() {
                 }, 1500);
             });
         } else {
-            $('.p2_score').html(msg.p2_score);
+            $('.p2_score').text(msg.p2_last_score);
         }
+
         $('.score_input').hide();
         $('.confirm_completion').show();
+
+        game_completed = true
+    });
+
+    $('#hide-statistics').click(function() {
+        $('.statistics').toggle();
     });
 
     $('#mute').click(function() {
@@ -439,5 +403,45 @@ $(document).ready(function() {
         $('#unmute').hide();
     });
 
+    $('#appleActivateSound').click(function() {
+        audio.play();
+        $('#appleActivateSound').hide();
+    });
+
+    function getOS() {
+        var userAgent = window.navigator.userAgent,
+            platform = window.navigator.platform,
+            macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+            windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+            iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+            os = null;
+      
+        if (macosPlatforms.indexOf(platform) !== -1) {
+          os = 'Mac OS';
+        } else if (iosPlatforms.indexOf(platform) !== -1) {
+          os = 'iOS';
+        } else if (windowsPlatforms.indexOf(platform) !== -1) {
+          os = 'Windows';
+        } else if (/Android/.test(userAgent)) {
+          os = 'Android';
+        } else if (!os && /Linux/.test(platform)) {
+          os = 'Linux';
+        }
+      
+        return os;
+      }
+
+    var os = getOS();
+    if (os == 'Mac OS' || os == 'iOS') {
+        $('#appleActivateSound').show();
+    }
+
+
 });
+
+
+
+
+
+
 

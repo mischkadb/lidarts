@@ -14,13 +14,13 @@ $(document).ready(function() {
     var p2_id;
 
     var game_completed = false;
+    var caller = $('#caller').data()['caller'];
 
     var hashid = $('#hash_id').data();
     socket.on('connect', function() {
         socket.emit('init', {hashid: hashid['hashid'] });
     });
 
-    var caller = $('#caller').data()['caller'];
     var cpu_delay = $('#cpu_delay').data()['cpu_delay'];
     var muted = false;
 
@@ -96,75 +96,129 @@ $(document).ready(function() {
 
     });
 
-
-    socket.on('game_shot', function(msg) {
-        $('#p1_current_leg').text('');
-
-        // display old scores for a short time
-        var p1_last_leg_sum = 0;
-        if (msg.p1_last_leg.length > 0) {
-            p1_last_leg_sum = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
-        }
-        // display all single scores for player 1
-        $.each(msg.p1_last_leg, function( index, value ){
-            // fade in latest score
-            if ( index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type) {
-                $('#p1_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p1_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
-                )
-            };
-        });
-        // display all single scores for player 2
-        $('#p2_current_leg').text('');
-        $.each(msg.p2_last_leg, function( index, value ){
-            // fade in latest score
-            if ( index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type) {
-                $('#p2_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                )
-            }
-        });
-
-        if (muted == false) {
-            var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
-            audio.play();
-        }
-
+    function update_scoreboards(msg) {
         // show current leg and set scores
         $('.p1_sets').text(msg.p1_sets);
         $('.p2_sets').text(msg.p2_sets);
         $('.p1_legs').text(msg.p1_legs);
         $('.p2_legs').text(msg.p2_legs);
 
+        // statistics
+        $('.p1_leg_mpr').text(msg.p1_leg_mpr);
+        $('.p2_leg_mpr').text(msg.p2_leg_mpr);
+        $('.p1_match_mpr').text(msg.p1_match_mpr);
+        $('.p2_match_mpr').text(msg.p2_match_mpr);
+
+        var score_display = {
+            0: '0',
+            15: 'S15',
+            16: 'S16',
+            17: 'S17',
+            18: 'S18',
+            19: 'S19',
+            20: 'S20',
+            25: 'S25',
+            30: 'D15',
+            32: 'D16',
+            34: 'D17',
+            36: 'D18',
+            38: 'D19',
+            40: 'D20',
+            50: 'D25',
+            45: 'T15',
+            48: 'T16',
+            51: 'T17',
+            54: 'T18',
+            57: 'T19',
+            60: 'T20',
+        }
+
+        if (msg.p1_current_leg.length > 0) {
+            if (msg.p1_next_turn && msg.p1_current_leg[msg.p1_current_leg.length - 1].length == 3) {
+                $('#p1_last_round').text('');
+            } else {
+                $('#p1_last_round').text('');
+                msg.p1_current_leg[msg.p1_current_leg.length - 1].forEach(function(score, index) {
+                    $('#p1_last_round').append(score_display[score] + ' ');
+                });
+            }
+        } else {
+            $('#p1_last_round').text('');
+        }
+
+        if (msg.p2_current_leg.length > 0) {
+            if (!msg.p1_next_turn && msg.p2_current_leg.length > 0 && msg.p2_current_leg[msg.p2_current_leg.length - 1].length == 3) {
+                $('#p2_last_round').text('');
+            } else {
+                $('#p2_last_round').text('');
+                msg.p2_current_leg[msg.p2_current_leg.length - 1].forEach(function(score, index) {
+                    $('#p2_last_round').append(score_display[score] + ' ');
+                });
+            }
+        } else {
+            $('#p2_last_round').text('');
+        }
+
+        $.each(msg.p1_current_fields, function(index, value){
+            for (i = 1; i <= 3; i++) {
+                if (value['score'] > 0) {
+                    $('#marks-p1-' + index + '-score').text(value['score']);
+                } else {
+                    $('#marks-p1-' + index + '-score').text('');
+                }
+
+                if (value['marks'] >= i) {
+                    $('#marks-p1-' + index + '-' + i).show();
+                } else {
+                    $('#marks-p1-' + index + '-' + i).hide();
+                }
+                
+                if (value['marks'] == 3 && msg.p2_current_fields[index]['marks'] == 3) {
+                    $('#score-button-S' + index).addClass('disabled');
+                    $('#score-button-D' + index).addClass('disabled');
+                    if (index < 25) {
+                        $('#score-button-T' + index).addClass('disabled');
+                    }                    
+                } else {
+                    $('#score-button-S' + index).removeClass('disabled');
+                    $('#score-button-D' + index).removeClass('disabled');
+                    if (index < 25) {
+                        $('#score-button-T' + index).removeClass('disabled');
+                    }  
+                }
+            }            
+        });
+
+        $.each(msg.p2_current_fields, function(index, value){
+            for (i = 1; i <= 3; i++) {
+                if (value['score'] > 0) {
+                    $('#marks-p2-' + index + '-score').text(value['score']);
+                } else {
+                    $('#marks-p2-' + index + '-score').text('');
+                }
+
+                if (value['marks'] >= i) {
+                    $('#marks-p2-' + index + '-' + i).show();
+                } else {
+                    $('#marks-p2-' + index + '-' + i).hide();
+                }
+            }            
+        });
+    }
+
+    socket.on('game_shot', function(msg) {
+        if (muted == false) {
+            var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
+            audio.play();
+        }
+
+        update_scoreboards(msg);
+
         // popup for game shot
         $('#game-shot-modal').modal('show');
         if (msg.p1_won) {
-            var last_score = msg.type;
-            for (var i = 0; i < msg.p1_last_leg.length-1; i++) {
-                last_score -= msg.p1_last_leg[i] << 0;
-            }
             // score substraction animation
-            jQuery({Counter: last_score}).animate({Counter: -1}, {
+            jQuery({Counter:  msg.p1_old_score}).animate({Counter: msg.p1_last_score-1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -180,16 +234,13 @@ $(document).ready(function() {
                 }, 3000);
             });
         } else {
-            $('.p1_score').html(msg.p1_score);
+            $('.p1_score').html(msg.p1_last_score);
         }
+        
         if (!msg.p1_won) {
-            var last_score = msg.type;
-            for (var i = 0; i < msg.p2_last_leg.length-1; i++) {
-                last_score -= msg.p2_last_leg[i] << 0;
-            }
             // score substraction animation
-            jQuery({Counter: last_score}).animate({Counter: -1}, {
-                duration: 1500,
+            jQuery({Counter: msg.p2_old_score}).animate({Counter: msg.p2_last_score-1}, {
+                duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p2_score').text(Math.ceil(this.Counter));
@@ -204,7 +255,7 @@ $(document).ready(function() {
                 }, 3000);
             });
         } else {
-            $('.p2_score').text(msg.p2_score);
+            $('.p2_score').text(msg.p2_last_score);
         }
 
     });
@@ -217,10 +268,9 @@ $(document).ready(function() {
 
         var score = 0;
 
-        if ( !msg.p1_next_turn && msg.old_score > msg.p1_score) {
+        if ( msg.p1_old_score < msg.p1_score) {
             // score substraction animation
-            score = msg.old_score - msg.p1_score;
-            jQuery({Counter: msg.old_score}).animate({Counter: msg.p1_score-1}, {
+            jQuery({Counter: msg.p1_old_score}).animate({Counter: msg.p1_score-1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -233,10 +283,10 @@ $(document).ready(function() {
         } else {
             $('.p1_score').html(msg.p1_score);
         }
-        if ( msg.p1_next_turn && msg.old_score > msg.p2_score) {
-            score = msg.old_score - msg.p2_score;
+        if ( msg.p2_old_score < msg.p2_score) {
+            score = msg.p2_score - msg.p2_old_score;
             // score substraction animation
-            jQuery({Counter: msg.old_score}).animate({Counter: msg.p2_score-1}, {
+            jQuery({Counter: msg.p2_old_score}).animate({Counter: msg.p2_score-1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -250,77 +300,7 @@ $(document).ready(function() {
             $('.p2_score').text(msg.p2_score);
         }
 
-        if (msg['new_score'] && muted == false) {
-            var audio = new Audio('/static/sounds/' + caller + '/' + score + '.mp3');
-            audio.play();
-        }
-
-
-        // show current leg and set scores
-        $('.p1_sets').text(msg.p1_sets);
-        $('.p2_sets').text(msg.p2_sets);
-        $('.p1_legs').text(msg.p1_legs);
-        $('.p2_legs').text(msg.p2_legs);
-
-        // statistics
-        $('.p1_leg_avg').text(msg.p1_leg_avg);
-        $('.p2_leg_avg').text(msg.p2_leg_avg);
-        $('.p1_match_avg').text(msg.p1_match_avg);
-        $('.p2_match_avg').text(msg.p2_match_avg);
-        $('.p1_first9_avg').text(msg.p1_first9_avg);
-        $('.p2_first9_avg').text(msg.p2_first9_avg);
-        $('.p1_100').text(msg.p1_100);
-        $('.p2_100').text(msg.p2_100);
-        $('.p1_140').text(msg.p1_140);
-        $('.p2_140').text(msg.p2_140);
-        $('.p1_180').text(msg.p1_180);
-        $('.p2_180').text(msg.p2_180);
-        $('.p1_high_finish').text(msg.p1_high_finish);
-        $('.p2_high_finish').text(msg.p2_high_finish);
-        $('.p1_short_leg').text(msg.p1_short_leg);
-        $('.p2_short_leg').text(msg.p2_short_leg);
-        $('.p1_doubles').text((Math.round(msg.p1_doubles * 100) / 100) + '% ('+ msg.p1_legs_won + '/' + msg.p1_darts_thrown_double + ')');
-        $('.p2_doubles').text((Math.round(msg.p2_doubles * 100) / 100) + '% ('+ msg.p2_legs_won + '/' + msg.p2_darts_thrown_double + ')');
-
-        $('.p1_darts_this_leg').text((msg.p1_current_leg.length)*3);
-        $('.p2_darts_this_leg').text((msg.p2_current_leg.length)*3);
-
-        $('#p1_current_leg').text('');
-        $.each(msg.p1_current_leg, function( index, value ){
-            if ( index == msg.p1_current_leg.length-1 && !msg.p1_next_turn) {
-                $('#p1_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p1_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
-                )
-            };
-        });
-        $('#p2_current_leg').text('');
-        $.each(msg.p2_current_leg, function( index, value ){
-            if ( index == msg.p2_current_leg.length-1 && msg.p1_next_turn) {
-                $('#p2_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                )
-            }
-        });
+        update_scoreboards(msg);
 
         // Colored turn indicators.
         if (msg.p1_next_turn) {
@@ -361,66 +341,23 @@ $(document).ready(function() {
             setTimeout(function() {
                 socket.emit('send_score', {hashid: hashid['hashid'],
                     user_id: user_id['id'], computer: true});
-            }, 3000 + (cpu_delay * 1000));
+            }, 2000);
 
         }
     });
     // Remove turn indicators when game is over and show link to game overview
     socket.on('game_completed', function(msg) {
-        $('#p1_current_leg').text('');
-        var p1_last_leg_sum = 0;
-        if (msg.p1_last_leg.length > 0) {
-            p1_last_leg_sum = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
-        }
-        $.each(msg.p1_last_leg, function( index, value ){
-            if ( index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type) {
-                $('#p1_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div></div>"
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p1_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2 text-right text-secondary"><h3>' + (index+1) + "</h3></div></div>"
-                )
-            };
-        });
-        $('#p2_current_leg').text('');
-        $.each(msg.p2_last_leg, function( index, value ){
-            if ( index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type) {
-                $('#p2_current_leg').prepend(
-                    '<div id="new_score_fadein">' +
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                );
-                $('#new_score_fadein').hide().fadeIn(2000);
-            } else {
-                $('#p2_current_leg').prepend(
-                    '<div class="row text-light d-flex align-items-center"><div class="col-2 text-left text-secondary"><h3>' + (index + 1) + '</h3></div>' +
-                    '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                    '<div class="col-2"></div></div></div>'
-                )
-            }
-        });
-
         if (muted == false){
             var audio = new Audio('/static/sounds/' + caller + '/game_shot_match.mp3');
             audio.play();
         }
 
-        $('.p1_sets').text(msg.p1_sets);
-        $('.p2_sets').text(msg.p2_sets);
-        $('.p1_legs').text(msg.p1_legs);
-        $('.p2_legs').text(msg.p2_legs);
+        update_scoreboards(msg);
 
         $('#match-shot-modal').modal('show');
         if (msg.p1_won) {
-            jQuery({Counter: msg.p1_last_leg[msg.p1_last_leg.length-1]}).animate({Counter: -1}, {
+            // score substraction animation
+            jQuery({Counter:  msg.p1_old_score}).animate({Counter: msg.p1_last_score-1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -432,10 +369,12 @@ $(document).ready(function() {
                 }, 1500);
             });
         } else {
-            $('.p1_score').html(msg.p1_score);
+            $('.p1_score').html(msg.p1_last_score);
         }
+        
         if (!msg.p1_won) {
-            jQuery({Counter: msg.p2_last_leg[msg.p2_last_leg.length-1]}).animate({Counter: -1}, {
+            // score substraction animation
+            jQuery({Counter: msg.p2_old_score}).animate({Counter: msg.p2_last_score-1}, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -447,211 +386,52 @@ $(document).ready(function() {
                 }, 1500);
             });
         } else {
-            $('.p2_score').html(msg.p2_score);
+            $('.p2_score').text(msg.p2_last_score);
         }
+
         $('.score_input').hide();
         $('.confirm_completion').show();
 
         game_completed = true
     });
 
-    function send_score(double_missed, to_finish, score_value){
-        $.post(
-            // Various errors that are caught if you enter something wrong.
-            validation_url,
-            $("#score_input").serialize(),
-            function (errors) {
-                score_errors = errors;
-                if (jQuery.isEmptyObject(score_errors)) {
-                    socket.emit('send_score', {score: score_value, hashid: hashid['hashid'],
-                        user_id: user_id['id'], double_missed: double_missed, to_finish: to_finish,
-                        undo_active: undo_active});
-                    // turn off undo mode if active
-                    if (undo_active) {
-                        $('.undo-button').show();
-                        $('.undo-button-active').hide();
-                        undo_active = false;
-                    }
-                } else {
-                    $('#score_error').text(score_errors['score_value'][0]);
-                }
-                $('input[name=score_value]').val('');
-                $('#score_value_sm').val($('#score_value').val());
-            });
+    function send_score(score_value){
+        socket.emit('send_score', {score: score_value, hashid: hashid['hashid'],
+            user_id: user_id['id'], undo_active: undo_active
+        });
+    // turn off undo mode if active
+    if (undo_active) {
+        $('.undo-button').show();
+        $('.undo-button-active').hide();
+        undo_active = false;
     }
-
-    function handle_score_input(remaining_score, score_value) {
-        // p1_id is undefined --> closest to bull
-        if (p1_id == null) {
-            send_score(0, 0, score_value);
-            return false;
-        }
-
-        // player checkout
-        if (remaining_score == score_value) {
-
-            // modal for double misses
-            const modal = new Promise(function (resolve) {
-                // you cannot miss 3 darts if you check
-                $('#double-missed-3').hide();
-
-                // one dart checkout possible
-                if ((remaining_score <= 40 && remaining_score % 2 == 0) || remaining_score == 50) {
-                    $('#double-missed-2').show();
-                } else {
-                    $('#double-missed-2').hide();
-                }
-
-                // two dart checkout possible (naive)
-                if (remaining_score > 110) {
-                    $('#double-missed-1').hide();
-                } else {
-                    $('#double-missed-1').show();
-                }
-                // missing none is always possible
-                $('#double-missed-0').show();
-
-                // if it's clear we do not need to ask (score too high for missed doubles)
-                if ( remaining_score > 110 || out_mode == 'so' ) {
-                    resolve(0);
-                } else {
-                    $('#double-missed-modal').modal('show');
-                    $('#double-missed-modal #double-missed-2').click(function () {
-                        resolve(2);
-                    });
-                    $('#double-missed-modal #double-missed-1').click(function () {
-                        resolve(1);
-                    });
-                    $('#double-missed-modal #double-missed-0').click(function () {
-                        resolve(0);
-                    });
-                }
-            }).then(function (val) {
-                double_missed = val;
-
-                // modal for darts needed for checkout
-                const modal2 = new Promise(function (resolve) {
-                    // 3 darts for finishing are always possible
-                    $('#to-finish-3').show();
-
-                    // double out: 2 dart finish is only possible at 110 or lower (naive)
-                    // single/master out: 2 dart finish is only possible at 120 or lower (naive)
-                    if (remaining_score > 120 || (out_mode == 'do' && remaining_score > 110)) {
-                        $('#to-finish-2').hide();
-                    } else {
-                        $('#to-finish-2').show();
-                    }
-
-                    // 1 dart finish only for checkable remaining scores
-                    if ((out_mode == 'do' && ((remaining_score <= 40 && remaining_score % 2 == 0) || remaining_score == 50))
-                        || (out_mode != 'do' && remaining_score <= 60)) {
-                        $('#to-finish-1').show();
-                    } else {
-                        $('#to-finish-1').hide();
-                    }
-
-                    // no need to ask if it must be a 3-dart checkout
-                    if (remaining_score > 110 || double_missed == 2) {
-                        resolve(3);
-                    } else {
-                        $('#darts-to-finish-modal').modal('show');
-                        $('#darts-to-finish-modal #to-finish-3').click(function () {
-                            resolve(3);
-                        });
-                        $('#darts-to-finish-modal #to-finish-2').click(function () {
-                            resolve(2);
-                        });
-                        $('#darts-to-finish-modal #to-finish-1').click(function () {
-                            resolve(1);
-                        });
-                    }
-                }).then(function (val) {
-                    to_finish = val;
-                    send_score(double_missed, to_finish, score_value);
-                    return false;
-                });
-            });
-        }
-        // if remaining score - score_value is higher than 50 there is no way for a double attempt,
-        // unless 0 was entered as score (0 might indicate a bust) - in this case, >170 is safe for no doubles
-        else if ((remaining_score - score_value > 50 && score_value > 0) || (remaining_score > 170)
-            || (out_mode == 'so')) {
-            send_score(0, 0, score_value);
-            return false;
-        }
-        // maybe a double was missed
-        else {
-            // modal for double misses
-            const modal = new Promise(function (resolve) {
-                // you can only miss 3 if you started on a checkout score
-                if ((remaining_score <= 40 && remaining_score % 2 == 0) || remaining_score == 50) {
-                    $('#double-missed-3').show();
-                } else {
-                    $('#double-missed-3').hide();
-                }
-
-                // if a checkout is reachable with 1 dart --> 2 dart checkout possible (naive)
-                if (remaining_score <= 110) {
-                    $('#double-missed-2').show();
-                } else {
-                    $('#double-missed-2').hide();
-                }
-
-                // in our case a 1-dart miss is possible
-                $('#double-missed-1').show();
-
-                // missing none is always possible
-                $('#double-missed-0').show();
-
-                $('#double-missed-modal').modal('show');
-                $('#double-missed-modal #double-missed-3').click(function () {
-                    resolve(3);
-                });
-                $('#double-missed-modal #double-missed-2').click(function () {
-                    resolve(2);
-                });
-                $('#double-missed-modal #double-missed-1').click(function () {
-                    resolve(1);
-                });
-                $('#double-missed-modal #double-missed-0').click(function () {
-                    resolve(0);
-                });
-
-            }).then(function (val) {
-                double_missed = val;
-                send_score(double_missed, 0, score_value);
-            });
-        }
-    }
+    $('input[name=score_value]').val('');
+    $('#score_value_sm').val($('#score_value').val());
+    };
 
     socket.on('undo_remaining_score', function(msg) {
-        handle_score_input(msg['remaining_score'], msg['score_value']);
+        send_score(msg['score_value']);
     });
 
     // Handler for the score input form.
-    var validation_url = $('#validation_url').data();
     var user_id = $('#user_id').data();
-    var score_errors = [];
-    var double_missed = 0;
-    var to_finish = 0;
 
     $('form#score_input').submit(function(event) {
-        $('#score_error').text('');
         var score_value = $('#score_value').val();
 
         // check for valid input values
-        if (score_value <= 180) {
+        if (score_value <= 60) {
             // check for undo last score
             if (undo_active) {
                 socket.emit('undo_request_remaining_score', {hashid: hashid['hashid'], score_value: score_value});
             }
             // player 1 handler
             else if ((user_id['id'] == p1_id && p1_next_turn) || (p1_id == null)) {
-                handle_score_input($('#p1_score').text(), score_value);
+                send_score(score_value);
             }
             // player 2 handler
             else if ((user_id['id'] == p2_id && !p1_next_turn) || (p2_id == null)) {
-                handle_score_input($('#p2_score').text(), score_value);
+                send_score(score_value);
             }
             return false;
         } else {
@@ -663,145 +443,189 @@ $(document).ready(function() {
     // handle key inputs
     $(document).keydown(function(e){
         var keyCode = e.which;
-
         var score_input = document.getElementById('score_value');
-        var score_input_sm = document.getElementById('score_value_sm');
         var message_input = document.getElementById('message');
         var message_input_small = document.getElementById('message_small');
 
-        if (document.activeElement != score_input && document.activeElement != score_input_sm
+        if (document.activeElement != score_input
             && document.activeElement != message_input && document.activeElement != message_input_small
             && game_completed == false) {
             // 1
             if (keyCode == 49 || keyCode == 97) {
-                if ($('#double-missed-1').is(":visible")){
-                    $('#double-missed-1').click();
-                } else if ($('#to-finish-1').is(":visible")){
-                    $('#to-finish-1').click();
-                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")){
-                    $('.score_value').val($('.score_value').val() + '1');
-                }
+                $('.score_value').val($('.score_value').val() + '1');
             }
             // 2
             else if (keyCode == 50 || keyCode == 98) {
-                if ($('#double-missed-2').is(":visible")){
-                    $('#double-missed-2').click();
-                } else if ($('#to-finish-2').is(":visible")){
-                    $('#to-finish-2').click();
-                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")){
-                    $('.score_value').val($('.score_value').val() + '2');
-                }
+                $('.score_value').val($('.score_value').val() + '2');
             }
             // 3
             else if (keyCode == 51 || keyCode == 99) {
-                if ($('#double-missed-3').is(":visible")){
-                    $('#double-missed-3').click();
-                } else if ($('#to-finish-3').is(":visible")){
-                    $('#to-finish-3').click();
-                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
-                    $('.score_value').val($('.score_value').val() + '3');
-                }
+                $('.score_value').val($('.score_value').val() + '3');
             }
             // 0
             else if (keyCode == 48 || keyCode == 96) {
-                if ($('#double-missed-0').is(":visible")) {
-                    $('#double-missed-0').click();
-                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
-                    $('.score_value').val($('.score_value').val() + '0');
-                }
+                $('.score_value').val($('.score_value').val() + '0');
             }
             // 4
-            else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
-
-                if (keyCode == 52 || keyCode == 100)
-                {
-                    $('.score_value').val($('.score_value').val() + '4');
-                }
-                // 5
-                else if (keyCode == 53 || keyCode == 101) {
-                    $('.score_value').val($('.score_value').val() + '5');
-                }
-                // 6
-                else if (keyCode == 54 || keyCode == 102) {
-                    $('.score_value').val($('.score_value').val() + '6');
-                }
-                // 7
-                else if (keyCode == 55 || keyCode == 103) {
-                    $('.score_value').val($('.score_value').val() + '7');
-                }
-                // 8
-                else if (keyCode == 56 || keyCode == 104) {
-                    $('.score_value').val($('.score_value').val() + '8');
-                }
-                // 9
-                else if (keyCode == 57 || keyCode == 105) {
-                    $('.score_value').val($('.score_value').val() + '9');
-                }
-                else if (keyCode == 13) {
-                    $('.score_input').submit();
-                }
-                else if (keyCode == 8) {
-                    e.preventDefault();
-                    $('.score_value').val($('.score_value').val().slice(0, -1));
-                }
+            else if (keyCode == 52 || keyCode == 100) {
+                $('.score_value').val($('.score_value').val() + '4');
+            }
+            // 5
+            else if (keyCode == 53 || keyCode == 101) {
+                $('.score_value').val($('.score_value').val() + '5');
+            }
+            // 6
+            else if (keyCode == 54 || keyCode == 102) {
+                $('.score_value').val($('.score_value').val() + '6');
+            }
+            // 7
+            else if (keyCode == 55 || keyCode == 103) {
+                $('.score_value').val($('.score_value').val() + '7');
+            }
+            // 8
+            else if (keyCode == 56 || keyCode == 104) {
+                $('.score_value').val($('.score_value').val() + '8');
+            }
+            // 9
+            else if (keyCode == 57 || keyCode == 105) {
+                $('.score_value').val($('.score_value').val() + '9');
+            }
+            else if (keyCode == 13) {
+                $('.score_input').submit();
+            }
+            else if (keyCode == 8) {
+                e.preventDefault();
+                $('.score_value').val($('.score_value').val().slice(0, -1));
             }
         }
-
     });
 
 
     // onscreen keyboard functions
-    $('.button-1').click(function() {
-        $('.score_value').val($('.score_value').val() + '1');
-    });
-    $('.button-2').click(function() {
-        $('.score_value').val($('.score_value').val() + '2');
-    });
-    $('.button-3').click(function() {
-        $('.score_value').val($('.score_value').val() + '3');
-    });
-    $('.button-4').click(function() {
-        $('.score_value').val($('.score_value').val() + '4');
-    });
-    $('.button-5').click(function() {
-        $('.score_value').val($('.score_value').val() + '5');
-    });
-    $('.button-6').click(function() {
-        $('.score_value').val($('.score_value').val() + '6');
-    });
-    $('.button-7').click(function() {
-        $('.score_value').val($('.score_value').val() + '7');
-    });
-    $('.button-8').click(function() {
-        $('.score_value').val($('.score_value').val() + '8');
-    });
-    $('.button-9').click(function() {
-        $('.score_value').val($('.score_value').val() + '9');
-    });
-    $('.button-0').click(function() {
-        $('.score_value').val($('.score_value').val() + '0');
-    });
-    $('.button-del').click(function() {
-        $('.score_value').val('');
-    });
-    $('.button-conf').click(function() {
-        if (game_completed == false)
-               $('.score_input').submit();
+    $('#score-button-0').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(0);
+        }        
     });
 
-
-    // Toggle keypad
-    $('#hide-keypad').click(function() {
-        $('.keypad').toggle();
+    $('#score-button-S15').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(15);
+        }        
     });
 
-    // Toggle keypad
-    $('#change-keypad').click(function() {
-        $('.score-input').toggleClass('d-none d-md-block');
-        $('.score-input').toggleClass('d-md-none');
-        $('#p1_current_leg').toggleClass('col-md-4');
-        $('#p2_current_leg').toggleClass('col-md-4');
+    $('#score-button-D15').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(30);
+        }        
+    });
 
+    $('#score-button-T15').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(45);
+        }        
+    });
+
+    $('#score-button-S16').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(16);
+        }        
+    });
+
+    $('#score-button-D16').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(32);
+        }        
+    });
+
+    $('#score-button-T16').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(48);
+        }        
+    });
+
+    $('#score-button-S17').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(17);
+        }        
+    });
+
+    $('#score-button-D17').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(34);
+        }        
+    });
+
+    $('#score-button-T17').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(51);
+        }        
+    });
+
+    $('#score-button-S18').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(18);
+        }        
+    });
+
+    $('#score-button-D18').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(36);
+        }        
+    });
+
+    $('#score-button-T18').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(54);
+        }        
+    });
+
+    $('#score-button-S19').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(19);
+        }        
+    });
+
+    $('#score-button-D19').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(38);
+        }        
+    });
+
+    $('#score-button-T19').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(57);
+        }        
+    });
+
+    $('#score-button-S20').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(20);
+        }        
+    });
+
+    $('#score-button-D20').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(40);
+        }        
+    });
+
+    $('#score-button-T20').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(60);
+        }        
+    });
+
+    $('#score-button-S25').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(25);
+        }        
+    });
+
+    $('#score-button-D25').click(function() {
+        if ($(this).hasClass('disabled') == false) {
+            send_score(50);
+        }        
     });
 
     // Toggle keypad
@@ -829,7 +653,6 @@ $(document).ready(function() {
     $('#abort-confirm').click(function() {
         var hashid = $('#hash_id').data()['hashid'];
         var abort_url = $('#abort_url').data()['url'];
-        console.log(abort_url + hashid);
         $.post(abort_url + hashid);
     });
 
@@ -847,6 +670,39 @@ $(document).ready(function() {
         $('.undo-button-active').hide();
         undo_active = false;
     });
+
+    $('#appleActivateSound').click(function() {
+        audio.play();
+        $('#appleActivateSound').hide();
+    });
+
+    function getOS() {
+        var userAgent = window.navigator.userAgent,
+            platform = window.navigator.platform,
+            macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+            windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+            iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+            os = null;
+      
+        if (macosPlatforms.indexOf(platform) !== -1) {
+          os = 'Mac OS';
+        } else if (iosPlatforms.indexOf(platform) !== -1) {
+          os = 'iOS';
+        } else if (windowsPlatforms.indexOf(platform) !== -1) {
+          os = 'Windows';
+        } else if (/Android/.test(userAgent)) {
+          os = 'Android';
+        } else if (!os && /Linux/.test(platform)) {
+          os = 'Linux';
+        }
+      
+        return os;
+      }
+
+    var os = getOS();
+    if (os == 'Mac OS' || os == 'iOS') {
+        $('#appleActivateSound').show();
+    }
 
 
 });

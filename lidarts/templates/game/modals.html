@@ -1,29 +1,55 @@
 <!-- GAME SHOT OVERLAY -->
 <div class="modal fade game-shot-modal" id="game-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <h2 class="text-center">Game Shot</h2>
+            <h3 class="text-center">{{ _('Check dart:') }} <span class="checkDart"></span></h3>
         </div>
     </div>
 </div>
 
 <!-- MATCH SHOT OVERLAY -->
 <div class="modal fade match-shot-modal" id="match-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <h2 class="text-center">Game Shot and the match</h2>
+            <h3 class="text-center">{{ _('Check dart:') }} <span class="checkDart"></span></h3>
         </div>
     </div>
 </div>
 
+<!-- MISSED AT DOUBLE OVERLAY -->
+<div class="modal fade" id="double-missed-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <h4 class="text-center">{{ _('How many darts missed at double?') }}</h4>
+            <button type="button" class="btn btn-primary double-missed-3 btn-lg mt-2" data-dismiss="modal" id="double-missed-3">3</button>
+            <button type="button" class="btn btn-primary double-missed-2 btn-lg mt-2" data-dismiss="modal" id="double-missed-2">2</button>
+            <button type="button" class="btn btn-primary double-missed-1 btn-lg mt-2" data-dismiss="modal" id="double-missed-1">1</button>
+            <button type="button" class="btn btn-primary double-missed-0 btn-lg mt-2 mb-2" data-dismiss="modal" id="double-missed-0">0</button>
+        </div>
+    </div>
+</div>
+
+<!-- DARTS TO FINISH OVERLAY -->
+<div class="modal fade" id="darts-to-finish-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <h4 class="text-center">{{ _('How many darts to finish?') }}</h4>
+            <button type="button" class="btn btn-primary btn-lg mt-2" data-dismiss="modal" id="to-finish-3">3</button>
+            <button type="button" class="btn btn-primary btn-lg mt-2" data-dismiss="modal" id="to-finish-2">2</button>
+            <button type="button" class="btn btn-primary btn-lg mt-2 mb-2" data-dismiss="modal" id="to-finish-1">1</button>
+        </div>
+    </div>
+</div>
 
 <!-- ABORT GAME MODAL -->
 <div class="modal fade abort-game-modal" id="abort-game-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
             <h3 class="text-center">{{ _('Abort game?') }}</h3>
-            <button type="button" class="btn btn-success" data-dismiss="modal" id="abort-confirm">{{ _('Confirm') }}</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" id="abort-cancel">{{ _('Cancel') }}</button>
+            <button type="button" class="btn btn-success btn-lg mt-2" data-dismiss="modal" id="abort-confirm">{{ _('Confirm') }}</button>
+            <button type="button" class="btn btn-danger btn-lg mt-2 mb-2" data-dismiss="modal" id="abort-cancel">{{ _('Cancel') }}</button>
         </div>
     </div>
 </div>

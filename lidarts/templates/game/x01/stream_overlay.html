@@ -18,39 +18,6 @@
 {% block app_content %}
 
 
-<div class="row justify-content-center align-items-center mb-3">
-    <div class="col-12">
-        <table class="table table-sm bg-dark text-light stats-table text-center" style="table-layout: fixed; width: 500px">
-            <tr class="">
-                <td class="" style="width: 50px;"></td>
-                <td class="text-left border border-right-0 border-secondary" style="{% if game.bo_sets > 1 %}width: 210px;{% else %}width: 280px;{% endif %}"><h4>Best of {% if game.bo_sets == 1 %}{{ game.bo_legs }}
-                    {% else %}{{ game.bo_sets }}{% endif %}</h4></td>
-                <td class="border border-right-0 border-secondary" style="width: 70px; {% if game.bo_sets == 1 %}display:none;{% endif %}"><h4>Sets</h4></td>
-                <td class="border border-secondary" style="width: 70px;"><h4>Legs</h4></td>
-                <td style="width: 70px;"></td>
-                <td style="width: 30px;"></td>
-            </tr>
-            <tr class="">
-                <td class="font-weight-bold text-secondary align-middle"><h5 class="p1_darts_this_leg"></h5></td>
-                <td class="bg-light text-dark border border-secondary text-left player_name"><h3><span>{{ game.player1_name }}</span></h3></td>
-                <td class="bg-danger border border-secondary" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h3 class="p1_sets"></h3></td>
-                <td class="bg-danger border border-secondary"><h3 class="p1_legs"></h3></td>
-                <td class="bg-danger border border-secondary"><h3 class="p1_score" id="p1_score"></h3></td>
-                <td class=""><h3 class="p1_turn_incidator"></h3></td>
-            </tr>
-            <tr class="">
-                <td class="font-weight-bold text-secondary align-middle"><h5 class="p2_darts_this_leg"></h5></td>
-                <td class="bg-light text-dark border border-secondary text-left player_name"><h3><span>{{ game.player2_name }}</span></h3></td>
-                <td class="bg-danger border border-secondary" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h3 class="p2_sets"></h3></td>
-                <td class="bg-danger border border-secondary"><h3 class="p2_legs"></h3></td>
-                <td class="bg-danger border border-secondary"><h3 class="p2_score" id="p2_score"></h3></td>
-                <td class=""><h3 class="p2_turn_incidator"></h3></td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-
 {% if game.closest_to_bull %}
 <div class="row text-light  text-center mt-2" id="closest_to_bull_notification_div">
     <div class="col-12">
@@ -89,10 +56,14 @@
 <div class="row justify-content-center align-items-start">
     <!-- SCOREBOARD PLAYER 1 -->
     <div class="col-lg-4 col-md-4 col-6 mt-3" id="p1_current_leg">
+        <p><span class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
     </div>
 
     <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
     <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block score-input">
+
+        <p class="text-light text-center mb-2 {% if game.player1 != current_user.id or not settings.checkout_suggestions %}d-none{% endif %}"><span class="p1_checkout_suggestion"></span></p>
+        <p class="text-light text-center mb-2 {% if game.player2 != current_user.id or not settings.checkout_suggestions %}d-none{% endif %}"><span class="p2_checkout_suggestion"></span></p>
 
         <!-- GAME END CONFIRMATION -->
         <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
@@ -176,7 +147,8 @@
     </div>
 
     <!-- SCOREBOARD PLAYER 2 -->
-    <div class="col-lg-4 col-md-4 col-6 mt-3" id="p2_current_leg">
+    <div class="col-lg-4 col-md-4 col-6 mt-3" >
+        <span id="p2_current_leg"></span>
     </div>
 </div>
 
@@ -369,7 +341,7 @@
 
 <!-- GAME SHOT OVERLAY -->
 <div class="modal fade game-shot-modal" id="game-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <h2 class="text-center">Game Shot</h2>
         </div>
@@ -378,7 +350,7 @@
 
 <!-- MATCH SHOT OVERLAY -->
 <div class="modal fade match-shot-modal" id="match-shot-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <h2 class="text-center">Game Shot and the match</h2>
         </div>
@@ -390,10 +362,10 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <h4 class="text-center">{{ _('How many darts missed at double?') }}</h4>
-            <button type="button" class="btn btn-primary double-missed-3" data-dismiss="modal" id="double-missed-3">3</button>
-            <button type="button" class="btn btn-primary double-missed-2" data-dismiss="modal" id="double-missed-2">2</button>
-            <button type="button" class="btn btn-primary double-missed-1" data-dismiss="modal" id="double-missed-1">1</button>
-            <button type="button" class="btn btn-primary double-missed-0" data-dismiss="modal" id="double-missed-0">0</button>
+            <button type="button" class="btn btn-primary double-missed-3 btn-lg mt-2" data-dismiss="modal" id="double-missed-3">3</button>
+            <button type="button" class="btn btn-primary double-missed-2 btn-lg mt-2" data-dismiss="modal" id="double-missed-2">2</button>
+            <button type="button" class="btn btn-primary double-missed-1 btn-lg mt-2" data-dismiss="modal" id="double-missed-1">1</button>
+            <button type="button" class="btn btn-primary double-missed-0 btn-lg mt-2 mb-2" data-dismiss="modal" id="double-missed-0">0</button>
         </div>
     </div>
 </div>
@@ -403,9 +375,9 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <h4 class="text-center">{{ _('How many darts to finish?') }}</h4>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="to-finish-3">3</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="to-finish-2">2</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="to-finish-1">1</button>
+            <button type="button" class="btn btn-primary btn-lg mt-2" data-dismiss="modal" id="to-finish-3">3</button>
+            <button type="button" class="btn btn-primary btn-lg mt-2" data-dismiss="modal" id="to-finish-2">2</button>
+            <button type="button" class="btn btn-primary btn-lg mt-2 mb-2" data-dismiss="modal" id="to-finish-1">1</button>
         </div>
     </div>
 </div>
@@ -415,8 +387,8 @@
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
             <h3 class="text-center">{{ _('Abort game?') }}</h3>
-            <button type="button" class="btn btn-success" data-dismiss="modal" id="abort-confirm">{{ _('Confirm') }}</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" id="abort-cancel">{{ _('Cancel') }}</button>
+            <button type="button" class="btn btn-success btn-lg mt-2" data-dismiss="modal" id="abort-confirm">{{ _('Confirm') }}</button>
+            <button type="button" class="btn btn-danger btn-lg mt-2 mb-2" data-dismiss="modal" id="abort-cancel">{{ _('Cancel') }}</button>
         </div>
     </div>
 </div>
@@ -428,19 +400,21 @@
 
 {% block scripts %}
 <meta id="hash_id" data-hashid="{{ game.hashid }}">
-<meta id="validation_url" data-url="{{ url_for('game.validate_score') }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
+<meta id="player1_id" data-id="{{ game.player1 }}">
+<meta id="player2_id" data-id="{{ game.player2 }}">
 <meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
 <meta id="caller" data-caller="{{ caller }}">
 <meta id="cpu_delay" data-cpu_delay="{{ cpu_delay }}">
+<meta id="score_input_delay" data-delay="{{ game.score_input_delay }}">
 <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
 <meta id="chat_validation_url" data-url="{{ url_for('generic.validate_game_chat_message') }}">
 
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
-<script type="text/javascript" src="/static/js/x01_socket.js"></script>
-<script type="text/javascript" src="/static/js/game_chat_socket.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/x01_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game_chat_socket.js', version=config.VERSION) }}"></script>
 {% else %}
-<script type="text/javascript" src="/static/js/x01_spectator_socket.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_spectator_socket.js', version=config.VERSION) }}"></script>
 {% endif %}
 {% endblock %}
