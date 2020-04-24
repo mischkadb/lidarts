@@ -134,10 +134,8 @@ $(document).ready(function() {
         }
 
         if (msg.p1_current_leg.length > 0) {
-            if (msg.p1_next_turn && msg.p1_current_leg[msg.p1_current_leg.length - 1].length == 3) {
-                $('#p1_last_round').text('');
-            } else {
-                $('#p1_last_round').text('');
+            $('#p1_last_round').text('');
+            if (!(msg.score_confirmed && msg.p1_next_turn)) {
                 msg.p1_current_leg[msg.p1_current_leg.length - 1].forEach(function(score, index) {
                     $('#p1_last_round').append(score_display[score] + ' ');
                 });
@@ -147,10 +145,8 @@ $(document).ready(function() {
         }
 
         if (msg.p2_current_leg.length > 0) {
-            if (!msg.p1_next_turn && msg.p2_current_leg.length > 0 && msg.p2_current_leg[msg.p2_current_leg.length - 1].length == 3) {
-                $('#p2_last_round').text('');
-            } else {
-                $('#p2_last_round').text('');
+            $('#p2_last_round').text('');
+            if (!(msg.score_confirmed && !msg.p1_next_turn)) {
                 msg.p2_current_leg[msg.p2_current_leg.length - 1].forEach(function(score, index) {
                     $('#p2_last_round').append(score_display[score] + ' ');
                 });
@@ -395,23 +391,19 @@ $(document).ready(function() {
         game_completed = true
     });
 
-    function send_score(score_value){
-        socket.emit('send_score', {score: score_value, hashid: hashid['hashid'],
-            user_id: user_id['id'], undo_active: undo_active
-        });
-    // turn off undo mode if active
-    if (undo_active) {
-        $('.undo-button').show();
-        $('.undo-button-active').hide();
-        undo_active = false;
-    }
-    $('input[name=score_value]').val('');
-    $('#score_value_sm').val($('#score_value').val());
+    function confirm_score() {
+        socket.emit('confirm_score', {hashid: hashid['hashid']});
     };
 
-    socket.on('undo_remaining_score', function(msg) {
-        send_score(msg['score_value']);
-    });
+    function send_score(score_value){
+        socket.emit('send_score', {
+            score: score_value, hashid: hashid['hashid'],
+            user_id: user_id['id'],
+        });
+
+        $('input[name=score_value]').val('');
+        $('#score_value_sm').val($('#score_value').val());
+    };
 
     // Handler for the score input form.
     var user_id = $('#user_id').data();
@@ -421,12 +413,8 @@ $(document).ready(function() {
 
         // check for valid input values
         if (score_value <= 60) {
-            // check for undo last score
-            if (undo_active) {
-                socket.emit('undo_request_remaining_score', {hashid: hashid['hashid'], score_value: score_value});
-            }
             // player 1 handler
-            else if ((user_id['id'] == p1_id && p1_next_turn) || (p1_id == null)) {
+            if ((user_id['id'] == p1_id && p1_next_turn) || (p1_id == null)) {
                 send_score(score_value);
             }
             // player 2 handler
@@ -499,8 +487,7 @@ $(document).ready(function() {
             }
         }
     });
-
-
+    
     // onscreen keyboard functions
     $('#score-button-0').click(function() {
         if ($(this).hasClass('disabled') == false) {
@@ -633,6 +620,12 @@ $(document).ready(function() {
         $('.statistics').toggle();
     });
 
+    // Toggle chat
+    $('#toggle-chat').click(function() {
+        $('#chat').toggle();
+        $('#cricket_scoreboard').toggle();
+    });
+
     // Abort game
     $('#abort-game').click(function() {
         $('#abort-game-modal').modal('show');
@@ -656,19 +649,12 @@ $(document).ready(function() {
         $.post(abort_url + hashid);
     });
 
-    // Undo score
-    var undo_active = false;
-
-    $('.undo-button').click(function() {
-        $('.undo-button').hide();
-        $('.undo-button-active').show();
-        undo_active = true;
+    $('#score-confirm').click(function() {
+        confirm_score();
     });
 
-    $('.undo-button-active').click(function() {
-        $('.undo-button').show();
-        $('.undo-button-active').hide();
-        undo_active = false;
+    $('#score-undo').click(function() {
+        socket.emit('undo_score', {hashid: hashid['hashid']});
     });
 
     $('.rematch-offer').click(function() {

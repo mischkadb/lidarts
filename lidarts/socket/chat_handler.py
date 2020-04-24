@@ -2,7 +2,7 @@ from flask import request
 from flask_socketio import emit, join_room
 from flask_login import current_user
 from lidarts import socketio, db
-from lidarts.models import User, Chatmessage, Privatemessage, Notification, Game, ChatmessageIngame, UserStatistic, UserSettings
+from lidarts.models import User, Chatmessage, Privatemessage, Notification, Game, CricketGame, ChatmessageIngame, UserStatistic, UserSettings
 from lidarts.socket.utils import broadcast_online_players, send_notification
 from lidarts.utils.linker import linker
 from datetime import datetime

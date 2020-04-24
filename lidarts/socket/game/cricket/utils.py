@@ -147,6 +147,7 @@ def process_score(game, score_value):
     fields = current_player_json['fields']
     points = current_player_json['points']
     opponent_fields = opponent_json['fields']
+    opponent_scores = opponent_json['scores']
 
     if score_value > 0:
         if 0 < score_value <= 25:
@@ -168,7 +169,7 @@ def process_score(game, score_value):
         
         # check for closed field
         if opponent_fields[field]['marks'] == 3:
-            score_value = (score_value / marks) * (marks - marks_to_score)
+            score_value = (score_value // marks) * (marks - marks_to_score)
             marks_to_score = 0
 
         fields[field]['score'] += marks_to_score * int(field)
@@ -178,6 +179,10 @@ def process_score(game, score_value):
         scores[-1].append(score_value)
     else:
         scores.append([score_value])
+        game.undo_possible = True
+
+    if len(scores[-1]) == 3:
+        game.confirmation_needed = True
 
     player_dict['p_score'] = points
     match_json[current_values['set']][current_values['leg']][current_values['player']]['scores'] = scores
@@ -220,9 +225,6 @@ def process_score(game, score_value):
     # new leg
     elif new_leg_starter:
         game.p1_next_turn = True if new_leg_starter == '1' else False
-    else:
-        if len(scores[-1]) == 3:
-            game.p1_next_turn = not game.p1_next_turn
         
     db.session.commit()
     return game

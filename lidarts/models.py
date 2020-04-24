@@ -162,6 +162,8 @@ class Game(GameBase):
 
 class CricketGame(GameBase):
     __tablename__ = 'games_cricket'
+    confirmation_needed = db.Column(db.Boolean, default=False)
+    undo_possible = db.Column(db.Boolean, default=False)
 
 
 class Chatmessage(db.Model):
