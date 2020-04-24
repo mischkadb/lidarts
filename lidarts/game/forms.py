@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import IntegerField, SelectField, SubmitField, StringField, BooleanField
 from wtforms.validators import DataRequired, InputRequired, NumberRange, ValidationError, Length
 
-game_types = [('170', '170'), ('301', '301'), ('501', '501'), ('1001', '1001')]
+game_types = [('170', '170'), ('301', '301'), ('501', '501'), ('701', '701'), ('1001', '1001')]
 opponents = [('local', lazy_gettext('Local')), ('online', 'Online'), ('computer', 'Computer')]
 level = [(str(x), str(x)) for x in range(1, 10)]
 starter = [('me', lazy_gettext('Me')), ('opponent', lazy_gettext('Opponent')),

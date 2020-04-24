@@ -13,7 +13,7 @@ def prepare_x01_form(opponent_name, tournament_hashid):
         db.session.commit()
     
     if request.args.get('type'):
-        x01_type = request.args.get('type') if request.args.get('type') in ['170', '301', '501', '1001'] else '170'
+        x01_type = request.args.get('type') if request.args.get('type') in ['170', '301', '501', '701', '1001'] else '170'
     elif preset.type:
         x01_type = preset.type
     else:
