@@ -11,7 +11,7 @@ def prepare_x01_form(opponent_name, tournament_hashid):
         preset = X01Presetting(user=current_user.id)
         db.session.add(preset)
         db.session.commit()
-    
+
     if request.args.get('type'):
         x01_type = request.args.get('type') if request.args.get('type') in ['170', '301', '501', '701', '1001'] else '170'
     elif preset.type:
@@ -103,15 +103,14 @@ def prepare_x01_form(opponent_name, tournament_hashid):
         score_input_delay=score_input_delay,
         webcam=webcam,
     )
+
     tournaments = current_user.tournaments
     tournament_choices = []
     for tournament in tournaments:
         tournament_choices.append((tournament.hashid, tournament.name))
-        if tournament_hashid and tournament_hashid == tournament.hashid and request.method == 'GET':
-            form.tournament.default = tournament_hashid
-            form.process()
     tournament_choices.append(('-', '-'))
     form.tournament.choices = tournament_choices[::-1]
+    if tournament_hashid and tournament_hashid == tournament.hashid and request.method == 'GET':
+        form.tournament.data = tournament_hashid
 
     return form
-   
