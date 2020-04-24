@@ -212,7 +212,7 @@ def create_rematch(hashid):
 
 
 @socketio.on('confirm_score', namespace='/game/cricket')
-def confirm_score(message):
+def confirm_score(message, computer=False):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
     if not game.confirmation_needed:
         return
@@ -230,7 +230,7 @@ def confirm_score(message):
             send_score_response(game, game.p1_score, game.p2_score, broadcast=True, confirmed=True)
             return
 
-    if not game.p1_next_turn and current_user.id == game.player2:
+    if (not game.p1_next_turn and current_user.id == game.player2) or computer:
         p2_current_leg_scores = match_json[current_set][current_leg]['2']['scores']
         if len(p2_current_leg_scores[-1]) == 3:
             game.p1_next_turn = not game.p1_next_turn
@@ -294,16 +294,18 @@ def send_score(message):
     hashid = message['hashid']
     game = CricketGame.query.filter_by(hashid=hashid).first()
 
-    if message['score'] == '':
-        confirm_score(message)
-        return  
-
-    if game.confirmation_needed:
-        return
-
     if 'computer' in message and not game.p1_next_turn:
+        if game.confirmation_needed:
+            confirm_score(message, computer=True)
+            return
         # calculate computer's score
         message['score'] = get_computer_score(message['hashid'])
+    elif message['score'] == '':
+        # confirm function for keyboard
+        confirm_score(message)
+        return  
+    elif game.confirmation_needed:
+        return
     # players may throw simultaneously at closest to bull
     elif int(message['user_id']) != current_turn_user_id(message['hashid'], True) and not game.closest_to_bull:
         return
