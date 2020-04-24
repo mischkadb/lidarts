@@ -395,6 +395,10 @@ $(document).ready(function() {
         socket.emit('confirm_score', {hashid: hashid['hashid']});
     };
 
+    function undo_score() {
+        socket.emit('undo_score', {hashid: hashid['hashid']});
+    };
+
     function send_score(score_value){
         socket.emit('send_score', {
             score: score_value, hashid: hashid['hashid'],
@@ -483,7 +487,11 @@ $(document).ready(function() {
             }
             else if (keyCode == 8) {
                 e.preventDefault();
-                $('.score_value').val($('.score_value').val().slice(0, -1));
+                if ($('.score_value').val() == '') {
+                    undo_score()
+                } else {
+                    $('.score_value').val($('.score_value').val().slice(0, -1));
+                }
             }
         }
     });
@@ -654,7 +662,7 @@ $(document).ready(function() {
     });
 
     $('#score-undo').click(function() {
-        socket.emit('undo_score', {hashid: hashid['hashid']});
+        undo_score();
     });
 
     $('.rematch-offer').click(function() {
