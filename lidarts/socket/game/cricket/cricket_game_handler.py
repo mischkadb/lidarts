@@ -107,6 +107,8 @@ def send_score_response(game, p1_old_score=0, p2_old_score=0, broadcast=False, c
     if not stats['p1_current_leg_scores'] and not stats['p2_current_leg_scores']:
         broadcast = False
 
+    room = game.hashid if broadcast else request.sid
+
     emit('score_response',
          {'hashid': game.hashid,
           'p1_score': game.p1_score, 'p2_score': game.p2_score, 'p1_sets': game.p1_sets,
@@ -122,7 +124,7 @@ def send_score_response(game, p1_old_score=0, p2_old_score=0, broadcast=False, c
           'new_score': broadcast, 'score_confirmed': confirmed,
           },
 
-         room=game.hashid, broadcast=broadcast)
+         room=room, broadcast=broadcast)
 
 
 @socketio.on('connect', namespace='/game/cricket')
@@ -151,7 +153,7 @@ def init(message):
     join_room(game.hashid)
     if game.closest_to_bull:
         return
-    send_score_response(game, broadcast=False)
+    send_score_response(game, p1_old_score=game.p1_score, p2_old_score=game.p2_score, broadcast=False)
 
 
 @socketio.on('init_waiting', namespace='/game/cricket')
@@ -290,9 +292,12 @@ def undo_score(message):
 
 @socketio.on('send_score', namespace='/game/cricket')
 def send_score(message):
-    # TODO: handle empty score message
     hashid = message['hashid']
     game = CricketGame.query.filter_by(hashid=hashid).first()
+
+    if message['score'] == '':
+        confirm_score(message)
+        return  
 
     if game.confirmation_needed:
         return
@@ -305,7 +310,7 @@ def send_score(message):
         return
     # spectators should never submit scores :-)
     elif int(message['user_id']) not in (game.player1, game.player2):
-        return
+        return 
 
     score_value = int(message['score'])
     if score_value not in (15, 16, 17, 18, 19, 20, 25, 30, 32, 34, 36, 38, 40, 45, 48, 50, 51, 54, 57, 60):
