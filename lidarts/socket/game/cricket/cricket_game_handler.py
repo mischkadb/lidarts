@@ -346,6 +346,11 @@ def send_score(message):
         p1_last_score = last_leg['1']['points']
         p2_last_score = last_leg['2']['points']
         p1_won = last_leg['1']['points'] > last_leg['2']['points']
+        
+        # determine dart count in last round
+        winning_player = '1' if p1_won else '2'
+        to_finish = len(last_leg[winning_player]['scores'][-1])
+        
         stats = calculate_footer_stats(match_json)
         emit(
             'game_completed',
@@ -359,6 +364,7 @@ def send_score(message):
                 'p2_current_leg': stats['p2_current_leg_scores'],
                 'p1_current_fields': stats['p1_current_leg_fields'], 'p2_current_fields': stats['p2_current_leg_fields'],
                 'p1_leg_mpr': stats['p1_leg_mpr'], 'p2_leg_mpr': stats['p2_leg_mpr'],
+                'to_finish': to_finish,
                 'p1_match_mpr': stats['p1_match_mpr'], 'p2_match_mpr': stats['p2_match_mpr'],
             },
             room=game.hashid,
@@ -377,6 +383,11 @@ def send_score(message):
         p2_last_score = last_leg['2']['points']
         p1_won = last_leg['1']['points'] > last_leg['2']['points']
         stats = calculate_footer_stats(match_json, last_leg=True)
+
+        # determine dart count in last round
+        winning_player = '1' if p1_won else '2'
+        to_finish = len(last_leg[winning_player]['scores'][-1])
+
         emit('game_shot', {'hashid': game.hashid, 'p1_last_score': p1_last_score, 'p2_last_score': p2_last_score,
                            'p1_old_score': p1_old_score, 'p2_old_score': p2_old_score,
                            'p1_won': p1_won, 'p1_sets': game.p1_sets,
@@ -386,6 +397,7 @@ def send_score(message):
                             'p1_current_fields': stats['p1_current_leg_fields'], 'p2_current_fields': stats['p2_current_leg_fields'],
                             'p1_leg_mpr': stats['p1_leg_mpr'], 'p2_leg_mpr': stats['p2_leg_mpr'],
                             'p1_match_mpr': stats['p1_match_mpr'], 'p2_match_mpr': stats['p2_match_mpr'],
+                            'to_finish': to_finish,
                            },
              room=game.hashid, broadcast=True, namespace='/game/cricket')
     else:
