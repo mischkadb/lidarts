@@ -196,5 +196,5 @@
 <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
 <meta id="game_url" data-url="{{ url_for('game.start') }}">
 
-<script type="text/javascript" src="/static/js/game/cricket/cricket_spectator_socket.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game/cricket/cricket_spectator_socket.js', version=config.VERSION) }}"></script>
 {% endblock %}

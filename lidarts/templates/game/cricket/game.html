@@ -219,9 +219,9 @@
 
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
-<script type="text/javascript" src="/static/js/game/cricket/cricket_socket.js"></script>
-<script type="text/javascript" src="/static/js/game_chat_socket.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game/cricket/cricket_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game_chat_socket.js', version=config.VERSION) }}"></script>
 {% else %}
-<script type="text/javascript" src="/static/js/game/cricket/cricket_spectator_socket.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/game/cricket/cricket_spectator_socket.js', version=config.VERSION) }}"></script>
 {% endif %}
 {% endblock %}
