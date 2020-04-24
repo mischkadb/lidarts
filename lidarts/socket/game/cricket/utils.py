@@ -213,6 +213,8 @@ def process_score(game, score_value):
         if not player_dict['status'] == 'completed':
             game.p1_score = 0
             game.p2_score = 0
+            game.undo_possible = False
+            game.confirmation_needed = False
 
     # save everything back into the model object
     game = game_from_dict(game, player_dict)
