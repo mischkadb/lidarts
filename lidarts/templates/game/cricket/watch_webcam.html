@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block css %}
-<link href="{{ url_for('static',filename='css/x01.css') }}" rel="stylesheet">
+<link href="{{ url_for('static',filename='css/cricket.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block navbar %}
-{% include 'game/game_navbar.html' %}
+{% include 'game/cricket/navbar.html' %}
 {% endblock %}
 
 {% block container %}
@@ -63,295 +63,56 @@
 
         </div>
 
-
         <div class="row text-center text-light">
-            <div class="col-5" id="p1_last_round" style="height: 25px;">
+            <div class="col-6" id="p1_last_round" style="height: 25px;">
             </div>
-            <div class="col-2"></div>
-            <div class="col-5" id="p2_last_round" style="height: 25px;">
-
-            </div>
-
-        </div>
-
-        <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
-            <!-- SCOREBOARD PLAYER 1 20 -->
-            <div class="col-5" id="p1_current_leg_20">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p1-20">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p1-20-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-20-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p1-20-3"  style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" id="marks-p1-20-score" style="width: 40px;"></div>
-                </div>
-            </div>
-
-            <div class="col-2 text-center" style="padding-left: 0px; padding-right: 0px;">
-                <div class="btn-group btn-group-lg" role="group">
-                    <button type="button" id="score-button-D20" class="btn btn-secondary btn-lg border border-dark">D</button>
-                    <button type="button" id="score-button-S20" class="btn btn-secondary btn-lg border border-dark">20</button>
-                    <button type="button" id="score-button-T20" class="btn btn-secondary btn-lg border border-dark">T</button>
-                </div>
-            </div>
-
-            <!-- SCOREBOARD PLAYER 2 20 -->
-            <div class="col-5" id="p2_current_leg_20">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" id="marks-p2-20-score" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p2-20">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p2-20-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-20-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p2-20-3"  style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                </div>
+            <div class="col-6" id="p2_last_round" style="height: 25px;">
             </div>
         </div>
 
-        <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
-            <!-- SCOREBOARD PLAYER 1 19 -->
-            <div class="col-5" id="p1_current_leg_19">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p1-19">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p1-19-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-19-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p1-19-3"  style="display: none"></i>
-                        </span>
+        <div id="cricket_scoreboard">
+            {% for field in (20, 19, 18, 17, 16, 15, 25) %}
+            <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
+                <!-- SCOREBOARD PLAYER 1 {{ field }} -->
+                <div class="col-3 col-sm-3 col-xl-4" id="p1_current_leg_{{ field }}" style="padding-left: 0px; padding-right: 0px;">
+                    <div class="d-flex d-row justify-content-between">
+                        <div class="d-flex d-column"></div>
+                        <div class="d-flex d-column">
+                            <span class="fa-stack fa-1x" id="marks-p1-{{ field }}">
+                                <i class="fas fa-slash fa-stack-2x" id="marks-p1-{{ field }}-1" style="display: none"></i>
+                                <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-{{ field }}-2"  style="display: none"></i>
+                                <i class="far fa-circle fa-stack-2x" id="marks-p1-{{ field }}-3"  style="display: none"></i>
+                            </span>
+                        </div>
+                        <div class="d-flex d-column text-right" id="marks-p1-{{ field }}-score" style="width: 40px;"></div>
                     </div>
-                    <div class="d-flex d-column" id="marks-p1-19-score" style="width: 40px;"></div>
                 </div>
-            </div>
-
-            <div class="col-2 text-center" style="padding-left: 0px; padding-right: 0px;">
-                <div class="btn-group btn-group-lg" role="group">
-                    <button type="button" id="score-button-D19" class="btn btn-secondary btn-lg border border-dark">D</button>
-                    <button type="button" id="score-button-S19" class="btn btn-secondary btn-lg border border-dark">19</button>
-                    <button type="button" id="score-button-T19" class="btn btn-secondary btn-lg border border-dark">T</button>
-                </div>
-            </div>
-
-            <!-- SCOREBOARD PLAYER 2 19 -->
-            <div class="col-5" id="p2_current_leg_19">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" id="marks-p2-19-score" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p2-19">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p2-19-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-19-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p2-19-3"  style="display: none"></i>
-                        </span>
+        
+                <div class="col-6 col-sm-6 col-xl-4 text-center" style="padding-left: 0px; padding-right: 0px;">
+                    <div class="btn-group btn-group-lg" role="group">
+                        <button type="button" id="score-button-D{{ field }}" class="btn btn-secondary btn-lg border border-dark">D</button>
+                        <button type="button" id="score-button-S{{ field }}" class="btn btn-secondary btn-lg border border-dark">{{ field }}</button>
+                        <button type="button" id="score-button-{% if field == 25 %}0{% else %}T{{ field }}{% endif %}" class="btn btn-secondary btn-lg border border-dark">{% if field == 25 %}0{% else %}T{% endif%}</button>
                     </div>
-                    <div class="d-flex d-column" style="width: 40px;"></div>
                 </div>
-            </div>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
-            <!-- SCOREBOARD PLAYER 1 18 -->
-            <div class="col-5" id="p1_current_leg_18">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p1-18">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p1-18-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-18-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p1-18-3"  style="display: none"></i>
-                        </span>
+        
+                <!-- SCOREBOARD PLAYER 2 {{ field }} -->
+                <div class="col-3 col-sm-3 col-xl-4" id="p2_current_leg_{{ field }}" style="padding-left: 0px; padding-right: 0px;">
+                    <div class="d-flex d-row justify-content-between">
+                        <div class="d-flex d-column" id="marks-p2-{{ field }}-score" style="width: 40px;"></div>
+                        <div class="d-flex d-column">
+                            <span class="fa-stack fa-1x" id="marks-p2-{{ field }}">
+                                <i class="fas fa-slash fa-stack-2x" id="marks-p2-{{ field }}-1" style="display: none"></i>
+                                <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-{{ field }}-2"  style="display: none"></i>
+                                <i class="far fa-circle fa-stack-2x" id="marks-p2-{{ field }}-3"  style="display: none"></i>
+                            </span>
+                        </div>
+                        <div class="d-flex d-column"></div>
                     </div>
-                    <div class="d-flex d-column" id="marks-p1-18-score" style="width: 40px;"></div>
                 </div>
             </div>
+            {% endfor %}
 
-            <div class="col-2 text-center" style="padding-left: 0px; padding-right: 0px;">
-                <div class="btn-group btn-group-lg" role="group">
-                    <button type="button" id="score-button-D18" class="btn btn-secondary btn-lg border border-dark">D</button>
-                    <button type="button" id="score-button-S18" class="btn btn-secondary btn-lg border border-dark">18</button>
-                    <button type="button" id="score-button-T18" class="btn btn-secondary btn-lg border border-dark">T</button>
-                </div>
-            </div>
-
-            <!-- SCOREBOARD PLAYER 2 18 -->
-            <div class="col-5" id="p2_current_leg_18">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" id="marks-p2-18-score" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p2-18">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p2-18-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-18-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p2-18-3"  style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
-            <!-- SCOREBOARD PLAYER 1 17 -->
-            <div class="col-5" id="p1_current_leg_17">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p1-17">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p1-17-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-17-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p1-17-3"  style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" id="marks-p1-17-score" style="width: 40px;"></div>
-                </div>
-            </div>
-
-            <div class="col-2 text-center" style="padding-left: 0px; padding-right: 0px;">
-                <div class="btn-group btn-group-lg" role="group">
-                    <button type="button" id="score-button-D17" class="btn btn-secondary btn-lg border border-dark">D</button>
-                    <button type="button" id="score-button-S17" class="btn btn-secondary btn-lg border border-dark">17</button>
-                    <button type="button" id="score-button-T17" class="btn btn-secondary btn-lg border border-dark">T</button>
-                </div>
-            </div>
-
-            <!-- SCOREBOARD PLAYER 2 17 -->
-            <div class="col-5" id="p2_current_leg_17">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" id="marks-p2-17-score" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p2-17">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p2-17-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-17-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p2-17-3"  style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
-            <!-- SCOREBOARD PLAYER 1 16 -->
-            <div class="col-5" id="p1_current_leg_16">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p1-16">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p1-16-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-16-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p1-16-3"  style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" id="marks-p1-16-score" style="width: 40px;"></div>
-                </div>
-            </div>
-
-            <div class="col-2 text-center" style="padding-left: 0px; padding-right: 0px;">
-                <div class="btn-group btn-group-lg" role="group">
-                    <button type="button" id="score-button-D16" class="btn btn-secondary btn-lg border border-dark">D</button>
-                    <button type="button" id="score-button-S16" class="btn btn-secondary btn-lg border border-dark">16</button>
-                    <button type="button" id="score-button-T16" class="btn btn-secondary btn-lg border border-dark">T</button>
-                </div>
-            </div>
-
-            <!-- SCOREBOARD PLAYER 2 16 -->
-            <div class="col-5" id="p2_current_leg_16">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" id="marks-p2-16-score" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p2-16">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p2-16-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-16-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p2-16-3"  style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
-            <!-- SCOREBOARD PLAYER 1 15 -->
-            <div class="col-5" id="p1_current_leg_15">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p1-15">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p1-15-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-15-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p1-15-3"  style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" id="marks-p1-15-score" style="width: 40px;"></div>
-                </div>
-            </div>
-
-            <div class="col-2 text-center" style="padding-left: 0px; padding-right: 0px;">
-                <div class="btn-group btn-group-lg" role="group">
-                    <button type="button" id="score-button-D15" class="btn btn-secondary btn-lg border border-dark">D</button>
-                    <button type="button" id="score-button-S15" class="btn btn-secondary btn-lg border border-dark">15</button>
-                    <button type="button" id="score-button-T15" class="btn btn-secondary btn-lg border border-dark">T</button>
-                </div>
-            </div>
-
-            <!-- SCOREBOARD PLAYER 2 15 -->
-            <div class="col-5" id="p2_current_leg_15">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" id="marks-p2-15-score" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p2-15">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p2-15-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-15-2" style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p2-15-3" style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
-            <!-- SCOREBOARD PLAYER 1 25 -->
-            <div class="col-5" id="p1_current_leg_25">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p1-25">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p1-25-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-25-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p1-25-3"  style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" id="marks-p1-25-score" style="width: 40px;"></div>
-                </div>
-            </div>
-
-            <div class="col-2 text-center" style="padding-left: 0px; padding-right: 0px;">
-                <div class="btn-group btn-group-lg" role="group">
-                    <button type="button" id="score-button-D25" class="btn btn-secondary btn-lg border border-dark">D</button>
-                    <button type="button" id="score-button-S25" class="btn btn-secondary btn-lg border border-dark">25</button>
-                    <button type="button" id="score-button-0" class="btn btn-secondary btn-lg border border-dark">0</button>
-                </div>
-            </div>
-
-            <!-- SCOREBOARD PLAYER 2 25 -->
-            <div class="col-5" id="p2_current_leg_25">
-                <div class="d-flex d-row justify-content-between">
-                    <div class="d-flex d-column" id="marks-p2-25-score" style="width: 40px;"></div>
-                    <div class="d-flex d-column">
-                        <span class="fa-stack fa-1x" id="marks-p2-25">
-                            <i class="fas fa-slash fa-stack-2x" id="marks-p2-25-1" style="display: none"></i>
-                            <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-25-2"  style="display: none"></i>
-                            <i class="far fa-circle fa-stack-2x" id="marks-p2-25-3"  style="display: none"></i>
-                        </span>
-                    </div>
-                    <div class="d-flex d-column" style="width: 40px;"></div>
-                </div>
-            </div>
         </div>
 
         <div class="row justify-content-center align-items-start">
@@ -392,16 +153,6 @@
                 <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
                     <h4 class="text-light">{{ _('Game is completed.') }}</h4>
                     <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a></p>
-                    {% if game.player2 and game.player1 != game.player2 %}
-                    <div class="rematch">
-                        <p><a href="#" class="rematch-offer">{{ _('Offer rematch') }}</a></p>
-                        <p><a href="#" class="rematch-accept" style="display:none">{{ _('Accept rematch') }}</a></p>
-                    </div>
-                    <p class="rematch-sent text-light" style="display:none">{{ _('Rematch offer sent') }}</p>
-                    {% endif %}
-                    {% if game.tournament %}
-                    <p><a href="{{ url_for('tournament.details', hashid=game.tournament) }}">{{ _('Back to tournament') }}</a></p>
-                    {% endif %}
                 </form>
 
                 <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status != 'aborted' %} style="display: none" {% endif %}>
@@ -415,7 +166,7 @@
             </div>
         </div>
 
-        {% include 'game/x01/statistics.html' %}
+        {% include 'game/cricket/statistics.html' %}
 
     </div>
 
@@ -445,5 +196,5 @@
 <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
 <meta id="game_url" data-url="{{ url_for('game.start') }}">
 
-<script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_spectator_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="/static/js/game/cricket/cricket_spectator_socket.js"></script>
 {% endblock %}
