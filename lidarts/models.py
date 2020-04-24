@@ -352,3 +352,9 @@ class Caller(db.Model):
     __tablename__ = 'callers'
     name = db.Column(db.String(30), primary_key=True)
     display_name = db.Column(db.String(50), default=None)
+
+
+class StreamGame(db.Model):
+    __tablename__ = 'stream_game'
+    hashid = db.Column(db.String(10), primary_key=True)
+    jitsi_hashid = db.Column(db.String(10))

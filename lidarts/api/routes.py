@@ -1,6 +1,7 @@
-from flask import jsonify
+from flask import jsonify, current_app, redirect, url_for
+from lidarts import db
 from lidarts.api import bp
-from lidarts.models import Game, User
+from lidarts.models import Game, CricketGame, User, StreamGame
 from lidarts.game.utils import collect_statistics
 import json
 from sqlalchemy.orm import aliased
@@ -54,3 +55,42 @@ def start(hashid):
     return_dict['p2_name'] = p2_name
 
     return jsonify(return_dict)
+
+
+@bp.route('/game/stream-game/<api_key>/<hashid>')
+def set_stream_game(api_key, hashid):
+    if api_key != current_app.config['API_KEY']:
+        return jsonify('Wrong API key.')
+    
+    game = Game.query.filter_by(hashid=hashid).first()
+    print(game)
+    if not game:
+        game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
+    stream_game = StreamGame.query.first_or_404()
+    stream_game.hashid = hashid
+    stream_game.jitsi_hashid = game.jitsi_hashid
+    db.session.commit()
+
+    return hashid
+
+
+@bp.route('/game/stream-game/<api_key>')
+def get_stream_game(api_key):
+    if api_key != current_app.config['API_KEY']:
+        return jsonify('Wrong API key.')
+
+    stream_game = StreamGame.query.first_or_404()
+    hashid = stream_game.hashid
+
+    return redirect(url_for('game.start', hashid=hashid))
+
+
+@bp.route('/game/stream-game/jitsi/<api_key>')
+def get_jitsi(api_key):
+    if api_key != current_app.config['API_KEY']:
+        return jsonify('Wrong API key.')
+
+    stream_game = StreamGame.query.first_or_404()
+    hashid = stream_game.jitsi_hashid
+
+    return redirect(f'https://meet.jit.si/Lidarts-{hashid}', code=302)
