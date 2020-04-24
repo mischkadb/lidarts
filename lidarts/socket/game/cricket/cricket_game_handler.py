@@ -244,7 +244,6 @@ def confirm_score(message):
 @socketio.on('undo_score', namespace='/game/cricket')
 def undo_score(message):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
-    print(game.undo_possible)
     if not game.undo_possible:
         return
     match_json = json.loads(game.match_json)
