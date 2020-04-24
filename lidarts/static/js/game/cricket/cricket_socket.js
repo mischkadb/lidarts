@@ -211,6 +211,7 @@ $(document).ready(function() {
         update_scoreboards(msg);
 
         // popup for game shot
+        $('.checkDart').text(msg.to_finish);
         $('#game-shot-modal').modal('show');
         if (msg.p1_won) {
             // score substraction animation
@@ -349,7 +350,7 @@ $(document).ready(function() {
         }
 
         update_scoreboards(msg);
-
+        $('.checkDart').text(msg.to_finish);
         $('#match-shot-modal').modal('show');
         if (msg.p1_won) {
             // score substraction animation
