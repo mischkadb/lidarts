@@ -27,8 +27,8 @@
     <div class="col-md-4 offset-md-1 col-6 d-lg-none">
         <div class="card bg-info text-light">
             <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
-                <div class="row">
-                    <div class="col-6">Sets: <strong class="p1_sets">{{ game.p1_sets }}</strong></div>
+                <div class="row justify-content-center">
+                    {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p1_sets">{{ game.p1_sets }}</strong></div>{% endif %}
                     <div class="col-6">Legs: <strong class="p1_legs">{{ game.p1_legs }}</strong></div>
                 </div>
             </div>
@@ -37,8 +37,8 @@
     <div class="col-md-4 offset-md-2 col-6 d-lg-none">
         <div class="card bg-info text-light">
             <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
-                <div class="row">
-                    <div class="col-6">Sets: <strong class="p2_sets">{{ game.p2_sets }}</strong></div>
+                <div class="row justify-content-center">
+                    {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p2_sets">{{ game.p2_sets }}</strong></div>{% endif %}
                     <div class="col-6">Legs: <strong class="p2_legs">{{ game.p2_legs }}</strong></div>
                 </div>
             </div>

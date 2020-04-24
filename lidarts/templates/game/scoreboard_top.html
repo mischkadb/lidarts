@@ -35,11 +35,13 @@
         </div>
         <div class="card bg-info">
             <div class="card-body" style="padding-top: 10px; padding-bottom: 10px;">
+                {% if game.bo_sets > 1 %}
                 <div class="row align-items-center mb-3">
                     <div class="col-sm-3"><h4 class="card-text p1_sets" style="font-weight:bold"></h4></div>
                     <div class="col-sm-6">Sets</div>
                     <div class="col-sm-3"><h4 class="card-text p2_sets" style="font-weight:bold"></h4></div>
                 </div>
+                {% endif %}
                 <div class="row align-items-center">
                     <div class="col-sm-3"><h4 class="card-text p1_legs" style="font-weight:bold"></h4></div>
                     <div class="col-sm-6">Legs</div>

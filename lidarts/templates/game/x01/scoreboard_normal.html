@@ -32,9 +32,10 @@
 
     <!-- TOP LEG AND SET COUNTER -->
     <div class="col-lg-2 text-center bg-dark d-none d-lg-block" style="padding-left: 0px; padding-right: 0px;">
-        <div class="row text-danger">
-            <div class="col-6"><h3 id="p1_ingame"><i class="fas fa-plug"></i></h3></div>
-            <div class="col-6"><h3 id="p2_ingame"><i class="fas fa-plug"></i></h3></div>
+        <div class="row text-danger justify-content-center">
+            <div class="col-4"><h3 id="p1_ingame"><i class="fas fa-plug"></i></h3></div>
+            {% if game.webcam %}<div class="col-4 text-secondary"><h3 id="p1_ingame"><i class="fas fa-camera"  title="{{ _('Webcam game') }}"></i></h3></div>{% endif %}
+            <div class="col-4"><h3 id="p2_ingame"><i class="fas fa-plug"></i></h3></div>
         </div>
 
         <div class="row mb-3">
@@ -46,11 +47,13 @@
         </div>
         <div class="card bg-info">
             <div class="card-body" style="padding-top: 10px; padding-bottom: 10px;">
+                {% if game.bo_sets > 1 %}
                 <div class="row align-items-center mb-3">
                     <div class="col-sm-3"><h4 class="card-text p1_sets" style="font-weight:bold"></h4></div>
                     <div class="col-sm-6">Sets</div>
                     <div class="col-sm-3"><h4 class="card-text p2_sets" style="font-weight:bold"></h4></div>
                 </div>
+                {% endif %}
                 <div class="row align-items-center">
                     <div class="col-sm-3"><h4 class="card-text p1_legs" style="font-weight:bold"></h4></div>
                     <div class="col-sm-6">Legs</div>
