@@ -2,7 +2,7 @@
 {% block css %}<link href="{{ url_for('static',filename='css/cricket.css') }}" rel="stylesheet">{% endblock %}
 
 {% block navbar %}
-{% include "game/game_navbar.html" %}
+{% include "game/cricket/navbar.html" %}
 {% endblock %}
 
 {% block app_content %}
@@ -27,76 +27,100 @@
     </div>
 </div>
 
-{% for field in (20, 19, 18, 17, 16, 15, 25) %}
-<div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
-    <!-- SCOREBOARD PLAYER 1 {{ field }} -->
-    <div class="col-3 col-sm-4 col-lg-5" id="p1_current_leg_{{ field }}" style="padding-left: 0px; padding-right: 0px;">
-        <div class="d-flex d-row justify-content-between">
-            <div class="d-flex d-column"></div>
-            <div class="d-flex d-column">
-                <span class="fa-stack fa-1x" id="marks-p1-{{ field }}">
-                    <i class="fas fa-slash fa-stack-2x" id="marks-p1-{{ field }}-1" style="display: none"></i>
-                    <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-{{ field }}-2"  style="display: none"></i>
-                    <i class="far fa-circle fa-stack-2x" id="marks-p1-{{ field }}-3"  style="display: none"></i>
-                </span>
+<div id="cricket_scoreboard">
+    {% for field in (20, 19, 18, 17, 16, 15, 25) %}
+    <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
+        <!-- SCOREBOARD PLAYER 1 {{ field }} -->
+        <div class="col-3 col-sm-4 col-lg-5" id="p1_current_leg_{{ field }}" style="padding-left: 0px; padding-right: 0px;">
+            <div class="d-flex d-row justify-content-between">
+                <div class="d-flex d-column"></div>
+                <div class="d-flex d-column">
+                    <span class="fa-stack fa-1x" id="marks-p1-{{ field }}">
+                        <i class="fas fa-slash fa-stack-2x" id="marks-p1-{{ field }}-1" style="display: none"></i>
+                        <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-{{ field }}-2"  style="display: none"></i>
+                        <i class="far fa-circle fa-stack-2x" id="marks-p1-{{ field }}-3"  style="display: none"></i>
+                    </span>
+                </div>
+                <div class="d-flex d-column text-right" id="marks-p1-{{ field }}-score" style="width: 40px;"></div>
             </div>
-            <div class="d-flex d-column text-right" id="marks-p1-{{ field }}-score" style="width: 40px;"></div>
+        </div>
+
+        <div class="col-6 col-sm-4 col-lg-2 text-center" style="padding-left: 0px; padding-right: 0px;">
+            <div class="btn-group btn-group-lg" role="group">
+                <button type="button" id="score-button-D{{ field }}" class="btn btn-secondary btn-lg border border-dark">D</button>
+                <button type="button" id="score-button-S{{ field }}" class="btn btn-secondary btn-lg border border-dark">{{ field }}</button>
+                <button type="button" id="score-button-{% if field == 25 %}0{% else %}T{{ field }}{% endif %}" class="btn btn-secondary btn-lg border border-dark">{% if field == 25 %}0{% else %}T{% endif%}</button>
+            </div>
+        </div>
+
+        <!-- SCOREBOARD PLAYER 2 {{ field }} -->
+        <div class="col-3 col-sm-4 col-lg-5" id="p2_current_leg_{{ field }}" style="padding-left: 0px; padding-right: 0px;">
+            <div class="d-flex d-row justify-content-between">
+                <div class="d-flex d-column" id="marks-p2-{{ field }}-score" style="width: 40px;"></div>
+                <div class="d-flex d-column">
+                    <span class="fa-stack fa-1x" id="marks-p2-{{ field }}">
+                        <i class="fas fa-slash fa-stack-2x" id="marks-p2-{{ field }}-1" style="display: none"></i>
+                        <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-{{ field }}-2"  style="display: none"></i>
+                        <i class="far fa-circle fa-stack-2x" id="marks-p2-{{ field }}-3"  style="display: none"></i>
+                    </span>
+                </div>
+                <div class="d-flex d-column"></div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="d-flex flex-row justify-content-center align-items-center text-center text-light mt-1">
+        <div class="col-6 col-sm-4 col-lg-2 text-center" style="padding-left: 0px; padding-right: 0px;">
+            <div class="btn-group btn-group-lg" role="group" style="display: flex">
+                <button type="button" id="score-undo" class="btn btn-danger btn-lg border border-dark" style="flex: 1"><i class="fas fa-times-circle" ></i></button>
+                <button type="button" id="score-confirm" class="btn btn-success btn-lg border border-dark" style="flex: 1"><i class="fas fa-check-circle" ></i></button>
+            </div>
         </div>
     </div>
 
-    <div class="col-6 col-sm-4 col-lg-2 text-center" style="padding-left: 0px; padding-right: 0px;">
-        <div class="btn-group btn-group-lg" role="group">
-            <button type="button" id="score-button-D{{ field }}" class="btn btn-secondary btn-lg border border-dark">D</button>
-            <button type="button" id="score-button-S{{ field }}" class="btn btn-secondary btn-lg border border-dark">{{ field }}</button>
-            <button type="button" id="score-button-{% if field == 25 %}0{% else %}T{{ field }}{% endif %}" class="btn btn-secondary btn-lg border border-dark">{% if field == 25 %}0{% else %}T{% endif%}</button>
-        </div>
-    </div>
-
-    <!-- SCOREBOARD PLAYER 2 {{ field }} -->
-    <div class="col-3 col-sm-4 col-lg-5" id="p2_current_leg_{{ field }}" style="padding-left: 0px; padding-right: 0px;">
-        <div class="d-flex d-row justify-content-between">
-            <div class="d-flex d-column" id="marks-p2-{{ field }}-score" style="width: 40px;"></div>
-            <div class="d-flex d-column">
-                <span class="fa-stack fa-1x" id="marks-p2-{{ field }}">
-                    <i class="fas fa-slash fa-stack-2x" id="marks-p2-{{ field }}-1" style="display: none"></i>
-                    <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-{{ field }}-2"  style="display: none"></i>
-                    <i class="far fa-circle fa-stack-2x" id="marks-p2-{{ field }}-3"  style="display: none"></i>
-                </span>
+    <div class="row justify-content-center align-items-start">
+        <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
+        <div class="col-lg-6 col-md-4 mt-1 d-none d-md-block score-input">
+            <div {% if not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
+                <form class="text-center score_input"
+                    id="score_input" method="POST" action="" autocomplete="off"
+                    {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %}
+                    style="display: none"
+                    {% endif %}>
+                {{ form.hidden_tag() }}
+                <div class="row justify-content-center">
+                    <div class="col-xl-4 col-lg-6 col-md-8 d-flex align-items-center mb-2">
+                        {{ form.score_value(class="bg-light text-center form-control form-control-lg border-secondary score_value",
+                        style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;",
+                        readonly=true) }}
+                    </div>
+                </div>
+                </form>
             </div>
-            <div class="d-flex d-column"></div>
         </div>
     </div>
 </div>
-{% endfor %}
 
-<div class="row justify-content-center align-items-start">
-    <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
-    <div class="col-lg-6 col-md-4 mt-1 d-none d-md-block score-input">
-        <div {% if not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
-            <form class="text-center score_input"
-                  id="score_input" method="POST" action="" autocomplete="off"
-                  {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %}
-                  style="display: none"
-                  {% endif %}>
-            {{ form.hidden_tag() }}
-            <div class="row justify-content-center">
-                <div class="col-xl-4 col-lg-6 col-md-8 d-flex align-items-center mb-2">
-                    {{ form.score_value(class="bg-light text-center form-control form-control-lg border-secondary score_value",
-                    style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;",
-                    readonly=true) }}
+<div class="row justify-content-center" id="chat" style="display: none">
+    <div class="col-8 col-md-6">
+        <div class="card bg-secondary text-dark">
+            <div class="card-body" style="padding: 1px 1px 1px 1px;">
+                <div class="card bg-secondary">
+                    <div class="card-body text-light chatbox" id="chatbox" style="height: 200px; overflow-y: scroll; padding: 1px 1px 1px 1px;">
+                        {% for message in messages %}
+                        <p><strong><span class="">{{ user_names[message.author] }}</span></strong>:
+                            {{ message.message|safe }}</p>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-            <!-- UNDO BUTTON -->
-            <!--
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-6">
-                    <button type="button" id="undo-button" class="btn btn-lg btn-outline-info btn-block undo-button">{{ _('Undo last score') }}</button>
-                    <button type="button" id="undo-button-active" class="btn btn-lg btn-warning btn-block undo-button-active" style="display: none">{{ _('Enter correct score') }}</button>
-                </div>
-            </div>
-            -->
-            </form>
         </div>
+        <form id="message_input" method="POST" action="">
+            {{ chat_form.hidden_tag() }}
+            {{ chat_form.message(class="form-control", autocomplete="off", maxlength="500") }}
+            {{ chat_form.submit }}
+        </form>
     </div>
 </div>
 
@@ -128,7 +152,22 @@
 <!-- GAME END CONFIRMATION SMALL -->
 <div class="col-sm-12 justify-content-center d-md-none confirm_completion" {% if game.status != 'completed' %} style="display: none" {% endif %}>
     <h4 class="text-light">{{ _('Game is completed.') }}</h4>
-    <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+    <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a></p>
+    {% if game.player2 and game.player1 != game.player2 %}
+    <div class="rematch">
+        <p><a href="#" class="rematch-offer">{{ _('Offer rematch') }}</a></p>
+        <p><a href="#" class="rematch-accept" style="display:none">{{ _('Accept rematch') }}</a></p>
+    </div>
+    <p class="rematch-sent text-light" style="display:none">{{ _('Rematch offer sent') }}</p>
+    {% endif %}
+    {% if game.tournament %}
+    <p><a href="{{ url_for('tournament.details', hashid=game.tournament) }}">{{ _('Back to tournament') }}</a></p>
+    {% endif %}
+
+    <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status != 'aborted' %} style="display: none" {% endif %}>
+        <h4 class="text-light">{{ _('Game was aborted.') }}</h4>
+        <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+    </form>
 </div>
 
 <!-- STATISTICS -->
@@ -158,55 +197,6 @@
                         <td class="p2_match_mpr font-weight-bold">{{ p2_match_mpr }}</td>
                     </tr>
                 </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ONSCREEN KEYBOARD SMALL SCREENS -->
-<div class="row fixed-bottom">
-    <div class="col-sm-12 d-md-none score-input">
-        <div {% if not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
-            <div class="score_input">
-                <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center">
-                    <input class="bg-light text-center form-control form-control-lg border-secondary score_value" id="score_value_sm"
-                           style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;" readonly>
-                </div>
-                <button type="button" id="undo-button-sm" class="btn btn-lg btn-outline-info btn-block undo-button">{{ _('Undo last score') }}</button>
-                <button type="button" id="undo-button-active-sm" class="btn btn-lg btn-warning btn-block undo-button-active" style="display: none">{{ _('Enter correct score') }}</button>
-            </div>
-
-
-            <ul class="nav nav-tabs mt-1 keypad" id="keypad_chat_tab_small" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active text-light" id="chat-tab-small" data-toggle="tab" href="#chat_small" aria-controls="chat" aria-selected="false">
-                        Chat
-                        <span class="badge badge-danger notification-badge" id="notification-badge"></span>
-                    </a>
-                </li>
-            </ul>
-
-
-            <div class="tab-content keypad" id="keypad_chat_tab_content_small">
-                <div class="tab-pane fade" id="chat_small" role="tabpanel" aria-labelledby="chat-tab" style="height: 25vh;">
-                    <div class="card bg-secondary text-dark">
-                        <div class="card-body" style="padding: 1px 1px 1px 1px;">
-                            <div class="card bg-secondary">
-                                <div class="card-body text-light chatbox" id="chatbox_small" style="height: 200px; overflow-y: scroll; padding: 1px 1px 1px 1px;">
-                                    {% for message in messages %}
-                                    <p><strong><span class="">{{ user_names[message.author] }}</span></strong>:
-                                        {{ message.message|safe }}</p>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <form id="message_input_small" method="POST" action="">
-                        {{ chat_form_small.hidden_tag() }}
-                        {{ chat_form_small.message(class="form-control", autocomplete="off", id="message_small") }}
-                        {{ chat_form_small.submit }}
-                    </form>
-                </div>
             </div>
         </div>
     </div>
