@@ -63,7 +63,6 @@ def set_stream_game(api_key, hashid):
         return jsonify('Wrong API key.')
     
     game = Game.query.filter_by(hashid=hashid).first()
-    print(game)
     if not game:
         game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
     stream_game = StreamGame.query.first_or_404()
