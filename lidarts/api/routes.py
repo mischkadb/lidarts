@@ -82,7 +82,7 @@ def get_stream_game(api_key):
     stream_game = StreamGame.query.first_or_404()
     hashid = stream_game.hashid
 
-    return redirect(url_for('game.start', hashid=hashid))
+    return redirect(url_for('game.start', hashid=hashid, theme='streamoverlay'))
 
 
 @bp.route('/game/stream-game/jitsi/<api_key>')
