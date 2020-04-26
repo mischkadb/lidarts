@@ -24,6 +24,7 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_cl
 from flask._compat import text_type
 from flask.json import JSONEncoder as BaseEncoder
 import flask_monitoringdashboard as dashboard
+from flask_login import current_user
 
 from engineio.payload import Payload
 from speaklater import _LazyString
@@ -152,6 +153,9 @@ def create_app(test_config=None):
 
     if 'DASHBOARD_ENABLED' in app.config and app.config['DASHBOARD_ENABLED']:
         dashboard.config.init_from(file=os.path.join(app.instance_path, 'dashboard.cfg'))
+        def get_user_id():
+            return current_user.id
+        dashboard.config.group_by = get_user_id
         dashboard.bind(app)
 
     # Load all blueprints
