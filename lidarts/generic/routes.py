@@ -250,6 +250,11 @@ def abort_long_started_games():
     for game in games:
         game.status = 'aborted'
         game.end = datetime.utcnow()
+
+    games = CricketGame.query.filter(or_(Game.status == 'started', Game.status == 'challenged') & (Game.begin < (datetime.utcnow() - timedelta(days=3)))).all()
+    for game in games:
+        game.status = 'aborted'
+        game.end = datetime.utcnow()
     db.session.commit()
     return jsonify('success')
 
@@ -460,6 +465,11 @@ def webcam_tutorial_en():
 @bp.route('/webcam_tutorial/de')
 def webcam_tutorial_de():
     return render_template('generic/webcam_tutorial_de.html')
+
+
+@bp.route('/help_translate')
+def help_translate():
+    return render_template('generic/help_translate.html')
 
 
 @bp.before_app_first_request

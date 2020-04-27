@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card bg-light text-dark bs-callout bs-callout-info">
+            <div class="card-body">
+                <h2>{{ _('Help translating lidarts.org') }}</h2>
+                <hr>
+                <p>{{ _('Lidarts is currently available in three languages: English, German and Danish. Translations to any language can be provided by the community.') }}</p>
+
+                <h4 class="mt-4">{{ _('How to translate') }}</h4>
+                <hr>
+                <p>{{ _('If you speak any other language you can help translating Lidarts. You do not need any additional software.') }} {{ _('Visit our translation project on ') }}<a href="https://lidarts.crowdin.com/lidarts" target='_blank'>Crowdin</a>.</p>
+                <p>{{ _('You can register a new account there or log in with various third party services. After logging in you can start translating texts to the language of your choice or improve existing translations.') }} {{ _('If your language is missing or you have any questions') }} <a href="{{ url_for('generic.contact') }}">{{ _('contact') }}</a> {{ _('us') }}.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
