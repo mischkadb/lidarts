@@ -8,15 +8,20 @@ from lidarts.models import User
 from lidarts.statistics import bp
 from lidarts.statistics.utils import create_statistics
 from lidarts.statistics.forms import StatisticsForm
+from sqlalchemy import func
 
 
 @bp.route('/x01', methods=['GET', 'POST'])
+@bp.route('/x01/<username>', methods=['GET', 'POST'])
 @login_required
-def x01():
+def x01(username=None):
     """ this function get's all required data for the statistics """
     form = StatisticsForm()
 
-    user = User.query.filter(User.id == current_user.id).first_or_404()
+    if not username:
+        user = User.query.filter(User.id == current_user.id).first_or_404()
+    else:
+        user = User.query.filter(func.lower(User.username) == func.lower(username)).first_or_404()
 
     # check which custom filter is active
     use_custom_filter_last_games = False
