@@ -30,9 +30,86 @@ def get_name_by_id(id_):
         return None
 
 
+def collect_statistics_cricket(game, match_json):
+    stats = {}
+
+    p1_marks = 0
+    p2_marks = 0
+    p1_rounds = 0
+    p2_rounds = 0
+    p1_mpr_distribution = defaultdict(int)
+    p2_mpr_distribution = defaultdict(int)
+    leg_overview = {}
+
+    for set_ in match_json:
+        leg_overview[set_] = {}
+        for leg in match_json[set_]:
+            leg_overview[set_][leg] = {'mpr': {}}
+            p1_rounds += len(match_json[set_][leg]['1']['scores'])
+            p2_rounds += len(match_json[set_][leg]['2']['scores'])
+            p1_marks_in_leg = 0
+            p2_marks_in_leg = 0
+            for scores in match_json[set_][leg]['1']['scores']:
+                marks_in_round = 0
+                for score in scores:
+                    if score == 0:
+                        marks = 0
+                    elif 0 < score <= 25:
+                        marks = 1
+                    elif 25 < score <= 40 or score == 50:
+                        marks = 2
+                    else:
+                        marks = 3
+
+                    marks_in_round += marks
+
+                p1_marks_in_leg += marks_in_round                    
+                p1_mpr_distribution[marks_in_round] += 1
+
+            for scores in match_json[set_][leg]['2']['scores']:
+                marks_in_round = 0
+                for score in scores:
+                    if score == 0:
+                        marks = 0
+                    elif 0 < score <= 25:
+                        marks = 1
+                    elif 25 < score <= 40 or score == 50:
+                        marks = 2
+                    else:
+                        marks = 3
+
+                    marks_in_round += marks
+
+                p2_marks_in_leg += marks_in_round                    
+                p2_mpr_distribution[marks_in_round] += 1
+
+            leg_overview[set_][leg]['mpr']['1'] = p1_marks_in_leg / len(match_json[set_][leg]['1']['scores'])
+            leg_overview[set_][leg]['mpr']['2'] = p2_marks_in_leg / len(match_json[set_][leg]['2']['scores'])
+            p1_all_marks_open = all(field['marks'] == 3 for field in match_json[set_][leg]['1']['fields'].values())
+            if (
+                (match_json[set_][leg]['1']['points'] > match_json[set_][leg]['2']['points']) 
+                or (match_json[set_][leg]['1']['points'] == match_json[set_][leg]['2']['points'] and p1_all_marks_open)
+            ):
+                leg_overview[set_][leg]['winner'] = '1'
+            else:
+                leg_overview[set_][leg]['winner'] = '2'
+            p1_marks += p1_marks_in_leg
+            p2_marks += p2_marks_in_leg
+
+    stats['p1_mpr'] = round(p1_marks / p1_rounds, 2) if p1_rounds else 0
+    stats['p2_mpr'] = round(p2_marks / p2_rounds, 2) if p2_rounds else 0
+    stats['p1_mpr_distribution'] = p1_mpr_distribution
+    stats['p2_mpr_distribution'] = p2_mpr_distribution
+    stats['p1_rounds'] = p1_rounds
+    stats['p2_rounds'] = p2_rounds
+    stats['leg_overview'] = leg_overview
+
+    return stats
+
+
 def collect_statistics(game, match_json):
     if game.variant == 'cricket':
-        return
+        return collect_statistics_cricket(game, match_json)
 
     stats = defaultdict(int)
     p1_scores = []

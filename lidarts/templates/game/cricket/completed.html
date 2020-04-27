@@ -4,7 +4,7 @@
 {% block app_content %}
 
 <div class="row justify-content-center mb-2">
-    <div class="col-xl-8 col-lg-10 col-sm-12">
+    <div class="col-xl-10 col-12">
         <div class="card bg-light">
 
             <div class="card-body">
@@ -15,55 +15,105 @@
                 <h2 class="card-title text-center bg-danger text-light font-weight-bold">{{ _('Challenge was declined or withdrawn.') }}</h2>
                 {% endif %}
 
+                <!--
+                <div class="card-title text-center">
+                    {% if game.p1_sets == game.p2_sets %}<h1>Draw.</h1>
+                    {% else %}<h1>Winner: {% if game.p1_sets > game.p2_sets %}{{ game.player1_name }} {% else %} {{ game.player2_name }}{% endif %}</h1>
+                    {% endif %}
+                </div>
+
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-sm-5 card-text text-center text-light {% if game.p1_sets > game.p2_sets %}bg-success{% elif game.p1_sets < game.p2_sets %}bg-danger{% else %}bg-warning{% endif %}">
+                        <h1>{{ game.player1_name }}</h1>
+                    </div>
+                    <div class="col-sm-2 card-text text-center"><h1>vs.</h1></div>
+                    <div class="col-sm-5 card-text text-center text-light {% if game.p1_sets < game.p2_sets %}bg-success{% elif game.p1_sets > game.p2_sets %}bg-danger{% else %}bg-warning{% endif %}">
+                        <h1>{{ game.player2_name }}</h1>
+                    </div>
+                </div>-->
 
                 <div class="row justify-content-center align-items-center mb-2">
-                    <div class="col-sm-5 text-center text-light">
-                        <div class="card bg-dark">
-                            <div class="card-body player_name_card"><h1>{{ game.player1_name }}</h1></div>
-                            <div class="card-footer
-                            {% if game.p1_sets > game.p2_sets %}bg-success border-success
-                            {% elif game.p1_sets < game.p2_sets %}bg-danger border-danger
-                            {% else %}bg-warning border-warning{% endif %}"></div>
+                    <div class="col-6 text-center text-light">
+                                <div class="card bg-dark">
+                                    <div class="card-body player_name_card">
+                                        <h1 class="d-none d-md-block">
+                                            {% if countries[0] %}<img src="/static/img/flags/{{ countries[0] }}.png" style="margin-right: 5px" class="
+                                            {% if countries[0] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            <a href="{{ url_for('profile.overview', username= game.player1_name) }}" class="text-light">{{ game.player1_name }}</a>
+                                        </h1>
+                                        <h3 class="d-block d-md-none">
+                                            {% if countries[0] %}<img src="/static/img/flags/{{ countries[0] }}.png" style="margin-right: 5px" class="
+                                            {% if countries[0] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            <a href="{{ url_for('profile.overview', username= game.player1_name) }}" class="text-light">{{ game.player1_name }}</a>
+                                        </h3>
+                                    </div>
+                                    <div class="card-footer
+                                    {% if game.p1_sets > game.p2_sets %}bg-success border-success
+                                    {% elif game.p1_sets < game.p2_sets %}bg-danger border-danger
+                                    {% else %}bg-warning border-warning{% endif %}"></div>
+                                </div>
                         </div>
-                    </div>
 
-                    <div class="col-sm-2 text-center"><h1>vs.</h1></div>
 
-                    <div class="col-sm-5 text-center text-light">
-                        <div class="card bg-dark">
-                            <div class="card-body player_name_card"><h1>{{ game.player2_name }}</h1></div>
-                            <div class="card-footer
-                            {% if game.p1_sets < game.p2_sets %}bg-success border-success
-                            {% elif game.p1_sets > game.p2_sets %}bg-danger border-danger
-                            {% else %}bg-warning border-warning{% endif %}"></div>
-                        </div>
+
+                    <div class="col-6 text-center text-light">
+                                <div class="card bg-dark">
+                                    <div class="card-body player_name_card">
+                                        <h1 class="d-none d-md-block">
+                                            {% if countries[1] %}<img src="/static/img/flags/{{ countries[1] }}.png" style="margin-right: 5px" class="
+                                            {% if countries[1] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            {% if game.player2 and game.player1 != game.player2 -%}
+                                            <a href="{{ url_for('profile.overview', username= game.player2_name) }}" class="text-light">
+                                            {% endif -%}
+                                            {{ game.player2_name }}
+                                            {% if game.player2 and game.player1 != game.player2 -%}
+                                            </a>
+                                            {% endif -%}                                            
+                                        </h1>
+                                        <h3 class="d-block d-md-none">
+                                            {% if countries[1] %}<img src="/static/img/flags/{{ countries[1] }}.png" style="margin-right: 5px" class="
+                                            {% if countries[1] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            {% if game.player2 and game.player1 != game.player2 -%}
+                                            <a href="{{ url_for('profile.overview', username= game.player2_name) }}" class="text-light">
+                                            {% endif -%}
+                                            {{ game.player2_name }}
+                                            {% if game.player2 and game.player1 != game.player2 -%}
+                                            </a>
+                                            {% endif -%}                                            
+                                        </h3>
+                                    </div>
+                                    <div class="card-footer
+                                    {% if game.p1_sets < game.p2_sets %}bg-success border-success
+                                    {% elif game.p1_sets > game.p2_sets %}bg-danger border-danger
+                                    {% else %}bg-warning border-warning{% endif %}"></div>
+                                </div>
                     </div>
                 </div>
 
 
                 <div class="row justify-content-center align-items-center">
-                    <div class="col-xl-4 col-lg-6 col-sm-8 text-center text-light">
+                    <div class="col-xl-4 col-lg-6 col-8 text-center text-light">
                         <div class="card bg-info">
                             <div class="card-body player_name_card">
                                 <div class="row justify-content-center align-items-center text-center">
                                     {% if game.bo_sets > 1 %}
-                                    <div class="col-sm-3">
+                                    <div class="col-3">
                                         <h3>{{ game.p1_sets }}</h3>
                                     </div>
 
-                                    <div class="col-sm-6"><h3>Sets</h3></div>
+                                    <div class="col-6"><h3>Sets</h3></div>
 
-                                    <div class="col-sm-3">
+                                    <div class="col-3">
                                         <h3>{{ game.p2_sets }}</h3>
                                     </div>
                                     {% else %}
-                                    <div class="col-sm-3">
+                                    <div class="col-3">
                                         <h3>{{ game.p1_legs }}</h3>
                                     </div>
 
-                                    <div class="col-sm-6"><h5>Legs</h5></div>
+                                    <div class="col-6"><h5>Legs</h5></div>
 
-                                    <div class="col-sm-3">
+                                    <div class="col-3">
                                         <h3>{{ game.p2_legs }}</h3>
                                     </div>
                                     {% endif %}
@@ -83,8 +133,9 @@
             <div class="card-body">
 
                 {% if game.end and game.begin %}
-                <div class="row justify-content-center align-items-center mb-2">
+                <div class="row justify-content-center align-items-center">
                     <div class="col-sm-8 text-center text-secondary">
+                        <p>{{ _('Match start')}}: {{ moment(game.begin).format('DD.MM.YYYY HH:mm') }}</p>
                         <p>{{ _('Match duration') }}: {{ ((game.end - game.begin).seconds // 3600)}} {{ _('hours') }},
                             {{ ((game.end - game.begin).seconds % 3600) // 60}} {{ _('minutes') }},
                             {{ ((game.end - game.begin).seconds % 60)}} {{ _('seconds') }}</p>
@@ -92,9 +143,150 @@
                 </div>
                 {% endif %}
 
+                {% if game.webcam %}      
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-sm-8 text-center text-secondary">
+                        <p><i title="{{ _('Webcam game') }}" class="fas fa-camera"></i> {{ _(' Webcam game') }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="row justify-content-center align-items-center mb-2 text-center text-secondary">
+                    <div class="col-12">
+                        <div class="row justify-content-center">
+                            <div class="col-3"><p>{{ stats['p1_mpr']|string }}</p></div>
+                            <div class="col-3"><p>MPR</p></div>
+                            <div class="col-3"><p>{{ stats['p2_mpr']|string }}</p></div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-12"><p>Mark distribution - absolute (% of total)</p></div>
+                        </div>
+                        {% for mark in range(10) %}
+                        <div class="row justify-content-center">
+                            <div class="col-3"><p>{{ stats['p1_mpr_distribution'][mark] }} ({{ (stats['p1_mpr_distribution'][mark] / stats['p1_rounds']*100)|round(1) }}%)</p></div>
+                            <div class="col-3"><p>{{ mark }}</p></div>
+                            <div class="col-3"><p>{{ stats['p2_mpr_distribution'][mark] }} ({{ (stats['p2_mpr_distribution'][mark] / stats['p2_rounds']*100)|round(1) }}%)</p></div>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
 
             </div>
         </div>
     </div>
 </div>
+
+<div class="row justify-content-center">
+    <div class="col-sm-12 col-xl-10">
+        <div class="card bg-light text-dark">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 text-center">
+                        <table class="table d-flex border-0 table-responsive">
+                            <tr>
+                                <td class="border-0"></td>
+                                {% for set_ in range(1, match_json|length + 1) %}
+                                {% for leg in range(1, match_json[set_|string]|length + 1) %}
+                                <td class="border">
+                                    S{{ set_ }}|L{{ leg }}
+                                </td>
+                                {% endfor %}
+                                {% endfor %}
+                            </tr>
+
+                            {% for player in match_json['1']['1'] %}
+                            {% set other_player = '2' if player == '1' else '1' %}
+                            <tr>
+                                <td class="border"><strong>{% if player == '1' %}{{ game.player1_name }}
+                                    {% else %}{{ game.player2_name }}{% endif %}</strong></td>
+                                {% for set in range(1, match_json|length + 1) %}
+                                {% for leg in range(1, match_json[set|string]|length + 1) %}
+                                <td class="border td-leg-overview {% if stats['leg_overview'][set|string][leg|string]['winner'] == player %}bg-leg-win text-light{% else %}text-secondary{% endif %}">
+                                    <div style="position: relative">
+                                    <span class="leg-average">                                      
+                                        {{ stats['leg_overview'][set|string][leg|string]['mpr'][player]|round(1) }}
+                                    </span>
+                                    <span class="dart-count">{{ match_json[set|string][leg|string][player]['points'] }}</span>
+                                    </div>
+                                </td>
+                                {% endfor %}
+                                {% endfor %}
+                                {% endfor %}
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+{% for set_ in range(1, match_json|length + 1) %}
+{% for leg in range(1, match_json[set_|string]|length + 1) %}
+<div class="row justify-content-center">
+    <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
+        <div class="card bg-light text-dark">
+            <div class="card-body">
+                <p>Set {{ set_ }} | Leg {{ leg }}</p>
+
+                <div class="row justify-content-center text-center">
+                    <div class="col-6 h3 font-weight-bold">{{ match_json[set_|string][leg|string]['1']['points'] }}</div>
+                    <div class="col-6 h3 font-weight-bold">{{ match_json[set_|string][leg|string]['2']['points'] }}</div>
+                </div>
+
+
+<div class="card-text text-secondary">
+    {% for field in (20, 19, 18, 17, 16, 15, 25) %}
+    <div class="d-flex flex-row justify-content-center align-items-center text-center mt-1">
+        <!-- SCOREBOARD PLAYER 1 {{ field }} -->
+        <div class="col-3 col-sm-4 col-lg-5" style="padding-left: 0px; padding-right: 0px;">
+            <div class="d-flex d-row justify-content-between">
+                <div class="d-flex d-column"></div>
+                <div class="d-flex d-column">
+                    <span class="fa-stack fa-1x">
+                        {% if match_json[set_|string][leg|string]['1']['fields'][field|string]['marks'] >= 1 %}<i class="fas fa-slash fa-stack-2x" ></i>{% endif %}
+                        {% if match_json[set_|string][leg|string]['1']['fields'][field|string]['marks'] >= 2 %}<i class="fas fa-slash fa-stack-2x fa-flip-horizontal"></i>{% endif %}
+                        {% if match_json[set_|string][leg|string]['1']['fields'][field|string]['marks'] >= 3 %}<i class="far fa-circle fa-stack-2x"></i>{% endif %}
+                    </span>
+                </div>
+                <div class="d-flex d-column text-right" id="marks-p1-{{ field }}-score" style="width: 40px;">
+                    {{ match_json[set_|string][leg|string]['1']['fields'][field|string]['score'] }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-sm-4 col-lg-2 text-center" style="padding-left: 0px; padding-right: 0px;">
+                <h4><strong>{{ field }}</strong></h4>
+        </div>
+
+        <!-- SCOREBOARD PLAYER 2 {{ field }} -->
+        <div class="col-3 col-sm-4 col-lg-5" style="padding-left: 0px; padding-right: 0px;">
+            <div class="d-flex d-row justify-content-between">
+                <div class="d-flex d-column" style="width: 40px;">
+                    {{ match_json[set_|string][leg|string]['2']['fields'][field|string]['score'] }}
+                </div>
+                <div class="d-flex d-column">
+                    <span class="fa-stack fa-1x">
+                        {% if match_json[set_|string][leg|string]['2']['fields'][field|string]['marks'] >= 1 %}<i class="fas fa-slash fa-stack-2x" ></i>{% endif %}
+                        {% if match_json[set_|string][leg|string]['2']['fields'][field|string]['marks'] >= 2 %}<i class="fas fa-slash fa-stack-2x fa-flip-horizontal"></i>{% endif %}
+                        {% if match_json[set_|string][leg|string]['2']['fields'][field|string]['marks'] >= 3 %}<i class="far fa-circle fa-stack-2x"></i>{% endif %}
+                    </span>
+                </div>
+                <div class="d-flex d-column"></div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+{% endfor %}
+{% endfor %}
 {% endblock %}
