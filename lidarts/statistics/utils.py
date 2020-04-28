@@ -121,19 +121,19 @@ def calculate_overall_stats_from_game(current_stats, game, player):
     current_stats['number_of_games'] += 1
 
     # draw?
-    if game.p1_legs == game.p2_legs:
+    if game.p1_sets == game.p2_sets:
         current_stats['games_draw'] += 1
     # is player1 the current player?
     elif player == '1':
-        if game.p1_legs > game.p2_legs:
+        if game.p1_sets > game.p2_sets:
             current_stats['games_won'] += 1
-        elif game.p1_legs < game.p2_legs:
+        elif game.p1_sets < game.p2_sets:
             current_stats['games_lost'] += 1
     # is player2 the current player?
     elif player == '2':
-        if game.p2_legs > game.p1_legs:
+        if game.p2_sets > game.p1_sets:
             current_stats['games_won'] += 1
-        elif game.p2_legs < game.p1_legs:
+        elif game.p2_sets < game.p1_sets:
             current_stats['games_lost'] += 1
 
     return current_stats
