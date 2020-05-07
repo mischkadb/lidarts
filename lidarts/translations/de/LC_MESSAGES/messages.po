@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-29 20:31+0200\n"
-"PO-Revision-Date: 2020-04-29 18:46\n"
+"POT-Creation-Date: 2020-05-07 13:58+0200\n"
+"PO-Revision-Date: 2020-05-07 12:38\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -241,11 +241,11 @@ msgstr "Suchen"
 msgid "Live Games"
 msgstr "Live Spiele"
 
-#: generic/routes.py:167 templates/base.html:50
+#: generic/routes.py:167 templates/base.html:54
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:234 templates/base.html:54
+#: generic/routes.py:234 templates/base.html:58
 #: templates/game/cricket/stream_overlay.html:136
 #: templates/game/x01/game.html:98 templates/game/x01/stream_overlay.html:107
 #: templates/game/x01/webcam.html:111
@@ -338,7 +338,7 @@ msgstr "Kanal-ID"
 msgid "Match History"
 msgstr "Spielverlauf"
 
-#: profile/routes.py:128 templates/base.html:97
+#: profile/routes.py:128 templates/base.html:101
 msgid "Profile"
 msgstr "Profil"
 
@@ -430,95 +430,94 @@ msgstr "Filter"
 msgid "Apply"
 msgstr "Übernehmen"
 
-#: templates/base.html:46
+#: templates/base.html:50
 msgid "Home"
 msgstr "Startseite"
 
-#: templates/base.html:47 templates/base.html:52 templates/generic/chat.html:44
+#: templates/base.html:51 templates/base.html:56 templates/generic/chat.html:44
 msgid "Watch"
 msgstr "Zuschauen"
 
-#: templates/base.html:48 templates/base.html:55
-#: templates/profile/overview.html:134
+#: templates/base.html:52 templates/base.html:59
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/base.html:51 templates/generic/lobby.html:31
+#: templates/base.html:55 templates/generic/lobby.html:31
 msgid "Play"
 msgstr "Spielen"
 
-#: templates/base.html:53 tournament/routes.py:82
+#: templates/base.html:57 tournament/routes.py:83
 msgid "Tournaments"
 msgstr "Turniere"
 
-#: templates/base.html:70
+#: templates/base.html:74
 msgid "No new notifications"
 msgstr "Keine neuen Benachrichtigungen"
 
-#: templates/base.html:79 templates/security/login_user.html:9
+#: templates/base.html:83 templates/security/login_user.html:9
 #: templates/security/login_user.html:18
 #: templates/security/register_user.html:29
 msgid "Sign In"
 msgstr "Einloggen"
 
-#: templates/base.html:80 templates/security/register_user.html:10
+#: templates/base.html:84 templates/security/register_user.html:10
 #: templates/security/register_user.html:22
 msgid "Register"
 msgstr "Registrieren"
 
-#: templates/base.html:83
+#: templates/base.html:87
 msgid "Inbox"
 msgstr "Posteingang"
 
-#: templates/base.html:89
+#: templates/base.html:93
 msgid "Status"
 msgstr "Status"
 
-#: templates/base.html:92
+#: templates/base.html:96
 msgid "Looking for Game"
 msgstr "Suche nach Spiel"
 
-#: templates/base.html:93
+#: templates/base.html:97
 msgid "Busy"
 msgstr "Beschäftigt"
 
-#: templates/base.html:98
+#: templates/base.html:102
 msgid "Logout"
 msgstr "Abmelden"
 
-#: templates/base.html:131
+#: templates/base.html:135
 msgid "About"
 msgstr "Über"
 
-#: templates/base.html:132 templates/generic/contact.html:10
+#: templates/base.html:136 templates/generic/contact.html:10
 msgid "Contact"
 msgstr "Kontakt"
 
-#: templates/base.html:133
+#: templates/base.html:137
 msgid "FAQ"
 msgstr "FAQ"
 
-#: templates/base.html:134
+#: templates/base.html:138
 msgid "Contribute"
 msgstr "Mitmachen"
 
-#: templates/base.html:135
+#: templates/base.html:139
 msgid "Changelog"
 msgstr "Changelog"
 
-#: templates/base.html:136
+#: templates/base.html:140
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: templates/base.html:137
+#: templates/base.html:141
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: templates/base.html:138
+#: templates/base.html:142
 msgid "Terms & Conditions"
 msgstr "AGB"
 
-#: templates/base.html:140
+#: templates/base.html:144
 msgid "Legal notice"
 msgstr "Impressum"
 
@@ -637,7 +636,7 @@ msgstr "Du bist nicht eingeloggt. Bitte einloggen um in diesem Spiel zu spielen.
 msgid "Share this link to invite another player (must be logged in):"
 msgstr "Teile diesen Link, um einen anderen Spieler einzuladen (muss eingeloggt sein):"
 
-#: templates/game/wait_for_opponent.html:21
+#: templates/game/wait_for_opponent.html:21 templates/tournament/stream.html:20
 msgid "Copy text"
 msgstr "Text kopieren"
 
@@ -928,7 +927,7 @@ msgstr "Öffentliche Herausforderungen"
 msgid "New games"
 msgstr "Neue Spiele"
 
-#: templates/generic/chat.html:54 templates/tournament/details.html:50
+#: templates/generic/chat.html:54 templates/tournament/details.html:54
 msgid "Latest results"
 msgstr "Neueste Ergebnisse"
 
@@ -940,19 +939,19 @@ msgstr "Zeige Spielinformationen"
 msgid "Show public challenges"
 msgstr "Zeige Herausforderungen"
 
-#: templates/generic/chat.html:109 templates/tournament/details.html:101
+#: templates/generic/chat.html:109 templates/tournament/details.html:105
 msgid "Filter users"
 msgstr "Filter User"
 
-#: templates/generic/chat.html:114 templates/tournament/details.html:106
+#: templates/generic/chat.html:114 templates/tournament/details.html:110
 msgid "From your country"
 msgstr "Gleiches Land"
 
-#: templates/generic/chat.html:118 templates/tournament/details.html:110
+#: templates/generic/chat.html:118 templates/tournament/details.html:114
 msgid "Online"
 msgstr "Online"
 
-#: templates/generic/chat.html:119 templates/tournament/details.html:111
+#: templates/generic/chat.html:119 templates/tournament/details.html:115
 msgid "Playing"
 msgstr "Im Spiel"
 
@@ -1245,15 +1244,15 @@ msgstr "Falls deine Sprache in der Auswahl fehlt oder du Fragen hast"
 msgid "us"
 msgstr "uns"
 
-#: templates/generic/inbox.html:26
+#: templates/generic/inbox.html:25
 msgid "Enter name"
 msgstr "Namen eingeben"
 
-#: templates/generic/inbox.html:27
+#: templates/generic/inbox.html:26
 msgid "Compose new message"
 msgstr "Neue Nachricht verfassen"
 
-#: templates/generic/inbox.html:39
+#: templates/generic/inbox.html:38
 msgid "Chat with"
 msgstr "Chat mit"
 
@@ -1631,8 +1630,8 @@ msgid "Full match list"
 msgstr "Vollständige Spielliste"
 
 #: templates/profile/overview.html:86
-msgid "Statistics (501 SI/DO)"
-msgstr "Statistiken (501 SI/DO)"
+msgid "Recent statistics (501 SI/DO)"
+msgstr "Aktuelle Statistiken (501 SI/DO)"
 
 #: templates/profile/overview.html:88
 msgid "Number of games:"
@@ -1643,17 +1642,17 @@ msgstr "Anzahl Spiele:"
 msgid "Darts thrown:"
 msgstr "Darts geworfen:"
 
-#: templates/profile/overview.html:99
+#: templates/profile/overview.html:93
+msgid "Detailed statistics"
+msgstr "Ausführliche Statistiken"
+
+#: templates/profile/overview.html:100
 msgid "Winrates (501 SI/DO)"
 msgstr "Siegquote (501 SI/DO)"
 
-#: templates/profile/overview.html:100
+#: templates/profile/overview.html:101
 msgid "(grouped by opponent average)"
 msgstr "(gruppiert nach Average des Gegners)"
-
-#: templates/profile/overview.html:135
-msgid "X01"
-msgstr "X01"
 
 #: templates/profile/settings.html:10
 msgid "Activate webcam games"
@@ -1824,7 +1823,7 @@ msgstr "Darts geworfen"
 msgid "Number of games / legs:"
 msgstr "Anzahl Spiele / Legs:"
 
-#: templates/tournament/details.html:17 tournament/routes.py:152
+#: templates/tournament/details.html:17 tournament/routes.py:153
 msgid "Tournament details"
 msgstr "Turnierdetails"
 
@@ -1840,23 +1839,27 @@ msgstr "Turnier beitreten"
 msgid "Create tournament game"
 msgstr "Turnierspiel erstellen"
 
-#: templates/tournament/details.html:33
+#: templates/tournament/details.html:31
+msgid "Stream tournament games"
+msgstr "Streame Turnierspiele"
+
+#: templates/tournament/details.html:37
 msgid "Creator"
 msgstr "Ersteller"
 
-#: templates/tournament/details.html:34
+#: templates/tournament/details.html:38
 msgid "Watch live games"
 msgstr "Livespiele ansehen"
 
-#: templates/tournament/details.html:36
+#: templates/tournament/details.html:40
 msgid "URL"
 msgstr "URL"
 
-#: templates/tournament/details.html:39
+#: templates/tournament/details.html:43
 msgid "Start"
 msgstr "Start"
 
-#: templates/tournament/details.html:42
+#: templates/tournament/details.html:46
 msgid "Edit settings"
 msgstr "Einstellungen bearbeiten"
 
@@ -1976,6 +1979,38 @@ msgstr "Entbannen"
 msgid "Do you want to unban "
 msgstr "Entbannen von Spieler "
 
+#: templates/tournament/stream.html:11 tournament/routes.py:250
+msgid "Tournament streaming"
+msgstr "Turnier-Streaming"
+
+#: templates/tournament/stream.html:13
+msgid "As a tournament creator you can get access to the video feeds of the webcam games if both players consent to streaming."
+msgstr "Als Turnierersteller kannst du Zugang zu den Video-Feeds der Webcamspiele erhalten, wenn beide Spieler einverstanden sind."
+
+#: templates/tournament/stream.html:14
+msgid "Select a game you want to stream. The links below redirect you to the game's score page and video call. You should set these up in a streaming software for custom display."
+msgstr "Wähle ein Spiel aus, das du streamen möchtest. Die untenstehenden Links leiten dich zur Scoreseite und zum Videoanruf weiter. Diese sollten in einer Streaming-Software für eine zugeschnittene Anzeige eingestellt werden."
+
+#: templates/tournament/stream.html:23
+msgid "Generate new API key"
+msgstr "Neuen API-Schlüssel generieren"
+
+#: templates/tournament/stream.html:28
+msgid "Game score URL:"
+msgstr "Spiel-Score URL:"
+
+#: templates/tournament/stream.html:33
+msgid "Jitsi URL:"
+msgstr "Jitsi URL:"
+
+#: templates/tournament/stream.html:43 tournament/forms.py:42
+msgid "Streamable games"
+msgstr "Streambare Spiele"
+
+#: templates/tournament/stream.html:60
+msgid "Currently no streamable games."
+msgstr "Derzeit keine streambaren Spiele."
+
 #: tournament/forms.py:30
 msgid "Tournament name"
 msgstr "Turniername"
@@ -1996,23 +2031,31 @@ msgstr "Externe URL"
 msgid "Create Tournament"
 msgstr "Turnier erstellen"
 
-#: tournament/routes.py:20
+#: tournament/forms.py:43
+msgid "Select game"
+msgstr ""
+
+#: tournament/routes.py:21
 msgid "Start in the past is not allowed for public tournaments."
 msgstr "Der Turnierstart von öffentlichen Turnieren darf nicht in der Vergangenheit liegen."
 
-#: tournament/routes.py:24
+#: tournament/routes.py:25
 msgid "Start must be within the next 30 days."
 msgstr "Der Turnierstart muss in den nächsten 30 Tagen stattfinden."
 
-#: tournament/routes.py:34
+#: tournament/routes.py:35
 msgid "Tournament updated."
 msgstr "Turnier aktualisiert."
 
-#: tournament/routes.py:97
+#: tournament/routes.py:98
 msgid "You were banned from this tournament."
 msgstr "Du wurdest von diesem Turnier gebannt."
 
-#: tournament/routes.py:181
+#: tournament/routes.py:182
 msgid "Tournament settings"
 msgstr "Turniereinstellungen"
+
+#: tournament/routes.py:242
+msgid "Game selected as stream game."
+msgstr ""
 
