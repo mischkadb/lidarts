@@ -17,7 +17,7 @@ $(document).ready(function() {
     ifaceoverwrite = {
         TOOLBAR_BUTTONS: [ 'microphone', 'camera', 
         'fodeviceselection', 'fullscreen',
-        'settings', 'livestreaming',
+        'settings',
         'tileview',
         'videoquality'],
         GENERATE_ROOMNAMES_ON_WELCOME_PAGE: false,
@@ -29,9 +29,11 @@ $(document).ready(function() {
         MOBILE_APP_PROMO: jitsi_app,
         MAXIMUM_ZOOMING_COEFFICIENT: 1.0,
         SHOW_CHROME_EXTENSION_BANNER: false,
+        SHOW_JITSI_WATERMARK: false,
+        SHOW_WATERMARK_FOR_GUESTS: false,
     }
 
-    const domain = 'meet.jit.si';
+    const domain = 'jitsi.dusk-server.de';
     const options = {
         roomName: 'lidarts-' + hashid,
         parentNode: document.querySelector('#meet'),
