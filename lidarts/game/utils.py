@@ -83,8 +83,8 @@ def collect_statistics_cricket(game, match_json):
                 p2_marks_in_leg += marks_in_round                    
                 p2_mpr_distribution[marks_in_round] += 1
 
-            leg_overview[set_][leg]['mpr']['1'] = p1_marks_in_leg / len(match_json[set_][leg]['1']['scores']) if len(match_json[set_][leg]['1']['scores'] else 0
-            leg_overview[set_][leg]['mpr']['2'] = p2_marks_in_leg / len(match_json[set_][leg]['2']['scores']) if len(match_json[set_][leg]['2']['scores'] else 0
+            leg_overview[set_][leg]['mpr']['1'] = p1_marks_in_leg / len(match_json[set_][leg]['1']['scores']) if len(match_json[set_][leg]['1']['scores']) else 0
+            leg_overview[set_][leg]['mpr']['2'] = p2_marks_in_leg / len(match_json[set_][leg]['2']['scores']) if len(match_json[set_][leg]['2']['scores']) else 0
             p1_all_marks_open = all(field['marks'] == 3 for field in match_json[set_][leg]['1']['fields'].values())
             if (
                 (match_json[set_][leg]['1']['points'] > match_json[set_][leg]['2']['points']) 
