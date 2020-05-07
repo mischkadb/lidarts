@@ -172,7 +172,7 @@ def collect_statistics(game, match_json):
 
             for i, score in enumerate(match_json[set_][leg]['1']['scores']):
                 p1_scores.append(score)
-                if i <= 3:
+                if i <= 2:
                     p1_first9_scores.append(score)
                 if score == 180:
                     stats['p1_180'] += 1
@@ -193,7 +193,7 @@ def collect_statistics(game, match_json):
 
             for i, score in enumerate(match_json[set_][leg]['2']['scores']):
                 p2_scores.append(score)
-                if i <= 3:
+                if i <= 2:
                     p2_first9_scores.append(score)
                 if score == 180:
                     stats['p2_180'] += 1
