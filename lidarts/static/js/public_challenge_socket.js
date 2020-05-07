@@ -54,11 +54,21 @@ $(document).ready(function() {
             } else {
                 webcam = ''
             }
+
+            if (public_challenge['variant'] == 'x01') {
+                type = public_challenge['type'] + ' ';
+                mode = public_challenge['in_mode'] + '/' + public_challenge['out_mode'] + ' | '
+            } else {
+                type = 'Cricket ';
+                mode = '';
+            }
+
             
             $('#public_challenge_list').append(
                 '<p><a href="' + game_url + public_challenge['hashid'] + '" class="text-dark mt-2"><strong>' + public_challenge['username'] + '</strong> | '
                 + 'Avg.: ' + public_challenge['average'] + '<br>'
-                + public_challenge['type'] + ' ' +  public_challenge['in_mode'] + '/' +  public_challenge['out_mode'] + ' | '
+                + type 
+                + mode
                 + 'bo' + public_challenge['bo_legs'] + ' legs'
                 + bo_sets
                 + two_clear_legs
