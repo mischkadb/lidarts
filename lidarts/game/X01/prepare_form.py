@@ -108,9 +108,9 @@ def prepare_x01_form(opponent_name, tournament_hashid):
     tournament_choices = []
     for tournament in tournaments:
         tournament_choices.append((tournament.hashid, tournament.name))
+        if tournament_hashid and tournament_hashid == tournament.hashid and request.method == 'GET':
+            form.tournament.data = tournament_hashid
     tournament_choices.append(('-', '-'))
     form.tournament.choices = tournament_choices[::-1]
-    if tournament_hashid and tournament_hashid == tournament.hashid and request.method == 'GET':
-        form.tournament.data = tournament_hashid
 
     return form
