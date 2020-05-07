@@ -93,13 +93,14 @@
     <div class="col-12 mt-2 col-md-6 col-xl-4 mt-xl-0">
         <div class="card bg-light bs-callout bs-callout-danger text-secondary">
             <div class="card-body">
-                <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Statistics (501 SI/DO)') }}</h5>
+                <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Recent statistics (501 SI/DO)') }}</h5>
                 <hr>
                 <p>{{ _('Number of games:') }} {{ stats.total_games }}</p>
                 <p>{{ _('Darts thrown:') }} {{ stats.darts_thrown }}</p>
                 <p>Average: {{ stats.average}}</p>
                 <p>First 9: {{ stats.first9 }}</p>
                 <p>Doubles: {{ stats.doubles }}%</p>
+                <p><a href="{{ url_for('statistics.x01', username=user.username) }}">{{ _('Detailed statistics') }}</a></p>
 
             </div>
         </div>
@@ -137,15 +138,6 @@
 
             </div>
         </div>
-
-        {% if current_user.id == user.id %}
-        <div class="card bg-light bs-callout bs-callout-danger text-secondary mt-2">
-            <div class="card-body">
-                <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Statistics') }}</h5>
-                <p><a href="{{ url_for('statistics.x01') }}" class="text-secondary">{{ _('X01') }}</a></p>
-            </div>
-        </div>
-        {% endif %}
     </div>
 </div>
 
