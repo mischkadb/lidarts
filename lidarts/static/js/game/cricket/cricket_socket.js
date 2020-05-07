@@ -22,6 +22,7 @@ $(document).ready(function() {
         socket.emit('init', {hashid: hashid['hashid'] });
     });
 
+    var audio = new Audio();
     var muted = false;
 
     socket.emit('player_heartbeat', {hashid: hashid['hashid']});
@@ -96,7 +97,7 @@ $(document).ready(function() {
 
     });
 
-    function update_scoreboards(msg) {
+    function update_scoreboards(msg, game_shot) {
         // show current leg and set scores
         $('.p1_sets').text(msg.p1_sets);
         $('.p2_sets').text(msg.p2_sets);
@@ -164,12 +165,24 @@ $(document).ready(function() {
                 }
 
                 if (value['marks'] >= i) {
+                    if (value['marks'] == 3 && msg.p2_current_fields[index]['marks'] < 3 && $('#marks-p1-' + index + '-' + i).is(":hidden")) {
+                        if (muted == false && !game_shot){
+                            audio.src = '/static/sounds/field_open.mp3';
+                            audio.play();
+                        }
+                    };
                     $('#marks-p1-' + index + '-' + i).show();
                 } else {
                     $('#marks-p1-' + index + '-' + i).hide();
                 }
                 
                 if (value['marks'] == 3 && msg.p2_current_fields[index]['marks'] == 3) {
+                    if (!$('#score-button-S' + index).hasClass('disabled')) {
+                        if (muted == false && !game_shot){
+                            audio.src = '/static/sounds/field_closed.mp3';
+                            audio.play();
+                        }
+                    };
                     $('#score-button-S' + index).addClass('disabled');
                     $('#score-button-D' + index).addClass('disabled');
                     if (index < 25) {
@@ -194,6 +207,13 @@ $(document).ready(function() {
                 }
 
                 if (value['marks'] >= i) {
+                    if (value['marks'] == 3 && msg.p1_current_fields[index]['marks'] < 3 && $('#marks-p2-' + index + '-' + i).is(":hidden")) {
+                        if (muted == false && !game_shot){
+                            audio.src = '/static/sounds/field_open.mp3';
+                            audio.play();
+                        }
+                    };
+
                     $('#marks-p2-' + index + '-' + i).show();
                 } else {
                     $('#marks-p2-' + index + '-' + i).hide();
@@ -204,11 +224,11 @@ $(document).ready(function() {
 
     socket.on('game_shot', function(msg) {
         if (muted == false) {
-            var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
+            audio.src = '/static/sounds/' + caller + '/game_shot.mp3';
             audio.play();
         }
 
-        update_scoreboards(msg);
+        update_scoreboards(msg, true);
 
         // popup for game shot
         $('.checkDart').text(msg.to_finish);
@@ -297,7 +317,7 @@ $(document).ready(function() {
             $('.p2_score').text(msg.p2_score);
         }
 
-        update_scoreboards(msg);
+        update_scoreboards(msg, false);
 
         // Colored turn indicators.
         if (msg.p1_next_turn) {
@@ -339,17 +359,32 @@ $(document).ready(function() {
                 socket.emit('send_score', {hashid: hashid['hashid'],
                     user_id: user_id['id'], computer: true});
             }, 2000);
-
         }
     });
+
+    socket.on('confirm_score', function(msg) {
+        if (user_id['id'] == p1_id && msg.p1_next_turn) {
+            if (muted == false){
+                audio.src = '/static/sounds/your_turn.mp3';
+                audio.play();
+            }
+        }
+        else if (user_id['id'] == p2_id && !msg.p1_next_turn) {
+            if (muted == false){
+                audio.src = '/static/sounds/your_turn.mp3';
+                audio.play();
+            }
+        }
+    }) 
+
     // Remove turn indicators when game is over and show link to game overview
     socket.on('game_completed', function(msg) {
         if (muted == false){
-            var audio = new Audio('/static/sounds/' + caller + '/game_shot_match.mp3');
+            audio.src = '/static/sounds/' + caller + '/game_shot_match.mp3';
             audio.play();
         }
 
-        update_scoreboards(msg);
+        update_scoreboards(msg, true);
         $('.checkDart').text(msg.to_finish);
         $('#match-shot-modal').modal('show');
         if (msg.p1_won) {

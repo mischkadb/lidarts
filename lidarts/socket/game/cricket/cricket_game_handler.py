@@ -227,6 +227,8 @@ def confirm_score(message, computer=False):
             game.confirmation_needed = False
             game.undo_possible = False
             db.session.commit()
+            emit('confirm_score', {'p1_next_turn': game.p1_next_turn},
+                room=game.hashid, namespace='/game/cricket')
             send_score_response(game, game.p1_score, game.p2_score, broadcast=True, confirmed=True)
             return
 
@@ -237,6 +239,8 @@ def confirm_score(message, computer=False):
             game.confirmation_needed = False
             game.undo_possible = False
             db.session.commit()
+            emit('confirm_score', {'p1_next_turn': game.p1_next_turn},
+                room=game.hashid, namespace='/game/cricket')
             send_score_response(game, game.p1_score, game.p2_score, broadcast=True, confirmed=True)
             return
 
