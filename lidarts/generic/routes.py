@@ -150,6 +150,9 @@ def lobby():
                 .first_or_404()[0]
             )
 
+    player_names_sorted = {k: v for k, v in sorted(player_names.items(), key=lambda x: x[1])}
+    online_friend_list.sort(key=lambda k: player_names_sorted[k])
+
     mobile_follower_mode = (
         WebcamSettings.query
         .with_entities(WebcamSettings.mobile_follower_mode)

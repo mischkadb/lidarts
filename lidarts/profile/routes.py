@@ -194,6 +194,9 @@ def manage_friend_list():
             player_names[request] = User.query.with_entities(User.username) \
                 .filter_by(id=request).first_or_404()[0]
 
+    player_names_sorted = {k: v for k, v in sorted(player_names.items(), key=lambda x: x[1])}
+    friend_list.sort(key=lambda k: player_names_sorted[k])
+
     return render_template('profile/manage_friend_list.html',
                            friend_list=friend_list, player_names=player_names, pending_requests=friendship_request,
                            title=lazy_gettext('Manage Friend List'))
