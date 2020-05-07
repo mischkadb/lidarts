@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-27 15:38+0200\n"
-"PO-Revision-Date: 2020-04-27 13:46\n"
+"POT-Creation-Date: 2020-04-29 20:31+0200\n"
+"PO-Revision-Date: 2020-04-29 18:46\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -731,6 +731,11 @@ msgstr "Sekunden"
 msgid " Webcam game"
 msgstr " Webcam-Spiel"
 
+#: templates/game/cricket/completed.html:162
+#, python-format
+msgid "Mark distribution - absolute (%% of total)"
+msgstr "Marks-Verteilung - absolut (%% total)"
+
 #: templates/game/cricket/game.html:14
 #: templates/game/cricket/stream_overlay.html:57
 #: templates/game/cricket/watch_webcam.html:27
@@ -1001,8 +1006,8 @@ msgid "Translations"
 msgstr "Übersetzungen"
 
 #: templates/generic/contribute.html:26
-msgid "The main language on Lidarts is English. Translations exist in German and Danish. If you are fluent in English and another language of your choice you can"
-msgstr "Die Hauptsprache auf Lidarts ist Englisch. Übersetzungen existieren derzeit auf Deutsch und Dänish. Wenn du fließend Englisch und eine weitere Sprache beherrscht, dann kannst du"
+msgid "The main language on Lidarts is English. Translations exist in German, Danish and Dutch. If you are fluent in English and another language of your choice you can"
+msgstr "Die Hauptsprache auf Lidarts ist Englisch. Übersetzungen existieren derzeit auf Deutsch, Dänisch und Niederländisch. Wenn du fließend Englisch und eine weitere Sprache beherrscht, dann kannst du"
 
 #: templates/generic/contribute.html:26
 msgid "help translating"
@@ -1213,8 +1218,8 @@ msgid "Help translating lidarts.org"
 msgstr "Hilf aus, um lidarts.org zu übersetzen"
 
 #: templates/generic/help_translate.html:12
-msgid "Lidarts is currently available in three languages: English, German and Danish. Translations to any language can be provided by the community."
-msgstr "Lidarts ist derzeit in drei Sprachen verfügbar: Englisch, Deutsch und Dänisch. Eine Übersetzung in jede andere Sprache kann von der Community bereitgestellt werden."
+msgid "Lidarts is currently available in four languages: English, German, Danish and Dutch. Translations to any language can be provided by the community."
+msgstr "Lidarts ist derzeit in vier Sprachen verfügbar: Englisch, Deutsch, Dänisch und Niederländisch. Eine Übersetzung in jede andere Sprache kann von der Community bereitgestellt werden."
 
 #: templates/generic/help_translate.html:14
 msgid "How to translate"
@@ -1648,7 +1653,7 @@ msgstr "(gruppiert nach Average des Gegners)"
 
 #: templates/profile/overview.html:135
 msgid "X01"
-msgstr ""
+msgstr "X01"
 
 #: templates/profile/settings.html:10
 msgid "Activate webcam games"
@@ -1845,11 +1850,11 @@ msgstr "Livespiele ansehen"
 
 #: templates/tournament/details.html:36
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: templates/tournament/details.html:39
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: templates/tournament/details.html:42
 msgid "Edit settings"
