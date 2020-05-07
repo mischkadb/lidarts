@@ -1,6 +1,6 @@
 from flask_babelex import _, lazy_gettext
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, StringField, BooleanField, TextAreaField
+from wtforms import SubmitField, StringField, BooleanField, TextAreaField, RadioField
 from wtforms_components import TimeField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, Optional
@@ -36,3 +36,8 @@ class CreateTournamentForm(FlaskForm):
     start_time = TimeField('Start time', validators=[RequiredIf('public_tournament')])
     submit = SubmitField(lazy_gettext('Create Tournament'))
     submit_save = SubmitField(lazy_gettext('Save settings'))
+
+
+class ConfirmStreamGameForm(FlaskForm):
+    games = RadioField(lazy_gettext('Streamable games'), validators=[DataRequired()])
+    submit = SubmitField(lazy_gettext('Select game'))

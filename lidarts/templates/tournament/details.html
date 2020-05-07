@@ -26,6 +26,10 @@
                         {{ _('Create tournament game') }}
                     </button>
                 </a>
+                
+                {% if current_user.id == tournament.creator %}
+                <p><a href="{{ url_for('tournament.stream', hashid=tournament.hashid) }}">{{ _('Stream tournament games') }}</a></p>
+                {% endif %}
 
                 {% if tournament.description %}
                     <p class="card-text slim">{{ tournament.description }}</p>

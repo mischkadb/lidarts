@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% from "utils.html" import render_error %}
+
+{% block app_content %}
+
+
+<div class="row justify-content-center mt-2 mt-md-4">
+    <div class="col-12 col-md-6">
+        <div class="card bg-light text-dark bs-callout bs-callout-info ">
+            <div class="card-body text-center">
+                <h5 class="card-title text-center">{{ _('Tournament streaming') }}</h5>
+                <hr>
+                <p class="card-text text-left">{{ _('As a tournament creator you can get access to the video feeds of the webcam games if both players consent to streaming.') }}</p>
+                <p class="card-text text-left">{{ _('Select a game you want to stream. The links below redirect you to the game\'s score page and video call. You should set these up in a streaming software for custom display.') }}</p>
+                <hr>
+                <!--
+                <p class="card-text">
+                  API Key:
+                    <input type="text" class="form-control" id="api_key" aria-describedby="api key" value="{{ tournament.api_key }}" readonly>
+                    <button onclick="copyLink()" class="btn btn-dark">{{ _('Copy text') }}</button>
+                </p>
+                <p class="card-text">
+                    <button type="button" class="btn btn-primary" id="generateAPIKeyButton">{{ _('Generate new API key') }}</button>
+                </p>   
+              -->
+
+              <p class="card-text">
+                {{ _('Game score URL:') }}
+                <input type="text" class="form-control" value="https://lidarts.org{{ url_for('api.get_stream_game') }}" readonly>
+              </p>
+
+              <p class="card-text">
+                {{ _('Jitsi URL:') }}
+                <input type="text" class="form-control" value="https://lidarts.org{{ url_for('api.get_jitsi') }}" readonly>
+              </p>         
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="card bg-light text-dark bs-callout bs-callout-warning ">
+          <div class="card-body text-left">
+              <h5 class="card-title text-center">{{ _('Streamable games') }}</h5>
+              <hr>
+              {% if games %}
+              <form method="POST" class="form-horizontal">
+              {{ form.hidden_tag() }}
+              {% for game in form.games %}
+              <div class="form-check">
+                {{ game(class="form-check-label") }}                 
+                  {{ user_names[games[game.label.text].player1] }} vs {{ user_names[games[game.label.text].player2] }} 
+                </label>
+              </div>
+              {% endfor %}
+              <p class="mt-4">
+                {{ form.submit(class="btn btn-primary") }}
+             </p>
+             </form>
+             {% else %}
+             {{ _('Currently no streamable games.') }}
+             {% endif %}
+               
+          </div>
+      </div>
+  </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<meta id="tournament_hashid" data-hashid="{{ request.path.split('/')[2] }}">
+<meta id="api_key_url" data-url="{{ url_for('tournament.new_api_key', hashid=request.path.split('/')[2]) }}">
+
+<script type="text/javascript" src="{{ url_for('static',filename='js/tournament/stream.js', version=config.VERSION) }}"></script>
+{% endblock %}

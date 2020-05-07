@@ -4,10 +4,11 @@ from flask_login import current_user, login_required
 from lidarts import db, socketio
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.tournament import bp
-from lidarts.tournament.forms import CreateTournamentForm
-from lidarts.models import Game, Tournament, Chatmessage, User, UserSettings, UserStatistic
+from lidarts.tournament.forms import CreateTournamentForm, ConfirmStreamGameForm
+from lidarts.models import Game, Tournament, Chatmessage, User, UserSettings, UserStatistic, WebcamSettings, StreamGame
 from datetime import datetime, timedelta
 from sqlalchemy.orm import aliased
+import secrets
 
 
 def handle_form(form, update=False, tournament=None):
@@ -180,3 +181,84 @@ def settings(hashid):
         tournament=tournament,
         title=lazy_gettext('Tournament settings'),
     )
+
+
+@bp.route('/<hashid>/stream', methods=['GET', 'POST'])
+@login_required
+def stream(hashid):
+    form = ConfirmStreamGameForm()
+
+    tournament = Tournament.query.filter_by(hashid=hashid).first_or_404()
+    if tournament.creator != current_user.id:
+        return redirect(url_for('tournament.details', hashid=hashid))
+
+    games = (
+        Game.query
+        .filter_by(tournament=hashid)
+        .filter_by(webcam=True)
+        .filter_by(status='started')
+        .all()
+    )
+    streamable_games = {}
+    user_names = {}
+    choices = []
+
+    for game in games:
+        player1 = WebcamSettings.query.filter_by(user=game.player1).first()
+        if not player1.stream_consent:
+            continue
+        player2 = WebcamSettings.query.filter_by(user=game.player2).first()
+        if not player2.stream_consent:
+            continue
+        if game.player1 not in user_names:
+            user_names[game.player1] = (
+                User.query
+                .with_entities(User.username)
+                .filter_by(id=game.player1)
+                .first_or_404()[0]
+            )
+        if game.player2 and game.player1 != game.player2 and game.player2 not in user_names:
+            user_names[game.player2] = (
+                User.query
+                .with_entities(User.username)
+                .filter_by(id=game.player2)
+                .first_or_404()[0]
+            )
+        streamable_games[game.hashid] = game
+        choices.append((game.hashid, game.hashid))
+
+    streamed_game = StreamGame.query.filter_by(user=current_user.id).first()
+    streamed_game = streamed_game.hashid if streamed_game else None
+    form.games.choices = choices
+
+    if form.validate_on_submit():
+        streamed_game = StreamGame.query.filter_by(user=current_user.id).first()
+        if not streamed_game:
+            streamed_game = StreamGame(user=current_user.id)
+            db.session.add(streamed_game)
+        streamed_game.hashid = form.games.data
+        streamed_game.jitsi_hashid = streamable_games[form.games.data].jitsi_hashid
+        db.session.commit()
+        flash(lazy_gettext('Game selected as stream game.'), 'success')
+
+    return render_template(
+        'tournament/stream.html',
+        tournament=tournament,
+        games=streamable_games,
+        user_names=user_names,
+        form=form,
+        title=lazy_gettext('Tournament streaming'),
+    )
+
+
+@bp.route('/<hashid>/new-api-key')
+@login_required
+def new_api_key(hashid):
+    tournament = Tournament.query.filter_by(hashid=hashid).first_or_404()
+    if tournament.creator != current_user.id:
+        return redirect(url_for('tournament.details', hashid=hashid))
+
+    tournament.api_key = secrets.token_urlsafe(16)[:16]
+    db.session.commit()
+
+    return tournament.api_key

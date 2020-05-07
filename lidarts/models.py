@@ -49,6 +49,7 @@ class User(db.Model, UserMixin):
     is_verified = db.Column(db.Boolean, default=False)
     backer_until = db.Column(db.DateTime, default=None)
     webcam_settings = relationship("WebcamSettings", uselist=False, back_populates="user_object")
+    api_key = db.Column(db.String(16), default=None)
 
     requested_friend_reqs = db.relationship(
         'FriendshipRequest',
@@ -318,6 +319,7 @@ class Tournament(db.Model):
     external_url = db.Column(db.String(120))
     start_timestamp = db.Column(db.DateTime)
     creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    api_key = db.Column(db.String(16), default=None)
     players = db.relationship(
         'User',
         secondary=tournament_players_association_table,
@@ -334,6 +336,7 @@ class Tournament(db.Model):
     def __init__(self, **kwargs):
         super(Tournament, self).__init__(**kwargs)
         self.hashid = secrets.token_urlsafe(8)[:8]
+        self.api_key = secrets.token_urlsafe(16)[:16]
 
 
 class WebcamSettings(db.Model):
@@ -356,5 +359,6 @@ class Caller(db.Model):
 
 class StreamGame(db.Model):
     __tablename__ = 'stream_game'
+    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     hashid = db.Column(db.String(10), primary_key=True)
     jitsi_hashid = db.Column(db.String(10))

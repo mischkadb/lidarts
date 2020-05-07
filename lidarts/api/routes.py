@@ -1,7 +1,8 @@
 from flask import jsonify, current_app, redirect, url_for
+from flask_login import current_user, login_required
 from lidarts import db
 from lidarts.api import bp
-from lidarts.models import Game, CricketGame, User, StreamGame
+from lidarts.models import Game, CricketGame, User, StreamGame, Tournament
 from lidarts.game.utils import collect_statistics
 import json
 from sqlalchemy.orm import aliased
@@ -57,39 +58,50 @@ def start(hashid):
     return jsonify(return_dict)
 
 
-@bp.route('/game/stream-game/<api_key>/<hashid>')
+@bp.route('/<api_key>/game/stream-game/<hashid>')
 def set_stream_game(api_key, hashid):
-    if api_key != current_app.config['API_KEY']:
-        return jsonify('Wrong API key.')
-    
     game = Game.query.filter_by(hashid=hashid).first()
     if not game:
         game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
-    stream_game = StreamGame.query.first_or_404()
+
+    if api_key != current_app.config['API_KEY']:
+        if not game.tournament:
+            return jsonify('Not a tournament game.')
+
+        tournament = Tournament.query.filter_by(hashid=game.tournament).first()
+        if not tournament.api_key:
+            return jsonify('Tournament API key not set.')
+
+        if tournament.creator != current_user.id:
+            return jsonify('Not your tournament.')
+
+    if api_key != current_app.config['API_KEY'] and api_key != tournament.api_key:
+        return jsonify('Wrong API key.')
+
+    stream_game = StreamGame.query.filter_by(user=current_user.id).first()
+    if not stream_game:
+        stream_game = StreamGame(user=current_user.id)
+        db.session.add(stream_game)
     stream_game.hashid = hashid
-    stream_game.jitsi_hashid = game.jitsi_hashid
+    stream_game.jitsi_hashid = game.jitsi_hashid    
     db.session.commit()
 
     return hashid
 
 
-@bp.route('/game/stream-game/<api_key>')
-def get_stream_game(api_key):
-    if api_key != current_app.config['API_KEY']:
-        return jsonify('Wrong API key.')
-
-    stream_game = StreamGame.query.first_or_404()
+@bp.route('/game/stream-game')
+@login_required
+def get_stream_game():
+    stream_game = StreamGame.query.filter_by(user=current_user.id).first_or_404()
     hashid = stream_game.hashid
 
     return redirect(url_for('game.start', hashid=hashid, theme='streamoverlay'))
 
 
-@bp.route('/game/stream-game/jitsi/<api_key>')
-def get_jitsi(api_key):
-    if api_key != current_app.config['API_KEY']:
-        return jsonify('Wrong API key.')
-
-    stream_game = StreamGame.query.first_or_404()
+@bp.route('/game/stream-game/jitsi')
+@login_required
+def get_jitsi():
+    stream_game = StreamGame.query.filter_by(user=current_user.id).first_or_404()
     hashid = stream_game.jitsi_hashid
 
-    return redirect(f'https://meet.jit.si/Lidarts-{hashid}', code=302)
+    return redirect(f'https://jitsi.dusk-server.de/lidarts-{hashid}', code=302)
