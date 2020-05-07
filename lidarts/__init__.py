@@ -134,6 +134,7 @@ def create_app(test_config=None):
 
     # filter for jinja
     app.jinja_env.filters['datetime'] = format_datetime
+    app.jinja_env.globals['get_locale'] = get_locale
 
     if 'REDIS_URL' in app.config:  
         # app.redis = Redis.from_url('redis://')

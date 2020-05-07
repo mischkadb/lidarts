@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block app_content %}
-
 <div class="row justify-content-center">
     <div class="col-sm-4">
         <div class="card bg-light text-dark">
@@ -38,8 +37,13 @@
                             <div id="messages_tab_{{ partner }}" class="message-tab" {% if loop.index > 1 %}style="display: none"{% endif %}>
                                 <h5 class="card-title">{{ _('Chat with') }} {{ user_names[partner] }}</h5>
                                 {% for message in messages[partner] %}
-                                <p><strong><a href="{{ url_for('profile.overview', username=user_names[message.sender]) | replace('%40', '@') }}" class="text-dark">{{ user_names[message.sender] }}</a></strong> <small class="text-secondary">{{ moment(message.timestamp).format('HH:mm:ss') }}</small><br>
-                                    {{ message.message|safe }}</p>
+                                <p>
+                                    <strong>
+                                        <a href="{{ url_for('profile.overview', username=user_names[message.sender]) | replace('%40', '@') }}" class="text-dark">{{ user_names[message.sender] }}</a>
+                                    </strong> 
+                                    <small class="text-secondary">{{ moment(message.timestamp).format('lll') }}</small><br>
+                                    {{ message.message|safe }}
+                                </p>
                                 <hr>
                                 {% endfor %}
                             </div>
