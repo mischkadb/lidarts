@@ -249,10 +249,6 @@ cricket_leg_default = {
                 'marks': 0,
                 'score': 0,
             },
-            15: {
-                'marks': 0,
-                'score': 0,
-            },
             19: {
                 'marks': 0,
                 'score': 0,
@@ -284,10 +280,6 @@ cricket_leg_default = {
                 'score': 0,
             },
             18: {
-                'marks': 0,
-                'score': 0,
-            },
-            15: {
                 'marks': 0,
                 'score': 0,
             },
