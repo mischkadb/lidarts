@@ -36,10 +36,10 @@ def streamable_games(api_key, tournament_hashid=None):
 
     for game in games:
         player1 = WebcamSettings.query.filter_by(user=game.player1).first()
-        if not player1.stream_consent:
+        if not player1 or not player1.stream_consent:
             continue
         player2 = WebcamSettings.query.filter_by(user=game.player2).first()
-        if not player2.stream_consent:
+        if not player2 or not player2.stream_consent:
             continue
         if game.player1 not in user_names:
             user_names[game.player1] = (
