@@ -3,7 +3,7 @@ from lidarts import db
 from datetime import datetime, timedelta
 import secrets
 from sqlalchemy.ext.associationproxy import association_proxy
-from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy.ext.declarative import declared_attr, AbstractConcreteBase
 from sqlalchemy.orm import relationship
 
 
@@ -106,6 +106,65 @@ class Role(db.Model, RoleMixin):
     description = db.Column(db.String(255))
 
 
+class GameBaseNew(db.Model):
+    __tablename__ = 'games_all'
+
+    id = db.Column(db.Integer, primary_key=True)
+    variant = db.Column(db.String(50))
+    __mapper_args__ = {'polymorphic_on': variant}
+    
+    hashid = db.Column(db.String(10), unique=True)    
+    bo_sets = db.Column(db.Integer, nullable=False)
+    bo_legs = db.Column(db.Integer, nullable=False)
+    two_clear_legs = db.Column(db.Boolean)
+    p1_sets = db.Column(db.Integer)
+    p2_sets = db.Column(db.Integer)
+    p1_legs = db.Column(db.Integer)
+    p2_legs = db.Column(db.Integer)
+    p1_score = db.Column(db.Integer)
+    p2_score = db.Column(db.Integer)
+    p1_next_turn = db.Column(db.Boolean)
+    closest_to_bull = db.Column(db.Boolean)
+    closest_to_bull_json = db.Column(db.JSON)
+    status = db.Column(db.String(20), index=True)
+    match_json = db.Column(db.JSON)
+    begin = db.Column(db.DateTime)
+    end = db.Column(db.DateTime)
+    opponent_type = db.Column(db.String(10))
+    public_challenge = db.Column(db.Boolean)
+    score_input_delay = db.Column(db.Integer, default=0)
+    webcam = db.Column(db.Boolean, default=False)
+    jitsi_hashid = db.Column(db.String(10), unique=True)
+    tournament_stage_game_id = db.Column(db.Integer, default=None)
+    tournament_stage_game_bracket_id = db.Column(db.Integer, default=None)
+
+    @declared_attr
+    def tournament(cls):
+        return db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
+
+    @declared_attr
+    def tournament_round_id(cls):
+        return db.Column(db.Integer, db.ForeignKey('tournament_stage_rounds.id'), default=None)
+
+    @declared_attr
+    def tournament_round(cls):
+        return db.relationship('TournamentStageRound', back_populates='games')
+
+    @declared_attr
+    def player1(cls):
+        return db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+
+    @declared_attr
+    def player2(cls):
+        return db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+
+    def set_hashid(self):
+        self.hashid = secrets.token_urlsafe(8)[:8]
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+
 class GameBase(db.Model):
     __abstract__ = True
 
@@ -133,6 +192,8 @@ class GameBase(db.Model):
     score_input_delay = db.Column(db.Integer, default=0)
     webcam = db.Column(db.Boolean, default=False)
     jitsi_hashid = db.Column(db.String(10), unique=True)
+    tournament_stage_game_id = db.Column(db.Integer, default=None)
+    tournament_stage_game_bracket_id = db.Column(db.Integer, default=None)
 
 
     @declared_attr
@@ -163,6 +224,23 @@ class Game(GameBase):
 
 class CricketGame(GameBase):
     __tablename__ = 'games_cricket'
+    confirmation_needed = db.Column(db.Boolean, default=False)
+    undo_possible = db.Column(db.Boolean, default=False)
+
+
+class X01Game(GameBaseNew):
+    __tablename__ = 'games_x01'
+    __mapper_args__ = {'polymorphic_identity': 'x01'}
+    id = db.Column(db.Integer, db.ForeignKey('games_all.id'), primary_key=True)
+    type = db.Column(db.Integer)
+    in_mode = db.Column(db.String(15))
+    out_mode = db.Column(db.String(15))
+
+
+class CricketGameNew(GameBaseNew):
+    __tablename__ = 'games_cricket_new'
+    __mapper_args__ = {'polymorphic_identity': 'cricket'}
+    id = db.Column(db.Integer, db.ForeignKey('games_all.id'), primary_key=True)
     confirmation_needed = db.Column(db.Boolean, default=False)
     undo_possible = db.Column(db.Boolean, default=False)
 
@@ -315,11 +393,17 @@ class Tournament(db.Model):
     name = db.Column(db.String(50), nullable=False)
     public = db.Column(db.Boolean, default=False)
     registration_open = db.Column(db.Boolean, default=True)
+    registration_apply = db.Column(db.Boolean, default=False)
     description = db.Column(db.String(1000))
     external_url = db.Column(db.String(120))
     start_timestamp = db.Column(db.DateTime)
     creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
     api_key = db.Column(db.String(16), default=None)
+    managed_externally = db.Column(db.Boolean, default=False)
+    maximum_players = db.Column(db.Integer, default=1024)
+    stages = db.relationship('TournamentStage', back_populates="tournament")
+    status = db.Column(db.String(20), default='registration')
+
     players = db.relationship(
         'User',
         secondary=tournament_players_association_table,
@@ -337,6 +421,29 @@ class Tournament(db.Model):
         super(Tournament, self).__init__(**kwargs)
         self.hashid = secrets.token_urlsafe(8)[:8]
         self.api_key = secrets.token_urlsafe(16)[:16]
+
+
+class TournamentStage(db.Model):
+    __tablename__ = 'tournament_stages'
+    id = db.Column(db.Integer, primary_key=True)
+    tournament_id = db.Column(db.Integer, db.ForeignKey('tournaments.id'))
+    tournament = db.relationship("Tournament", back_populates="stages")
+    format = db.Column(db.String(20), nullable=False)
+    rounds = db.relationship("TournamentStageRound", back_populates="stage")
+
+
+class TournamentStageRound(db.Model):
+    __tablename__ = 'tournament_stage_rounds'
+    id = db.Column(db.Integer, primary_key=True)
+    stage_id = db.Column(db.Integer, db.ForeignKey('tournament_stages.id'))
+    stage = db.relationship("TournamentStage", back_populates="rounds")
+    games = db.relationship("GameBaseNew", back_populates="tournament_round")
+    variant = db.Column(db.String(50))
+    bo_sets = db.Column(db.Integer, nullable=False)
+    bo_legs = db.Column(db.Integer, nullable=False)
+    two_clear_legs = db.Column(db.Boolean)
+    starter = db.Column(db.String(30))
+    score_input_delay = db.Column(db.Integer, default=0)
 
 
 class WebcamSettings(db.Model):
