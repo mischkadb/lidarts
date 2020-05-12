@@ -63,7 +63,7 @@ def live_games_overview(tournament_hashid=None):
         if not game.player2 or game.player1 == game.player2:
             continue
         socketio.sleep(0)
-        game_dict = game.as_dict()
+        game_dict = game.__dict__
         player1_active = True
         player2_active = True
         player1_in_player_list = False
@@ -125,7 +125,7 @@ def lobby():
     for game in challenges:
         player_names[game.player1] = User.query.with_entities(User.username) \
             .filter_by(id=game.player1).first_or_404()[0]
-    challenges = [r.as_dict() for r in challenges]
+    challenges = [r.__dict__ for r in challenges]
 
     # get friend requests
     friend_requests = FriendshipRequest.query.filter_by(receiving_user_id=current_user.id).all()

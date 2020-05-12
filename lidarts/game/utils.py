@@ -12,7 +12,7 @@ def get_player_names(game):
     elif game.opponent_type == 'online':
         player_two_name = get_name_by_id(game.player2)
     else:
-        game_dict = game.as_dict()
+        game_dict = game.__dict__
 
         # computer game
         player_two_name = 'Trainer ' + game_dict['opponent_type'][8:]
