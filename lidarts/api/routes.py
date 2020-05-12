@@ -24,7 +24,7 @@ def start(hashid):
     match_json = json.loads(game.match_json)
     statistics = collect_statistics(game, match_json)
 
-    game_dict = game.as_dict()
+    game_dict = game.__dict__
     keys = (
         'begin',
         'end',

@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, jsonify, request, flash
 from flask_babelex import lazy_gettext, gettext
 from lidarts.game import bp
 from lidarts.game.forms import CreateCricketGameForm, CreateX01GameForm, ScoreForm, GameChatmessageForm, WebcamConsentForm
-from lidarts.models import CricketGame, Game, User, Notification, ChatmessageIngame, X01Presetting, UserSettings, Tournament, WebcamSettings
+from lidarts.models import CricketGame, Game, GameBase, User, Notification, ChatmessageIngame, X01Presetting, UserSettings, Tournament, WebcamSettings
 from lidarts import db
 from lidarts.socket.public_challenge_handler import broadcast_public_challenges
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
@@ -175,9 +175,7 @@ def statistics_set_leg(hashid, set_, leg):
 @bp.route('/<hashid>')
 @bp.route('/<hashid>/<theme>')
 def start(hashid, theme=None):
-    game = Game.query.filter_by(hashid=hashid).first()
-    if not game:
-        game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
+    game = GameBase.query.filter_by(hashid=hashid).first_or_404()
     # check if we found an opponent, logged in users only
     if game.status == 'challenged' and current_user.is_authenticated and current_user.id != game.player1:
         # Check webcam consent
@@ -196,7 +194,7 @@ def start(hashid, theme=None):
             start_game(hashid)
             broadcast_public_challenges()
 
-    game_dict = game.as_dict()
+    game_dict = game.__dict__
 
     player_names = get_player_names(game)
 
