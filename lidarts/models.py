@@ -135,6 +135,7 @@ class GameBase(db.Model):
     score_input_delay = db.Column(db.Integer, default=0)
     webcam = db.Column(db.Boolean, default=False)
     jitsi_hashid = db.Column(db.String(10), unique=True)
+    jitsi_public_server = db.Column(db.Boolean, default=False)
     tournament_stage_game_id = db.Column(db.Integer, default=None)
     tournament_stage_game_bracket_id = db.Column(db.Integer, default=None)
 
@@ -393,6 +394,7 @@ class WebcamSettings(db.Model):
     mobile_follower_mode = db.Column(db.Boolean, default=False)
     force_scoreboard_page = db.Column(db.Boolean, default=False)
     latest_jitsi_hashid = db.Column(db.String(10), default=None)
+    jitsi_public_server = db.Column(db.Boolean, default=False)
 
 
 class Caller(db.Model):

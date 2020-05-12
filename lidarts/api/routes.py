@@ -102,6 +102,8 @@ def get_stream_game():
 @login_required
 def get_jitsi():
     stream_game = StreamGame.query.filter_by(user=current_user.id).first_or_404()
-    hashid = stream_game.jitsi_hashid
+    game = Game.query.filter_by(hashid=stream_game.hashid).first_or_404()
+    jitsi_server = 'meet.jit.si' if game.jitsi_public_server else 'jitsi.dusk-server.de'
+    hashid = stream_game.jitsi_hashid    
 
-    return redirect(f'https://jitsi.dusk-server.de/lidarts-{hashid}', code=302)
+    return redirect(f'https://{jitsi_server}/lidarts-{hashid}', code=302)

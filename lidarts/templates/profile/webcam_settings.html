@@ -43,6 +43,15 @@
                         {{ form.force_scoreboard_page(class="form-control custom-select") }}
                         <small>{{ _('Loads only the scoreboard without webcam image in your webcam games. Useful for mobile score-only devices.') }}</small>
                     </p>
+
+                    <p>
+                        <div class="form-check">
+                        {{ form.jitsi_public_server.label(class="form-check-label") }}:
+                        {{ form.jitsi_public_server() }}
+                    </div>
+                        <small>{{ _('Try enabling this option if you experience connection problems in your video conferences.') }}</small>
+                        
+                    </p>
                     
                     <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
                 </form>

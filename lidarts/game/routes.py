@@ -83,10 +83,14 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                     flash(gettext('Player 2 does not have webcam games enabled.'), 'danger')
                     return render_template('game/create_game.html', form=form, opponent_name=opponent_name,
                             title=lazy_gettext('Create Game'))
-
+            else:
+                webcam_player2 = None
             jitsi_hashid = secrets.token_urlsafe(8)[:8]
+            webcam_player1 = WebcamSettings.query.filter_by(user=player1).first()
+            jitsi_public_server = webcam_player1.jitsi_public_server or (webcam_player2 and webcam_player2.jitsi_public_server)
         else:
             jitsi_hashid = None
+            jitsi_public_server = False
 
         tournament = form.tournament.data if form.tournament.data != '-' else None
 
@@ -107,6 +111,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 tournament=tournament, 
                 score_input_delay=form.score_input_delay.data,
                 webcam=form.webcam.data, jitsi_hashid=jitsi_hashid,
+                jitsi_public_server=jitsi_public_server,
                 )
         elif mode == 'cricket':
             match_json = json.dumps(
@@ -128,6 +133,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 tournament=tournament, 
                 score_input_delay=form.score_input_delay.data,
                 webcam=form.webcam.data, jitsi_hashid=jitsi_hashid,
+                jitsi_public_server=jitsi_public_server,
                 )
         else:
             pass

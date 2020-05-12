@@ -106,6 +106,8 @@ class WebcamSettingsForm(FlaskForm):
         validators=[DataRequired()],
     )
 
+    jitsi_public_server = BooleanField(lazy_gettext('Use public Jitsi server'))
+
     submit = SubmitField(lazy_gettext('Save'))
 
 

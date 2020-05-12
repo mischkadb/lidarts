@@ -334,6 +334,7 @@ def webcam_settings():
         settings.mobile_app = True if form.mobile_app.data == 'enabled' else False
         settings.mobile_follower_mode = True if form.mobile_follower_mode.data == 'enabled' else False
         settings.force_scoreboard_page = True if form.force_scoreboard_page.data == 'enabled' else False
+        settings.jitsi_public_server = form.jitsi_public_server.data
         db.session.commit()
         flash(lazy_gettext("Settings saved."))
 
@@ -342,6 +343,7 @@ def webcam_settings():
     form.mobile_app.data = 'enabled' if settings.mobile_app else 'disabled'
     form.mobile_follower_mode.data = 'enabled' if settings.mobile_follower_mode else 'disabled'
     form.force_scoreboard_page.data = 'enabled' if settings.force_scoreboard_page else 'disabled'
+    form.jitsi_public_server.data = settings.jitsi_public_server
     
     return render_template('profile/webcam_settings.html', form=form, title=lazy_gettext('Webcam settings'))
 

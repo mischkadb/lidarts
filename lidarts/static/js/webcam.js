@@ -1,5 +1,13 @@
 $(document).ready(function() {
     var hashid = $('#jitsi-settings').data()['hashid'];
+    var public_server = $('#jitsi-settings').data()['public_server'];
+    if (public_server == 'True') {        
+        domain = 'meet.jit.si';
+        public_server = true;
+    } else {
+        domain = 'jitsi.dusk-server.de'
+        public_server = false;
+    }
     
     var jitsi_app = $('#jitsi-settings').data()['app'];
     if (jitsi_app == 'True') {
@@ -29,11 +37,10 @@ $(document).ready(function() {
         MOBILE_APP_PROMO: jitsi_app,
         MAXIMUM_ZOOMING_COEFFICIENT: 1.0,
         SHOW_CHROME_EXTENSION_BANNER: false,
-        SHOW_JITSI_WATERMARK: false,
-        SHOW_WATERMARK_FOR_GUESTS: false,
+        SHOW_JITSI_WATERMARK: public_server,
+        SHOW_WATERMARK_FOR_GUESTS: public_server,
     }
 
-    const domain = 'jitsi.dusk-server.de';
     const options = {
         roomName: 'lidarts-' + hashid,
         parentNode: document.querySelector('#meet'),
