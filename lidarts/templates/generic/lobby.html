@@ -103,6 +103,18 @@
                     {% endfor %}
                 <hr>
                 {% endif %}
+                <!-- TOURNAMENT INVITATIONS-->
+                {% if current_user.tournaments_invitations %}
+                <p>{{ _('Tournament invitations') }}</p>
+                {% for tournament in current_user.tournaments_invitations %}
+                <p id="element-tournament-invitation-{{tournament.hashid}}"><a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}"><strong>{{ tournament.name }}</strong></a>
+                    <span class="btn-group btn-group-sm text-right" role="group" aria-label="Accept or decline tournament invitation" style="float: right">
+                    <button class="btn btn-success button-accept-tournament-invitation" id="button-accept-tournament-invitation-{{tournament.hashid}}" role="button"><i class="fas fa-check-circle"></i></button>
+                    <button class="btn btn-danger button-decline-tournament-invitation" id="button-decline-tournament-invitation-{{tournament.hashid}}" role="button"><i class="fas fa-times-circle"></i></button>
+                </span>
+                    {% endfor %}
+                <hr>
+                {% endif %}
 
             </div>
         </div>
@@ -151,4 +163,5 @@
 
 <script type="text/javascript" src="{{ url_for('static',filename='js/public_challenge_socket.js', version=config.VERSION) }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/friend_requests.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/tournament/invitations.js', version=config.VERSION) }}"></script>
 {% endblock %}

@@ -105,11 +105,18 @@
                             {% endfor %}
                             {% endif %}
                           </div>
+
                           <div id="online_players"></div>
+
                           {% if tournament.invitations %}
                           {{ _('Invitations') }}:
                           {% for player in tournament.invitations %}
-
+                            <p id="invitation-player-{{player.username}}">
+                              <span class="btn-group btn-group-sm text-right" role="group">
+                                <button class="btn btn-danger button-cancel-invitation" id="button-cancel-invitation-{{player.username}}" role="button"><i class="fas fa-times-circle"></i></button>
+                            </span>
+                              <a href="{{ url_for('profile.overview', username=player.username) }}">{{ player.username }}</a>
+                            </p>
                           {% endfor %}
                           {% endif %}
                         </div>

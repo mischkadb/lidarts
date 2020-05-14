@@ -74,6 +74,51 @@ def decline_player_application(message):
     db.session.commit()
 
 
+@socketio.on('invite_player', namespace='/chat')
+def invite_username(message):
+    hashid = message['hashid']
+    username = message['username']
+    tournament = Tournament.query.filter_by(hashid=hashid).first()
+    user = User.query.filter_by(username=username).first()
+    if not tournament or not user or tournament in user.tournaments or tournament in user.tournaments_invitations:
+        return
+    user.tournaments_invitations.append(tournament)
+    db.session.commit()
+
+
+@socketio.on('cancel_invitation', namespace='/chat')
+def cancel_invitation(message):
+    hashid = message['hashid']
+    username = message['username']
+    tournament = Tournament.query.filter_by(hashid=hashid).first()
+    user = User.query.filter_by(username=username).first()
+    if not tournament or not user or tournament in user.tournaments or not tournament in user.tournaments_invitations:
+        return
+    user.tournaments_invitations.remove(tournament)
+    db.session.commit()
+
+
+@socketio.on('accept_tournament_invitation', namespace='/chat')
+def accept_tournament_invitation(message):
+    hashid = message['hashid']
+    tournament = Tournament.query.filter_by(hashid=hashid).first()
+    if not tournament or tournament in current_user.tournaments or not tournament in current_user.tournaments_invitations:
+        return
+    current_user.tournaments_invitations.remove(tournament)
+    current_user.tournaments.append(tournament)
+    db.session.commit()
+
+
+@socketio.on('decline_tournament_invitation', namespace='/chat')
+def decline_tournament_invitation(message):
+    hashid = message['hashid']
+    tournament = Tournament.query.filter_by(hashid=hashid).first()
+    if not tournament or tournament in current_user.tournaments or not tournament in current_user.tournaments_invitations:
+        return
+    current_user.tournaments_invitations.remove(tournament)
+    db.session.commit()
+
+
 @socketio.on('kick_player', namespace='/chat')
 def kick_player(message):
     hashid = message['hashid']

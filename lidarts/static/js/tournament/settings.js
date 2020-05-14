@@ -87,6 +87,21 @@ $(document).ready(function() {
         });
     });
 
+    $('#inviteConfirm').click( function (event) {
+        var username = $('#inviteUsername').val();
+        socket.emit('invite_player', {hashid: tournament_hashid, username: username}, function () {
+            $('#inviteUsername').val('');
+        });
+    });
+
+    $('.button-cancel-invitation').click( function (event) {
+        var username = this.id.replace('button-cancel-invitation-', '');
+        socket.emit('cancel_invitation', {hashid: tournament_hashid, username: username}, function () {
+            $('#invitation-player-' + username).remove();
+        });
+    });
+
+
     $('#kickModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var username = button.data('username');
