@@ -24,6 +24,18 @@ tournament_banned_players_association_table = db.Table(
     db.Column('tournament_id', db.Integer, db.ForeignKey('tournaments.id'), primary_key=True),
 )
 
+tournament_applications_association_table = db.Table(
+    'tournament_applications_association',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('tournament_id', db.Integer, db.ForeignKey('tournaments.id'), primary_key=True),
+)
+
+tournament_invitations_association_table = db.Table(
+    'tournament_invitations_association',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('tournament_id', db.Integer, db.ForeignKey('tournaments.id'), primary_key=True),
+)
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -337,7 +349,7 @@ class Tournament(db.Model):
     start_timestamp = db.Column(db.DateTime)
     creation_timestamp = db.Column(db.DateTime, default=datetime.utcnow())
     api_key = db.Column(db.String(16), default=None)
-    managed_externally = db.Column(db.Boolean, default=False)
+    managed_externally = db.Column(db.Boolean, default=True)
     maximum_players = db.Column(db.Integer, default=1024)
     stages = db.relationship('TournamentStage', back_populates="tournament")
     status = db.Column(db.String(20), default='registration')
@@ -353,6 +365,18 @@ class Tournament(db.Model):
         secondary=tournament_banned_players_association_table,
         lazy=True,
         backref=db.backref('tournaments_banned', lazy=True),
+    )
+    applications = db.relationship(
+        'User',
+        secondary=tournament_applications_association_table,
+        lazy=True,
+        backref=db.backref('tournaments_applications', lazy=True),
+    )
+    invitations = db.relationship(
+        'User',
+        secondary=tournament_invitations_association_table,
+        lazy=True,
+        backref=db.backref('tournaments_invitations', lazy=True),
     )
 
     def __init__(self, **kwargs):

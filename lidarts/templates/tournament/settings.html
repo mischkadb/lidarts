@@ -43,9 +43,18 @@
                                 {{ form.registration_open(class="custom-control-input") }}
                                 {{ form.registration_open.label(class="custom-control-label") }}
                             </div>
-                            <small>({{ _('Players are able to join the tournament.') }})</small>
+                            <small>({{ _('If unchecked players must be invited by the tournament administrator.') }})</small>
                             {{ render_error(form.registration_open) }}
                         </p>
+
+                        <p>
+                          <div class="custom-control custom-checkbox">
+                              {{ form.registration_apply(class="custom-control-input") }}
+                              {{ form.registration_apply.label(class="custom-control-label") }}
+                          </div>
+                          {{ render_error(form.registration_apply) }}
+                       </p>
+
 
                         <p class="visible-public-only">
                             {{ form.external_url.label(class="control-label") }}:
@@ -81,7 +90,28 @@
                 <hr>
                 <div class="col-12">
                     <div class="card bg-light text-dark text-left">
-                        <div class="card-body" id="online_players" style="height: 600px; overflow-y: scroll; padding-left: 2px; padding-right: 2px;">
+                        <div class="card-body" style="height: 600px; overflow-y: scroll; padding-left: 2px; padding-right: 2px;">
+                          <div id="applications">
+                            {% if tournament.applications %}
+                            {{ _('Applications') }}:
+                            {% for player in tournament.applications %}
+                            <p id="player-{{player.id}}">
+                              <span class="btn-group btn-group-sm text-right" role="group">
+                                <button class="btn btn-success button-accept-player" id="button-accept-player-{{player.id}}" role="button"><i class="fas fa-check-circle"></i></button>
+                                <button class="btn btn-danger button-decline-player" id="button-decline-player-{{player.id}}" role="button"><i class="fas fa-times-circle"></i></button>
+                            </span>
+                              <a href="{{ url_for('profile.overview', username=player.username) }}">{{ player.username }}</a>
+                            </p>
+                            {% endfor %}
+                            {% endif %}
+                          </div>
+                          <div id="online_players"></div>
+                          {% if tournament.invitations %}
+                          {{ _('Invitations') }}:
+                          {% for player in tournament.invitations %}
+
+                          {% endfor %}
+                          {% endif %}
                         </div>
                     </div>
                 </div>
@@ -92,24 +122,41 @@
 </div>
 
 <div class="row mt-2">
-    <div class="col-12 col-md-6">
-        <div class="card bg-light text-dark bs-callout bs-callout-warning ">
-            <div class="card-body text-center">
-                <h5 class="card-title text-center">{{ _('Banned players') }}</h5>
-                <hr>
-                        {% for player in tournament.banned_players %}
-                            <p class="text-left" id="unban-{{ player.id }}">
-                                <button class="btn btn-success" id="unbanPlayer-{{ player.id }}" data-toggle="modal" data-target="#unbanModal" data-userid="{{ player.id }}" data-username="{{ player.username }}">
-                                    {{ _('Unban') }}
-                                </button> 
-                                {{ player.username }}
-                            </p>
-                        {% endfor %}
-                
-            </div>
+  <div class="col-12 col-md-6">
+      <div class="card bg-light text-dark bs-callout bs-callout-warning ">
+          <div class="card-body text-center">
+              <h5 class="card-title text-center">{{ _('Banned players') }}</h5>
+              <hr>
+                      {% for player in tournament.banned_players %}
+                          <p class="text-left" id="unban-{{ player.id }}">
+                              <button class="btn btn-success" id="unbanPlayer-{{ player.id }}" data-toggle="modal" data-target="#unbanModal" data-userid="{{ player.id }}" data-username="{{ player.username }}">
+                                  {{ _('Unban') }}
+                              </button> 
+                              {{ player.username }}
+                          </p>
+                      {% endfor %}
+              
+          </div>
+      </div>
+  </div>
+
+  <div class="col-12 col-md-6">
+    <div class="card bg-light text-dark bs-callout bs-callout-danger ">
+        <div class="card-body text-center">
+            <h5 class="card-title text-center">{{ _('Invite player') }}</h5>
+            <hr>
+            <p class="text-left">             
+            <input type="text" class="form-control" id="inviteUsername" aria-describedby="inviteUsername" placeholder="{{ _('Username') }}">
+            <button class="btn btn-info mt-1" id="inviteConfirm">
+              {{ _('Invite') }}
+          </button> 
+          </p>
+            
         </div>
     </div>
 </div>
+</div>
+
 
 
 <div class="modal fade" id="kickModal" tabindex="-1" role="dialog" aria-labelledby="kickModal" aria-hidden="true">

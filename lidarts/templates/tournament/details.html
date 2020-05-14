@@ -17,15 +17,22 @@
                 <p class="text-center font-weight-bold slim">{{ _('Tournament details') }}</p>
                 <hr class="slim">
                 <p class="card-text font-weight-bold slim">{{ tournament.name }}</p>
-                <button type="button" id="tournament-membership-button" class="btn mt-2 {% if in_tournament %}in-tournament btn-danger{% elif not tournament.registration_open %}d-none{% else %}btn-success{% endif %}" autocomplete="off">
-                    {% if in_tournament %}{{ _('Leave Tournament') }}{% else %}{{ _('Join Tournament') }}{% endif %}
+                {% if (not tournament.status or tournament.status == 'registration') %}
+                <button type="button" id="tournament-membership-button" class="btn mt-2 {% if in_tournament %}in-tournament{% endif %}{% if tournament in current_user.tournaments_applications %}applied{% endif %}{% if in_tournament or tournament in current_user.tournaments_applications %} btn-danger{% elif not tournament.registration_open %}d-none{% else %}btn-success{% endif %} {% if tournament.registration_apply %}apply{% endif %}" autocomplete="off">
+                     {% if in_tournament %}{{ _('Leave Tournament') }}
+                     {% elif tournament.registration_apply and tournament not in current_user.tournaments_applications %}{{ _('Apply for tournament') }}
+                     {% elif tournament.registration_apply and tournament in current_user.tournaments_applications %}{{ _('Cancel application') }}
+                     {% else %}{{ _('Join Tournament') }}{% endif %}           
                 </button>
+                {% endif %}
 
+                {% if not tournament.managed_externally %}
                 <a href="{{ url_for('game.create', tournament_hashid=tournament.hashid) }}" id="createTournamentGame" {% if not in_tournament %}style="display: None">{% endif %}
                     <button type="button" class="btn mt-2 btn-info" autocomplete="off">
                         {{ _('Create tournament game') }}
                     </button>
                 </a>
+                {% endif %}
                 
                 {% if current_user.id == tournament.creator %}
                 <p><a href="{{ url_for('tournament.stream', hashid=tournament.hashid) }}">{{ _('Stream tournament games') }}</a></p>

@@ -77,6 +77,23 @@
                             {{ render_error(form.public_tournament) }}
                         </p>
 
+                        <p>
+                            <div class="custom-control custom-checkbox">
+                                {{ form.registration_open(class="custom-control-input", checked=True) }}
+                                {{ form.registration_open.label(class="custom-control-label") }}
+                            </div>
+                            <small>({{ _('If unchecked players must be invited by the tournament administrator.') }})</small>
+                            {{ render_error(form.registration_open) }}
+                        </p>
+
+                        <p>
+                            <div class="custom-control custom-checkbox">
+                                {{ form.registration_apply(class="custom-control-input") }}
+                                {{ form.registration_apply.label(class="custom-control-label") }}
+                            </div>
+                            {{ render_error(form.registration_apply) }}
+                        </p>
+
                         <p class="visible-public-only">
                             {{ form.external_url.label(class="control-label") }}:
                             {{ form.external_url(class="form-control", autocomplete="off", maxlength="120") }}

@@ -5,7 +5,7 @@ from lidarts import db, socketio
 from lidarts.generic.forms import ChatmessageForm
 from lidarts.tournament import bp
 from lidarts.tournament.forms import CreateTournamentForm, ConfirmStreamGameForm
-from lidarts.models import Game, Tournament, Chatmessage, User, UserSettings, UserStatistic, WebcamSettings, StreamGame
+from lidarts.models import Game, GameBase, Tournament, Chatmessage, User, UserSettings, UserStatistic, WebcamSettings, StreamGame
 from datetime import datetime, timedelta
 from sqlalchemy.orm import aliased
 import secrets
@@ -32,6 +32,7 @@ def handle_form(form, update=False, tournament=None):
         tournament.external_url = form.external_url.data
         tournament.start_timestamp = start_timestamp
         tournament.registration_open = form.registration_open.data
+        tournament.registration_apply = form.registration_apply.data
         flash(lazy_gettext('Tournament updated.'), 'success')
 
     else:
@@ -116,12 +117,12 @@ def details(hashid):
     player1 = aliased(User)
     player2 = aliased(User)
     recent_results = (
-        Game.query
+        GameBase.query
         .filter_by(tournament=hashid)
         .filter_by(status='completed')
-        .join(player1, Game.player1 == player1.id).add_columns(player1.username)
-        .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
-        .order_by(Game.end.desc())
+        .join(player1, GameBase.player1 == player1.id).add_columns(player1.username)
+        .join(player2, GameBase.player2 == player2.id, isouter=True).add_columns(player2.username)
+        .order_by(GameBase.end.desc())
         .limit(10)
         .all()
     )

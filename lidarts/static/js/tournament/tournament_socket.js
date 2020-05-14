@@ -27,8 +27,8 @@ $(document).ready(function() {
         socket.emit('init', {hashid: tournament_hashid});     
     });
 
-    socket.on('send_online_players', function (msg) {
-        $('#online_players').html('');
+    function userlist(element, msg) {
+        $('#' + element).html('');
         var user;
         for (user in msg['players']){
             // no border for lidarts logo as flag
@@ -64,7 +64,7 @@ $(document).ready(function() {
                 webcam_icon = ''
             }
 
-            $('#online_players').append('<div class="card onlineUserCard"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
+            $('#' + element).append('<div class="card onlineUserCard"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
                 + '<strong style="font-size: 20px;"><a href="' + profile_url + msg['players'][user]['username'] + '" id="powertip-' + user + '" class="tooltips text-secondary" data-powertip="">'
                 + '<img src="' + msg['players'][user]['avatar'] + '" height="50px" width="50px" class="avatar avatar-status avatar-status-' + msg['players'][user]['status'] + '">'
                 + flag
@@ -95,6 +95,10 @@ $(document).ready(function() {
                     '</div></div></div>');
             }
         };
+    }
+
+    socket.on('send_online_players', function (msg) {
+        userlist('online_players', msg);
         $('#online-players-count').html(msg['online-count']);
         $('#ingame-players-count').html(msg['ingame-count']);
 
@@ -239,6 +243,18 @@ $(document).ready(function() {
             $('#tournament-membership-button').addClass('btn-success');
             $('#createTournamentGame').hide();            
             socket.emit('leave_tournament', {hashid: tournament_hashid});
+        } else if ($('#tournament-membership-button').hasClass('applied')) {
+            $('#tournament-membership-button').text('Apply for tournament');
+            $('#tournament-membership-button').removeClass('btn-danger');
+            $('#tournament-membership-button').removeClass('applied');
+            $('#tournament-membership-button').addClass('btn-success');
+            socket.emit('cancel_tournament_application', {hashid: tournament_hashid});
+        } else if ($('#tournament-membership-button').hasClass('apply')) {
+            $('#tournament-membership-button').text('Cancel application');
+            $('#tournament-membership-button').addClass('applied');
+            $('#tournament-membership-button').removeClass('btn-success');
+            $('#tournament-membership-button').addClass('btn-danger');
+            socket.emit('apply_for_tournament', {hashid: tournament_hashid});
         } else {
             $('#tournament-membership-button').text('Leave Tournament');
             $('#tournament-membership-button').addClass('in-tournament');

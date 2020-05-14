@@ -8,7 +8,7 @@ from lidarts.socket.utils import broadcast_online_players
 def join_tournament(message):
     hashid = message['hashid']
     tournament = Tournament.query.filter_by(hashid=hashid).first()
-    if not tournament or tournament in current_user.tournaments or not tournament.registration_open:
+    if not tournament or tournament in current_user.tournaments or not tournament.registration_open or tournament.registration_apply:
         return
     current_user.tournaments.append(tournament)
     db.session.commit()
@@ -24,6 +24,54 @@ def leave_tournament(message):
     current_user.tournaments.remove(tournament)
     db.session.commit()
     broadcast_online_players(room=hashid)
+
+
+@socketio.on('apply_for_tournament', namespace='/chat')
+def apply_for_tournament(message):
+    hashid = message['hashid']
+    tournament = Tournament.query.filter_by(hashid=hashid).first()
+    if (
+        not tournament
+        or tournament in current_user.tournaments
+        or tournament in current_user.tournaments_banned
+        or tournament in current_user.tournaments_applications
+        or not tournament.registration_open
+        or not tournament.registration_apply
+    ):
+        return
+    current_user.tournaments_applications.append(tournament)
+    db.session.commit()
+
+
+@socketio.on('cancel_tournament_application', namespace='/chat')
+def cancel_tournament_application(message):
+    hashid = message['hashid']
+    tournament = Tournament.query.filter_by(hashid=hashid).first()
+    if not tournament or tournament in current_user.tournaments or tournament not in current_user.tournaments_applications:
+        return
+    current_user.tournaments_applications.remove(tournament)
+    db.session.commit()
+
+
+@socketio.on('confirm_player_application', namespace='/chat')
+def confirm_player_application(message):
+    hashid = message['hashid']
+    tournament = Tournament.query.filter_by(hashid=hashid).first()
+    if not tournament or tournament in current_user.tournaments or tournament not in current_user.tournaments_applications:
+        return
+    current_user.tournaments_applications.remove(tournament)
+    current_user.tournaments.append(tournament)
+    db.session.commit()
+
+
+@socketio.on('decline_player_application', namespace='/chat')
+def decline_player_application(message):
+    hashid = message['hashid']
+    tournament = Tournament.query.filter_by(hashid=hashid).first()
+    if not tournament or tournament in current_user.tournaments or tournament not in current_user.tournaments_applications:
+        return
+    current_user.tournaments_applications.remove(tournament)
+    db.session.commit()
 
 
 @socketio.on('kick_player', namespace='/chat')

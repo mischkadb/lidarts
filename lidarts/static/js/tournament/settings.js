@@ -19,8 +19,8 @@ $(document).ready(function() {
         socket.emit('init', {hashid: tournament_hashid});     
     });
 
-    socket.on('send_online_players', function (msg) {
-        $('#online_players').html('');
+    function userlist(element, msg) {
+        element.html('');
         var user;
         for (user in msg['players']){
             // no border for lidarts logo as flag
@@ -50,7 +50,7 @@ $(document).ready(function() {
                 backer_name_icon = ''
             }
 
-            $('#online_players').append('<div class="card"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
+            element.append('<div class="card"><div class="card-body" style="padding: 2px 2px 2px 2px;">'
                 + '<button class="btn btn-warning"'
                 + 'id="kickPlayer-' + msg['players'][user]['id'] + '" data-toggle="modal" data-target="#kickModal" '
                 + 'data-userid="' + msg['players'][user]['id'] + '" '
@@ -67,6 +67,24 @@ $(document).ready(function() {
                 + player_average
                 + '</div></div>');
         };  
+    }
+
+    socket.on('send_online_players', function (msg) {
+        userlist($('#online_players'), msg);
+    });
+
+    $('.button-accept-player').click( function (event) {
+        var id = this.id.replace('button-accept-player-', '');
+        socket.emit('confirm_player_application', {hashid: tournament_hashid, player_id: id}, function () {
+            $('#player-' + id).remove();
+        });
+    });
+
+    $('.button-decline-player').click( function (event) {
+        var id = this.id.replace('button-decline-player-', '');
+        socket.emit('decline_player_application', {hashid: tournament_hashid, player_id: id}, function () {
+            $('#player-' + id).remove();
+        });
     });
 
     $('#kickModal').on('show.bs.modal', function (event) {
