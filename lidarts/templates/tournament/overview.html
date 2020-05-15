@@ -69,6 +69,14 @@
                         </p>
 
                         <p>
+                            <div class="custom-control custom-checkbox">
+                                {{ form.automatic_management(class="custom-control-input") }}
+                                {{ form.automatic_management.label(class="custom-control-label") }}
+                            </div>
+                            {{ render_error(form.automatic_management) }}
+                        </p>
+
+                        <p>
                             <div class="custom-control custom-checkbox" id="public-checkbox">
                                 {{ form.public_tournament(class="custom-control-input") }}
                                 {{ form.public_tournament.label(class="custom-control-label") }}

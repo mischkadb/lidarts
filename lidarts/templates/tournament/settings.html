@@ -29,6 +29,16 @@
                             {{ render_error(form.description) }}
                         </p>
 
+                        {% if not tournament.status or tournament.status == 'registration' %}
+                        <p>
+                          <div class="custom-control custom-checkbox">
+                              {{ form.automatic_management(class="custom-control-input") }}
+                              {{ form.automatic_management.label(class="custom-control-label") }}
+                          </div>
+                          {{ render_error(form.automatic_management) }}
+                        </p>
+                        {% endif %}
+
                         <p>
                             <div class="custom-control custom-checkbox" id="public-checkbox">
                                 {{ form.public_tournament(class="custom-control-input") }}

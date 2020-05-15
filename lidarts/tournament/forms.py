@@ -29,6 +29,7 @@ class RequiredIf(DataRequired):
 class CreateTournamentForm(FlaskForm):
     name = StringField(lazy_gettext('Tournament name'),  validators=[DataRequired(), Length(min=3, max=50)])
     description = TextAreaField(lazy_gettext('Description'), validators=[Length(min=0, max=1000)])
+    automatic_management = BooleanField(lazy_gettext('Use Lidarts to manage tournament brackets'))
     public_tournament = BooleanField(lazy_gettext('Open to the public'))
     registration_open = BooleanField(lazy_gettext('Player registration is open'))
     registration_apply = BooleanField(lazy_gettext('Organiser needs to confirm new players'))
