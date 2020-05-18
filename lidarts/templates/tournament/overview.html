@@ -50,7 +50,7 @@
 <div class="row justify-content-center mt-2 mt-md-4">
     <div class="col-12 col-md-6">
         <div class="card bg-light text-dark bs-callout bs-callout-info ">
-            <div class="card-body text-center">
+            <div class="card-body">
                 <h5 class="card-title text-center">{{ _('Create a new tournament') }}</h5>
                 <hr>
                 <p class="card-text">
@@ -67,6 +67,8 @@
                             {{ form.description(class="form-control", autocomplete="off", maxlength="1000") }}
                             {{ render_error(form.description) }}
                         </p>
+
+                        <hr>
 
                         <p>
                             <div class="custom-control custom-checkbox">
@@ -101,6 +103,8 @@
                             </div>
                             {{ render_error(form.registration_apply) }}
                         </p>
+
+                        <hr>
 
                         <p class="visible-public-only">
                             {{ form.external_url.label(class="control-label") }}:

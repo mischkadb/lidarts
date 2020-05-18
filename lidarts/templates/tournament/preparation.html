@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% from "utils.html" import render_error %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/chat.css', version=config.VERSION) }}" />
+{% endblock %}
+
+{% block container %}
+<div class="container-fluid">
+{% endblock %}
+
+{% block app_content %}
+<div class="row justify-content-center mt-2 mt-md-4">
+    <div class="col-12 col-lg-4">
+        <div class="card bg-light text-dark ">
+            <div class="card-body text-center">
+                <h5 class="card-title text-center">{{ _('Manage player list') }}</h5>
+                <hr>
+                <div class="col-12">
+                    <ul class="list-group" id="playerList">
+                      {% for player in tournament.players %}
+                      <li class="list-group-item" data-id="{{ player.id }}">
+                        <span class="playerListNumber">{{ loop.index }}</span>
+                        {{ player.username }}
+                      </li>
+                      {% endfor %}
+                    </ul>
+                </div>
+                
+            </div>
+        </div>        
+        <div class="form-row">   
+          <div class="col">     
+            <label for="numberofSeeds">{{ _('Number of seeded players') }}</label>
+              <input type="number" class="form-control mx-sm-3" id="numberOfSeeds" aria-describedby="numberofSeeds" min="0" max="{{ tournament.players|length }}" step="1" value="0"/>
+             <small>The first n seeded players will not be shuffled.</small>
+          </div>
+        </div>
+
+        <div class="form-row">   
+          <div class="col">
+            <button class="btn btn-info mt-2" id="shuffleSeedsButton">
+              {{ _('Shuffle players') }}
+            </button> 
+
+            <button class="btn btn-success mt-2" data-toggle="modal" data-target="#confirmPlayerOrderModal">
+              {{ _('Continue') }}
+            </button> 
+          </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-8">
+      <h3>{{ _('Format settings') }}</h3>
+      <hr>
+      <p><small>{{ _('ub = Upper bracket, lb = Lower bracket, gf = Grand Final') }}</small></p>
+
+      <form method="POST" >
+        {{ tournament_round_form.hidden_tag() }}
+      <div class="row">
+        {% for round in tournament_round_form.rounds %}
+        <div class="col-4 mb-2">
+        {{ round.hidden_tag() }}
+          <div class="card bg-light text-dark">
+            <div class="card-body">
+              <p>{{ round.name_(class="form-control", readonly=True) }} </p>
+                <p>
+                  {{ round.type_.label(class="control-label") }}
+                  {{ round.type_(class="form-control custom-select") }}
+                </p>
+                <p>
+                  {{ round.bo_sets.label(class="control-label") }}
+                  {{ round.bo_sets(class="form-control custom-select") }}
+                </p>
+                <p>
+                  {{ round.bo_legs.label(class="control-label") }}
+                  {{ round.bo_legs(class="form-control custom-select") }}
+                </p>
+                <p>
+                  <div class="custom-control custom-checkbox">
+                      {{ round.two_clear_legs(class="custom-control-input") }}
+                      {{ round.two_clear_legs.label(class="custom-control-label") }}
+                  </div>
+                </p>
+                <p>
+                  {{ round.starter.label(class="control-label") }}
+                  {{ round.starter(class="form-control custom-select") }}
+                </p>
+                <p>
+                  {{ round.in_mode.label(class="control-label") }}
+                  {{ round.in_mode(class="form-control custom-select") }}
+                </p>
+                <p>
+                  {{ round.out_mode.label(class="control-label") }}
+                  {{ round.out_mode(class="form-control custom-select") }}
+                </p>
+                <p>
+                  {{ round.score_input_delay.label(class="col-form-label") }}:
+                  {{ round.score_input_delay(class="custom-select") }}
+                  <small>{{ _('Blocks score input after new score. In seconds.') }}</small>
+              </p>
+              <p>
+                <button class="btn btn-info apply-button" id="applyToAll-{{ round.name }}">{{ _('Apply to all') }}</button>
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}  
+      </div>
+</div>
+
+<div class="modal fade" id="confirmPlayerOrderModal" tabindex="-1" role="dialog" aria-labelledby="Confirm Player Order" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ _('Confirm tournament settings') }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <p>{{ _('Are the settings correct? The tournament will be started after confirmation.') }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ _('Close') }}</button>
+          <div class="form-group" style="display: none;">
+            {{ tournament_round_form.player_list.label(class="form-control-label") }}
+            {{ tournament_round_form.player_list(class="form-control form-control-lg") }}
+        </div>
+          {{ tournament_round_form.submit(class="btn btn-info") }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<meta id="profile_url" data-url="{{ url_for('profile.overview') | replace('%40', '@') }}">
+<meta id="tournament_hashid" data-hashid="{{ request.path.split('/')[2] }}">
+<meta id="show_average_in_chat_list" data-bool="{{ show_average_in_chat_list }}">
+
+
+<script type="text/javascript" src="{{ url_for('static',filename='js/Sortable.min.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/tournament/preparation.js', version=config.VERSION) }}"></script>
+{% endblock %}

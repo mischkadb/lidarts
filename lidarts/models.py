@@ -124,7 +124,7 @@ class GameBase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     variant = db.Column(db.String(50))
     __mapper_args__ = {'polymorphic_on': variant}
-    
+
     hashid = db.Column(db.String(10), unique=True)    
     bo_sets = db.Column(db.Integer, nullable=False)
     bo_legs = db.Column(db.Integer, nullable=False)
@@ -148,20 +148,14 @@ class GameBase(db.Model):
     webcam = db.Column(db.Boolean, default=False)
     jitsi_hashid = db.Column(db.String(10), unique=True)
     jitsi_public_server = db.Column(db.Boolean, default=False)
-    tournament_stage_game_id = db.Column(db.Integer, default=None)
-    tournament_stage_game_bracket_id = db.Column(db.Integer, default=None)
 
     @declared_attr
     def tournament(cls):
         return db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
 
     @declared_attr
-    def tournament_round_id(cls):
-        return db.Column(db.Integer, db.ForeignKey('tournament_stage_rounds.id'), default=None)
-
-    @declared_attr
-    def tournament_round(cls):
-        return db.relationship('TournamentStageRound', back_populates='games')
+    def tournament_game(cls):
+        return db.relationship('TournamentGame', back_populates='game')
 
     @declared_attr
     def player1(cls):
@@ -390,22 +384,58 @@ class TournamentStage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tournament_id = db.Column(db.Integer, db.ForeignKey('tournaments.id'))
     tournament = db.relationship("Tournament", back_populates="stages")
-    format = db.Column(db.String(20), nullable=False)
+    format = db.Column(db.String(30), nullable=False)
     rounds = db.relationship("TournamentStageRound", back_populates="stage")
 
 
 class TournamentStageRound(db.Model):
     __tablename__ = 'tournament_stage_rounds'
     id = db.Column(db.Integer, primary_key=True)
+    variant = db.Column(db.String(50), default='x01')
+    __mapper_args__ = {'polymorphic_on': variant}
+
+    name_ = db.Column(db.String(50), default=None)
     stage_id = db.Column(db.Integer, db.ForeignKey('tournament_stages.id'))
     stage = db.relationship("TournamentStage", back_populates="rounds")
-    games = db.relationship("Game", back_populates="tournament_round")
-    variant = db.Column(db.String(50))
-    bo_sets = db.Column(db.Integer, nullable=False)
-    bo_legs = db.Column(db.Integer, nullable=False)
-    two_clear_legs = db.Column(db.Boolean)
-    starter = db.Column(db.String(30))
+    games = db.relationship("TournamentGame", back_populates="tournament_round")
+    bo_sets = db.Column(db.Integer, nullable=False, default=1)
+    bo_legs = db.Column(db.Integer, nullable=False, default=5)
+    two_clear_legs = db.Column(db.Boolean, default=False)
+    starter = db.Column(db.String(30), default='closest_to_bull')
     score_input_delay = db.Column(db.Integer, default=0)
+
+
+class X01TournamentStageRound(TournamentStageRound):
+    __tablename__ = 'tournament_stage_rounds_x01'
+    __mapper_args__ = {'polymorphic_identity': 'x01'}
+    id = db.Column(db.Integer, db.ForeignKey('tournament_stage_rounds.id'), primary_key=True)
+    type_ = db.Column(db.Integer, default=501)
+    in_mode = db.Column(db.String(15), default='si')
+    out_mode = db.Column(db.String(15), default='do')
+
+
+class TournamentGame(db.Model):
+    __tablename__ = 'tournament_games'
+
+    id = db.Column(db.Integer, primary_key=True)
+    game_id = db.Column(db.Integer, db.ForeignKey('games_all.id'), default=None)
+    game = db.relationship('GameBase', back_populates='tournament_game')
+    tournament_stage_game_id = db.Column(db.Integer, default=None)
+    tournament_stage_game_bracket_id = db.Column(db.Integer, default=None)
+    tournament_round_id = db.Column(db.Integer, db.ForeignKey('tournament_stage_rounds.id'), default=None)
+    tournament_round = db.relationship('TournamentStageRound', back_populates='games')
+    winner_id = db.Column(db.Integer, db.ForeignKey('users.id'), default=None)
+    winner = db.relationship('User', foreign_keys=[winner_id])
+    loser_id = db.Column(db.Integer, db.ForeignKey('users.id'), default=None)
+    loser = db.relationship('User', foreign_keys=[loser_id])
+    p1_winner_from_id = db.Column(db.Integer, db.ForeignKey('tournament_games.id'), default=None)
+    p1_winner_from = db.relationship('TournamentGame', foreign_keys=[p1_winner_from_id])
+    p2_winner_from_id = db.Column(db.Integer, db.ForeignKey('tournament_games.id'), default=None)
+    p2_winner_from = db.relationship('TournamentGame', foreign_keys=[p2_winner_from_id])
+    p1_loser_from_id = db.Column(db.Integer, db.ForeignKey('tournament_games.id'), default=None)
+    p1_loser_from = db.relationship('TournamentGame', foreign_keys=[p1_loser_from_id])
+    p2_loser_from_id = db.Column(db.Integer, db.ForeignKey('tournament_games.id'), default=None)
+    p2_loser_from = db.relationship('TournamentGame', foreign_keys=[p2_loser_from_id])
 
 
 class WebcamSettings(db.Model):

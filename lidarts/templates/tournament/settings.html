@@ -11,23 +11,30 @@
 <div class="row justify-content-center mt-2 mt-md-4">
     <div class="col-12 col-md-6">
         <div class="card bg-light text-dark bs-callout bs-callout-info ">
-            <div class="card-body text-center">
+            <div class="card-body">
                 <h5 class="card-title text-center">{{ _('Edit tournament settings') }}</h5>
                 <hr>
                 <p class="card-text">
                     <form method="POST" class="form-horizontal">
                         {{ form.hidden_tag() }}
                         <p>
-                            {{ form.name.label(class="control-label") }}:
+                            {{ form.name.label(class="control-label") }}
                             {{ form.name(class="form-control", autocomplete="off", maxlength="50") }}
                             {{ render_error(form.name) }}
                         </p>
 
                         <p>
-                            {{ form.description.label(class="control-label") }}:
+                            {{ form.description.label(class="control-label") }}
                             {{ form.description(class="form-control", autocomplete="off", maxlength="1000") }}
                             {{ render_error(form.description) }}
                         </p>
+
+                        {% if not tournament.managed_externally %}
+                        <p>
+                          {{ form.tournament_format.label(class="control-label") }}
+                          {{ form.tournament_format(class="form-control custom-select") }}
+                        </p>
+                        {% endif %}
 
                         {% if not tournament.status or tournament.status == 'registration' %}
                         <p>
@@ -37,7 +44,6 @@
                           </div>
                           {{ render_error(form.automatic_management) }}
                         </p>
-                        {% endif %}
 
                         <p>
                             <div class="custom-control custom-checkbox" id="public-checkbox">
@@ -64,17 +70,17 @@
                           </div>
                           {{ render_error(form.registration_apply) }}
                        </p>
-
+                       {% endif %}
 
                         <p class="visible-public-only">
-                            {{ form.external_url.label(class="control-label") }}:
+                            {{ form.external_url.label(class="control-label") }}
                             {{ form.external_url(class="form-control", autocomplete="off", maxlength="120") }}
                             <small>({{ _('Link to tournament website with more information') }})</small>
                             {{ render_error(form.external_url) }}
                         </p>
 
                         <p class="visible-public-only">
-                            {{ _('Start date and time:') }} <br>
+                            {{ _('Start date and time') }} <br>
                             {{ form.start_date(class='datepicker') }} {{ form.start_time(class='time', required=False) }}
                             {{ render_error(form.start_date) }}
                             {{ render_error(form.start_time) }}
@@ -135,6 +141,17 @@
                 
             </div>
         </div>
+        {% if tournament.status == 'registration' %}
+        <button class="btn btn-success mt-2" id="closeRegistrationButton" data-toggle="modal" data-target="#closeRegistrationModal">
+          {{ _('Close registration') }}
+       </button> 
+       {% elif tournament.status == 'preparation' %}
+       <a href="{{ url_for('tournament.preparation', hashid=tournament.hashid) }}">
+        <button class="btn btn-info mt-2">
+          {{ _('Tournament preparation') }}
+        </button> 
+       </a>
+       {% endif %}
     </div>
 </div>
 
@@ -221,25 +238,49 @@
 </div>
 
 <div class="modal fade" id="unbanModal" tabindex="-1" role="dialog" aria-labelledby="unbanModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{ _('Unban player') }}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <div class="form-group">{{ _('Do you want to unban ') }}<span id="unbanPlayerName"></span>? {{ _('The player will be able to join the tournament again.') }}
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ _('Close') }}</button>
-          <button type="button" class="btn btn-primary" id="unbanPlayerButton" data-dismiss="modal">{{ _('Unban') }}</button>
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ _('Unban player') }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">{{ _('Do you want to unban ') }}<span id="unbanPlayerName"></span>? {{ _('The player will be able to join the tournament again.') }}
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ _('Close') }}</button>
+        <button type="button" class="btn btn-primary" id="unbanPlayerButton" data-dismiss="modal">{{ _('Unban') }}</button>
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="closeRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="unbanModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ _('Close registration') }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <p>{{ _('Do you want to close the registration and continue with the tournament preparation stage?') }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ _('Close') }}</button>
+        <form method="POST" class="form-horizontal">
+          {{ close_registration_form.hidden_tag() }}
+          {{ close_registration_form.submit(class="btn btn-info") }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 
