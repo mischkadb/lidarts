@@ -33,7 +33,7 @@ Jinja2==2.11.1
 Mako==1.0.7
 MarkupSafe==1.1.1
 monotonic==1.5
-more-itertools==4.1.0
+more-itertools==8.5.0
 numpy==1.18.2
 passlib==1.7.1
 Pillow==7.1.1
