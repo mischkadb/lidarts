@@ -35,7 +35,7 @@ MarkupSafe==1.1.1
 monotonic==1.5
 more-itertools==4.1.0
 numpy==1.18.2
-passlib==1.7.1
+passlib==1.7.3
 Pillow==7.1.1
 pluggy==0.13.1
 py==1.5.3
