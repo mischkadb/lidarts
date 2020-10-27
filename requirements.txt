@@ -7,7 +7,7 @@ blinker==1.4
 cffi==1.11.5
 Click==7.0
 coverage==4.5.1
-cryptography==2.8
+cryptography==3.2
 dnspython==1.16.0
 Flask==1.1.1
 Flask-BabelEx==0.9.4
