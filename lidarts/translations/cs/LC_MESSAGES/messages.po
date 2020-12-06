@@ -1,0 +1,2064 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-05-07 13:58+0200\n"
+"PO-Revision-Date: 2020-12-06 16:40\n"
+"Last-Translator: \n"
+"Language-Team: Czech\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 3;\n"
+"X-Crowdin-Project: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
+"X-Crowdin-Project-ID: 8\n"
+"X-Crowdin-Language: cs\n"
+"X-Crowdin-File: messages.pot\n"
+"X-Crowdin-File-ID: 36\n"
+"Language: cs_CZ\n"
+
+#: auth/forms.py:21
+msgid "Password must have at least 8 characters"
+msgstr "Heslo musí mít alespoň 8 znaků"
+
+#: auth/forms.py:23
+msgid "Username is required"
+msgstr "Uživatelské jméno je povinné"
+
+#: auth/forms.py:43
+msgid "Password must have at least 15 characters OR contain at least two out of these: lowercase letter, uppercase letter, number, symbol."
+msgstr "Heslo musí mít nejméně 15 znaků NEBO alespoň dvě z nich: malé písmeno, velké písmeno, číslo, symbol."
+
+#: auth/forms.py:50
+msgid "Username is already taken"
+msgstr "Uživatelské jméno je již obsazeno"
+
+#: auth/forms.py:56
+msgid "Username must start with a letter, number or \"([\""
+msgstr "Uživatelské jméno musí začínat písmenem, číslem nebo \"([\""
+
+#: auth/forms.py:58
+msgid "Username must end with a letter or a number or \")]\""
+msgstr "Uživatelské jméno musí končit písmenem nebo číslem nebo \")]\""
+
+#: auth/forms.py:62
+msgid "Username contains invalid symbols."
+msgstr "Uživatelské jméno obsahuje neplatné znaky."
+
+#: auth/forms.py:64
+msgid "Two special characters in a row are not allowed."
+msgstr "Dva speciální znaky v řádku nejsou povoleny."
+
+#: auth/forms.py:70
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+#: auth/forms.py:80 auth/forms.py:89 auth/forms.py:93
+msgid "Password"
+msgstr "Heslo"
+
+#: auth/forms.py:85
+msgid "Username or Email Address"
+msgstr "Uživatelské jméno nebo e-mailová adresa"
+
+#: auth/forms.py:97 profile/forms.py:73
+msgid "Accept"
+msgstr "Přijmout"
+
+#: auth/routes.py:19 auth/routes.py:31 auth/routes.py:44
+msgid "Change username"
+msgstr "Změnit uživatelské jméno"
+
+#: auth/routes.py:30
+msgid "You can only change your username once per month. You need to wait until: "
+msgstr "Své uživatelské jméno můžete změnit pouze jednou za měsíc. Počkejte do: "
+
+#: auth/routes.py:33
+msgid "Username changed."
+msgstr "Uživatelské jméno bylo změněno."
+
+#: game/forms.py:7 statistics/forms.py:9
+msgid "Local"
+msgstr "Lokální"
+
+#: game/forms.py:9
+msgid "Me"
+msgstr "Já"
+
+#: game/forms.py:9 game/forms.py:41 statistics/forms.py:28
+msgid "Opponent"
+msgstr "Soupeř"
+
+#: game/forms.py:10
+msgid "Closest to Bull"
+msgstr "Rozhoz na střed"
+
+#: game/forms.py:19
+msgid "Invalid number."
+msgstr "Neplatné číslo."
+
+#: game/forms.py:23 game/forms.py:30
+msgid "Score"
+msgstr "Skóre"
+
+#: game/forms.py:26 game/forms.py:33
+msgid "Submit score"
+msgstr "Odeslat skóre"
+
+#: game/forms.py:37
+msgid "Best of Sets"
+msgstr "Best of Sets"
+
+#: game/forms.py:38
+msgid "Best of Legs"
+msgstr "Best of Legs"
+
+#: game/forms.py:39
+msgid "Two Clear Legs"
+msgstr "Rozdíl 2 legů"
+
+#: game/forms.py:40
+msgid "First to throw"
+msgstr "Kdo začína"
+
+#: game/forms.py:42 statistics/forms.py:32
+msgid "Opponent name"
+msgstr "Jméno soupeře"
+
+#: game/forms.py:43 statistics/forms.py:30
+msgid "Level"
+msgstr "Úroveň"
+
+#: game/forms.py:44
+msgid "Public challenge"
+msgstr "Veřejná výzva"
+
+#: game/forms.py:45 templates/game/cricket/completed.html:149
+#: templates/game/x01/completed.html:151
+#: templates/game/x01/scoreboard_normal.html:37
+#: templates/profile/game_history.html:30 templates/profile/overview.html:72
+msgid "Webcam game"
+msgstr "Hrát přes webovou kameru"
+
+#: game/forms.py:46
+msgid "Score input block"
+msgstr "Blokování při zadávání skóre"
+
+#: game/forms.py:47 tournament/forms.py:38
+msgid "Save settings"
+msgstr "Uložit nastavení"
+
+#: game/forms.py:48
+msgid "Tournament"
+msgstr "Turnaj"
+
+#: game/forms.py:49
+msgid "Start game"
+msgstr "Začít hru"
+
+#: game/forms.py:53 statistics/forms.py:27
+msgid "Game type"
+msgstr "Typ hry"
+
+#: game/forms.py:54 statistics/forms.py:33
+msgid "Mode In"
+msgstr "Otevření hry"
+
+#: game/forms.py:55 statistics/forms.py:34
+msgid "Mode Out"
+msgstr "Zavření hry"
+
+#: game/forms.py:64 generic/forms.py:9
+msgid "Submit message"
+msgstr "Odeslat zprávu"
+
+#: game/forms.py:68
+msgid "I have read the text above, understand the limitations and have a webcam setup to play."
+msgstr "Přečetl jsem si výše uvedený text, chápu omezení a mám nastavenou webovou kameru pro hraní."
+
+#: game/forms.py:69
+msgid "(Optional) I allow my opponents to stream and record our game including my webcam video and audio."
+msgstr "(Volitelné) Dovolím svým soupeřům streamovat a nahrávat naši hru včetně videa a zvuku z mé webové kamery."
+
+#: game/forms.py:70 templates/game/cricket/stream_overlay.html:428
+#: templates/game/modals.html:51 templates/game/x01/stream_overlay.html:410
+msgid "Confirm"
+msgstr "Potvrdit"
+
+#: game/routes.py:49
+msgid "Public challenges must be created without an opponent name."
+msgstr "Veřejné výzvy musí být vytvořeny bez jména soupeře."
+
+#: game/routes.py:51 game/routes.py:64 game/routes.py:85 game/routes.py:159
+#: templates/game/create_game.html:9
+msgid "Create Game"
+msgstr "Vytvořit hru"
+
+#: game/routes.py:62
+msgid "Player does not allow challenges"
+msgstr "Hráč nepovoluje výzvy"
+
+#: game/routes.py:66
+msgid "New challenge"
+msgstr "Nová výzva"
+
+#: game/routes.py:83
+msgid "Player 2 does not have webcam games enabled."
+msgstr "Druhý hráč nemá aktivovanou hru přes webovou kameru."
+
+#: game/routes.py:216 game/routes.py:224
+msgid "Waiting..."
+msgstr "Čekejte..."
+
+#: game/routes.py:257
+msgid "Match overview"
+msgstr "Přehled hry"
+
+#: game/routes.py:294
+msgid "Stream overlay"
+msgstr "Stream overlay"
+
+#: game/routes.py:296
+msgid "Live Match"
+msgstr "Zápas živě"
+
+#: game/utils.py:11 generic/routes.py:80
+msgid "Local Guest"
+msgstr "Lokální host"
+
+#: game/utils.py:25
+msgid "Guest"
+msgstr "Host"
+
+#: generic/forms.py:13
+msgid "Search user"
+msgstr "Vyhledat uživatele"
+
+#: generic/forms.py:14
+msgid "Search"
+msgstr "Vyhledat"
+
+#: generic/routes.py:95
+msgid "Live Games"
+msgstr "Hry živě"
+
+#: generic/routes.py:167 templates/base.html:54
+msgid "Lobby"
+msgstr "Lobby"
+
+#: generic/routes.py:234 templates/base.html:58
+#: templates/game/cricket/stream_overlay.html:136
+#: templates/game/x01/game.html:98 templates/game/x01/stream_overlay.html:107
+#: templates/game/x01/webcam.html:111
+msgid "Chat"
+msgstr "Chat"
+
+#: generic/routes.py:297
+msgid "Private Messages"
+msgstr "Soukromé zprávy"
+
+#: profile/forms.py:8
+msgid "Enabled"
+msgstr "Zapnuto"
+
+#: profile/forms.py:8
+msgid "Disabled"
+msgstr "Vypnuto"
+
+#: profile/forms.py:12 tournament/forms.py:31
+msgid "Description"
+msgstr "Popis"
+
+#: profile/forms.py:13 profile/forms.py:18 profile/forms.py:23
+#: profile/forms.py:63 profile/forms.py:75 profile/forms.py:109
+#: profile/forms.py:114
+msgid "Save"
+msgstr "Uložit"
+
+#: profile/forms.py:17
+msgid "Caller"
+msgstr "Hlasatel"
+
+#: profile/forms.py:22
+msgid "Trainer delay"
+msgstr "Zpoždění bota"
+
+#: profile/forms.py:28
+msgid "Notification sound"
+msgstr "Zvuk notifikace"
+
+#: profile/forms.py:34
+msgid "Allow challenges"
+msgstr "Povolit výzvy"
+
+#: profile/forms.py:40
+msgid "Allow private messages"
+msgstr "Povolit soukromé zprávy"
+
+#: profile/forms.py:46
+msgid "Allow friend requests"
+msgstr "Povolit žádosti o přátelství"
+
+#: profile/forms.py:52
+msgid "Checkout suggestions"
+msgstr "Návrhy pro zavírání"
+
+#: profile/forms.py:58
+msgid "Show averages in user list"
+msgstr "Zobrazit průměry v seznamu uživatelů"
+
+#: profile/forms.py:68
+msgid "Country"
+msgstr "Země"
+
+#: profile/forms.py:80
+msgid "Webcam activated"
+msgstr "Webová kamera aktivována"
+
+#: profile/forms.py:86
+msgid "Allow streaming"
+msgstr "Povolit streamování"
+
+#: profile/forms.py:92
+msgid "Use Jitsi mobile app"
+msgstr "Použít Jitsi mobilní aplikaci"
+
+#: profile/forms.py:98
+msgid "Mobile follow mode"
+msgstr "Sledovací režim přes mobil"
+
+#: profile/forms.py:104
+msgid "Show only scoreboard on main device"
+msgstr "Zobrazit zadávání skóre jen na hlavním zařízení"
+
+#: profile/forms.py:113
+msgid "Channel ID"
+msgstr "ID kanálu"
+
+#: profile/routes.py:47
+msgid "Match History"
+msgstr "Historie zápasu"
+
+#: profile/routes.py:128 templates/base.html:101
+msgid "Profile"
+msgstr "Profil"
+
+#: profile/routes.py:144
+msgid "Profile text saved."
+msgstr "Profilový text byl uložen."
+
+#: profile/routes.py:199
+msgid "Manage Friend List"
+msgstr "Spravovat seznam přátel"
+
+#: profile/routes.py:211
+msgid "Avatar deleted."
+msgstr "Avatar byl smazán."
+
+#: profile/routes.py:223
+msgid "No selected file"
+msgstr "Žádný vybraný soubor"
+
+#: profile/routes.py:229
+msgid "Wrong image format."
+msgstr "Špatný formát obrázku."
+
+#: profile/routes.py:238
+msgid "Avatar saved."
+msgstr "Avatar byl uložen."
+
+#: profile/routes.py:243
+msgid "Avatar Settings"
+msgstr "Nastavení avataru"
+
+#: profile/routes.py:264 profile/routes.py:295 profile/routes.py:308
+#: profile/routes.py:335 profile/routes.py:355
+msgid "Settings saved."
+msgstr "Nastavení uloženo."
+
+#: profile/routes.py:266
+msgid "Caller Settings"
+msgstr "Nastavení hlasatele"
+
+#: profile/routes.py:277
+msgid "Trainer Delay"
+msgstr "Zpoždění bota"
+
+#: profile/routes.py:302
+msgid "You can only change your country setting once per month. You need to wait until: "
+msgstr "Nastavení země můžete změnit pouze jednou za měsíc. Počkejte do: "
+
+#: profile/routes.py:303 profile/routes.py:319
+#: templates/profile/general_settings.html:13 templates/profile/settings.html:5
+msgid "General settings"
+msgstr "Základní nastavení"
+
+#: profile/routes.py:343 templates/profile/settings.html:7
+#: templates/profile/webcam_settings.html:13
+msgid "Webcam settings"
+msgstr "Nastavení webové kamery"
+
+#: profile/routes.py:359 templates/profile/livestream_settings.html:13
+#: templates/profile/settings.html:8
+msgid "Livestream settings"
+msgstr "Nastavení livestreamu"
+
+#: statistics/forms.py:9 statistics/forms.py:12
+msgid "All"
+msgstr "Vše"
+
+#: statistics/forms.py:17
+msgid "Last ... games"
+msgstr "Poslední ... hry"
+
+#: statistics/forms.py:18
+msgid "From ... to ..."
+msgstr "Od ... do ..."
+
+#: statistics/forms.py:20
+msgid "From"
+msgstr "Od"
+
+#: statistics/forms.py:22
+msgid "to"
+msgstr "do"
+
+#: statistics/forms.py:24
+msgid "Filter"
+msgstr "Filtrovat"
+
+#: statistics/forms.py:25
+msgid "Apply"
+msgstr "Použít"
+
+#: templates/base.html:50
+msgid "Home"
+msgstr "Domů"
+
+#: templates/base.html:51 templates/base.html:56 templates/generic/chat.html:44
+msgid "Watch"
+msgstr "Živě"
+
+#: templates/base.html:52 templates/base.html:59
+msgid "Statistics"
+msgstr "Statistiky"
+
+#: templates/base.html:55 templates/generic/lobby.html:31
+msgid "Play"
+msgstr "Hrát"
+
+#: templates/base.html:57 tournament/routes.py:83
+msgid "Tournaments"
+msgstr "Turnaje"
+
+#: templates/base.html:74
+msgid "No new notifications"
+msgstr "Žádné nové notifikace"
+
+#: templates/base.html:83 templates/security/login_user.html:9
+#: templates/security/login_user.html:18
+#: templates/security/register_user.html:29
+msgid "Sign In"
+msgstr "Přihlásit se"
+
+#: templates/base.html:84 templates/security/register_user.html:10
+#: templates/security/register_user.html:22
+msgid "Register"
+msgstr "Registrovat se"
+
+#: templates/base.html:87
+msgid "Inbox"
+msgstr "Doručená pošta"
+
+#: templates/base.html:93
+msgid "Status"
+msgstr "Status"
+
+#: templates/base.html:96
+msgid "Looking for Game"
+msgstr "Chci hrát"
+
+#: templates/base.html:97
+msgid "Busy"
+msgstr "Zaneprázdněný"
+
+#: templates/base.html:102
+msgid "Logout"
+msgstr "Odhlásit se"
+
+#: templates/base.html:135
+msgid "About"
+msgstr "O nás"
+
+#: templates/base.html:136 templates/generic/contact.html:10
+msgid "Contact"
+msgstr "Kontakt"
+
+#: templates/base.html:137
+msgid "FAQ"
+msgstr "Nejčastější dotazy"
+
+#: templates/base.html:138
+msgid "Contribute"
+msgstr "Pomozte nám"
+
+#: templates/base.html:139
+msgid "Changelog"
+msgstr "Historie změn"
+
+#: templates/base.html:140
+msgid "Source Code"
+msgstr "Zdrojový kód"
+
+#: templates/base.html:141
+msgid "Privacy"
+msgstr "Ochrana osobních údajů"
+
+#: templates/base.html:142
+msgid "Terms & Conditions"
+msgstr "Obchodní podmínky"
+
+#: templates/base.html:144
+msgid "Legal notice"
+msgstr "Právní ujednání"
+
+#: templates/game/create_game.html:16
+msgid "Game Mode"
+msgstr "Typ hry"
+
+#: templates/game/create_game.html:98
+msgid "You have to activate webcam games first."
+msgstr "Nejdříve musíte aktivovat hru přes webovou kameru."
+
+#: templates/game/create_game.html:129
+msgid "Blocks score input after new score. In seconds."
+msgstr "Zpoždění při zadávání skóre mezi každým kolem v sekundách."
+
+#: templates/game/cricket/navbar.html:10
+#: templates/game/cricket/stream_overlay.html:7
+#: templates/game/game_navbar.html:10 templates/game/x01/stream_overlay.html:7
+msgid "Leave game"
+msgstr "Opustit hru"
+
+#: templates/game/cricket/navbar.html:12
+#: templates/game/cricket/stream_overlay.html:8
+#: templates/game/game_navbar.html:12 templates/game/x01/stream_overlay.html:8
+msgid "Abort game"
+msgstr "Zrušit hru"
+
+#: templates/game/cricket/stream_overlay.html:9
+#: templates/game/game_navbar.html:13 templates/game/x01/stream_overlay.html:9
+msgid "Toggle Keypad visibility"
+msgstr "Přepnout viditelnost klávesnice"
+
+#: templates/game/cricket/stream_overlay.html:10
+#: templates/game/game_navbar.html:14 templates/game/x01/stream_overlay.html:10
+msgid "Change keypad position"
+msgstr "Změnit pozici klávesnice"
+
+#: templates/game/cricket/navbar.html:14
+#: templates/game/cricket/stream_overlay.html:11
+#: templates/game/game_navbar.html:16 templates/game/x01/stream_overlay.html:11
+msgid "Toggle statistics"
+msgstr "Přepnout viditelnost statistik"
+
+#: templates/game/cricket/navbar.html:16
+#: templates/game/cricket/stream_overlay.html:12
+#: templates/game/game_navbar.html:18 templates/game/x01/stream_overlay.html:12
+msgid "Normal theme"
+msgstr "Normální pohled"
+
+#: templates/game/cricket/navbar.html:18 templates/game/game_navbar.html:20
+msgid "Streamoverlay"
+msgstr "Televizní pohled"
+
+#: templates/game/cricket/navbar.html:20
+#: templates/game/cricket/stream_overlay.html:13
+#: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
+msgid "Mute caller"
+msgstr "Ztlumit hlasatele"
+
+#: templates/game/cricket/navbar.html:20
+#: templates/game/cricket/stream_overlay.html:13
+#: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
+msgid "Unmute caller"
+msgstr "Odtlumit hlasatele"
+
+#: templates/game/cricket/navbar.html:21 templates/game/game_navbar.html:23
+msgid "Activate Sound (Apple)"
+msgstr "Aktivovat zvuk (Apple)"
+
+#: templates/game/cricket/navbar.html:23 templates/game/game_navbar.html:25
+msgid "Summon webcam"
+msgstr "Připojit webkameru"
+
+#: templates/game/cricket/navbar.html:26 templates/game/game_navbar.html:28
+msgid "At least one player does not allow streaming."
+msgstr "Jeden z hráčů nedovoluje streamování."
+
+#: templates/game/modals.html:6 templates/game/modals.html:16
+msgid "Check dart:"
+msgstr "Zkontrolovat šipku:"
+
+#: templates/game/cricket/stream_overlay.html:402 templates/game/modals.html:25
+#: templates/game/x01/stream_overlay.html:384
+msgid "How many darts missed at double?"
+msgstr "Kolik šipek jste netrefili při zavírání?"
+
+#: templates/game/cricket/stream_overlay.html:415 templates/game/modals.html:38
+#: templates/game/x01/stream_overlay.html:397
+msgid "How many darts to finish?"
+msgstr "Na kolik šipek jste zavřeli?"
+
+#: templates/game/cricket/stream_overlay.html:427 templates/game/modals.html:50
+#: templates/game/x01/stream_overlay.html:409
+msgid "Abort game?"
+msgstr "Zrušit hru?"
+
+#: templates/game/cricket/stream_overlay.html:429 templates/game/modals.html:52
+#: templates/game/x01/stream_overlay.html:411
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: templates/game/wait_for_opponent.html:10
+msgid "Waiting for"
+msgstr "Čekání na"
+
+#: templates/game/wait_for_opponent.html:16
+#: templates/game/wait_for_opponent_public_challenge.html:18
+msgid "This page will redirect you to the game once the challenge has been accepted."
+msgstr "Tato stránka vás přesměruje do hry, jakmile bude výzva přijata."
+
+#: templates/game/wait_for_opponent.html:18
+msgid "You are not logged in. Log in to play in this game."
+msgstr "Nejste přihlášeni. Chcete-li hrát v této hře, přihlaste se."
+
+#: templates/game/wait_for_opponent.html:19
+msgid "Share this link to invite another player (must be logged in):"
+msgstr "Sdílejte tento odkaz, abyste mohli pozvat jiného hráče (musí být přihlášen):"
+
+#: templates/game/wait_for_opponent.html:21 templates/tournament/stream.html:20
+msgid "Copy text"
+msgstr "Kopírovat text"
+
+#: templates/game/wait_for_opponent_public_challenge.html:10
+msgid "Waiting for player to accept public challenge."
+msgstr "Čekání na přijetí veřejné výzvy."
+
+#: templates/game/wait_for_opponent_public_challenge.html:16
+msgid "Wait here. Leaving this page will cancel the challenge."
+msgstr "Počkejte zde. Pokud opustíte tuto stránku, výzva bude zrušena."
+
+#: templates/game/wait_for_opponent_public_challenge.html:20
+msgid "Click to join another public challenge:"
+msgstr "Kliknutím se připojíte k jiné veřejné výzvě:"
+
+#: templates/game/webcam_consent.html:9
+msgid "Webcam games"
+msgstr "Hry přes webovou kameru"
+
+#: templates/game/webcam_consent.html:15
+msgid "Lidarts offers X01 webcam games between two players in an experimental testing stage. We currently try an external service for video and audio communication called Jitsi."
+msgstr "Lidarts nabízí X01 hry přes webkameru mezi dvěma hráči v experimentálním testovacím modu. V současné době zkoušíme externí službu pro video a zvukovou komunikaci s názvem Jitsi."
+
+#: templates/game/webcam_consent.html:16
+msgid "In order to play you need a webcam pointed towards your dart board and a desktop PC with a modern browser, e.g. Google Chrome or Firefox."
+msgstr "Pro hraní potřebujete webovou kameru namířenou k vašemu terči se šipkami a desktopový počítač s moderním prohlížečem, například Google Chrome nebo Firefox."
+
+#: templates/game/webcam_consent.html:17
+msgid "Mobile devices are not supported. We currently also provide no support for setup. You can try \n"
+"                        Jitsi Meet "
+msgstr "Mobilní zařízení nejsou podporována. V současné době také neposkytujeme podporu pro nastavení. Můžete zkusit \n"
+"                        Jitsi Meet "
+
+#: templates/game/webcam_consent.html:18
+msgid "here"
+msgstr "zde"
+
+#: templates/game/webcam_consent.html:18
+msgid "If you do not get your webcam to work there it will not work on Lidarts either."
+msgstr "Pokud se vám nedaří nastavit vaši webovou kameru, nebude to fungovat ani na Lidarts."
+
+#: templates/game/webcam_consent.html:19
+msgid "Although there is no ruleset for webcam play yet we call on your fairness and sportsmanship."
+msgstr "I když neexistuje žádný soubor pravidel pro hraní přes webovou kameru, vyzýváme vás k férovému a sportovnímu chování."
+
+#: templates/game/webcam_consent.html:20
+msgid "We need feedback in order to improve webcam play in the future. We encourage you to send your experience via email at contact@lidarts.org"
+msgstr "Potřebujeme zpětnou vazbu, abychom mohli v budoucnu vylepšit hru přes webkameru. Vyzýváme vás poslat vaše zkušenosti e-mailem na contact@lidarts.org"
+
+#: templates/game/cricket/completed.html:12
+#: templates/game/cricket/game.html:147 templates/game/cricket/game.html:168
+#: templates/game/cricket/stream_overlay.html:114
+#: templates/game/cricket/watch_webcam.html:159
+#: templates/game/cricket/webcam.html:171 templates/game/x01/completed.html:14
+#: templates/game/x01/game.html:76 templates/game/x01/stream_overlay.html:85
+#: templates/game/x01/watch_webcam.html:81 templates/game/x01/webcam.html:92
+msgid "Game was aborted."
+msgstr "Hra byla zrušena."
+
+#: templates/game/cricket/completed.html:15
+#: templates/game/x01/completed.html:17
+msgid "Challenge was declined or withdrawn."
+msgstr "Výzva byla odmítnuta nebo stažena."
+
+#: templates/game/cricket/completed.html:138
+#: templates/game/x01/completed.html:140
+msgid "Match start"
+msgstr "Start zápasu"
+
+#: templates/game/cricket/completed.html:139
+#: templates/game/x01/completed.html:141
+msgid "Match duration"
+msgstr "Délka zápasu"
+
+#: templates/game/cricket/completed.html:139
+#: templates/game/x01/completed.html:141
+msgid "hours"
+msgstr "hodin"
+
+#: templates/game/cricket/completed.html:140
+#: templates/game/x01/completed.html:142
+msgid "minutes"
+msgstr "minut"
+
+#: templates/game/cricket/completed.html:141
+#: templates/game/x01/completed.html:143
+msgid "seconds"
+msgstr "vteřin"
+
+#: templates/game/cricket/completed.html:149
+#: templates/game/x01/completed.html:151
+msgid " Webcam game"
+msgstr " Hra přes webovou kameru"
+
+#: templates/game/cricket/completed.html:162
+#, python-format
+msgid "Mark distribution - absolute (%% of total)"
+msgstr "Distribuce bodů - absolutní (%% z celkového počtu)"
+
+#: templates/game/cricket/game.html:14
+#: templates/game/cricket/stream_overlay.html:57
+#: templates/game/cricket/watch_webcam.html:27
+#: templates/game/cricket/webcam.html:28 templates/game/x01/game.html:19
+#: templates/game/x01/stream_overlay.html:24
+#: templates/game/x01/watch_webcam.html:27 templates/game/x01/webcam.html:28
+msgid "Closest to bull begins. Please throw three darts at bull."
+msgstr "Nejbližší ke středu začína. Vhodte tři šipky do středu terče."
+
+#: templates/game/cricket/game.html:15
+#: templates/game/cricket/stream_overlay.html:58
+#: templates/game/cricket/watch_webcam.html:28
+#: templates/game/cricket/webcam.html:29 templates/game/x01/game.html:20
+#: templates/game/x01/stream_overlay.html:25
+#: templates/game/x01/watch_webcam.html:28 templates/game/x01/webcam.html:29
+msgid "Local game. Player 1 throws all three darts first."
+msgstr "Lokální hra. Hráč 1 hodí všechny tři šipky."
+
+#: templates/game/cricket/game.html:132 templates/game/cricket/game.html:154
+#: templates/game/cricket/stream_overlay.html:99
+#: templates/game/cricket/stream_overlay.html:195
+#: templates/game/cricket/watch_webcam.html:154
+#: templates/game/cricket/webcam.html:156 templates/game/x01/game.html:61
+#: templates/game/x01/game.html:157 templates/game/x01/stream_overlay.html:70
+#: templates/game/x01/stream_overlay.html:167
+#: templates/game/x01/watch_webcam.html:76 templates/game/x01/webcam.html:77
+msgid "Game is completed."
+msgstr "Hra je dokončena."
+
+#: templates/game/cricket/game.html:133 templates/game/cricket/game.html:148
+#: templates/game/cricket/game.html:155 templates/game/cricket/game.html:169
+#: templates/game/cricket/stream_overlay.html:100
+#: templates/game/cricket/stream_overlay.html:115
+#: templates/game/cricket/stream_overlay.html:196
+#: templates/game/cricket/watch_webcam.html:155
+#: templates/game/cricket/watch_webcam.html:160
+#: templates/game/cricket/webcam.html:157
+#: templates/game/cricket/webcam.html:172 templates/game/x01/game.html:62
+#: templates/game/x01/game.html:77 templates/game/x01/game.html:158
+#: templates/game/x01/stream_overlay.html:71
+#: templates/game/x01/stream_overlay.html:86
+#: templates/game/x01/stream_overlay.html:168
+#: templates/game/x01/watch_webcam.html:77
+#: templates/game/x01/watch_webcam.html:82 templates/game/x01/webcam.html:78
+#: templates/game/x01/webcam.html:93
+msgid "Game overview"
+msgstr "Přehled hry"
+
+#: templates/game/cricket/game.html:136 templates/game/cricket/game.html:158
+#: templates/game/cricket/stream_overlay.html:103
+#: templates/game/cricket/webcam.html:160 templates/game/x01/game.html:65
+#: templates/game/x01/game.html:161 templates/game/x01/stream_overlay.html:74
+#: templates/game/x01/stream_overlay.html:171 templates/game/x01/webcam.html:81
+msgid "Offer rematch"
+msgstr "Nabídnout odvetu"
+
+#: templates/game/cricket/game.html:137 templates/game/cricket/game.html:159
+#: templates/game/cricket/stream_overlay.html:104
+#: templates/game/cricket/webcam.html:161 templates/game/x01/game.html:66
+#: templates/game/x01/game.html:162 templates/game/x01/stream_overlay.html:75
+#: templates/game/x01/stream_overlay.html:172 templates/game/x01/webcam.html:82
+msgid "Accept rematch"
+msgstr "Přijmout odvetu"
+
+#: templates/game/cricket/game.html:139 templates/game/cricket/game.html:161
+#: templates/game/cricket/stream_overlay.html:106
+#: templates/game/cricket/webcam.html:163 templates/game/x01/game.html:68
+#: templates/game/x01/game.html:164 templates/game/x01/stream_overlay.html:77
+#: templates/game/x01/stream_overlay.html:174 templates/game/x01/webcam.html:84
+msgid "Rematch offer sent"
+msgstr "Nabídka odvety odeslána"
+
+#: templates/game/cricket/game.html:142 templates/game/cricket/game.html:164
+#: templates/game/cricket/stream_overlay.html:109
+#: templates/game/cricket/webcam.html:166 templates/game/x01/game.html:71
+#: templates/game/x01/game.html:167 templates/game/x01/stream_overlay.html:80
+#: templates/game/x01/stream_overlay.html:177 templates/game/x01/webcam.html:87
+#: templates/tournament/settings.html:68
+msgid "Back to tournament"
+msgstr "Zpět na turnaj"
+
+#: templates/game/cricket/navbar.html:31
+msgid "Toggle chat"
+msgstr "Zapnout/vypnout chat"
+
+#: templates/game/cricket/stream_overlay.html:126
+#: templates/game/cricket/stream_overlay.html:313
+#: templates/game/cricket/watch_webcam.html:139
+#: templates/game/cricket/webcam.html:187 templates/game/x01/game.html:88
+#: templates/game/x01/game.html:182 templates/game/x01/stream_overlay.html:97
+#: templates/game/x01/stream_overlay.html:295
+#: templates/game/x01/webcam.html:104
+msgid "Undo last score"
+msgstr "Opravit poslední skóre"
+
+#: templates/game/cricket/stream_overlay.html:127
+#: templates/game/cricket/stream_overlay.html:314
+#: templates/game/cricket/watch_webcam.html:140
+#: templates/game/cricket/webcam.html:188 templates/game/x01/game.html:89
+#: templates/game/x01/game.html:183 templates/game/x01/stream_overlay.html:98
+#: templates/game/x01/stream_overlay.html:296
+#: templates/game/x01/webcam.html:105
+msgid "Enter correct score"
+msgstr "Zadejte platné skóre"
+
+#: templates/game/cricket/stream_overlay.html:133
+#: templates/game/x01/game.html:95 templates/game/x01/stream_overlay.html:104
+msgid "Keypad"
+msgstr "Klávesnice"
+
+#: templates/game/x01/completed.html:180
+#: templates/statistics/x01_detail_element.html:42
+msgid "Highest Finish"
+msgstr "Nejvyšší zavření"
+
+#: templates/game/x01/completed.html:186
+#: templates/statistics/x01_detail_element.html:14
+msgid "Shortest Leg"
+msgstr "Nejkratší leg"
+
+#: templates/game/x01/webcam_follow.html:10
+msgid "Your camera device waits on this page for you to request it in the game menu."
+msgstr "Kamera vašeho zařízení čeká na této stránce na požadavek připojení z menu hry."
+
+#: templates/generic/404.html:10
+msgid "404 Error"
+msgstr "Chyba 404"
+
+#: templates/generic/404.html:12
+msgid "Oops, you've visited a page that does not exist."
+msgstr "Jejda, navštívil jste stránku, která neexistuje."
+
+#: templates/generic/404.html:13 templates/generic/500.html:13
+msgid "If you've found a bug please contact us at contact@lidarts.org. Thank you!"
+msgstr "Pokud jste našli chybu, kontaktujte nás prosím na contact@lidarts.org. Děkujeme!"
+
+#: templates/generic/500.html:10
+msgid "500 Error"
+msgstr "Chyba 500"
+
+#: templates/generic/500.html:12
+msgid "Oh no, something went wrong."
+msgstr "Ale ne, něco se pokazilo."
+
+#: templates/generic/about.html:10
+msgid "About lidarts.org"
+msgstr "O lidarts.org"
+
+#: templates/generic/about.html:12
+msgid "Lidarts is a"
+msgstr "Lidarts je"
+
+#: templates/generic/about.html:12
+msgid "free/libre, open-source"
+msgstr "svobodní a open source"
+
+#: templates/generic/about.html:12
+msgid "online darts scoring website."
+msgstr "stránka pro počítání skóre pro hru šipky."
+
+#: templates/generic/about.html:13
+msgid "Still being in a very early stage, the main goal for Lidarts' future is to provide darts players an online service to play against real players and to help in their daily training."
+msgstr "Je stále ve velmi raném stadiu, hlavním cílem pro Lidarts je poskytnout hráčům online službu, kde můžete hrát proti skutečným hráčům nebo pomáhat při jejich každodenním tréninku."
+
+#: templates/generic/about.html:13
+msgid "Many features are planned and wait for completion."
+msgstr "Máme naplánovaných mnoho funkcí, které čekají na dokončení."
+
+#: templates/generic/about.html:14
+msgid "The entire project is driven by volunteers. Everyone is invited to"
+msgstr "Celý projekt je vyvíjen dobrovolníky. I vy se můžete"
+
+#: templates/generic/about.html:14
+msgid "contribute"
+msgstr "zapojit"
+
+#: templates/generic/about.html:15
+msgid "DartCall 2007 caller pack created by Horst Girtew."
+msgstr "DartCall 2007 hlasový balíček vytvořený Horstem Girtewem."
+
+#: templates/generic/about.html:16
+msgid "Sound effects obtained from"
+msgstr "Zvukové efekty získané z"
+
+#: templates/generic/chat.html:18 templates/generic/lobby.html:54
+msgid "Public challenges"
+msgstr "Veřejné výzvy"
+
+#: templates/generic/chat.html:26
+msgid "New games"
+msgstr "Nové hry"
+
+#: templates/generic/chat.html:54 templates/tournament/details.html:54
+msgid "Latest results"
+msgstr "Poslední výsledky"
+
+#: templates/generic/chat.html:81
+msgid "Show match information"
+msgstr "Zobrazit informace o zápasu"
+
+#: templates/generic/chat.html:81
+msgid "Show public challenges"
+msgstr "Zobrazit veřejné výzvy"
+
+#: templates/generic/chat.html:109 templates/tournament/details.html:105
+msgid "Filter users"
+msgstr "Filtrovat uživatele"
+
+#: templates/generic/chat.html:114 templates/tournament/details.html:110
+msgid "From your country"
+msgstr "Z vaší země"
+
+#: templates/generic/chat.html:118 templates/tournament/details.html:114
+msgid "Online"
+msgstr "Online"
+
+#: templates/generic/chat.html:119 templates/tournament/details.html:115
+msgid "Playing"
+msgstr "Hraje"
+
+#: templates/generic/contact.html:12
+msgid "There are a few ways to contact us, more to come soon! No matter the reason, we try to reply as quickly as possible."
+msgstr "Existuje několik způsobů, jak nás kontaktovat, další způsoby již brzy! Bez ohledu na důvod, budeme se snažit odpovědět co nejdříve."
+
+#: templates/generic/contact.html:13
+msgid "At the moment we can provide you support in English or German."
+msgstr "V současné době vám můžeme poskytnout podporu v angličtině nebo němčině."
+
+#: templates/generic/contact.html:16
+msgid "lidarts on GitHub"
+msgstr "Lidarts na Githubu"
+
+#: templates/generic/contribute.html:10
+msgid "Contribute to lidarts.org"
+msgstr "Pomozte lidarts.org"
+
+#: templates/generic/contribute.html:12
+msgid "Lidarts relies on volunteers to develop and maintain the project. There are several ways you can help out."
+msgstr "Lidarts se spoléha na dobrovolníky při vývoji a údržbě projektu. Existuje několik způsobů, jak můžete pomoci."
+
+#: templates/generic/contribute.html:14
+msgid "Play and provide feedback"
+msgstr "Hrajte a poskytněte zpětnou vazbu"
+
+#: templates/generic/contribute.html:16
+msgid "During development I try to test the features the best I can. But there will still be bugs that make it through to the live server.\n"
+"                    If you encounter any bugs or problems during play or you have ideas or feedback to improve the site, please"
+msgstr "Během vývoje se snažím otestovat funkce nejlepší jak můžu. Ale stále se mohou objevit chyby, které se mohou proklouznout do live verze.\n"
+"                    Pokud během hry narazíte na nějaké chyby nebo problémy nebo máte nápady či zpětnou vazbu na vylepšení stránky, prosím"
+
+#: templates/generic/contribute.html:17 templates/generic/contribute.html:31
+#: templates/generic/help_translate.html:17
+msgid "contact"
+msgstr "kontaktujte"
+
+#: templates/generic/contribute.html:19
+msgid "Tell your friends"
+msgstr "Řekni o nás přátelům"
+
+#: templates/generic/contribute.html:21
+msgid "Lidarts generates no money - it is free for everyone, we do not sell ads nor your data. The downside is the lack of a budget for marketing.\n"
+"                    We rely on users to make Lidarts known to darts players. So tell your friends, invite them to play and spread the word!"
+msgstr "Lidarts nevydělává - je zdarma pro každého, neprodáváme ani reklamy ani vaše data. Nevýhodou je nedostatek rozpočtu na marketing.\n"
+"                     Spoléháme na uživatele, který o nás řeknou ostatním šipkařům. Řekněte o nás svým přátelům, pozvěte je k hraní a šířte informace dál!"
+
+#: templates/generic/contribute.html:24
+msgid "Translations"
+msgstr "Překlady"
+
+#: templates/generic/contribute.html:26
+msgid "The main language on Lidarts is English. Translations exist in German, Danish and Dutch. If you are fluent in English and another language of your choice you can"
+msgstr "Hlavním jazykem na Lidarts je angličtina. Jsme přeložen taky už do němčiny, dánštiny a holandštiny. Pokud mluvíte plynule anglicky a jiným jazykem vašeho výběru, můžete nám"
+
+#: templates/generic/contribute.html:26
+msgid "help translating"
+msgstr "pomoci s překladem"
+
+#: templates/generic/contribute.html:26
+msgid "parts of Lidarts or the entire website for your community. "
+msgstr "části Lidarts nebo celé stránky pro vaši komunitu. "
+
+#: templates/generic/contribute.html:29 templates/statistics/x01.html:124
+msgid "Graphics"
+msgstr "Grafy"
+
+#: templates/generic/contribute.html:31
+msgid "The design of the website is not finished, but Lidarts mainly lacks some graphics to improve the look. Do you have the know-how to create graphics for Lidarts? If so,"
+msgstr "Design webových stránek není dokončen, ale Lidarts chybí hlavně nějaká grafika ke zlepšení vzhledu. Máte know-how pro tvorbu grafiky pro Lidarts? Pokud ano,"
+
+#: templates/generic/contribute.html:31
+msgid "us."
+msgstr "nás."
+
+#: templates/generic/contribute.html:35
+msgid "I am not a web designer and the website reflects that. At some point Lidarts will need a redesign and some help would be greatly appreciated.\n"
+"                    You can help out with design ideas: Create a visual concept with Paint, Photoshop or whatever you like and"
+msgstr "Nejsem webový designér a webová stránka to odráží. V určitém okamžiku bude Lidarts potřebovat přestavbu a velmi ocením nějakou pomoc.\n"
+"                    Můžete pomoci s dizajnovými nápady: vytvořit vizuální koncept v Malování, Photoshopu nebo cokoliv jiného co používáte a"
+
+#: templates/generic/contribute.html:36
+msgid "send it to me."
+msgstr "pošlete mi to."
+
+#: templates/generic/contribute.html:37
+msgid "Or even better: you can work directly on the frontend and implement your ideas if you have some knowledge about HTML, CSS and JavaScript."
+msgstr "Nebo ještě lepší: můžete pracovat přímo na frontendu a implementovat své nápady, pokud máte nějaké znalosti o HTML, CSS a JavaScript."
+
+#: templates/generic/contribute.html:38
+msgid "Interested?"
+msgstr "Zaujalo vás to?"
+
+#: templates/generic/contribute.html:38
+msgid "Contact Lidarts"
+msgstr "Kontaktujte Lidarts"
+
+#: templates/generic/contribute.html:38
+msgid "or visit the"
+msgstr "nebo navštivte"
+
+#: templates/generic/contribute.html:40
+msgid "Programming"
+msgstr "Programování"
+
+#: templates/generic/contribute.html:42
+msgid "Of course you are more than welcome to join Lidarts and develop on the project. At the current stage I am all by myself and try to get the project contribution-ready.\n"
+"                    If you are interested to get started take a look at the"
+msgstr "Samozřejmě jste více než vítáni, abyste se připojili k Lidarts a pracovali na projektu. V současné době pracuji na projektu sám, ale snažím se ho připravit tak, abyste se mohli připojit.\n"
+"                    Pokud máte zájem, prohlédněte si"
+
+#: templates/generic/contribute.html:43
+msgid "GitHub repo"
+msgstr "GitHub repozitář"
+
+#: templates/generic/contribute.html:43
+msgid "or"
+msgstr "nebo"
+
+#: templates/generic/contribute.html:43
+msgid "contact me"
+msgstr "kontaktujte mě"
+
+#: templates/generic/contribute.html:45
+msgid "Donations"
+msgstr "Dary"
+
+#: templates/generic/contribute.html:47
+msgid "All features on Lidarts are free. However it requires money to pay for our servers and hosting. You can donate to the project to keep it free for others and smooth for everyone. Although you cannot buy access to any exclusive features, your contribution is acknowledged with a star next to your name on Lidarts for a month. Include your Lidarts username in your donation."
+msgstr "Všechny funkce na Lidarts jsou zdarma, ale vyžadují peníze na naše servery a hosting. Můžete přispět na projekt a udržet ho zdarma pro ostatní. Přestože si nemůžete koupit přístup k exkluzivním funkcím, váš příspěvek je zobrazen hvězdičkou vedle vašeho jména na Lidarts na měsíc. Také vaše uživatelské jméno na Lidarts bude zobrazeno na stránce darů."
+
+#: templates/generic/contribute.html:48
+msgid "Please note that Lidarts is not a registered non-profit organization by German law. All donations are taxed as the developer's income."
+msgstr "Vezměte prosím na vědomí, že Lidarts není registrovaná nezisková organizace podle německého zákona. Všechny dary jsou zdaněny jako příjem vývojáře."
+
+#: templates/generic/faq.html:6
+msgid "Frequently Asked Questions"
+msgstr "Často kladené otázky"
+
+#: templates/generic/faq.html:8
+msgid "What do I need to play?"
+msgstr "Co potřebuji k hraní?"
+
+#: templates/generic/faq.html:9
+msgid "To play you need a computer or a mobile device with a modern browser. Obviously you also need a darts setup."
+msgstr "Abyste mohli hrát, potřebujete počítač nebo mobilní zařízení s moderním prohlížečem. Samozřejmě, musíte nastavit i váš terč."
+
+#: templates/generic/faq.html:11
+msgid "How do I find someone to play?"
+msgstr "Jak najdu někoho k hraní?"
+
+#: templates/generic/faq.html:12
+msgid "If you did not arrange a game with someone yet there are two easy options: Either join the chat and ask/look for a game there, or you can set up a public challenge when creating a game which will be visible to everyone else."
+msgstr "Pokud jste ještě neodehrály ani jeden zápas, můžete tak učinit dvěma způsoby: buď se připojte k chatu a zeptejte se/vyhledáte hru nebo můžete vytvořit veřejnou výzvu. Hra bude pak viditelná pro všechny ostatní."
+
+#: templates/generic/faq.html:14
+msgid "How does 'closest to bull' work?"
+msgstr "Jak 'Rozhoz na střed' funguje?"
+
+#: templates/generic/faq.html:15
+msgid "In order to determine the starting player you throw three darts at bull. Enter and submit each dart score individually in order of throw. Darts outside of bull count as 0. The first better result over the other player begins. This means that for example 25-0-0 beats 0-50-50 as player 1 had a better result with an earlier dart."
+msgstr "Aby bylo možné určit startujícího hráče, vhoďte tři šipky do středu terče. Zadejte každé skóre individuálně v pořadí v jakém jste odházeli. Šipky mimo středu se počítají jako nula. Hráč s lepším výsledkem začíná. To znamená, že například 25-0-0 vyhráva nad 0-50-50, neboť první hráč měl lepší dřívější hod."
+
+#: templates/generic/faq.html:17
+msgid "Can I play cricket or other variants?"
+msgstr "Mohu hrát kriket nebo jiné varianty?"
+
+#: templates/generic/faq.html:18
+msgid "Currently only X01 games are available. Cricket will be available soon. More dart games might follow."
+msgstr "V současné době jsou k dispozici pouze hry X01. Brzy bude k dispozici Kriket. Více her může následovat."
+
+#: templates/generic/faq.html:20
+msgid "Can I use my webcam and see my opponent's throw?"
+msgstr "Mohu použít webovou kameru a vidět hod svého soupeře?"
+
+#: templates/generic/faq.html:21
+msgid "Lidarts supports experimental webcam games over Jitsi Meet, a video conferencing service. You can also play without a webcam based on trust."
+msgstr "Lidarts podporuje experimentální hry přes webovou kameru pomocí videokonferenční služby Jitsi Meet. Hry bez webové kamery jsou založeny na vzájemné důvěře."
+
+#: templates/generic/faq.html:23
+msgid "How do I set up my webcam?"
+msgstr "Jak nastavím svou webovou kameru?"
+
+#: templates/generic/faq.html:24
+msgid "You need to connect your webcam (or smartphone with appropiate software) to your computer. Before your first game you have to agree to the current"
+msgstr "Musíte připojit svou webovou kameru (nebo smartphone s příslušným softwarem) k vašemu počítači. Před první hrou musíte souhlasit s aktuálními"
+
+#: templates/generic/faq.html:24
+msgid "webcam service notice"
+msgstr "podmínkami hraní přes webovou kameru"
+
+#: templates/generic/faq.html:24
+msgid "Create a game normally on the webcam page afterwards."
+msgstr "Poté vytvořte hru normálně na stránce webové kamery."
+
+#: templates/generic/faq.html:26
+msgid "Can I play steel and/or e-darts?"
+msgstr "Můžu hrát se steelovými nebo softovými šipkami?"
+
+#: templates/generic/faq.html:27
+msgid "Both variants are welcome to play on Lidarts."
+msgstr "Obě varianty jsou vítány na Lidarts."
+
+#: templates/generic/faq.html:29
+msgid "Can I host and play in tournaments?"
+msgstr "Můžu hostit a hrát v turnajích?"
+
+#: templates/generic/faq.html:30
+msgid "Currently tournament organizers can create a separate room with a tournament-specific chat, user list and result box. For brackets you need to use an external service. It will be possible to automate tournaments on Lidarts soon."
+msgstr "V současné době mohou organizátoři turnaje vytvořit samostatnou místnost s chatem specifickým pro turnaj, seznamem hráčů a výsledkovou listinou. Hrací pavouk musí být vygenerován externí službou. Brzy bude možné automatizovat turnaje na Lidarts."
+
+#: templates/generic/faq.html:32
+msgid "How do I send private messages?"
+msgstr "Jak mohu poslat soukromé zprávy?"
+
+#: templates/generic/faq.html:33
+msgid "Open your inbox, enter the recipient's username in the box below and compose a new message."
+msgstr "Otevřete vaši schránku, zadejte uživatelské jméno příjemce do níže uvedeného pole a vytvořte novou zprávu."
+
+#: templates/generic/faq.html:35
+msgid "How do I add someone to my friend list?"
+msgstr "Jak přidám někoho do svého seznamu přátel?"
+
+#: templates/generic/faq.html:36
+msgid "You need to know your friend's username. Use the user search box in the lobby to find his profile. Click the friend request link there and wait for him to confirm."
+msgstr "Potřebujete znát uživatelské jméno svého přítele. Použijte vyhledávací pole v lobby pro nalezení svého profilu. Klikněte na odkaz pro žádost o přátelství a počkejte na jeho potvrzení."
+
+#: templates/generic/faq.html:38
+msgid "Where can I change my country flag / caller voice / username / password etc."
+msgstr "Kde mohu změnit vlajku své země / hlasatele / uživatelské jméno / heslo atd."
+
+#: templates/generic/faq.html:39
+msgid "In your profile there is a settings button with lots of options. We highly recommend to look through the options before you play."
+msgstr "Ve vašem profilu je tlačítko pro nastavení různých funkcí. Důrazně doporučujeme je prozkoumat, než začnete hrát."
+
+#: templates/generic/faq.html:41
+msgid "My opponent throws so fast. What can I do?"
+msgstr "Můj soupeř hází rychle. Co můžu dělat?"
+
+#: templates/generic/faq.html:42
+msgid "There are usually two types of online players: Those who wait for their opponent to throw and those who don't. If you feel stressed you can set up an input block time upon game creating. We recommend between 5 and 10 seconds."
+msgstr "Obvykle existují dva typy online hráčů: ti, kteří čekají na své soupeře a ty, kdo to neudělají. Pokud se cítíte stresovaní, můžete nastavit blokování při zadávání skóre. Spravit tak můžete při vytváření hry. Doporučujeme v rozmezí 5 až 10 sekund."
+
+#: templates/generic/faq.html:44
+msgid "What do the status colors mean?"
+msgstr "Co znamenají různé barvy statusů?"
+
+#: templates/generic/faq.html:45
+msgid "Players can set most of these statuses manually. Green = online, yellow = Not available, purple = Looking for game, blue = currently playing, grey = offline."
+msgstr "Hráči mohou nastavit většinu těchto statusů ručně. Zelená = online, žlutá = Není k dispozici, fialová = Hledání hry, modrá = ve hře, šedá = offline."
+
+#: templates/generic/faq.html:47
+msgid "I found a bug / have a question or feature request / someone is cheating."
+msgstr "Našel jsem chybu / mám otázku nebo žádost o funkci / někdo podvádí."
+
+#: templates/generic/faq.html:48
+msgid "Contact us."
+msgstr "Kontaktujte nás."
+
+#: templates/generic/help_translate.html:10
+msgid "Help translating lidarts.org"
+msgstr "Pomozte s překladem lidarts.org"
+
+#: templates/generic/help_translate.html:12
+msgid "Lidarts is currently available in four languages: English, German, Danish and Dutch. Translations to any language can be provided by the community."
+msgstr "Lidarts je v současné době k dispozici ve čtyřech jazycích: angličtině, němčině, dánštině a nizozemštině. Překlad do jiných jazyků může být zajištěn naší komunitou."
+
+#: templates/generic/help_translate.html:14
+msgid "How to translate"
+msgstr "Jak začít s překladem"
+
+#: templates/generic/help_translate.html:16
+msgid "If you speak any other language you can help translating Lidarts. You do not need any additional software."
+msgstr "Pokud mluvíte jiným jazykem, můžete pomoci s překladem Lidarts. Nepotřebujete žádný další software."
+
+#: templates/generic/help_translate.html:16
+msgid "Visit our translation project on "
+msgstr "Navštivte náš překladatelský projekt na "
+
+#: templates/generic/help_translate.html:17
+msgid "You can register a new account there or log in with various third party services. After logging in you can start translating texts to the language of your choice or improve existing translations."
+msgstr "Můžete si tam zaregistrovat nový účet nebo se přihlásit s různými službami třetích stran. Po přihlášení můžete začít překládat texty do jazyka dle vašeho výběru nebo vylepšit existující překlady."
+
+#: templates/generic/help_translate.html:17
+msgid "If your language is missing or you have any questions"
+msgstr "Pokud váš jazyk chybí nebo máte jakékoliv dotazy"
+
+#: templates/generic/help_translate.html:17
+msgid "us"
+msgstr "nás"
+
+#: templates/generic/inbox.html:25
+msgid "Enter name"
+msgstr "Zadejte jméno"
+
+#: templates/generic/inbox.html:26
+msgid "Compose new message"
+msgstr "Napsat novou zprávu"
+
+#: templates/generic/inbox.html:38
+msgid "Chat with"
+msgstr "Chatujte s"
+
+#: templates/generic/index.html:6
+msgid "Welcome to lidarts.org!"
+msgstr "Vítejte na lidarts.org!"
+
+#: templates/generic/index.html:7
+msgid "lidarts.org is an"
+msgstr "lidarts.org je"
+
+#: templates/generic/index.html:7
+msgid "open-source"
+msgstr "open source"
+
+#: templates/generic/index.html:7
+msgid "forever free online darts website."
+msgstr "stránka pro hraní online šipek, která zůstane navždy zdarma."
+
+#: templates/generic/index.html:9
+msgid "Play darts against real opponents. With a webcam or without. Or train against the computer."
+msgstr "Hrajte šipky proti skutečným soupeřům. S webovou kamerou nebo bez ní. Nebo trénujte proti počítači."
+
+#: templates/generic/index.html:9
+msgid "No costs, no ads, no trackers."
+msgstr "Žádné poplatky, žádné reklamy, žádne trackery."
+
+#: templates/generic/index.html:12
+msgid "Learn more"
+msgstr "Zjistit více"
+
+#: templates/generic/index.html:13
+msgid "Sign Up now"
+msgstr "Zaregistrujte se teď"
+
+#: templates/generic/lobby.html:10
+msgid "Welcome back"
+msgstr "Vítejte zpět"
+
+#: templates/generic/lobby.html:20
+msgid "New on Lidarts:"
+msgstr "Nově na Lidarts:"
+
+#: templates/generic/lobby.html:20
+msgid "Cricket"
+msgstr "Kriket"
+
+#: templates/generic/lobby.html:20 templates/generic/webcam_tutorial_en.html:10
+#: templates/profile/webcam_settings.html:15
+msgid "Webcam tutorial"
+msgstr "Jak nastavit webovou kameru"
+
+#: templates/generic/lobby.html:20
+msgid "Help translating Lidarts"
+msgstr "Pomozte s překladem Lidarts"
+
+#: templates/generic/lobby.html:36
+msgid "Create a game"
+msgstr "Vytvořit hru"
+
+#: templates/generic/lobby.html:47
+msgid "Webcam follow page"
+msgstr "Sledovací stránka webkamery"
+
+#: templates/generic/lobby.html:55
+msgid "Click to accept and play"
+msgstr "Kliknutím přijměte a spustíte hru"
+
+#: templates/generic/lobby.html:63
+msgid "Notifications"
+msgstr "Notifikace"
+
+#: templates/generic/lobby.html:67
+msgid "Challenges:"
+msgstr "Výzvy:"
+
+#: templates/generic/lobby.html:80
+msgid "Games in progress:"
+msgstr "Probíhající hry:"
+
+#: templates/generic/lobby.html:82
+msgid "local guest"
+msgstr "lokální host"
+
+#: templates/generic/lobby.html:93
+msgid "New friend requests"
+msgstr "Nové žádosti o přátelství"
+
+#: templates/generic/lobby.html:110
+msgid "Friends online"
+msgstr "Přátelé online"
+
+#: templates/generic/lobby.html:112
+msgid "None"
+msgstr "Žádné"
+
+#: templates/generic/watch.html:16
+msgid "There are no live games at the moment."
+msgstr "V tuto chvíli se nehrají žádné hry."
+
+#: templates/generic/webcam_tutorial_en.html:14
+msgid "In order to play with a webcam you need a modern browser (Chrome or Firefox, latest version) and a camera. We highly recommend a USB-webcam, but a smartphone will likely also work."
+msgstr "Chcete-li hrát s webovou kamerou, potřebujete moderní prohlížeč (Chrome nebo Firefox, nejnovější verze) a kameru. Vysoce doporučujeme USB webovou kameru, ale telefon bude pravděpodobně také fungovat."
+
+#: templates/generic/webcam_tutorial_en.html:16
+msgid "First you need to confirm our webcam service notice. Open your profile:"
+msgstr "Nejprve musíte potvrdit naše podmínky pro hraní přes webovou kameru. Otevřete svůj profil:"
+
+#: templates/generic/webcam_tutorial_en.html:18
+msgid "Open the preferences:"
+msgstr "Otevřete nastavení:"
+
+#: templates/generic/webcam_tutorial_en.html:20
+msgid "Now open the webcam activation page:"
+msgstr "Nyní otevřete stránku pro aktivaci her přes webovou kameru:"
+
+#: templates/generic/webcam_tutorial_en.html:22
+msgid "Read the text, activate the checkbox and confirm:"
+msgstr "Přečtěte si text, aktivujte zaškrtávací políčko a potvrďte:"
+
+#: templates/generic/webcam_tutorial_en.html:24
+msgid "You can now start webcam games and receive webcam game challenges! The next step depends on your camera device."
+msgstr "Nyní můžete vytvářet hry a přijímat výzvy ke hře přes webovou kameru! Další krok závisí na vašem kamerovém zařízení."
+
+#: templates/generic/webcam_tutorial_en.html:26
+msgid "USB webcam"
+msgstr "USB webová kamera"
+
+#: templates/generic/webcam_tutorial_en.html:27
+msgid "Connect your USB webcam to your computer. If your computer does not recognize the webcam install the appropiate driver from the webcam manufacturer."
+msgstr "Připojte vaši USB webovou kameru k počítači. Pokud váš počítač nerozpozná webovou kameru, nainstaluje vhodný ovladač od výrobce webkamery."
+
+#: templates/generic/webcam_tutorial_en.html:28
+msgid "To test the camera image we will create a local game without an opponent. Click on \"Play\":"
+msgstr "Pro otestování obrazu kamery vytvoříme lokální hru bez soupeře. Klikněte na \"Hrát\":"
+
+#: templates/generic/webcam_tutorial_en.html:30
+msgid "Now set up a local webcam game and start:"
+msgstr "Nyní nastavte lokální webovou kameru a začněte:"
+
+#: templates/generic/webcam_tutorial_en.html:32
+msgid "At the first time your browser will ask for webcam and microphone permission. Click on allow:"
+msgstr "Váš prohlížeč vás požádá o povolení webové kamery a mikrofonu. Klepněte na Povolit:"
+
+#: templates/generic/webcam_tutorial_en.html:34
+msgid "You are done! The webcam screen on the right should now show your own webcam video. You can now play against real opponents and they will see your board."
+msgstr "Hotovo! Na pravé straně obrazovky byste nyní měli vidět své vlastní video z webové kamery. Nyní můžete hrát proti skutečným soupeřům, kteří uvidí váš terč."
+
+#: templates/generic/webcam_tutorial_en.html:35
+msgid "The preview image is flipped by default, but your opponent will see it correctly. You can flip your local image by right clicking on the small preview screen and pressing \"flip\":"
+msgstr "Náhledový obraz bude sice zrcadlově otočený, ale váš soupeř vás uvidí správně. Můžete svůj lokální obraz otočit, pokud kliknete pravým tlačítkem na náhledový obraz a vyberete 'otočit':"
+
+#: templates/generic/webcam_tutorial_en.html:37
+msgid "If you have multiple cameras installed (e.g. on a laptop with built-in camera) you can select the correct camera in the Jitsi settings:"
+msgstr "Pokud máte nainstalováno více kamer (např. na notebooku s vestavěnou kamerou), můžete vybrat správnou kameru v nastavení Jitsi:"
+
+#: templates/generic/webcam_tutorial_en.html:41
+msgid "Smartphone as webcam"
+msgstr "Smartphone jako webová kamera"
+
+#: templates/generic/webcam_tutorial_en.html:42
+msgid "There are a couple of options to play with a smartphone as webcam. Try them to find out which method works best for you."
+msgstr "Existuje několik možností, jak použít smartphone jako webovou kameru. Zkuste, která metoda funguje nejlépe pro vás."
+
+#: templates/generic/webcam_tutorial_en.html:45
+msgid "It's possible for your computer to detect your smartphone as a webcam. You will need a program like"
+msgstr "Váš počítač může rozpoznat váš smartphone jako webkameru. Budete potřebovat program jako například"
+
+#: templates/generic/webcam_tutorial_en.html:46
+msgid "Download the mobile app and the desktop client and install both."
+msgstr "Stáhněte si mobilní aplikaci a desktopového klienta a obojí nainstalujte."
+
+#: templates/generic/webcam_tutorial_en.html:47
+msgid "Start the mobile app first. You will see the \"Wifi IP\" on your device. You will need this in the next step."
+msgstr "Nejprve spusťte mobilní aplikaci. Ve vašem zařízení uvidíte \"Wifi IP\". Budete to potřebovat v dalším kroku."
+
+#: templates/generic/webcam_tutorial_en.html:48
+msgid "Start the Droidcam client application on your computer and enter the \"Wifi IP\" from your smartphone. Press start."
+msgstr "Spusťte klientskou aplikaci Droidcam na vašem počítači a zadejte \"Wifi IP\" z vašeho smartphonu. Stiskněte tlačítko start."
+
+#: templates/generic/webcam_tutorial_en.html:50
+msgid "Your computer should now recognize your smartphone as a webcam device. You can now proceed to the camera test in the USB webcam section above."
+msgstr "Váš počítač by nyní měl rozpoznat váš smartphone jako webovou kameru. Nyní můžete pokračovat v testu kamery v sekci USB webová kamera."
+
+#: templates/generic/webcam_tutorial_en.html:52
+msgid "Follow Mode on Lidarts"
+msgstr "Sledovací režim na Lidarts"
+
+#: templates/generic/webcam_tutorial_en.html:53
+msgid "There's a chance you do not need to install any additional app at all. Enable the follow mode which you can find in the webcam settings."
+msgstr "Existuje šance, že nemusíte vůbec nainstalovat žádnou další aplikaci. Povolte sledovací režím, který najdete v nastavení."
+
+#: templates/generic/webcam_tutorial_en.html:55
+msgid "On your camera device (smartphone):"
+msgstr "Na vašem mobilním zařízení (smartphone):"
+
+#: templates/generic/webcam_tutorial_en.html:55
+msgid "Open the follow page in the lobby and stay there."
+msgstr "Na stránke Lobby klikněte na \"Sledovací stránka\" a zůstaňte tam."
+
+#: templates/generic/webcam_tutorial_en.html:57
+msgid "On your computer:"
+msgstr "Na vašem počítači:"
+
+#: templates/generic/webcam_tutorial_en.html:57
+msgid "Create a local webcam game as shown in the \"USB webcam\" section."
+msgstr "Vytvořte lokální hru přes webovou kameru, jak je zobrazeno v sekci \"USB webová kamera\"."
+
+#: templates/generic/webcam_tutorial_en.html:58
+msgid "Once you are in the game click on \"Summon webcam\" in the menu."
+msgstr "Jakmile jste ve hře, klikněte na \"Připojit webkameru\" v menu."
+
+#: templates/generic/webcam_tutorial_en.html:60
+msgid "Check your smartphone. It should now reload the page automatically and ask for camera and microphone permissions. Press accept."
+msgstr "Zkontrolujte svůj telefon. Stránka by se měla automaticky obnovit a požádat o povolení webové kamery a mikrofonu. Stiskněte akceptovat."
+
+#: templates/generic/webcam_tutorial_en.html:61
+msgid "That's it! As long as your smartphone is on the \"Webcam follow page\" you can summon it in your games with one click."
+msgstr "Hotovo! Dokud zůstanete na stránce \"Sledovací stránka webkamery\", můžete ji připojit jedním kliknutím."
+
+#: templates/generic/webcam_tutorial_en.html:62
+msgid "There is an issue on Android smartphones with the camera selection. By default the front camera is activated. You can try to switch it in the Jitsi settings:"
+msgstr "Na smartphonech s Androidem je problém s výběrem kamery. Přední kamera je automaticky aktivována. Můžete ji zkusit přepnout v nastavení Jitsi:"
+
+#: templates/generic/webcam_tutorial_en.html:65
+msgid "If you get a permission error upon switching to the back camera, try to reload the page. After a reload the correct camera was selected in our tests."
+msgstr "Pokud se zobrazí chyba oprávnění při přepnutí na zadní kameru, zkuste stránku znovu načíst. Po znovunačtení byla v našich testech vybrána správná kamera."
+
+#: templates/generic/webcam_tutorial_en.html:67
+msgid "Jitsi Meet app"
+msgstr "Aplikace Jitsi Meet"
+
+#: templates/generic/webcam_tutorial_en.html:68
+msgid "If you tried the previous section, but the camera does not work, you can try the official free Jitsi Meet app. Download and install it from the Play/App store."
+msgstr "Pokud jste zkusili předchozí sekci, ale kamera nefunguje, můžete zkusit oficiální bezplatnou Jitsi Meet aplikaci. Stáhněte a nainstalujte ji z Google Play nebo App store."
+
+#: templates/generic/webcam_tutorial_en.html:69
+msgid "Activate the mobile app setting in the webcam settings:"
+msgstr "Aktivujte mobilní aplikaci v nastaveních:"
+
+#: templates/generic/webcam_tutorial_en.html:73
+msgid "Tablet + smartphone"
+msgstr "Tablet + smartphone"
+
+#: templates/generic/webcam_tutorial_en.html:74
+msgid "If you want to use a combination of a tablet for scoring and a smartphone as a camera there is an option to get the scoreboard only on your tablet."
+msgstr "Pokud chcete použít kombinaci tabletu pro bodování a smartphone jako kameru, je zde možnost zobrazit skóre pouze ve vašem tabletu."
+
+#: templates/generic/webcam_tutorial_en.html:75
+msgid "Open the webcam settings and enable both follow mode and the scoreboard-only option:"
+msgstr "Otevřete nastavení, povolte sledovácí režim a možnost zadávání skóre jen na hlavním zařízení:"
+
+#: templates/generic/webcam_tutorial_en.html:77
+msgid "Now repeat the steps from the \"Follow Mode\" section. On your tablet you will only see the scoreboard without the video."
+msgstr "Nyní opakujte kroky v sekci \"Sledovací režim\". Na tabletu uvidíte pouze skóre bez videa."
+
+#: templates/profile/change_avatar.html:17
+msgid "Delete"
+msgstr "Vymazat"
+
+#: templates/profile/change_avatar.html:21
+msgid "Upload"
+msgstr "Nahrát"
+
+#: templates/profile/change_caller.html:23
+msgid "Do you want to get yourself as caller option included?"
+msgstr "Chcete slyšet svůj hlas a stát se hlasatelem?"
+
+#: templates/profile/change_caller.html:24
+msgid "Contact us!"
+msgstr "Kontaktujte nás!"
+
+#: templates/profile/change_cpu_delay.html:13
+msgid "Trainer delay (in seconds)"
+msgstr "Zpoždění bota (v sekundách)"
+
+#: templates/profile/change_cpu_delay.html:14
+msgid "Note: There is a base delay of ~3 seconds. The custom delay will be added to this."
+msgstr "Poznámka: Základní zpoždění je v délce ~ 3 sekundy. Vaše zpoždění bude k tomu přidáno."
+
+#: templates/profile/edit_profile.html:13
+msgid "Change profile text"
+msgstr "Změnit profilový text"
+
+#: templates/profile/edit_profile.html:24
+msgid "Introduce yourself, your interests, social media etc."
+msgstr "Představte se, vaše zájmy nebo vaše sociální média atd."
+
+#: templates/profile/game_history.html:10
+msgid "Game history of"
+msgstr "Historie zápasu hráče"
+
+#: templates/profile/game_history.html:46
+msgid "Previous"
+msgstr "Předcházející"
+
+#: templates/profile/game_history.html:54
+msgid "Next"
+msgstr "Následující"
+
+#: templates/profile/general_settings.html:57
+msgid "Country settings"
+msgstr "Nastavení země"
+
+#: templates/profile/general_settings.html:66
+msgid "You can change your country setting only once per month. Please confirm."
+msgstr "Nastavení země můžete změnit pouze jednou za měsíc. Potvrďte prosím."
+
+#: templates/profile/livestream_settings.html:16
+msgid "You can stream your board in webcam games to spectators. You will need a Google account for YouTube. Log in and copy your Channel ID here:"
+msgstr "Můžete streamovat váš terč vaším divákům. Budete potřebovat účet Google pro YouTube. Přihlaste se a zkopírujte své ID kanálu zde:"
+
+#: templates/profile/livestream_settings.html:18
+msgid "and paste it in the box below."
+msgstr "a vložte jej do níže uvedeného rámečku."
+
+#: templates/profile/livestream_settings.html:21
+msgid "There are two options to start a livestream."
+msgstr "Existují dvě možnosti, jak spustit živý stream."
+
+#: templates/profile/livestream_settings.html:24
+msgid "You can use the \"Start live stream\" option in Jitsi Meet which requires the secret stream key. You can find yours here: "
+msgstr "Můžete použít možnost \"Spustit živý stream\" v Jitsi Meet, která vyžaduje tajný stream klíč. Můžete ho najít zde: "
+
+#: templates/profile/livestream_settings.html:26
+msgid "Paste it into the stream key box in Jitsi and click on \"Start live stream\"."
+msgstr "Vložte ho do pole 'stream key' v Jitsi a klikněte na \"Spustit živý stream\"."
+
+#: templates/profile/livestream_settings.html:27
+msgid "If you get a \"All streamers are currently busy\" error Jitsi has no free streamers at the moment. There is nothing Lidarts can do in that case."
+msgstr "Pokud dostanete chybu \"Všechny vysílací instance jsou obsazeny\", Jitsi nemá v tuto chvíli žádné volné streamery. V tomto případě Lidarts vám nemůže pomoci."
+
+#: templates/profile/livestream_settings.html:30
+msgid "The second option is starting a YouTube live stream with an external software. We recommend "
+msgstr "Druhou možností je spuštění živého vysílání YouTube s externím softwarem. Doporučujeme "
+
+#: templates/profile/livestream_settings.html:32
+msgid "You can find many tutorials on the internet. It requires some setup work."
+msgstr "Na internetu můžete najít mnoho návodů jak to rozběhat."
+
+#: templates/profile/livestream_settings.html:35
+msgid "Livestreams will only be shown if both players allowed to have their games streamed by the other party. You can enable this in the webcam settings."
+msgstr "Živý stream bude fungovat pouze v případě, že obě strany povolili streamování jejich her. Můžete to povolit v nastaveních v sekci Webkamery."
+
+#: templates/profile/manage_friend_list.html:13
+msgid "Friends"
+msgstr "Přátelé"
+
+#: templates/profile/manage_friend_list.html:29
+msgid "Pending requests"
+msgstr "Čekající žádosti"
+
+#: templates/profile/overview.html:26
+msgid "Preferences"
+msgstr "Nastavení"
+
+#: templates/profile/overview.html:29
+msgid "Friend request"
+msgstr "Žádost o přátelství"
+
+#: templates/profile/overview.html:31
+msgid "Challenge to game"
+msgstr "Vyzvat ke hře"
+
+#: templates/profile/overview.html:48
+msgid "has not entered a profile text yet."
+msgstr "zatím nezadal text profilu."
+
+#: templates/profile/overview.html:57
+msgid "Recent games"
+msgstr "Poslední hry"
+
+#: templates/profile/overview.html:76
+msgid "Full match list"
+msgstr "Kompletní seznam zápasů"
+
+#: templates/profile/overview.html:86
+msgid "Recent statistics (501 SI/DO)"
+msgstr "Poslední statistiky (501 SI/DO)"
+
+#: templates/profile/overview.html:88
+msgid "Number of games:"
+msgstr "Počet her:"
+
+#: templates/profile/overview.html:89
+#: templates/statistics/x01_overview_element.html:7
+msgid "Darts thrown:"
+msgstr "Vhozených šipek:"
+
+#: templates/profile/overview.html:93
+msgid "Detailed statistics"
+msgstr "Podrobné statistiky"
+
+#: templates/profile/overview.html:100
+msgid "Winrates (501 SI/DO)"
+msgstr "Procenta vítězství (501 SI/DO)"
+
+#: templates/profile/overview.html:101
+msgid "(grouped by opponent average)"
+msgstr "(seskupené podle průměru soupeře)"
+
+#: templates/profile/settings.html:10
+msgid "Activate webcam games"
+msgstr "Aktivovat hry přes webovou kameru"
+
+#: templates/profile/settings.html:12
+msgid "Edit profile text"
+msgstr "Upravit text profilu"
+
+#: templates/profile/settings.html:13
+msgid "Manage friend list"
+msgstr "Spravovat seznam přátel"
+
+#: templates/profile/settings.html:14
+#: templates/security/change_username.html:12
+msgid "Change display name"
+msgstr "Změnit zobrazované jméno"
+
+#: templates/profile/settings.html:15
+#: templates/security/change_password.html:12
+msgid "Change password"
+msgstr "Změnit heslo"
+
+#: templates/profile/settings.html:16
+msgid "Avatar settings"
+msgstr "Nastavení avataru"
+
+#: templates/profile/settings.html:17
+msgid "Caller settings"
+msgstr "Nastavení hlasatele"
+
+#: templates/profile/settings.html:18
+msgid "Trainer delay settings"
+msgstr "Nastavení zpoždění bota"
+
+#: templates/profile/user_not_found.html:9
+msgid "User not found"
+msgstr "Uživatel nenalezen"
+
+#: templates/profile/webcam_settings.html:26
+msgid "Optional. Your video and sound may be live streamed by Lidarts or your opponent."
+msgstr "Volitelné. Vaše video a zvuk může být streamovaný vaším soupeřem nebo Lidarts."
+
+#: templates/profile/webcam_settings.html:32
+msgid "Forces use of Jitsi Meet mobile app. Try this if video capture does not work on your mobile browser."
+msgstr "Vynutí používání aplikace Jitsi Meet. Zkuste to, pokud vaše video nefunguje na vašem mobilním prohlížeči."
+
+#: templates/profile/webcam_settings.html:38
+msgid "Enables follow page in lobby. Your mobile device can be called to your games from another device to capture video."
+msgstr "Zapne sledovací stránku webkamery v lobby. Vaše mobilní zařízení může být použito jako webkamera ve vaší hře."
+
+#: templates/profile/webcam_settings.html:44
+msgid "Loads only the scoreboard without webcam image in your webcam games. Useful for mobile score-only devices."
+msgstr "Načte pouze skóre bez videa z webkamery ve vaší hře. Užitečně, když chcete použít své mobilní zařízení jen na zadávání skóre."
+
+#: templates/security/change_password.html:20
+#: templates/security/change_username.html:27
+#: templates/security/forgot_password.html:16 tools/forms.py:14
+msgid "Submit"
+msgstr "Odeslat"
+
+#: templates/security/change_username.html:18
+msgid "You can change your username only once per month. Please confirm."
+msgstr "Uživatelské jméno můžete změnit pouze jednou za měsíc. Potvrďte prosím."
+
+#: templates/security/forgot_password.html:10
+msgid "Request a new password"
+msgstr "Požádat o nové heslo"
+
+#: templates/security/login_user.html:24
+msgid "No account yet?"
+msgstr "Ještě nemáte účet?"
+
+#: templates/security/login_user.html:25
+msgid "Sign Up"
+msgstr "Zaregistrovat se"
+
+#: templates/security/login_user.html:26
+msgid "Forgot your password?"
+msgstr "Zapomněli jste heslo?"
+
+#: templates/security/login_user.html:27
+#: templates/security/reset_password.html:10
+msgid "Reset password"
+msgstr "Resetovat heslo"
+
+#: templates/security/register_user.html:20
+msgid "By registering you confirm that you agree to our"
+msgstr "Registrací potvrzujete, že souhlasíte s našimi"
+
+#: templates/security/register_user.html:20
+msgid "Terms and Conditions"
+msgstr "obchodními podmínkami"
+
+#: templates/security/register_user.html:28
+msgid "Already have an account?"
+msgstr "Máte již účet?"
+
+#: templates/statistics/x01.html:103
+msgid "Overview"
+msgstr "Přehled"
+
+#: templates/statistics/x01.html:106 templates/statistics/x01.html:159
+msgid "Overall"
+msgstr "Celkově"
+
+#: templates/statistics/x01.html:109 templates/statistics/x01.html:133
+msgid "Today"
+msgstr "Dnes"
+
+#: templates/statistics/x01.html:112 templates/statistics/x01.html:139
+msgid "Current Week"
+msgstr "Tento týden"
+
+#: templates/statistics/x01.html:115 templates/statistics/x01.html:145
+msgid "Current Month"
+msgstr "Tento měsíc"
+
+#: templates/statistics/x01.html:118 templates/statistics/x01.html:153
+msgid "Current Year"
+msgstr "Tento rok"
+
+#: templates/statistics/x01.html:121 templates/statistics/x01.html:165
+msgid "Custom"
+msgstr "Vlastní"
+
+#: templates/statistics/x01.html:240
+msgid "Overall average per game"
+msgstr "Celkový průměr na hru"
+
+#: templates/statistics/x01_detail_element.html:5
+msgid "General"
+msgstr "Obecné"
+
+#: templates/statistics/x01_detail_element.html:7
+msgid "Number of games"
+msgstr "Počet her"
+
+#: templates/statistics/x01_detail_element.html:8
+msgid "Games Won"
+msgstr "Vyhrané hry"
+
+#: templates/statistics/x01_detail_element.html:9
+msgid "Games Lost"
+msgstr "Prohrané hry"
+
+#: templates/statistics/x01_detail_element.html:10
+msgid "Games Draw"
+msgstr "Remizované hry"
+
+#: templates/statistics/x01_detail_element.html:11
+msgid "Number of Legs"
+msgstr "Počet legů"
+
+#: templates/statistics/x01_detail_element.html:12
+msgid "Legs Won"
+msgstr "Vyhrané legy"
+
+#: templates/statistics/x01_detail_element.html:13
+msgid "Legs Lost"
+msgstr "Prohrané legy"
+
+#: templates/statistics/x01_detail_element.html:15
+msgid "Darts thrown"
+msgstr "Vhozených šipek"
+
+#: templates/statistics/x01_overview_element.html:6
+msgid "Number of games / legs:"
+msgstr "Počet her / legů:"
+
+#: templates/tournament/details.html:17 tournament/routes.py:153
+msgid "Tournament details"
+msgstr "Detaily turnaje"
+
+#: templates/tournament/details.html:21
+msgid "Leave Tournament"
+msgstr "Opustit turnaj"
+
+#: templates/tournament/details.html:21
+msgid "Join Tournament"
+msgstr "Připojit se do turnaje"
+
+#: templates/tournament/details.html:26
+msgid "Create tournament game"
+msgstr "Vytvořit turnaj"
+
+#: templates/tournament/details.html:31
+msgid "Stream tournament games"
+msgstr "Streamování turnajových her"
+
+#: templates/tournament/details.html:37
+msgid "Creator"
+msgstr "Vytvořil"
+
+#: templates/tournament/details.html:38
+msgid "Watch live games"
+msgstr "Sledovat zápasy živě"
+
+#: templates/tournament/details.html:40
+msgid "URL"
+msgstr "URL"
+
+#: templates/tournament/details.html:43
+msgid "Start"
+msgstr "Start"
+
+#: templates/tournament/details.html:46
+msgid "Edit settings"
+msgstr "Upravit nastavení"
+
+#: templates/tournament/overview.html:14
+msgid "Tournaments on Lidarts"
+msgstr "Turnaje na Lidarts"
+
+#: templates/tournament/overview.html:17
+msgid "Currently Lidarts does not host any tournaments. Several external communities use Lidarts to play their tournaments though."
+msgstr "V současné době Lidarts nehostí žádné turnaje. Několik externích komunit využívá Lidarts k hraní na svých turnajích."
+
+#: templates/tournament/overview.html:20
+msgid "This area currently provides tournaments an own page similar to the chat. There is also a list of upcoming public tournaments."
+msgstr "Tato oblast v současné době poskytuje vlastní stránku turnaje podobnou chatu. Existuje také seznam nadcházejících veřejných turnajů."
+
+#: templates/tournament/overview.html:23
+msgid "Joining a tournament will only make you appear in the tournament's user list at the moment. It does not sign you up."
+msgstr "Připojení k turnaji vás momentálně jen přidá do seznamu hráčů turnaje a nezaregistruje vás."
+
+#: templates/tournament/overview.html:33
+msgid "Your tournaments"
+msgstr "Vaše turnaje"
+
+#: templates/tournament/overview.html:41
+msgid "You have not created a tournament yet."
+msgstr "Zatím jsi nevytvořil turnaj."
+
+#: templates/tournament/overview.html:54
+msgid "Create a new tournament"
+msgstr "Vytvořit nový turnaj"
+
+#: templates/tournament/overview.html:76 templates/tournament/settings.html:37
+msgid "Tournament will appear in the upcoming tournaments list"
+msgstr "Turnaj se objeví v nadcházejícím seznamu turnajů"
+
+#: templates/tournament/overview.html:83 templates/tournament/settings.html:53
+msgid "Link to tournament website with more information"
+msgstr "Odkaz na webové stránky turnaje s více informacemi"
+
+#: templates/tournament/overview.html:88 templates/tournament/settings.html:58
+msgid "Start date and time:"
+msgstr "Datum a čas začátku:"
+
+#: templates/tournament/overview.html:108
+msgid "Upcoming tournaments"
+msgstr "Nadcházející turnaje"
+
+#: templates/tournament/overview.html:119
+msgid "There are no upcoming public tournaments at the moment."
+msgstr "V tuto chvíli neexistují žádné nadcházející veřejné turnaje."
+
+#: templates/tournament/settings.html:15
+msgid "Edit tournament settings"
+msgstr "Upravit nastavení turnaje"
+
+#: templates/tournament/settings.html:46
+msgid "Players are able to join the tournament."
+msgstr "Hráči se mohou připojit do turnaje."
+
+#: templates/tournament/settings.html:80
+msgid "Manage player list"
+msgstr "Spravovat seznam hráčů"
+
+#: templates/tournament/settings.html:98
+msgid "Banned players"
+msgstr "Zablokovaní hráči"
+
+#: templates/tournament/settings.html:103
+#: templates/tournament/settings.html:174
+msgid "Unban"
+msgstr "Odblokovat"
+
+#: templates/tournament/settings.html:119
+msgid "Kick player"
+msgstr "Vyhodit hráče"
+
+#: templates/tournament/settings.html:125
+msgid "Do you want to kick "
+msgstr "Chcete vyhodit "
+
+#: templates/tournament/settings.html:125
+#: templates/tournament/settings.html:169
+msgid "The player will be able to join the tournament again."
+msgstr "Hráč se bude moci znovu připojit k turnaji."
+
+#: templates/tournament/settings.html:129
+#: templates/tournament/settings.html:151
+#: templates/tournament/settings.html:173
+msgid "Close"
+msgstr "Zavřít"
+
+#: templates/tournament/settings.html:130
+msgid "Kick"
+msgstr "Vyhodit"
+
+#: templates/tournament/settings.html:141
+msgid "Ban player"
+msgstr "Zablokovat hráče"
+
+#: templates/tournament/settings.html:147
+msgid "Do you want to ban "
+msgstr "Chcete zablokovat "
+
+#: templates/tournament/settings.html:147
+msgid "The player will NOT be able to join the tournament again."
+msgstr "Hráč se nebude moci znovu připojit k turnaji."
+
+#: templates/tournament/settings.html:152
+msgid "Ban"
+msgstr "Zablokovat"
+
+#: templates/tournament/settings.html:163
+msgid "Unban player"
+msgstr "Odblokovat hráče"
+
+#: templates/tournament/settings.html:169
+msgid "Do you want to unban "
+msgstr "Chcete odblokovat "
+
+#: templates/tournament/stream.html:11 tournament/routes.py:250
+msgid "Tournament streaming"
+msgstr "Streamování turnaje"
+
+#: templates/tournament/stream.html:13
+msgid "As a tournament creator you can get access to the video feeds of the webcam games if both players consent to streaming."
+msgstr "Jako tvůrce turnaje získáte přístup ke video kanálům z webových kamer, pouze pokud oba hráči souhlasili se streamováním."
+
+#: templates/tournament/stream.html:14
+msgid "Select a game you want to stream. The links below redirect you to the game's score page and video call. You should set these up in a streaming software for custom display."
+msgstr "Vyberte hru, kterou chcete streamovat. Níže uvedené odkazy přesměrují na stránku skóre a videohovoru. Můžete je využít pro vlastní zobrazení v streamovacím softwaru."
+
+#: templates/tournament/stream.html:23
+msgid "Generate new API key"
+msgstr "Generovat nový API klíč"
+
+#: templates/tournament/stream.html:28
+msgid "Game score URL:"
+msgstr "URL pro skóre:"
+
+#: templates/tournament/stream.html:33
+msgid "Jitsi URL:"
+msgstr "Jitsi URL:"
+
+#: templates/tournament/stream.html:43 tournament/forms.py:42
+msgid "Streamable games"
+msgstr "Streamovatelné hry"
+
+#: templates/tournament/stream.html:60
+msgid "Currently no streamable games."
+msgstr "Momentálně žádné streamovatelné hry."
+
+#: tournament/forms.py:30
+msgid "Tournament name"
+msgstr "Název turnaje"
+
+#: tournament/forms.py:32
+msgid "Open to the public"
+msgstr "Otevřít pro veřejnost"
+
+#: tournament/forms.py:33
+msgid "Player registration is open"
+msgstr "Registrace hráčů je otevřena"
+
+#: tournament/forms.py:34
+msgid "External URL"
+msgstr "Externí URL"
+
+#: tournament/forms.py:37
+msgid "Create Tournament"
+msgstr "Vytvořit turnaj"
+
+#: tournament/forms.py:43
+msgid "Select game"
+msgstr "Vybrat hru"
+
+#: tournament/routes.py:21
+msgid "Start in the past is not allowed for public tournaments."
+msgstr "Začátek v minulosti není povolen pro veřejné turnaje."
+
+#: tournament/routes.py:25
+msgid "Start must be within the next 30 days."
+msgstr "Začátek musí být během příštích 30 dnů."
+
+#: tournament/routes.py:35
+msgid "Tournament updated."
+msgstr "Turnaj byl aktualizován."
+
+#: tournament/routes.py:98
+msgid "You were banned from this tournament."
+msgstr "Byli jste zablokován z tohoto turnaje."
+
+#: tournament/routes.py:182
+msgid "Tournament settings"
+msgstr "Nastavení turnaje"
+
+#: tournament/routes.py:242
+msgid "Game selected as stream game."
+msgstr "Hra byla vybrána jako hra ke streamovaní."
+
