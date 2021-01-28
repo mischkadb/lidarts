@@ -1,14 +1,18 @@
-from flask import render_template, url_for, redirect, flash, current_app, request
+import secrets
+from datetime import datetime, timedelta
+
+from flask import (current_app, flash, redirect, render_template, request,
+                   url_for)
 from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from lidarts import db, socketio
 from lidarts.generic.forms import ChatmessageForm
+from lidarts.models import (Chatmessage, Game, StreamGame, Tournament, User,
+                            UserSettings, UserStatistic, WebcamSettings)
 from lidarts.tournament import bp
-from lidarts.tournament.forms import CreateTournamentForm, ConfirmStreamGameForm
-from lidarts.models import Game, Tournament, Chatmessage, User, UserSettings, UserStatistic, WebcamSettings, StreamGame
-from datetime import datetime, timedelta
+from lidarts.tournament.forms import (ConfirmStreamGameForm,
+                                      CreateTournamentForm)
 from sqlalchemy.orm import aliased
-import secrets
 
 
 def handle_form(form, update=False, tournament=None):
@@ -104,10 +108,11 @@ def details(hashid):
         .filter_by(tournament_hashid=hashid)
         .filter(Chatmessage.timestamp > (datetime.utcnow() - timedelta(hours=24)))
         .order_by(Chatmessage.id.desc())
+        .limit(100)
+        .from_self()
         .join(User).add_columns(User.username)
         .join(UserStatistic).add_columns(UserStatistic.average)
         .join(UserSettings).add_columns(UserSettings.country)
-        .limit(100)
         .all()
     )
 
@@ -119,10 +124,11 @@ def details(hashid):
         Game.query
         .filter_by(tournament=hashid)
         .filter_by(status='completed')
-        .join(player1, Game.player1 == player1.id).add_columns(player1.username)
-        .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
         .order_by(Game.end.desc())
         .limit(10)
+        .from_self()
+        .join(player1, Game.player1 == player1.id).add_columns(player1.username)
+        .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
         .all()
     )
 
