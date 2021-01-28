@@ -449,9 +449,9 @@
 
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
-<script type="text/javascript" src="/static/js/x01_socket.js"></script>
-<script type="text/javascript" src="/static/js/game_chat_socket.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/x01_socket.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/game_chat_socket.js') }}"></script>
 {% else %}
-<script type="text/javascript" src="/static/js/game/X01/x01_spectator_socket.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/game/X01/x01_spectator_socket.js') }}"></script>
 {% endif %}
 {% endblock %}

@@ -11,7 +11,7 @@ html {
 {% block app_content %}
 <div class="row justify-content-center">
     <div class="col-md-12 col-xl-12">
-        <img src="/static/img/board.png" width="680" height="680" id="board" class="board">
+        <img src="{{ url_for('static', filename='img/board.png') }}" width="680" height="680" id="board" class="board">
         <canvas id="boardCanvas" width="680" height="680" class="board"></canvas>
     </div>
 

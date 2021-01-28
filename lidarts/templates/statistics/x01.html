@@ -237,7 +237,7 @@
 								<div class="card-body">
 									<h5>{{ _('Overall average per game') }}</h5>
 									<canvas id="myChart" width="400" height="150"></canvas>
-									<script type="text/javascript" src="/static/js/chart.min.js"></script>
+									<script type="text/javascript" src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
 									<script type="text/javascript">
 										var ctx = document.getElementById('myChart').getContext('2d');
 										var labels = [{% for i in range(stats['averagepergame']|length) %}

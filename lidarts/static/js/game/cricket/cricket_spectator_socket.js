@@ -8,6 +8,12 @@ $(document).ready(function() {
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
+    
+    var cdn_url = '';
+    
+    if (window.location.hostname == 'lidarts.org') {
+        cdn_url = 'https://lidartsstatic.org'
+    }
 
     var p1_next_turn;
     var p1_id;
@@ -200,7 +206,7 @@ $(document).ready(function() {
 
     socket.on('game_shot', function(msg) {
         if (muted == false) {
-            var audio = new Audio('/static/sounds/' + caller + '/game_shot.mp3');
+            var audio = new Audio(cdn_url + '/static/sounds/' + caller + '/game_shot.mp3');
             audio.play();
         }
 
@@ -340,7 +346,7 @@ $(document).ready(function() {
     // Remove turn indicators when game is over and show link to game overview
     socket.on('game_completed', function(msg) {
         if (muted == false){
-            var audio = new Audio('/static/sounds/' + caller + '/game_shot_match.mp3');
+            var audio = new Audio(cdn_url + '/static/sounds/' + caller + '/game_shot_match.mp3');
             audio.play();
         }
 

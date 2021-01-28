@@ -12,6 +12,12 @@ $(document).ready(function() {
     //     http[s]://<domain>:<port>[/<namespace>]
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {transports: ['websocket']});
 
+    var cdn_url = '';
+    
+    if (window.location.hostname == 'lidarts.org') {
+        cdn_url = 'https://lidartsstatic.org'
+    }
+
     var user_id = $('#user_id').data()['id'];
     var profile_url = $('#profile_url').data()['url'];
     var game_url = $('#game_url').data()['url'];
@@ -45,7 +51,7 @@ $(document).ready(function() {
             }
 
             if (msg['players'][user]['country'] != null) {
-                flag = '<img src="/static/img/flags/' + msg['players'][user]['country'] + '.png" style="margin-right: 3px" class="' + country_flag_class + '" data-country="' + msg['players'][user]['country'] + '">'
+                flag = '<img src="' + cdn_url + '/static/img/flags/' + msg['players'][user]['country'] + '.png" style="margin-right: 3px" class="' + country_flag_class + '" data-country="' + msg['players'][user]['country'] + '">'
             } else {
                 flag = ''
             };
@@ -123,7 +129,7 @@ $(document).ready(function() {
         }
 
         if (msg['country'] != null) {
-            flag = '<img src="/static/img/flags/' + msg['country'] + '.png" style="margin-right: 5px" class="' + country_flag_class + '">'
+            flag = '<img src="' + cdn_url + '/static/img/flags/' + msg['country'] + '.png" style="margin-right: 5px" class="' + country_flag_class + '">'
         } else {
             flag = ''
         }

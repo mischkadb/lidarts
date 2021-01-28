@@ -7,6 +7,12 @@ $(document).ready(function() {
     //     http[s]://<domain>:<port>[/<namespace>]
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {transports: ['websocket']});
 
+    var cdn_url = '';
+    
+    if (window.location.hostname == 'lidarts.org') {
+        cdn_url = 'https://lidartsstatic.org'
+    }
+
     var notification_sound_enabled = false;
     var is_authenticated = false;
     if ($('#is_authenticated').data()['auth'] == 'True') {
@@ -71,7 +77,7 @@ $(document).ready(function() {
         );
 
         if (notification_sound_enabled == true && msg['silent'] == false){
-            var audio = new Audio('/static/sounds/notification.mp3');
+            var audio = new Audio(cdn_url + '/static/sounds/notification.mp3');
             audio.play();
         }
 

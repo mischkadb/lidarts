@@ -12,7 +12,10 @@ import babel
 from dotenv import load_dotenv
 import os
 
-from flask import Flask, request
+from urllib.parse import urljoin
+
+from flask import Flask, redirect, request
+from flask_cdn import CDN
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_security import Security, SQLAlchemyUserDatastore
@@ -57,6 +60,7 @@ else:
 basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(basedir, '.env'))
 db = SQLAlchemy(metadata=metadata)
+cdn = CDN()
 migrate = Migrate()
 mail = Mail()
 security = Security()
@@ -105,6 +109,7 @@ def create_app(test_config=None):
 
     # Initialize Flask extensions
     db.init_app(app)
+    cdn.init_app(app)
     migrate.init_app(app, db)
     mail.init_app(app)
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
@@ -119,7 +124,8 @@ def create_app(test_config=None):
     if 'ENGINEIO_MAX_DECODE_PACKETS' in app.config:
         Payload.max_decode_packets = app.config['ENGINEIO_MAX_DECODE_PACKETS']
 
-    socketio.init_app(app, message_queue='redis://', async_mode='gevent',
+    message_queue = app.config['SOCKETIO_MESSAGE_QUEUE'] if 'SOCKETIO_MESSAGE_QUEUE' in app.config else 'redis://'
+    socketio.init_app(app, message_queue=message_queue, async_mode='gevent',
                       cors_allowed_origins=origins,
                       # logger=True, engineio_logger=True,
                       )

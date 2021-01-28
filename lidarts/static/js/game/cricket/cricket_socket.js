@@ -9,6 +9,12 @@ $(document).ready(function() {
     // The callback function is invoked when a connection with the
     // server is established.
 
+    var cdn_url = '';
+    
+    if (window.location.hostname == 'lidarts.org') {
+        cdn_url = 'https://lidartsstatic.org'
+    }
+
     var p1_next_turn;
     var p1_id;
     var p2_id;
@@ -167,7 +173,7 @@ $(document).ready(function() {
                 if (value['marks'] >= i) {
                     if (value['marks'] == 3 && msg.p2_current_fields[index]['marks'] < 3 && $('#marks-p1-' + index + '-' + i).is(":hidden")) {
                         if (muted == false && !game_shot){
-                            audio.src = '/static/sounds/field_open.mp3';
+                            audio.src = cdn_url + '/static/sounds/field_open.mp3';
                             audio.play();
                         }
                     };
@@ -179,7 +185,7 @@ $(document).ready(function() {
                 if (value['marks'] == 3 && msg.p2_current_fields[index]['marks'] == 3) {
                     if (!$('#score-button-S' + index).hasClass('disabled')) {
                         if (muted == false && !game_shot){
-                            audio.src = '/static/sounds/field_closed.mp3';
+                            audio.src = cdn_url + '/static/sounds/field_closed.mp3';
                             audio.play();
                         }
                     };
@@ -209,7 +215,7 @@ $(document).ready(function() {
                 if (value['marks'] >= i) {
                     if (value['marks'] == 3 && msg.p1_current_fields[index]['marks'] < 3 && $('#marks-p2-' + index + '-' + i).is(":hidden")) {
                         if (muted == false && !game_shot){
-                            audio.src = '/static/sounds/field_open.mp3';
+                            audio.src = cdn_url + '/static/sounds/field_open.mp3';
                             audio.play();
                         }
                     };
@@ -224,7 +230,7 @@ $(document).ready(function() {
 
     socket.on('game_shot', function(msg) {
         if (muted == false) {
-            audio.src = '/static/sounds/' + caller + '/game_shot.mp3';
+            audio.src = cdn_url + '/static/sounds/' + caller + '/game_shot.mp3';
             audio.play();
         }
 
@@ -365,13 +371,13 @@ $(document).ready(function() {
     socket.on('confirm_score', function(msg) {
         if (user_id['id'] == p1_id && msg.p1_next_turn) {
             if (muted == false){
-                audio.src = '/static/sounds/your_turn.mp3';
+                audio.src = cdn_url + '/static/sounds/your_turn.mp3';
                 audio.play();
             }
         }
         else if (user_id['id'] == p2_id && !msg.p1_next_turn) {
             if (muted == false){
-                audio.src = '/static/sounds/your_turn.mp3';
+                audio.src = cdn_url + '/static/sounds/your_turn.mp3';
                 audio.play();
             }
         }
@@ -380,7 +386,7 @@ $(document).ready(function() {
     // Remove turn indicators when game is over and show link to game overview
     socket.on('game_completed', function(msg) {
         if (muted == false){
-            audio.src = '/static/sounds/' + caller + '/game_shot_match.mp3';
+            audio.src = cdn_url + '/static/sounds/' + caller + '/game_shot_match.mp3';
             audio.play();
         }
 

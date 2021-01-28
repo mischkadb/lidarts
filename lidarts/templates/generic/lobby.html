@@ -7,7 +7,7 @@
     <div class="col-auto">
         <div class="card bg-light text-dark">
             <div class="card-body">
-                <h2 class="card-text"><img src="/static/img/logo.png" width="76" height="38" alt="lidarts logo" class=""> {{ _('Welcome back') }} {{ current_user.username }}!</h2>
+                <h2 class="card-text"><img src="{{ url_for('static', filename='img/logo.png') }}" width="76" height="38" alt="lidarts logo" class=""> {{ _('Welcome back') }} {{ current_user.username }}!</h2>
             </div>
         </div>
     </div>

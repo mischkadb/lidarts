@@ -9,6 +9,12 @@ $(document).ready(function() {
     // The callback function is invoked when a connection with the
     // server is established.
 
+    var cdn_url = '';
+    
+    if (window.location.hostname == 'lidarts.org') {
+        cdn_url = 'https://lidartsstatic.org'
+    }
+
     var p1_next_turn;
     var p1_id;
     var p2_id;
@@ -225,7 +231,7 @@ $(document).ready(function() {
         });
 
         if (muted == false) {
-            audio.src = '/static/sounds/' + caller + '/game_shot.mp3';
+            audio.src = cdn_url + '/static/sounds/' + caller + '/game_shot.mp3';
             audio.play();
         }
 
@@ -332,7 +338,7 @@ $(document).ready(function() {
 
         // length check is needed to mute caller when new leg is broadcasted
         if (msg['new_score'] && muted == false && (msg['p1_current_leg'].length > 0 || msg['p2_current_leg'].length > 0)) {
-            audio.src = '/static/sounds/' + caller + '/' + score + '.mp3';
+            audio.src = cdn_url + '/static/sounds/' + caller + '/' + score + '.mp3';
             audio.play();
         }
 
@@ -477,7 +483,7 @@ $(document).ready(function() {
         });
 
         if (muted == false){
-            audio.src = '/static/sounds/' + caller + '/game_shot_match.mp3';
+            audio.src = cdn_url + '/static/sounds/' + caller + '/game_shot_match.mp3';
             audio.play();
         }
 

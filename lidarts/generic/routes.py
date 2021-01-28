@@ -1,22 +1,23 @@
-from flask import render_template, redirect, url_for, request, jsonify
+import time
+from collections import defaultdict
+from datetime import datetime, timedelta
+
+from flask import jsonify, redirect, render_template, request, url_for
 from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
+from sqlalchemy import desc, func, or_
+from sqlalchemy.orm import aliased
+
 from lidarts import db, socketio
-from lidarts.generic import bp
-from lidarts.generic.forms import UserSearchForm
-from lidarts.models import (
-    Game, CricketGame, User, Chatmessage, Friendship, FriendshipRequest, Privatemessage, 
-    Notification, UserSettings, UserStatistic, SocketConnections, WebcamSettings,
-)
-from lidarts.generic.forms import ChatmessageForm
 from lidarts.game.forms import GameChatmessageForm
+from lidarts.generic import bp
+from lidarts.generic.forms import ChatmessageForm, UserSearchForm
+from lidarts.models import (Chatmessage, CricketGame, Friendship,
+                            FriendshipRequest, Game, Notification,
+                            Privatemessage, SocketConnections, User,
+                            UserSettings, UserStatistic, WebcamSettings)
 from lidarts.profile.utils import get_user_status
 from lidarts.socket.utils import broadcast_online_players
-from sqlalchemy import desc, or_, func
-from sqlalchemy.orm import aliased
-from datetime import datetime, timedelta
-from collections import defaultdict
-import time
 
 
 @bp.route('/')
@@ -51,7 +52,7 @@ def contribute():
 @bp.route('/watch/tournament/<tournament_hashid>')
 def live_games_overview(tournament_hashid=None):
     live_games = Game.query.filter((Game.status == 'started'))
-    
+
     if tournament_hashid:
         live_games = live_games.filter_by(tournament=tournament_hashid)
 

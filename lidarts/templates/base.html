@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico', _external=True) }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
@@ -25,7 +25,8 @@
     {% endblock %}
     
     <script src="{{ url_for('static',filename='js/jquery-3.3.1.min.js') }}"></script>
-    {{ moment.include_moment(local_js='/static/js/moment_with_locales.min.js') }}
+    <script src="{{ url_for('static',filename='js/moment_with_locales.min.js') }}"></script>
+    {{ moment.include_moment(no_js=True) }}
     {{ moment.lang(get_locale()) }}
 
     {% block head %}
@@ -40,7 +41,7 @@
 <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark mb-4">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url_for('generic.index') }}">
-            <img src="/static/img/logo_white2.png" width="39" height="20" alt="lidarts logo" class="mr-1"> Lidarts</a>
+            <img src="{{ url_for('static', filename='img/logo_white2.png') }}" width="39" height="20" alt="lidarts logo" class="mr-1"> Lidarts</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
