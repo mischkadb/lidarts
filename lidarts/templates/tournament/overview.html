@@ -35,7 +35,10 @@
                 <p class="card-text">
                     {% if current_user.tournaments %}
                         {% for tournament in current_user.tournaments[::-1] %}
-                            <p class="slim"><a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}">{{ tournament.name }}</a></p>
+                            <p class="slim">
+                                <a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}">{{ tournament.name }}</a>
+                                {% if tournament.start_timestamp %}| Start: {{ moment(tournament.start_timestamp).format('LLLL') }}{% endif %}
+                            </p>
                         {% endfor %}
                     {% else %}
                         {{ _('You have not created a tournament yet.') }}
