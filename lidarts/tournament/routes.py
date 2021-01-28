@@ -13,7 +13,7 @@ import secrets
 
 def handle_form(form, update=False, tournament=None):
     start_timestamp = None
-    if form.public_tournament.data:
+    if form.public_tournament.data or (form.start_date.data and form.start_time.data):
         start_timestamp = datetime.combine(
             form.start_date.data, form.start_time.data,
         )
