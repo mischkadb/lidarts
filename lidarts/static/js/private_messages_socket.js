@@ -116,27 +116,28 @@ $(document).ready(function() {
                 return;
             }
             chat_partner_id = msg;
-        });
 
-        if ($('#chat_partner_' + chat_partner_id).length > 0) {
-            return;
-        }
-        $.post(compose_message_url + chat_partner_name, function (msg) {
-            if (msg == 'error') {
+            if ($('#chat_partner_' + chat_partner_id).length > 0) {
                 return;
             }
-            $('.chat-partner').removeClass('chat-partner-active');
-
-            $('#chat_partners').prepend('<div class="card chat-partner chat-partner-active" id="chat_partner_' + chat_partner_id + '"><div class="card-body" style="padding: 2px 2px 2px 2px;">' +
-                '<p><strong><h5><i class="fas fa-circle status-' + msg['status'] + '" style="font-size: 15px;"></i> ' + msg['username'] + '</h5></strong></p>'
-                +'</div></div>');
-
-            $('.message-tab').hide();
-            $('#chatbox-tabs').append('<div id="messages_tab_' + chat_partner_id + '" class="message-tab">' +
-                '<h5 class="card-title">Chat with ' + msg['username'] + '</h5></div>');
-
-
+            $.post(compose_message_url + chat_partner_name, function (msg) {
+                if (msg == 'error') {
+                    return;
+                }
+                $('.chat-partner').removeClass('chat-partner-active');
+    
+                $('#chat_partners').prepend('<div class="card chat-partner chat-partner-active" id="chat_partner_' + chat_partner_id + '"><div class="card-body" style="padding: 2px 2px 2px 2px;">' +
+                    '<p><strong><h5><i class="fas fa-circle status-' + msg['status'] + '" style="font-size: 15px;"></i> ' + msg['username'] + '</h5></strong></p>'
+                    +'</div></div>');
+    
+                $('.message-tab').hide();
+                $('#chatbox-tabs').append('<div id="messages_tab_' + chat_partner_id + '" class="message-tab">' +
+                    '<h5 class="card-title">Chat with ' + msg['username'] + '</h5></div>');
+    
+    
+            });
         });
+
     });
 
 
