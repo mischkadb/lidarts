@@ -3,6 +3,7 @@
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/jquery.powertip.min.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/chat.css', version=config.VERSION) }}" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/tournament_bracket.css', version=config.VERSION) }}" />
 {% endblock %}
 
 {% block container %}
@@ -26,12 +27,19 @@
                 </button>
                 {% endif %}
 
-                {% if not tournament.managed_externally %}
+                {% if tournament.managed_externally %}
                 <a href="{{ url_for('game.create', tournament_hashid=tournament.hashid) }}" id="createTournamentGame" {% if not in_tournament %}style="display: None">{% endif %}
                     <button type="button" class="btn mt-2 btn-info" autocomplete="off">
                         {{ _('Create tournament game') }}
                     </button>
                 </a>
+                {% elif tournament.status == 'started' %}
+                <button type="button" class="btn mt-2 btn-info" id="startNextGameButton" autocomplete="off">
+                    {{ _('Start next game') }}
+                </button>
+                <button type="button" class="btn mt-2 btn-secondary d-none" id="waitingForOpponentButton" autocomplete="off">
+                    <i class="fas fa-spinner fa-spin"></i> {{ _('Waiting for opponent') }} 
+                </button>
                 {% endif %}
                 
                 {% if current_user.id == tournament.creator %}
@@ -77,11 +85,172 @@
     </div>
 
     <div class="col-12 col-sm-6 col-md-6 col-lg-8 col-xl-9 p-1 order-first order-lg-2">
-        {% for round_ in tournament.stages[0].rounds %}
-            {% for tournament_game in round_.games %}
-                <p>{{ tournament_game.game.player1 }} vs. {{ tournament_game.game.player2 }}</p>
+        <div class="brackets">
+            <div class="bracket upper-bracket">
+            {% for round_ in tournament.stages[0].rounds %}
+            {% set outer_loop = loop %}
+                {% if round_.name_[:2] != 'lb' %}
+                <div class="round text-center">
+                {% for tournament_game in round_.games %}
+                {% set game = tournament_game.game %}
+                    <a href="{% if game.player1 and game.player2 %}{{ url_for('game.start', hashid=game.hashid) }}{% endif %}" class="match match-url {% if not tournament_game.tournament_stage_game_bracket_id %}match-bye{% endif %} {% if outer_loop.nextitem and (round_.games|length == outer_loop.nextitem.games|length or outer_loop.nextitem.name_[:2] == 'lb') %}match-single{% else %}match-bracket{% endif %} text-left">
+                        <div class="match-details">
+                            <div class="match-bracket-id text-center">
+                                <div>
+                                    {{ tournament_game.tournament_stage_game_bracket_id }}
+                                </div>
+                            </div>
+                            <div class="match-players">
+                                <div class="match-player match-player-1 {% if game.player1 == current_user.id %}match-you{% endif %}">
+                                    <div class="match-player-name align-self-center {% if game.player1 == current_user.id %}username-you{% endif %}">
+                                    {% if game.player1 %}                                    
+                                        {{usernames[game.player1] }}
+                                    {% endif %}
+                                    </div>
+
+                                    {% if game and game.player1 and game.player2 %}
+                                    <div class="match-score">
+                                        {% if game.bo_sets > 1 %}
+                                        <div class="match-sets align-self-center">
+                                            {% if game.player1 %}
+                                                {{ game.p1_legs }}
+                                            {% endif %}
+                                        </div>
+                                        {% endif %}
+
+                                        <div class="match-legs text-center align-self-center">
+                                            {% if game.player1 %}
+                                                {{ game.p1_legs }}
+                                            {% endif %}
+                                        </div>
+
+                                        {% if game.status != 'completed' %}
+                                        <div class="match-leg-score text-center align-self-center">
+                                            {% if game.player1 %}
+                                                {{ game.p1_score }}
+                                            {% endif %}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                        
+                                <div class="match-seperator"></div>
+
+                                <div class="match-player match-player-2">
+                                    <div class="match-player-name align-self-center">                            
+                                        {% if game.player2 %}
+                                            {{ usernames[game.player2] }}                            
+                                        {% elif round_.name_ == 'gf1' %}
+                                        <span class="font-italic">
+                                            {{ _('Winner of Lower Bracket') }}
+                                        </span> 
+                                        {% endif %}
+                                    </div>
+        
+                                    {% if game and game.player1 and game.player2 %}
+                                    <div class="match-score">
+                                        {% if game.bo_sets > 1 %}
+                                        <div class="match-sets align-self-center">
+                                            {% if game.player1 %}
+                                                {{ game.p1_legs }}
+                                            {% endif %}
+                                        </div>
+                                        {% endif %}
+
+                                        <div class="match-legs text-center align-self-center">
+                                            {% if game.player1 %}
+                                                {{ game.p1_legs }}
+                                            {% endif %}
+                                        </div>
+
+                                        {% if game.status != 'completed' %}
+                                        <div class="match-leg-score text-center align-self-center">
+                                            {% if game.player1 %}
+                                                {{ game.p1_score }}
+                                            {% endif %}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+                </div>
+                {% endif %}
             {% endfor %}
-        {% endfor %}
+            </div>
+
+            <hr>
+
+            <div class="bracket lower-bracket">
+                {% for round_ in tournament.stages[0].rounds %}
+                {% set outer_loop = loop %}
+                    {% if round_.name_[:2] == 'lb' %}
+                    <div class="round">
+                    {% for tournament_game in round_.games %}
+                    {% set game = tournament_game.game %}
+                    <div class="text-left match {% if not tournament_game.tournament_stage_game_bracket_id %}match-bye{% endif %} {% if outer_loop.nextitem and (round_.games|length == outer_loop.nextitem.games|length or (round_.name_[:2] != 'lb' and outer_loop.nextitem.name_[:2] == 'lb')) %}match-single{% else %}match-bracket{% endif %}">
+                        <div class="match-details">
+                            <div class="match-bracket-id text-center">
+                                <div>
+                                    {{ tournament_game.tournament_stage_game_bracket_id }}
+                                </div>
+                            </div>
+                            <div class="match-players">
+                                <div class="match-player match-player-1">
+                                    <div class="match-player-name">
+                                    {% if game.player1 %}
+                                        <span class="{% if game.player1 == current_user.id %}username-you{% endif %}">
+                                            {{usernames[game.player1] }}
+                                        </span>
+                                    {% elif tournament_game.p1_loser_from %}
+                                    <span class="font-italic">
+                                        {{ _('Loser of') }} {{ tournament_game.p1_loser_from[0].tournament_stage_game_bracket_id }}
+                                    </span>
+                                    {% endif %}
+                                    </div>
+
+                                    {% if game and game.player1 and game.player2 %}
+                                    <div class="match-score">
+                                        {% if game.bo_sets > 1 %}
+                                        <div class="match-sets">
+                                            {% if game.player1 %}
+                                                {{ game.p1_legs }}
+                                            {% endif %}
+                                        </div>
+                                        {% endif %}
+                                        <div class="match-legs">
+                                            {% if game.player1 %}
+                                                {{ game.p1_legs }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="match-seperator"></div>
+                                <div class="match-player match-player-2">
+                                    {% if game.player2 %}
+                                        {{ usernames[game.player2] }}                            
+                                    {% elif round_.name_ == 'gf1' %}
+                                        {{ _('Winner of Lower Bracket') }}
+                                    {% elif tournament_game.p2_loser_from %}
+                                        <span class="font-italic">
+                                            {{ _('Loser of') }} {{ tournament_game.p2_loser_from[0].tournament_stage_game_bracket_id }}   
+                                        </span>                                
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+        </div>
     </div>
 </div>
 
@@ -105,4 +274,5 @@
 
 
 <script type="text/javascript" src="{{ url_for('static',filename='js/tournament/tournament_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/tournament/bracket.js', version=config.VERSION) }}"></script>
 {% endblock %}

@@ -112,7 +112,13 @@ def details(hashid):
         .join(User, User.id == Tournament.creator).add_columns(User.username)
         .first_or_404()
     )
-    
+
+    usernames = {}
+
+    for player in tournament.players:
+        if player.username not in usernames:
+            usernames[player.id] = player.username
+
     if current_user in tournament.banned_players:
         flash(lazy_gettext('You were banned from this tournament.'), 'danger')
         return redirect(url_for('generic.lobby'))
@@ -164,6 +170,7 @@ def details(hashid):
     return render_template(
         f'tournament/{template}.html',
         tournament=tournament,
+        usernames=usernames,
         form=form,
         messages=messages,
         in_tournament=in_tournament,

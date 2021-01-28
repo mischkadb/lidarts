@@ -5,6 +5,7 @@ from lidarts.tournament.models import BracketGame
 from lidarts.models import TournamentGame, Game
 import json
 from datetime import datetime
+import secrets
 
 
 def generate_upper_bracket(num_players):
@@ -113,9 +114,10 @@ def add_bracket_ids(games_upper, games_lower):
             round_games = []
             for game in games_upper[w]:
                 if game.winner:
-                    continue
-                game.bracket_id = bracket_id
-                bracket_id += 1
+                    game.match_is_bye = True
+                else:
+                    game.bracket_id = bracket_id
+                    bracket_id += 1
                 round_games.append(game)
             w += 1
             winners_next = False
@@ -124,9 +126,10 @@ def add_bracket_ids(games_upper, games_lower):
             round_games = []
             for game in games_lower[l]:
                 if game.winner:
-                    continue
-                game.bracket_id = bracket_id
-                bracket_id += 1
+                    game.match_is_bye = True
+                else:
+                    game.bracket_id = bracket_id
+                    bracket_id += 1
                 round_games.append(game)
             if l == 0 or len(games_lower[l]) != len(games_lower[l-1]):
                 winners_next = True
@@ -143,9 +146,10 @@ def add_bracket_ids_single_elim(games_upper):
         round_games = []
         for game in rounds_:
             if game.winner:
-                continue
-            game.bracket_id = bracket_id
-            bracket_id += 1
+                game.match_is_bye = True
+            else:
+                game.bracket_id = bracket_id
+                bracket_id += 1
             round_games.append(game)
         games_upper_bracket_ids.append(round_games)
 
@@ -241,6 +245,15 @@ def generate_bracket(player_list, tournament):
 
     for bracket_round, stage_round in zip(rounds, stage.rounds):
         for bracket_game in bracket_round:
+            # byes
+            if bracket_game.match_is_bye:
+                tournament_game = TournamentGame()
+                tournament_game.match_is_bye = True
+                tournament_game.tournament_stage_game_id = bracket_game.id_
+                db.session.add(tournament_game)
+                stage_round.games.append(tournament_game)
+                continue
+
             # create game
             match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
                                          2: {'scores': [], 'double_missed': []}}}})
@@ -260,6 +273,7 @@ def generate_bracket(player_list, tournament):
                 p1_score=stage_round.type_, p2_score=stage_round.type_,
                 match_json=match_json, begin=datetime.utcnow(),
                 opponent_type='online', webcam=False,
+                hashid = secrets.token_urlsafe(8)[:8]
             )
             game.player1 = player_list[bracket_game.p1-1] if bracket_game.p1 else None
             game.player2 = player_list[bracket_game.p2-1] if bracket_game.p2 else None
@@ -277,10 +291,10 @@ def generate_bracket(player_list, tournament):
                 tournament_stage_game_id=bracket_game.id_,
                 tournament_stage_game_bracket_id=bracket_game.bracket_id,
             )
-            p1_winner_from = tournament_games[bracket_game.p1_winner_from] if bracket_game.p1_winner_from else None
-            p2_winner_from = tournament_games[bracket_game.p2_winner_from] if bracket_game.p2_winner_from else None
-            p1_loser_from = tournament_games[bracket_game.p1_loser_from] if bracket_game.p1_loser_from else None
-            p2_loser_from = tournament_games[bracket_game.p2_loser_from] if bracket_game.p2_loser_from else None
+            tournament_game.p1_winner_from = [tournament_games[bracket_game.p1_winner_from]] if bracket_game.p1_winner_from else []
+            tournament_game.p2_winner_from = [tournament_games[bracket_game.p2_winner_from]] if bracket_game.p2_winner_from else []
+            tournament_game.p1_loser_from = [tournament_games[bracket_game.p1_loser_from]] if bracket_game.p1_loser_from else []
+            tournament_game.p2_loser_from = [tournament_games[bracket_game.p2_loser_from]] if bracket_game.p2_loser_from else []
             
             tournament_games[bracket_game.id_] = tournament_game
             db.session.add(game)

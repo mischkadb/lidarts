@@ -291,6 +291,21 @@ $(document).ready(function() {
     $('#countryFilter').change(function() {
         filterUserList();
     }); 
+
+    $('#startNextGameButton').click( function () {
+        socket.emit(
+            'start_next_game_request',
+            {
+                hashid: tournament_hashid
+            },
+            function () {
+                $('#startNextGameButton').addClass("d-none");
+                $('#waitingForOpponentButton').removeClass("d-none");
+                waiting_for_opponent = true;
+            }
+        );   
+ 
+    });
     
 
 });

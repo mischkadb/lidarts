@@ -1,7 +1,10 @@
 from flask_login import current_user
 from lidarts import socketio, db
-from lidarts.models import Tournament, User
-from lidarts.socket.utils import broadcast_online_players
+from lidarts.game.utils import get_name_by_id
+from lidarts.models import Tournament, User, Notification
+from flask_babelex import gettext
+from flask_socketio import emit
+from lidarts.socket.utils import broadcast_online_players, send_notification
 
 
 @socketio.on('join_tournament', namespace='/chat')
@@ -147,7 +150,7 @@ def ban_player(message):
 
 
 @socketio.on('unban_player', namespace='/chat')
-def ban_player(message):
+def unban_player(message):
     hashid = message['hashid']
     user_id = message['user_id']
     tournament = Tournament.query.filter_by(hashid=hashid).first()
@@ -156,3 +159,46 @@ def ban_player(message):
         return
     tournament.banned_players.remove(user)
     db.session.commit()
+
+
+@socketio.on('start_next_game_request', namespace='/chat')
+def start_next_game_request(message):
+    hashid = message['hashid']
+    tournament = Tournament.query.filter_by(hashid=hashid).first()
+    if not tournament or current_user not in tournament.players:
+        return
+
+    for round_ in tournament.stages[0].rounds:
+        for tournament_game in round_.games:
+            if not tournament_game.game:
+                continue
+
+            game = tournament_game.game
+            if game.status != 'scheduled':
+                continue
+
+            if game.player1 == current_user.id and game.player2 and not tournament_game.p1_ready:
+                tournament_game.p1_ready = True
+                if tournament_game.p2_ready:
+                    game.status = 'started'
+                    emit('game_ready', {'hashid': hashid}, room=hashid)
+                else:
+                    message = gettext('Tournament opponent is ready')
+                    notification = Notification(user=game.player2, message=message, author=current_user.username, type='tournament_next_game')
+                    db.session.add(notification)
+                    p2_name = get_name_by_id(game.player2)
+                    send_notification(p2_name, message, current_user.username, 'tournament_next_game')
+            elif game.player2 == current_user.id and game.player1 and not tournament_game.p2_ready:
+                tournament_game.p2_ready = True
+                if tournament_game.p1_ready:
+                    game.status = 'started'
+                    emit('game_ready', {'hashid': hashid}, room=hashid)
+                else:
+                    message = gettext('Tournament opponent is ready')
+                    notification = Notification(user=game.player1, message=message, author=current_user.username, type='tournament_next_game')
+                    db.session.add(notification)
+                    p1_name = get_name_by_id(game.player1)
+                    send_notification(p1_name, message, current_user.username, 'tournament_next_game')
+
+            db.session.commit()
+            return

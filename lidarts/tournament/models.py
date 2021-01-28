@@ -6,6 +6,7 @@ class BracketGame:
     p1_loser_from = None
     p2_loser_from = None
     bracket_id = None
+    match_is_bye = False
 
     def __init__(self, id_, p1=None, p2=None):
         self.id_ = id_

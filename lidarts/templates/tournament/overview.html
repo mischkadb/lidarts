@@ -7,152 +7,185 @@
 
 {% block app_content %}
 
-<div class="row justify-content-center">
-    <div class="col-12 col-md-6">
-        <div class="card bg-light text-dark bs-callout bs-callout-warning ">
-            <div class="card-body">
-                <h5 class="card-title text-center">{{ _('Tournaments on Lidarts') }}</h5>
-                <hr>
-                <p class="card-text">
-                    {{ _('Currently Lidarts does not host any tournaments. Several external communities use Lidarts to play their tournaments though.') }}
-                </p>
-                <p class="card-text">
-                    {{ _('This area currently provides tournaments an own page similar to the chat. There is also a list of upcoming public tournaments.') }}
-                </p>
-                <p class="card-text">
-                    {{ _('Joining a tournament will only make you appear in the tournament\'s user list at the moment. It does not sign you up.') }}
-                </p>
-                
+<ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview">{{ _('Tournament overview') }}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#create">{{ _('Create tournament')}}</a>
+    </li>
+  </ul>
+
+<div class="tab-content mt-2" id="tournamentTab">
+    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="home-tab">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                <div class="card bg-light text-dark bs-callout bs-callout-warning ">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ _('Tournaments on Lidarts') }}</h5>
+                        <hr>
+                        <p class="card-text">
+                            {{ _('Currently Lidarts does not host any tournaments. Several external communities use Lidarts to play their tournaments though.') }}
+                        </p>
+                        <p class="card-text">
+                            {{ _('This area currently provides tournaments an own page similar to the chat. There is also a list of upcoming public tournaments.') }}
+                        </p>
+                        <p class="card-text">
+                            {{ _('Joining a tournament will only make you appear in the tournament\'s user list at the moment. It does not sign you up.') }}
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-12 col-md-6 mt-2 mt-md-0">
+                <div class="card bg-light text-dark bs-callout bs-callout-danger" style="height: 300px; overflow-y: scroll;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ _('Active tournaments') }}</h5>
+                        <hr>
+                        <p class="card-text">
+                            {% if current_user.tournaments %}
+                                {% for tournament in current_user.tournaments[::-1] if tournament.status in ['registration', 'preparation', 'started'] %}
+                                    <p class="slim"><a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}">{{ tournament.name }}</a></p>
+                                {% endfor %}
+                            {% else %}
+                                {{ _('You have not created a tournament yet.') }}
+                            {% endif %}
+                        </p>  
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mt-2">
+                <div class="card bg-light text-dark bs-callout bs-callout-danger" style="height: 300px; overflow-y: scroll;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ _('Completed tournaments') }}</h5>
+                        <hr>
+                        <p class="card-text">
+                            {% if current_user.tournaments %}
+                                {% for tournament in current_user.tournaments[::-1] if tournament.status in ['completed', 'aborted'] %}
+                                    <p class="slim"><a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}">{{ tournament.name }}</a></p>
+                                {% endfor %}
+                            {% else %}
+                                {{ _('You have not created a tournament yet.') }}
+                            {% endif %}
+                        </p>  
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mt-2">
+                <div class="card bg-light text-dark bs-callout bs-callout-success" style="height: 500px; overflow-y: scroll;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ _('Upcoming tournaments') }}</h5>
+                        <hr>
+                        <p class="card-text">
+                            {% if upcoming_tournaments %}
+                                {% for tournament in upcoming_tournaments %}
+                                    <p class="slim">
+                                        <a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}">{{ tournament.name }}</a>
+                                        | Start: {{ moment(tournament.start_timestamp).format('LLLL') }}
+                                    </p>
+                                {% endfor %}
+                            {% else %}
+                                {{ _('There are no upcoming public tournaments at the moment.') }}
+                            {% endif %}
+                        </p>               
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="col-12 col-md-6 mt-2 mt-md-0">
-        <div class="card bg-light text-dark bs-callout bs-callout-danger" style="height: 300px; overflow-y: scroll;">
-            <div class="card-body">
-                <h5 class="card-title text-center">{{ _('Your tournaments') }}</h5>
-                <hr>
-                <p class="card-text">
-                    {% if current_user.tournaments %}
-                        {% for tournament in current_user.tournaments[::-1] %}
-                            <p class="slim"><a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}">{{ tournament.name }}</a></p>
-                        {% endfor %}
-                    {% else %}
-                        {{ _('You have not created a tournament yet.') }}
-                    {% endif %}
-                </p>  
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row justify-content-center mt-2 mt-md-4">
-    <div class="col-12 col-md-6">
-        <div class="card bg-light text-dark bs-callout bs-callout-info ">
-            <div class="card-body">
-                <h5 class="card-title text-center">{{ _('Create a new tournament') }}</h5>
-                <hr>
-                <p class="card-text">
-                    <form method="POST" class="form-horizontal">
-                        {{ form.hidden_tag() }}
-                        <p>
-                            {{ form.name.label(class="control-label") }}:
-                            {{ form.name(class="form-control", autocomplete="off", maxlength="50") }}
-                            {{ render_error(form.name) }}
-                        </p>
-
-                        <p>
-                            {{ form.description.label(class="control-label") }}:
-                            {{ form.description(class="form-control", autocomplete="off", maxlength="1000") }}
-                            {{ render_error(form.description) }}
-                        </p>
-
-                        <hr>
-
-                        <p>
-                            <div class="custom-control custom-checkbox">
-                                {{ form.automatic_management(class="custom-control-input") }}
-                                {{ form.automatic_management.label(class="custom-control-label") }}
-                            </div>
-                            {{ render_error(form.automatic_management) }}
-                        </p>
-
-                        <p>
-                            <div class="custom-control custom-checkbox" id="public-checkbox">
-                                {{ form.public_tournament(class="custom-control-input") }}
-                                {{ form.public_tournament.label(class="custom-control-label") }}
-                            </div>
-                            <small>({{ _('Tournament will appear in the upcoming tournaments list') }})</small>
-                            {{ render_error(form.public_tournament) }}
-                        </p>
-
-                        <p>
-                            <div class="custom-control custom-checkbox">
-                                {{ form.registration_open(class="custom-control-input", checked=True) }}
-                                {{ form.registration_open.label(class="custom-control-label") }}
-                            </div>
-                            <small>({{ _('If unchecked players must be invited by the tournament administrator.') }})</small>
-                            {{ render_error(form.registration_open) }}
-                        </p>
-
-                        <p>
-                            <div class="custom-control custom-checkbox">
-                                {{ form.registration_apply(class="custom-control-input") }}
-                                {{ form.registration_apply.label(class="custom-control-label") }}
-                            </div>
-                            {{ render_error(form.registration_apply) }}
-                        </p>
-
-                        <hr>
-
-                        <p class="visible-public-only">
-                            {{ form.external_url.label(class="control-label") }}:
-                            {{ form.external_url(class="form-control", autocomplete="off", maxlength="120") }}
-                            <small>({{ _('Link to tournament website with more information') }})</small>
-                            {{ render_error(form.external_url) }}
-                        </p>
-
-                        <p class="visible-public-only">
-                            {{ _('Start date and time:') }} <br>
-                            {{ form.start_date(class='datepicker') }} {{ form.start_time(class='time', required=False) }}
-                            {{ render_error(form.start_date) }}
-                            {{ render_error(form.start_time) }} (UTC)
-                        </p>
-
-                        <p class="mt-4">
-                            {{ form.submit(class="btn btn-lg btn-info") }}
-                        </p>
-                    </form>
     
-                </p>
-                
+    <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row justify-content-center mt-2">
+            <div class="col-12 col-md-6">
+                <div class="card bg-light text-dark bs-callout bs-callout-info ">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ _('Create a new tournament') }}</h5>
+                        <hr>
+                        <p class="card-text">
+                            <form method="POST" class="form-horizontal">
+                                {{ form.hidden_tag() }}
+                                <p>
+                                    {{ form.name.label(class="control-label") }}:
+                                    {{ form.name(class="form-control", autocomplete="off", maxlength="50") }}
+                                    {{ render_error(form.name) }}
+                                </p>
+        
+                                <p>
+                                    {{ form.description.label(class="control-label") }}:
+                                    {{ form.description(class="form-control", autocomplete="off", maxlength="1000") }}
+                                    {{ render_error(form.description) }}
+                                </p>
+        
+                                <hr>
+        
+                                <p>
+                                    <div class="custom-control custom-checkbox">
+                                        {{ form.automatic_management(class="custom-control-input") }}
+                                        {{ form.automatic_management.label(class="custom-control-label") }}
+                                    </div>
+                                    {{ render_error(form.automatic_management) }}
+                                </p>
+        
+                                <p>
+                                    <div class="custom-control custom-checkbox" id="public-checkbox">
+                                        {{ form.public_tournament(class="custom-control-input") }}
+                                        {{ form.public_tournament.label(class="custom-control-label") }}
+                                    </div>
+                                    <small>({{ _('Tournament will appear in the upcoming tournaments list') }})</small>
+                                    {{ render_error(form.public_tournament) }}
+                                </p>
+        
+                                <p>
+                                    <div class="custom-control custom-checkbox">
+                                        {{ form.registration_open(class="custom-control-input", checked=True) }}
+                                        {{ form.registration_open.label(class="custom-control-label") }}
+                                    </div>
+                                    <small>({{ _('If unchecked players must be invited by the tournament administrator.') }})</small>
+                                    {{ render_error(form.registration_open) }}
+                                </p>
+        
+                                <p>
+                                    <div class="custom-control custom-checkbox">
+                                        {{ form.registration_apply(class="custom-control-input") }}
+                                        {{ form.registration_apply.label(class="custom-control-label") }}        
+                                <hr>
+        
+                                <p class="visible-public-only">
+                                    {{ form.external_url.label(class="control-label") }}:
+                                    {{ form.external_url(class="form-control", autocomplete="off", maxlength="120") }}
+                                    <small>({{ _('Link to tournament website with more information') }})</small>
+                                    {{ render_error(form.external_url) }}
+                                </p>
+        
+                                <p class="visible-public-only">
+                                    {{ _('Start date and time:') }} <br>
+                                    {{ form.start_date(class='datepicker') }} {{ form.start_time(class='time', required=False) }}
+                                    {{ render_error(form.start_date) }}
+                                    {{ render_error(form.start_time) }} (UTC)
+                                </p>
+        
+                                <p class="mt-4">
+                                    {{ form.submit(class="btn btn-lg btn-info") }}
+                                </p>
+                            </form>
+            
+                        </p>
+                        
+                    </div>
+                </div>
             </div>
+        
+           
         </div>
+        
     </div>
-
-    <div class="col-12 col-md-6 mt-2 mt-md-0">
-        <div class="card bg-light text-dark bs-callout bs-callout-success" style="height: 500px; overflow-y: scroll;">
-            <div class="card-body">
-                <h5 class="card-title text-center">{{ _('Upcoming tournaments') }}</h5>
-                <hr>
-                <p class="card-text">
-                    {% if upcoming_tournaments %}
-                        {% for tournament in upcoming_tournaments %}
-                            <p class="slim">
-                                <a href="{{ url_for('tournament.details', hashid=tournament.hashid) }}">{{ tournament.name }}</a>
-                                | Start: {{ moment(tournament.start_timestamp).format('LLLL') }}
-                            </p>
-                        {% endfor %}
-                    {% else %}
-                        {{ _('There are no upcoming public tournaments at the moment.') }}
-                    {% endif %}
-                </p>               
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
-
 
 {% endblock %}
 
