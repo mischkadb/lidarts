@@ -6,14 +6,14 @@ from flask import jsonify, redirect, render_template, request, url_for
 from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from sqlalchemy import desc, func, or_
-from sqlalchemy.orm import aliased
+from sqlalchemy.orm import aliased, load_only
 
 from lidarts import db, socketio
 from lidarts.game.forms import GameChatmessageForm
 from lidarts.generic import bp
 from lidarts.generic.forms import ChatmessageForm, UserSearchForm
 from lidarts.models import (Chatmessage, CricketGame, Friendship,
-                            FriendshipRequest, Game, Notification,
+                            FriendshipRequest, Game, GameBase, Notification,
                             Privatemessage, SocketConnections, User,
                             UserSettings, UserStatistic, WebcamSettings)
 from lidarts.profile.utils import get_user_status
@@ -191,15 +191,16 @@ def chat():
     player1 = aliased(User)
     player2 = aliased(User)
     recent_results = (
-        Game.query
+        GameBase.query
+        .options(load_only('id', 'player1', 'player2', 'status', 'end'))
         .filter_by(status='completed')
-        .filter(Game.end != None)
-        .filter(Game.player2 != None)
-        .order_by(Game.end.desc())
+        .filter(GameBase.end != None)
+        .filter(GameBase.player2 != None)
+        .order_by(GameBase.end.desc())
         .limit(10)
         .from_self()
-        .join(player1, Game.player1 == player1.id).add_columns(player1.username)
-        .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
+        .join(player1, GameBase.player1 == player1.id).add_columns(player1.username)
+        .join(player2, GameBase.player2 == player2.id, isouter=True).add_columns(player2.username)
         .all()
     )
 
@@ -212,14 +213,14 @@ def chat():
             game.p2_final_score = game.p2_legs
 
     new_games = (
-        Game.query
+        GameBase.query
         .filter_by(status='started')
-        .filter(Game.player1 != Game.player2)
-        .order_by(Game.id.desc())
+        .filter(GameBase.player1 != GameBase.player2)
+        .order_by(GameBase.id.desc())
         .limit(10)
         .from_self()
-        .join(player1, Game.player1 == player1.id).add_columns(player1.username)
-        .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
+        .join(player1, GameBase.player1 == player1.id).add_columns(player1.username)
+        .join(player2, GameBase.player2 == player2.id, isouter=True).add_columns(player2.username)
         .all()
     )
 

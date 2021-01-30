@@ -7,7 +7,7 @@ from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from lidarts import db, socketio
 from lidarts.generic.forms import ChatmessageForm
-from lidarts.models import (Chatmessage, Game, StreamGame, Tournament, User,
+from lidarts.models import (Chatmessage, Game, GameBase, StreamGame, Tournament, User,
                             UserSettings, UserStatistic, WebcamSettings)
 from lidarts.tournament import bp
 from lidarts.tournament.forms import (ConfirmStreamGameForm,
@@ -121,14 +121,14 @@ def details(hashid):
     player1 = aliased(User)
     player2 = aliased(User)
     recent_results = (
-        Game.query
+        GameBase.query
         .filter_by(tournament=hashid)
         .filter_by(status='completed')
-        .order_by(Game.end.desc())
+        .order_by(GameBase.end.desc())
         .limit(10)
         .from_self()
-        .join(player1, Game.player1 == player1.id).add_columns(player1.username)
-        .join(player2, Game.player2 == player2.id, isouter=True).add_columns(player2.username)
+        .join(player1, GameBase.player1 == player1.id).add_columns(player1.username)
+        .join(player2, GameBase.player2 == player2.id, isouter=True).add_columns(player2.username)
         .all()
     )
 
