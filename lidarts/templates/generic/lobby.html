@@ -13,6 +13,16 @@
     </div>
 </div>
 
+{% if announcement %}
+<div class="row">
+    <div class="col-auto">
+        <div class="alert alert-info">
+                {{ announcement }}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <div class="row mb-3">
     <div class="col-12">
         <div class="card bg-light text-dark">

@@ -2,7 +2,7 @@ import time
 from collections import defaultdict
 from datetime import datetime, timedelta
 
-from flask import jsonify, redirect, render_template, request, url_for
+from flask import jsonify, redirect, render_template, request, url_for, current_app
 from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
 from sqlalchemy import desc, func, or_
@@ -165,10 +165,19 @@ def lobby():
     else:
         mobile_follower_mode = False
 
+    announcement = None
+    if 'ANNOUNCEMENT_FILE' in current_app.config:
+        try:
+            with open(current_app.config['ANNOUNCEMENT_FILE']) as announcement_file:
+                announcement = announcement_file.read()
+        except FileNotFoundError:
+            pass
+
     return render_template('generic/lobby.html', games_in_progress=games_in_progress, player_names=player_names,
                            friend_requests=friend_requests, online_friend_list=online_friend_list, form=form,
                            mobile_follower_mode=mobile_follower_mode,
-                           challenges=challenges, title=lazy_gettext('Lobby'))
+                           challenges=challenges, announcement=announcement,
+                           title=lazy_gettext('Lobby'))
 
 
 @bp.route('/chat', methods=['GET', 'POST'])
