@@ -2,7 +2,7 @@ alembic==0.9.9
 attrs==18.1.0
 Babel==2.8.0
 bcrypt==3.1.4
-bleach==3.1.4
+bleach==3.3.0
 blinker==1.4
 cffi==1.11.5
 Click==7.0
