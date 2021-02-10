@@ -1,4 +1,5 @@
-from flask import render_template, redirect, url_for, jsonify, request, flash
+from flask import render_template, redirect, url_for, jsonify, request, flash, current_app
+from flask.globals import current_app
 from flask_babelex import lazy_gettext, gettext
 from lidarts.game import bp
 from lidarts.game.forms import CreateCricketGameForm, CreateX01GameForm, ScoreForm, GameChatmessageForm, WebcamConsentForm
@@ -301,6 +302,11 @@ def start(hashid, theme=None):
 
     stream_consent = True
     channel_ids = [None, None]
+
+    jitsi_force_public_server = False
+    if 'JITSI_FORCE_PUBLIC_SERVER' in current_app.config:
+        jitsi_force_public_server = current_app.config['JITSI_FORCE_PUBLIC_SERVER']
+
     if game.webcam and current_user.is_authenticated and current_user.id in (game.player1, game.player2):
         # webcam base template
         template = 'webcam'
@@ -340,7 +346,8 @@ def start(hashid, theme=None):
                             messages=messages, user_names=user_names,
                             stream=theme, channel_ids=channel_ids,
                             settings=settings, webcam_settings=webcam_settings,
-                            stream_consent=stream_consent,
+                            stream_consent=stream_consent, 
+                            jitsi_force_public_server=jitsi_force_public_server,
                             )
 
 

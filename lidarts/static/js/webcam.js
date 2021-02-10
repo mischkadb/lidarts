@@ -1,7 +1,8 @@
 $(document).ready(function() {
     var hashid = $('#jitsi-settings').data()['hashid'];
     var public_server = $('#jitsi-settings').data()['public_server'];
-    if (public_server == 'True') {        
+    var force_public_server = $('#jitsi-settings').data()['force_public_server'];
+    if (public_server == 'True' || force_public_server == 'True') {        
         domain = 'meet.jit.si';
         public_server = true;
     } else {

@@ -14,6 +14,7 @@ setup(
         'bleach',
         'coverage',
         'Flask-BabelEx',
+        'Flask-CDN',
         'Flask-Login',
         'Flask-Mail',
         'Flask-Migrate',
