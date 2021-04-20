@@ -38,7 +38,7 @@ numpy==1.18.2
 passlib==1.7.1
 Pillow==7.1.1
 pluggy==0.13.1
-py==1.5.3
+py==1.10.0
 pycparser==2.18
 pytest==5.4.1
 python-dateutil==2.8.1
