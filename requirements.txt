@@ -35,7 +35,7 @@ monotonic==1.5
 more-itertools==4.1.0
 numpy==1.18.2
 passlib==1.7.1
-Pillow==7.1.1
+Pillow==8.1.1
 pluggy==0.13.1
 psycogreen==1.0.2
 psycopg2==2.8.4
