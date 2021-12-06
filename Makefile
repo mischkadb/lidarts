@@ -1,6 +1,3 @@
-basedir = /usr/local/proxyweb
-secret_key=$(shell cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
-
 lidarts-build:
 	docker build -t lidarts:latest .
 
