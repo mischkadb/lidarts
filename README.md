@@ -70,3 +70,23 @@ Usage
 -----
 
 Open `127.0.0.1:5000` in your browser. The index page should appear.
+
+
+Installation with Docker
+----
+
+Install [Docker](https://docs.docker.com/get-docker/) 
+
+Download the code, build and run the container:
+~~~
+git clone https://github.com/mischkadb/lidarts lidarts-dev
+cd lidarts-dev
+make lidarts-build
+make lidarts-run
+~~~
+
+Usage
+-----
+Open `127.0.0.1:5000` in your browser. The index page should appear.
+
+The port, number of workers etc can be configured in the docker/entry.sh
