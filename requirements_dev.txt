@@ -4,7 +4,7 @@ Babel==2.8.0
 bcrypt==3.1.4
 bleach==3.1.4
 blinker==1.4
-cffi==1.11.5
+cffi==1.15.0
 Click==7.0
 coverage==4.5.1
 cryptography==2.8
@@ -23,6 +23,7 @@ Flask-SocketIO==4.2.1
 Flask-SQLAlchemy==2.4.1
 -e git+git://github.com/maxcountryman/flask-uploads.git@f66d7dc93e684fa0a3a4350a38e41ae00483a796#egg=Flask-Uploads
 Flask-WTF==0.14.3
+flask_cdn==1.5.3
 gevent==1.4.0
 gevent-websocket==0.10.1
 greenlet==0.4.15
@@ -56,3 +57,4 @@ webencodings==0.5.1
 Werkzeug==1.0.0
 WTForms==2.1
 WTForms-Components==0.10.4
+
