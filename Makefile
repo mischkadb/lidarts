@@ -2,11 +2,11 @@ lidarts-build:
 	docker build -t lidarts:latest .
 
 lidarts-build-nocache:
-	docker build --no-cache -t lidarst:latest .
+	docker build --no-cache -t lidarts:latest .
 
 
 lidarts-run: 
-	docker run -h lidarst --name lidarts -p 5000:5000 -d lidarts:latest
+	docker run -h lidarts --name lidarts -p 5000:5000 -d lidarts:latest
 
 
 lidarts-destroy:
