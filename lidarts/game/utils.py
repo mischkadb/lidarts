@@ -176,6 +176,8 @@ def collect_statistics(game, match_json):
                     p1_first9_scores.append(score)
                 if score == 180:
                     stats['p1_180'] += 1
+                elif score >= 171:
+                    stats['p1_171'] += 1
                 elif score >= 140:
                     stats['p1_140'] += 1
                 elif score >= 100:
@@ -197,6 +199,8 @@ def collect_statistics(game, match_json):
                     p2_first9_scores.append(score)
                 if score == 180:
                     stats['p2_180'] += 1
+                elif score >= 171:
+                    stats['p2_171'] += 1
                 elif score >= 140:
                     stats['p2_140'] += 1
                 elif score >= 100:
