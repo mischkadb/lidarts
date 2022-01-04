@@ -30,7 +30,9 @@
                     <i class="fas fa-ban fa-stack-2x text-danger"></i>
                   </span>
                 {% endif %}
-
+                {% if game.webcam %}
+                | <div id="swap-camera" class="div-link">Swap camera</div>
+                {% endif %}
             </div>
         </div>
     </div>

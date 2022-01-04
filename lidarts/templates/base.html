@@ -29,6 +29,9 @@
     {{ moment.include_moment(no_js=True) }}
     {{ moment.lang(get_locale()) }}
 
+    {% block scripts_top %}
+    {% endblock %}
+
     {% block head %}
     {% endblock %}
 
@@ -57,6 +60,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.live_games_overview') }}">{{ _('Watch') }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('tournament.overview') }}">{{ _('Tournaments') }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.chat') }}">{{ _('Chat') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('game.camtest') }}">{{ _('Camtest') }}</a></li>
                 <!--<li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Statistics') }}</a></li>-->
                 {% endif %}
 

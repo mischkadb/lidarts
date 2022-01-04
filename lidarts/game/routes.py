@@ -17,6 +17,59 @@ from datetime import datetime
 import json
 import secrets
 from sqlalchemy import func
+import requests
+
+
+def create_janus_room(janus_room):
+    janus_url = 'https://janus1.lidarts.org:8089/janus'
+    transaction = secrets.token_urlsafe(10)
+    payload = {
+        'janus': 'create',
+        'transaction': transaction,
+    }
+    r = requests.post(janus_url, data=json.dumps(payload), verify=False)
+    r_json = r.json()
+    if r.status_code != '200' or 'data' not in r_json:
+        # raise error
+        pass
+
+    janus_session = r_json['data']['id']
+    payload = {
+        'janus': 'attach',
+        'transaction': transaction,
+        'plugin': 'janus.plugin.videoroom'
+    }
+    session_url = f'{janus_url}/{janus_session}'
+    r = requests.post(session_url, data=json.dumps(payload), verify=False)
+    r_json = r.json()
+    if r.status_code != '200' or 'data' not in r_json:
+        # raise error
+        pass
+
+    plugin_id = r_json['data']['id']
+    plugin_url = f'{session_url}/{plugin_id}'
+    payload = {
+        'janus': 'message',
+        'transaction': transaction,
+        'body': {
+            'request': 'create',
+            'room': janus_room,
+            'permanent': True,
+            'admin_key': 'supersecret',
+        },
+    }
+    r = requests.post(plugin_url, data=json.dumps(payload), verify=False)
+    print(r.json())
+
+
+@bp.route('/camtest')
+def camtest():
+    return render_template('game/camtest.html')
+
+
+@bp.route('/camtest2')
+def camtest2():
+    return render_template('game/camtest_nostart.html')
 
 
 @bp.route('/create', methods=['GET', 'POST'])
@@ -86,9 +139,12 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             else:
                 webcam_player2 = None
             jitsi_hashid = secrets.token_urlsafe(8)[:8]
+            janus_room = secrets.token_urlsafe(8)[:8]
+            create_janus_room(janus_room)
             webcam_player1 = WebcamSettings.query.filter_by(user=player1).first()
             jitsi_public_server = webcam_player1.jitsi_public_server or (webcam_player2 and webcam_player2.jitsi_public_server)
         else:
+            janus_room = None
             jitsi_hashid = None
             jitsi_public_server = False
 
@@ -112,6 +168,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 score_input_delay=form.score_input_delay.data,
                 webcam=form.webcam.data, jitsi_hashid=jitsi_hashid,
                 jitsi_public_server=jitsi_public_server,
+                janus_room=janus_room,
                 )
         elif mode == 'cricket':
             match_json = json.dumps(
@@ -134,6 +191,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 score_input_delay=form.score_input_delay.data,
                 webcam=form.webcam.data, jitsi_hashid=jitsi_hashid,
                 jitsi_public_server=jitsi_public_server,
+                janus_room=janus_room,
                 )
         else:
             pass
@@ -316,16 +374,11 @@ def start(hashid, theme=None):
         if game.webcam:
             p1_webcam_settings = WebcamSettings.query.filter_by(user=game.player1).first()
             p2_webcam_settings = WebcamSettings.query.filter_by(user=game.player2).first() if game.player2 else None
-            p1_user_settings = UserSettings.query.filter_by(user=game.player1).first()
-            p2_user_settings = UserSettings.query.filter_by(user=game.player2).first() if game.player2 else None
             if (
                 p1_webcam_settings.stream_consent and p2_webcam_settings and p2_webcam_settings.stream_consent
-                and (p1_user_settings.channel_id or p1_user_settings.channel_id)
             ):
                 # consent was given by both players, render watch page
                 template = 'watch_webcam'
-                channel_ids[0] = p1_user_settings.channel_id
-                channel_ids[1] = p2_user_settings.channel_id
             else:
                 # no consent for spectators
                 template = 'game'

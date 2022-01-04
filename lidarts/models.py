@@ -136,6 +136,7 @@ class GameBase(db.Model):
     webcam = db.Column(db.Boolean, default=False)
     jitsi_hashid = db.Column(db.String(10), unique=True)
     jitsi_public_server = db.Column(db.Boolean, default=False)
+    janus_room = db.Column(db.String(10), unique=True)
     tournament_stage_game_id = db.Column(db.Integer, default=None)
     tournament_stage_game_bracket_id = db.Column(db.Integer, default=None)
 

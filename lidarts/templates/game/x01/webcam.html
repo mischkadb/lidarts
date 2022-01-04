@@ -144,10 +144,25 @@
         {% include 'game/x01/statistics.html' %}
 
     </div>
+    <div class="col-7 d-none" style="height: 75vh;" id="videolocal"></div>
+    <div class="col-7" style="height: 75vh;" id="videoremote1"></div>
+</div>
 
-    <div class="col-7" style="height: 75vh;" id="meet" allow="microphone; camera">
-
-    </div>
+<div class="row d-none" id="devices">
+    <form class="form-inline">
+        <div class="form-group" style="margin-right: 20px;">
+            <label for="audio-device">Audio device (input):</label>
+            <select id="audio-device" class="form-control"></select>
+        </div>
+        <div class="form-group" style="margin-right: 20px;">
+            <label for="video-device">Video device (input):</label>
+            <select id="video-device" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <div id="change-devices" class="form-control btn btn-primary">Change devices</div>
+        </div>
+    </form>
+    <hr>
 </div>
 
 {% include 'game/modals.html' %}
@@ -162,21 +177,29 @@
 <meta id="user_id" data-id="{{ current_user.id }}">
 <meta id="player1_id" data-id="{{ game.player1 }}">
 <meta id="player2_id" data-id="{{ game.player2 }}">
+<meta id="username" data-name="{{ current_user.username }}">
 <meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
 <meta id="game_url" data-url="{{ url_for('game.start') }}">
 <meta id="caller" data-caller="{{ caller }}">
 <meta id="cpu_delay" data-cpu_delay="{{ cpu_delay }}">
 <meta id="score_input_delay" data-delay="{{ game.score_input_delay }}">
 <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
-<meta id="jitsi-settings" data-hashid="{{ game.jitsi_hashid }}" data-app="{{ webcam_settings.mobile_app }}" data-public_server="{{ game.jitsi_public_server }}">
+<meta id="janus-settings" data-room="{{ game.janus_room }}">
 <meta id="chat_validation_url" data-url="{{ url_for('generic.validate_game_chat_message') }}">
 
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.4.0/adapter.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/janus/janus.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/janus/janus_publisher.js') }}"></script>
 
 {% if current_user.id == game.player1 or current_user.id == game.player2 %}
 <script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_socket.js', version=config.VERSION) }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/game_chat_socket.js', version=config.VERSION) }}"></script>
-<script src='https://meet.jit.si/external_api.js'></script>
-<script type="text/javascript" src="{{ url_for('static',filename='js/webcam.js', version=config.VERSION) }}"></script>
+
 {% if current_user.webcam_settings and current_user.webcam_settings.mobile_follower_mode %}
 <script type="text/javascript" src="{{ url_for('static',filename='js/webcam_request_follow.js', version=config.VERSION) }}"></script>
 {% endif %}

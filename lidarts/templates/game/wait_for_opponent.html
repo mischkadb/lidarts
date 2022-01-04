@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block app_content %}
 
 <div class="row justify-content-center">
@@ -31,5 +30,14 @@
 <meta id="hash_id" data-hashid="{{ game.hashid }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
 
-<script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_waiting.js', version=config.VERSION) }}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.4.0/adapter.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" ></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<script type="text/javascript" src="janus.js" ></script>
+<script type="text/javascript" src="devicetest.js"></script>
+
 {% endblock %}
