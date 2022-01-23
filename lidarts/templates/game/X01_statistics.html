@@ -49,7 +49,7 @@
                 {%  for entry in range(0, countScores) %}
                 <div class="row align-items-center no-gutters">
                     <div class="col-sm-1 text-center d-none d-sm-block">
-                        <h2 style="color:red;">{{ leg_data_json['1']['double_missed'][entry] }}</h2>
+                        <h2 class="darts_on_doubles_count">{{ leg_data_json['1']['double_missed'][entry] }}</h2>
                     </div>
                     <div class="col-sm-2 text-center d-none d-sm-block">
                         <h1>{{ leg_data_json['1']['scores'][entry] }}</h1>
@@ -69,7 +69,7 @@
                         <h1>{{ leg_data_json['2']['scores'][entry] }}</h1>
                     </div>
                     <div class="col-sm-1 text-center d-none d-sm-block">
-                            <h2 style="color:red;">{{ leg_data_json['2']['double_missed'][entry] }}</h2>
+                        <h2 class="darts_on_doubles_count">{{ leg_data_json['2']['double_missed'][entry] }}</h2>
                     </div>
                 </div>
                 <br/>
