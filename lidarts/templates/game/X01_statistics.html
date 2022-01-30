@@ -47,16 +47,29 @@
                 {%      set countScores = countScoresPlayerTwo %}
                 {%  endif %}
                 {%  for entry in range(0, countScores) %}
-                <div class="row">
-
-                    <div class="col-sm-3 offset-sm-1 text-center"> 
+                <div class="row align-items-center no-gutters">
+                    <div class="col-sm-1 text-center d-none d-sm-block">
+                        <h2 class="darts_on_doubles_count">{{ leg_data_json['1']['double_missed'][entry] }}</h2>
+                    </div>
+                    <div class="col-sm-2 text-center d-none d-sm-block">
                         <h1>{{ leg_data_json['1']['scores'][entry] }}</h1>
                     </div>
-                    <div class="col-sm-4 text-center" >
-                        <h1><b>{{ entry + 1 }}</b></h1>
+                    <div class="col-sm-2 text-center"> 
+                        <h1>{{ leg_data_json['1']['remaining_scores'][entry] }}</h1>
                     </div>
-                    <div class="col-sm-3 text-center">
+                    <div class="col-sm-2 text-center" >
+                        {% if entry > 0 %}
+                        <h1><b>{{ (entry) * 3 }}</b></h1>
+                        {% endif  %}
+                    </div>
+                    <div class="col-sm-2 text-center"> 
+                        <h1>{{ leg_data_json['2']['remaining_scores'][entry] }}</h1>
+                    </div>
+                    <div class="col-sm-2 text-center d-none d-sm-block">
                         <h1>{{ leg_data_json['2']['scores'][entry] }}</h1>
+                    </div>
+                    <div class="col-sm-1 text-center d-none d-sm-block">
+                        <h2 class="darts_on_doubles_count">{{ leg_data_json['2']['double_missed'][entry] }}</h2>
                     </div>
                 </div>
                 <br/>

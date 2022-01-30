@@ -93,6 +93,10 @@ a.no-underline {
     background-color: #33aa44;
 }
 
+.darts_on_doubles_count {
+    color: red;
+}
+
 .status-online{
     color: #33dd33;
 }

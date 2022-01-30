@@ -1,4 +1,4 @@
-from flask import jsonify, current_app, redirect, url_for
+from flask import jsonify, current_app, redirect, url_for, request
 from flask_login import current_user, login_required
 from lidarts import db
 from lidarts.api import bp
@@ -6,10 +6,13 @@ from lidarts.models import Game, CricketGame, User, StreamGame, Tournament
 from lidarts.game.utils import collect_statistics
 import json
 from sqlalchemy.orm import aliased
+import dicttoxml
+from xml.dom.minidom import parseString
 
 
 @bp.route('/game/<hashid>')
 def start(hashid):
+    returnxml = request.args.get('returnxml', 0)
     player1 = aliased(User)
     player2 = aliased(User)
     game, p1_name, p2_name = (
@@ -47,7 +50,10 @@ def start(hashid):
 
     return_dict = {}
     for key in keys:
-        return_dict[key] = game_dict[key]
+        if key == 'match_json' and returnxml == '1':
+            return_dict[key] = match_json
+        else:
+            return_dict[key] = game_dict[key]
 
     for stat_key, stat in statistics.items():
         return_dict[stat_key] = stat
@@ -55,7 +61,12 @@ def start(hashid):
     return_dict['p1_name'] = p1_name
     return_dict['p2_name'] = p2_name
 
-    return jsonify(return_dict)
+    if returnxml == '1':
+        xml = dicttoxml.dicttoxml(return_dict)
+        dom = parseString(xml)
+        return dom.toprettyxml()
+    else:
+        return jsonify(return_dict)
 
 
 @bp.route('/<api_key>/game/stream-game/<hashid>')
