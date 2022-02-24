@@ -23,16 +23,16 @@
                 <h5>Scoring</h5>
             </div>
             <div class="card-body">
-                <ul class="nav nav-pills card-header-pills mb-2" id="scoreTab" role="tablist">
+                <ul class="nav nav-pills card-header-pills mb-2" id="{{ date_range }}-scoreTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="20s-tab" data-toggle="tab" href="#20s" role="tab" aria-controls="20s" aria-selected="true">20s</a>
+                        <a class="nav-link active" id="{{ date_range }}-20s-tab" data-toggle="tab" href="#{{ date_range }}-20s" role="tab" aria-controls="{{ date_range }}-20s" aria-selected="true">20s</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="19s-tab" data-toggle="tab" href="#19s" role="tab" aria-controls="19s" aria-selected="false">19s</a>
+                        <a class="nav-link" id="{{ date_range }}-19s-tab" data-toggle="tab" href="#{{ date_range }}-19s" role="tab" aria-controls="{{ date_range }}-19s" aria-selected="false">19s</a>
                     </li>
                   </ul>
-                  <div class="tab-content" id="scoreTabContent">
-                    <div class="tab-pane fade show active" id="20s" role="tabpanel" aria-labelledby="20s-tab">
+                  <div class="tab-content" id="{{ date_range }}-scoreTabContent">
+                    <div class="tab-pane fade show active" id="{{ date_range }}-20s" role="tabpanel" aria-labelledby="{{ date_range }}-20s-tab">
                         <p>180 <span class="float-right">{{ currentstats.scoring['ranges']['180']}} / {{ currentstats.scoring['percentages']['180'] }}%</span></p>
                         <p>140+<span class="float-right">{{ currentstats.scoring['ranges']['over_140']}} / {{ currentstats.scoring['percentages']['over_140']}}%</span></p>
                         <p>100+<span class="float-right">{{ currentstats.scoring['ranges']['over_100']}} / {{ currentstats.scoring['percentages']['over_100']}}%</span></p>
@@ -42,12 +42,12 @@
                         <p>20+<span class="float-right">{{ currentstats.scoring['ranges']['over_20']}} / {{ currentstats.scoring['percentages']['over_20']}}%</span></p>
                         <p>&lt; 20<span class="float-right">{{ currentstats.scoring['ranges']['under_20']}} / {{ currentstats.scoring['percentages']['under_20']}}%</span></p>
                     </div>
-                    <div class="tab-pane fade" id="19s" role="tabpanel" aria-labelledby="19s-tab">
+                    <div class="tab-pane fade" id="{{ date_range }}-19s" role="tabpanel" aria-labelledby="{{ date_range }}-19s-tab">
                         <p>180 <span class="float-right">{{ currentstats.scoring['ranges']['180']}} / {{ currentstats.scoring['percentages']['180'] }}%</span></p>
                         <p>171+<span class="float-right">{{ currentstats.scoring['ranges']['over_171']}} / {{ currentstats.scoring['percentages']['over_171']}}%</span></p>
                         <p>131+<span class="float-right">{{ currentstats.scoring['ranges']['over_131']}} / {{ currentstats.scoring['percentages']['over_131']}}%</span></p>
                         <p>91+<span class="float-right">{{ currentstats.scoring['ranges']['over_91']}} / {{ currentstats.scoring['percentages']['over_91']}}%</span></p>
-                        <p>60+<san class="float-right">{{ currentstats.scoring['ranges']['over_57']}} / {{ currentstats.scoring['percentages']['over_57']}}%</span></p>
+                        <p>57+<san class="float-right">{{ currentstats.scoring['ranges']['over_57']}} / {{ currentstats.scoring['percentages']['over_57']}}%</span></p>
                         <p>40+<span class="float-right">{{ currentstats.scoring['ranges']['over_40_19s']}} / {{ currentstats.scoring['percentages']['over_40_19s']}}%</span></p>
                         <p>20+<span class="float-right">{{ currentstats.scoring['ranges']['over_20']}} / {{ currentstats.scoring['percentages']['over_20']}}%</span></p>
                         <p>&lt; 20<span class="float-right">{{ currentstats.scoring['ranges']['under_20']}} / {{ currentstats.scoring['percentages']['under_20']}}%</span></p>
