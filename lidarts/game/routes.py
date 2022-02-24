@@ -95,11 +95,16 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
 
         tournament = form.tournament.data if form.tournament.data != '-' else None
 
+        try:
+            player2_id = player2.id
+        except AttributeError:
+            player2_id = player2
+
         if mode == 'x01':
             match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
                                          2: {'scores': [], 'double_missed': []}}}})
             game = Game(
-                player1=player1, player2=player2, type=form.type.data,
+                player1=player1, player2=player2_id, type=form.type.data,
                 variant='x01',
                 bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
                 two_clear_legs=form.two_clear_legs.data,
@@ -123,7 +128,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 },
             )
             game = CricketGame(
-                player1=player1, player2=player2, variant='cricket',
+                player1=player1, player2=player2_id, variant='cricket',
                 bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
                 two_clear_legs=form.two_clear_legs.data,
                 p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
