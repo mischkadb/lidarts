@@ -2,19 +2,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-07 13:58+0200\n"
-"PO-Revision-Date: 2020-05-07 12:38\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2022-02-24 13:59+0100\n"
+"PO-Revision-Date: 2022-02-24 13:07\n"
+"Last-Translator: \n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
+"X-Crowdin-Project-ID: 8\n"
 "X-Crowdin-Language: de\n"
 "X-Crowdin-File: messages.pot\n"
+"X-Crowdin-File-ID: 36\n"
 "Language: de_DE\n"
+
+#: admin/routes.py:73 tournament/routes.py:248
+msgid "Game selected as stream game."
+msgstr "Spiel als Streamspiel ausgewählt."
+
+#: admin/routes.py:80 templates/admin/stream.html:11
+msgid "Streaming"
+msgstr "Streaming"
 
 #: auth/forms.py:21
 msgid "Password must have at least 8 characters"
@@ -114,7 +124,7 @@ msgstr "Best of Legs"
 
 #: game/forms.py:39
 msgid "Two Clear Legs"
-msgstr "Two Clear Legs"
+msgstr "2 Sätze Abstand"
 
 #: game/forms.py:40
 msgid "First to throw"
@@ -135,7 +145,7 @@ msgstr "Herausforderung öffentlich"
 #: game/forms.py:45 templates/game/cricket/completed.html:149
 #: templates/game/x01/completed.html:151
 #: templates/game/x01/scoreboard_normal.html:37
-#: templates/profile/game_history.html:30 templates/profile/overview.html:72
+#: templates/profile/game_history.html:38 templates/profile/overview.html:82
 msgid "Webcam game"
 msgstr "Webcam-Spiel"
 
@@ -184,44 +194,44 @@ msgstr "(Optional) Ich erlaube meinen Gegnern unser Spiel, inklusive meinem Bild
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: game/routes.py:49
+#: game/routes.py:50
 msgid "Public challenges must be created without an opponent name."
 msgstr "Öffentliche Herausforderungen müssen ohne Gegnernamen erstellt werden."
 
-#: game/routes.py:51 game/routes.py:64 game/routes.py:85 game/routes.py:159
+#: game/routes.py:52 game/routes.py:65 game/routes.py:86 game/routes.py:171
 #: templates/game/create_game.html:9
 msgid "Create Game"
 msgstr "Spiel erstellen"
 
-#: game/routes.py:62
+#: game/routes.py:63
 msgid "Player does not allow challenges"
 msgstr "Spieler lässt keine Herausforderungen zu"
 
-#: game/routes.py:66
+#: game/routes.py:67
 msgid "New challenge"
 msgstr "Neue Herausforderung"
 
-#: game/routes.py:83
+#: game/routes.py:84
 msgid "Player 2 does not have webcam games enabled."
 msgstr "Spieler 2 hat Webcamspiele nicht aktiviert."
 
-#: game/routes.py:216 game/routes.py:224
+#: game/routes.py:226 game/routes.py:234
 msgid "Waiting..."
 msgstr "Warte..."
 
-#: game/routes.py:257
+#: game/routes.py:267
 msgid "Match overview"
 msgstr "Spielübersicht"
 
-#: game/routes.py:294
+#: game/routes.py:304
 msgid "Stream overlay"
 msgstr "Stream overlay"
 
-#: game/routes.py:296
+#: game/routes.py:306
 msgid "Live Match"
 msgstr "Livespiel"
 
-#: game/utils.py:11 generic/routes.py:80
+#: game/utils.py:11 generic/routes.py:81
 msgid "Local Guest"
 msgstr "Lokaler Gast"
 
@@ -237,22 +247,22 @@ msgstr "Benutzer suchen"
 msgid "Search"
 msgstr "Suchen"
 
-#: generic/routes.py:95
+#: generic/routes.py:96
 msgid "Live Games"
 msgstr "Live Spiele"
 
-#: generic/routes.py:167 templates/base.html:54
+#: generic/routes.py:180 templates/base.html:55
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:234 templates/base.html:58
+#: generic/routes.py:251 templates/base.html:59
 #: templates/game/cricket/stream_overlay.html:136
 #: templates/game/x01/game.html:98 templates/game/x01/stream_overlay.html:107
 #: templates/game/x01/webcam.html:111
 msgid "Chat"
 msgstr "Chat"
 
-#: generic/routes.py:297
+#: generic/routes.py:314
 msgid "Private Messages"
 msgstr "Private Nachrichten"
 
@@ -269,8 +279,8 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #: profile/forms.py:13 profile/forms.py:18 profile/forms.py:23
-#: profile/forms.py:63 profile/forms.py:75 profile/forms.py:109
-#: profile/forms.py:114
+#: profile/forms.py:63 profile/forms.py:75 profile/forms.py:111
+#: profile/forms.py:116
 msgid "Save"
 msgstr "Speichern"
 
@@ -330,77 +340,98 @@ msgstr "Folge-Modus für mobile Geräte"
 msgid "Show only scoreboard on main device"
 msgstr "Zeige nur Scoreboard auf Hauptgerät"
 
-#: profile/forms.py:113
+#: profile/forms.py:109
+msgid "Use public Jitsi server"
+msgstr "Öffentlichen Jitsi-Server verwenden"
+
+#: profile/forms.py:115
 msgid "Channel ID"
 msgstr "Kanal-ID"
 
-#: profile/routes.py:47
+#: profile/forms.py:120
+msgid "Enter Password"
+msgstr "Passwort eingeben"
+
+#: profile/forms.py:121
+msgid "Close account permanently"
+msgstr "Account dauerhaft schließen"
+
+#: profile/routes.py:51
 msgid "Match History"
 msgstr "Spielverlauf"
 
-#: profile/routes.py:128 templates/base.html:101
+#: profile/routes.py:132 templates/base.html:102
 msgid "Profile"
 msgstr "Profil"
 
-#: profile/routes.py:144
+#: profile/routes.py:148
 msgid "Profile text saved."
 msgstr "Profiltext gespeichert."
 
-#: profile/routes.py:199
+#: profile/routes.py:206
 msgid "Manage Friend List"
 msgstr "Freundesliste verwalten"
 
-#: profile/routes.py:211
+#: profile/routes.py:218
 msgid "Avatar deleted."
 msgstr "Avatar gelöscht."
 
-#: profile/routes.py:223
+#: profile/routes.py:230
 msgid "No selected file"
 msgstr "Keine Datei ausgewählt"
 
-#: profile/routes.py:229
+#: profile/routes.py:236
 msgid "Wrong image format."
 msgstr "Falsches Bildformat."
 
-#: profile/routes.py:238
+#: profile/routes.py:245
 msgid "Avatar saved."
 msgstr "Avatar gespeichert."
 
-#: profile/routes.py:243
+#: profile/routes.py:250
 msgid "Avatar Settings"
 msgstr "Avatar einstellen"
 
-#: profile/routes.py:264 profile/routes.py:295 profile/routes.py:308
-#: profile/routes.py:335 profile/routes.py:355
+#: profile/routes.py:271 profile/routes.py:302 profile/routes.py:315
+#: profile/routes.py:343 profile/routes.py:364
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: profile/routes.py:266
+#: profile/routes.py:273
 msgid "Caller Settings"
 msgstr "Caller einstellen"
 
-#: profile/routes.py:277
+#: profile/routes.py:284
 msgid "Trainer Delay"
 msgstr "Trainerverzögerung einstellen"
 
-#: profile/routes.py:302
+#: profile/routes.py:309
 msgid "You can only change your country setting once per month. You need to wait until: "
 msgstr "Du kannst deine Ländereinstellung nur einmal pro Monat ändern. Bitte warte bis: "
 
-#: profile/routes.py:303 profile/routes.py:319
+#: profile/routes.py:310 profile/routes.py:326
 #: templates/profile/general_settings.html:13 templates/profile/settings.html:5
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
 
-#: profile/routes.py:343 templates/profile/settings.html:7
+#: profile/routes.py:352 templates/profile/settings.html:7
 #: templates/profile/webcam_settings.html:13
 msgid "Webcam settings"
 msgstr "Webcam-Einstellungen"
 
-#: profile/routes.py:359 templates/profile/livestream_settings.html:13
+#: profile/routes.py:368 templates/profile/livestream_settings.html:13
 #: templates/profile/settings.html:8
 msgid "Livestream settings"
 msgstr "Livestream-Einstellungen"
+
+#: profile/routes.py:394
+msgid "Wrong password"
+msgstr "Falsches Passwort"
+
+#: profile/routes.py:396 templates/profile/close_account.html:13
+#: templates/profile/settings.html:19
+msgid "Close account"
+msgstr "Account schließen"
 
 #: statistics/forms.py:9 statistics/forms.py:12
 msgid "All"
@@ -430,96 +461,113 @@ msgstr "Filter"
 msgid "Apply"
 msgstr "Übernehmen"
 
-#: templates/base.html:50
+#: templates/base.html:51
 msgid "Home"
 msgstr "Startseite"
 
-#: templates/base.html:51 templates/base.html:56 templates/generic/chat.html:44
+#: templates/base.html:52 templates/base.html:57 templates/generic/chat.html:44
 msgid "Watch"
 msgstr "Zuschauen"
 
-#: templates/base.html:52 templates/base.html:59
+#: templates/base.html:53 templates/base.html:60
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/base.html:55 templates/generic/lobby.html:31
+#: templates/base.html:56 templates/generic/lobby.html:41
 msgid "Play"
 msgstr "Spielen"
 
-#: templates/base.html:57 tournament/routes.py:83
+#: templates/base.html:58 tournament/routes.py:87
 msgid "Tournaments"
 msgstr "Turniere"
 
-#: templates/base.html:74
+#: templates/base.html:75
 msgid "No new notifications"
 msgstr "Keine neuen Benachrichtigungen"
 
-#: templates/base.html:83 templates/security/login_user.html:9
+#: templates/base.html:84 templates/security/login_user.html:9
 #: templates/security/login_user.html:18
 #: templates/security/register_user.html:29
 msgid "Sign In"
 msgstr "Einloggen"
 
-#: templates/base.html:84 templates/security/register_user.html:10
+#: templates/base.html:85 templates/security/register_user.html:10
 #: templates/security/register_user.html:22
 msgid "Register"
 msgstr "Registrieren"
 
-#: templates/base.html:87
+#: templates/base.html:88
 msgid "Inbox"
 msgstr "Posteingang"
 
-#: templates/base.html:93
+#: templates/base.html:94
 msgid "Status"
 msgstr "Status"
 
-#: templates/base.html:96
+#: templates/base.html:97
 msgid "Looking for Game"
 msgstr "Suche nach Spiel"
 
-#: templates/base.html:97
+#: templates/base.html:98
 msgid "Busy"
 msgstr "Beschäftigt"
 
-#: templates/base.html:102
+#: templates/base.html:103
 msgid "Logout"
 msgstr "Abmelden"
 
-#: templates/base.html:135
+#: templates/base.html:136
 msgid "About"
 msgstr "Über"
 
-#: templates/base.html:136 templates/generic/contact.html:10
+#: templates/base.html:137 templates/generic/contact.html:10
 msgid "Contact"
 msgstr "Kontakt"
 
-#: templates/base.html:137
+#: templates/base.html:138
 msgid "FAQ"
 msgstr "FAQ"
 
-#: templates/base.html:138
+#: templates/base.html:139
 msgid "Contribute"
 msgstr "Mitmachen"
 
-#: templates/base.html:139
+#: templates/base.html:140
 msgid "Changelog"
 msgstr "Changelog"
 
-#: templates/base.html:140
+#: templates/base.html:141
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: templates/base.html:141
+#: templates/base.html:142
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: templates/base.html:142
+#: templates/base.html:143
 msgid "Terms & Conditions"
 msgstr "AGB"
 
-#: templates/base.html:144
+#: templates/base.html:145
 msgid "Legal notice"
 msgstr "Impressum"
+
+#: templates/admin/stream.html:14 templates/tournament/stream.html:28
+msgid "Game score URL:"
+msgstr "Spiel-Score URL:"
+
+#: templates/admin/stream.html:19 templates/tournament/stream.html:33
+msgid "Jitsi URL:"
+msgstr "Jitsi URL:"
+
+#: templates/admin/stream.html:29 templates/tournament/stream.html:43
+#: tournament/forms.py:42
+msgid "Streamable games"
+msgstr "Spiele zum Streamen"
+
+#: templates/admin/stream.html:46 templates/tournament/stream.html:60
+msgid "Currently no streamable games."
+msgstr "Derzeit keine Spiele zum Streamen."
 
 #: templates/game/create_game.html:16
 msgid "Game Mode"
@@ -805,7 +853,7 @@ msgstr "Revanche annehmen"
 #: templates/game/x01/game.html:164 templates/game/x01/stream_overlay.html:77
 #: templates/game/x01/stream_overlay.html:174 templates/game/x01/webcam.html:84
 msgid "Rematch offer sent"
-msgstr "Revangeangebot gesendet"
+msgstr "Revanche gesendet"
 
 #: templates/game/cricket/game.html:142 templates/game/cricket/game.html:164
 #: templates/game/cricket/stream_overlay.html:109
@@ -846,12 +894,12 @@ msgid "Keypad"
 msgstr "Tastatur"
 
 #: templates/game/x01/completed.html:180
-#: templates/statistics/x01_detail_element.html:42
+#: templates/statistics/x01_detail_element.html:66
 msgid "Highest Finish"
 msgstr "Höchstes Finish"
 
 #: templates/game/x01/completed.html:186
-#: templates/statistics/x01_detail_element.html:14
+#: templates/statistics/x01_detail_element.html:15
 msgid "Shortest Leg"
 msgstr "Kürzestes Leg"
 
@@ -919,7 +967,7 @@ msgstr "DartCall 2007 Callerpaket wurde erstellt von Horst Girtew."
 msgid "Sound effects obtained from"
 msgstr "Soundeffekte erhalten von"
 
-#: templates/generic/chat.html:18 templates/generic/lobby.html:54
+#: templates/generic/chat.html:18 templates/generic/lobby.html:64
 msgid "Public challenges"
 msgstr "Öffentliche Herausforderungen"
 
@@ -1292,60 +1340,60 @@ msgstr "Jetzt registrieren"
 msgid "Welcome back"
 msgstr "Willkommen zurück"
 
-#: templates/generic/lobby.html:20
+#: templates/generic/lobby.html:30
 msgid "New on Lidarts:"
 msgstr "Neu auf Lidarts:"
 
-#: templates/generic/lobby.html:20
+#: templates/generic/lobby.html:30
 msgid "Cricket"
 msgstr "Cricket"
 
-#: templates/generic/lobby.html:20 templates/generic/webcam_tutorial_en.html:10
+#: templates/generic/lobby.html:30 templates/generic/webcam_tutorial_en.html:10
 #: templates/profile/webcam_settings.html:15
 msgid "Webcam tutorial"
 msgstr "Webcam-Anleitung"
 
-#: templates/generic/lobby.html:20
+#: templates/generic/lobby.html:30
 msgid "Help translating Lidarts"
 msgstr "Hilf aus, um Lidarts zu übersetzen"
 
-#: templates/generic/lobby.html:36
+#: templates/generic/lobby.html:46
 msgid "Create a game"
 msgstr "Spiel erstellen"
 
-#: templates/generic/lobby.html:47
+#: templates/generic/lobby.html:57
 msgid "Webcam follow page"
 msgstr "Webcam-Folgeseite"
 
-#: templates/generic/lobby.html:55
+#: templates/generic/lobby.html:65
 msgid "Click to accept and play"
 msgstr "Klicken, um anzunehmen und zu spielen"
 
-#: templates/generic/lobby.html:63
+#: templates/generic/lobby.html:73
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: templates/generic/lobby.html:67
+#: templates/generic/lobby.html:77
 msgid "Challenges:"
 msgstr "Herausforderungen:"
 
-#: templates/generic/lobby.html:80
+#: templates/generic/lobby.html:90
 msgid "Games in progress:"
 msgstr "Laufende Spiele:"
 
-#: templates/generic/lobby.html:82
+#: templates/generic/lobby.html:95
 msgid "local guest"
 msgstr "lokaler Gast"
 
-#: templates/generic/lobby.html:93
+#: templates/generic/lobby.html:106
 msgid "New friend requests"
 msgstr "Neue Freundschaftsanfragen"
 
-#: templates/generic/lobby.html:110
+#: templates/generic/lobby.html:123
 msgid "Friends online"
 msgstr "Freunde online"
 
-#: templates/generic/lobby.html:112
+#: templates/generic/lobby.html:125
 msgid "None"
 msgstr "Keine"
 
@@ -1355,159 +1403,160 @@ msgstr "Es gibt gerade keine Livespiele."
 
 #: templates/generic/webcam_tutorial_en.html:14
 msgid "In order to play with a webcam you need a modern browser (Chrome or Firefox, latest version) and a camera. We highly recommend a USB-webcam, but a smartphone will likely also work."
-msgstr ""
+msgstr "Zum Spielen mit einer Webcam benötigen Sie einen modernen Browser (Chrome oder Firefox, neueste Version) und eine Kamera. Wir empfehlen dringend eine USB-Webcam, aber ein Smartphone funktioniert wahrscheinlich auch."
 
 #: templates/generic/webcam_tutorial_en.html:16
 msgid "First you need to confirm our webcam service notice. Open your profile:"
-msgstr ""
+msgstr "Als Erstes müssen Sie unseren Webcam-Service-Hinweis bestätigen. Öffnen Sie Ihr Profil:"
 
 #: templates/generic/webcam_tutorial_en.html:18
 msgid "Open the preferences:"
-msgstr ""
+msgstr "Einstellungen öffnen:"
 
 #: templates/generic/webcam_tutorial_en.html:20
 msgid "Now open the webcam activation page:"
-msgstr ""
+msgstr "Öffnen Sie nun die Seite für die Aktivierung der Webcam:"
 
 #: templates/generic/webcam_tutorial_en.html:22
 msgid "Read the text, activate the checkbox and confirm:"
-msgstr ""
+msgstr "Lesen Sie den Text, klicken Sie das Kontrollkästchen und bestätigen Sie:"
 
 #: templates/generic/webcam_tutorial_en.html:24
 msgid "You can now start webcam games and receive webcam game challenges! The next step depends on your camera device."
-msgstr ""
+msgstr "Jetzt können Sie eigene Webcam-Spiele starten und Herausforderungen erhalten! Der nächste Schritt hängt von Ihrer Webcam ab."
 
 #: templates/generic/webcam_tutorial_en.html:26
 msgid "USB webcam"
-msgstr ""
+msgstr "USB Webcam"
 
 #: templates/generic/webcam_tutorial_en.html:27
 msgid "Connect your USB webcam to your computer. If your computer does not recognize the webcam install the appropiate driver from the webcam manufacturer."
-msgstr ""
+msgstr "Verbinden Sie die Webcam mit Ihrem Computer. Sollte Ihr Computer die Webcam nicht erkennen, sollten Sie den geeigneten Treiber für die Webcam installieren."
 
 #: templates/generic/webcam_tutorial_en.html:28
 msgid "To test the camera image we will create a local game without an opponent. Click on \"Play\":"
-msgstr ""
+msgstr "Um das Kamerabild zu testen werden wir ein lokales Spiel, ohne Gegner, erstellen. Klicken Sie auf \"Spielen\":"
 
 #: templates/generic/webcam_tutorial_en.html:30
 msgid "Now set up a local webcam game and start:"
-msgstr ""
+msgstr "Richte jetzt ein lokales Webcam-Spiel ein und starte:"
 
 #: templates/generic/webcam_tutorial_en.html:32
 msgid "At the first time your browser will ask for webcam and microphone permission. Click on allow:"
-msgstr ""
+msgstr "Beim ersten Mal fragt Ihr Browser nach Webcam und Mikrofonberechtigungen. Klicken Sie auf erlauben:"
 
 #: templates/generic/webcam_tutorial_en.html:34
 msgid "You are done! The webcam screen on the right should now show your own webcam video. You can now play against real opponents and they will see your board."
-msgstr ""
+msgstr "Geschafft! Der Webcam-Bildschirm auf der rechten Seite sollte nun dein eigenes Webcam-Video anzeigen. Du kannst jetzt gegen echte Gegner spielen und sie werden dein Board sehen."
 
 #: templates/generic/webcam_tutorial_en.html:35
 msgid "The preview image is flipped by default, but your opponent will see it correctly. You can flip your local image by right clicking on the small preview screen and pressing \"flip\":"
-msgstr ""
+msgstr "Das Vorschaubild ist standardmäßig gespiegelt, aber dein Gegner sieht es korrekt. Du kannst die Anzeige für dich selber ändern, indem du auf den Vorschaubildschirm mit rechter Maustaste klickst, und dann \"flip\" auswählst:"
 
 #: templates/generic/webcam_tutorial_en.html:37
 msgid "If you have multiple cameras installed (e.g. on a laptop with built-in camera) you can select the correct camera in the Jitsi settings:"
-msgstr ""
+msgstr "Wenn du mehrere Kameras installiert hast (z.B. an einem Laptop mit mehreren eingebauten Kameras), kannst du die richtige Kamera in den Jitsi Einstellungen auswählen:"
 
 #: templates/generic/webcam_tutorial_en.html:41
 msgid "Smartphone as webcam"
-msgstr ""
+msgstr "Smartphone als Webcam"
 
 #: templates/generic/webcam_tutorial_en.html:42
 msgid "There are a couple of options to play with a smartphone as webcam. Try them to find out which method works best for you."
-msgstr ""
+msgstr "Es gibt mehrere Möglichkeiten das Smartphone als Webcam zu benutzen. Probiere sie aus um die Methode zu finden, die am besten für dich funktioniert."
 
 #: templates/generic/webcam_tutorial_en.html:45
 msgid "It's possible for your computer to detect your smartphone as a webcam. You will need a program like"
-msgstr ""
+msgstr "Es ist möglich, dass Ihr Computer Ihr Smartphone als Webcam erkennt. Sie benötigen ein Programm wie"
 
 #: templates/generic/webcam_tutorial_en.html:46
 msgid "Download the mobile app and the desktop client and install both."
-msgstr ""
+msgstr "Laden Sie die mobile App und den Desktop-Client herunter und installieren Sie beide."
 
 #: templates/generic/webcam_tutorial_en.html:47
 msgid "Start the mobile app first. You will see the \"Wifi IP\" on your device. You will need this in the next step."
-msgstr ""
+msgstr "Starten Sie zuerst die mobile App. Sie werden die \"Wifi IP\" auf Ihrem Gerät sehen. Sie werden dies im nächsten Schritt benötigen."
 
 #: templates/generic/webcam_tutorial_en.html:48
 msgid "Start the Droidcam client application on your computer and enter the \"Wifi IP\" from your smartphone. Press start."
-msgstr ""
+msgstr "Starten Sie die Droidcam-Client-Anwendung auf Ihrem Computer und geben Sie die \"Wifi IP\" von Ihrem Smartphone ein. Drücken Sie Start."
 
 #: templates/generic/webcam_tutorial_en.html:50
 msgid "Your computer should now recognize your smartphone as a webcam device. You can now proceed to the camera test in the USB webcam section above."
-msgstr ""
+msgstr "Ihr Computer sollte nun Ihr Smartphone als Webcam-Gerät erkennen. Sie können nun mit dem Kamera-Test im USB-Webcam Abschnitt fortfahren."
 
 #: templates/generic/webcam_tutorial_en.html:52
 msgid "Follow Mode on Lidarts"
-msgstr ""
+msgstr "Folgen-Modus auf Lidarts"
 
 #: templates/generic/webcam_tutorial_en.html:53
 msgid "There's a chance you do not need to install any additional app at all. Enable the follow mode which you can find in the webcam settings."
-msgstr ""
+msgstr "Es besteht die Chance, dass sie keine zusätzliche App herunterladen müssen. Aktivieren sie den \"Folgen-Modus\", den Sie in den Webcam-Einstellungen finden."
 
 #: templates/generic/webcam_tutorial_en.html:55
 msgid "On your camera device (smartphone):"
-msgstr ""
+msgstr "Auf Ihrem Kamera-Gerät (Smartphone):"
 
 #: templates/generic/webcam_tutorial_en.html:55
 msgid "Open the follow page in the lobby and stay there."
-msgstr ""
+msgstr "Öffnen Sie die folgende Seite in der Lobby und bleiben Sie dort."
 
 #: templates/generic/webcam_tutorial_en.html:57
 msgid "On your computer:"
-msgstr ""
+msgstr "Auf Ihrem Computer:"
 
 #: templates/generic/webcam_tutorial_en.html:57
 msgid "Create a local webcam game as shown in the \"USB webcam\" section."
-msgstr ""
+msgstr "Erstelle ein lokales Webcam-Spiel, wie es im Abschnitt \"USB Webcam\" gezeigt wird."
 
 #: templates/generic/webcam_tutorial_en.html:58
 msgid "Once you are in the game click on \"Summon webcam\" in the menu."
-msgstr ""
+msgstr "Sobald Sie in dem Spiel sind, klicken Sie auf \"Webcam Laden\" in dem Menü."
 
 #: templates/generic/webcam_tutorial_en.html:60
 msgid "Check your smartphone. It should now reload the page automatically and ask for camera and microphone permissions. Press accept."
-msgstr ""
+msgstr "Überprüfen Sie Ihr Smartphone. Es sollte jetzt eine Seite automatisch neu laden und nach den Kamera- und Mikrofon-\n"
+"Berechtigung fragen. Drücken Sie akzeptieren."
 
 #: templates/generic/webcam_tutorial_en.html:61
 msgid "That's it! As long as your smartphone is on the \"Webcam follow page\" you can summon it in your games with one click."
-msgstr ""
+msgstr "Das war's! So lange ihr Smartphone auf der \"Webcam-folgen-Seite\" ist, können Sie es in Ihrem Spiel mit einem Klick laden."
 
 #: templates/generic/webcam_tutorial_en.html:62
 msgid "There is an issue on Android smartphones with the camera selection. By default the front camera is activated. You can try to switch it in the Jitsi settings:"
-msgstr ""
+msgstr "Es gibt ein Problem auf Android Smartphones mit der Kameraauswahl. Standardmäßig ist die Frontkamera aktiviert. Sie können versuchen, sie in den Jitsi-Einstellungen zu wechseln:"
 
 #: templates/generic/webcam_tutorial_en.html:65
 msgid "If you get a permission error upon switching to the back camera, try to reload the page. After a reload the correct camera was selected in our tests."
-msgstr ""
+msgstr "Wenn Sie einen Berechtigungsfehler beim Wechsel zur Kamera erhalten, versuchen Sie die Seite neu zu laden. Nach einem Neu laden wird die richtige Kamera für unseren Test ausgewählt."
 
 #: templates/generic/webcam_tutorial_en.html:67
 msgid "Jitsi Meet app"
-msgstr ""
+msgstr "Jitsi Meet App"
 
 #: templates/generic/webcam_tutorial_en.html:68
 msgid "If you tried the previous section, but the camera does not work, you can try the official free Jitsi Meet app. Download and install it from the Play/App store."
-msgstr ""
+msgstr "Wenn du im vorherigen Abschnitt die Kamera nicht zum Laufen bekommen hast, versuche es mit der kostenlosen Jitsi Meet App. Diese kann über den Play/App Store heruntergeladen und installiert werden."
 
 #: templates/generic/webcam_tutorial_en.html:69
 msgid "Activate the mobile app setting in the webcam settings:"
-msgstr ""
+msgstr "Aktivieren sie die Mobile App Einstellung in den Webcam-Einstellungen:"
 
 #: templates/generic/webcam_tutorial_en.html:73
 msgid "Tablet + smartphone"
-msgstr ""
+msgstr "Tablet + Smartphone"
 
 #: templates/generic/webcam_tutorial_en.html:74
 msgid "If you want to use a combination of a tablet for scoring and a smartphone as a camera there is an option to get the scoreboard only on your tablet."
-msgstr ""
+msgstr "Wenn sie eine Kombination aus einem Tablet zum Scoring und einem Smartphone als Kamera verwenden möchten, gibt es eine Option, um das Scoreboard nur auf Ihrem Tablet zu bekommen."
 
 #: templates/generic/webcam_tutorial_en.html:75
 msgid "Open the webcam settings and enable both follow mode and the scoreboard-only option:"
-msgstr ""
+msgstr "Öffnen Sie die Webcam-Einstellungen und aktivieren Sie sowohl den folgenden Modus als auch die Option \"Anzeiger\":"
 
 #: templates/generic/webcam_tutorial_en.html:77
 msgid "Now repeat the steps from the \"Follow Mode\" section. On your tablet you will only see the scoreboard without the video."
-msgstr ""
+msgstr "Jetzt wiederholen Sie die Schritte aus dem \"Folgen Modus\"-Abschnitt. Auf Ihrem Tablet sehen Sie nur das Scoreboard ohne das Video."
 
 #: templates/profile/change_avatar.html:17
 msgid "Delete"
@@ -1533,6 +1582,14 @@ msgstr "Verzögerung des Trainers (in Sekunden)"
 msgid "Note: There is a base delay of ~3 seconds. The custom delay will be added to this."
 msgstr "Hinweis: Es gibt eine Grundverzögerung von ~3 Sekunden. Die benutzerdefinierte Verzögerung wird hinzuaddiert."
 
+#: templates/profile/close_account.html:15
+msgid "Closing your account is a permanent decision."
+msgstr "Das Konto zu schließen ist eine dauerhafte Entscheidung."
+
+#: templates/profile/close_account.html:15
+msgid "You will not be able to use your account again."
+msgstr "Du wirst deinen Account nicht weiterverwenden können."
+
 #: templates/profile/edit_profile.html:13
 msgid "Change profile text"
 msgstr "Profiltext ändern"
@@ -1545,11 +1602,11 @@ msgstr "Schreib etwas über dich, deine Interessen, Social Media etc."
 msgid "Game history of"
 msgstr "Spielverlauf von"
 
-#: templates/profile/game_history.html:46
+#: templates/profile/game_history.html:54
 msgid "Previous"
 msgstr "Zurück"
 
-#: templates/profile/game_history.html:54
+#: templates/profile/game_history.html:62
 msgid "Next"
 msgstr "Weiter"
 
@@ -1625,32 +1682,32 @@ msgstr "hat noch keinen Profiltext angegeben."
 msgid "Recent games"
 msgstr "Neueste Spiele"
 
-#: templates/profile/overview.html:76
+#: templates/profile/overview.html:86
 msgid "Full match list"
 msgstr "Vollständige Spielliste"
 
-#: templates/profile/overview.html:86
+#: templates/profile/overview.html:96
 msgid "Recent statistics (501 SI/DO)"
 msgstr "Aktuelle Statistiken (501 SI/DO)"
 
-#: templates/profile/overview.html:88
+#: templates/profile/overview.html:98
 msgid "Number of games:"
 msgstr "Anzahl Spiele:"
 
-#: templates/profile/overview.html:89
+#: templates/profile/overview.html:99
 #: templates/statistics/x01_overview_element.html:7
 msgid "Darts thrown:"
 msgstr "Darts geworfen:"
 
-#: templates/profile/overview.html:93
+#: templates/profile/overview.html:103
 msgid "Detailed statistics"
 msgstr "Ausführliche Statistiken"
 
-#: templates/profile/overview.html:100
+#: templates/profile/overview.html:110
 msgid "Winrates (501 SI/DO)"
 msgstr "Siegquote (501 SI/DO)"
 
-#: templates/profile/overview.html:101
+#: templates/profile/overview.html:111
 msgid "(grouped by opponent average)"
 msgstr "(gruppiert nach Average des Gegners)"
 
@@ -1708,6 +1765,10 @@ msgstr "Aktiviert Webcam-Folgeseite in der Lobby. Dein Mobilgerät kann dir in d
 msgid "Loads only the scoreboard without webcam image in your webcam games. Useful for mobile score-only devices."
 msgstr "Lädt nur das Scoreboard ohne Webcambild in deinen Spielen. Nützlich für mobile Geräte, die nur zur Punkteingabe dienen."
 
+#: templates/profile/webcam_settings.html:52
+msgid "Try enabling this option if you experience connection problems in your video conferences."
+msgstr "Verwende diese Einstellung, wenn du Verbindungsprobleme mit den Videokonferenzen hast."
+
 #: templates/security/change_password.html:20
 #: templates/security/change_username.html:27
 #: templates/security/forgot_password.html:16 tools/forms.py:14
@@ -1751,11 +1812,15 @@ msgstr "AGB"
 msgid "Already have an account?"
 msgstr "Account schon vorhanden?"
 
+#: templates/statistics/x01.html:59
+msgid "X01 Statistics"
+msgstr "X01 Statistiken"
+
 #: templates/statistics/x01.html:103
 msgid "Overview"
 msgstr "Übersicht"
 
-#: templates/statistics/x01.html:106 templates/statistics/x01.html:159
+#: templates/statistics/x01.html:106 templates/statistics/x01.html:157
 msgid "Overall"
 msgstr "Gesamt"
 
@@ -1771,15 +1836,15 @@ msgstr "Aktuelle Woche"
 msgid "Current Month"
 msgstr "Aktueller Monat"
 
-#: templates/statistics/x01.html:118 templates/statistics/x01.html:153
+#: templates/statistics/x01.html:118 templates/statistics/x01.html:151
 msgid "Current Year"
 msgstr "Aktuelles Jahr"
 
-#: templates/statistics/x01.html:121 templates/statistics/x01.html:165
+#: templates/statistics/x01.html:121 templates/statistics/x01.html:163
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: templates/statistics/x01.html:240
+#: templates/statistics/x01.html:250
 msgid "Overall average per game"
 msgstr "Gesamt Average pro Spiel"
 
@@ -1787,35 +1852,35 @@ msgstr "Gesamt Average pro Spiel"
 msgid "General"
 msgstr "Allgemein"
 
-#: templates/statistics/x01_detail_element.html:7
+#: templates/statistics/x01_detail_element.html:8
 msgid "Number of games"
 msgstr "Anzahl Spiele"
 
-#: templates/statistics/x01_detail_element.html:8
+#: templates/statistics/x01_detail_element.html:9
 msgid "Games Won"
 msgstr "Spiele gewonnen"
 
-#: templates/statistics/x01_detail_element.html:9
+#: templates/statistics/x01_detail_element.html:10
 msgid "Games Lost"
 msgstr "Spiele verloren"
 
-#: templates/statistics/x01_detail_element.html:10
+#: templates/statistics/x01_detail_element.html:11
 msgid "Games Draw"
 msgstr "Spiele unentschieden"
 
-#: templates/statistics/x01_detail_element.html:11
+#: templates/statistics/x01_detail_element.html:12
 msgid "Number of Legs"
 msgstr "Anzahl Legs"
 
-#: templates/statistics/x01_detail_element.html:12
+#: templates/statistics/x01_detail_element.html:13
 msgid "Legs Won"
 msgstr "Legs gewonnen"
 
-#: templates/statistics/x01_detail_element.html:13
+#: templates/statistics/x01_detail_element.html:14
 msgid "Legs Lost"
 msgstr "Legs verloren"
 
-#: templates/statistics/x01_detail_element.html:15
+#: templates/statistics/x01_detail_element.html:16
 msgid "Darts thrown"
 msgstr "Darts geworfen"
 
@@ -1823,7 +1888,7 @@ msgstr "Darts geworfen"
 msgid "Number of games / legs:"
 msgstr "Anzahl Spiele / Legs:"
 
-#: templates/tournament/details.html:17 tournament/routes.py:153
+#: templates/tournament/details.html:17 tournament/routes.py:159
 msgid "Tournament details"
 msgstr "Turnierdetails"
 
@@ -1883,31 +1948,31 @@ msgstr "Das Beitreten eines Turniers fügt dich aktuell nur zur Onlineliste des 
 msgid "Your tournaments"
 msgstr "Deine Turniere"
 
-#: templates/tournament/overview.html:41
+#: templates/tournament/overview.html:44
 msgid "You have not created a tournament yet."
 msgstr "Du hast noch kein Turnier erstellt."
 
-#: templates/tournament/overview.html:54
+#: templates/tournament/overview.html:57
 msgid "Create a new tournament"
 msgstr "Neues Turnier erstellen"
 
-#: templates/tournament/overview.html:76 templates/tournament/settings.html:37
+#: templates/tournament/overview.html:79 templates/tournament/settings.html:37
 msgid "Tournament will appear in the upcoming tournaments list"
 msgstr "Turnier wird in der Liste der anstehenden Turniere erscheinen"
 
-#: templates/tournament/overview.html:83 templates/tournament/settings.html:53
+#: templates/tournament/overview.html:86 templates/tournament/settings.html:53
 msgid "Link to tournament website with more information"
 msgstr "Link zur Turnierwebseite mit zusätzlichen Informationen"
 
-#: templates/tournament/overview.html:88 templates/tournament/settings.html:58
+#: templates/tournament/overview.html:91 templates/tournament/settings.html:58
 msgid "Start date and time:"
 msgstr "Startdatum und -zeit:"
 
-#: templates/tournament/overview.html:108
+#: templates/tournament/overview.html:111
 msgid "Upcoming tournaments"
 msgstr "Anstehende Turniere"
 
-#: templates/tournament/overview.html:119
+#: templates/tournament/overview.html:122
 msgid "There are no upcoming public tournaments at the moment."
 msgstr "Es gibt aktuell keine öffentlichen, anstehenden Turniere."
 
@@ -1979,7 +2044,7 @@ msgstr "Entbannen"
 msgid "Do you want to unban "
 msgstr "Entbannen von Spieler "
 
-#: templates/tournament/stream.html:11 tournament/routes.py:250
+#: templates/tournament/stream.html:11 tournament/routes.py:256
 msgid "Tournament streaming"
 msgstr "Turnier-Streaming"
 
@@ -1994,22 +2059,6 @@ msgstr "Wähle ein Spiel aus, das du streamen möchtest. Die untenstehenden Link
 #: templates/tournament/stream.html:23
 msgid "Generate new API key"
 msgstr "Neuen API-Schlüssel generieren"
-
-#: templates/tournament/stream.html:28
-msgid "Game score URL:"
-msgstr "Spiel-Score URL:"
-
-#: templates/tournament/stream.html:33
-msgid "Jitsi URL:"
-msgstr "Jitsi URL:"
-
-#: templates/tournament/stream.html:43 tournament/forms.py:42
-msgid "Streamable games"
-msgstr "Streambare Spiele"
-
-#: templates/tournament/stream.html:60
-msgid "Currently no streamable games."
-msgstr "Derzeit keine streambaren Spiele."
 
 #: tournament/forms.py:30
 msgid "Tournament name"
@@ -2033,29 +2082,25 @@ msgstr "Turnier erstellen"
 
 #: tournament/forms.py:43
 msgid "Select game"
-msgstr ""
+msgstr "Spiel auswählen"
 
-#: tournament/routes.py:21
+#: tournament/routes.py:25
 msgid "Start in the past is not allowed for public tournaments."
 msgstr "Der Turnierstart von öffentlichen Turnieren darf nicht in der Vergangenheit liegen."
 
-#: tournament/routes.py:25
+#: tournament/routes.py:29
 msgid "Start must be within the next 30 days."
 msgstr "Der Turnierstart muss in den nächsten 30 Tagen stattfinden."
 
-#: tournament/routes.py:35
+#: tournament/routes.py:39
 msgid "Tournament updated."
 msgstr "Turnier aktualisiert."
 
-#: tournament/routes.py:98
+#: tournament/routes.py:102
 msgid "You were banned from this tournament."
 msgstr "Du wurdest von diesem Turnier gebannt."
 
-#: tournament/routes.py:182
+#: tournament/routes.py:188
 msgid "Tournament settings"
 msgstr "Turniereinstellungen"
-
-#: tournament/routes.py:242
-msgid "Game selected as stream game."
-msgstr ""
 

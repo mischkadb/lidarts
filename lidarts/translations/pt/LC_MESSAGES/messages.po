@@ -5,22 +5,22 @@ msgstr ""
 "POT-Creation-Date: 2022-02-24 13:59+0100\n"
 "PO-Revision-Date: 2022-02-24 13:08\n"
 "Last-Translator: \n"
-"Language-Team: Russian\n"
+"Language-Team: Portuguese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
-"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "X-Crowdin-Project-ID: 8\n"
-"X-Crowdin-Language: ru\n"
+"X-Crowdin-Language: pt\n"
 "X-Crowdin-File: messages.pot\n"
 "X-Crowdin-File-ID: 36\n"
-"Language: ru_RU\n"
+"Language: pt_PT\n"
 
 #: admin/routes.py:73 tournament/routes.py:248
 msgid "Game selected as stream game."
-msgstr "Игра выбрана. Ссылки для просмотра прямой трансляции игры - ниже."
+msgstr "Partida selecionada como stream game ou modo de transmissão habiliado."
 
 #: admin/routes.py:80 templates/admin/stream.html:11
 msgid "Streaming"
@@ -28,317 +28,317 @@ msgstr ""
 
 #: auth/forms.py:21
 msgid "Password must have at least 8 characters"
-msgstr "Пароль должен состоять не менее чем из 8 символов"
+msgstr "A senha ou password deve conter no mínimo 8 caracteres"
 
 #: auth/forms.py:23
 msgid "Username is required"
-msgstr "Необходимо ввести имя пользователя"
+msgstr "Necessário nome de usuário"
 
 #: auth/forms.py:43
 msgid "Password must have at least 15 characters OR contain at least two out of these: lowercase letter, uppercase letter, number, symbol."
-msgstr "Пароль должен состоять не менее чем из 15 символов ИЛИ содержать в себе как минимум два из этих условий: строчная буква, заглавная буква, число, символ."
+msgstr "Senha ou password deve conter no mínimo 15 caracteres OU conter no mínimo dois caracteres do tipo: letra minúscula, letra maiúscula, número, caracteres especiais."
 
 #: auth/forms.py:50
 msgid "Username is already taken"
-msgstr "Такое имя уже занято"
+msgstr "Nome do usuário já existente"
 
 #: auth/forms.py:56
 msgid "Username must start with a letter, number or \"([\""
-msgstr "Имя пользователя должно начинаться с буквы или цифры, либо с одного из этих символов: «([\""
+msgstr "O nome de usuário deve começar com uma letra, número ou \"([\""
 
 #: auth/forms.py:58
 msgid "Username must end with a letter or a number or \")]\""
-msgstr "Имя пользователя должно заканчиваться буквой или цифрой, либо одним из этих символов: «)]\""
+msgstr "Nome de usuário deve terminar com uma letra ou um número ou \")]\""
 
 #: auth/forms.py:62
 msgid "Username contains invalid symbols."
-msgstr "Имя пользователя содержит недопустимые символы."
+msgstr "Nome de usuário contém símbolos inválidos."
 
 #: auth/forms.py:64
 msgid "Two special characters in a row are not allowed."
-msgstr "Не допускается использовать два специальных символа подряд."
+msgstr "Dois caracteres especiais seguidos não são permitidos."
 
 #: auth/forms.py:70
 msgid "Username"
-msgstr "Имя пользователя (Логин)"
+msgstr "Usuário"
 
 #: auth/forms.py:80 auth/forms.py:89 auth/forms.py:93
 msgid "Password"
-msgstr "Пароль"
+msgstr "Senha"
 
 #: auth/forms.py:85
 msgid "Username or Email Address"
-msgstr "Имя пользователя или E-mail"
+msgstr "Nome de usuário ou e-mail"
 
 #: auth/forms.py:97 profile/forms.py:73
 msgid "Accept"
-msgstr "Принять"
+msgstr "Aceitar"
 
 #: auth/routes.py:19 auth/routes.py:31 auth/routes.py:44
 msgid "Change username"
-msgstr "Изменить имя пользователя"
+msgstr "Alterar nome de usuário"
 
 #: auth/routes.py:30
 msgid "You can only change your username once per month. You need to wait until: "
-msgstr "Изменять имя пользователя можно только один раз в месяц. Вам нужно подождать до: "
+msgstr "Você só pode alterar seu nome de usuário uma vez por mês. Você precisa esperar até: "
 
 #: auth/routes.py:33
 msgid "Username changed."
-msgstr "Имя пользователя изменено."
+msgstr "Nome de usuário alterado."
 
 #: game/forms.py:7 statistics/forms.py:9
 msgid "Local"
-msgstr "Другой человек"
+msgstr "Local"
 
 #: game/forms.py:9
 msgid "Me"
-msgstr "Я"
+msgstr "Eu"
 
 #: game/forms.py:9 game/forms.py:41 statistics/forms.py:28
 msgid "Opponent"
-msgstr "Соперник"
+msgstr "Adversário"
 
 #: game/forms.py:10
 msgid "Closest to Bull"
-msgstr "Определим броском в Булл"
+msgstr "O mais próximo ao Bull"
 
 #: game/forms.py:19
 msgid "Invalid number."
-msgstr "Неверный номер."
+msgstr "Número inválido."
 
 #: game/forms.py:23 game/forms.py:30
 msgid "Score"
-msgstr "Очки"
+msgstr "Pontuação"
 
 #: game/forms.py:26 game/forms.py:33
 msgid "Submit score"
-msgstr "Ввести очки"
+msgstr "Enviar pontuação"
 
 #: game/forms.py:37
 msgid "Best of Sets"
-msgstr "Количество сетов"
+msgstr "Melhor entre Sets"
 
 #: game/forms.py:38
 msgid "Best of Legs"
-msgstr "Лэги, лучший из"
+msgstr "Melhor entre Legs"
 
 #: game/forms.py:39
 msgid "Two Clear Legs"
-msgstr "Победа с разницей в 2 лэга"
+msgstr "Dois Legs de diferença"
 
 #: game/forms.py:40
 msgid "First to throw"
-msgstr "Кто начинает"
+msgstr "Primeiro a arremessar"
 
 #: game/forms.py:42 statistics/forms.py:32
 msgid "Opponent name"
-msgstr "Имя соперника"
+msgstr "Nome do adversário"
 
 #: game/forms.py:43 statistics/forms.py:30
 msgid "Level"
-msgstr "Уровень сложности"
+msgstr "Nível"
 
 #: game/forms.py:44
 msgid "Public challenge"
-msgstr "Публичный вызов всем, кто онлайн"
+msgstr "Tornar partida pública"
 
 #: game/forms.py:45 templates/game/cricket/completed.html:149
 #: templates/game/x01/completed.html:151
 #: templates/game/x01/scoreboard_normal.html:37
 #: templates/profile/game_history.html:38 templates/profile/overview.html:82
 msgid "Webcam game"
-msgstr "Играть с камерой"
+msgstr "Partida à webcam"
 
 #: game/forms.py:46
 msgid "Score input block"
-msgstr "Темп игры"
+msgstr "Bloquear input de pontos"
 
 #: game/forms.py:47 tournament/forms.py:38
 msgid "Save settings"
-msgstr "Сохранить параметры"
+msgstr "Salvas configurações"
 
 #: game/forms.py:48
 msgid "Tournament"
-msgstr "Привязать матч к турниру"
+msgstr "Torneio"
 
 #: game/forms.py:49
 msgid "Start game"
-msgstr "Начать игру"
+msgstr "Iniciar partida"
 
 #: game/forms.py:53 statistics/forms.py:27
 msgid "Game type"
-msgstr "Режим игры"
+msgstr "Tipo de partida"
 
 #: game/forms.py:54 statistics/forms.py:33
 msgid "Mode In"
-msgstr "Начало лэга"
+msgstr "Modo \"IN\""
 
 #: game/forms.py:55 statistics/forms.py:34
 msgid "Mode Out"
-msgstr "Завершение лэга"
+msgstr "Modo \"OUT\""
 
 #: game/forms.py:64 generic/forms.py:9
 msgid "Submit message"
-msgstr "Отправить сообщение"
+msgstr "Enviar mensagem"
 
 #: game/forms.py:68
 msgid "I have read the text above, understand the limitations and have a webcam setup to play."
-msgstr "Я прочитал текст выше по настройке веб-камеры для игры и ознакомлен с ограничениями."
+msgstr "Eu li o texto acima, entendo as limitações e tenho uma configuração de webcam para jogar."
 
 #: game/forms.py:69
 msgid "(Optional) I allow my opponents to stream and record our game including my webcam video and audio."
-msgstr "(Необязательно) Я разрешаю своим соперникам транслировать и записывать нашу игру, в том числе с использованием видео и звука с моей камеры."
+msgstr "(Opcional) Eu permito que meus adversários façam streaming e grave nosso jogo, incluindo meu vídeo e áudio de webcam."
 
 #: game/forms.py:70 templates/game/cricket/stream_overlay.html:428
 #: templates/game/modals.html:51 templates/game/x01/stream_overlay.html:410
 msgid "Confirm"
-msgstr "Подтвердить"
+msgstr "Confirmar"
 
 #: game/routes.py:50
 msgid "Public challenges must be created without an opponent name."
-msgstr "Публичный вызов создается без имени соперника."
+msgstr "As partidas públicas devem ser criadas sem o nome de um adversário."
 
 #: game/routes.py:52 game/routes.py:65 game/routes.py:86 game/routes.py:171
 #: templates/game/create_game.html:9
 msgid "Create Game"
-msgstr "Настройте новую игру"
+msgstr "Criar uma partida"
 
 #: game/routes.py:63
 msgid "Player does not allow challenges"
-msgstr "Игрок не разрешает вызовы"
+msgstr "Jogador não aceita desafios"
 
 #: game/routes.py:67
 msgid "New challenge"
-msgstr "Новый вызов"
+msgstr "Novo desafio"
 
 #: game/routes.py:84
 msgid "Player 2 does not have webcam games enabled."
-msgstr "У второго игрока не включена камера."
+msgstr "O adversario não possui webcam habilitada."
 
 #: game/routes.py:226 game/routes.py:234
 msgid "Waiting..."
-msgstr "Ожидание..."
+msgstr "Aguardando..."
 
 #: game/routes.py:267
 msgid "Match overview"
-msgstr "Просмотр матча"
+msgstr "Resumo da partida"
 
 #: game/routes.py:304
 msgid "Stream overlay"
-msgstr "Потоковое наложение"
+msgstr "Sobreposição da transmissão"
 
 #: game/routes.py:306
 msgid "Live Match"
-msgstr "Онлайн матч"
+msgstr "Partida Ao Vivo"
 
 #: game/utils.py:11 generic/routes.py:81
 msgid "Local Guest"
-msgstr "Соперник"
+msgstr "Partida local"
 
 #: game/utils.py:25
 msgid "Guest"
-msgstr "Гость"
+msgstr "Guest"
 
 #: generic/forms.py:13
 msgid "Search user"
-msgstr "Поиск пользователя"
+msgstr "Pesquisar usuários"
 
 #: generic/forms.py:14
 msgid "Search"
-msgstr "Найти"
+msgstr "Pesquisa"
 
 #: generic/routes.py:96
 msgid "Live Games"
-msgstr "Игры онлайн"
+msgstr "Jogos Ao Vivo"
 
 #: generic/routes.py:180 templates/base.html:55
 msgid "Lobby"
-msgstr "Лобби"
+msgstr "Lobby"
 
 #: generic/routes.py:251 templates/base.html:59
 #: templates/game/cricket/stream_overlay.html:136
 #: templates/game/x01/game.html:98 templates/game/x01/stream_overlay.html:107
 #: templates/game/x01/webcam.html:111
 msgid "Chat"
-msgstr "Переписка"
+msgstr "Chat"
 
 #: generic/routes.py:314
 msgid "Private Messages"
-msgstr "Личные сообщения"
+msgstr "Mensagens privadas"
 
 #: profile/forms.py:8
 msgid "Enabled"
-msgstr "Включено"
+msgstr "Habilitado"
 
 #: profile/forms.py:8
 msgid "Disabled"
-msgstr "Отключено"
+msgstr "Desabilitado"
 
 #: profile/forms.py:12 tournament/forms.py:31
 msgid "Description"
-msgstr "Описание"
+msgstr "Descrição"
 
 #: profile/forms.py:13 profile/forms.py:18 profile/forms.py:23
 #: profile/forms.py:63 profile/forms.py:75 profile/forms.py:111
 #: profile/forms.py:116
 msgid "Save"
-msgstr "Сохранить"
+msgstr "Salvar"
 
 #: profile/forms.py:17
 msgid "Caller"
-msgstr "Судья"
+msgstr "Requisitante"
 
 #: profile/forms.py:22
 msgid "Trainer delay"
-msgstr "Темп игры бота (длительность его подхода в секундах)"
+msgstr "Delay do treino"
 
 #: profile/forms.py:28
 msgid "Notification sound"
-msgstr "Звук уведомлений"
+msgstr "Som da notificação"
 
 #: profile/forms.py:34
 msgid "Allow challenges"
-msgstr "Принимать вызовы от пользователей"
+msgstr "Permitir desafios"
 
 #: profile/forms.py:40
 msgid "Allow private messages"
-msgstr "Разрешить личные сообщения"
+msgstr "Permitir mensagens privadas"
 
 #: profile/forms.py:46
 msgid "Allow friend requests"
-msgstr "Разрешить добавляться в друзья"
+msgstr "Permitir solicitações de amizade"
 
 #: profile/forms.py:52
 msgid "Checkout suggestions"
-msgstr "Показывать закрытия"
+msgstr "Sugestões de checkout"
 
 #: profile/forms.py:58
 msgid "Show averages in user list"
-msgstr "Показывать средний набор в списке пользователей"
+msgstr "Mostrar médias na lista do usuário"
 
 #: profile/forms.py:68
 msgid "Country"
-msgstr "Ваша страна"
+msgstr "País/região"
 
 #: profile/forms.py:80
 msgid "Webcam activated"
-msgstr "Камера включена"
+msgstr "Webcam ativada"
 
 #: profile/forms.py:86
 msgid "Allow streaming"
-msgstr "Разрешить трансляцию"
+msgstr "Permitir streaming"
 
 #: profile/forms.py:92
 msgid "Use Jitsi mobile app"
-msgstr "Использование мобильного приложения Jitsi"
+msgstr "Usar aplicativo móvel Jitsi"
 
 #: profile/forms.py:98
 msgid "Mobile follow mode"
-msgstr "Режим слежения через телефон"
+msgstr "Modo de acompanhamento móvel"
 
 #: profile/forms.py:104
 msgid "Show only scoreboard on main device"
-msgstr "Показывать только таблицу результатов на главном устройстве"
+msgstr "Mostrar apenas o placar no dispositivo principal"
 
 #: profile/forms.py:109
 msgid "Use public Jitsi server"
@@ -346,7 +346,7 @@ msgstr ""
 
 #: profile/forms.py:115
 msgid "Channel ID"
-msgstr "Идентификатор канала"
+msgstr "ID do canal"
 
 #: profile/forms.py:120
 msgid "Enter Password"
@@ -358,71 +358,71 @@ msgstr ""
 
 #: profile/routes.py:51
 msgid "Match History"
-msgstr "История матча"
+msgstr "Histórico de partidas"
 
 #: profile/routes.py:132 templates/base.html:102
 msgid "Profile"
-msgstr "Профиль"
+msgstr "Perfil"
 
 #: profile/routes.py:148
 msgid "Profile text saved."
-msgstr "Текст профиля сохранен."
+msgstr "Informações do perfil salvo."
 
 #: profile/routes.py:206
 msgid "Manage Friend List"
-msgstr "Управление списком друзей"
+msgstr "Gerenciar lista de amigos"
 
 #: profile/routes.py:218
 msgid "Avatar deleted."
-msgstr "Аватар удален."
+msgstr "Foto do perfil apagada."
 
 #: profile/routes.py:230
 msgid "No selected file"
-msgstr "Файл не выбран"
+msgstr "Nenhum arquivo selecionado"
 
 #: profile/routes.py:236
 msgid "Wrong image format."
-msgstr "Неправильный формат изображения."
+msgstr "Formato de imagem inválido."
 
 #: profile/routes.py:245
 msgid "Avatar saved."
-msgstr "Аватар сохранен."
+msgstr "Foto do perfil salva."
 
 #: profile/routes.py:250
 msgid "Avatar Settings"
-msgstr "Настройки аватара"
+msgstr "Confugurações de perfil"
 
 #: profile/routes.py:271 profile/routes.py:302 profile/routes.py:315
 #: profile/routes.py:343 profile/routes.py:364
 msgid "Settings saved."
-msgstr "Настройки сохранены."
+msgstr "Configurações salvas."
 
 #: profile/routes.py:273
 msgid "Caller Settings"
-msgstr "Выбор голоса судьи"
+msgstr "Configurações de Chamadas"
 
 #: profile/routes.py:284
 msgid "Trainer Delay"
-msgstr "Темп игры бота (длительность его подхода в секундах)"
+msgstr "Delay do treino"
 
 #: profile/routes.py:309
 msgid "You can only change your country setting once per month. You need to wait until: "
-msgstr "Вы можете изменить настройки страны только один раз в месяц. Вам нужно подождать до: "
+msgstr "Você só pode alterar seu país de origem uma vez por mês. Você precisa aguardar até: "
 
 #: profile/routes.py:310 profile/routes.py:326
 #: templates/profile/general_settings.html:13 templates/profile/settings.html:5
 msgid "General settings"
-msgstr "Общие настройки"
+msgstr "Configurações gerais"
 
 #: profile/routes.py:352 templates/profile/settings.html:7
 #: templates/profile/webcam_settings.html:13
 msgid "Webcam settings"
-msgstr "Настройки камеры"
+msgstr "Configurações de webcam"
 
 #: profile/routes.py:368 templates/profile/livestream_settings.html:13
 #: templates/profile/settings.html:8
 msgid "Livestream settings"
-msgstr "Настройки прямой трансляции"
+msgstr "Configurações de transmissão"
 
 #: profile/routes.py:394
 msgid "Wrong password"
@@ -435,94 +435,94 @@ msgstr ""
 
 #: statistics/forms.py:9 statistics/forms.py:12
 msgid "All"
-msgstr "Все"
+msgstr "Todos"
 
 #: statistics/forms.py:17
 msgid "Last ... games"
-msgstr "Последние игры"
+msgstr "Última ... Partidas"
 
 #: statistics/forms.py:18
 msgid "From ... to ..."
-msgstr "От ... до ..."
+msgstr "De ... para..."
 
 #: statistics/forms.py:20
 msgid "From"
-msgstr "От"
+msgstr "De"
 
 #: statistics/forms.py:22
 msgid "to"
-msgstr "до"
+msgstr "para"
 
 #: statistics/forms.py:24
 msgid "Filter"
-msgstr "Фильтр"
+msgstr "Filtro"
 
 #: statistics/forms.py:25
 msgid "Apply"
-msgstr "Применить"
+msgstr "Aplicar"
 
 #: templates/base.html:51
 msgid "Home"
-msgstr "Главная"
+msgstr "Página inicial"
 
 #: templates/base.html:52 templates/base.html:57 templates/generic/chat.html:44
 msgid "Watch"
-msgstr "Смотреть"
+msgstr "Assistir"
 
 #: templates/base.html:53 templates/base.html:60
 msgid "Statistics"
-msgstr "Статистика"
+msgstr "Estatísticas"
 
 #: templates/base.html:56 templates/generic/lobby.html:41
 msgid "Play"
-msgstr "Играть"
+msgstr "Jogar"
 
 #: templates/base.html:58 tournament/routes.py:87
 msgid "Tournaments"
-msgstr "Турниры"
+msgstr "Torneios"
 
 #: templates/base.html:75
 msgid "No new notifications"
-msgstr "Новых уведомлений нет"
+msgstr "Nenhuma nova notificação"
 
 #: templates/base.html:84 templates/security/login_user.html:9
 #: templates/security/login_user.html:18
 #: templates/security/register_user.html:29
 msgid "Sign In"
-msgstr "Войти"
+msgstr "Entrar"
 
 #: templates/base.html:85 templates/security/register_user.html:10
 #: templates/security/register_user.html:22
 msgid "Register"
-msgstr "Зарегистрироваться"
+msgstr "Registrar"
 
 #: templates/base.html:88
 msgid "Inbox"
-msgstr "Сообщения"
+msgstr "Caixa de entrada"
 
 #: templates/base.html:94
 msgid "Status"
-msgstr "Статус"
+msgstr "Status"
 
 #: templates/base.html:97
 msgid "Looking for Game"
-msgstr "Поиск игры"
+msgstr "Procurando por partida"
 
 #: templates/base.html:98
 msgid "Busy"
-msgstr "Занят"
+msgstr "Indisponível"
 
 #: templates/base.html:103
 msgid "Logout"
-msgstr "Выйти"
+msgstr "Sair"
 
 #: templates/base.html:136
 msgid "About"
-msgstr "О нас"
+msgstr "Sobre"
 
 #: templates/base.html:137 templates/generic/contact.html:10
 msgid "Contact"
-msgstr "Контакты"
+msgstr "Contato"
 
 #: templates/base.html:138
 msgid "FAQ"
@@ -530,211 +530,209 @@ msgstr "FAQ"
 
 #: templates/base.html:139
 msgid "Contribute"
-msgstr "Внести свой вклад"
+msgstr "Contribuir"
 
 #: templates/base.html:140
 msgid "Changelog"
-msgstr "История изменений"
+msgstr "Log de mudanças"
 
 #: templates/base.html:141
 msgid "Source Code"
-msgstr "Исходный код"
+msgstr "Código fonte"
 
 #: templates/base.html:142
 msgid "Privacy"
-msgstr "Конфиденциальность"
+msgstr "Privacidade"
 
 #: templates/base.html:143
 msgid "Terms & Conditions"
-msgstr "Правила и условия"
+msgstr "Termos & Condições"
 
 #: templates/base.html:145
 msgid "Legal notice"
-msgstr "Правовая информация"
+msgstr "Informações legais"
 
 #: templates/admin/stream.html:14 templates/tournament/stream.html:28
 msgid "Game score URL:"
-msgstr "Ссылка на прямую трансляцию игры и статистику:"
+msgstr "URL da pontuação do jogo:"
 
 #: templates/admin/stream.html:19 templates/tournament/stream.html:33
 msgid "Jitsi URL:"
-msgstr "Ссылка с трансляцией для Jitsi:"
+msgstr "Jitsi URL:"
 
 #: templates/admin/stream.html:29 templates/tournament/stream.html:43
 #: tournament/forms.py:42
 msgid "Streamable games"
-msgstr "Выберите трансляцию игры"
+msgstr "Jogos transmitíveis"
 
 #: templates/admin/stream.html:46 templates/tournament/stream.html:60
 msgid "Currently no streamable games."
-msgstr "В настоящее время нет трансляционных игр."
+msgstr "Atualmente nenhum jogo com transmissão ao vivo."
 
 #: templates/game/create_game.html:16
 msgid "Game Mode"
-msgstr "Выберите тип игры"
+msgstr "Modo de jogo"
 
 #: templates/game/create_game.html:98
 msgid "You have to activate webcam games first."
-msgstr "Сначала необходимо активировать камеру."
+msgstr "Você precisa ativar os jogos de webcam primeiro."
 
 #: templates/game/create_game.html:129
 msgid "Blocks score input after new score. In seconds."
-msgstr "Задержка ввода очков между подходами в секундах."
+msgstr "Bloqueia o input após uma nova pontuação. Em segundos."
 
 #: templates/game/cricket/navbar.html:10
 #: templates/game/cricket/stream_overlay.html:7
 #: templates/game/game_navbar.html:10 templates/game/x01/stream_overlay.html:7
 msgid "Leave game"
-msgstr "Выйти из игры"
+msgstr "Deixar partida"
 
 #: templates/game/cricket/navbar.html:12
 #: templates/game/cricket/stream_overlay.html:8
 #: templates/game/game_navbar.html:12 templates/game/x01/stream_overlay.html:8
 msgid "Abort game"
-msgstr "Прервать игру"
+msgstr "Abortar partida"
 
 #: templates/game/cricket/stream_overlay.html:9
 #: templates/game/game_navbar.html:13 templates/game/x01/stream_overlay.html:9
 msgid "Toggle Keypad visibility"
-msgstr "Показать / скрыть клавиатуру"
+msgstr "Liga/Desliga o teclado"
 
 #: templates/game/cricket/stream_overlay.html:10
 #: templates/game/game_navbar.html:14 templates/game/x01/stream_overlay.html:10
 msgid "Change keypad position"
-msgstr "Изменить расположение клавиатуры"
+msgstr "Trocar posição do teclado"
 
 #: templates/game/cricket/navbar.html:14
 #: templates/game/cricket/stream_overlay.html:11
 #: templates/game/game_navbar.html:16 templates/game/x01/stream_overlay.html:11
 msgid "Toggle statistics"
-msgstr "Показать / скрыть статистику"
+msgstr "Ativar/desativar estatísticas"
 
 #: templates/game/cricket/navbar.html:16
 #: templates/game/cricket/stream_overlay.html:12
 #: templates/game/game_navbar.html:18 templates/game/x01/stream_overlay.html:12
 msgid "Normal theme"
-msgstr "Стандартный внешний вид"
+msgstr "Tema padrão"
 
 #: templates/game/cricket/navbar.html:18 templates/game/game_navbar.html:20
 msgid "Streamoverlay"
-msgstr "Вид для трансляции"
+msgstr "Streamoverlay"
 
 #: templates/game/cricket/navbar.html:20
 #: templates/game/cricket/stream_overlay.html:13
 #: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
 msgid "Mute caller"
-msgstr "Отключить голосовую озвучку"
+msgstr "Silenciar chamada"
 
 #: templates/game/cricket/navbar.html:20
 #: templates/game/cricket/stream_overlay.html:13
 #: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
 msgid "Unmute caller"
-msgstr "Включить голосовую озвучку"
+msgstr "Reativar chamada"
 
 #: templates/game/cricket/navbar.html:21 templates/game/game_navbar.html:23
 msgid "Activate Sound (Apple)"
-msgstr "Активировать звук (Apple)"
+msgstr "Ativar som (Apple)"
 
 #: templates/game/cricket/navbar.html:23 templates/game/game_navbar.html:25
 msgid "Summon webcam"
-msgstr "Включить камеру"
+msgstr "Habilitar webcam"
 
 #: templates/game/cricket/navbar.html:26 templates/game/game_navbar.html:28
 msgid "At least one player does not allow streaming."
-msgstr "Один из игроков не разрешает трансляцию."
+msgstr "Pelo menos um jogador não permite streaming."
 
 #: templates/game/modals.html:6 templates/game/modals.html:16
 msgid "Check dart:"
-msgstr "Проверить дротик:"
+msgstr "Verificar dardo:"
 
 #: templates/game/cricket/stream_overlay.html:402 templates/game/modals.html:25
 #: templates/game/x01/stream_overlay.html:384
 msgid "How many darts missed at double?"
-msgstr "Сколько дротиков бросили в окончание?"
+msgstr "Quantos dardos ou arremessos não atingiram o duplo?"
 
 #: templates/game/cricket/stream_overlay.html:415 templates/game/modals.html:38
 #: templates/game/x01/stream_overlay.html:397
 msgid "How many darts to finish?"
-msgstr "Всего затрачено дротиков на закрытие:"
+msgstr "Quantos dardos ou arremesos para fechar?"
 
 #: templates/game/cricket/stream_overlay.html:427 templates/game/modals.html:50
 #: templates/game/x01/stream_overlay.html:409
 msgid "Abort game?"
-msgstr "Прервать игру?"
+msgstr "Abortar a partida?"
 
 #: templates/game/cricket/stream_overlay.html:429 templates/game/modals.html:52
 #: templates/game/x01/stream_overlay.html:411
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "Cancelar"
 
 #: templates/game/wait_for_opponent.html:10
 msgid "Waiting for"
-msgstr "Ожидание"
+msgstr "Aguardando por"
 
 #: templates/game/wait_for_opponent.html:16
 #: templates/game/wait_for_opponent_public_challenge.html:18
 msgid "This page will redirect you to the game once the challenge has been accepted."
-msgstr "Игра начнется как только соперник примет ваш вызов."
+msgstr "Esta página irá redirecioná-lo para a partida depois que o desafio for aceito."
 
 #: templates/game/wait_for_opponent.html:18
 msgid "You are not logged in. Log in to play in this game."
-msgstr "Вы не вошли в систему. Войдите, чтобы начать игру."
+msgstr "Você não está logado. Faça login para jogar nesta partida."
 
 #: templates/game/wait_for_opponent.html:19
 msgid "Share this link to invite another player (must be logged in):"
-msgstr "Поделитесь этой ссылкой, чтобы пригласить другого игрока (ему необходимо войти в систему):"
+msgstr "Compartilhe este link para convidar outro jogador (precisa estar logado):"
 
 #: templates/game/wait_for_opponent.html:21 templates/tournament/stream.html:20
 msgid "Copy text"
-msgstr "Скопировать текст"
+msgstr "Copiar texto"
 
 #: templates/game/wait_for_opponent_public_challenge.html:10
 msgid "Waiting for player to accept public challenge."
-msgstr "Ждем, пока игрок примет публичный вызов."
+msgstr "Aguardando que o jogador aceite o desafio."
 
 #: templates/game/wait_for_opponent_public_challenge.html:16
 msgid "Wait here. Leaving this page will cancel the challenge."
-msgstr "Ожидайте. В случае закрытия этой страницы - публичный вызов будет отменен."
+msgstr "Por favor aguarde aqui. Sair desta página cancelará o desafio."
 
 #: templates/game/wait_for_opponent_public_challenge.html:20
 msgid "Click to join another public challenge:"
-msgstr "Нажмите, чтобы присоединиться к другому публичному вызову:"
+msgstr "Clique para participar de outro desafio:"
 
 #: templates/game/webcam_consent.html:9
 msgid "Webcam games"
-msgstr "Игры с камерой"
+msgstr "Partidas com webcam"
 
 #: templates/game/webcam_consent.html:15
 msgid "Lidarts offers X01 webcam games between two players in an experimental testing stage. We currently try an external service for video and audio communication called Jitsi."
-msgstr "Лидартс предлагает онлайн игры в форматах X01 и Крикет между двумя игроками. Сайт находится на стадии экспериментального тестирования. Для организации видео и аудио связи между игроками используется сервис Jitsi."
+msgstr "Lidarts oferece jogos de webcam X01 entre dois jogadores mesmo que ainda em fase de teste ou experimental. Estamos tentando atualmente uma parceria com um serviço externo de comunicação de vídeo e áudio chamado Jitsi."
 
 #: templates/game/webcam_consent.html:16
 msgid "In order to play you need a webcam pointed towards your dart board and a desktop PC with a modern browser, e.g. Google Chrome or Firefox."
-msgstr "Чтобы играть нужна камера (веб-камера, камера в ноутбуке, в телефоне и т.д.), направленная на вашу мишень и компьютер с современным браузером, например Chrome или Firefox."
+msgstr "Para jogar, você precisa de uma webcam direcionada para seu alvo e um computador ou notebook com um navegador moderno. Google Chrome ou Firefox."
 
 #: templates/game/webcam_consent.html:17
 msgid "Mobile devices are not supported. We currently also provide no support for setup. You can try \n"
 "                        Jitsi Meet "
-msgstr "Мобильные устройства не поддерживаются, в настоящее время мы не предоставляем поддержку по настройке сайта для таких устройств. Попробуйте \n"
-" сервис\n"
-"                        Jitsi Meet \n"
-"                        "
+msgstr "Dispositivos móveis não são suportados. No momento também não fornecemos suporte para configurações. Você pode tentar o \n"
+"                        Jitsi Meet "
 
 #: templates/game/webcam_consent.html:18
 msgid "here"
-msgstr "здесь"
+msgstr "aqui"
 
 #: templates/game/webcam_consent.html:18
 msgid "If you do not get your webcam to work there it will not work on Lidarts either."
-msgstr "Если ваша камера не заработает там, она также не будет работать и на Лидартс."
+msgstr "Se você não conseguir configurar o funcionamento de sua webcam no aplicativo, ela também não funcionará no Lidarts."
 
 #: templates/game/webcam_consent.html:19
 msgid "Although there is no ruleset for webcam play yet we call on your fairness and sportsmanship."
-msgstr "Так как правил для игры через камеру нет - мы призываем вас к честности и спортивному мастерству."
+msgstr "Embora não haja regras para partidas à webcam esperamos de sua parte que atue com boa conduta esportiva, ética e espírito de justiça."
 
 #: templates/game/webcam_consent.html:20
 msgid "We need feedback in order to improve webcam play in the future. We encourage you to send your experience via email at contact@lidarts.org"
-msgstr "Для улучшения работы игр через камеру нам нужна ваша обратная связь. Присылайте свои отзывы или предложения по улучшению сайта на contact@lidarts.org"
+msgstr "Precisamos de seu feedback constantemente para melhorar a jogabilidade com uso de webcam. Recomendamos que você envie sua experiência por email em contact@lidarts.org"
 
 #: templates/game/cricket/completed.html:12
 #: templates/game/cricket/game.html:147 templates/game/cricket/game.html:168
@@ -744,47 +742,47 @@ msgstr "Для улучшения работы игр через камеру н
 #: templates/game/x01/game.html:76 templates/game/x01/stream_overlay.html:85
 #: templates/game/x01/watch_webcam.html:81 templates/game/x01/webcam.html:92
 msgid "Game was aborted."
-msgstr "Игра была прервана."
+msgstr "A partida foi abortada."
 
 #: templates/game/cricket/completed.html:15
 #: templates/game/x01/completed.html:17
 msgid "Challenge was declined or withdrawn."
-msgstr "Вызов был отклонен или отозван."
+msgstr "O desafio foi recusado ou retirado."
 
 #: templates/game/cricket/completed.html:138
 #: templates/game/x01/completed.html:140
 msgid "Match start"
-msgstr "Начало матча"
+msgstr "Início do jogo"
 
 #: templates/game/cricket/completed.html:139
 #: templates/game/x01/completed.html:141
 msgid "Match duration"
-msgstr "Длительность матча"
+msgstr "Duração da partida"
 
 #: templates/game/cricket/completed.html:139
 #: templates/game/x01/completed.html:141
 msgid "hours"
-msgstr "часов"
+msgstr "horas"
 
 #: templates/game/cricket/completed.html:140
 #: templates/game/x01/completed.html:142
 msgid "minutes"
-msgstr "мин."
+msgstr "minutos"
 
 #: templates/game/cricket/completed.html:141
 #: templates/game/x01/completed.html:143
 msgid "seconds"
-msgstr "сек."
+msgstr "segundos"
 
 #: templates/game/cricket/completed.html:149
 #: templates/game/x01/completed.html:151
 msgid " Webcam game"
-msgstr " Игра с камерой"
+msgstr " Partida à Webcam"
 
 #: templates/game/cricket/completed.html:162
 #, python-format
 msgid "Mark distribution - absolute (%% of total)"
-msgstr "Распределение баллов - абсолютное (%% от общего)"
+msgstr "Marcar a distribuição - absoluta (%% do total)"
 
 #: templates/game/cricket/game.html:14
 #: templates/game/cricket/stream_overlay.html:57
@@ -793,7 +791,7 @@ msgstr "Распределение баллов - абсолютное (%% от 
 #: templates/game/x01/stream_overlay.html:24
 #: templates/game/x01/watch_webcam.html:27 templates/game/x01/webcam.html:28
 msgid "Closest to bull begins. Please throw three darts at bull."
-msgstr "Розыгрыш начала - кто ближе попадет в Булл. Пожалуйста, бросьте три дротика в Булл."
+msgstr "O mais próximo do Bull começa a partida. Por favor, jogue três dardos em direção ao Bull."
 
 #: templates/game/cricket/game.html:15
 #: templates/game/cricket/stream_overlay.html:58
@@ -802,7 +800,7 @@ msgstr "Розыгрыш начала - кто ближе попадет в Бу
 #: templates/game/x01/stream_overlay.html:25
 #: templates/game/x01/watch_webcam.html:28 templates/game/x01/webcam.html:29
 msgid "Local game. Player 1 throws all three darts first."
-msgstr "Локальная игра. Игрок 1 начинает бросать первым."
+msgstr "Jogo local. Jogador 1 lança todos os três dardos primeiro."
 
 #: templates/game/cricket/game.html:132 templates/game/cricket/game.html:154
 #: templates/game/cricket/stream_overlay.html:99
@@ -813,7 +811,7 @@ msgstr "Локальная игра. Игрок 1 начинает бросат�
 #: templates/game/x01/stream_overlay.html:167
 #: templates/game/x01/watch_webcam.html:76 templates/game/x01/webcam.html:77
 msgid "Game is completed."
-msgstr "Игра завершена."
+msgstr "Partida concluída."
 
 #: templates/game/cricket/game.html:133 templates/game/cricket/game.html:148
 #: templates/game/cricket/game.html:155 templates/game/cricket/game.html:169
@@ -832,7 +830,7 @@ msgstr "Игра завершена."
 #: templates/game/x01/watch_webcam.html:82 templates/game/x01/webcam.html:78
 #: templates/game/x01/webcam.html:93
 msgid "Game overview"
-msgstr "Обзор игры"
+msgstr "Resumo da partida"
 
 #: templates/game/cricket/game.html:136 templates/game/cricket/game.html:158
 #: templates/game/cricket/stream_overlay.html:103
@@ -840,7 +838,7 @@ msgstr "Обзор игры"
 #: templates/game/x01/game.html:161 templates/game/x01/stream_overlay.html:74
 #: templates/game/x01/stream_overlay.html:171 templates/game/x01/webcam.html:81
 msgid "Offer rematch"
-msgstr "Предложить реванш"
+msgstr "Oferecer revanche"
 
 #: templates/game/cricket/game.html:137 templates/game/cricket/game.html:159
 #: templates/game/cricket/stream_overlay.html:104
@@ -848,7 +846,7 @@ msgstr "Предложить реванш"
 #: templates/game/x01/game.html:162 templates/game/x01/stream_overlay.html:75
 #: templates/game/x01/stream_overlay.html:172 templates/game/x01/webcam.html:82
 msgid "Accept rematch"
-msgstr "Принять реванш"
+msgstr "Aceitar revanche"
 
 #: templates/game/cricket/game.html:139 templates/game/cricket/game.html:161
 #: templates/game/cricket/stream_overlay.html:106
@@ -856,7 +854,7 @@ msgstr "Принять реванш"
 #: templates/game/x01/game.html:164 templates/game/x01/stream_overlay.html:77
 #: templates/game/x01/stream_overlay.html:174 templates/game/x01/webcam.html:84
 msgid "Rematch offer sent"
-msgstr "Предложение о реванше отправлено"
+msgstr "Proposta de revanche enviada"
 
 #: templates/game/cricket/game.html:142 templates/game/cricket/game.html:164
 #: templates/game/cricket/stream_overlay.html:109
@@ -865,11 +863,11 @@ msgstr "Предложение о реванше отправлено"
 #: templates/game/x01/stream_overlay.html:177 templates/game/x01/webcam.html:87
 #: templates/tournament/settings.html:68
 msgid "Back to tournament"
-msgstr "Вернуться к турниру"
+msgstr "Voltar ao torneio"
 
 #: templates/game/cricket/navbar.html:31
 msgid "Toggle chat"
-msgstr "Переключить чат"
+msgstr "Ativar/Desativar chat"
 
 #: templates/game/cricket/stream_overlay.html:126
 #: templates/game/cricket/stream_overlay.html:313
@@ -879,7 +877,7 @@ msgstr "Переключить чат"
 #: templates/game/x01/stream_overlay.html:295
 #: templates/game/x01/webcam.html:104
 msgid "Undo last score"
-msgstr "Отменить ввод"
+msgstr "Desfazer a última pontuação"
 
 #: templates/game/cricket/stream_overlay.html:127
 #: templates/game/cricket/stream_overlay.html:314
@@ -889,700 +887,700 @@ msgstr "Отменить ввод"
 #: templates/game/x01/stream_overlay.html:296
 #: templates/game/x01/webcam.html:105
 msgid "Enter correct score"
-msgstr "Введите правильный набор"
+msgstr "Digite a pontuação correta"
 
 #: templates/game/cricket/stream_overlay.html:133
 #: templates/game/x01/game.html:95 templates/game/x01/stream_overlay.html:104
 msgid "Keypad"
-msgstr "Клавиатура"
+msgstr "Teclado"
 
 #: templates/game/x01/completed.html:180
 #: templates/statistics/x01_detail_element.html:66
 msgid "Highest Finish"
-msgstr "Макс. закрытие"
+msgstr "Maior fechada"
 
 #: templates/game/x01/completed.html:186
 #: templates/statistics/x01_detail_element.html:15
 msgid "Shortest Leg"
-msgstr "Мин. дротиков на лэг"
+msgstr "Melhor leg"
 
 #: templates/game/x01/webcam_follow.html:10
 msgid "Your camera device waits on this page for you to request it in the game menu."
-msgstr "Камера вашего устройства ожидает на этой странице вашего запроса в меню игры."
+msgstr "Aguardando liberação do dispositivo de câmera/vídeo no menu da partida."
 
 #: templates/generic/404.html:10
 msgid "404 Error"
-msgstr "Ошибка 404"
+msgstr "Erro 404"
 
 #: templates/generic/404.html:12
 msgid "Oops, you've visited a page that does not exist."
-msgstr "Упс, вы посетили страницу, которой не существует."
+msgstr "Ops, você visitou uma página que não existe."
 
 #: templates/generic/404.html:13 templates/generic/500.html:13
 msgid "If you've found a bug please contact us at contact@lidarts.org. Thank you!"
-msgstr "Если вы нашли ошибку, пожалуйста, сообщите о ней по адресу contact@lidarts.org. Спасибо!"
+msgstr "Se encontrou um erro, entre em contato conosco pelo contact@lidarts.org. Obrigado!"
 
 #: templates/generic/500.html:10
 msgid "500 Error"
-msgstr "Ошибка 500"
+msgstr "Erro 500"
 
 #: templates/generic/500.html:12
 msgid "Oh no, something went wrong."
-msgstr "О нет, что-то пошло не так."
+msgstr "Ah não, algo deu errado."
 
 #: templates/generic/about.html:10
 msgid "About lidarts.org"
-msgstr "О проекте lidarts.org"
+msgstr "Sobre lidarts.org"
 
 #: templates/generic/about.html:12
 msgid "Lidarts is a"
-msgstr "Лидартс — это"
+msgstr "Lidarts é uma"
 
 #: templates/generic/about.html:12
 msgid "free/libre, open-source"
-msgstr "свободный, открытый исходный код"
+msgstr "livre/free, código-aberto"
 
 #: templates/generic/about.html:12
 msgid "online darts scoring website."
-msgstr "сайт с онлайн дартс калькулятором."
+msgstr "site de dardos on-line."
 
 #: templates/generic/about.html:13
 msgid "Still being in a very early stage, the main goal for Lidarts' future is to provide darts players an online service to play against real players and to help in their daily training."
-msgstr "Сайт находится на ранней стадии разработки. Главная цель Лидартс - предоставить игрокам сервис, позволяющий играть против реальных игроков по всему миру и помогать в повседневных тренировках."
+msgstr "Ainda estando numa fase muito inicial, o principal objetivo do Lidarts é proporcionar um serviço online para que você possa jogar contra outros jogadores reais espalhados pelo mundo e ainda poder nos ajudar na sua performance de jogo. Bom dardos."
 
 #: templates/generic/about.html:13
 msgid "Many features are planned and wait for completion."
-msgstr "Множество новых функций для сайта запланировано и находится в работе."
+msgstr "Muitas funcionalidades estão planejadas e aguardando a conclusão."
 
 #: templates/generic/about.html:14
 msgid "The entire project is driven by volunteers. Everyone is invited to"
-msgstr "Вся работа над проектом ведется добровольцами. Приглашаем всех!"
+msgstr "O projeto inteiro é impulsionado por voluntários. Todos são convidados para"
 
 #: templates/generic/about.html:14
 msgid "contribute"
-msgstr "внести свой вклад"
+msgstr "contribuir"
 
 #: templates/generic/about.html:15
 msgid "DartCall 2007 caller pack created by Horst Girtew."
-msgstr "Набор голосовых озвучек DartCall 2007 создан компанией Horst Girtew."
+msgstr "Pacote de chamadas DartCall 2007 criado pela Horst Girtew."
 
 #: templates/generic/about.html:16
 msgid "Sound effects obtained from"
-msgstr "Звуковые эффекты полученные от"
+msgstr "Efeitos de som obtidos de"
 
 #: templates/generic/chat.html:18 templates/generic/lobby.html:64
 msgid "Public challenges"
-msgstr "Публичные вызовы"
+msgstr "Desafios públicos"
 
 #: templates/generic/chat.html:26
 msgid "New games"
-msgstr "Сейчас играют"
+msgstr "Novos jogos"
 
 #: templates/generic/chat.html:54 templates/tournament/details.html:54
 msgid "Latest results"
-msgstr "Последние результаты"
+msgstr "Resultados mais recentes"
 
 #: templates/generic/chat.html:81
 msgid "Show match information"
-msgstr "Показать информацию о матче"
+msgstr "Mostrar informações da partida"
 
 #: templates/generic/chat.html:81
 msgid "Show public challenges"
-msgstr "Показать публичные вызовы"
+msgstr "Mostrar desafios públicos"
 
 #: templates/generic/chat.html:109 templates/tournament/details.html:105
 msgid "Filter users"
-msgstr "Фильтровать пользователей"
+msgstr "Filtrar usuários"
 
 #: templates/generic/chat.html:114 templates/tournament/details.html:110
 msgid "From your country"
-msgstr "Из моей страны"
+msgstr "De seu país"
 
 #: templates/generic/chat.html:118 templates/tournament/details.html:114
 msgid "Online"
-msgstr "Сейчас на сайте"
+msgstr "Disponível"
 
 #: templates/generic/chat.html:119 templates/tournament/details.html:115
 msgid "Playing"
-msgstr "Сейчас играют"
+msgstr "Jogando"
 
 #: templates/generic/contact.html:12
 msgid "There are a few ways to contact us, more to come soon! No matter the reason, we try to reply as quickly as possible."
-msgstr "Есть несколько способов связаться с нами. Независимо от причины обращения, мы постараемся ответить как можно быстрее."
+msgstr "Há algumas maneiras de nos contactar, mais para vir! Por isso, nós tentamos responder o mais rápido possível."
 
 #: templates/generic/contact.html:13
 msgid "At the moment we can provide you support in English or German."
-msgstr "На данный момент мы можем предоставить вам поддержку на английском или немецком языках."
+msgstr "Neste momento podemos prestar-lhe suporte em inglês ou alemão."
 
 #: templates/generic/contact.html:16
 msgid "lidarts on GitHub"
-msgstr "Лидарс на GitHub"
+msgstr "lidarts no GitHub"
 
 #: templates/generic/contribute.html:10
 msgid "Contribute to lidarts.org"
-msgstr "Внести свой вклад проекту lidarts.org"
+msgstr "Contribua para lidarts.org"
 
 #: templates/generic/contribute.html:12
 msgid "Lidarts relies on volunteers to develop and maintain the project. There are several ways you can help out."
-msgstr "Лидартс полагается на добровольцев для разработки и сопровождения проекта. Есть несколько способов помочь."
+msgstr "A plataforma Lidarts depende de voluntários para se manter e desenvolver. Existem várias maneiras de nos ajudar ou contribuir."
 
 #: templates/generic/contribute.html:14
 msgid "Play and provide feedback"
-msgstr "Играйте и предоставляйте обратную связь"
+msgstr "Jogue e forneça feedback"
 
 #: templates/generic/contribute.html:16
 msgid "During development I try to test the features the best I can. But there will still be bugs that make it through to the live server.\n"
 "                    If you encounter any bugs or problems during play or you have ideas or feedback to improve the site, please"
-msgstr "Во время разработки я стараюсь тестировать работу всех функций сайта. Но все равно случаются ошибки, которые появляются при использовании сайта игроками.\n"
-"                    Если вы столкнулись с ошибками или проблемами во время игры, или у вас есть идеи или предложения для улучшения сайта, пожалуйста"
+msgstr "Durante o estágio de desenvolvimento, tento testar os recursos o melhor que posso. Mas ainda haverão bugs que chegarão do ou ao servidor.\n"
+"                    Se você encontrar quaisquer bugs ou problemas durante o jogo, ou se você tiver ideias ou comentários para melhorar o site, por favor,"
 
 #: templates/generic/contribute.html:17 templates/generic/contribute.html:31
 #: templates/generic/help_translate.html:17
 msgid "contact"
-msgstr "напишите нам"
+msgstr "contato"
 
 #: templates/generic/contribute.html:19
 msgid "Tell your friends"
-msgstr "Рассказать своим друзьям"
+msgstr "Compartilhe com amigos"
 
 #: templates/generic/contribute.html:21
 msgid "Lidarts generates no money - it is free for everyone, we do not sell ads nor your data. The downside is the lack of a budget for marketing.\n"
 "                    We rely on users to make Lidarts known to darts players. So tell your friends, invite them to play and spread the word!"
-msgstr "Лидартс не зарабатывает денег - сайт бесплатен для всех, мы не продаем на нем объявлений и ваших данных. Недостатком такого подхода является отсутствие бюджета на маркетинг.\n"
-"                    Мы полагаемся на пользователей, чтобы Лидартс стал известен среди дартсменов. Расскажите о сайте своим друзьям, пригласите их поиграть и тоже рассказать об этом!"
+msgstr "A plataforma Lidarts não capita receitas - é gratuito para todos, não vendemos anúncios nem seus dados. Por isso há uma limitação de investimentos em marketing.\n"
+"                    Contamos com usuários para fazer com que o Lidarts chegue para novos jogadores de dardos em todo o mundo. Então compartilhe com seus amigos, convide-os a jogar e espalhar a notícia!"
 
 #: templates/generic/contribute.html:24
 msgid "Translations"
-msgstr "Переводы"
+msgstr "Traduções"
 
 #: templates/generic/contribute.html:26
 msgid "The main language on Lidarts is English. Translations exist in German, Danish and Dutch. If you are fluent in English and another language of your choice you can"
-msgstr "Основной язык на Лидартс - английский. Существуют переводы сайта на немецкий, датский и голландский языки. Если вы свободно владеете английским и другим языком по вашему выбору вы можете"
+msgstr "O idioma principal da plataforma Lidarts é o Inglês. Há outras opções disponíveis como alemão, dinamarquês e holandês. Se você é fluente em inglês e em outra língua de sua escolha, você pode"
 
 #: templates/generic/contribute.html:26
 msgid "help translating"
-msgstr "помочь с переводом"
+msgstr "ajude a traduzir"
 
 #: templates/generic/contribute.html:26
 msgid "parts of Lidarts or the entire website for your community. "
-msgstr "какой-то части сайта Лидартс или всего сайта целиком для вашей страны. "
+msgstr "partes da plataforma Lidarts ou todo o site da sua comunidade. "
 
 #: templates/generic/contribute.html:29 templates/statistics/x01.html:124
 msgid "Graphics"
-msgstr "График набора"
+msgstr "Gráficos"
 
 #: templates/generic/contribute.html:31
 msgid "The design of the website is not finished, but Lidarts mainly lacks some graphics to improve the look. Do you have the know-how to create graphics for Lidarts? If so,"
-msgstr "Дизайн сайта еще не закончен, команде Лидартс не хватает некоторых графических умений для улучшения внешнего вида. У вас есть крутые идеи и умения для создания графики на Лидартс? Если да, то"
+msgstr "O design da plataforma ainda não está finalizado. Nós carecemos de algumas melhorias gráficas. Você teria a habilidade para criar e desenvolver a interface gráfica para a plataforma? Se sim,"
 
 #: templates/generic/contribute.html:31
 msgid "us."
-msgstr "напишите нам."
+msgstr "nós."
 
 #: templates/generic/contribute.html:35
 msgid "I am not a web designer and the website reflects that. At some point Lidarts will need a redesign and some help would be greatly appreciated.\n"
 "                    You can help out with design ideas: Create a visual concept with Paint, Photoshop or whatever you like and"
-msgstr "Я не дизайнер и внешний вид сайта говорит об этом. В какой-то момент Лидантс потребуется переделать дизайн и некоторая помощь будет очень признательна.\n"
-"                    Вы можете помочь с идеями дизайна: создать визуальную концепцию с помощью Paint, Photoshop или другой программы, в которой вы привыкли работать"
+msgstr "Não sou um web designer e a plataforma reflete isso. Em algum momento, Lidarts precisará de uma nova concepção gráfica e toda ajuda seria muito apreciada.\n"
+"                    Você pode ajudar com ideias de design: Crie um conceito visual com Paint, Photoshop ou o que você se sentir mais à vontade"
 
 #: templates/generic/contribute.html:36
 msgid "send it to me."
-msgstr "отправить мне."
+msgstr "enviar para mim."
 
 #: templates/generic/contribute.html:37
 msgid "Or even better: you can work directly on the frontend and implement your ideas if you have some knowledge about HTML, CSS and JavaScript."
-msgstr "Или еще лучше: вы можете работать непосредственно на интерфейсе и реализовывать свои идеи, если у вас есть некоторые знания о HTML, CSS и JavaScript."
+msgstr "Ou ainda melhor: você pode trabalhar diretamente no frontend e implementar suas ideias se tiver algum conhecimento sobre HTML, CSS e JavaScript."
 
 #: templates/generic/contribute.html:38
 msgid "Interested?"
-msgstr "Заинтересованы?"
+msgstr "Interessado?"
 
 #: templates/generic/contribute.html:38
 msgid "Contact Lidarts"
-msgstr "Контакты Лидартс"
+msgstr "Entre em contato conosco"
 
 #: templates/generic/contribute.html:38
 msgid "or visit the"
-msgstr "или посетите"
+msgstr "ou visite o"
 
 #: templates/generic/contribute.html:40
 msgid "Programming"
-msgstr "Разработку"
+msgstr "Programação"
 
 #: templates/generic/contribute.html:42
 msgid "Of course you are more than welcome to join Lidarts and develop on the project. At the current stage I am all by myself and try to get the project contribution-ready.\n"
 "                    If you are interested to get started take a look at the"
-msgstr "Конечно, вы можете присоединиться к Лидартс и развивать проект. На текущем этапе я все делаю сам и стараюсь сделать проект полностью готовым.\n"
-"                    Если вас интересует начало работы, взгляните на"
+msgstr "Claro que você é mais do que bemvindo para se juntar ao Lidarts e desenvolver o projeto. Na fase atual, estou dando o meu máximo para tornar as contribuições e melhorias disponíveis.\n"
+"                    Se você está interessado em começar a dar uma olhada no"
 
 #: templates/generic/contribute.html:43
 msgid "GitHub repo"
-msgstr "GitHub repo"
+msgstr "Repositório GitHub"
 
 #: templates/generic/contribute.html:43
 msgid "or"
-msgstr "или"
+msgstr "ou"
 
 #: templates/generic/contribute.html:43
 msgid "contact me"
-msgstr "свяжитесь со мной"
+msgstr "fale comigo"
 
 #: templates/generic/contribute.html:45
 msgid "Donations"
-msgstr "Пожертвования"
+msgstr "Doações"
 
 #: templates/generic/contribute.html:47
 msgid "All features on Lidarts are free. However it requires money to pay for our servers and hosting. You can donate to the project to keep it free for others and smooth for everyone. Although you cannot buy access to any exclusive features, your contribution is acknowledged with a star next to your name on Lidarts for a month. Include your Lidarts username in your donation."
-msgstr "Все функции сайта Лидартс бесплатны, однако для оплаты наших серверов и хостинга требуются деньги. Вы можете пожертвовать проекту, чтобы сохранить его свободным и бесплатным для всех. Ваше пожертвование будет отмечено звездочкой рядом с вашим именем в Лидартс в течение месяца. Не забудьте указать ваше имя пользователя при совершении пожертвования."
+msgstr "Todos os recursos no Lidarts são gratuitos. No entanto, a plataforma precisa de dinheiro para pagar por servidores e hospedagem. Você pode doar e contribuir para que o Lidarts continue gratuito e suave para todos. Embora você não possa comprar acesso a qualquer característica ou funcionalidade exclusiva, sua contribuição é reconhecida com uma estrela ao lado do seu nome nos Lidarts por um mês. Inclua seu nome de usuário Lidarts na doação."
 
 #: templates/generic/contribute.html:48
 msgid "Please note that Lidarts is not a registered non-profit organization by German law. All donations are taxed as the developer's income."
-msgstr "Пожалуйста, обратите внимание, что Лидартс не является зарегистрированной некоммерческой организацией по законодательству Германии. Все пожертвования начисляются разработчику как доход и будут облагаться налогом."
+msgstr "Por favor, note que a Lidarts não é uma organização sem fins lucrativos conforme explicitada pela lei alemã. Todas as doações são tributadas e classificadas como renda pelo desenvolvedor da plataforma."
 
 #: templates/generic/faq.html:6
 msgid "Frequently Asked Questions"
-msgstr "Часто задаваемые вопросы"
+msgstr "Perguntas frequentes"
 
 #: templates/generic/faq.html:8
 msgid "What do I need to play?"
-msgstr "Что мне нужно для игры?"
+msgstr "O que preciso para jogar?"
 
 #: templates/generic/faq.html:9
 msgid "To play you need a computer or a mobile device with a modern browser. Obviously you also need a darts setup."
-msgstr "Для игры вам понадобится компьютер или мобильное устройство с современным браузером. Очевидно, что так же необходимо иметь мишень и дротики."
+msgstr "Para jogar você precisa de um computador ou um dispositivo móvel como celular ou tablet com um navegador atualizado. Obviamente, você também precisa ter os seus próprios dardos e demais acessórios como um alvo."
 
 #: templates/generic/faq.html:11
 msgid "How do I find someone to play?"
-msgstr "Как мне найти кого-нибудь для игры?"
+msgstr "Como eu encontro alguém para jogar?"
 
 #: templates/generic/faq.html:12
 msgid "If you did not arrange a game with someone yet there are two easy options: Either join the chat and ask/look for a game there, or you can set up a public challenge when creating a game which will be visible to everyone else."
-msgstr "Если вы еще не организовали игру с кем-то, есть два простых варианта: либо войти в чат и написать в нем предложение поиграть, или поискать там чьи-то аналогичные предложения, либо, вы можете при создании игры сделать публичный вызов, игра станет видна всем игрокам и кто-нибудь из них примет ваш вызов."
+msgstr "Se você ainda não organizou uma partida com alguém, há duas opções fáceis: entre no chat e pergunte/procure por uma partida lá, ou você pode configurar uma partida pública e assim criar um jogo que será visível para todos os outros jogadores."
 
 #: templates/generic/faq.html:14
 msgid "How does 'closest to bull' work?"
-msgstr "Что значит \"кто ближе попадет в Булл\"?"
+msgstr "Como funciona 'o mais próximo do Bullseye'?"
 
 #: templates/generic/faq.html:15
 msgid "In order to determine the starting player you throw three darts at bull. Enter and submit each dart score individually in order of throw. Darts outside of bull count as 0. The first better result over the other player begins. This means that for example 25-0-0 beats 0-50-50 as player 1 had a better result with an earlier dart."
-msgstr "Для того чтобы определить кто начинает игру - каждый игрок бросает в Булл по три дротика. Результат заносится по каждому дротику в порядке броска. Дротики за пределами Булл считаются равными 0. Игрок с лучшим результатом первый начнет матч. Это означает, что, например, 25-0-0 лучше чем 0-50-50, поскольку игрок 1 имел лучший результат в более раннем броске."
+msgstr "A fim de determinar o jogador que irá iniciar a partida, cada jogador deverá jogar 3 dardos em diração ao Bull. A pontuação de cada dardo deve ser inserida individualmente em ordem de lançamento. Lembrando que o dardos que não atingir o Bull não tem score, zero ponto. O jogador que obter o primeiro melhor lançamento em relação ao adversário inicia a partida. Exemplo, se o jogador 1 pontuar na ordem 25-0-0 e o jogador 2 pontuar na ordem 0-50-50, o jogador 1 deve começar a partida pois durante o primeiro lançamento já obteve uma pontuação maior que o jogador 2."
 
 #: templates/generic/faq.html:17
 msgid "Can I play cricket or other variants?"
-msgstr "Могу ли я играть в крикет или в другие варианты?"
+msgstr "Posso jogar críquete ou outras variantes?"
 
 #: templates/generic/faq.html:18
 msgid "Currently only X01 games are available. Cricket will be available soon. More dart games might follow."
-msgstr "Да, сможете. В настоящее время на Лидартс доступны игры X01 и Крикет."
+msgstr "Atualmente apenas jogos X01 estão disponíveis. O Cricket estará disponível em breve juntamente com outros modos de jogos ou partidas."
 
 #: templates/generic/faq.html:20
 msgid "Can I use my webcam and see my opponent's throw?"
-msgstr "Могу ли я использовать свою камеру чтобы увидеть броски соперника?"
+msgstr "Posso usar minha webcam e ver o lançamento do meu adversário?"
 
 #: templates/generic/faq.html:21
 msgid "Lidarts supports experimental webcam games over Jitsi Meet, a video conferencing service. You can also play without a webcam based on trust."
-msgstr "Лидартс поддерживает экспериментальный режим игр с камерой через сервис Jitsi Meet. Вы также можете играть без камеры, основываясь на доверии."
+msgstr "Lidarts suporta jogos experimentais com uso de webcam por meio do Jitsi Meet, um serviço de videoconferência. Você também pode jogar sem uma webcam com base na confiança e ética do esporte."
 
 #: templates/generic/faq.html:23
 msgid "How do I set up my webcam?"
-msgstr "Как настроить камеру?"
+msgstr "Como eu configuro minha webcam?"
 
 #: templates/generic/faq.html:24
 msgid "You need to connect your webcam (or smartphone with appropiate software) to your computer. Before your first game you have to agree to the current"
-msgstr "Вам нужно подключить камеру (или телефон) к компьютеру. Перед первой игрой необходимо принять"
+msgstr "Você precisa conectar sua webcam (ou smartphone com software transmissão de sua escolha) ao seu computador. Antes do seu primeiro jogo, você precisa concordar com o atual"
 
 #: templates/generic/faq.html:24
 msgid "webcam service notice"
-msgstr "уведомление служб камеры"
+msgstr "notificação de webcam"
 
 #: templates/generic/faq.html:24
 msgid "Create a game normally on the webcam page afterwards."
-msgstr "После этого создайте новую игры с использованием камеры."
+msgstr "Após, crie uma partida com uso de webcam na respectiva página."
 
 #: templates/generic/faq.html:26
 msgid "Can I play steel and/or e-darts?"
-msgstr "Могу ли я играть в классический или электронный дартс?"
+msgstr "Posso utlizar dardos de metal ou plástico?"
 
 #: templates/generic/faq.html:27
 msgid "Both variants are welcome to play on Lidarts."
-msgstr "Оба варианта поддерживаются для игры на Лидартс."
+msgstr "Ambas as variantes são aceitas no Lidarts."
 
 #: templates/generic/faq.html:29
 msgid "Can I host and play in tournaments?"
-msgstr "Можно ли принимать участие в турнирах и играть в них?"
+msgstr "Posso criar e jogar em torneios?"
 
 #: templates/generic/faq.html:30
 msgid "Currently tournament organizers can create a separate room with a tournament-specific chat, user list and result box. For brackets you need to use an external service. It will be possible to automate tournaments on Lidarts soon."
-msgstr "В настоящее время организаторы турниров могут создать отдельную комнату с определенным для турнира чатом, списком пользователей и таблицей результатов. Вскоре турниры на Лидартс можно будет автоматизировать."
+msgstr "Atualmente, os organizadores de torneios podem criar uma sala à parte com um chat específico para o torneio bem como uma lista de usuários e exibições dos resultados. Para brackets você precisa usar um serviço externo. Será possível automatizar os torneios em breve no Lidarts."
 
 #: templates/generic/faq.html:32
 msgid "How do I send private messages?"
-msgstr "Как отправить личное сообщение?"
+msgstr "Como faço para enviar mensagens privadas?"
 
 #: templates/generic/faq.html:33
 msgid "Open your inbox, enter the recipient's username in the box below and compose a new message."
-msgstr "Нажмите на пункт меню \"Сообщения\", далее введите имя получателя и пишите ему сообщение."
+msgstr "Abra sua caixa de entrada, insira o nome de usuário do destinatário na caixa abaixo e escreva uma nova mensagem."
 
 #: templates/generic/faq.html:35
 msgid "How do I add someone to my friend list?"
-msgstr "Как добавить кого-нибудь в мой список друзей?"
+msgstr "Como faço para adicionar alguém à minha lista de amigos?"
 
 #: templates/generic/faq.html:36
 msgid "You need to know your friend's username. Use the user search box in the lobby to find his profile. Click the friend request link there and wait for him to confirm."
-msgstr "Вам нужно знать имя пользователя своего друга. Найдите его профиль через поиск пользователей, расположенный в Лобби. Далее нажмите \"Добавить в друзья\" и дождитесь подтверждения от друга."
+msgstr "Você precisa saber o nome do usuário de seu amigo. Use o campo de pesquisa de usuário no lobby para encontrar o perfil desejado. Clique no link de solicitação de amizade e aguarde a confirmação dele."
 
 #: templates/generic/faq.html:38
 msgid "Where can I change my country flag / caller voice / username / password etc."
-msgstr "Где я могу изменить флаг своей страны / голос судьи / имя пользователя / пароль и другие настройки."
+msgstr "Onde posso mudar a bandeira de meu país / voz de chamada / nome de usuário / senha etc."
 
 #: templates/generic/faq.html:39
 msgid "In your profile there is a settings button with lots of options. We highly recommend to look through the options before you play."
-msgstr "Нажмите на кнопку \"Настройки\", расположенную в вашем профиле. Вы попадете в раздел с большим количеством настроек различных параметров. Рекомендуем ознакомиться с ними перед игрой."
+msgstr "No seu perfil há um botão de configurações com muitas opções. Recomendamos que você veja as opções antes de jogar."
 
 #: templates/generic/faq.html:41
 msgid "My opponent throws so fast. What can I do?"
-msgstr "Мой соперник бросает слишком быстро, что можно сделать?"
+msgstr "Meu oponente joga muito rápido. O que posso fazer?"
 
 #: templates/generic/faq.html:42
 msgid "There are usually two types of online players: Those who wait for their opponent to throw and those who don't. If you feel stressed you can set up an input block time upon game creating. We recommend between 5 and 10 seconds."
-msgstr "Есть два типа онлайн-игроков: те, кто ждет когда соперник сделает свой подход и после начинает кидать дротики, и те, кто этого не делает и бросает сразу. Если вы чувствуете стресс, вы можете настроить время ответного подхода соперника. Мы рекомендуем использовать от 5 до 10 секунд."
+msgstr "Geralmente, há dois tipos de jogadores on-line: aqueles que esperam que seu oponente jogue e os que não esperam. Se você se sentir desconfortável, você pode configurar um tempo de retardo de entrada de pontuação ao criar uma partida. Recomendamos entre 5 e 10 segundos."
 
 #: templates/generic/faq.html:44
 msgid "What do the status colors mean?"
-msgstr "Что означают цвета статуса?"
+msgstr "O que as cores de status significam?"
 
 #: templates/generic/faq.html:45
 msgid "Players can set most of these statuses manually. Green = online, yellow = Not available, purple = Looking for game, blue = currently playing, grey = offline."
-msgstr "Цвет статуса отображает состояние игрока. Некоторые цвета статуса можно задавать самостоятельно. Зеленый - игрок находится онлайн. Желтый - игрок недоступен. Фиолетовый - игрок находится в поиске игры. Синий - игрок в данный момент играет. Серый - игрока нет в сети."
+msgstr "Jogadores podem definir a maioria destes status manualmente. Verde = online, amarelo = Não disponível, roxo = Procurando jogo, azul = jogando atualmente, cinza = offline."
 
 #: templates/generic/faq.html:47
 msgid "I found a bug / have a question or feature request / someone is cheating."
-msgstr "Я нашел ошибку / у меня есть вопрос или предложение / кто-то обманывает при игре."
+msgstr "Encontrei um erro / tenho uma pergunta ou pedido de funcionalidades / alguém está trapaceando."
 
 #: templates/generic/faq.html:48
 msgid "Contact us."
-msgstr "Напишите нам."
+msgstr "Fale conosco."
 
 #: templates/generic/help_translate.html:10
 msgid "Help translating lidarts.org"
-msgstr "Помогите перевести lidarts.org"
+msgstr "Ajuda a traduzir lidarts.org"
 
 #: templates/generic/help_translate.html:12
 msgid "Lidarts is currently available in four languages: English, German, Danish and Dutch. Translations to any language can be provided by the community."
-msgstr "В настоящее время Лидартс доступен на четырех языках: английском, немецком, датском и голландском. Перевод на любой другой язык может быть предоставлен пользователями."
+msgstr "Lidarts está atualmente disponível em quatro idiomas: inglês, alemão, dinamarquês e holandês. Traduções para qualquer idioma podem ser fornecidas pela comunidade."
 
 #: templates/generic/help_translate.html:14
 msgid "How to translate"
-msgstr "Как сделать перевод"
+msgstr "Como traduzir"
 
 #: templates/generic/help_translate.html:16
 msgid "If you speak any other language you can help translating Lidarts. You do not need any additional software."
-msgstr "Если вы говорите на другом языке, вы можете помочь с переводом Лидартс, для этого вам не потребуется никаких дополнительных программ."
+msgstr "Se você fala qualquer outro idioma, você pode ajudar a traduzir o Lidarts. Você não precisa de nenhum software adicional."
 
 #: templates/generic/help_translate.html:16
 msgid "Visit our translation project on "
-msgstr "Посетите наш переводческий проект на "
+msgstr "Visite nosso projeto de tradução em "
 
 #: templates/generic/help_translate.html:17
 msgid "You can register a new account there or log in with various third party services. After logging in you can start translating texts to the language of your choice or improve existing translations."
-msgstr "Вы можете зарегистрировать там новую учетную запись или войти с помощью различных сторонних сервисов. После входа в систему вы можете начать перевод текстов на выбранный вами язык или улучшить уже существующие переводы."
+msgstr "Lá você pode registrar uma nova conta ou entrar via login de sites terceiros. Após o login, você pode começar a traduzir textos para o idioma de sua escolha ou melhorar as traduções existentes."
 
 #: templates/generic/help_translate.html:17
 msgid "If your language is missing or you have any questions"
-msgstr "Если ваш язык отсутствует в списке или у вас есть какие-либо вопросы"
+msgstr "Se não encontrou o seu idioma ou se você tiver alguma dúvida"
 
 #: templates/generic/help_translate.html:17
 msgid "us"
-msgstr "нас"
+msgstr "nós"
 
 #: templates/generic/inbox.html:25
 msgid "Enter name"
-msgstr "Имя получателя"
+msgstr "Inserir o nome"
 
 #: templates/generic/inbox.html:26
 msgid "Compose new message"
-msgstr "Начать диалог"
+msgstr "Escrever nova mensagem"
 
 #: templates/generic/inbox.html:38
 msgid "Chat with"
-msgstr "Диалог с"
+msgstr "Bate-papo com"
 
 #: templates/generic/index.html:6
 msgid "Welcome to lidarts.org!"
-msgstr "Добро пожаловать на lidarts.org!"
+msgstr "Bem-vindo ao lidarts.org!"
 
 #: templates/generic/index.html:7
 msgid "lidarts.org is an"
-msgstr "lidarts.org — это"
+msgstr "lidarts.org é uma"
 
 #: templates/generic/index.html:7
 msgid "open-source"
-msgstr "открытый исходный код"
+msgstr "código-aberto"
 
 #: templates/generic/index.html:7
 msgid "forever free online darts website."
-msgstr "бесплатный сайт для игры в дартс."
+msgstr "plataforma de dardos online gratuita de forma vitalícia."
 
 #: templates/generic/index.html:9
 msgid "Play darts against real opponents. With a webcam or without. Or train against the computer."
-msgstr "Играйте в дартс против реальных соперников по всему миру. С камерой или без нее. Или тренируйтесь, играя против компьютера."
+msgstr "Jogue dardos contra oponentes reais. Com uma webcam ou sem. Ou treine contra o computador."
 
 #: templates/generic/index.html:9
 msgid "No costs, no ads, no trackers."
-msgstr "Никаких затрат, никакой рекламы и спама, никаких трекеров."
+msgstr "Sem custos, sem anúncios, sem rastreadores."
 
 #: templates/generic/index.html:12
 msgid "Learn more"
-msgstr "Подробнее"
+msgstr "Saiba mais"
 
 #: templates/generic/index.html:13
 msgid "Sign Up now"
-msgstr "Зарегистрироваться"
+msgstr "Registre-se agora"
 
 #: templates/generic/lobby.html:10
 msgid "Welcome back"
-msgstr "Добро пожаловать!"
+msgstr "Bem-vindo de volta"
 
 #: templates/generic/lobby.html:30
 msgid "New on Lidarts:"
-msgstr "Обновления на Лидартс:"
+msgstr "Novo em Lidarts:"
 
 #: templates/generic/lobby.html:30
 msgid "Cricket"
-msgstr "Крикет"
+msgstr "Cricket"
 
 #: templates/generic/lobby.html:30 templates/generic/webcam_tutorial_en.html:10
 #: templates/profile/webcam_settings.html:15
 msgid "Webcam tutorial"
-msgstr "Как настроить камеру?"
+msgstr "Tutorial de webcam"
 
 #: templates/generic/lobby.html:30
 msgid "Help translating Lidarts"
-msgstr "Помогите с переводом Лидартс"
+msgstr "Ajude a traduzir o Lidarts"
 
 #: templates/generic/lobby.html:46
 msgid "Create a game"
-msgstr "Создать новую игру"
+msgstr "Crie uma partida"
 
 #: templates/generic/lobby.html:57
 msgid "Webcam follow page"
-msgstr "Камера следуют на страницу"
+msgstr "Monitoramento da webcam"
 
 #: templates/generic/lobby.html:65
 msgid "Click to accept and play"
-msgstr "Нажмите, чтобы принять и начать игру"
+msgstr "Clique para aceitar e jogar"
 
 #: templates/generic/lobby.html:73
 msgid "Notifications"
-msgstr "Уведомления"
+msgstr "Notificações"
 
 #: templates/generic/lobby.html:77
 msgid "Challenges:"
-msgstr "Вызовы:"
+msgstr "Desafios:"
 
 #: templates/generic/lobby.html:90
 msgid "Games in progress:"
-msgstr "Незавершенные игры:"
+msgstr "Jogos em andamento:"
 
 #: templates/generic/lobby.html:95
 msgid "local guest"
-msgstr "другой человек"
+msgstr "partida local"
 
 #: templates/generic/lobby.html:106
 msgid "New friend requests"
-msgstr "Новые запросы в друзья"
+msgstr "Novos pedidos de amizade"
 
 #: templates/generic/lobby.html:123
 msgid "Friends online"
-msgstr "Друзья онлайн"
+msgstr "Amigos online"
 
 #: templates/generic/lobby.html:125
 msgid "None"
-msgstr "Никого из друзей на Лидартс сейчас нет"
+msgstr "Nenhuma"
 
 #: templates/generic/watch.html:16
 msgid "There are no live games at the moment."
-msgstr "На данный момент нет игр в прямом эфире."
+msgstr "Não há jogos em andamento no momento."
 
 #: templates/generic/webcam_tutorial_en.html:14
 msgid "In order to play with a webcam you need a modern browser (Chrome or Firefox, latest version) and a camera. We highly recommend a USB-webcam, but a smartphone will likely also work."
-msgstr "Чтобы играть с камерой вам нужен современный браузер (Chrome или Firefox, последние версии) и камера. Мы рекомендуем использовать USB веб-камеру или камеру в ноутбуке, но через телефон, скорее всего, тоже будет работать."
+msgstr "Para jogar com uma webcam você precisa de um navegador atualizado (Chrome ou Firefox, versão mais recente) e uma câmera. Nós recomendamos fortemente uma webcam USB, mas é provável que um smartphone também funcione. Se possível, conecte seu celular via USB preferivelmente ao invés de redes WIFI."
 
 #: templates/generic/webcam_tutorial_en.html:16
 msgid "First you need to confirm our webcam service notice. Open your profile:"
-msgstr "Сначала вам нужно подтвердить согласие на использование камеры на нашем сайте. Войдите в свой профиль:"
+msgstr "Primeiro você precisa confirmar nossa notificação de serviço de webcam. Abra seu perfil:"
 
 #: templates/generic/webcam_tutorial_en.html:18
 msgid "Open the preferences:"
-msgstr "Войдите в настройки:"
+msgstr "Abra as preferências:"
 
 #: templates/generic/webcam_tutorial_en.html:20
 msgid "Now open the webcam activation page:"
-msgstr "Теперь откройте страницу активации камеры:"
+msgstr "Agora abra a página de ativação de webcam:"
 
 #: templates/generic/webcam_tutorial_en.html:22
 msgid "Read the text, activate the checkbox and confirm:"
-msgstr "Прочтите текст и подтвердите ваше согласие, установив флажок:"
+msgstr "Leia o texto, ative a caixa de seleção e confirme:"
 
 #: templates/generic/webcam_tutorial_en.html:24
 msgid "You can now start webcam games and receive webcam game challenges! The next step depends on your camera device."
-msgstr "Теперь вы можете начать играть с камерой и получать от этого ощущения реального турнира! Следующие шаги по настройке зависят от типа вашей камеры и устройства."
+msgstr "Agora você pode iniciar as partidas com uso de webcam e também receber desafios com vídeo! O próximo passo depende de seu dispositivo de vídeo ou câmera."
 
 #: templates/generic/webcam_tutorial_en.html:26
 msgid "USB webcam"
-msgstr "USB веб-камера"
+msgstr "Webcam por USB"
 
 #: templates/generic/webcam_tutorial_en.html:27
 msgid "Connect your USB webcam to your computer. If your computer does not recognize the webcam install the appropiate driver from the webcam manufacturer."
-msgstr "Подключите USB веб-камеру к компьютеру. Если ваш компьютер не распознает веб-камеру, установите соответствующий драйвер от производителя веб-камеры."
+msgstr "Conecte sua webcam USB ao seu computador. Se seu computador não reconhece a webcam, tente instalar o driver do fabricante para o respectivo sistema operacional."
 
 #: templates/generic/webcam_tutorial_en.html:28
 msgid "To test the camera image we will create a local game without an opponent. Click on \"Play\":"
-msgstr "Чтобы проверить изображение с камеры, мы создадим демонстрационную игру без соперника. Нажмите на кнопку \" Играть\":"
+msgstr "Para testar a imagem da câmera, vamos criar um jogo local sem oponente. Clique em \"Jogar\":"
 
 #: templates/generic/webcam_tutorial_en.html:30
 msgid "Now set up a local webcam game and start:"
-msgstr "Теперь выберите тип соперника \"Другой человек\", установите галочку напротив \"Игра с камерой\" и начните игру:"
+msgstr "Agora configure um jogo de webcam local e começe:"
 
 #: templates/generic/webcam_tutorial_en.html:32
 msgid "At the first time your browser will ask for webcam and microphone permission. Click on allow:"
-msgstr "В первый раз ваш браузер запросит разрешение на использование камеры и микрофона. Разрешите:"
+msgstr "Na primeira vez o seu navegador pedirá a permissão de uso da webcam e do microfone. Clique em permitir:"
 
 #: templates/generic/webcam_tutorial_en.html:34
 msgid "You are done! The webcam screen on the right should now show your own webcam video. You can now play against real opponents and they will see your board."
-msgstr "Мы закончили! Теперь в правой части экрана должно отображаться ваше собственное видео с камеры. Теперь вы можете играть против реальных противников и они смогут видеть вашу мишень."
+msgstr "Tudo pronto! A tela de webcam à direita deve mostrar o seu próprio vídeo. Agora você pode jogar contra oponentes reais e eles verão o seu alvo."
 
 #: templates/generic/webcam_tutorial_en.html:35
 msgid "The preview image is flipped by default, but your opponent will see it correctly. You can flip your local image by right clicking on the small preview screen and pressing \"flip\":"
-msgstr "Изображение предварительного просмотра по умолчанию зеркальное, но ваш соперник увидит его правильно. Чтобы вы тоже могли видеть изображение со своей камеры в стандартном формате (не зеркальное) - щелкните правой кнопкой мыши на маленьком экране предварительного просмотра и нажмите кнопку \" Поворот\":"
+msgstr "A imagem de pré-visualização é invertida por padrão, mas seu oponente irá vê-la corretamente. Você pode girar sua imagem clicando com o botão direito na tela de pré-visualização e pressionando \"flip\":"
 
 #: templates/generic/webcam_tutorial_en.html:37
 msgid "If you have multiple cameras installed (e.g. on a laptop with built-in camera) you can select the correct camera in the Jitsi settings:"
-msgstr "Если у вас установлено несколько камер (например, на ноутбуке или телефоне 2 камеры - тыльная и фронтальная), вы можете выбрать нужную для использования камеру в настройках Jitsi:"
+msgstr "Se você tem várias câmeras instaladas (por exemplo, em um laptop com câmera embutida), você pode selecionar a câmera correta nas configurações do Jitsi:"
 
 #: templates/generic/webcam_tutorial_en.html:41
 msgid "Smartphone as webcam"
-msgstr "Мобильный телефон в качестве веб-камеры"
+msgstr "Smartphone como câmera"
 
 #: templates/generic/webcam_tutorial_en.html:42
 msgid "There are a couple of options to play with a smartphone as webcam. Try them to find out which method works best for you."
-msgstr "Есть несколько вариантов, как можно будет играть, используя мобильный телефон в качестве веб-камеры. Попробуйте их чтобы выяснить, какой метод лучше всего подойдет в вашем случае."
+msgstr "Existem algumas opções para jogar com um smartphone como webcam. Experimente-os para descobrir qual método funciona melhor para você."
 
 #: templates/generic/webcam_tutorial_en.html:45
 msgid "It's possible for your computer to detect your smartphone as a webcam. You will need a program like"
-msgstr "Ваш компьютер, при подключении к нему мобильного телефона, может использовать его как веб-камеру. Для этого вам понадобится такая программа, как"
+msgstr "É possível que seu computador detecte seu smartphone como uma webcam. Você precisará de um programa como"
 
 #: templates/generic/webcam_tutorial_en.html:46
 msgid "Download the mobile app and the desktop client and install both."
-msgstr "Скачайте и установите приложение на свой телефон, а так же на компьютер."
+msgstr "Baixe o aplicativo móvel e o cliente de desktop e instale ambos."
 
 #: templates/generic/webcam_tutorial_en.html:47
 msgid "Start the mobile app first. You will see the \"Wifi IP\" on your device. You will need this in the next step."
-msgstr "Сначала запустите приложение на телефоне. Вы увидите \"Wi-Fi IP\" на вашем устройстве. Эти данные вам понадобятся для следующего шага."
+msgstr "Comece o aplicativo móvel primeiro. Você verá \"IP Wi-Fi\" no seu dispositivo. Guarde essas informações para o próximo passo."
 
 #: templates/generic/webcam_tutorial_en.html:48
 msgid "Start the Droidcam client application on your computer and enter the \"Wifi IP\" from your smartphone. Press start."
-msgstr "Далее запустите программу Droidcam на вашем компьютере и введите этот \"Wifi IP\", который вы увидели в своем телефоне. Далее нажмите кнопку \"Старт\"."
+msgstr "Inicie o aplicativo cliente Droidcam no seu computador e insira o \"Wi-Fi IP\" no seu smartphone. Pressione iniciar."
 
 #: templates/generic/webcam_tutorial_en.html:50
 msgid "Your computer should now recognize your smartphone as a webcam device. You can now proceed to the camera test in the USB webcam section above."
-msgstr "Теперь ваш компьютер должен распознать ваш мобильный телефон как веб-камеру. Далее вы можете перейти к тестированию работы камеры в разделе USB веб-камера, который описан выше."
+msgstr "Seu computador deve agora reconhecer seu smartphone como um dispositivo de webcam. Agora você pode prosseguir para o teste de câmera na seção de webcam USB acima."
 
 #: templates/generic/webcam_tutorial_en.html:52
 msgid "Follow Mode on Lidarts"
-msgstr "Режим \"слежения\" на Лидартс"
+msgstr "Modo seguir no Lidarts"
 
 #: templates/generic/webcam_tutorial_en.html:53
 msgid "There's a chance you do not need to install any additional app at all. Enable the follow mode which you can find in the webcam settings."
-msgstr "Если у вас современный телефон, то есть шанс, что вам вообще не придется устанавливать никаких дополнительных приложений. Включите режим Слежения, этот пункт находится в Настройки > Настройки камеры."
+msgstr "Há uma chance de que você não precisa instalar nenhum aplicativo adicional. Ative o modo de seguir ou follow nas configurações da webcam."
 
 #: templates/generic/webcam_tutorial_en.html:55
 msgid "On your camera device (smartphone):"
-msgstr "На вашем мобильном телефоне (или планшете):"
+msgstr "No seu dispositivo de câmera (smartphone):"
 
 #: templates/generic/webcam_tutorial_en.html:55
 msgid "Open the follow page in the lobby and stay there."
-msgstr "На странице Лобби нажмите на кнопку \"Определить как камеру\"."
+msgstr "Abra a página de seguir no lobby e fique lá."
 
 #: templates/generic/webcam_tutorial_en.html:57
 msgid "On your computer:"
-msgstr "На вашем компьютере:"
+msgstr "No computador:"
 
 #: templates/generic/webcam_tutorial_en.html:57
 msgid "Create a local webcam game as shown in the \"USB webcam\" section."
-msgstr "Создайте и запустите локальную игру с использованием камеры, как это было описано выше в разделе \"USB-камера\"."
+msgstr "Crie um jogo local de webcam como mostrado na seção \"Webcam USB\"."
 
 #: templates/generic/webcam_tutorial_en.html:58
 msgid "Once you are in the game click on \"Summon webcam\" in the menu."
-msgstr "Как только вы окажетесь в игре, нажмите на кнопку \"Подключить камеру\" в меню."
+msgstr "Quando estiver no jogo, clique em \"Ativar a webcam\" no menu."
 
 #: templates/generic/webcam_tutorial_en.html:60
 msgid "Check your smartphone. It should now reload the page automatically and ask for camera and microphone permissions. Press accept."
-msgstr "Проверьте свой телефон или планшет. Теперь он должен автоматически перезагрузить страницу и запросить разрешение на использование камеры и микрофона. Разрешите."
+msgstr "Verifique o seu smartphone. Agora ele deve recarregar a página automaticamente e pedir permissões de câmera e microfone. Pressione aceitar."
 
 #: templates/generic/webcam_tutorial_en.html:61
 msgid "That's it! As long as your smartphone is on the \"Webcam follow page\" you can summon it in your games with one click."
-msgstr "Вот и все! Пока на вашем телефоне или планшете будет открыта эта страница, на которую вы попали нажав на \"Определить как камеру\", вы можете подключать эти устройства и использовать их как камеру в своих играх одним щелчком мыши."
+msgstr "É isso! Enquanto o seu smartphone estiver na \"página da webcam\", você poderá habilitar nos seus jogos com um clique."
 
 #: templates/generic/webcam_tutorial_en.html:62
 msgid "There is an issue on Android smartphones with the camera selection. By default the front camera is activated. You can try to switch it in the Jitsi settings:"
-msgstr "На Android телефонах или планшетах есть небольшая проблема с выбором камеры. По умолчанию там всегда включается фронтальная камера. Вы можете попробовать переключить ее в настройках Jitsi:"
+msgstr "Há um problema nos smartphones Android com a seleção da câmera. Por padrão, a câmera frontal está ativada. Você pode tentar alterná-la nas configurações do Jitsi:"
 
 #: templates/generic/webcam_tutorial_en.html:65
 msgid "If you get a permission error upon switching to the back camera, try to reload the page. After a reload the correct camera was selected in our tests."
-msgstr "Если при переключении на тыльную камеру появляется ошибка - попробуйте перезагрузить страницу. В наших тестах после перезагрузки уже сразу определялась нужная камера."
+msgstr "Se você receber um erro de permissão ao alternar para a câmera traseira, tente recarregar a página. Depois de recarregar, a câmera correta será selecionada em nossos testes."
 
 #: templates/generic/webcam_tutorial_en.html:67
 msgid "Jitsi Meet app"
-msgstr "Программа Jitsi Meet"
+msgstr "App Jitsi Meet"
 
 #: templates/generic/webcam_tutorial_en.html:68
 msgid "If you tried the previous section, but the camera does not work, you can try the official free Jitsi Meet app. Download and install it from the Play/App store."
-msgstr "Если вы пробовали все, что описано выше, но камера все равно не работает, вы можете попробовать бесплатное приложение для телефона Jitsi Meet. Скачайте его из Google Play или App store и установите на свой телефон."
+msgstr "Se você tentou a seção anterior, mas a câmera não funciona, você pode tentar o aplicativo oficial do Jitsi Meet. Baixe e instale-o a partir da Play/App store."
 
 #: templates/generic/webcam_tutorial_en.html:69
 msgid "Activate the mobile app setting in the webcam settings:"
-msgstr "Разрешите использование этого мобильного приложения в настройках вашего профиля: Профиль > Настройки > Настройки камеры"
+msgstr "Ativar a configuração do aplicativo móvel nas configurações da webcam:"
 
 #: templates/generic/webcam_tutorial_en.html:73
 msgid "Tablet + smartphone"
-msgstr "Планшет + смартфон"
+msgstr "Tablet + smartphone"
 
 #: templates/generic/webcam_tutorial_en.html:74
 msgid "If you want to use a combination of a tablet for scoring and a smartphone as a camera there is an option to get the scoreboard only on your tablet."
-msgstr "Если вы хотите использовать планшет для подсчета очков, а телефон в качестве камеры - такая возможность есть."
+msgstr "Se você quiser usar uma combinação de um tablet para marcara pontuação e um smartphone como câmera, há uma opção para habilitar o placar apenas no seu tablet."
 
 #: templates/generic/webcam_tutorial_en.html:75
 msgid "Open the webcam settings and enable both follow mode and the scoreboard-only option:"
-msgstr "Откройте настройки камеры и включите \"Режим слежения через телефон\", а так же включите \"Показывать только табло на главном устройстве\":"
+msgstr "Abra as configurações de webcam e ative o modo seguir e a opção de pontuação somente:"
 
 #: templates/generic/webcam_tutorial_en.html:77
 msgid "Now repeat the steps from the \"Follow Mode\" section. On your tablet you will only see the scoreboard without the video."
-msgstr "Теперь повторите шаги из раздела \"Режим слежения\". На вашем планшете вы увидите только таблицу результатов и табло счета без видео."
+msgstr "Agora repita as etapas da seção \"Seguir\". No seu tablet você só verá o placar sem o vídeo."
 
 #: templates/profile/change_avatar.html:17
 msgid "Delete"
-msgstr "Удалить"
+msgstr "Apagar"
 
 #: templates/profile/change_avatar.html:21
 msgid "Upload"
-msgstr "Загрузить"
+msgstr "Transferir"
 
 #: templates/profile/change_caller.html:23
 msgid "Do you want to get yourself as caller option included?"
-msgstr "Хотите чтобы вас тоже включили в список голосовых озвучек?"
+msgstr "Você deseja se colocar como opção de chamada?"
 
 #: templates/profile/change_caller.html:24
 msgid "Contact us!"
-msgstr "Напишите нам!"
+msgstr "Fale conosco!"
 
 #: templates/profile/change_cpu_delay.html:13
 msgid "Trainer delay (in seconds)"
-msgstr "Темп игры бота (длительность его подхода в секундах)"
+msgstr "Atraso de Treinador (em segundos)"
 
 #: templates/profile/change_cpu_delay.html:14
 msgid "Note: There is a base delay of ~3 seconds. The custom delay will be added to this."
-msgstr "Примечание: существует базовая длительность подхода ~3 секунды. К ней будет добавлена выбранная вами задержка."
+msgstr "Nota: Há um atraso base de ~3 segundos. O atraso personalizado será adicionado a isto."
 
 #: templates/profile/close_account.html:15
 msgid "Closing your account is a permanent decision."
@@ -1594,178 +1592,178 @@ msgstr ""
 
 #: templates/profile/edit_profile.html:13
 msgid "Change profile text"
-msgstr "Введите писание вашего профиля"
+msgstr "Alterar texto do perfil"
 
 #: templates/profile/edit_profile.html:24
 msgid "Introduce yourself, your interests, social media etc."
-msgstr "Расскажите о себе, о своих интересах, социальных сетях и т.д."
+msgstr "Apresente-se a si mesmo, às suas redes sociais, etc."
 
 #: templates/profile/game_history.html:10
 msgid "Game history of"
-msgstr "История матчей"
+msgstr "Histórico de partidas de"
 
 #: templates/profile/game_history.html:54
 msgid "Previous"
-msgstr "Предыдущий"
+msgstr "Anterior"
 
 #: templates/profile/game_history.html:62
 msgid "Next"
-msgstr "Следующий"
+msgstr "Próximo"
 
 #: templates/profile/general_settings.html:57
 msgid "Country settings"
-msgstr "Выберите вашу страну"
+msgstr "Configurações do país"
 
 #: templates/profile/general_settings.html:66
 msgid "You can change your country setting only once per month. Please confirm."
-msgstr "Вы можете менять настройки своей страны только один раз в месяц. Пожалуйста, подтвердите."
+msgstr "Você pode alterar a configuração do seu país apenas uma vez por mês. Por favor, confirme."
 
 #: templates/profile/livestream_settings.html:16
 msgid "You can stream your board in webcam games to spectators. You will need a Google account for YouTube. Log in and copy your Channel ID here:"
-msgstr "Во время игры с камерой вы можете транслировать свою мишень для зрителей. Вам понадобится учетная запись в Google для YouTube. Войдите и скопируйте свой идентификатор канала здесь:"
+msgstr "Você pode transmitir seu alvo através de webcam para espectadores. Você precisará de uma conta do Google e usar a plataforma YouTube. Entre e copie sua ID de Canal aqui:"
 
 #: templates/profile/livestream_settings.html:18
 msgid "and paste it in the box below."
-msgstr "и вставьте его в поле ниже."
+msgstr "e cole-o na caixa abaixo."
 
 #: templates/profile/livestream_settings.html:21
 msgid "There are two options to start a livestream."
-msgstr "Есть два варианта, чтобы начать прямую трансляцию игры."
+msgstr "Existem duas opções para iniciar uma transmissão ao vivo."
 
 #: templates/profile/livestream_settings.html:24
 msgid "You can use the \"Start live stream\" option in Jitsi Meet which requires the secret stream key. You can find yours here: "
-msgstr "Вы можете использовать опцию \"Начать прямой эфир\" в приложении Jitsi Meet, которое потребует секретный ключ трансляции. Свой ключ трансляции вы можете посмотреть тут: "
+msgstr "Você pode usar a opção \"Iniciar transmissão ao vivo\" no Jitsi Meet, o qual requer a chave ou senha de segurança para transmissão. Você pode encontrar a sua aqui: "
 
 #: templates/profile/livestream_settings.html:26
 msgid "Paste it into the stream key box in Jitsi and click on \"Start live stream\"."
-msgstr "Вставьте ключ трансляции в поле \"stream key\" в Jitsi и нажмите на кнопку \"Начать прямую трансляцию\"."
+msgstr "Cole o código de segurança dentro da espaço apropriado no aplicativo Jitsi e em seguida clique em \"Iniciar a transmissão\"."
 
 #: templates/profile/livestream_settings.html:27
 msgid "If you get a \"All streamers are currently busy\" error Jitsi has no free streamers at the moment. There is nothing Lidarts can do in that case."
-msgstr "Если вылезает ошибка \"Все стримеры в данный момент заняты\", значит у Jitsi в данный момент нет свободных стрим-каналов для трансляций. В этом случае Лидартс ничем не может помочь, попробуйте повторить попытку через некоторое время."
+msgstr "Se você receber um erro \"Todos os streamers estão ocupados atualmente\" significa que o Jitsi não tem streamers gratuitos no momento. Não há nada em que o Lidarts possa fazer neste caso."
 
 #: templates/profile/livestream_settings.html:30
 msgid "The second option is starting a YouTube live stream with an external software. We recommend "
-msgstr "Второй вариант - запуск прямого эфира на YouTube с помощью других программ. Мы рекомендуем "
+msgstr "A segunda opção é iniciar uma transmissão ao vivo via YouTube com uso de um software externo. Recomendamos "
 
 #: templates/profile/livestream_settings.html:32
 msgid "You can find many tutorials on the internet. It requires some setup work."
-msgstr "Для этого потребуется выполнить некоторые настройки. Вы сможете найти много учебных пособий в интернете."
+msgstr "Você pode encontrar muitos tutoriais na internet. Isso requer algum trabalho de configuração."
 
 #: templates/profile/livestream_settings.html:35
 msgid "Livestreams will only be shown if both players allowed to have their games streamed by the other party. You can enable this in the webcam settings."
-msgstr "Прямые трансляции будут работать только в том случае, если оба игрока разрешили транслировать свои игры в эфир. Эта функция включается в разделе с настройками камеры."
+msgstr "Livestreams só serão exibidos se ambos os jogadores permitirem que seus jogos sejam transmitidos. Você pode habilitar a permissão na página de configurações de webcam."
 
 #: templates/profile/manage_friend_list.html:13
 msgid "Friends"
-msgstr "Друзья"
+msgstr "Amigos"
 
 #: templates/profile/manage_friend_list.html:29
 msgid "Pending requests"
-msgstr "Ожидающие запросы"
+msgstr "Solicitações pendentes"
 
 #: templates/profile/overview.html:26
 msgid "Preferences"
-msgstr "Настройки"
+msgstr "Preferências"
 
 #: templates/profile/overview.html:29
 msgid "Friend request"
-msgstr "Запрос на добавление в друзья"
+msgstr "Pedido de amizade"
 
 #: templates/profile/overview.html:31
 msgid "Challenge to game"
-msgstr "Бросить вызов поиграть"
+msgstr "Desafiar para partida"
 
 #: templates/profile/overview.html:48
 msgid "has not entered a profile text yet."
-msgstr "описание профиля пока отсутствие."
+msgstr "não inseriu um texto de perfil ainda."
 
 #: templates/profile/overview.html:57
 msgid "Recent games"
-msgstr "Последние игры"
+msgstr "Partidas recentes"
 
 #: templates/profile/overview.html:86
 msgid "Full match list"
-msgstr "Полный список матчей"
+msgstr "Lista completa de partidas"
 
 #: templates/profile/overview.html:96
 msgid "Recent statistics (501 SI/DO)"
-msgstr "Последняя статистика (501)"
+msgstr "Estatísticas recentes (501 SI/DO)"
 
 #: templates/profile/overview.html:98
 msgid "Number of games:"
-msgstr "Число сыгранных игр:"
+msgstr "Número de partidas:"
 
 #: templates/profile/overview.html:99
 #: templates/statistics/x01_overview_element.html:7
 msgid "Darts thrown:"
-msgstr "Брошено дротиков:"
+msgstr "Dardos lançados:"
 
 #: templates/profile/overview.html:103
 msgid "Detailed statistics"
-msgstr "Подробная статистика"
+msgstr "Estatísticas detalhadas"
 
 #: templates/profile/overview.html:110
 msgid "Winrates (501 SI/DO)"
-msgstr "Процент побед (501)"
+msgstr "Taxa de vitórias (501 SI/DO)"
 
 #: templates/profile/overview.html:111
 msgid "(grouped by opponent average)"
-msgstr "(отсортировано по среднему набору соперников)"
+msgstr "(agrupado pela média do adversário)"
 
 #: templates/profile/settings.html:10
 msgid "Activate webcam games"
-msgstr "Активировать игры с камерой"
+msgstr "Partidas com webcams habilitadas"
 
 #: templates/profile/settings.html:12
 msgid "Edit profile text"
-msgstr "Изменить описание профиля"
+msgstr "Editar texto do perfil"
 
 #: templates/profile/settings.html:13
 msgid "Manage friend list"
-msgstr "Управление списком друзей"
+msgstr "Gerenciar lista de amigos"
 
 #: templates/profile/settings.html:14
 #: templates/security/change_username.html:12
 msgid "Change display name"
-msgstr "Изменить отображаемое имя"
+msgstr "Alterar nome de exibição"
 
 #: templates/profile/settings.html:15
 #: templates/security/change_password.html:12
 msgid "Change password"
-msgstr "Сменить пароль"
+msgstr "Alterar senha"
 
 #: templates/profile/settings.html:16
 msgid "Avatar settings"
-msgstr "Выбрать фото пользователя"
+msgstr "Configurações do avatar"
 
 #: templates/profile/settings.html:17
 msgid "Caller settings"
-msgstr "Выбор голоса судьи"
+msgstr "Configurações de Chamadas"
 
 #: templates/profile/settings.html:18
 msgid "Trainer delay settings"
-msgstr "Темп игры бота"
+msgstr "Confugurações do temporizador de treino"
 
 #: templates/profile/user_not_found.html:9
 msgid "User not found"
-msgstr "Пользователь не найден"
+msgstr "Usuário não encontrado"
 
 #: templates/profile/webcam_settings.html:26
 msgid "Optional. Your video and sound may be live streamed by Lidarts or your opponent."
-msgstr "Разрешение на трансляцию ваших видео и звука в прямом эфире Лидартс или вашим соперником."
+msgstr "Opcional. Seu vídeo e som podem ser transmitidos ao vivo por Lidarts ou seu adversário."
 
 #: templates/profile/webcam_settings.html:32
 msgid "Forces use of Jitsi Meet mobile app. Try this if video capture does not work on your mobile browser."
-msgstr "Принудительно использовать мобильное приложение Jitsi Meet. Попробуйте, если захват видео не будет работать в вашем мобильном браузере."
+msgstr "Força o uso do aplicativo móvel do Jitsi. Tente isso se a captura de vídeo não funcionar no seu navegador móvel."
 
 #: templates/profile/webcam_settings.html:38
 msgid "Enables follow page in lobby. Your mobile device can be called to your games from another device to capture video."
-msgstr "Включите, чтобы ваше мобильное устройство могло использоваться компьютером или другим устройством для трансляции видео во время игры."
+msgstr "Permite seguir página no lobby. Seu dispositivo móvel pode ser ligado aos seus jogos através de outro dispositivo para captura do vídeo."
 
 #: templates/profile/webcam_settings.html:44
 msgid "Loads only the scoreboard without webcam image in your webcam games. Useful for mobile score-only devices."
-msgstr "В играх с камерой загружает только таблицу результатов без изображения с камеры. Удобно при игре с мобильных устройств."
+msgstr "Carregar apenas o placar da pontuação sem uso da webcam. Útil para partidas ou móvel com a opção de score-only."
 
 #: templates/profile/webcam_settings.html:52
 msgid "Try enabling this option if you experience connection problems in your video conferences."
@@ -1775,44 +1773,44 @@ msgstr ""
 #: templates/security/change_username.html:27
 #: templates/security/forgot_password.html:16 tools/forms.py:14
 msgid "Submit"
-msgstr "Отправить"
+msgstr "Confirmar"
 
 #: templates/security/change_username.html:18
 msgid "You can change your username only once per month. Please confirm."
-msgstr "Вы можете менять свое имя пользователя только один раз в месяц. Пожалуйста, подтвердите."
+msgstr "Você pode alterar seu nome de usuário apenas uma vez por mês. Por favor confirme."
 
 #: templates/security/forgot_password.html:10
 msgid "Request a new password"
-msgstr "Запросить новый пароль"
+msgstr "Solicitar uma nova senha"
 
 #: templates/security/login_user.html:24
 msgid "No account yet?"
-msgstr "Еще нет аккаунта?"
+msgstr "Ainda não tem conta?"
 
 #: templates/security/login_user.html:25
 msgid "Sign Up"
-msgstr "Регистрация"
+msgstr "Cadastre-se"
 
 #: templates/security/login_user.html:26
 msgid "Forgot your password?"
-msgstr "Забыли пароль?"
+msgstr "Esqueceu sua senha?"
 
 #: templates/security/login_user.html:27
 #: templates/security/reset_password.html:10
 msgid "Reset password"
-msgstr "Восстановить пароль"
+msgstr "Redefinir a senha"
 
 #: templates/security/register_user.html:20
 msgid "By registering you confirm that you agree to our"
-msgstr "Регистрируясь, вы подтверждаете, что соглашаетесь с нашими"
+msgstr "Ao se registrar, você confirma que concorda com nossos"
 
 #: templates/security/register_user.html:20
 msgid "Terms and Conditions"
-msgstr "Правилами и Условиями"
+msgstr "Termos & Condições"
 
 #: templates/security/register_user.html:28
 msgid "Already have an account?"
-msgstr "Уже зарегистрированы?"
+msgstr "Já possui uma conta?"
 
 #: templates/statistics/x01.html:59
 msgid "X01 Statistics"
@@ -1820,289 +1818,289 @@ msgstr ""
 
 #: templates/statistics/x01.html:103
 msgid "Overview"
-msgstr "Обзор"
+msgstr "Visão geral"
 
 #: templates/statistics/x01.html:106 templates/statistics/x01.html:157
 msgid "Overall"
-msgstr "Общие сведения"
+msgstr "Total"
 
 #: templates/statistics/x01.html:109 templates/statistics/x01.html:133
 msgid "Today"
-msgstr "Сегодня"
+msgstr "Hoje"
 
 #: templates/statistics/x01.html:112 templates/statistics/x01.html:139
 msgid "Current Week"
-msgstr "Текущая неделя"
+msgstr "Semana atual"
 
 #: templates/statistics/x01.html:115 templates/statistics/x01.html:145
 msgid "Current Month"
-msgstr "Текущий месяц"
+msgstr "Mês atual"
 
 #: templates/statistics/x01.html:118 templates/statistics/x01.html:151
 msgid "Current Year"
-msgstr "Текущий год"
+msgstr "Ano atual"
 
 #: templates/statistics/x01.html:121 templates/statistics/x01.html:163
 msgid "Custom"
-msgstr "Выбрать период"
+msgstr "Customizado"
 
 #: templates/statistics/x01.html:250
 msgid "Overall average per game"
-msgstr "Общий средний набор за игру"
+msgstr "Média geral por partida"
 
 #: templates/statistics/x01_detail_element.html:5
 msgid "General"
-msgstr "Общие сведения"
+msgstr "Geral"
 
 #: templates/statistics/x01_detail_element.html:8
 msgid "Number of games"
-msgstr "Число сыгранных игр"
+msgstr "Número de partidas"
 
 #: templates/statistics/x01_detail_element.html:9
 msgid "Games Won"
-msgstr "Выиграно игр"
+msgstr "Partidas vencidas"
 
 #: templates/statistics/x01_detail_element.html:10
 msgid "Games Lost"
-msgstr "Проиграно игр"
+msgstr "Partidas perdidas"
 
 #: templates/statistics/x01_detail_element.html:11
 msgid "Games Draw"
-msgstr "Сыграно игр в ничью"
+msgstr "Jogos empatados"
 
 #: templates/statistics/x01_detail_element.html:12
 msgid "Number of Legs"
-msgstr "Число сыгранных лэгов"
+msgstr "Número de legs"
 
 #: templates/statistics/x01_detail_element.html:13
 msgid "Legs Won"
-msgstr "Выиграно лэгов"
+msgstr "Legs ganhos"
 
 #: templates/statistics/x01_detail_element.html:14
 msgid "Legs Lost"
-msgstr "Проиграно лэгов"
+msgstr "Legs perdidos"
 
 #: templates/statistics/x01_detail_element.html:16
 msgid "Darts thrown"
-msgstr "Брошено дротиков"
+msgstr "Dardos lançados"
 
 #: templates/statistics/x01_overview_element.html:6
 msgid "Number of games / legs:"
-msgstr "Количество игр / лэгов:"
+msgstr "Número de partidas / legs:"
 
 #: templates/tournament/details.html:17 tournament/routes.py:159
 msgid "Tournament details"
-msgstr "Информация о турнире"
+msgstr "Detalhes do torneio"
 
 #: templates/tournament/details.html:21
 msgid "Leave Tournament"
-msgstr "Покинуть турнир"
+msgstr "Sair do torneio"
 
 #: templates/tournament/details.html:21
 msgid "Join Tournament"
-msgstr "Присоединиться к турниру"
+msgstr "Junte-se ao Torneio"
 
 #: templates/tournament/details.html:26
 msgid "Create tournament game"
-msgstr "Создать турнир"
+msgstr "Crie um jogo de torneio"
 
 #: templates/tournament/details.html:31
 msgid "Stream tournament games"
-msgstr "Смотреть трансляцию турнирных игр"
+msgstr "Faça stream de jogos de torneio"
 
 #: templates/tournament/details.html:37
 msgid "Creator"
-msgstr "Организатор"
+msgstr "Criador"
 
 #: templates/tournament/details.html:38
 msgid "Watch live games"
-msgstr "Трансляция статистики игры"
+msgstr "Assistir a partidas ao vivo"
 
 #: templates/tournament/details.html:40
 msgid "URL"
-msgstr "Ссылка"
+msgstr "URL"
 
 #: templates/tournament/details.html:43
 msgid "Start"
-msgstr "Начать"
+msgstr "Início"
 
 #: templates/tournament/details.html:46
 msgid "Edit settings"
-msgstr "Изменить настройки"
+msgstr "Editar configurações"
 
 #: templates/tournament/overview.html:14
 msgid "Tournaments on Lidarts"
-msgstr "Турниры на Лидартс"
+msgstr "Torneios no Lidarts"
 
 #: templates/tournament/overview.html:17
 msgid "Currently Lidarts does not host any tournaments. Several external communities use Lidarts to play their tournaments though."
-msgstr "В настоящее время сам Лидартс не организует никаких турниров. Однако, сообщества игроков используют Лидартс для проведения своих турниров."
+msgstr "Atualmente o Lidarts não hospeda ou cria nenhum torneio. Várias comunidades externas usam Lidarts para tal finalidade."
 
 #: templates/tournament/overview.html:20
 msgid "This area currently provides tournaments an own page similar to the chat. There is also a list of upcoming public tournaments."
-msgstr "На данный момент турнирная страница чем-то похожа на чат. Существует также список предстоящих публичных турниров."
+msgstr "Esta área atualmente fornece torneios a uma página semelhante de bate-papo. Há também uma lista de torneios públicos futuros."
 
 #: templates/tournament/overview.html:23
 msgid "Joining a tournament will only make you appear in the tournament's user list at the moment. It does not sign you up."
-msgstr "Присоединившись к турниру вы появитесь в списке его возможных участников. Организатор турнира либо подтвердит ваше участие, либо отклонит вашу заявку."
+msgstr "Juntar-se a um torneio só vai fazer você aparecer na lista de usuários do torneio no momento. Ele não garante o seu registro."
 
 #: templates/tournament/overview.html:33
 msgid "Your tournaments"
-msgstr "Ваши турниры"
+msgstr "Seus torneios"
 
 #: templates/tournament/overview.html:44
 msgid "You have not created a tournament yet."
-msgstr "Вы еще не создали турнир."
+msgstr "Você ainda não criou um torneio."
 
 #: templates/tournament/overview.html:57
 msgid "Create a new tournament"
-msgstr "Создать новый турнир"
+msgstr "Criar um novo torneio"
 
 #: templates/tournament/overview.html:79 templates/tournament/settings.html:37
 msgid "Tournament will appear in the upcoming tournaments list"
-msgstr "Турнир появится в списке предстоящих турниров"
+msgstr "O torneio aparecerá na lista de torneios futuros"
 
 #: templates/tournament/overview.html:86 templates/tournament/settings.html:53
 msgid "Link to tournament website with more information"
-msgstr "Ссылка на сайт турнира с более подробной информацией"
+msgstr "Link para o site do torneio com mais informações"
 
 #: templates/tournament/overview.html:91 templates/tournament/settings.html:58
 msgid "Start date and time:"
-msgstr "Дата и время начала:"
+msgstr "Data e hora de início:"
 
 #: templates/tournament/overview.html:111
 msgid "Upcoming tournaments"
-msgstr "Ближайшие турниры"
+msgstr "Próximos torneios"
 
 #: templates/tournament/overview.html:122
 msgid "There are no upcoming public tournaments at the moment."
-msgstr "На данный момент никаких публичных турниров не планируется."
+msgstr "Não há futuros torneios públicos no momento."
 
 #: templates/tournament/settings.html:15
 msgid "Edit tournament settings"
-msgstr "Изменить настройки турнира"
+msgstr "Editar configurações do torneio"
 
 #: templates/tournament/settings.html:46
 msgid "Players are able to join the tournament."
-msgstr "Игроки могут присоединяться к турниру."
+msgstr "Jogadores podem participar do torneio."
 
 #: templates/tournament/settings.html:80
 msgid "Manage player list"
-msgstr "Управление списком игроков"
+msgstr "Gerenciar lista de jogadores"
 
 #: templates/tournament/settings.html:98
 msgid "Banned players"
-msgstr "Заблокированные игроки"
+msgstr "Jogadores banidos"
 
 #: templates/tournament/settings.html:103
 #: templates/tournament/settings.html:174
 msgid "Unban"
-msgstr "Разблокировать"
+msgstr "Desbanir"
 
 #: templates/tournament/settings.html:119
 msgid "Kick player"
-msgstr "Исключить игрока"
+msgstr "Expulsar jogador"
 
 #: templates/tournament/settings.html:125
 msgid "Do you want to kick "
-msgstr "Вы хотите исключить "
+msgstr "Você deseja expulsar "
 
 #: templates/tournament/settings.html:125
 #: templates/tournament/settings.html:169
 msgid "The player will be able to join the tournament again."
-msgstr "Игрок сможет снова присоединиться к турниру."
+msgstr "O jogador poderá se juntar novamente ao torneio."
 
 #: templates/tournament/settings.html:129
 #: templates/tournament/settings.html:151
 #: templates/tournament/settings.html:173
 msgid "Close"
-msgstr "Закрыть"
+msgstr "Fechar"
 
 #: templates/tournament/settings.html:130
 msgid "Kick"
-msgstr "Исключить"
+msgstr "Expulsar"
 
 #: templates/tournament/settings.html:141
 msgid "Ban player"
-msgstr "Заблокировать игрока"
+msgstr "Banir jogador"
 
 #: templates/tournament/settings.html:147
 msgid "Do you want to ban "
-msgstr "Вы хотите заблокировать "
+msgstr "Você deseja banir "
 
 #: templates/tournament/settings.html:147
 msgid "The player will NOT be able to join the tournament again."
-msgstr "Игрок больше не сможет присоединяться и участвовать в турнире."
+msgstr "O jogador NÃO poderá entrar no torneio novamente."
 
 #: templates/tournament/settings.html:152
 msgid "Ban"
-msgstr "Заблокировать"
+msgstr "Banir"
 
 #: templates/tournament/settings.html:163
 msgid "Unban player"
-msgstr "Разблокировать игрока"
+msgstr "Desbanir jogador"
 
 #: templates/tournament/settings.html:169
 msgid "Do you want to unban "
-msgstr "Вы хотите разблокировать "
+msgstr "Você quer desbanir "
 
 #: templates/tournament/stream.html:11 tournament/routes.py:256
 msgid "Tournament streaming"
-msgstr "Трансляция турнира"
+msgstr "Transmissão de torneio"
 
 #: templates/tournament/stream.html:13
 msgid "As a tournament creator you can get access to the video feeds of the webcam games if both players consent to streaming."
-msgstr "Как организатор турнира, вы можете во время проведения игр получать доступ к трансляциям с камер, если оба игрока разрешили публичную трансляцию в настройках своего профиля."
+msgstr "Como criador de torneios, você pode ter acesso aos feeds de vídeo dos jogos com webcam habilitados se ambos os jogadores consentirem em fazer streaming ou transmissão."
 
 #: templates/tournament/stream.html:14
 msgid "Select a game you want to stream. The links below redirect you to the game's score page and video call. You should set these up in a streaming software for custom display."
-msgstr "Выберите игру, трансляцию которой вы хотите посмотреть. Ссылки ниже перенаправляют вас на страницы с трансляцией статистики игры или на видео-трансляцию игры. Вы должны внести их в программу для трансляций."
+msgstr "Selecione um jogo que você deseja transmitir. Os links abaixo redirecionam para a página de pontuação e vídeo chamada do jogo. Você deve configurá-los em um software de streaming para exibição personalizada."
 
 #: templates/tournament/stream.html:23
 msgid "Generate new API key"
-msgstr "Сгенерировать новый ключ API"
+msgstr "Gerar nova chave de API"
 
 #: tournament/forms.py:30
 msgid "Tournament name"
-msgstr "Название турнира"
+msgstr "Nome do torneio"
 
 #: tournament/forms.py:32
 msgid "Open to the public"
-msgstr "Открыть для публичного доступа"
+msgstr "Aberto ao público"
 
 #: tournament/forms.py:33
 msgid "Player registration is open"
-msgstr "Регистрация игроков открыта"
+msgstr "Aberto para registro de jogadores"
 
 #: tournament/forms.py:34
 msgid "External URL"
-msgstr "Ссылка на турнир"
+msgstr "URL externa"
 
 #: tournament/forms.py:37
 msgid "Create Tournament"
-msgstr "Создать турнир"
+msgstr "Criar Torneio"
 
 #: tournament/forms.py:43
 msgid "Select game"
-msgstr "Смотреть игру"
+msgstr "Escolher jogo"
 
 #: tournament/routes.py:25
 msgid "Start in the past is not allowed for public tournaments."
-msgstr "Для публичных турниров не допускается начало задним числом."
+msgstr "Não é possível início com datas retroativas para torneios ou partidas públicas."
 
 #: tournament/routes.py:29
 msgid "Start must be within the next 30 days."
-msgstr "Старт должен состояться в течение ближайших 30 дней."
+msgstr "Deverá iniciar nos próximos 30 dias."
 
 #: tournament/routes.py:39
 msgid "Tournament updated."
-msgstr "Турнир обновлен."
+msgstr "Torneio atualizado."
 
 #: tournament/routes.py:102
 msgid "You were banned from this tournament."
-msgstr "Вас отстранили от участия в этом турнире."
+msgstr "Você foi banido(a) desse torneio."
 
 #: tournament/routes.py:188
 msgid "Tournament settings"
-msgstr "Настройки турнира"
+msgstr "Configurações do torneio"
 

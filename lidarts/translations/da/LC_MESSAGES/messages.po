@@ -2,19 +2,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-21 19:25+0200\n"
-"PO-Revision-Date: 2020-04-23 18:24\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2022-02-24 13:59+0100\n"
+"PO-Revision-Date: 2022-02-24 13:07\n"
+"Last-Translator: \n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
+"X-Crowdin-Project-ID: 8\n"
 "X-Crowdin-Language: da\n"
 "X-Crowdin-File: messages.pot\n"
+"X-Crowdin-File-ID: 36\n"
 "Language: da_DK\n"
+
+#: admin/routes.py:73 tournament/routes.py:248
+msgid "Game selected as stream game."
+msgstr "Spil valgt som stream spil."
+
+#: admin/routes.py:80 templates/admin/stream.html:11
+msgid "Streaming"
+msgstr ""
 
 #: auth/forms.py:21
 msgid "Password must have at least 8 characters"
@@ -70,7 +80,7 @@ msgstr "Skift brugernavn"
 
 #: auth/routes.py:30
 msgid "You can only change your username once per month. You need to wait until: "
-msgstr "Du kan kun ændre dit brugernavn én gang om måneden. Du skal vente til: "
+msgstr "Du kan kun ændre dit brugernavn én gang om måneden. Du skal vente til:"
 
 #: auth/routes.py:33
 msgid "Username changed."
@@ -84,7 +94,7 @@ msgstr "Lokal"
 msgid "Me"
 msgstr "Mig"
 
-#: game/forms.py:9 game/forms.py:31 statistics/forms.py:28
+#: game/forms.py:9 game/forms.py:41 statistics/forms.py:28
 msgid "Opponent"
 msgstr "Modstander"
 
@@ -96,130 +106,132 @@ msgstr "Tættest Bull"
 msgid "Invalid number."
 msgstr "Ugyldigt nummer."
 
-#: game/forms.py:23
+#: game/forms.py:23 game/forms.py:30
 msgid "Score"
 msgstr "Score"
 
-#: game/forms.py:26
+#: game/forms.py:26 game/forms.py:33
 msgid "Submit score"
 msgstr "Indsend score"
 
-#: game/forms.py:30 statistics/forms.py:27
-msgid "Game type"
-msgstr "Spiltype"
-
-#: game/forms.py:32 statistics/forms.py:32
-msgid "Opponent name"
-msgstr "Modstanderes Navn"
-
-#: game/forms.py:33 statistics/forms.py:30
-msgid "Level"
-msgstr "Niveau"
-
-#: game/forms.py:34
-msgid "First to throw"
-msgstr "Først til at kaste"
-
-#: game/forms.py:35
+#: game/forms.py:37
 msgid "Best of Sets"
 msgstr "Bedst af Kampe"
 
-#: game/forms.py:36
+#: game/forms.py:38
 msgid "Best of Legs"
 msgstr "Bedst af sæt"
 
-#: game/forms.py:37
+#: game/forms.py:39
 msgid "Two Clear Legs"
 msgstr "Vind med 2 sæt"
 
-#: game/forms.py:38 statistics/forms.py:33
-msgid "Mode In"
-msgstr "Tilstand i"
-
-#: game/forms.py:39 statistics/forms.py:34
-msgid "Mode Out"
-msgstr "Tilstand ud"
-
 #: game/forms.py:40
+msgid "First to throw"
+msgstr "Først til at kaste"
+
+#: game/forms.py:42 statistics/forms.py:32
+msgid "Opponent name"
+msgstr "Modstanderes Navn"
+
+#: game/forms.py:43 statistics/forms.py:30
+msgid "Level"
+msgstr "Niveau"
+
+#: game/forms.py:44
 msgid "Public challenge"
 msgstr "Offentlig udfordring"
 
-#: game/forms.py:41 templates/game/X01_completed.html:151
-#: templates/profile/game_history.html:30 templates/profile/overview.html:72
+#: game/forms.py:45 templates/game/cricket/completed.html:149
+#: templates/game/x01/completed.html:151
+#: templates/game/x01/scoreboard_normal.html:37
+#: templates/profile/game_history.html:38 templates/profile/overview.html:82
 msgid "Webcam game"
 msgstr "Webcam spil"
 
-#: game/forms.py:42
+#: game/forms.py:46
 msgid "Score input block"
 msgstr "Blok for point input"
 
-#: game/forms.py:43 tournament/forms.py:38
+#: game/forms.py:47 tournament/forms.py:38
 msgid "Save settings"
 msgstr "Gem indstillinger"
 
-#: game/forms.py:44
+#: game/forms.py:48
 msgid "Tournament"
 msgstr "Turnering"
 
-#: game/forms.py:45
+#: game/forms.py:49
 msgid "Start game"
 msgstr "Start Spil"
 
-#: game/forms.py:50 generic/forms.py:9
+#: game/forms.py:53 statistics/forms.py:27
+msgid "Game type"
+msgstr "Spiltype"
+
+#: game/forms.py:54 statistics/forms.py:33
+msgid "Mode In"
+msgstr "Tilstand i"
+
+#: game/forms.py:55 statistics/forms.py:34
+msgid "Mode Out"
+msgstr "Tilstand ud"
+
+#: game/forms.py:64 generic/forms.py:9
 msgid "Submit message"
 msgstr "Send besked"
 
-#: game/forms.py:54
+#: game/forms.py:68
 msgid "I have read the text above, understand the limitations and have a webcam setup to play."
 msgstr "Jeg har læst teksten ovenfor, forstå de begrænsninger og har et webcam setup til at spille."
 
-#: game/forms.py:55
+#: game/forms.py:69
 msgid "(Optional) I allow my opponents to stream and record our game including my webcam video and audio."
 msgstr "(Valgfrit) Jeg tillader mine modstandere at streame og optage vores spil, herunder mit webcam video og lyd."
 
-#: game/forms.py:56 templates/game/X01/modals.html:51
-#: templates/game/X01_stream.html:410
+#: game/forms.py:70 templates/game/cricket/stream_overlay.html:428
+#: templates/game/modals.html:51 templates/game/x01/stream_overlay.html:410
 msgid "Confirm"
 msgstr "Bekræft"
 
-#: game/routes.py:150
+#: game/routes.py:50
 msgid "Public challenges must be created without an opponent name."
 msgstr "Offentlige udfordringer skal skabes uden et modstandernavn."
 
-#: game/routes.py:152 game/routes.py:165 game/routes.py:186 game/routes.py:247
-#: templates/game/create_X01.html:9
+#: game/routes.py:52 game/routes.py:65 game/routes.py:86 game/routes.py:171
+#: templates/game/create_game.html:9
 msgid "Create Game"
 msgstr "Opret spil"
 
-#: game/routes.py:163
+#: game/routes.py:63
 msgid "Player does not allow challenges"
 msgstr "Spilleren tillader ikke udfordringer"
 
-#: game/routes.py:167
+#: game/routes.py:67
 msgid "New challenge"
 msgstr "Ny udfordring"
 
-#: game/routes.py:184
+#: game/routes.py:84
 msgid "Player 2 does not have webcam games enabled."
 msgstr "Spiller 2 har ikke webcam spil aktiveret."
 
-#: game/routes.py:302 game/routes.py:310
+#: game/routes.py:226 game/routes.py:234
 msgid "Waiting..."
 msgstr "Venter..."
 
-#: game/routes.py:343
+#: game/routes.py:267
 msgid "Match overview"
 msgstr "Oversigt over kamp"
 
-#: game/routes.py:380
+#: game/routes.py:304
 msgid "Stream overlay"
 msgstr "Overlejring af stream"
 
-#: game/routes.py:382
+#: game/routes.py:306
 msgid "Live Match"
 msgstr "Direkte Kamp"
 
-#: game/utils.py:11 generic/routes.py:80
+#: game/utils.py:11 generic/routes.py:81
 msgid "Local Guest"
 msgstr "Lokal Gæst"
 
@@ -235,20 +247,22 @@ msgstr "Søger Bruger"
 msgid "Search"
 msgstr "Søger"
 
-#: generic/routes.py:95
+#: generic/routes.py:96
 msgid "Live Games"
 msgstr "Direkte Spil"
 
-#: generic/routes.py:160 templates/base.html:50
+#: generic/routes.py:180 templates/base.html:55
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:227 templates/base.html:54 templates/game/X01.html:98
-#: templates/game/X01_stream.html:107 templates/game/X01_webcam.html:111
+#: generic/routes.py:251 templates/base.html:59
+#: templates/game/cricket/stream_overlay.html:136
+#: templates/game/x01/game.html:98 templates/game/x01/stream_overlay.html:107
+#: templates/game/x01/webcam.html:111
 msgid "Chat"
 msgstr "Chat"
 
-#: generic/routes.py:283
+#: generic/routes.py:314
 msgid "Private Messages"
 msgstr "Private Beskeder"
 
@@ -265,8 +279,8 @@ msgid "Description"
 msgstr "Beskrivelse"
 
 #: profile/forms.py:13 profile/forms.py:18 profile/forms.py:23
-#: profile/forms.py:63 profile/forms.py:75 profile/forms.py:109
-#: profile/forms.py:114
+#: profile/forms.py:63 profile/forms.py:75 profile/forms.py:111
+#: profile/forms.py:116
 msgid "Save"
 msgstr "Gem"
 
@@ -326,77 +340,98 @@ msgstr "Mobilopfølgningstilstand"
 msgid "Show only scoreboard on main device"
 msgstr "Vis kun resultattavle på hovedenheden"
 
-#: profile/forms.py:113
+#: profile/forms.py:109
+msgid "Use public Jitsi server"
+msgstr ""
+
+#: profile/forms.py:115
 msgid "Channel ID"
 msgstr "Kanal id"
 
-#: profile/routes.py:47
+#: profile/forms.py:120
+msgid "Enter Password"
+msgstr ""
+
+#: profile/forms.py:121
+msgid "Close account permanently"
+msgstr ""
+
+#: profile/routes.py:51
 msgid "Match History"
 msgstr "Kamp historik"
 
-#: profile/routes.py:115 templates/base.html:97
+#: profile/routes.py:132 templates/base.html:102
 msgid "Profile"
 msgstr "Profil"
 
-#: profile/routes.py:131
+#: profile/routes.py:148
 msgid "Profile text saved."
 msgstr "Profiltekst gemt."
 
-#: profile/routes.py:186
+#: profile/routes.py:206
 msgid "Manage Friend List"
 msgstr "Administrer venneliste"
 
-#: profile/routes.py:198
+#: profile/routes.py:218
 msgid "Avatar deleted."
 msgstr "Avatar slettet."
 
-#: profile/routes.py:210
+#: profile/routes.py:230
 msgid "No selected file"
 msgstr "Ingen fil valgt"
 
-#: profile/routes.py:216
+#: profile/routes.py:236
 msgid "Wrong image format."
 msgstr "Forkert billedformat."
 
-#: profile/routes.py:225
+#: profile/routes.py:245
 msgid "Avatar saved."
 msgstr "Avatar Gemt."
 
-#: profile/routes.py:230
+#: profile/routes.py:250
 msgid "Avatar Settings"
 msgstr "Avatar indstillinger"
 
-#: profile/routes.py:251 profile/routes.py:282 profile/routes.py:295
-#: profile/routes.py:322 profile/routes.py:342
+#: profile/routes.py:271 profile/routes.py:302 profile/routes.py:315
+#: profile/routes.py:343 profile/routes.py:364
 msgid "Settings saved."
 msgstr "Indstillinger gemt."
 
-#: profile/routes.py:253
+#: profile/routes.py:273
 msgid "Caller Settings"
 msgstr "Indstillinger for Kalderen"
 
-#: profile/routes.py:264
+#: profile/routes.py:284
 msgid "Trainer Delay"
 msgstr "Træner Forsinkelse"
 
-#: profile/routes.py:289
+#: profile/routes.py:309
 msgid "You can only change your country setting once per month. You need to wait until: "
-msgstr "Du kan kun ændre din landeindstilling én gang om måneden. Du skal vente til: "
+msgstr "Du kan kun ændre din landeindstilling én gang om måneden. Du skal vente til:"
 
-#: profile/routes.py:290 profile/routes.py:306
+#: profile/routes.py:310 profile/routes.py:326
 #: templates/profile/general_settings.html:13 templates/profile/settings.html:5
 msgid "General settings"
 msgstr "Generelle indstillinger"
 
-#: profile/routes.py:330 templates/profile/settings.html:7
+#: profile/routes.py:352 templates/profile/settings.html:7
 #: templates/profile/webcam_settings.html:13
 msgid "Webcam settings"
 msgstr "Indstillinger for webcam"
 
-#: profile/routes.py:346 templates/profile/livestream_settings.html:13
+#: profile/routes.py:368 templates/profile/livestream_settings.html:13
 #: templates/profile/settings.html:8
 msgid "Livestream settings"
 msgstr "Livestream indstillinger"
+
+#: profile/routes.py:394
+msgid "Wrong password"
+msgstr ""
+
+#: profile/routes.py:396 templates/profile/close_account.html:13
+#: templates/profile/settings.html:19
+msgid "Close account"
+msgstr ""
 
 #: statistics/forms.py:9 statistics/forms.py:12
 msgid "All"
@@ -426,266 +461,211 @@ msgstr "Filter"
 msgid "Apply"
 msgstr "Anvende"
 
-#: templates/base.html:46
+#: templates/base.html:51
 msgid "Home"
 msgstr "Hjem"
 
-#: templates/base.html:47 templates/base.html:52 templates/generic/chat.html:44
+#: templates/base.html:52 templates/base.html:57 templates/generic/chat.html:44
 msgid "Watch"
-msgstr "Se"
+msgstr "Live"
 
-#: templates/base.html:48 templates/base.html:55
-#: templates/profile/overview.html:134
+#: templates/base.html:53 templates/base.html:60
 msgid "Statistics"
 msgstr "Statistik"
 
-#: templates/base.html:51 templates/generic/lobby.html:31
+#: templates/base.html:56 templates/generic/lobby.html:41
 msgid "Play"
 msgstr "Spil"
 
-#: templates/base.html:53 tournament/routes.py:82
+#: templates/base.html:58 tournament/routes.py:87
 msgid "Tournaments"
 msgstr "Turnering"
 
-#: templates/base.html:70
+#: templates/base.html:75
 msgid "No new notifications"
 msgstr "Ingen nye meddelelser"
 
-#: templates/base.html:79 templates/security/login_user.html:9
+#: templates/base.html:84 templates/security/login_user.html:9
 #: templates/security/login_user.html:18
 #: templates/security/register_user.html:29
 msgid "Sign In"
 msgstr "Log På"
 
-#: templates/base.html:80 templates/security/register_user.html:10
+#: templates/base.html:85 templates/security/register_user.html:10
 #: templates/security/register_user.html:22
 msgid "Register"
 msgstr "Registrer"
 
-#: templates/base.html:83
+#: templates/base.html:88
 msgid "Inbox"
 msgstr "Indbakke"
 
-#: templates/base.html:89
+#: templates/base.html:94
 msgid "Status"
 msgstr "Status"
 
-#: templates/base.html:92
+#: templates/base.html:97
 msgid "Looking for Game"
 msgstr "Leder efter spil"
 
-#: templates/base.html:93
+#: templates/base.html:98
 msgid "Busy"
 msgstr "Optaget"
 
-#: templates/base.html:98
+#: templates/base.html:103
 msgid "Logout"
 msgstr "Log af"
 
-#: templates/base.html:131
+#: templates/base.html:136
 msgid "About"
 msgstr "Om"
 
-#: templates/base.html:132 templates/generic/contact.html:10
+#: templates/base.html:137 templates/generic/contact.html:10
 msgid "Contact"
 msgstr "Kontakt"
 
-#: templates/base.html:133
+#: templates/base.html:138
 msgid "FAQ"
 msgstr "FAQ"
 
-#: templates/base.html:134
+#: templates/base.html:139
 msgid "Contribute"
 msgstr "Bidrage"
 
-#: templates/base.html:135
+#: templates/base.html:140
 msgid "Changelog"
 msgstr "Skift Log"
 
-#: templates/base.html:136
+#: templates/base.html:141
 msgid "Source Code"
 msgstr "Kildekode"
 
-#: templates/base.html:137
+#: templates/base.html:142
 msgid "Privacy"
 msgstr "Privatliv"
 
-#: templates/base.html:138
+#: templates/base.html:143
 msgid "Terms & Conditions"
 msgstr "Vilkår & betingelser"
 
-#: templates/base.html:140
+#: templates/base.html:145
 msgid "Legal notice"
 msgstr "Juridisk meddelelse"
 
-#: templates/game/X01.html:19 templates/game/X01_stream.html:24
-#: templates/game/X01_watch_webcam.html:27 templates/game/X01_webcam.html:28
-msgid "Closest to bull begins. Please throw three darts at bull."
-msgstr "Tættest på Bull begynder. Vær venlig at kaste tre dart mod Bull."
+#: templates/admin/stream.html:14 templates/tournament/stream.html:28
+msgid "Game score URL:"
+msgstr "Spil score URL:"
 
-#: templates/game/X01.html:20 templates/game/X01_stream.html:25
-#: templates/game/X01_watch_webcam.html:28 templates/game/X01_webcam.html:29
-msgid "Local game. Player 1 throws all three darts first."
-msgstr "Lokalt spil. Spiller 1 kaster alle tre dart først."
+#: templates/admin/stream.html:19 templates/tournament/stream.html:33
+msgid "Jitsi URL:"
+msgstr "Jitsi-URL:"
 
-#: templates/game/X01.html:61 templates/game/X01.html:157
-#: templates/game/X01_stream.html:70 templates/game/X01_stream.html:167
-#: templates/game/X01_watch_webcam.html:76 templates/game/X01_webcam.html:77
-msgid "Game is completed."
-msgstr "Spillet er slut."
+#: templates/admin/stream.html:29 templates/tournament/stream.html:43
+#: tournament/forms.py:42
+msgid "Streamable games"
+msgstr "Spil, der kan streames"
 
-#: templates/game/X01.html:62 templates/game/X01.html:77
-#: templates/game/X01.html:158 templates/game/X01_stream.html:71
-#: templates/game/X01_stream.html:86 templates/game/X01_stream.html:168
-#: templates/game/X01_watch_webcam.html:77
-#: templates/game/X01_watch_webcam.html:82 templates/game/X01_webcam.html:78
-#: templates/game/X01_webcam.html:93
-msgid "Game overview"
-msgstr "Oversigt over spillet"
+#: templates/admin/stream.html:46 templates/tournament/stream.html:60
+msgid "Currently no streamable games."
+msgstr "I øjeblikket ingen streamable spil."
 
-#: templates/game/X01.html:65 templates/game/X01.html:161
-#: templates/game/X01_stream.html:74 templates/game/X01_stream.html:171
-#: templates/game/X01_webcam.html:81
-msgid "Offer rematch"
-msgstr "Tilbyde revanche"
-
-#: templates/game/X01.html:66 templates/game/X01.html:162
-#: templates/game/X01_stream.html:75 templates/game/X01_stream.html:172
-#: templates/game/X01_webcam.html:82
-msgid "Accept rematch"
-msgstr "Accepter revanche"
-
-#: templates/game/X01.html:68 templates/game/X01.html:164
-#: templates/game/X01_stream.html:77 templates/game/X01_stream.html:174
-#: templates/game/X01_webcam.html:84
-msgid "Rematch offer sent"
-msgstr "Revanche tilbud sendt"
-
-#: templates/game/X01.html:71 templates/game/X01.html:167
-#: templates/game/X01_stream.html:80 templates/game/X01_stream.html:177
-#: templates/game/X01_webcam.html:87 templates/tournament/settings.html:68
-msgid "Back to tournament"
-msgstr "Tilbage til Turnering"
-
-#: templates/game/X01.html:76 templates/game/X01_completed.html:14
-#: templates/game/X01_stream.html:85 templates/game/X01_watch_webcam.html:81
-#: templates/game/X01_webcam.html:92
-msgid "Game was aborted."
-msgstr "Spillet blev afbrudt."
-
-#: templates/game/X01.html:88 templates/game/X01.html:182
-#: templates/game/X01_stream.html:97 templates/game/X01_stream.html:295
-#: templates/game/X01_webcam.html:104
-msgid "Undo last score"
-msgstr "Fortryd sidste score"
-
-#: templates/game/X01.html:89 templates/game/X01.html:183
-#: templates/game/X01_stream.html:98 templates/game/X01_stream.html:296
-#: templates/game/X01_webcam.html:105
-msgid "Enter correct score"
-msgstr "Indtast korrekt score"
-
-#: templates/game/X01.html:95 templates/game/X01_stream.html:104
-msgid "Keypad"
-msgstr "Tastatur"
-
-#: templates/game/X01_completed.html:17
-msgid "Challenge was declined or withdrawn."
-msgstr "Udfordringen blev afvist eller trukket tilbage."
-
-#: templates/game/X01_completed.html:140
-msgid "Match start"
-msgstr "Kamp start"
-
-#: templates/game/X01_completed.html:141
-msgid "Match duration"
-msgstr "Kampens varighed"
-
-#: templates/game/X01_completed.html:141
-msgid "hours"
-msgstr "Timer"
-
-#: templates/game/X01_completed.html:142
-msgid "minutes"
-msgstr "Minutter"
-
-#: templates/game/X01_completed.html:143
-msgid "seconds"
-msgstr "Sekunder"
-
-#: templates/game/X01_completed.html:151
-msgid " Webcam game"
-msgstr " Webcam spil"
-
-#: templates/game/X01_completed.html:180
-#: templates/statistics/x01_detail_element.html:42
-msgid "Highest Finish"
-msgstr "Højeste Lukker"
-
-#: templates/game/X01_completed.html:186
-#: templates/statistics/x01_detail_element.html:14
-msgid "Shortest Leg"
-msgstr "Laveste Sæt"
-
-#: templates/game/X01/navbar.html:10 templates/game/X01_stream.html:7
-msgid "Leave game"
-msgstr "Forlad spillet"
-
-#: templates/game/X01/navbar.html:12 templates/game/X01_stream.html:8
-msgid "Abort game"
-msgstr "Afbryde spillet"
-
-#: templates/game/X01/navbar.html:13 templates/game/X01_stream.html:9
-msgid "Toggle Keypad visibility"
-msgstr "Slå tastatursynlighed til/fra"
-
-#: templates/game/X01/navbar.html:14 templates/game/X01_stream.html:10
-msgid "Change keypad position"
-msgstr "Ændre tastaturposition"
-
-#: templates/game/X01/navbar.html:16 templates/game/X01_stream.html:11
-msgid "Toggle statistics"
-msgstr "Slå statistik til/fra"
-
-#: templates/game/X01/navbar.html:18 templates/game/X01_stream.html:12
-msgid "Normal theme"
-msgstr "Normalt tema"
-
-#: templates/game/X01/navbar.html:22 templates/game/X01_stream.html:13
-msgid "Mute caller"
-msgstr "Slå lyd fra Kalderen"
-
-#: templates/game/X01/navbar.html:22 templates/game/X01_stream.html:13
-msgid "Unmute caller"
-msgstr "Slå lyden til Kalderen"
-
-#: templates/game/X01/modals.html:25 templates/game/X01_stream.html:384
-msgid "How many darts missed at double?"
-msgstr "Hvor mange pile misset på double?"
-
-#: templates/game/X01/modals.html:38 templates/game/X01_stream.html:397
-msgid "How many darts to finish?"
-msgstr "Hvor mange pile på at lukket?"
-
-#: templates/game/X01/modals.html:50 templates/game/X01_stream.html:409
-msgid "Abort game?"
-msgstr "Afbryde spillet?"
-
-#: templates/game/X01/modals.html:52 templates/game/X01_stream.html:411
-msgid "Cancel"
-msgstr "Annullere"
-
-#: templates/game/create_X01.html:16
+#: templates/game/create_game.html:16
 msgid "Game Mode"
 msgstr "Spiltilstand"
 
-#: templates/game/create_X01.html:93
+#: templates/game/create_game.html:98
 msgid "You have to activate webcam games first."
 msgstr "Du er nødt til at aktivere webcam spil først."
 
-#: templates/game/create_X01.html:121
+#: templates/game/create_game.html:129
 msgid "Blocks score input after new score. In seconds."
 msgstr "blok score input efter nye score. På få sekunder."
+
+#: templates/game/cricket/navbar.html:10
+#: templates/game/cricket/stream_overlay.html:7
+#: templates/game/game_navbar.html:10 templates/game/x01/stream_overlay.html:7
+msgid "Leave game"
+msgstr "Forlad spillet"
+
+#: templates/game/cricket/navbar.html:12
+#: templates/game/cricket/stream_overlay.html:8
+#: templates/game/game_navbar.html:12 templates/game/x01/stream_overlay.html:8
+msgid "Abort game"
+msgstr "Afbryde spillet"
+
+#: templates/game/cricket/stream_overlay.html:9
+#: templates/game/game_navbar.html:13 templates/game/x01/stream_overlay.html:9
+msgid "Toggle Keypad visibility"
+msgstr "Slå tastatursynlighed til/fra"
+
+#: templates/game/cricket/stream_overlay.html:10
+#: templates/game/game_navbar.html:14 templates/game/x01/stream_overlay.html:10
+msgid "Change keypad position"
+msgstr "Ændre tastaturposition"
+
+#: templates/game/cricket/navbar.html:14
+#: templates/game/cricket/stream_overlay.html:11
+#: templates/game/game_navbar.html:16 templates/game/x01/stream_overlay.html:11
+msgid "Toggle statistics"
+msgstr "Slå statistik til/fra"
+
+#: templates/game/cricket/navbar.html:16
+#: templates/game/cricket/stream_overlay.html:12
+#: templates/game/game_navbar.html:18 templates/game/x01/stream_overlay.html:12
+msgid "Normal theme"
+msgstr "Normalt tema"
+
+#: templates/game/cricket/navbar.html:18 templates/game/game_navbar.html:20
+msgid "Streamoverlay"
+msgstr "Streamoverlay"
+
+#: templates/game/cricket/navbar.html:20
+#: templates/game/cricket/stream_overlay.html:13
+#: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
+msgid "Mute caller"
+msgstr "Slå lyd fra Kalderen"
+
+#: templates/game/cricket/navbar.html:20
+#: templates/game/cricket/stream_overlay.html:13
+#: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
+msgid "Unmute caller"
+msgstr "Slå lyden til Kalderen"
+
+#: templates/game/cricket/navbar.html:21 templates/game/game_navbar.html:23
+msgid "Activate Sound (Apple)"
+msgstr "Aktiver lyd (Apple)"
+
+#: templates/game/cricket/navbar.html:23 templates/game/game_navbar.html:25
+msgid "Summon webcam"
+msgstr "Indkalde webcam"
+
+#: templates/game/cricket/navbar.html:26 templates/game/game_navbar.html:28
+msgid "At least one player does not allow streaming."
+msgstr "Mindst én spiller tillader ikke streaming."
+
+#: templates/game/modals.html:6 templates/game/modals.html:16
+msgid "Check dart:"
+msgstr "Tjek dart:"
+
+#: templates/game/cricket/stream_overlay.html:402 templates/game/modals.html:25
+#: templates/game/x01/stream_overlay.html:384
+msgid "How many darts missed at double?"
+msgstr "Hvor mange pile misset på double?"
+
+#: templates/game/cricket/stream_overlay.html:415 templates/game/modals.html:38
+#: templates/game/x01/stream_overlay.html:397
+msgid "How many darts to finish?"
+msgstr "Hvor mange pile på at lukket?"
+
+#: templates/game/cricket/stream_overlay.html:427 templates/game/modals.html:50
+#: templates/game/x01/stream_overlay.html:409
+msgid "Abort game?"
+msgstr "Afbryde spillet?"
+
+#: templates/game/cricket/stream_overlay.html:429 templates/game/modals.html:52
+#: templates/game/x01/stream_overlay.html:411
+msgid "Cancel"
+msgstr "Annullere"
 
 #: templates/game/wait_for_opponent.html:10
 msgid "Waiting for"
@@ -704,7 +684,7 @@ msgstr "Du er ikke logget på. Log på for at spille i dette spil."
 msgid "Share this link to invite another player (must be logged in):"
 msgstr "Del dette link for at invitere en anden spiller (skal være logget på):"
 
-#: templates/game/wait_for_opponent.html:21
+#: templates/game/wait_for_opponent.html:21 templates/tournament/stream.html:20
 msgid "Copy text"
 msgstr "Kopiere tekst"
 
@@ -720,7 +700,7 @@ msgstr "Vent her. Hvis du forlader denne side, annulleres udfordringen."
 msgid "Click to join another public challenge:"
 msgstr "Klik for at deltage i en anden offentlig udfordring:"
 
-#: templates/game/webcam_consent.html:9 templates/generic/lobby.html:20
+#: templates/game/webcam_consent.html:9
 msgid "Webcam games"
 msgstr "Webcam spil"
 
@@ -744,7 +724,7 @@ msgstr "Her"
 
 #: templates/game/webcam_consent.html:18
 msgid "If you do not get your webcam to work there it will not work on Lidarts either."
-msgstr "Hvis du ikke får dit webcam til at virke der vil det ikke virke på Lidarts"
+msgstr "Hvis du ikke får dit webcam til at virke der vil det ikke virke på Lidarts."
 
 #: templates/game/webcam_consent.html:19
 msgid "Although there is no ruleset for webcam play yet we call on your fairness and sportsmanship."
@@ -754,27 +734,177 @@ msgstr "Selv om der ikke er nogen regelsæt for webcam spil endnu opfordrer vi t
 msgid "We need feedback in order to improve webcam play in the future. We encourage you to send your experience via email at contact@lidarts.org"
 msgstr "Vi har brug for feedback for at forbedre webcam spille i fremtiden. Vi opfordrer dig til at sende din oplevelse via e-mail på contact@lidarts.org"
 
-#: templates/game/X01/modals.html:6 templates/game/X01/modals.html:16
-msgid "Check dart:"
-msgstr "Tjek dart:"
+#: templates/game/cricket/completed.html:12
+#: templates/game/cricket/game.html:147 templates/game/cricket/game.html:168
+#: templates/game/cricket/stream_overlay.html:114
+#: templates/game/cricket/watch_webcam.html:159
+#: templates/game/cricket/webcam.html:171 templates/game/x01/completed.html:14
+#: templates/game/x01/game.html:76 templates/game/x01/stream_overlay.html:85
+#: templates/game/x01/watch_webcam.html:81 templates/game/x01/webcam.html:92
+msgid "Game was aborted."
+msgstr "Spillet blev afbrudt."
 
-#: templates/game/X01/navbar.html:20
-msgid "Streamoverlay"
-msgstr "Streamoverlay"
+#: templates/game/cricket/completed.html:15
+#: templates/game/x01/completed.html:17
+msgid "Challenge was declined or withdrawn."
+msgstr "Udfordringen blev afvist eller trukket tilbage."
 
-#: templates/game/X01/navbar.html:23
-msgid "Activate Sound (Apple)"
-msgstr "Aktiver lyd (Apple)"
+#: templates/game/cricket/completed.html:138
+#: templates/game/x01/completed.html:140
+msgid "Match start"
+msgstr "Kamp start"
 
-#: templates/game/X01/navbar.html:25
-msgid "Summon webcam"
-msgstr "Indkalde webcam"
+#: templates/game/cricket/completed.html:139
+#: templates/game/x01/completed.html:141
+msgid "Match duration"
+msgstr "Kampens varighed"
 
-#: templates/game/X01/navbar.html:28
-msgid "At least one player does not allow streaming."
-msgstr "Mindst én spiller tillader ikke streaming."
+#: templates/game/cricket/completed.html:139
+#: templates/game/x01/completed.html:141
+msgid "hours"
+msgstr "Timer"
 
-#: templates/game/X01/webcam_follow.html:10
+#: templates/game/cricket/completed.html:140
+#: templates/game/x01/completed.html:142
+msgid "minutes"
+msgstr "Minutter"
+
+#: templates/game/cricket/completed.html:141
+#: templates/game/x01/completed.html:143
+msgid "seconds"
+msgstr "Sekunder"
+
+#: templates/game/cricket/completed.html:149
+#: templates/game/x01/completed.html:151
+msgid " Webcam game"
+msgstr " Webcam spil"
+
+#: templates/game/cricket/completed.html:162
+#, python-format
+msgid "Mark distribution - absolute (%% of total)"
+msgstr "Mark fordeling - absolut (%% af den samlede)"
+
+#: templates/game/cricket/game.html:14
+#: templates/game/cricket/stream_overlay.html:57
+#: templates/game/cricket/watch_webcam.html:27
+#: templates/game/cricket/webcam.html:28 templates/game/x01/game.html:19
+#: templates/game/x01/stream_overlay.html:24
+#: templates/game/x01/watch_webcam.html:27 templates/game/x01/webcam.html:28
+msgid "Closest to bull begins. Please throw three darts at bull."
+msgstr "Tættest på Bull begynder. Vær venlig at kaste tre dart mod Bull."
+
+#: templates/game/cricket/game.html:15
+#: templates/game/cricket/stream_overlay.html:58
+#: templates/game/cricket/watch_webcam.html:28
+#: templates/game/cricket/webcam.html:29 templates/game/x01/game.html:20
+#: templates/game/x01/stream_overlay.html:25
+#: templates/game/x01/watch_webcam.html:28 templates/game/x01/webcam.html:29
+msgid "Local game. Player 1 throws all three darts first."
+msgstr "Lokalt spil. Spiller 1 kaster alle tre dart først."
+
+#: templates/game/cricket/game.html:132 templates/game/cricket/game.html:154
+#: templates/game/cricket/stream_overlay.html:99
+#: templates/game/cricket/stream_overlay.html:195
+#: templates/game/cricket/watch_webcam.html:154
+#: templates/game/cricket/webcam.html:156 templates/game/x01/game.html:61
+#: templates/game/x01/game.html:157 templates/game/x01/stream_overlay.html:70
+#: templates/game/x01/stream_overlay.html:167
+#: templates/game/x01/watch_webcam.html:76 templates/game/x01/webcam.html:77
+msgid "Game is completed."
+msgstr "Spillet er slut."
+
+#: templates/game/cricket/game.html:133 templates/game/cricket/game.html:148
+#: templates/game/cricket/game.html:155 templates/game/cricket/game.html:169
+#: templates/game/cricket/stream_overlay.html:100
+#: templates/game/cricket/stream_overlay.html:115
+#: templates/game/cricket/stream_overlay.html:196
+#: templates/game/cricket/watch_webcam.html:155
+#: templates/game/cricket/watch_webcam.html:160
+#: templates/game/cricket/webcam.html:157
+#: templates/game/cricket/webcam.html:172 templates/game/x01/game.html:62
+#: templates/game/x01/game.html:77 templates/game/x01/game.html:158
+#: templates/game/x01/stream_overlay.html:71
+#: templates/game/x01/stream_overlay.html:86
+#: templates/game/x01/stream_overlay.html:168
+#: templates/game/x01/watch_webcam.html:77
+#: templates/game/x01/watch_webcam.html:82 templates/game/x01/webcam.html:78
+#: templates/game/x01/webcam.html:93
+msgid "Game overview"
+msgstr "Oversigt over spillet"
+
+#: templates/game/cricket/game.html:136 templates/game/cricket/game.html:158
+#: templates/game/cricket/stream_overlay.html:103
+#: templates/game/cricket/webcam.html:160 templates/game/x01/game.html:65
+#: templates/game/x01/game.html:161 templates/game/x01/stream_overlay.html:74
+#: templates/game/x01/stream_overlay.html:171 templates/game/x01/webcam.html:81
+msgid "Offer rematch"
+msgstr "Tilbyde revanche"
+
+#: templates/game/cricket/game.html:137 templates/game/cricket/game.html:159
+#: templates/game/cricket/stream_overlay.html:104
+#: templates/game/cricket/webcam.html:161 templates/game/x01/game.html:66
+#: templates/game/x01/game.html:162 templates/game/x01/stream_overlay.html:75
+#: templates/game/x01/stream_overlay.html:172 templates/game/x01/webcam.html:82
+msgid "Accept rematch"
+msgstr "Accepter revanche"
+
+#: templates/game/cricket/game.html:139 templates/game/cricket/game.html:161
+#: templates/game/cricket/stream_overlay.html:106
+#: templates/game/cricket/webcam.html:163 templates/game/x01/game.html:68
+#: templates/game/x01/game.html:164 templates/game/x01/stream_overlay.html:77
+#: templates/game/x01/stream_overlay.html:174 templates/game/x01/webcam.html:84
+msgid "Rematch offer sent"
+msgstr "Revanche tilbud sendt"
+
+#: templates/game/cricket/game.html:142 templates/game/cricket/game.html:164
+#: templates/game/cricket/stream_overlay.html:109
+#: templates/game/cricket/webcam.html:166 templates/game/x01/game.html:71
+#: templates/game/x01/game.html:167 templates/game/x01/stream_overlay.html:80
+#: templates/game/x01/stream_overlay.html:177 templates/game/x01/webcam.html:87
+#: templates/tournament/settings.html:68
+msgid "Back to tournament"
+msgstr "Tilbage til Turnering"
+
+#: templates/game/cricket/navbar.html:31
+msgid "Toggle chat"
+msgstr "Slå chat til/fra"
+
+#: templates/game/cricket/stream_overlay.html:126
+#: templates/game/cricket/stream_overlay.html:313
+#: templates/game/cricket/watch_webcam.html:139
+#: templates/game/cricket/webcam.html:187 templates/game/x01/game.html:88
+#: templates/game/x01/game.html:182 templates/game/x01/stream_overlay.html:97
+#: templates/game/x01/stream_overlay.html:295
+#: templates/game/x01/webcam.html:104
+msgid "Undo last score"
+msgstr "Fortryd sidste score"
+
+#: templates/game/cricket/stream_overlay.html:127
+#: templates/game/cricket/stream_overlay.html:314
+#: templates/game/cricket/watch_webcam.html:140
+#: templates/game/cricket/webcam.html:188 templates/game/x01/game.html:89
+#: templates/game/x01/game.html:183 templates/game/x01/stream_overlay.html:98
+#: templates/game/x01/stream_overlay.html:296
+#: templates/game/x01/webcam.html:105
+msgid "Enter correct score"
+msgstr "Indtast korrekt score"
+
+#: templates/game/cricket/stream_overlay.html:133
+#: templates/game/x01/game.html:95 templates/game/x01/stream_overlay.html:104
+msgid "Keypad"
+msgstr "Tastatur"
+
+#: templates/game/x01/completed.html:180
+#: templates/statistics/x01_detail_element.html:66
+msgid "Highest Finish"
+msgstr "Højeste Lukker"
+
+#: templates/game/x01/completed.html:186
+#: templates/statistics/x01_detail_element.html:15
+msgid "Shortest Leg"
+msgstr "Laveste Sæt"
+
+#: templates/game/x01/webcam_follow.html:10
 msgid "Your camera device waits on this page for you to request it in the game menu."
 msgstr "Kameraenheden venter på denne side, før du anmoder om den i spilmenuen."
 
@@ -838,7 +968,7 @@ msgstr "DartCall 2007 opkaldspakke skabt af Horst Girtew."
 msgid "Sound effects obtained from"
 msgstr "Lydeffekter indhentet fra"
 
-#: templates/generic/chat.html:18 templates/generic/lobby.html:54
+#: templates/generic/chat.html:18 templates/generic/lobby.html:64
 msgid "Public challenges"
 msgstr "Offentlige udfordringer"
 
@@ -846,7 +976,7 @@ msgstr "Offentlige udfordringer"
 msgid "New games"
 msgstr "Nyt spil"
 
-#: templates/generic/chat.html:54 templates/tournament/details.html:50
+#: templates/generic/chat.html:54 templates/tournament/details.html:54
 msgid "Latest results"
 msgstr "Seneste resultater"
 
@@ -858,19 +988,19 @@ msgstr "Vis kamp oplysninger"
 msgid "Show public challenges"
 msgstr "Vis offentlige udfordringer"
 
-#: templates/generic/chat.html:109 templates/tournament/details.html:101
+#: templates/generic/chat.html:109 templates/tournament/details.html:105
 msgid "Filter users"
 msgstr "Filtrer brugere"
 
-#: templates/generic/chat.html:114 templates/tournament/details.html:106
+#: templates/generic/chat.html:114 templates/tournament/details.html:110
 msgid "From your country"
 msgstr "Fra dit land"
 
-#: templates/generic/chat.html:118 templates/tournament/details.html:110
+#: templates/generic/chat.html:118 templates/tournament/details.html:114
 msgid "Online"
 msgstr "Online"
 
-#: templates/generic/chat.html:119 templates/tournament/details.html:111
+#: templates/generic/chat.html:119 templates/tournament/details.html:115
 msgid "Playing"
 msgstr "Spil"
 
@@ -904,8 +1034,8 @@ msgid "During development I try to test the features the best I can. But there w
 msgstr "Under udviklingen forsøger jeg at teste funktionerne bedst muligt. Men der vil stadig være fejl, der gør det igennem til live-serveren.\n"
 "Hvis du støder på fejl eller problemer under spillet, eller du har ideer eller feedback til at forbedre webstedet, bedes du"
 
-#: templates/generic/contribute.html:17 templates/generic/contribute.html:26
-#: templates/generic/contribute.html:31
+#: templates/generic/contribute.html:17 templates/generic/contribute.html:31
+#: templates/generic/help_translate.html:17
 msgid "contact"
 msgstr "Kontakt"
 
@@ -924,12 +1054,16 @@ msgid "Translations"
 msgstr "Oversættelser"
 
 #: templates/generic/contribute.html:26
-msgid "The main language on Lidarts is English. Currently there is only a German translation available. If you are fluent in English and another language of your choice you can"
-msgstr "Hovedsproget på Lidarts er engelsk. I øjeblikket er der kun en tysk oversættelse til rådighed. Hvis du taler flydende engelsk og et andet sprog efter eget valg, kan du"
+msgid "The main language on Lidarts is English. Translations exist in German, Danish and Dutch. If you are fluent in English and another language of your choice you can"
+msgstr "Hovedsproget på Lidarts er engelsk. Oversættelser findes på tysk, dansk og hollandsk. Hvis du taler flydende engelsk og et andet sprog efter eget valg, kan du"
 
 #: templates/generic/contribute.html:26
-msgid "us and translate parts of Lidarts or the entire website for your community. "
-msgstr "os og oversætte dele af Lidarts eller hele hjemmesiden for dit fællesskabet. "
+msgid "help translating"
+msgstr "hjælpe med at oversætte"
+
+#: templates/generic/contribute.html:26
+msgid "parts of Lidarts or the entire website for your community. "
+msgstr "dele af Lidarts eller hele hjemmesiden for dit fællesskab."
 
 #: templates/generic/contribute.html:29 templates/statistics/x01.html:124
 msgid "Graphics"
@@ -1127,15 +1261,47 @@ msgstr "Jeg fandt en fejl / har et spørgsmål eller funktion anmodning / nogen 
 msgid "Contact us."
 msgstr "Kontakt os"
 
-#: templates/generic/inbox.html:26
+#: templates/generic/help_translate.html:10
+msgid "Help translating lidarts.org"
+msgstr "Hjælp med at oversætte lidarts.org"
+
+#: templates/generic/help_translate.html:12
+msgid "Lidarts is currently available in four languages: English, German, Danish and Dutch. Translations to any language can be provided by the community."
+msgstr "Lidarts er i øjeblikket tilgængelig på fire sprog: engelsk, tysk, dansk og hollandsk. Oversættelser til alle sprog kan leveres af fællesskabet."
+
+#: templates/generic/help_translate.html:14
+msgid "How to translate"
+msgstr "Sådan oversætter du"
+
+#: templates/generic/help_translate.html:16
+msgid "If you speak any other language you can help translating Lidarts. You do not need any additional software."
+msgstr "Hvis du taler et andet sprog, kan du hjælpe med at oversætte Lidarts. Du behøver ikke yderligere software."
+
+#: templates/generic/help_translate.html:16
+msgid "Visit our translation project on "
+msgstr "Besøg vores oversættelsesprojekt på"
+
+#: templates/generic/help_translate.html:17
+msgid "You can register a new account there or log in with various third party services. After logging in you can start translating texts to the language of your choice or improve existing translations."
+msgstr "Du kan registrere en ny konto der eller logge ind med forskellige tredjepartstjenester. Når du er logget ind, kan du begynde at oversætte tekster til det sprog, du ønsker, eller forbedre eksisterende oversættelser."
+
+#: templates/generic/help_translate.html:17
+msgid "If your language is missing or you have any questions"
+msgstr "Hvis dit sprog mangler, eller du har spørgsmål"
+
+#: templates/generic/help_translate.html:17
+msgid "us"
+msgstr "us"
+
+#: templates/generic/inbox.html:25
 msgid "Enter name"
 msgstr "Angiv navn"
 
-#: templates/generic/inbox.html:27
+#: templates/generic/inbox.html:26
 msgid "Compose new message"
 msgstr "Opret ny meddelelse"
 
-#: templates/generic/inbox.html:39
+#: templates/generic/inbox.html:38
 msgid "Chat with"
 msgstr "Chat med"
 
@@ -1175,56 +1341,60 @@ msgstr "Tilmeld dig nu"
 msgid "Welcome back"
 msgstr "Velkommen tilbage"
 
-#: templates/generic/lobby.html:20
+#: templates/generic/lobby.html:30
 msgid "New on Lidarts:"
 msgstr "Nyt om Lidarts:"
 
-#: templates/generic/lobby.html:20 templates/generic/webcam_tutorial_en.html:10
+#: templates/generic/lobby.html:30
+msgid "Cricket"
+msgstr "Cricket"
+
+#: templates/generic/lobby.html:30 templates/generic/webcam_tutorial_en.html:10
 #: templates/profile/webcam_settings.html:15
 msgid "Webcam tutorial"
 msgstr "Webcam Tutorial"
 
-#: templates/generic/lobby.html:20
-msgid "Livestreaming"
-msgstr "Livestreaming"
+#: templates/generic/lobby.html:30
+msgid "Help translating Lidarts"
+msgstr "Hjælp med at oversætte Lidarts"
 
-#: templates/generic/lobby.html:36
+#: templates/generic/lobby.html:46
 msgid "Create a game"
 msgstr "Opret spil"
 
-#: templates/generic/lobby.html:47
+#: templates/generic/lobby.html:57
 msgid "Webcam follow page"
 msgstr "Webcam følge side"
 
-#: templates/generic/lobby.html:55
+#: templates/generic/lobby.html:65
 msgid "Click to accept and play"
 msgstr "Klik for at acceptere og spille"
 
-#: templates/generic/lobby.html:63
+#: templates/generic/lobby.html:73
 msgid "Notifications"
 msgstr "Meddelelser"
 
-#: templates/generic/lobby.html:67
+#: templates/generic/lobby.html:77
 msgid "Challenges:"
 msgstr "Udfordringer:"
 
-#: templates/generic/lobby.html:80
+#: templates/generic/lobby.html:90
 msgid "Games in progress:"
 msgstr "Igangværende spil:"
 
-#: templates/generic/lobby.html:82
+#: templates/generic/lobby.html:95
 msgid "local guest"
 msgstr "Lokal gæst"
 
-#: templates/generic/lobby.html:93
+#: templates/generic/lobby.html:106
 msgid "New friend requests"
 msgstr "Nye venneanmodninger"
 
-#: templates/generic/lobby.html:110
+#: templates/generic/lobby.html:123
 msgid "Friends online"
 msgstr "Venner online"
 
-#: templates/generic/lobby.html:112
+#: templates/generic/lobby.html:125
 msgid "None"
 msgstr "Ingen"
 
@@ -1412,6 +1582,14 @@ msgstr "Træner forsinkelse (i sekunder)"
 msgid "Note: There is a base delay of ~3 seconds. The custom delay will be added to this."
 msgstr "Bemærk: Der er en basisforsinkelse på ~ 3 sekunder. Den brugerdefinerede forsinkelse føjes til dette."
 
+#: templates/profile/close_account.html:15
+msgid "Closing your account is a permanent decision."
+msgstr ""
+
+#: templates/profile/close_account.html:15
+msgid "You will not be able to use your account again."
+msgstr ""
+
 #: templates/profile/edit_profile.html:13
 msgid "Change profile text"
 msgstr "Ændre profiltekst"
@@ -1424,11 +1602,11 @@ msgstr "Præsenter dig selv, dine interesser, sociale medier osv."
 msgid "Game history of"
 msgstr "Spil historie"
 
-#: templates/profile/game_history.html:46
+#: templates/profile/game_history.html:54
 msgid "Previous"
 msgstr "Tidligere"
 
-#: templates/profile/game_history.html:54
+#: templates/profile/game_history.html:62
 msgid "Next"
 msgstr "Næste"
 
@@ -1466,11 +1644,11 @@ msgstr "Hvis du får en \"Alle streamere er optaget i øjeblikket\" fejl Jitsi h
 
 #: templates/profile/livestream_settings.html:30
 msgid "The second option is starting a YouTube live stream with an external software. We recommend "
-msgstr "Den anden mulighed er at starte en YouTube live stream med en ekstern software. Vi anbefaler "
+msgstr "Den anden mulighed er at starte en YouTube live stream med en ekstern software. Vi anbefaler"
 
 #: templates/profile/livestream_settings.html:32
 msgid "You can find many tutorials on the internet. It requires some setup work."
-msgstr "Du kan finde mange tutorials på internettet. Det kræver nogle setup arbejde"
+msgstr "Du kan finde mange tutorials på internettet. Det kræver nogle setup arbejde."
 
 #: templates/profile/livestream_settings.html:35
 msgid "Livestreams will only be shown if both players allowed to have their games streamed by the other party. You can enable this in the webcam settings."
@@ -1504,34 +1682,34 @@ msgstr "har endnu ikke indtastet en profiltekst."
 msgid "Recent games"
 msgstr "Seneste spil"
 
-#: templates/profile/overview.html:76
+#: templates/profile/overview.html:86
 msgid "Full match list"
 msgstr "Fuld spil liste"
 
-#: templates/profile/overview.html:86
-msgid "Statistics (501 SI/DO)"
-msgstr "Statistik (501 SI/DO)"
+#: templates/profile/overview.html:96
+msgid "Recent statistics (501 SI/DO)"
+msgstr "Nyere Statistik (501 SI/DO)"
 
-#: templates/profile/overview.html:88
+#: templates/profile/overview.html:98
 msgid "Number of games:"
 msgstr "Antal spil:"
 
-#: templates/profile/overview.html:89
+#: templates/profile/overview.html:99
 #: templates/statistics/x01_overview_element.html:7
 msgid "Darts thrown:"
 msgstr "Pile kastet:"
 
-#: templates/profile/overview.html:99
+#: templates/profile/overview.html:103
+msgid "Detailed statistics"
+msgstr "Detaljeret Statistik"
+
+#: templates/profile/overview.html:110
 msgid "Winrates (501 SI/DO)"
 msgstr "Vind satser (501 SI/DO)"
 
-#: templates/profile/overview.html:100
+#: templates/profile/overview.html:111
 msgid "(grouped by opponent average)"
 msgstr "(grupper efter modstandergennemsnit)"
-
-#: templates/profile/overview.html:135
-msgid "X01"
-msgstr "X01"
 
 #: templates/profile/settings.html:10
 msgid "Activate webcam games"
@@ -1587,6 +1765,10 @@ msgstr "Aktiverer følg side i lobbyen. Din mobilenhed kan kaldes til dine spil 
 msgid "Loads only the scoreboard without webcam image in your webcam games. Useful for mobile score-only devices."
 msgstr "Indlæser kun resultattavlen uden webcam billede i dit webcam spil. Nyttigt for mobile score-only enheder."
 
+#: templates/profile/webcam_settings.html:52
+msgid "Try enabling this option if you experience connection problems in your video conferences."
+msgstr ""
+
 #: templates/security/change_password.html:20
 #: templates/security/change_username.html:27
 #: templates/security/forgot_password.html:16 tools/forms.py:14
@@ -1630,11 +1812,15 @@ msgstr "Vilkår og betingelser"
 msgid "Already have an account?"
 msgstr "Har du allerede en konto?"
 
+#: templates/statistics/x01.html:59
+msgid "X01 Statistics"
+msgstr ""
+
 #: templates/statistics/x01.html:103
 msgid "Overview"
 msgstr "Oversigt over"
 
-#: templates/statistics/x01.html:106 templates/statistics/x01.html:159
+#: templates/statistics/x01.html:106 templates/statistics/x01.html:157
 msgid "Overall"
 msgstr "Samlede"
 
@@ -1650,15 +1836,15 @@ msgstr "Denne Uge"
 msgid "Current Month"
 msgstr "Denne Måned"
 
-#: templates/statistics/x01.html:118 templates/statistics/x01.html:153
+#: templates/statistics/x01.html:118 templates/statistics/x01.html:151
 msgid "Current Year"
 msgstr "Dette År"
 
-#: templates/statistics/x01.html:121 templates/statistics/x01.html:165
+#: templates/statistics/x01.html:121 templates/statistics/x01.html:163
 msgid "Custom"
 msgstr "Tilpas"
 
-#: templates/statistics/x01.html:240
+#: templates/statistics/x01.html:250
 msgid "Overall average per game"
 msgstr "Samlet gennemsnit pr. spil"
 
@@ -1666,35 +1852,35 @@ msgstr "Samlet gennemsnit pr. spil"
 msgid "General"
 msgstr "Generelle"
 
-#: templates/statistics/x01_detail_element.html:7
+#: templates/statistics/x01_detail_element.html:8
 msgid "Number of games"
 msgstr "Antal spil"
 
-#: templates/statistics/x01_detail_element.html:8
+#: templates/statistics/x01_detail_element.html:9
 msgid "Games Won"
 msgstr "Spil Vundet"
 
-#: templates/statistics/x01_detail_element.html:9
+#: templates/statistics/x01_detail_element.html:10
 msgid "Games Lost"
 msgstr "Spil Tabt"
 
-#: templates/statistics/x01_detail_element.html:10
+#: templates/statistics/x01_detail_element.html:11
 msgid "Games Draw"
 msgstr "Spil Uafgjort"
 
-#: templates/statistics/x01_detail_element.html:11
+#: templates/statistics/x01_detail_element.html:12
 msgid "Number of Legs"
 msgstr "Antal Sæt"
 
-#: templates/statistics/x01_detail_element.html:12
+#: templates/statistics/x01_detail_element.html:13
 msgid "Legs Won"
 msgstr "Sæt Vundet"
 
-#: templates/statistics/x01_detail_element.html:13
+#: templates/statistics/x01_detail_element.html:14
 msgid "Legs Lost"
 msgstr "Sæt Tabt"
 
-#: templates/statistics/x01_detail_element.html:15
+#: templates/statistics/x01_detail_element.html:16
 msgid "Darts thrown"
 msgstr "Pile brugt"
 
@@ -1702,7 +1888,7 @@ msgstr "Pile brugt"
 msgid "Number of games / legs:"
 msgstr "Antal spil/sæt:"
 
-#: templates/tournament/details.html:17 tournament/routes.py:152
+#: templates/tournament/details.html:17 tournament/routes.py:159
 msgid "Tournament details"
 msgstr "Turneringsdetaljer"
 
@@ -1718,23 +1904,27 @@ msgstr "Deltag i turnering"
 msgid "Create tournament game"
 msgstr "Opret turneringspil"
 
-#: templates/tournament/details.html:33
+#: templates/tournament/details.html:31
+msgid "Stream tournament games"
+msgstr "Opret turneringspil"
+
+#: templates/tournament/details.html:37
 msgid "Creator"
 msgstr "Skaberen"
 
-#: templates/tournament/details.html:34
+#: templates/tournament/details.html:38
 msgid "Watch live games"
 msgstr "Se live spil"
 
-#: templates/tournament/details.html:36
+#: templates/tournament/details.html:40
 msgid "URL"
 msgstr "Url"
 
-#: templates/tournament/details.html:39
+#: templates/tournament/details.html:43
 msgid "Start"
 msgstr "Start"
 
-#: templates/tournament/details.html:42
+#: templates/tournament/details.html:46
 msgid "Edit settings"
 msgstr "Rediger indstillinger"
 
@@ -1758,31 +1948,31 @@ msgstr "Deltagelse i en turnering vil kun få dig til at blive vist på turnerin
 msgid "Your tournaments"
 msgstr "Dine turneringer"
 
-#: templates/tournament/overview.html:41
+#: templates/tournament/overview.html:44
 msgid "You have not created a tournament yet."
 msgstr "Du har ikke oprettet en turnering endnu."
 
-#: templates/tournament/overview.html:54
+#: templates/tournament/overview.html:57
 msgid "Create a new tournament"
 msgstr "Opret en ny turnering"
 
-#: templates/tournament/overview.html:76 templates/tournament/settings.html:37
+#: templates/tournament/overview.html:79 templates/tournament/settings.html:37
 msgid "Tournament will appear in the upcoming tournaments list"
 msgstr "Turneringen vises på listen over kommende turneringer"
 
-#: templates/tournament/overview.html:83 templates/tournament/settings.html:53
+#: templates/tournament/overview.html:86 templates/tournament/settings.html:53
 msgid "Link to tournament website with more information"
 msgstr "Link til turneringens hjemmeside med mere information"
 
-#: templates/tournament/overview.html:88 templates/tournament/settings.html:58
+#: templates/tournament/overview.html:91 templates/tournament/settings.html:58
 msgid "Start date and time:"
 msgstr "Startdato og klokkeslæt:"
 
-#: templates/tournament/overview.html:108
+#: templates/tournament/overview.html:111
 msgid "Upcoming tournaments"
 msgstr "Kommende turneringer"
 
-#: templates/tournament/overview.html:119
+#: templates/tournament/overview.html:122
 msgid "There are no upcoming public tournaments at the moment."
 msgstr "Der er ingen kommende offentlige turneringer i øjeblikket."
 
@@ -1854,6 +2044,22 @@ msgstr "Ikke udeluk spiller"
 msgid "Do you want to unban "
 msgstr "Vil du udeluk "
 
+#: templates/tournament/stream.html:11 tournament/routes.py:256
+msgid "Tournament streaming"
+msgstr "Turneringsstreaming"
+
+#: templates/tournament/stream.html:13
+msgid "As a tournament creator you can get access to the video feeds of the webcam games if both players consent to streaming."
+msgstr "Som turneringsskaber kan du få adgang til webcam-spillenes videofeeds, hvis begge spillere giver sit samtykke til streaming"
+
+#: templates/tournament/stream.html:14
+msgid "Select a game you want to stream. The links below redirect you to the game's score page and video call. You should set these up in a streaming software for custom display."
+msgstr "Vælg et spil, du vil streame. Nedenstående links omdirigerer dig til spillets scoreside og videoopkald. Du bør konfigurere disse i en streamingsoftware til brugerdefineret visning."
+
+#: templates/tournament/stream.html:23
+msgid "Generate new API key"
+msgstr "Generer ny API-nøgle"
+
 #: tournament/forms.py:30
 msgid "Tournament name"
 msgstr "Turneringsnavn"
@@ -1874,23 +2080,27 @@ msgstr "Ekstern URL adresse"
 msgid "Create Tournament"
 msgstr "Opret turnering"
 
-#: tournament/routes.py:20
+#: tournament/forms.py:43
+msgid "Select game"
+msgstr "Vælg spil"
+
+#: tournament/routes.py:25
 msgid "Start in the past is not allowed for public tournaments."
 msgstr "Start i fortiden er ikke tilladt for offentlige turneringer."
 
-#: tournament/routes.py:24
+#: tournament/routes.py:29
 msgid "Start must be within the next 30 days."
 msgstr "Start skal være inden for de næste 30 dage."
 
-#: tournament/routes.py:34
+#: tournament/routes.py:39
 msgid "Tournament updated."
 msgstr "Turneringen er opdateret."
 
-#: tournament/routes.py:97
+#: tournament/routes.py:102
 msgid "You were banned from this tournament."
 msgstr "Du blev udelukket fra denne turnering."
 
-#: tournament/routes.py:181
+#: tournament/routes.py:188
 msgid "Tournament settings"
 msgstr "Turneringsindstillinger"
 

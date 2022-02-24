@@ -1,7 +1,7 @@
 from flask import url_for
 from flask_babelex import lazy_gettext
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, SelectField, SubmitField, IntegerField, TextAreaField, StringField
+from wtforms import BooleanField, SelectField, SubmitField, IntegerField, TextAreaField, StringField, PasswordField
 from wtforms.validators import DataRequired, NumberRange, Length, Regexp
 from lidarts.profile.countries import COUNTRIES
 
@@ -114,3 +114,8 @@ class WebcamSettingsForm(FlaskForm):
 class LivestreamSettingsForm(FlaskForm):
     channel_id = StringField(lazy_gettext('Channel ID'), validators=[Length(min=15, max=30), Regexp('^UC\w+$')])
     submit = SubmitField(lazy_gettext('Save'))
+
+
+class CloseAccountForm(FlaskForm):
+    password = PasswordField(lazy_gettext('Enter Password'), validators=[DataRequired()])
+    submit = SubmitField(lazy_gettext('Close account permanently'))
