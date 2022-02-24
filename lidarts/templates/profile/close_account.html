@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+
+
+<div class="row">
+    {% include 'profile/settings.html' %}
+
+    <div class="col-md-8 order-2">
+        <div class="card bg-light text-dark bs-callout bs-callout-info">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{ _('Close account') }}</h5>
+                <hr>
+                <p>{{ _('Closing your account is a permanent decision.') }} <b>{{ _('You will not be able to use your account again.') }}</b></p>
+                <form method="POST" class="form-horizontal">
+                    {{ form.hidden_tag() }}
+                    <p>{{ form.password.label(class="col-form-label") }}
+                        {{ form.password(class="form-control") }}</p>
+                    {% if form.errors %}
+                    {% for error in form.password.errors %}
+                      <p class="font-weight-bold text-danger">{{ error }}</p>
+                    {% endfor %}
+                  {% endif %}
+
+                    <p class="text-right">{{ form.submit(class="btn btn-danger") }}</p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -1,11 +1,15 @@
 from flask import render_template, url_for, jsonify, redirect, flash, current_app, request
 from flask_babelex import lazy_gettext
 from flask_login import current_user, login_required
-from lidarts import db, avatars, socketio
+from flask_security.utils import verify_password
+from lidarts import db, avatars
 from lidarts.generic.forms import UserSearchForm
 from lidarts.profile import bp
-from lidarts.profile.forms import ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm, EditProfileForm, WebcamSettingsForm, LivestreamSettingsForm
-from lidarts.models import Caller, User, CricketGame, Game, Friendship, FriendshipRequest, UserSettings, UserStatistic, WebcamSettings
+from lidarts.profile.forms import (ChangeCallerForm, ChangeCPUDelayForm, GeneralSettingsForm, ChangeCountryForm, 
+    EditProfileForm, WebcamSettingsForm, LivestreamSettingsForm, CloseAccountForm)
+from lidarts.models import (Caller, User, CricketGame, Game, Friendship, 
+    FriendshipRequest, UserSettings, UserStatistic, WebcamSettings,
+    Chatmessage, ChatmessageIngame, Privatemessage)
 from sqlalchemy import desc
 from sqlalchemy.orm import aliased
 from lidarts.utils.linker import linker
@@ -362,3 +366,31 @@ def livestream_settings():
     form.channel_id.data = settings.channel_id
     
     return render_template('profile/livestream_settings.html', form=form, title=lazy_gettext('Livestream settings'))
+
+
+@bp.route('/close-account', methods=['GET', 'POST'])
+@login_required
+def close_account():
+    form = CloseAccountForm()
+
+    if form.validate_on_submit():
+        if verify_password(form.password.data, current_user.password):
+            Chatmessage.query.filter_by(author=current_user.id).delete()
+            ChatmessageIngame.query.filter_by(author=current_user.id).delete()
+            Privatemessage.query.filter_by(sender=current_user.id).delete()
+            Privatemessage.query.filter_by(receiver=current_user.id).delete()
+            current_user.alternative_id = current_user.id + 100000000
+            current_user.username = f'DeletedUser{current_user.id}'
+            current_user.email = None
+            current_user.password = None
+            current_user.active = False
+            current_user.avatar = None
+
+            db.session.commit()
+
+            return redirect(url_for('generic.index'))
+
+        else:
+            form.password.errors.append(lazy_gettext('Wrong password'))
+
+    return render_template('profile/close_account.html', form=form, title=lazy_gettext('Close account'))
