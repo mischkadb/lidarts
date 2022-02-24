@@ -170,31 +170,41 @@
 					<!-- overall detail -->
 					{% set card_color = 'bs-callout-primary' %}
 					{% set currentstats = stats['overall'] %}
-					{% include "statistics/x01_detail_element.html" %}
+					{% with date_range = 'overall' %}
+						{% include "statistics/x01_detail_element.html" %}
+					{% endwith %}
 				</div>
 				<div class="tab-pane fade" id="today" role="tabpanel" aria-labelledby="today-tab">
 					<!-- today detail -->
 					{% set card_color = 'bs-callout-danger' %}
 					{% set currentstats = stats['today'] %}
-					{% include "statistics/x01_detail_element.html" %}
+					{% with date_range = 'today' %}
+						{% include "statistics/x01_detail_element.html" %}
+					{% endwith %}
 				</div>
 				<div class="tab-pane fade" id="currentweek" role="tabpanel" aria-labelledby="currentweek-tab">
 					<!-- current week detail -->
 					{% set card_color = 'bs-callout-warning' %}
 					{% set currentstats = stats['currentweek'] %}
-					{% include "statistics/x01_detail_element.html" %}
+					{% with date_range = 'week' %}
+						{% include "statistics/x01_detail_element.html" %}
+					{% endwith %}
 				</div>
 				<div class="tab-pane fade" id="currentmonth" role="tabpanel" aria-labelledby="currentmonth-tab">
 					<!-- current month detail -->
 					{% set card_color = 'bs-callout-info' %}
 					{% set currentstats = stats['currentmonth'] %}
-					{% include "statistics/x01_detail_element.html" %}
+					{% with date_range = 'month' %}
+						{% include "statistics/x01_detail_element.html" %}
+					{% endwith %}
 				</div>
 				<div class="tab-pane fade" id="currentyear" role="tabpanel" aria-labelledby="currentyear-tab">
 					<!-- current year detail -->
 					{% set card_color = 'bs-callout-success' %}
 					{% set currentstats = stats['currentyear'] %}
-					{% include "statistics/x01_detail_element.html" %}
+					{% with date_range = 'year' %}
+						{% include "statistics/x01_detail_element.html" %}
+					{% endwith %}
 				</div>
 				<div class="tab-pane fade" id="custom" role="tabpanel" aria-labelledby="custom-tab">
 					<div class="row">
@@ -225,7 +235,9 @@
 					<!-- custom detail -->
 					{% set card_color = 'bs-callout-default' %}
 					{% set currentstats = stats['custom'] %}
-					{% include "statistics/x01_detail_element.html" %}
+					{% with date_range = 'custom' %}
+						{% include "statistics/x01_detail_element.html" %}
+					{% endwith %}
 				</div>
 				
 				

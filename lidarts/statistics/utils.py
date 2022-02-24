@@ -9,6 +9,11 @@ from sqlalchemy import desc
 from flask_login import current_user
 from lidarts import socketio
 from lidarts.models import User, Game
+from lidarts.statistics.model import Statistics
+
+
+def calc_percentage(numerator, divisor, precision=2):
+    return round((numerator / divisor) * 100, precision)
 
 
 def sum_up_stats(stats):
@@ -21,120 +26,63 @@ def sum_up_stats(stats):
         dictionary with stats, created by calculateOverallStatsFromLeg
     """
 
-    # print("LEN STATS: " + str(len(stats['first9_scores'])))
+    # print("LEN STATS: " + str(len(stats.first9_scores)))
 
-    stats['doubles'] = round((stats['legs_won'] / stats['double_thrown']), 4) * 100 \
-        if stats['double_thrown'] else 0
-    stats['average'] = round((stats['total_score'] / (stats['darts_thrown'])) * 3, 2) \
-        if stats['darts_thrown'] else 0
-    stats['first9_average'] = round((sum(stats['first9_scores']) / len(stats['first9_scores'])), 2) \
-        if stats['first9_scores'] else 0
-    stats['first6_average'] = round((sum(stats['first6_scores']) / len(stats['first6_scores'])), 2) \
-        if stats['first6_scores'] else 0
-    stats['first3_average'] = round((sum(stats['first3_scores']) / len(stats['first3_scores'])), 2) \
-        if stats['first3_scores'] else 0
+    if stats.double_thrown:
+        stats.doubles = calc_percentage(stats.legs_won, stats.double_thrown, 4)
+    if stats.darts_thrown:
+        stats.average = round((stats.total_score / (stats.darts_thrown)) * 3, 2)
+    for first_x, scores in stats.first['scores'].items():
+        if not scores:
+            continue
+        stats.first['averages'][first_x] = round((sum(scores) / len(scores)), 2)
 
-    stats['legs_lost'] = stats['number_of_legs'] - stats['legs_won']
+    stats.legs_lost = stats.number_of_legs - stats.legs_won
 
     # calculate games percent
-    if stats['number_of_games'] > 0:
-        stats['games_won_percent'] = round(
-            (stats['games_won'] / stats['number_of_games']) * 100, 2)
-        stats['games_lost_percent'] = round(
-            (stats['games_lost'] / stats['number_of_games']) * 100, 2)
-        stats['games_draw_percent'] = round(
-            (stats['games_draw'] / stats['number_of_games']) * 100, 2)
+    if stats.number_of_games > 0:
+        for result_type, amount in stats.games['record'].items():
+            stats.games['percentages'][result_type] = calc_percentage(amount, stats.number_of_games)
 
     # calculate legs percent
-    if stats['number_of_legs'] > 0:
-        stats['legs_won_percent'] = round(
-            (stats['legs_won'] / stats['number_of_legs']) * 100, 2)
-        stats['legs_lost_percent'] = round(
-            (stats['legs_lost'] / stats['number_of_legs']) * 100, 2)
+    if stats.number_of_legs > 0:
+        stats.legs_won_percent = calc_percentage(stats.legs_won, stats.number_of_legs)
+        stats.legs_lost_percent = calc_percentage(stats.legs_lost, stats.number_of_legs)
 
     # calculate scorring percent
-    if stats['number_of_rounds'] > 0:
-        stats['less_than_twenty_percent'] = round(
-            (stats['less_than_twenty'] / stats['number_of_rounds']) * 100, 2)
-        stats['twenty_and_more_percent'] = round(
-            (stats['twenty_and_more'] / stats['number_of_rounds']) * 100, 2)
-        stats['forty_and_more_percent'] = round(
-            (stats['forty_and_more'] / stats['number_of_rounds']) * 100, 2)
-        stats['sixty_and_more_percent'] = round(
-            (stats['sixty_and_more'] / stats['number_of_rounds']) * 100, 2)
-        stats['eigthy_and_more_percent'] = round(
-            (stats['eigthy_and_more'] / stats['number_of_rounds']) * 100, 2)
-        stats['hundred_and_more_percent'] = round(
-            (stats['hundred_and_more'] / stats['number_of_rounds']) * 100, 2)
-        stats['hundredforty_and_more_percent'] = round(
-            (stats['hundredforty_and_more'] / stats['number_of_rounds']) * 100, 2)
-        stats['hundredeighty_percent'] = round(
-            (stats['hundredeighty'] / stats['number_of_rounds']) * 100, 2)
+    number_of_rounds = stats.number_of_rounds
+    if number_of_rounds:
+        for score_range, score_amount in stats.scoring['ranges'].items():
+            stats.scoring['percentages'][score_range] = calc_percentage(score_amount, number_of_rounds)
 
     # calculate finish percent
-    if stats['legs_won'] > 0:
-        stats['finish_two_to_forty_percent'] = round(
-            (stats['finish_two_to_forty'] / stats['legs_won']) * 100, 2)
-        stats['finish_fortyone_to_eigthy_percent'] = round(
-            (stats['finish_fortyone_to_eigthy'] / stats['legs_won']) * 100, 2)
-        stats['finish_eightyone_to_hundred_percent'] = round(
-            (stats['finish_eightyone_to_hundred'] / stats['legs_won']) * 100, 2)
-        stats['finish_hundredone_to_hundredtwenty_percent'] = round(
-            (stats['finish_hundredone_to_hundredtwenty'] / stats['legs_won']) * 100, 2)
-        stats['finish_hundredtwentyone_to_hundredforty_percent'] = round(
-            (stats['finish_hundredtwentyone_to_hundredforty'] / stats['legs_won']) * 100, 2)
-        stats['finish_hundredfortyone_to_hundredseventy_percent'] = round(
-            (stats['finish_hundredfortyone_to_hundredseventy'] / stats['legs_won']) * 100, 2)
-
-
-def create_stats_object():
-    """
-    creates the default stats objects
-    """
-    return {'darts_thrown': 0, 'double_thrown': 0, 'legs_won': 0, 'total_score': 0, 'average': 0,
-            'first9_scores': [], 'first9_average': 0, 'doubles': 0, 'number_of_games': 0,
-            'shortest_leg': 0, 'number_of_legs': 0, 'legs_lost': 0, 'first6_scores': [], 'first6_average': 0,
-            'first3_scores': [], 'first3_average': 0, 'twenty_and_more': 0, 'forty_and_more': 0,
-            'sixty_and_more': 0, 'games_won': 0, 'games_lost': 0, 'games_draw': 0,
-            'games_won_percent': 0, 'games_lost_percent': 0, 'games_draw_percent': 0,
-            'legs_won_percent': 0, 'legs_lost_percent': 0, 'less_than_twenty': 0,
-            'eigthy_and_more': 0, 'hundred_and_more': 0, 'less_than_twenty_percent': 0,
-            'hundredforty_and_more': 0, 'hundredeighty': 0, 'number_of_rounds': 0,
-            'twenty_and_more_percent': 0, 'forty_and_more_percent': 0, 'sixty_and_more_percent': 0,
-            'eigthy_and_more_percent': 0, 'hundred_and_more_percent': 0,
-            'hundredforty_and_more_percent': 0, 'hundredeighty_percent': 0,
-            'highest_finish': 0, 'finish_two_to_forty': 0, 'finish_fortyone_to_eigthy': 0,
-            'finish_eightyone_to_hundred': 0, 'finish_hundredone_to_hundredtwenty': 0,
-            'finish_hundredtwentyone_to_hundredforty': 0,
-            'finish_hundredfortyone_to_hundredseventy': 0,
-            'finish_two_to_forty_percent': 0, 'finish_fortyone_to_eigthy_percent': 0,
-            'finish_eightyone_to_hundred_percent': 0,
-            'finish_hundredone_to_hundredtwenty_percent': 0,
-            'finish_hundredtwentyone_to_hundredforty_percent': 0,
-            'finish_hundredfortyone_to_hundredseventy_percent': 0}
+    if stats.legs_won > 0:
+        for finishing_range, finish_amount in stats.finishing['ranges'].items():
+            stats.finishing['percentages'][finishing_range] = calc_percentage(finish_amount, stats.legs_won)
 
 
 def calculate_overall_stats_from_game(current_stats, game, player):
     """
     this function calculates the overall stats from for the current game
     """
-    current_stats['number_of_games'] += 1
+    current_stats.number_of_games += 1
+    record = current_stats.games['record']
 
     # draw?
     if game.p1_sets == game.p2_sets:
-        current_stats['games_draw'] += 1
+        record['draws'] += 1
     # is player1 the current player?
     elif player == '1':
         if game.p1_sets > game.p2_sets:
-            current_stats['games_won'] += 1
+            record['wins'] += 1
         elif game.p1_sets < game.p2_sets:
-            current_stats['games_lost'] += 1
+            record['losses'] += 1
     # is player2 the current player?
     elif player == '2':
         if game.p2_sets > game.p1_sets:
-            current_stats['games_won'] += 1
+            record['wins'] += 1
         elif game.p2_sets < game.p1_sets:
-            current_stats['games_lost'] += 1
+            record['losses'] += 1
 
     return current_stats
 
@@ -153,73 +101,87 @@ def calculate_overall_stats_from_leg(current_stats, match_player_legstats_json):
     """
 
     current_round = 0
-    current_stats['number_of_legs'] += 1
+    current_stats.number_of_legs += 1
     darts_thrown_this_leg = len(match_player_legstats_json['scores']) * 3
 
     score = 0
     for score in match_player_legstats_json['scores']:
         current_round += 1
         if current_round <= 1:
-            current_stats['first3_scores'].append(score)
+            current_stats.first3_scores.append(score)
         if current_round <= 2:
-            current_stats['first6_scores'].append(score)
+            current_stats.first6_scores.append(score)
         if current_round <= 3:
-            current_stats['first9_scores'].append(score)
+            current_stats.first9_scores.append(score)
 
-        current_stats['number_of_rounds'] += 1
+        current_stats.number_of_rounds += 1
+        scoring_ranges = current_stats.scoring['ranges']
 
         if score == 180:
-            current_stats['hundredeighty'] += 1
+            scoring_ranges['180'] += 1
         elif score >= 140:
-            current_stats['hundredforty_and_more'] += 1
+            scoring_ranges['over_140'] += 1
         elif score >= 100:
-            current_stats['hundred_and_more'] += 1
+            scoring_ranges['over_100'] += 1
         elif score >= 80:
-            current_stats['eigthy_and_more'] += 1
+            scoring_ranges['over_80'] += 1
         elif score >= 60:
-            current_stats['sixty_and_more'] += 1
+            scoring_ranges['over_60'] += 1
         elif score >= 40:
-            current_stats['forty_and_more'] += 1
+            scoring_ranges['over_40'] += 1
         elif score >= 20:
-            current_stats['twenty_and_more'] += 1
+            scoring_ranges['over_20'] += 1
         else:
-            current_stats['less_than_twenty'] += 1
-        current_stats['total_score'] += score
+            scoring_ranges['under_20'] += 1
+
+        # for 19s
+        if 180 > score >= 171:
+            scoring_ranges['over_171'] += 1
+        elif score >= 131:
+            scoring_ranges['over_131'] += 1
+        elif score >= 91:
+            scoring_ranges['over_91'] += 1
+        elif score >= 57:
+            scoring_ranges['over_57'] += 1
+        elif score >= 40:
+            scoring_ranges['over_40_19s'] += 1
+        current_stats.total_score += score
 
     # check if player has finished the game
     if 'to_finish' in match_player_legstats_json:
         darts_thrown_this_leg -= (3 -
                                   match_player_legstats_json['to_finish'])
-        current_stats['double_thrown'] += 1
-        current_stats['legs_won'] += 1
+        current_stats.double_thrown += 1
+        current_stats.legs_won += 1
 
         # check if we can update the shortest leg
-        if current_stats['shortest_leg'] == 0 or current_stats['shortest_leg'] > darts_thrown_this_leg:
-            current_stats['shortest_leg'] = darts_thrown_this_leg
+        if current_stats.shortest_leg == 0 or current_stats.shortest_leg > darts_thrown_this_leg:
+            current_stats.shortest_leg = darts_thrown_this_leg
 
-        if score > current_stats['highest_finish']:
-            current_stats['highest_finish'] = score
+        if score > current_stats.highest_finish:
+            current_stats.highest_finish = score
+        finishing_ranges = current_stats.finishing['ranges']
         if 2 <= score <= 40:
-            current_stats['finish_two_to_forty'] += 1
+            finishing_ranges['range_2_40'] += 1
         elif 41 <= score <= 80:
-            current_stats['finish_fortyone_to_eigthy'] += 1
+            finishing_ranges['range_41_80'] += 1
         elif 81 <= score <= 100:
-            current_stats['finish_eightyone_to_hundred'] += 1
+            finishing_ranges['range_81_100'] += 1
         elif 101 <= score <= 120:
-            current_stats['finish_hundredone_to_hundredtwenty'] += 1
+            finishing_ranges['range_101_120'] += 1
         elif 121 <= score <= 140:
-            current_stats['finish_hundredtwentyone_to_hundredforty'] += 1
+            finishing_ranges['range_121_140'] += 1
         elif score > 141:
-            current_stats['finish_hundredfortyone_to_hundredseventy'] += 1
+            finishing_ranges['range_141_170'] += 1
 
     if isinstance(match_player_legstats_json['double_missed'], (list,)):
-        current_stats['double_thrown'] += sum(
+        current_stats.double_thrown += sum(
             match_player_legstats_json['double_missed'])
     else:
         # legacy: double_missed as int
-        current_stats['double_thrown'] += match_player_legstats_json['double_missed']
+        current_stats.double_thrown += match_player_legstats_json['double_missed']
 
-    current_stats['darts_thrown'] += darts_thrown_this_leg
+    current_stats.darts_thrown += darts_thrown_this_leg
 
     return current_stats
 
@@ -314,9 +276,9 @@ def create_statistics(user, form, use_custom_filter_last_games, use_custom_filte
     games = create_statistics_query(user, form).all()
 
     # create the stats object
-    stats = {'today': create_stats_object(), 'currentweek': create_stats_object(),
-             'currentmonth': create_stats_object(), 'currentyear': create_stats_object(),
-             'overall': create_stats_object(), 'custom': create_stats_object(), 'averagepergame': []}
+    stats = {'today': Statistics(), 'currentweek': Statistics(),
+             'currentmonth': Statistics(), 'currentyear': Statistics(),
+             'overall': Statistics(), 'custom': Statistics(), 'averagepergame': []}
 
     # get the dates for date related statistics
     today_date = datetime.today().date()

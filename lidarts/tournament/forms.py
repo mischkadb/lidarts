@@ -2,7 +2,7 @@ from flask_babelex import _, lazy_gettext
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, BooleanField, TextAreaField, RadioField
 from wtforms_components import TimeField
-from wtforms.fields.html5 import DateField
+from wtforms.fields import DateField
 from wtforms.validators import DataRequired, Length, Optional
 
 
