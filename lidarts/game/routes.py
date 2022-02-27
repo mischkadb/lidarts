@@ -180,6 +180,28 @@ def statistics_set_leg(hashid, set_, leg):
     match_json = json.loads(game.match_json)
     leg_data_json = match_json[set_][leg]
 
+    startscore = game.type
+    
+    #calculate remaining_scores
+    for p in range(1,3):
+        leg_data_json[str(p)]['remaining_scores'] = leg_data_json[str(p)]['scores'].copy()
+
+        leg_data_json[str(p)]['remaining_scores'].insert(0, startscore) #fill in startscore
+        leg_data_json[str(p)]['scores'].insert(0, '') #insert empty string, easier to render template
+        leg_data_json[str(p)]['double_missed'].insert(0, 0) #insert 0, easier to render template
+        l = len(leg_data_json[str(p)]['remaining_scores'])
+        for i in range(1, l):
+            leg_data_json[str(p)]['remaining_scores'][i] = leg_data_json[str(p)]['remaining_scores'][i-1] - leg_data_json[str(p)]['scores'][i]
+            if "to_finish" in leg_data_json[str(p)] and i == l-1:
+                leg_data_json[str(p)]['scores'][i] = '' # don´t show score of last throw when finished
+                leg_data_json[str(p)]['remaining_scores'][i] = 'x' + str(leg_data_json[str(p)]['to_finish'])
+
+        l = len(leg_data_json[str(p)]['double_missed'])
+        for i in range (l):
+            if "to_finish" in leg_data_json[str(p)] and i == l-1:
+                leg_data_json[str(p)]['double_missed'][i] += 1
+            leg_data_json[str(p)]['double_missed'][i] = 'I' * leg_data_json[str(p)]['double_missed'][i]
+
     return render_template('game/X01_statistics.html', playerNames=player_names, leg_data_json=leg_data_json)
 
 

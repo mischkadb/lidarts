@@ -82,6 +82,10 @@ a.no-underline {
     font-weight: bold;
 }
 
+.darts_on_doubles_count {
+    color: red;
+}
+
 .score-remain {
     font-size: 10px;
     position: absolute;
