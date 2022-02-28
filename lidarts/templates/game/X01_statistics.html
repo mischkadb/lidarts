@@ -38,16 +38,21 @@
     <div class="col-xl-12">
         <div class="card bg-light">
             <div class="card-body">
+                <!-- Row with starting scores -->
+                <div class="row align-items-center no-gutters mb-2">
+                    <div class="col-5 col-sm-2 offset-sm-3 text-center">
+                        <h1>{{ starting_score }}</h1>
+                    </div>
+                    <div class="col-5 col-sm-2 offset-2 text-center">
+                        <h1>{{ starting_score }}</h1>
+                    </div>
+                </div>
                 {%  set countScoresPlayerOne = leg_data_json['1']['scores']|length %}
                 {%  set countScoresPlayerTwo = leg_data_json['2']['scores']|length %}
-                {%  set countScores = countScoresPlayerOne %}
-                {%  if countScoresPlayerTwo > countScoresPlayerOne %}
-                {%      set countScores = countScoresPlayerTwo %}
-                {%  endif %}
-                {%  for entry in range(0, countScores) %}
-                <div class="row align-items-center no-gutters">
+                {%  for entry in range([countScoresPlayerOne, countScoresPlayerTwo]|max) %}
+                <div class="row align-items-center no-gutters mb-2">
                     <div class="col-1 text-center d-none d-sm-block"><!-- show on bigger screen -->
-                        <h2 class="darts_on_doubles_count">{{ leg_data_json['1']['double_missed'][entry] }}</h2>
+                        <h2 class="darts_on_doubles_count">{{ leg_data_json['1']['double_attempts'][entry] }}</h2>
                     </div>
                     <div class="col-2 text-center d-none d-sm-block"><!-- show on bigger screen -->
                         <h1>{{ leg_data_json['1']['scores'][entry] }}</h1>
@@ -59,9 +64,7 @@
                         <h1>{{ leg_data_json['1']['remaining_scores'][entry] }}</h1>
                     </div>
                     <div class="col-2 text-center" >
-                        {% if entry > 0 %}
-                        <h1><b>{{ (entry) * 3 }}</b></h1>
-                        {% endif  %}
+                        <h1><b>{{ (entry + 1) * 3 }}</b></h1>
                     </div>
                     <div class="col-2 text-center d-none d-sm-block"><!-- show on bigger screen -->
                         <h1>{{ leg_data_json['2']['remaining_scores'][entry] }}</h1>
@@ -73,10 +76,9 @@
                         <h1>{{ leg_data_json['2']['scores'][entry] }}</h1>
                     </div>
                     <div class="col-1 text-center d-none d-sm-block">
-                            <h2 class="darts_on_doubles_count">{{ leg_data_json['2']['double_missed'][entry] }}</h2>
+                            <h2 class="darts_on_doubles_count">{{ leg_data_json['2']['double_attempts'][entry] }}</h2>
                     </div>
                 </div>
-                <br/>
                 {% endfor %}
                 <!--
                 <div class="row justify-content-center align-items-center mb-2 text-center text-secondary">
