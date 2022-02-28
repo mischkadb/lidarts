@@ -190,7 +190,7 @@ def statistics_set_leg(hashid, set_, leg):
             player_data['remaining_scores'].append(remaining_score)
         # Build double_attempts list from missed doubles
         # Double attempt for successful finish needs to be added later    
-        player_data['double_attempts'] = ['I' * player_data['double_missed'][visit] for visit in player_data['double_missed']]
+        player_data['double_attempts'] = ['I' * visit for visit in player_data['double_missed']]
         if 'to_finish' in player_data:
             player_data['scores'][-1] = '' # don't show score of last throw when finished
             player_data['remaining_scores'][-1] = 'x' + str(player_data['to_finish'])
