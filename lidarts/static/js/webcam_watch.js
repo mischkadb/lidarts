@@ -1,7 +1,5 @@
 $(document).ready(function() {
     var hashid = $('#jitsi-settings').data()['hashid'];
-    var username = $('#username').data()['username'];
-    console.log(username);
     var public_server = $('#jitsi-settings').data()['public_server'];
     var force_public_server = $('#jitsi-settings').data()['force_public_server'];
     if (public_server == 'True' || force_public_server == 'True') {        
@@ -23,11 +21,13 @@ $(document).ready(function() {
         // disableDeepLinking enables Jitsi on mobile browsers
         // needs to be false for app notice
         disableDeepLinking: !jitsi_app,
+        startWithAudioMuted: true,
+        startWithVideoMuted: true,
+        disableInitialGUM: true,
     }
 
     ifaceoverwrite = {
-        TOOLBAR_BUTTONS: [ 'microphone', 'camera', 
-        'fodeviceselection', 'fullscreen',
+        TOOLBAR_BUTTONS: [ 'fullscreen',
         'settings',
         'tileview',
         'videoquality'],
@@ -50,9 +50,6 @@ $(document).ready(function() {
         noSSL: false,
         configOverwrite: configoverwrite,
         interfaceConfigOverwrite: ifaceoverwrite,
-        userInfo: {
-            displayName: username,
-        }
     };
     const api = new JitsiMeetExternalAPI(domain, options);
     api.executeCommand('subject', ' ');

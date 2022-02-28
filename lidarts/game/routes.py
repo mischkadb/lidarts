@@ -331,7 +331,6 @@ def start(hashid, theme=None):
             p2_user_settings = UserSettings.query.filter_by(user=game.player2).first() if game.player2 else None
             if (
                 p1_webcam_settings.stream_consent and p2_webcam_settings and p2_webcam_settings.stream_consent
-                and (p1_user_settings.channel_id or p1_user_settings.channel_id)
             ):
                 # consent was given by both players, render watch page
                 template = 'watch_webcam'

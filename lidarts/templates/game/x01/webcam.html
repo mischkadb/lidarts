@@ -160,6 +160,7 @@
 {% block scripts %}
 <meta id="hash_id" data-hashid="{{ game.hashid }}">
 <meta id="user_id" data-id="{{ current_user.id }}">
+<meta id="username" data-username="{{ current_user.username }}">
 <meta id="player1_id" data-id="{{ game.player1 }}">
 <meta id="player2_id" data-id="{{ game.player2 }}">
 <meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">

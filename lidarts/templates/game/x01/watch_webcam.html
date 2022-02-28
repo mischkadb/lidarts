@@ -93,13 +93,8 @@
 
     </div>
 
-    <div class="col-7" style="height: 75vh;" id="youtube_embed">
-        {% if channel_ids[0] %}
-        <iframe style="width: 100%; height: 35vh;" src="https://www.youtube-nocookie.com/embed/live_stream?channel={{ channel_ids[0] }}&autoplay=1" frameborder="0" allow="autoplay; encryped-media;" allowfullscreen></iframe>
-        {% endif %}
-        {% if channel_ids[1] %}
-        <iframe style="width: 100%; height: 35vh;" src="https://www.youtube-nocookie.com/embed/live_stream?channel={{ channel_ids[1] }}&autoplay=1" frameborder="0" allow="autoplay; encryped-media;" allowfullscreen></iframe>
-        {% endif %}
+    <div class="col-7" style="height: 75vh;" id="meet">
+
     </div>
 </div>
 
@@ -117,6 +112,15 @@
 <meta id="player2_id" data-id="{{ game.player2 }}">
 <meta id="caller" data-caller="{{ caller }}">
 <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
+<meta id="jitsi-settings" 
+    data-hashid="{{ game.jitsi_hashid }}"
+    data-app="{{ webcam_settings.mobile_app }}"
+    data-public_server="{{ game.jitsi_public_server }}"
+    data-force_public_server="{{ jitsi_force_public_server }}"
+>
+
+<script src='https://meet.jit.si/external_api.js'></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/webcam_watch.js', version=config.VERSION) }}"></script>
 
 <script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_spectator_socket.js', version=config.VERSION) }}"></script>
 {% endblock %}
