@@ -7,11 +7,11 @@
 {% endif %}
 
 <div class="row justify-content-center mb-2">
-    <div class="col-xl-8 col-lg-10 col-sm-12">
+    <div class="col">
         <div class="card bg-light">
             <div class="card-body">
                 <div class="row justify-content-center align-items-center mb-2">
-                    <div class="col-sm-5 text-center text-light">
+                    <div class="col-6 text-center text-light">
                         <div class="card bg-dark">
                             <div class="card-body player_name_card"><h1>{{ playerNames[0] }}</h1></div>
                             <div class="card-footer
@@ -20,9 +20,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-2 text-center"><h1>vs.</h1></div>
-
-                    <div class="col-sm-5 text-center text-light">
+                    <div class="col-6 text-center text-light">
                         <div class="card bg-dark">
                             <div class="card-body player_name_card"><h1>{{ playerNames[1] }}</h1></div>
                             <div class="card-footer
@@ -37,29 +35,50 @@
 </div>
 
 <div class="row justify-content-center mb-2">
-    <div class="col-xl-8 col-lg-10 col-sm-12">
+    <div class="col-xl-12">
         <div class="card bg-light">
             <div class="card-body">
-                {%  set countScoresPlayerOne = leg_data_json['1']['scores']|length %}
-                {%  set countScoresPlayerTwo = leg_data_json['2']['scores']|length %}
-                {%  set countScores = countScoresPlayerOne %}
-                {%  if countScoresPlayerTwo > countScoresPlayerOne %}
-                {%      set countScores = countScoresPlayerTwo %}
-                {%  endif %}
-                {%  for entry in range(0, countScores) %}
-                <div class="row">
-
-                    <div class="col-sm-3 offset-sm-1 text-center"> 
-                        <h1>{{ leg_data_json['1']['scores'][entry] }}</h1>
+                <!-- Row with starting scores -->
+                <div class="row align-items-center no-gutters mb-2">
+                    <div class="col-5 col-sm-2 offset-sm-3 text-center">
+                        <h1>{{ starting_score }}</h1>
                     </div>
-                    <div class="col-sm-4 text-center" >
-                        <h1><b>{{ entry + 1 }}</b></h1>
-                    </div>
-                    <div class="col-sm-3 text-center">
-                        <h1>{{ leg_data_json['2']['scores'][entry] }}</h1>
+                    <div class="col-5 col-sm-2 offset-2 text-center">
+                        <h1>{{ starting_score }}</h1>
                     </div>
                 </div>
-                <br/>
+                {%  set countScoresPlayerOne = leg_data_json['1']['scores']|length %}
+                {%  set countScoresPlayerTwo = leg_data_json['2']['scores']|length %}
+                {%  for entry in range([countScoresPlayerOne, countScoresPlayerTwo]|max) %}
+                <div class="row align-items-center no-gutters mb-2">
+                    <div class="col-1 text-center d-none d-sm-block"><!-- show on bigger screen -->
+                        <h2 class="darts_on_doubles_count">{{ leg_data_json['1']['double_attempts'][entry] }}</h2>
+                    </div>
+                    <div class="col-2 text-center d-none d-sm-block"><!-- show on bigger screen -->
+                        <h1>{{ leg_data_json['1']['scores'][entry] }}</h1>
+                    </div>
+                    <div class="col-5 text-center d-sm-none"><!-- show on small screen -->
+                        <h1>{{ leg_data_json['1']['remaining_scores'][entry] }}</h1>
+                    </div>
+                    <div class="col-2 text-center d-none d-sm-block"><!-- show on bigger screen -->
+                        <h1>{{ leg_data_json['1']['remaining_scores'][entry] }}</h1>
+                    </div>
+                    <div class="col-2 text-center" >
+                        <h1><b>{{ (entry + 1) * 3 }}</b></h1>
+                    </div>
+                    <div class="col-2 text-center d-none d-sm-block"><!-- show on bigger screen -->
+                        <h1>{{ leg_data_json['2']['remaining_scores'][entry] }}</h1>
+                    </div>
+                    <div class="col-5 text-center d-sm-none"><!-- show on small screen -->
+                        <h1>{{ leg_data_json['2']['remaining_scores'][entry] }}</h1>
+                    </div>
+                    <div class="col-2 text-center d-none d-sm-block">
+                        <h1>{{ leg_data_json['2']['scores'][entry] }}</h1>
+                    </div>
+                    <div class="col-1 text-center d-none d-sm-block">
+                            <h2 class="darts_on_doubles_count">{{ leg_data_json['2']['double_attempts'][entry] }}</h2>
+                    </div>
+                </div>
                 {% endfor %}
                 <!--
                 <div class="row justify-content-center align-items-center mb-2 text-center text-secondary">

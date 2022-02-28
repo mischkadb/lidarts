@@ -179,8 +179,24 @@ def statistics_set_leg(hashid, set_, leg):
 
     match_json = json.loads(game.match_json)
     leg_data_json = match_json[set_][leg]
+    
+    # calculate remaining_scores
+    for player in ('1', '2'):
+        player_data = leg_data_json[player]
+        remaining_score = game.type
+        player_data['remaining_scores'] = []
+        for score in player_data['scores']:
+            remaining_score -= score
+            player_data['remaining_scores'].append(remaining_score)
+        # Build double_attempts list from missed doubles
+        # Double attempt for successful finish needs to be added later    
+        player_data['double_attempts'] = ['I' * player_data['double_missed'][visit] for visit in player_data['double_missed']]
+        if 'to_finish' in player_data:
+            player_data['scores'][-1] = '' # don't show score of last throw when finished
+            player_data['remaining_scores'][-1] = 'x' + str(player_data['to_finish'])
+            player_data['double_attempts'][-1] += 'I'
 
-    return render_template('game/X01_statistics.html', playerNames=player_names, leg_data_json=leg_data_json)
+    return render_template('game/X01_statistics.html', playerNames=player_names, leg_data_json=leg_data_json, starting_score=game.type)
 
 
 @bp.route('/')
