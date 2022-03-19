@@ -108,11 +108,11 @@ def calculate_overall_stats_from_leg(current_stats, match_player_legstats_json):
     for score in match_player_legstats_json['scores']:
         current_round += 1
         if current_round <= 1:
-            current_stats.first3_scores.append(score)
+            current_stats.first['scores']['first3'].append(score)
         if current_round <= 2:
-            current_stats.first6_scores.append(score)
+            current_stats.first['scores']['first6'].append(score)
         if current_round <= 3:
-            current_stats.first9_scores.append(score)
+            current_stats.first['scores']['first9'].append(score)
 
         current_stats.number_of_rounds += 1
         scoring_ranges = current_stats.scoring['ranges']
