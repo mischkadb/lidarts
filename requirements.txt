@@ -22,7 +22,7 @@ Flask-MonitoringDashboard==3.1.1
 Flask-Principal==0.4.0
 Flask-Script==2.0.6
 -e git://github.com/mischkadb/flask-security.git@38195f03d7762c561817910453c8d0c3a03094d4#egg=Flask_Security
-Flask-SocketIO==4.2.1
+Flask-SocketIO==5.3.2
 Flask-SQLAlchemy==2.5.1
 -e git://github.com/maxcountryman/flask-uploads.git@f66d7dc93e684fa0a3a4350a38e41ae00483a796#egg=Flask_Uploads
 Flask-WTF==1.0.0
