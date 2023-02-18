@@ -38,7 +38,7 @@
                                     <div class="card-body player_name_card">
                                         <h1 class="d-none d-md-block">
                                             {% if game.player1_country %}<img src="{{ url_for('static', filename='img/flags/') }}{{ game.player1_country }}.png" style="margin-right: 5px" class="
-                                            {% if game.player1_country] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            {% if game.player1_country != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
                                             <a href="{{ url_for('profile.overview', username= game.player1_name) }}" class="text-light">{{ game.player1_name }}</a>
                                         </h1>
                                         <h3 class="d-block d-md-none">
