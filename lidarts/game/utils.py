@@ -35,7 +35,7 @@ def get_player_countries(game):
         player_one_country = get_country_by_id(game.player1)
 
     if game.opponent_type == 'local':
-        player_one_country = None
+        player_two_country = None
     elif game.opponent_type == 'online':
         player_two_country = get_country_by_id(game.player2)
 
@@ -49,6 +49,8 @@ def get_country_by_id(id_):
     if country:
         country = country[0]
         return country
+    else:
+        return None
 
 
 def collect_statistics_cricket(game, match_json):
