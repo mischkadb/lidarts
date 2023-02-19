@@ -1,5 +1,5 @@
 from flask_babelex import lazy_gettext
-from lidarts.models import User, UserSettings
+from lidarts.models import User, UserSettings, UserStatistic
 from collections import defaultdict
 
 
@@ -49,6 +49,29 @@ def get_country_by_id(id_):
     if country:
         country = country[0]
         return country
+    else:
+        return None
+
+
+def get_player_stats(game):
+    if game.player1:
+        player_one_stats = get_stats_by_id(game.player1)
+
+    if game.opponent_type == 'local':
+        player_two_stats = None
+    elif game.opponent_type == 'online':
+        player_two_stats = get_stats_by_id(game.player2)
+
+    return player_one_stats, player_two_stats
+
+
+def get_stats_by_id(id_):
+    if id_ is None:
+        return None
+
+    stats = UserStatistic.query.filter_by(user=id_).first()
+    if stats:
+        return stats
     else:
         return None
 

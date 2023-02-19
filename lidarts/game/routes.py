@@ -11,7 +11,7 @@ from lidarts.game.cricket.prepare_form import prepare_cricket_form
 from lidarts.game.cricket.save_preset import save_cricket_preset
 from lidarts.game.X01.prepare_form import prepare_x01_form
 from lidarts.game.X01.save_preset import save_x01_preset
-from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names, get_player_countries, cricket_leg_default
+from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names, get_player_countries, get_player_stats, cricket_leg_default
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user, login_required
 from datetime import datetime
@@ -226,11 +226,14 @@ def start(hashid, theme=None):
 
     player_names = get_player_names(game)
     player_countries = get_player_countries(game)
+    player_stats = get_player_stats(game)
 
     game_dict['player1_name'] = player_names[0]
     game_dict['player2_name'] = player_names[1]
     game_dict['player1_country'] = player_countries[0]
     game_dict['player2_country'] = player_countries[1]
+    game_dict['player1_stats'] = player_stats[0]
+    game_dict['player2_stats'] = player_stats[1]
 
     match_json = json.loads(game.match_json)
 
