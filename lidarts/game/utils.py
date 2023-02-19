@@ -19,6 +19,17 @@ def get_player_names(game):
 
     return player_one_name, player_two_name
 
+
+def get_name_by_id(id_):
+    if id_ is None:
+        return lazy_gettext('Guest')
+    user = User.query.get(id_)
+    if user:
+        return user.username
+    else:
+        return None
+
+
 def get_player_countries(game):
     if game.player1:
         player_one_country = get_country_by_id(game.player1)
@@ -30,6 +41,7 @@ def get_player_countries(game):
 
     return player_one_country, player_two_country
 
+
 def get_country_by_id(id_):
     if id_ is None:
         return None
@@ -37,16 +49,6 @@ def get_country_by_id(id_):
     if country:
         country = country[0]
         return country
-
-
-def get_name_by_id(id_):
-    if id_ is None:
-        return lazy_gettext('Guest')
-    user = User.query.get(id_)
-    if user:
-        return user.username
-    else:
-        return None
 
 
 def collect_statistics_cricket(game, match_json):
