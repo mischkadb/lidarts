@@ -11,7 +11,7 @@ from lidarts.game.cricket.prepare_form import prepare_cricket_form
 from lidarts.game.cricket.save_preset import save_cricket_preset
 from lidarts.game.X01.prepare_form import prepare_x01_form
 from lidarts.game.X01.save_preset import save_x01_preset
-from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names, cricket_leg_default
+from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names, get_player_countries, cricket_leg_default
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user, login_required
 from datetime import datetime
@@ -225,9 +225,12 @@ def start(hashid, theme=None):
     game_dict = game.__dict__
 
     player_names = get_player_names(game)
+    player_countries = get_player_countries(game)
 
     game_dict['player1_name'] = player_names[0]
     game_dict['player2_name'] = player_names[1]
+    game_dict['player1_country'] = player_countries[0]
+    game_dict['player2_country'] = player_countries[1]
 
     match_json = json.loads(game.match_json)
 
@@ -252,34 +255,12 @@ def start(hashid, theme=None):
     # for everyone if the game is completed
     if game.status in {'completed', 'aborted', 'declined'}:
         statistics = collect_statistics(game, match_json)
-        player_countries = [None, None]
-        if game.player1:
-            p1_country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=game.player1).first()
-            if not p1_country:
-                p1_country = UserSettings(user=game.player1)
-                db.session.add(p1_country)
-                db.session.commit()
-                p1_country = None
-            else:
-                p1_country = p1_country[0]
-            player_countries[0] = p1_country
-        if game.player2 and game.player1 != game.player2:
-            p2_country = UserSettings.query.with_entities(UserSettings.country).filter_by(user=game.player2).first()
-            if not p2_country:
-                p2_country = UserSettings(user=game.player2)
-                db.session.add(p2_country)
-                db.session.commit()
-                p2_country = None
-            else:
-                p2_country = p2_country[0]
-            player_countries[1] = p2_country
 
         return render_template(
             f'game/{game.variant}/completed.html',
             game=game_dict,
             match_json=match_json,
             stats=statistics,
-            countries=player_countries,
             title=lazy_gettext('Match overview'),
             )
 
