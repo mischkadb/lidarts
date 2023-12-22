@@ -330,7 +330,7 @@ def start(hashid, theme=None):
 
     if game.webcam and current_user.is_authenticated and current_user.id in (game.player1, game.player2):
         # webcam base template
-        template = 'webcam'
+        template = 'webcam_openvidu'
         webcam_settings = WebcamSettings.query.filter_by(user=current_user.id).first()
         if webcam_settings and webcam_settings.force_scoreboard_page:
             # force normal game template
