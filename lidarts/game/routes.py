@@ -40,6 +40,15 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
 
     if form.validate_on_submit():
         player1 = current_user.id if current_user.is_authenticated else None
+
+        # check if player1 created too many games to prevent spamming
+        ACTIVE_GAME_LIMIT = 10
+        active_games = Game.query.filter_by(player1=player1).filter(Game.status.in_(['started', 'challenged'])).count()
+        if active_games >= ACTIVE_GAME_LIMIT:
+            flash(gettext('You have too many active games. Please finish some games before creating new ones.'), 'danger')
+            return render_template('game/create_game.html', form=form, opponent_name=opponent_name,
+                                   title=lazy_gettext('Create Game'))
+
         if player1 and form.opponent.data == 'local':
             player2 = current_user.id
             status = 'started'

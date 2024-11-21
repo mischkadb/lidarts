@@ -177,14 +177,22 @@ def bulk_update_last_seen():
         user_id = app.redis.spop('last_seen_bulk_user_ids')
         if not user_id:
             break
-        user = User.query.filter_by(id=int(user_id)).update({'last_seen': timestamp})
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            continue
+        user = User.query.filter_by(id=user_id).update({'last_seen': timestamp})
         socketio.sleep(0)
 
     while True:
         user_id = app.redis.spop('last_seen_ingame_bulk_user_ids')
         if not user_id:
             break
-        user = User.query.filter_by(id=int(user_id)).update({'last_seen_ingame': timestamp})
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            continue
+        user = User.query.filter_by(id=user_id).update({'last_seen_ingame': timestamp})
         socketio.sleep(0)
         #mappings.append({'id': int(user_id), 'last_seen': timestamp})
     #db.session.bulk_update_mappings(User, mappings)

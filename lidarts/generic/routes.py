@@ -105,7 +105,7 @@ def lobby():
 
     player_names = {}
     games_in_progress = Game.query.filter(((Game.player1 == current_user.id) | (Game.player2 == current_user.id)) &
-                                          (Game.status == 'started')).order_by(desc(Game.id)).all()
+                                          (Game.status.in_(['started', 'challenged']))).order_by(desc(Game.id)).all()
     cricket_games_in_progress = CricketGame.query.filter(((CricketGame.player1 == current_user.id) |
                                                           (CricketGame.player2 == current_user.id)) &
                                                          (CricketGame.status == 'started'))\
