@@ -29,7 +29,10 @@ $(document).ready(function () {
     });
 
     var audio = new Audio();
-    var muted = false;
+    var muted = $('#caller_muted').data()['caller_muted'];
+    console.log(muted);
+    muted = muted == 'True' ? true : false;
+    console.log(muted);
 
     socket.emit('player_heartbeat', { hashid: hashid['hashid'] });
 
@@ -684,12 +687,14 @@ $(document).ready(function () {
     });
 
     $('#mute').click(function () {
+        document.cookie = "caller_muted=1; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Strict";
         muted = true;
         $('#unmute').show();
         $('#mute').hide();
     });
 
     $('#unmute').click(function () {
+        document.cookie = "caller_muted=; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Strict";
         muted = false;
         $('#mute').show();
         $('#unmute').hide();

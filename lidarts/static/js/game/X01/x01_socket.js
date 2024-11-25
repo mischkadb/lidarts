@@ -32,7 +32,9 @@ $(document).ready(function () {
 
     var caller = $('#caller').data()['caller'];
     var cpu_delay = $('#cpu_delay').data()['cpu_delay'];
-    var muted = false;
+    var muted = $('#caller_muted').data()['caller_muted'];
+    muted = muted == 'True' ? true : false;
+
     var score_input_delay = $('#score_input_delay').data()['delay'];
     var audio = new Audio();
     if (score_input_delay == 'None' || score_input_delay == 0) {
@@ -924,12 +926,14 @@ $(document).ready(function () {
     });
 
     $('#mute').click(function () {
+        document.cookie = "caller_muted=1; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Strict";
         muted = true;
         $('#unmute').show();
         $('#mute').hide();
     });
 
     $('#unmute').click(function () {
+        document.cookie = "caller_muted=; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Strict";
         muted = false;
         $('#mute').show();
         $('#unmute').hide();
