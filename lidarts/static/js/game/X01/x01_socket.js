@@ -1,16 +1,16 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // namespace for the game handling
     namespace = '/game';
     // Connect to the Socket.IO server.
     // The connection URL has the following format:
     //     http[s]://<domain>:<port>[/<namespace>]
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {transports: ['websocket']});
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, { transports: ['websocket'] });
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
 
     var cdn_url = '';
-    
+
     if (window.location.hostname == 'lidarts.org') {
         cdn_url = 'https://lidartsstatic.org'
     }
@@ -26,8 +26,8 @@ $(document).ready(function() {
     var hashid = $('#hash_id').data();
     var player1_id = $('#player1_id').data()['id'];
     var player2_id = $('#player2_id').data()['id'];
-    socket.on('connect', function() {
-        socket.emit('init', {hashid: hashid['hashid'], heartbeats: true});
+    socket.on('connect', function () {
+        socket.emit('init', { hashid: hashid['hashid'], heartbeats: true });
     });
 
     var caller = $('#caller').data()['caller'];
@@ -41,22 +41,22 @@ $(document).ready(function() {
 
     var out_mode = $('#out_mode').data()['out_mode'];
 
-    socket.emit('player_heartbeat', {hashid: hashid['hashid'], user_id: currentuser_id});
+    socket.emit('player_heartbeat', { hashid: hashid['hashid'], user_id: currentuser_id });
 
-    window.setInterval(function(){
+    window.setInterval(function () {
         /// call your function here
-        socket.emit('player_heartbeat', {hashid: hashid['hashid'], user_id: currentuser_id});
+        socket.emit('player_heartbeat', { hashid: hashid['hashid'], user_id: currentuser_id });
     }, 15000);
 
-    socket.on('game_aborted', function(msg) {
+    socket.on('game_aborted', function (msg) {
         $('.score_input').hide();
         $('.game-aborted').show();
     });
 
-    var p1_ingame_timer = setInterval(function(){
+    var p1_ingame_timer = setInterval(function () {
         $('#p1_ingame').show()
     }, 35000);
-    var p2_ingame_timer = setInterval(function(){
+    var p2_ingame_timer = setInterval(function () {
         $('#p2_ingame').show()
     }, 35000);
 
@@ -64,44 +64,44 @@ $(document).ready(function() {
         p1_last_leg_sum = typeof p1_last_leg_sum !== 'undefined' ? p1_last_leg_sum : 0;
 
         if (current_leg) {
-            check = (index == msg.p1_current_leg.length-1 && !msg.p1_next_turn)
+            check = (index == msg.p1_current_leg.length - 1 && !msg.p1_next_turn)
         } else {
-            check = (index == msg.p1_last_leg.length-1 && p1_last_leg_sum == msg.type)
+            check = (index == msg.p1_last_leg.length - 1 && p1_last_leg_sum == msg.type)
         }
         if (check) {
             $('#p1_current_leg').prepend(
                 '<div class="new_score_fadein">' +
                 '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
                 '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div></div>"
+                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index + 1) + "</h3></div></div></div>"
             );
             $('#p1_current_leg_webcam').prepend(
                 '<div class="new_score_fadein">' +
                 '<div class="row text-light d-flex align-items-center justify-content-end">' +
                 '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div></div>"
-            );                
+                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index + 1) + "</h3></div></div></div>"
+            );
             $('.new_score_fadein').hide().fadeIn(2000);
         } else {
             $('#p1_current_leg').prepend(
                 '<div class="row text-light d-flex align-items-center"><div class="col-2"></div>' +
                 '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div>"
+                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index + 1) + "</h3></div></div>"
             );
             $('#p1_current_leg_webcam').prepend(
                 '<div class="row text-light d-flex align-items-center justify-content-end">' +
                 '<div class="col-8 text-center"><h2 style="font-weight: bold">' + value + '</h2></div>' +
-                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index+1) + "</h3></div></div></div>"
-            );     
+                '<div class="col-2 text-right text-secondary"><h3 class="turn-index">' + (index + 1) + "</h3></div></div></div>"
+            );
         };
     }
 
     function p2_current_leg_new_score(msg, index, value, current_leg, p1_last_leg_sum) {
         p1_last_leg_sum = typeof p1_last_leg_sum !== 'undefined' ? p1_last_leg_sum : 0;
         if (current_leg) {
-            check = (index == msg.p2_current_leg.length-1 && msg.p1_next_turn)
+            check = (index == msg.p2_current_leg.length - 1 && msg.p1_next_turn)
         } else {
-            check = (index == msg.p2_last_leg.length-1 && p1_last_leg_sum != msg.type)
+            check = (index == msg.p2_last_leg.length - 1 && p1_last_leg_sum != msg.type)
         }
         if (check) {
             $('#p2_current_leg').prepend(
@@ -131,67 +131,67 @@ $(document).ready(function() {
         }
     }
 
-    socket.on('player_heartbeat_response', function(msg) {
+    socket.on('player_heartbeat_response', function (msg) {
         if (msg.player_id_heartbeat === player1_id) {
             $('#p1_ingame').hide();
             clearInterval(p1_ingame_timer);
-            p1_ingame_timer = setInterval(function(){
+            p1_ingame_timer = setInterval(function () {
                 $('#p1_ingame').show();
             }, 35000);
         }
         if (msg.player_id_heartbeat === player2_id || player2_id == 'None') {
             $('#p2_ingame').hide();
             clearInterval(p2_ingame_timer);
-            p2_ingame_timer = setInterval(function(){
+            p2_ingame_timer = setInterval(function () {
                 $('#p2_ingame').show();
             }, 35000);
         }
     });
 
-    socket.on('closest_to_bull_score', function(msg) {
+    socket.on('closest_to_bull_score', function (msg) {
         $('#closest_to_bull_notification').text('Throw three darts at bull.');
         $('#p1_score').html('<span id="p1_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
         $('#p2_score').html('<span id="p2_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
         $('#p1_score_small').html('<span id="p1_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
         $('#p2_score_small').html('<span id="p2_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
-        if (msg.p1_score.length == 0){  $('#p1_score').html('-'); }
-        if (msg.p2_score.length == 0){  $('#p2_score').html('-'); }
-        $.each(msg.p1_score, function( index, value ){
+        if (msg.p1_score.length == 0) { $('#p1_score').html('-'); }
+        if (msg.p2_score.length == 0) { $('#p2_score').html('-'); }
+        $.each(msg.p1_score, function (index, value) {
             $('#p1_score_c2b').append(' ' + value);
             $('#p1_score_c2b_small').append(' ' + value);
         });
-        $.each(msg.p2_score, function( index, value ){
+        $.each(msg.p2_score, function (index, value) {
             $('#p2_score_c2b').append(' ' + value);
             $('#p2_score_c2b_small').append(' ' + value);
         });
     });
 
-    socket.on('closest_to_bull_draw', function(msg) {
+    socket.on('closest_to_bull_draw', function (msg) {
         $('#p1_score').html('<span id="p1_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
         $('#p2_score').html('<span id="p2_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
         $('#p1_score_small').html('<span id="p1_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
         $('#p2_score_small').html('<span id="p2_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
-        $.each(msg.p1_score, function( index, value ){
+        $.each(msg.p1_score, function (index, value) {
             $('#p1_score_c2b').append(' ' + value);
             $('#p1_score_c2b_small').append(' ' + value);
         });
-        $.each(msg.p2_score, function( index, value ){
+        $.each(msg.p2_score, function (index, value) {
             $('#p2_score_c2b').append(' ' + value);
             $('#p2_score_c2b_small').append(' ' + value);
         });
         $('#closest_to_bull_notification').text('Draw. Throw again.');
     });
 
-    socket.on('closest_to_bull_completed', function(msg) {
+    socket.on('closest_to_bull_completed', function (msg) {
         $('#p1_score').html('<span id="p1_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
         $('#p2_score').html('<span id="p2_score_c2b" class="align-self-center" style="font-size: 40px;"></span>');
         $('#p1_score_small').html('<span id="p1_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
         $('#p2_score_small').html('<span id="p2_score_c2b_small" class="align-self-center" style="font-size: 30px;"></span>');
-        $.each(msg.p1_score, function( index, value ){
+        $.each(msg.p1_score, function (index, value) {
             $('#p1_score_c2b').append(' ' + value);
             $('#p1_score_c2b_small').append(' ' + value);
         });
-        $.each(msg.p2_score, function( index, value ){
+        $.each(msg.p2_score, function (index, value) {
             $('#p2_score_c2b').append(' ' + value);
             $('#p2_score_c2b_small').append(' ' + value);
         });
@@ -200,32 +200,32 @@ $(document).ready(function() {
         } else {
             $('#closest_to_bull_notification').text('Player 2 to throw first. Game on!');
         }
-        setTimeout(function() {
+        setTimeout(function () {
             $('#closest_to_bull_notification_div').hide();
-            socket.emit('init', {hashid: hashid['hashid'] });
+            socket.emit('init', { hashid: hashid['hashid'] });
         }, 3000);
 
     });
 
 
-    socket.on('game_shot', function(msg) {
+    socket.on('game_shot', function (msg) {
         $('#p1_current_leg').text('');
         $('#p1_current_leg_webcam').text('');
 
         // display old scores for a short time
         var p1_last_leg_sum = 0;
         if (msg.p1_last_leg.length > 0) {
-            p1_last_leg_sum = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
+            p1_last_leg_sum = msg.p1_last_leg.reduce(function (acc, val) { return acc + val })
         }
         // display all single scores for player 1
-        $.each(msg.p1_last_leg, function( index, value ){
+        $.each(msg.p1_last_leg, function (index, value) {
             // fade in latest score
             p1_current_leg_new_score(msg, index, value, false, p1_last_leg_sum);
         });
         // display all single scores for player 2
         $('#p2_current_leg').text('');
         $('#p2_current_leg_webcam').text('');
-        $.each(msg.p2_last_leg, function( index, value){
+        $.each(msg.p2_last_leg, function (index, value) {
             // fade in latest score
             p2_current_leg_new_score(msg, index, value, false, p1_last_leg_sum);
         });
@@ -246,23 +246,23 @@ $(document).ready(function() {
         $('#game-shot-modal').modal('show');
         if (msg.p1_won) {
             var last_score = msg.type;
-            for (var i = 0; i < msg.p1_last_leg.length-1; i++) {
+            for (var i = 0; i < msg.p1_last_leg.length - 1; i++) {
                 last_score -= msg.p1_last_leg[i] << 0;
             }
             // score substraction animation
-            jQuery({Counter: last_score}).animate({Counter: -1}, {
+            jQuery({ Counter: last_score }).animate({ Counter: -1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p1_score').text(Math.ceil(this.Counter));
                 }
-            }).promise().done(function() {
-                setTimeout(function() {
+            }).promise().done(function () {
+                setTimeout(function () {
                     $('#game-shot-modal').modal('hide');
                 }, 1500);
                 // move on after 3 seconds
-                setTimeout(function() {
-                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                setTimeout(function () {
+                    socket.emit('get_score_after_leg_win', { hashid: hashid['hashid'] });
                 }, 3000);
             });
         } else {
@@ -270,23 +270,23 @@ $(document).ready(function() {
         }
         if (!msg.p1_won) {
             var last_score = msg.type;
-            for (var i = 0; i < msg.p2_last_leg.length-1; i++) {
+            for (var i = 0; i < msg.p2_last_leg.length - 1; i++) {
                 last_score -= msg.p2_last_leg[i] << 0;
             }
             // score substraction animation
-            jQuery({Counter: last_score}).animate({Counter: -1}, {
+            jQuery({ Counter: last_score }).animate({ Counter: -1 }, {
                 duration: 1500,
                 easing: 'swing',
                 step: function () {
                     $('.p2_score').text(Math.ceil(this.Counter));
                 }
-            }).promise().done(function() {
-                setTimeout(function() {
+            }).promise().done(function () {
+                setTimeout(function () {
                     $('#game-shot-modal').modal('hide');
                 }, 1500);
                 // move on after 3 seconds
-                setTimeout(function() {
-                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                setTimeout(function () {
+                    socket.emit('get_score_after_leg_win', { hashid: hashid['hashid'] });
                 }, 3000);
             });
         } else {
@@ -296,17 +296,17 @@ $(document).ready(function() {
     });
 
     // Event handler for server sent score data
-    socket.on('score_response', function(msg) {
+    socket.on('score_response', function (msg) {
         p1_next_turn = msg.p1_next_turn;
         p1_id = msg.p1_id;
         p2_id = msg.p2_id;
 
         var score = 0;
 
-        if ( !msg.p1_next_turn && msg.old_score > msg.p1_score) {
+        if (!msg.p1_next_turn && msg.old_score > msg.p1_score) {
             // score substraction animation
             score = msg.old_score - msg.p1_score;
-            jQuery({Counter: msg.old_score}).animate({Counter: msg.p1_score-1}, {
+            jQuery({ Counter: msg.old_score }).animate({ Counter: msg.p1_score - 1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -319,10 +319,10 @@ $(document).ready(function() {
         } else {
             $('.p1_score').html(msg.p1_score);
         }
-        if ( msg.p1_next_turn && msg.old_score > msg.p2_score) {
+        if (msg.p1_next_turn && msg.old_score > msg.p2_score) {
             score = msg.old_score - msg.p2_score;
             // score substraction animation
-            jQuery({Counter: msg.old_score}).animate({Counter: msg.p2_score-1}, {
+            jQuery({ Counter: msg.old_score }).animate({ Counter: msg.p2_score - 1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -366,11 +366,11 @@ $(document).ready(function() {
         $('.p2_high_finish').text(msg.p2_high_finish);
         $('.p1_short_leg').text(msg.p1_short_leg);
         $('.p2_short_leg').text(msg.p2_short_leg);
-        $('.p1_doubles').text((Math.round(msg.p1_doubles * 100) / 100) + '% ('+ msg.p1_legs_won + '/' + msg.p1_darts_thrown_double + ')');
-        $('.p2_doubles').text((Math.round(msg.p2_doubles * 100) / 100) + '% ('+ msg.p2_legs_won + '/' + msg.p2_darts_thrown_double + ')');
+        $('.p1_doubles').text((Math.round(msg.p1_doubles * 100) / 100) + '% (' + msg.p1_legs_won + '/' + msg.p1_darts_thrown_double + ')');
+        $('.p2_doubles').text((Math.round(msg.p2_doubles * 100) / 100) + '% (' + msg.p2_legs_won + '/' + msg.p2_darts_thrown_double + ')');
 
-        $('.p1_darts_this_leg').text((msg.p1_current_leg.length)*3);
-        $('.p2_darts_this_leg').text((msg.p2_current_leg.length)*3);
+        $('.p1_darts_this_leg').text((msg.p1_current_leg.length) * 3);
+        $('.p2_darts_this_leg').text((msg.p2_current_leg.length) * 3);
 
         $('.p1_checkout_suggestion').text(msg.p1_checkout_suggestion);
         $('.p2_checkout_suggestion').text(msg.p2_checkout_suggestion);
@@ -384,16 +384,16 @@ $(document).ready(function() {
             $('.p2_leg_start_indicator').show();
             $('.p1_leg_start_indicator').hide();
         }
-        
+
 
         $('#p1_current_leg').text('');
         $('#p1_current_leg_webcam').text('');
-        $.each(msg.p1_current_leg, function( index, value ){
+        $.each(msg.p1_current_leg, function (index, value) {
             p1_current_leg_new_score(msg, index, value, true);
         });
         $('#p2_current_leg').text('');
         $('#p2_current_leg_webcam').text('');
-        $.each(msg.p2_current_leg, function( index, value ){
+        $.each(msg.p2_current_leg, function (index, value) {
             p2_current_leg_new_score(msg, index, value, true);
         });
 
@@ -433,9 +433,11 @@ $(document).ready(function() {
         }
 
         if (msg.computer_game && !msg.p1_next_turn) {
-            setTimeout(function() {
-                socket.emit('send_score', {hashid: hashid['hashid'],
-                    user_id: user_id['id'], computer: true});
+            setTimeout(function () {
+                socket.emit('send_score', {
+                    hashid: hashid['hashid'],
+                    user_id: user_id['id'], computer: true
+                });
             }, 3000 + (cpu_delay * 1000));
         }
 
@@ -445,7 +447,7 @@ $(document).ready(function() {
             $('.score_value').val(score_input_delay);
             $('.score_value').removeClass('bg-light');
             $('.score_value').addClass('bg-warning');
-            setTimeout(function() {
+            setTimeout(function () {
                 form_disabled = false;
                 $(".score_value").prop('readonly', false);
                 $('.score_value').addClass('bg-light');
@@ -453,8 +455,8 @@ $(document).ready(function() {
             }, (score_input_delay * 1000));
 
             var timeleft = score_input_delay - 1;
-            var timer = setInterval(function(){
-                if(timeleft <= 0){
+            var timer = setInterval(function () {
+                if (timeleft <= 0) {
                     clearInterval(timer);
                     $('.score_value').val('');
                 } else {
@@ -463,26 +465,26 @@ $(document).ready(function() {
                 timeleft -= 1;
             }, 1000);
         }
-        
+
     });
     // Remove turn indicators when game is over and show link to game overview
-    socket.on('game_completed', function(msg) {
+    socket.on('game_completed', function (msg) {
         $('#p1_current_leg').text('');
         $('#p1_current_leg_webcam').text('');
         var p1_last_leg_sum = 0;
         if (msg.p1_last_leg.length > 0) {
-            p1_last_leg_sum = msg.p1_last_leg.reduce(function(acc, val) {return acc + val})
+            p1_last_leg_sum = msg.p1_last_leg.reduce(function (acc, val) { return acc + val })
         }
-        $.each(msg.p1_last_leg, function( index, value ){
+        $.each(msg.p1_last_leg, function (index, value) {
             p1_current_leg_new_score(msg, index, value, false, p1_last_leg_sum);
         });
         $('#p2_current_leg').text('');
         $('#p2_current_leg_webcam').text('');
-        $.each(msg.p2_last_leg, function( index, value ){
+        $.each(msg.p2_last_leg, function (index, value) {
             p2_current_leg_new_score(msg, index, value, false, p1_last_leg_sum);
         });
 
-        if (muted == false){
+        if (muted == false) {
             audio.src = cdn_url + '/static/sounds/' + caller + '/game_shot_match.mp3';
             audio.play();
         }
@@ -495,14 +497,14 @@ $(document).ready(function() {
         $('.checkDart').text(msg.to_finish);
         $('#match-shot-modal').modal('show');
         if (msg.p1_won) {
-            jQuery({Counter: msg.p1_last_leg[msg.p1_last_leg.length-1]}).animate({Counter: -1}, {
+            jQuery({ Counter: msg.p1_last_leg[msg.p1_last_leg.length - 1] }).animate({ Counter: -1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p1_score').text(Math.ceil(this.Counter));
                 }
-            }).promise().done(function() {
-                setTimeout(function() {
+            }).promise().done(function () {
+                setTimeout(function () {
                     $('#match-shot-modal').modal('hide');
                 }, 1500);
             });
@@ -510,14 +512,14 @@ $(document).ready(function() {
             $('.p1_score').html(msg.p1_score);
         }
         if (!msg.p1_won) {
-            jQuery({Counter: msg.p2_last_leg[msg.p2_last_leg.length-1]}).animate({Counter: -1}, {
+            jQuery({ Counter: msg.p2_last_leg[msg.p2_last_leg.length - 1] }).animate({ Counter: -1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p2_score').text(Math.ceil(this.Counter));
                 }
-            }).promise().done(function() {
-                setTimeout(function() {
+            }).promise().done(function () {
+                setTimeout(function () {
                     $('#match-shot-modal').modal('hide');
                 }, 1500);
             });
@@ -530,10 +532,12 @@ $(document).ready(function() {
         game_completed = true
     });
 
-    function send_score(double_missed, to_finish, score_value){
-        socket.emit('send_score', {score: score_value, hashid: hashid['hashid'],
+    function send_score(double_missed, to_finish, score_value) {
+        socket.emit('send_score', {
+            score: score_value, hashid: hashid['hashid'],
             user_id: user_id['id'], double_missed: double_missed, to_finish: to_finish,
-            undo_active: undo_active});
+            undo_active: undo_active
+        });
         // turn off undo mode if active
         if (undo_active) {
             $('.undo-button').show();
@@ -577,7 +581,7 @@ $(document).ready(function() {
                 $('#double-missed-0').show();
 
                 // if it's clear we do not need to ask (score too high for missed doubles)
-                if ( remaining_score > 110 || out_mode == 'so' ) {
+                if (remaining_score > 110 || out_mode == 'so') {
                     resolve(0);
                 } else {
                     $('#double-missed-modal').modal('show');
@@ -689,7 +693,7 @@ $(document).ready(function() {
         }
     }
 
-    socket.on('undo_remaining_score', function(msg) {
+    socket.on('undo_remaining_score', function (msg) {
         handle_score_input(msg['remaining_score'], msg['score_value']);
     });
 
@@ -700,7 +704,7 @@ $(document).ready(function() {
     var to_finish = 0;
     var form_disabled = false;
 
-    $('form#score_input').submit(function(event) {
+    $('form#score_input').submit(function (event) {
         if (form_disabled) {
             return false;
         }
@@ -711,7 +715,7 @@ $(document).ready(function() {
         if (score_value <= 180) {
             // check for undo last score
             if (undo_active) {
-                socket.emit('undo_request_remaining_score', {hashid: hashid['hashid'], score_value: score_value});
+                socket.emit('undo_request_remaining_score', { hashid: hashid['hashid'], score_value: score_value });
             }
             // player 1 handler
             else if ((user_id['id'] == p1_id && p1_next_turn) || (p1_id == null)) {
@@ -729,7 +733,7 @@ $(document).ready(function() {
     });
 
     // handle key inputs
-    $(document).keydown(function(e){
+    $(document).keydown(function (e) {
         var keyCode = e.which;
 
         var score_input = document.getElementById('score_value');
@@ -746,29 +750,29 @@ $(document).ready(function() {
             && game_completed == false) {
             // 1
             if (keyCode == 49 || keyCode == 97) {
-                if ($('#double-missed-1').is(":visible")){
+                if ($('#double-missed-1').is(":visible")) {
                     $('#double-missed-1').click();
-                } else if ($('#to-finish-1').is(":visible")){
+                } else if ($('#to-finish-1').is(":visible")) {
                     $('#to-finish-1').click();
-                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")){
+                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
                     $('.score_value').val($('.score_value').val() + '1');
                 }
             }
             // 2
             else if (keyCode == 50 || keyCode == 98) {
-                if ($('#double-missed-2').is(":visible")){
+                if ($('#double-missed-2').is(":visible")) {
                     $('#double-missed-2').click();
-                } else if ($('#to-finish-2').is(":visible")){
+                } else if ($('#to-finish-2').is(":visible")) {
                     $('#to-finish-2').click();
-                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")){
+                } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
                     $('.score_value').val($('.score_value').val() + '2');
                 }
             }
             // 3
             else if (keyCode == 51 || keyCode == 99) {
-                if ($('#double-missed-3').is(":visible")){
+                if ($('#double-missed-3').is(":visible")) {
                     $('#double-missed-3').click();
-                } else if ($('#to-finish-3').is(":visible")){
+                } else if ($('#to-finish-3').is(":visible")) {
                     $('#to-finish-3').click();
                 } else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
                     $('.score_value').val($('.score_value').val() + '3');
@@ -785,8 +789,7 @@ $(document).ready(function() {
             // 4
             else if ($('#double-missed-modal').is(":hidden") && $('#darts-to-finish-modal').is(":hidden")) {
 
-                if (keyCode == 52 || keyCode == 100)
-                {
+                if (keyCode == 52 || keyCode == 100) {
                     $('.score_value').val($('.score_value').val() + '4');
                 }
                 // 5
@@ -823,86 +826,86 @@ $(document).ready(function() {
 
 
     // onscreen keyboard functions
-    $('.button-1').click(function() {
+    $('.button-1').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val($('.score_value').val() + '1');
     });
-    
-    $('.button-2').click(function() {
+
+    $('.button-2').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val($('.score_value').val() + '2');
     });
-    $('.button-3').click(function() {
+    $('.button-3').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val($('.score_value').val() + '3');
     });
-    $('.button-4').click(function() {
+    $('.button-4').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val($('.score_value').val() + '4');
     });
-    $('.button-5').click(function() {
+    $('.button-5').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val($('.score_value').val() + '5');
     });
-    $('.button-6').click(function() {
+    $('.button-6').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val($('.score_value').val() + '6');
     });
-    $('.button-7').click(function() {
+    $('.button-7').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val($('.score_value').val() + '7');
     });
-    $('.button-8').click(function() {
+    $('.button-8').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val($('.score_value').val() + '8');
     });
-    $('.button-9').click(function() {
+    $('.button-9').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val($('.score_value').val() + '9');
     });
-    $('.button-0').click(function() {
+    $('.button-0').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val($('.score_value').val() + '0');
     });
-    $('.button-del').click(function() {
+    $('.button-del').click(function () {
         if (form_disabled) {
             return;
         }
         $('.score_value').val('');
     });
-    $('.button-conf').click(function() {
+    $('.button-conf').click(function () {
         if (game_completed == false)
-               $('.score_input').submit();
+            $('.score_input').submit();
     });
 
 
     // Toggle keypad
-    $('#hide-keypad').click(function() {
+    $('#hide-keypad').click(function () {
         $('.keypad').toggle();
     });
 
     // Toggle keypad
-    $('#change-keypad').click(function() {
+    $('#change-keypad').click(function () {
         $('.score-input').toggleClass('d-none d-md-block');
         $('.score-input').toggleClass('d-md-none');
         $('#p1_current_leg').toggleClass('col-md-4');
@@ -911,28 +914,28 @@ $(document).ready(function() {
     });
 
     // Toggle keypad
-    $('#hide-statistics').click(function() {
+    $('#hide-statistics').click(function () {
         $('.statistics').toggle();
     });
 
     // Abort game
-    $('#abort-game').click(function() {
+    $('#abort-game').click(function () {
         $('#abort-game-modal').modal('show');
     });
 
-    $('#mute').click(function() {
+    $('#mute').click(function () {
         muted = true;
         $('#unmute').show();
         $('#mute').hide();
     });
 
-    $('#unmute').click(function() {
+    $('#unmute').click(function () {
         muted = false;
         $('#mute').show();
         $('#unmute').hide();
     });
 
-    $('#abort-confirm').click(function() {
+    $('#abort-confirm').click(function () {
         var hashid = $('#hash_id').data()['hashid'];
         var abort_url = $('#abort_url').data()['url'];
         $.post(abort_url + hashid);
@@ -941,39 +944,43 @@ $(document).ready(function() {
     // Undo score
     var undo_active = false;
 
-    $('.undo-button').click(function() {
+    $('.undo-button').click(function () {
         $('.undo-button').hide();
         $('.undo-button-active').show();
         undo_active = true;
     });
 
-    $('.undo-button-active').click(function() {
+    $('.undo-button-active').click(function () {
         $('.undo-button').show();
         $('.undo-button-active').hide();
         undo_active = false;
     });
 
-    $('.rematch-offer').click(function() {
-        socket.emit('send_rematch_offer', {hashid: hashid['hashid']});
-        $('.rematch').hide();
-        $('.rematch-sent').show();
+    $('.rematch-offer').click(function () {
+        if (game_completed == true) {
+            socket.emit('send_rematch_offer', { hashid: hashid['hashid'] });
+            $('.rematch').hide();
+            $('.rematch-sent').show();
+        };
     });
 
-    socket.on('rematch_offer', function() {
+    socket.on('rematch_offer', function () {
         $('.rematch-offer').hide();
         $('.rematch-accept').show();
     });
 
-    $('.rematch-accept').click(function() {
-        $('.rematch-accept').hide();
-        socket.emit('accept_rematch_offer', {hashid: hashid['hashid']});
+    $('.rematch-accept').click(function () {
+        if (game_completed == true) {
+            $('.rematch-accept').hide();
+            socket.emit('accept_rematch_offer', { hashid: hashid['hashid'] });
+        };
     });
 
-    socket.on('start_rematch', function(msg) {
+    socket.on('start_rematch', function (msg) {
         window.location.replace(game_url + msg['hashid']);
     });
 
-    $('#appleActivateSound').click(function() {
+    $('#appleActivateSound').click(function () {
         audio.play();
         $('#appleActivateSound').hide();
     });
@@ -985,27 +992,27 @@ $(document).ready(function() {
             windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
             iosPlatforms = ['iPhone', 'iPad', 'iPod'],
             os = null;
-      
+
         if (macosPlatforms.indexOf(platform) !== -1) {
-          os = 'Mac OS';
+            os = 'Mac OS';
         } else if (iosPlatforms.indexOf(platform) !== -1) {
-          os = 'iOS';
+            os = 'iOS';
         } else if (windowsPlatforms.indexOf(platform) !== -1) {
-          os = 'Windows';
+            os = 'Windows';
         } else if (/Android/.test(userAgent)) {
-          os = 'Android';
+            os = 'Android';
         } else if (!os && /Linux/.test(platform)) {
-          os = 'Linux';
+            os = 'Linux';
         }
-      
+
         return os;
-      }
+    }
 
     var os = getOS();
     if (os == 'Mac OS' || os == 'iOS') {
         $('#appleActivateSound').show();
     }
-      
+
 });
 
 

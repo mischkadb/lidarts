@@ -156,6 +156,9 @@ def send_score_response(game, old_score=0, broadcast=False):
 def create_rematch(hashid):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
 
+    if game.status != 'completed':
+        return
+
     match_json = json.dumps(
         {
             1: {
@@ -257,7 +260,8 @@ def send_rematch_offer(message):
 @socketio.on('accept_rematch_offer', namespace='/game')
 def accept_rematch_offer(message):
     hashid = create_rematch(message['hashid'])
-    emit('start_rematch', {'hashid': hashid}, room=message['hashid'], namespace='/game')
+    if hashid:
+        emit('start_rematch', {'hashid': hashid}, room=message['hashid'], namespace='/game')
 
 
 @socketio.on('send_score', namespace='/game')

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // namespace for the game handling
     namespace = '/game/cricket';
     // Connect to the Socket.IO server.
@@ -10,7 +10,7 @@ $(document).ready(function() {
     // server is established.
 
     var cdn_url = '';
-    
+
     if (window.location.hostname == 'lidarts.org') {
         cdn_url = 'https://lidartsstatic.org'
     }
@@ -24,26 +24,26 @@ $(document).ready(function() {
     var caller = $('#caller').data()['caller'];
 
     var hashid = $('#hash_id').data();
-    socket.on('connect', function() {
-        socket.emit('init', {hashid: hashid['hashid'] });
+    socket.on('connect', function () {
+        socket.emit('init', { hashid: hashid['hashid'] });
     });
 
     var audio = new Audio();
     var muted = false;
 
-    socket.emit('player_heartbeat', {hashid: hashid['hashid']});
+    socket.emit('player_heartbeat', { hashid: hashid['hashid'] });
 
-    window.setInterval(function(){
+    window.setInterval(function () {
         /// call your function here
-        socket.emit('player_heartbeat', {hashid: hashid['hashid']});
+        socket.emit('player_heartbeat', { hashid: hashid['hashid'] });
     }, 5000);
 
-    socket.on('game_aborted', function(msg) {
+    socket.on('game_aborted', function (msg) {
         $('.score_input').hide();
         $('.game-aborted').show();
     });
 
-    socket.on('players_ingame', function(msg) {
+    socket.on('players_ingame', function (msg) {
         if (msg.p1_ingame === true) {
             $('#p1_ingame').hide();
         } else {
@@ -56,39 +56,39 @@ $(document).ready(function() {
         }
     });
 
-    socket.on('closest_to_bull_score', function(msg) {
+    socket.on('closest_to_bull_score', function (msg) {
         $('#closest_to_bull_notification').text('Throw three darts at bull.');
         $('#p1_score').html('');
         $('#p2_score').html('');
-        if (msg.p1_score.length == 0){  $('#p1_score').html('-'); }
-        if (msg.p2_score.length == 0){  $('#p2_score').html('-'); }
-        $.each(msg.p1_score, function( index, value ){
+        if (msg.p1_score.length == 0) { $('#p1_score').html('-'); }
+        if (msg.p2_score.length == 0) { $('#p2_score').html('-'); }
+        $.each(msg.p1_score, function (index, value) {
             $('#p1_score').append(' ' + value);
         });
-        $.each(msg.p2_score, function( index, value ){
+        $.each(msg.p2_score, function (index, value) {
             $('#p2_score').append(' ' + value);
         });
     });
 
-    socket.on('closest_to_bull_draw', function(msg) {
+    socket.on('closest_to_bull_draw', function (msg) {
         $('#p1_score').html('');
         $('#p2_score').html('');
-        $.each(msg.p1_score, function( index, value ){
+        $.each(msg.p1_score, function (index, value) {
             $('#p1_score').append(' ' + value);
         });
-        $.each(msg.p2_score, function( index, value ){
+        $.each(msg.p2_score, function (index, value) {
             $('#p2_score').append(' ' + value);
         });
         $('#closest_to_bull_notification').text('Draw. Throw again.');
     });
 
-    socket.on('closest_to_bull_completed', function(msg) {
+    socket.on('closest_to_bull_completed', function (msg) {
         $('#p1_score').html('');
         $('#p2_score').html('');
-        $.each(msg.p1_score, function( index, value ){
+        $.each(msg.p1_score, function (index, value) {
             $('#p1_score').append(' ' + value);
         });
-        $.each(msg.p2_score, function( index, value ){
+        $.each(msg.p2_score, function (index, value) {
             $('#p2_score').append(' ' + value);
         });
         if (msg.p1_won) {
@@ -96,9 +96,9 @@ $(document).ready(function() {
         } else {
             $('#closest_to_bull_notification').text('Player 2 to throw first. Game on!');
         }
-        setTimeout(function() {
+        setTimeout(function () {
             $('#closest_to_bull_notification_div').hide();
-            socket.emit('init', {hashid: hashid['hashid'] });
+            socket.emit('init', { hashid: hashid['hashid'] });
         }, 3000);
 
     });
@@ -143,7 +143,7 @@ $(document).ready(function() {
         if (msg.p1_current_leg.length > 0) {
             $('#p1_last_round').text('');
             if (!(msg.score_confirmed && msg.p1_next_turn)) {
-                msg.p1_current_leg[msg.p1_current_leg.length - 1].forEach(function(score, index) {
+                msg.p1_current_leg[msg.p1_current_leg.length - 1].forEach(function (score, index) {
                     $('#p1_last_round').append(score_display[score] + ' ');
                 });
             }
@@ -154,7 +154,7 @@ $(document).ready(function() {
         if (msg.p2_current_leg.length > 0) {
             $('#p2_last_round').text('');
             if (!(msg.score_confirmed && !msg.p1_next_turn)) {
-                msg.p2_current_leg[msg.p2_current_leg.length - 1].forEach(function(score, index) {
+                msg.p2_current_leg[msg.p2_current_leg.length - 1].forEach(function (score, index) {
                     $('#p2_last_round').append(score_display[score] + ' ');
                 });
             }
@@ -162,7 +162,7 @@ $(document).ready(function() {
             $('#p2_last_round').text('');
         }
 
-        $.each(msg.p1_current_fields, function(index, value){
+        $.each(msg.p1_current_fields, function (index, value) {
             for (i = 1; i <= 3; i++) {
                 if (value['score'] > 0) {
                     $('#marks-p1-' + index + '-score').text(value['score']);
@@ -172,7 +172,7 @@ $(document).ready(function() {
 
                 if (value['marks'] >= i) {
                     if (value['marks'] == 3 && msg.p2_current_fields[index]['marks'] < 3 && $('#marks-p1-' + index + '-' + i).is(":hidden")) {
-                        if (muted == false && !game_shot){
+                        if (muted == false && !game_shot) {
                             audio.src = cdn_url + '/static/sounds/field_open.mp3';
                             audio.play();
                         }
@@ -181,10 +181,10 @@ $(document).ready(function() {
                 } else {
                     $('#marks-p1-' + index + '-' + i).hide();
                 }
-                
+
                 if (value['marks'] == 3 && msg.p2_current_fields[index]['marks'] == 3) {
                     if (!$('#score-button-S' + index).hasClass('disabled')) {
-                        if (muted == false && !game_shot){
+                        if (muted == false && !game_shot) {
                             audio.src = cdn_url + '/static/sounds/field_closed.mp3';
                             audio.play();
                         }
@@ -193,18 +193,18 @@ $(document).ready(function() {
                     $('#score-button-D' + index).addClass('disabled');
                     if (index < 25) {
                         $('#score-button-T' + index).addClass('disabled');
-                    }                    
+                    }
                 } else {
                     $('#score-button-S' + index).removeClass('disabled');
                     $('#score-button-D' + index).removeClass('disabled');
                     if (index < 25) {
                         $('#score-button-T' + index).removeClass('disabled');
-                    }  
+                    }
                 }
-            }            
+            }
         });
 
-        $.each(msg.p2_current_fields, function(index, value){
+        $.each(msg.p2_current_fields, function (index, value) {
             for (i = 1; i <= 3; i++) {
                 if (value['score'] > 0) {
                     $('#marks-p2-' + index + '-score').text(value['score']);
@@ -214,7 +214,7 @@ $(document).ready(function() {
 
                 if (value['marks'] >= i) {
                     if (value['marks'] == 3 && msg.p1_current_fields[index]['marks'] < 3 && $('#marks-p2-' + index + '-' + i).is(":hidden")) {
-                        if (muted == false && !game_shot){
+                        if (muted == false && !game_shot) {
                             audio.src = cdn_url + '/static/sounds/field_open.mp3';
                             audio.play();
                         }
@@ -224,11 +224,11 @@ $(document).ready(function() {
                 } else {
                     $('#marks-p2-' + index + '-' + i).hide();
                 }
-            }            
+            }
         });
     }
 
-    socket.on('game_shot', function(msg) {
+    socket.on('game_shot', function (msg) {
         if (muted == false) {
             audio.src = cdn_url + '/static/sounds/' + caller + '/game_shot.mp3';
             audio.play();
@@ -241,40 +241,40 @@ $(document).ready(function() {
         $('#game-shot-modal').modal('show');
         if (msg.p1_won) {
             // score substraction animation
-            jQuery({Counter:  msg.p1_old_score}).animate({Counter: msg.p1_last_score-1}, {
+            jQuery({ Counter: msg.p1_old_score }).animate({ Counter: msg.p1_last_score - 1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p1_score').text(Math.ceil(this.Counter));
                 }
-            }).promise().done(function() {
-                setTimeout(function() {
+            }).promise().done(function () {
+                setTimeout(function () {
                     $('#game-shot-modal').modal('hide');
                 }, 1500);
                 // move on after 3 seconds
-                setTimeout(function() {
-                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                setTimeout(function () {
+                    socket.emit('get_score_after_leg_win', { hashid: hashid['hashid'] });
                 }, 3000);
             });
         } else {
             $('.p1_score').html(msg.p1_last_score);
         }
-        
+
         if (!msg.p1_won) {
             // score substraction animation
-            jQuery({Counter: msg.p2_old_score}).animate({Counter: msg.p2_last_score-1}, {
+            jQuery({ Counter: msg.p2_old_score }).animate({ Counter: msg.p2_last_score - 1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p2_score').text(Math.ceil(this.Counter));
                 }
-            }).promise().done(function() {
-                setTimeout(function() {
+            }).promise().done(function () {
+                setTimeout(function () {
                     $('#game-shot-modal').modal('hide');
                 }, 1500);
                 // move on after 3 seconds
-                setTimeout(function() {
-                    socket.emit('get_score_after_leg_win', {hashid: hashid['hashid'] });
+                setTimeout(function () {
+                    socket.emit('get_score_after_leg_win', { hashid: hashid['hashid'] });
                 }, 3000);
             });
         } else {
@@ -284,16 +284,16 @@ $(document).ready(function() {
     });
 
     // Event handler for server sent score data
-    socket.on('score_response', function(msg) {
+    socket.on('score_response', function (msg) {
         p1_next_turn = msg.p1_next_turn;
         p1_id = msg.p1_id;
         p2_id = msg.p2_id;
 
         var score = 0;
 
-        if ( msg.p1_old_score < msg.p1_score) {
+        if (msg.p1_old_score < msg.p1_score) {
             // score substraction animation
-            jQuery({Counter: msg.p1_old_score}).animate({Counter: msg.p1_score-1}, {
+            jQuery({ Counter: msg.p1_old_score }).animate({ Counter: msg.p1_score - 1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -306,10 +306,10 @@ $(document).ready(function() {
         } else {
             $('.p1_score').html(msg.p1_score);
         }
-        if ( msg.p2_old_score < msg.p2_score) {
+        if (msg.p2_old_score < msg.p2_score) {
             score = msg.p2_score - msg.p2_old_score;
             // score substraction animation
-            jQuery({Counter: msg.p2_old_score}).animate({Counter: msg.p2_score-1}, {
+            jQuery({ Counter: msg.p2_old_score }).animate({ Counter: msg.p2_score - 1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
@@ -361,31 +361,33 @@ $(document).ready(function() {
         }
 
         if (msg.computer_game && !msg.p1_next_turn) {
-            setTimeout(function() {
-                socket.emit('send_score', {hashid: hashid['hashid'],
-                    user_id: user_id['id'], computer: true});
+            setTimeout(function () {
+                socket.emit('send_score', {
+                    hashid: hashid['hashid'],
+                    user_id: user_id['id'], computer: true
+                });
             }, 2000);
         }
     });
 
-    socket.on('confirm_score', function(msg) {
+    socket.on('confirm_score', function (msg) {
         if (user_id['id'] == p1_id && msg.p1_next_turn) {
-            if (muted == false){
+            if (muted == false) {
                 audio.src = cdn_url + '/static/sounds/your_turn.mp3';
                 audio.play();
             }
         }
         else if (user_id['id'] == p2_id && !msg.p1_next_turn) {
-            if (muted == false){
+            if (muted == false) {
                 audio.src = cdn_url + '/static/sounds/your_turn.mp3';
                 audio.play();
             }
         }
-    }) 
+    })
 
     // Remove turn indicators when game is over and show link to game overview
-    socket.on('game_completed', function(msg) {
-        if (muted == false){
+    socket.on('game_completed', function (msg) {
+        if (muted == false) {
             audio.src = cdn_url + '/static/sounds/' + caller + '/game_shot_match.mp3';
             audio.play();
         }
@@ -395,31 +397,31 @@ $(document).ready(function() {
         $('#match-shot-modal').modal('show');
         if (msg.p1_won) {
             // score substraction animation
-            jQuery({Counter:  msg.p1_old_score}).animate({Counter: msg.p1_last_score-1}, {
+            jQuery({ Counter: msg.p1_old_score }).animate({ Counter: msg.p1_last_score - 1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p1_score').text(Math.ceil(this.Counter));
                 }
-            }).promise().done(function() {
-                setTimeout(function() {
+            }).promise().done(function () {
+                setTimeout(function () {
                     $('#match-shot-modal').modal('hide');
                 }, 1500);
             });
         } else {
             $('.p1_score').html(msg.p1_last_score);
         }
-        
+
         if (!msg.p1_won) {
             // score substraction animation
-            jQuery({Counter: msg.p2_old_score}).animate({Counter: msg.p2_last_score-1}, {
+            jQuery({ Counter: msg.p2_old_score }).animate({ Counter: msg.p2_last_score - 1 }, {
                 duration: 1000,
                 easing: 'swing',
                 step: function () {
                     $('.p2_score').text(Math.ceil(this.Counter));
                 }
-            }).promise().done(function() {
-                setTimeout(function() {
+            }).promise().done(function () {
+                setTimeout(function () {
                     $('#match-shot-modal').modal('hide');
                 }, 1500);
             });
@@ -434,14 +436,14 @@ $(document).ready(function() {
     });
 
     function confirm_score() {
-        socket.emit('confirm_score', {hashid: hashid['hashid']});
+        socket.emit('confirm_score', { hashid: hashid['hashid'] });
     };
 
     function undo_score() {
-        socket.emit('undo_score', {hashid: hashid['hashid']});
+        socket.emit('undo_score', { hashid: hashid['hashid'] });
     };
 
-    function send_score(score_value){
+    function send_score(score_value) {
         socket.emit('send_score', {
             score: score_value, hashid: hashid['hashid'],
             user_id: user_id['id'],
@@ -454,7 +456,7 @@ $(document).ready(function() {
     // Handler for the score input form.
     var user_id = $('#user_id').data();
 
-    $('form#score_input').submit(function(event) {
+    $('form#score_input').submit(function (event) {
         var score_value = $('#score_value').val();
 
         // check for valid input values
@@ -475,7 +477,7 @@ $(document).ready(function() {
     });
 
     // handle key inputs
-    $(document).keydown(function(e){
+    $(document).keydown(function (e) {
         var keyCode = e.which;
         var score_input = document.getElementById('score_value');
         var message_input = document.getElementById('message');
@@ -537,197 +539,201 @@ $(document).ready(function() {
             }
         }
     });
-    
+
     // onscreen keyboard functions
-    $('#score-button-0').click(function() {
+    $('#score-button-0').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(0);
-        }        
+        }
     });
 
-    $('#score-button-S15').click(function() {
+    $('#score-button-S15').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(15);
-        }        
+        }
     });
 
-    $('#score-button-D15').click(function() {
+    $('#score-button-D15').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(30);
-        }        
+        }
     });
 
-    $('#score-button-T15').click(function() {
+    $('#score-button-T15').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(45);
-        }        
+        }
     });
 
-    $('#score-button-S16').click(function() {
+    $('#score-button-S16').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(16);
-        }        
+        }
     });
 
-    $('#score-button-D16').click(function() {
+    $('#score-button-D16').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(32);
-        }        
+        }
     });
 
-    $('#score-button-T16').click(function() {
+    $('#score-button-T16').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(48);
-        }        
+        }
     });
 
-    $('#score-button-S17').click(function() {
+    $('#score-button-S17').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(17);
-        }        
+        }
     });
 
-    $('#score-button-D17').click(function() {
+    $('#score-button-D17').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(34);
-        }        
+        }
     });
 
-    $('#score-button-T17').click(function() {
+    $('#score-button-T17').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(51);
-        }        
+        }
     });
 
-    $('#score-button-S18').click(function() {
+    $('#score-button-S18').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(18);
-        }        
+        }
     });
 
-    $('#score-button-D18').click(function() {
+    $('#score-button-D18').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(36);
-        }        
+        }
     });
 
-    $('#score-button-T18').click(function() {
+    $('#score-button-T18').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(54);
-        }        
+        }
     });
 
-    $('#score-button-S19').click(function() {
+    $('#score-button-S19').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(19);
-        }        
+        }
     });
 
-    $('#score-button-D19').click(function() {
+    $('#score-button-D19').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(38);
-        }        
+        }
     });
 
-    $('#score-button-T19').click(function() {
+    $('#score-button-T19').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(57);
-        }        
+        }
     });
 
-    $('#score-button-S20').click(function() {
+    $('#score-button-S20').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(20);
-        }        
+        }
     });
 
-    $('#score-button-D20').click(function() {
+    $('#score-button-D20').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(40);
-        }        
+        }
     });
 
-    $('#score-button-T20').click(function() {
+    $('#score-button-T20').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(60);
-        }        
+        }
     });
 
-    $('#score-button-S25').click(function() {
+    $('#score-button-S25').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(25);
-        }        
+        }
     });
 
-    $('#score-button-D25').click(function() {
+    $('#score-button-D25').click(function () {
         if ($(this).hasClass('disabled') == false) {
             send_score(50);
-        }        
+        }
     });
 
     // Toggle keypad
-    $('#hide-statistics').click(function() {
+    $('#hide-statistics').click(function () {
         $('.statistics').toggle();
     });
 
     // Toggle chat
-    $('#toggle-chat').click(function() {
+    $('#toggle-chat').click(function () {
         $('#chat').toggle();
         $('#cricket_scoreboard').toggle();
     });
 
     // Abort game
-    $('#abort-game').click(function() {
+    $('#abort-game').click(function () {
         $('#abort-game-modal').modal('show');
     });
 
-    $('#mute').click(function() {
+    $('#mute').click(function () {
         muted = true;
         $('#unmute').show();
         $('#mute').hide();
     });
 
-    $('#unmute').click(function() {
+    $('#unmute').click(function () {
         muted = false;
         $('#mute').show();
         $('#unmute').hide();
     });
 
-    $('#abort-confirm').click(function() {
+    $('#abort-confirm').click(function () {
         var hashid = $('#hash_id').data()['hashid'];
         var abort_url = $('#abort_url').data()['url'];
         $.post(abort_url + hashid);
     });
 
-    $('#score-confirm').click(function() {
+    $('#score-confirm').click(function () {
         confirm_score();
     });
 
-    $('#score-undo').click(function() {
+    $('#score-undo').click(function () {
         undo_score();
     });
 
-    $('.rematch-offer').click(function() {
-        socket.emit('send_rematch_offer', {hashid: hashid['hashid']});
-        $('.rematch').hide();
-        $('.rematch-sent').show();
+    $('.rematch-offer').click(function () {
+        if (game_completed == true) {
+            socket.emit('send_rematch_offer', { hashid: hashid['hashid'] });
+            $('.rematch').hide();
+            $('.rematch-sent').show();
+        };
     });
 
-    socket.on('rematch_offer', function() {
+    socket.on('rematch_offer', function () {
         $('.rematch-offer').hide();
         $('.rematch-accept').show();
     });
 
-    $('.rematch-accept').click(function() {
-        $('.rematch-accept').hide();
-        socket.emit('accept_rematch_offer', {hashid: hashid['hashid']});
+    $('.rematch-accept').click(function () {
+        if (game_completed == true) {
+            $('.rematch-accept').hide();
+            socket.emit('accept_rematch_offer', { hashid: hashid['hashid'] });
+        };
     });
 
-    socket.on('start_rematch', function(msg) {
+    socket.on('start_rematch', function (msg) {
         window.location.replace(game_url + msg['hashid']);
     });
 
-    $('#appleActivateSound').click(function() {
+    $('#appleActivateSound').click(function () {
         audio.play();
         $('#appleActivateSound').hide();
     });
@@ -739,21 +745,21 @@ $(document).ready(function() {
             windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
             iosPlatforms = ['iPhone', 'iPad', 'iPod'],
             os = null;
-      
+
         if (macosPlatforms.indexOf(platform) !== -1) {
-          os = 'Mac OS';
+            os = 'Mac OS';
         } else if (iosPlatforms.indexOf(platform) !== -1) {
-          os = 'iOS';
+            os = 'iOS';
         } else if (windowsPlatforms.indexOf(platform) !== -1) {
-          os = 'Windows';
+            os = 'Windows';
         } else if (/Android/.test(userAgent)) {
-          os = 'Android';
+            os = 'Android';
         } else if (!os && /Linux/.test(platform)) {
-          os = 'Linux';
+            os = 'Linux';
         }
-      
+
         return os;
-      }
+    }
 
     var os = getOS();
     if (os == 'Mac OS' || os == 'iOS') {
