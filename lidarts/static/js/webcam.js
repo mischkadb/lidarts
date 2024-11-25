@@ -1,15 +1,9 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var hashid = $('#jitsi-settings').data()['hashid'];
     var public_server = $('#jitsi-settings').data()['public_server'];
     var force_public_server = $('#jitsi-settings').data()['force_public_server'];
-    if (public_server == 'True' || force_public_server == 'True') {        
-        domain = 'meet.jit.si';
-        public_server = true;
-    } else {
-        domain = 'jitsi.dusk-server.de'
-        public_server = false;
-    }
-    
+    domain = 'jitsi1.lidarts.org'
+
     var jitsi_app = $('#jitsi-settings').data()['app'];
     if (jitsi_app == 'True') {
         jitsi_app = true;
@@ -24,11 +18,11 @@ $(document).ready(function() {
     }
 
     ifaceoverwrite = {
-        TOOLBAR_BUTTONS: [ 'microphone', 'camera', 
-        'fodeviceselection', 'fullscreen',
-        'settings',
-        'tileview',
-        'videoquality'],
+        TOOLBAR_BUTTONS: ['microphone', 'camera',
+            'fodeviceselection', 'fullscreen',
+            'settings',
+            'tileview',
+            'videoquality'],
         GENERATE_ROOMNAMES_ON_WELCOME_PAGE: false,
         INVITATION_POWERED_BY: false,
         AUTHENTICATION_ENABLE: false,
