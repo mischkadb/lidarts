@@ -247,6 +247,9 @@ def get_computer_score(hashid):
     double_missed = 0
 
     for dart in range(1, 4):
+        if remaining_score <= 0:
+            break
+
         socketio.sleep(0)
         # acquire target depending on remaining score
         if game.closest_to_bull:
