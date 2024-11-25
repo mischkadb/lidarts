@@ -196,6 +196,9 @@ def create_app(test_config=None):
     from lidarts.tournament import bp as tournament_bp
     app.register_blueprint(tournament_bp)
 
+    from lidarts.openvidu import bp as openvidu_bp
+    app.register_blueprint(openvidu_bp)
+
     from lidarts.generic.errors import not_found_error, internal_error
     app.register_error_handler(404, not_found_error)
     app.register_error_handler(500, internal_error)
