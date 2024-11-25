@@ -32,8 +32,8 @@ $(document).ready(function () {
         MOBILE_APP_PROMO: jitsi_app,
         MAXIMUM_ZOOMING_COEFFICIENT: 1.0,
         SHOW_CHROME_EXTENSION_BANNER: false,
-        SHOW_JITSI_WATERMARK: public_server,
-        SHOW_WATERMARK_FOR_GUESTS: public_server,
+        SHOW_JITSI_WATERMARK: false,
+        SHOW_WATERMARK_FOR_GUESTS: false,
     }
 
     const options = {
