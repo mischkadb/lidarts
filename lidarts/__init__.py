@@ -125,10 +125,13 @@ def create_app(test_config=None):
         Payload.max_decode_packets = app.config['ENGINEIO_MAX_DECODE_PACKETS']
 
     message_queue = app.config['SOCKETIO_MESSAGE_QUEUE'] if 'SOCKETIO_MESSAGE_QUEUE' in app.config else 'redis://'
-    socketio.init_app(app, message_queue=message_queue, async_mode='gevent',
-                      cors_allowed_origins=origins,
-                      # logger=True, engineio_logger=True,
-                      )
+    socketio_logger = app.config['SOCKETIO_LOGGER'] if 'SOCKETIO_LOGGER' in app.config else False
+    socketio_engineio_logger = app.config['SOCKETIO_ENIGNEIO_LOGGER'] if 'SOCKETIO_ENIGNEIO_LOGGER' in app.config else False
+    socketio.init_app(
+        app, message_queue=message_queue, async_mode='gevent',
+        cors_allowed_origins=origins,
+        logger=socketio_logger, engineio_logger=socketio_engineio_logger,
+    )
     babelobject.init_app(app)
     moment.init_app(app)
     configure_uploads(app, avatars)
