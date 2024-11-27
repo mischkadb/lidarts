@@ -8,6 +8,13 @@ from lidarts.models import Notification, SocketConnections, UserSettings
 from datetime import datetime
 
 
+@socketio.on('*')
+def catch_all(event, data):
+    catch_all = current_app.config['SOCKETIO_LOG_CATCH_ALL'] if 'SOCKETIO_LOG_CATCH_ALL' in current_app.config else False
+    if catch_all:
+        print(event, data)
+
+
 @socketio.on('connect', namespace='/base')
 def connect_client():
     if not current_user.is_authenticated:
