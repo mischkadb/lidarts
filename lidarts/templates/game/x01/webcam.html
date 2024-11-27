@@ -10,182 +10,204 @@
 
 {% block container %}
 <div class="container-fluid">
-{% endblock %}
+    {% endblock %}
 
-{% block app_content %}
+    {% block app_content %}
 
-<div class="row">
-    <div class="col-md-5 d-none d-md-block">
-        {% if stream %}
-        {% include 'game/x01/scoreboard_stream.html' %}
-        {% else %}
-        {% include 'game/x01/scoreboard_webcam.html' %}
-        {% endif %}
-
-        {% if game.closest_to_bull %}
-        <div class="row text-light  text-center mt-2" id="closest_to_bull_notification_div">
-            <div class="col-12">
-                <h3 id="closest_to_bull_notification">{{ _('Closest to bull begins. Please throw three darts at bull.') }}</h3>
-                {% if game.player1 == game.player2 %}<h5>{{ _('Local game. Player 1 throws all three darts first.') }}</h5>{% endif %}
-            </div>
-        </div>
-        {% endif %}
-        
-        <div class="row justify-content-center text-center text-white">
-            {% if game.bo_sets == 1 %}
-            <div class="col-6">Best of {{ game.bo_legs }} Legs</div>
+    <div class="row">
+        <div class="col-md-5 d-none d-md-block">
+            {% if stream %}
+            {% include 'game/x01/scoreboard_stream.html' %}
             {% else %}
-            <div class="col-6">Best of {{ game.bo_sets }} Sets</div>
+            {% include 'game/x01/scoreboard_webcam.html' %}
             {% endif %}
-        </div>
 
-        <div class="row justify-content-center align-items-start text-center mt-2">
-            <!-- LEG AND SET COUNT SMALL -->
-            <div class="col-6">
-                <div class="card bg-info text-light">
-                    <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
-                        <div class="row justify-content-center">
-                            {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p1_sets">{{ game.p1_sets }}</strong></div>{% endif %}
-                            <div class="col-6">Legs: <strong class="p1_legs">{{ game.p1_legs }}</strong></div>
+            {% if game.closest_to_bull %}
+            <div class="row text-light  text-center mt-2" id="closest_to_bull_notification_div">
+                <div class="col-12">
+                    <h3 id="closest_to_bull_notification">
+                        {{ _('Closest to bull begins. Please throw three darts at bull.') }}</h3>
+                    {% if game.player1 == game.player2 %}<h5>{{ _('Local game. Player 1 throws all three darts first.')
+                        }}</h5>{% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="row justify-content-center text-center text-white">
+                {% if game.bo_sets == 1 %}
+                <div class="col-6">Best of {{ game.bo_legs }} Legs</div>
+                {% else %}
+                <div class="col-6">Best of {{ game.bo_sets }} Sets</div>
+                {% endif %}
+            </div>
+
+            <div class="row justify-content-center align-items-start text-center mt-2">
+                <!-- LEG AND SET COUNT SMALL -->
+                <div class="col-6">
+                    <div class="card bg-info text-light">
+                        <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
+                            <div class="row justify-content-center">
+                                {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p1_sets">{{
+                                        game.p1_sets }}</strong></div>{% endif %}
+                                <div class="col-6">Legs: <strong class="p1_legs">{{ game.p1_legs }}</strong></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-6">
-                <div class="card bg-info text-light">
-                    <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
-                        <div class="row justify-content-center">
-                            {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p2_sets">{{ game.p2_sets }}</strong></div>{% endif %}
-                            <div class="col-6">Legs: <strong class="p2_legs">{{ game.p2_legs }}</strong></div>
+                <div class="col-6">
+                    <div class="card bg-info text-light">
+                        <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
+                            <div class="row justify-content-center">
+                                {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p2_sets">{{
+                                        game.p2_sets }}</strong></div>{% endif %}
+                                <div class="col-6">Legs: <strong class="p2_legs">{{ game.p2_legs }}</strong></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-        </div>
+            <div class="row justify-content-center align-items-start mt-2">
+                <!-- SCOREBOARD PLAYER 1 -->
+                <div class="col-3 mt-2" id="p1_current_leg_webcam" style="padding-left: 2px; padding-right: 5px">
+                </div>
 
-        <div class="row justify-content-center align-items-start mt-2">
-            <!-- SCOREBOARD PLAYER 1 -->
-            <div class="col-3 mt-2" id="p1_current_leg_webcam" style="padding-left: 2px; padding-right: 5px">
-            </div>
+                <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
+                <div class="col-5 score-input">
 
-            <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
-            <div class="col-5 score-input">
-
-                <!-- GAME END CONFIRMATION -->
-                <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
-                    <h4 class="text-light">{{ _('Game is completed.') }}</h4>
-                    <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a></p>
-                    {% if game.player2 and game.player1 != game.player2 %}
-                    <div class="rematch">
-                        <p><a href="#" class="rematch-offer">{{ _('Offer rematch') }}</a></p>
-                        <p><a href="#" class="rematch-accept" style="display:none">{{ _('Accept rematch') }}</a></p>
-                    </div>
-                    <p class="rematch-sent text-light" style="display:none">{{ _('Rematch offer sent') }}</p>
-                    {% endif %}
-                    {% if game.tournament %}
-                    <p><a href="{{ url_for('tournament.details', hashid=game.tournament) }}">{{ _('Back to tournament') }}</a></p>
-                    {% endif %}
-                </form>
-
-                <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status != 'aborted' %} style="display: none" {% endif %}>
-                    <h4 class="text-light">{{ _('Game was aborted.') }}</h4>
-                    <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
-                </form>
-
-                <div {% if not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
-                    <form class="text-center score_input" id="score_input" method="POST" action="" autocomplete="off" {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
-                    {{ form.hidden_tag() }}
-                    <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center mb-2">
-                        {{ form.score_value(class="bg-light text-center form-control form-control-lg border-secondary score_value",
-                        style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;") }}
-                    </div>
-                    <!-- UNDO BUTTON -->
-                    <button type="button" id="undo-button" class="btn btn-lg btn-outline-info btn-block undo-button">{{ _('Undo last score') }}</button>
-                    <button type="button" id="undo-button-active" class="btn btn-lg btn-warning btn-block undo-button-active" style="display: none">{{ _('Enter correct score') }}</button>
-
+                    <!-- GAME END CONFIRMATION -->
+                    <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if
+                        game.status !='completed' %} style="display: none" {% endif %}>
+                        <h4 class="text-light">{{ _('Game is completed.') }}</h4>
+                        <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a></p>
+                        {% if game.player2 and game.player1 != game.player2 %}
+                        <div class="rematch">
+                            <p><a href="#" class="rematch-offer">{{ _('Offer rematch') }}</a></p>
+                            <p><a href="#" class="rematch-accept" style="display:none">{{ _('Accept rematch') }}</a></p>
+                        </div>
+                        <p class="rematch-sent text-light" style="display:none">{{ _('Rematch offer sent') }}</p>
+                        {% endif %}
+                        {% if game.tournament %}
+                        <p><a href="{{ url_for('tournament.details', hashid=game.tournament) }}">{{ _('Back to
+                                tournament') }}</a></p>
+                        {% endif %}
                     </form>
 
-                    <ul class="nav nav-tabs mt-1 keypad" id="keypad_chat_tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active text-light" id="chat-tab" data-toggle="tab" href="#chat" aria-controls="chat" aria-selected="false">{{ _('Chat') }}</a>
-                        </li>
-                    </ul>
+                    <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status
+                        !='aborted' %} style="display: none" {% endif %}>
+                        <h4 class="text-light">{{ _('Game was aborted.') }}</h4>
+                        <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+                    </form>
 
-                    <div class="tab-content keypad" id="keypad_chat_tab_content">
-                        <div class="tab-pane fade show active" id="chat" role="tabpanel" aria-labelledby="chat-tab">
-                            <div class="card bg-secondary text-dark">
-                                <div class="card-body" style="padding: 1px 1px 1px 1px;">
-                                    <div class="card bg-secondary">
-                                        <div class="card-body text-light chatbox" id="chatbox" style="height: 200px; overflow-y: scroll; padding: 1px 1px 1px 1px;">
-                                            {% for message in messages %}
-                                            <p><strong><span class="">{{ user_names[message.author] }}</span></strong>:
-                                                {{ message.message|safe }}</p>
-                                            {% endfor %}
+                    <div {% if not (current_user.id==game.player1 or current_user.id==game.player2) %}
+                        style="display: none" {% endif %}>
+                        <form class="text-center score_input" id="score_input" method="POST" action=""
+                            autocomplete="off" {% if game.status=='completed' or not (current_user.id==game.player1 or
+                            current_user.id==game.player2) %} style="display: none" {% endif %}>
+                            {{ form.hidden_tag() }}
+                            <div
+                                class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex align-items-center mb-2">
+                                {{ form.score_value(class="bg-light text-center form-control form-control-lg
+                                border-secondary score_value",
+                                style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px;
+                                padding-right: 1px;") }}
+                            </div>
+                            <!-- UNDO BUTTON -->
+                            <button type="button" id="undo-button"
+                                class="btn btn-lg btn-outline-info btn-block undo-button">{{ _('Undo last score')
+                                }}</button>
+                            <button type="button" id="undo-button-active"
+                                class="btn btn-lg btn-warning btn-block undo-button-active" style="display: none">{{
+                                _('Enter correct score') }}</button>
+
+                        </form>
+
+                        <ul class="nav nav-tabs mt-1 keypad" id="keypad_chat_tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active text-light" id="chat-tab" data-toggle="tab" href="#chat"
+                                    aria-controls="chat" aria-selected="false">{{ _('Chat') }}</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content keypad" id="keypad_chat_tab_content">
+                            <div class="tab-pane fade show active" id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                                <div class="card bg-secondary text-dark">
+                                    <div class="card-body" style="padding: 1px 1px 1px 1px;">
+                                        <div class="card bg-secondary">
+                                            <div class="card-body text-light chatbox" id="chatbox"
+                                                style="height: 200px; overflow-y: scroll; padding: 1px 1px 1px 1px;">
+                                                {% for message in messages %}
+                                                <p><strong><span class="">{{ user_names[message.author]
+                                                            }}</span></strong>:
+                                                    {{ message.message|safe }}</p>
+                                                {% endfor %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <form id="message_input" method="POST" action="">
+                                    {{ chat_form.hidden_tag() }}
+                                    {{ chat_form.message(class="form-control", autocomplete="off", maxlength="500") }}
+                                    {{ chat_form.submit }}
+                                </form>
                             </div>
-                            <form id="message_input" method="POST" action="">
-                                {{ chat_form.hidden_tag() }}
-                                {{ chat_form.message(class="form-control", autocomplete="off", maxlength="500") }}
-                                {{ chat_form.submit }}
-                            </form>
                         </div>
                     </div>
                 </div>
+
+                <!-- SCOREBOARD PLAYER 2 -->
+                <div class="col-3 mt-2" id="p2_current_leg_webcam" style="padding-left: 2px; padding-right: 5px">
+                </div>
             </div>
 
-            <!-- SCOREBOARD PLAYER 2 -->
-            <div class="col-3 mt-2" id="p2_current_leg_webcam" style="padding-left: 2px; padding-right: 5px">
-            </div>
+            {% include 'game/x01/statistics.html' %}
+
         </div>
 
-        {% include 'game/x01/statistics.html' %}
+        <div class="col-7" style="height: 75vh;" id="meet" allow="microphone; camera">
 
+        </div>
     </div>
 
-    <div class="col-7" style="height: 75vh;" id="meet" allow="microphone; camera">
+    {% include 'game/modals.html' %}
 
-    </div>
-</div>
+    {% endblock %}
 
-{% include 'game/modals.html' %}
+    {% block footer %}
+    {% endblock %}
 
-{% endblock %}
-
-{% block footer %}
-{% endblock %}
-
-{% block scripts %}
-<meta id="hash_id" data-hashid="{{ game.hashid }}">
-<meta id="user_id" data-id="{{ current_user.id }}">
-<meta id="player1_id" data-id="{{ game.player1 }}">
-<meta id="player2_id" data-id="{{ game.player2 }}">
-<meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
-<meta id="game_url" data-url="{{ url_for('game.start') }}">
-<meta id="caller" data-caller="{{ caller }}">
-<meta id="cpu_delay" data-cpu_delay="{{ cpu_delay }}">
-<meta id="score_input_delay" data-delay="{{ game.score_input_delay }}">
-<meta id="out_mode" data-out_mode="{{ game.out_mode }}">
-<meta id="jitsi-settings" 
-    data-hashid="{{ game.jitsi_hashid }}"
-    data-app="{{ webcam_settings.mobile_app }}"
-    data-public_server="{{ game.jitsi_public_server }}"
-    data-force_public_server="{{ jitsi_force_public_server }}"
->
-<meta id="chat_validation_url" data-url="{{ url_for('generic.validate_game_chat_message') }}">
+    {% block scripts %}
+    <meta id="hash_id" data-hashid="{{ game.hashid }}">
+    <meta id="user_id" data-id="{{ current_user.id }}">
+    <meta id="player1_id" data-id="{{ game.player1 }}">
+    <meta id="player2_id" data-id="{{ game.player2 }}">
+    <meta id="abort_url" data-url="{{ url_for('game.abort_game') }}">
+    <meta id="game_url" data-url="{{ url_for('game.start') }}">
+    <meta id="caller" data-caller="{{ caller }}">
+    <meta id="caller_muted" data-caller_muted="{{ caller_muted }}">
+    <meta id="cpu_delay" data-cpu_delay="{{ cpu_delay }}">
+    <meta id="score_input_delay" data-delay="{{ game.score_input_delay }}">
+    <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
+    <meta id="jitsi-settings" data-hashid="{{ game.jitsi_hashid }}" data-app="{{ webcam_settings.mobile_app }}"
+        data-public_server="{{ game.jitsi_public_server }}" data-force_public_server="{{ jitsi_force_public_server }}">
+    <meta id="chat_validation_url" data-url="{{ url_for('generic.validate_game_chat_message') }}">
 
 
-{% if current_user.id == game.player1 or current_user.id == game.player2 %}
-<script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_socket.js', version=config.VERSION) }}"></script>
-<script type="text/javascript" src="{{ url_for('static',filename='js/game_chat_socket.js', version=config.VERSION) }}"></script>
-<script src='https://meet.jit.si/external_api.js'></script>
-<script type="text/javascript" src="{{ url_for('static',filename='js/webcam.js', version=config.VERSION) }}"></script>
-{% if current_user.webcam_settings and current_user.webcam_settings.mobile_follower_mode %}
-<script type="text/javascript" src="{{ url_for('static',filename='js/webcam_request_follow.js', version=config.VERSION) }}"></script>
-{% endif %}
-{% else %}
-<script type="text/javascript" src="{{ url_for('static',filename='js/game/X01/x01_spectator_socket.js', version=config.VERSION) }}"></script>
-{% endif %}
-{% endblock %}
+    {% if current_user.id == game.player1 or current_user.id == game.player2 %}
+    <script type="text/javascript"
+        src="{{ url_for('static',filename='js/game/X01/x01_socket.js', version=config.VERSION) }}"></script>
+    <script type="text/javascript"
+        src="{{ url_for('static',filename='js/game_chat_socket.js', version=config.VERSION) }}"></script>
+    <script src='https://meet.jit.si/external_api.js'></script>
+    <script type="text/javascript"
+        src="{{ url_for('static',filename='js/webcam.js', version=config.VERSION) }}"></script>
+    {% if current_user.webcam_settings and current_user.webcam_settings.mobile_follower_mode %}
+    <script type="text/javascript"
+        src="{{ url_for('static',filename='js/webcam_request_follow.js', version=config.VERSION) }}"></script>
+    {% endif %}
+    {% else %}
+    <script type="text/javascript"
+        src="{{ url_for('static',filename='js/game/X01/x01_spectator_socket.js', version=config.VERSION) }}"></script>
+    {% endif %}
+    {% endblock %}

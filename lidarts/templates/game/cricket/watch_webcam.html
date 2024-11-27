@@ -9,131 +9,150 @@
 
 {% block container %}
 <div class="container-fluid">
-{% endblock %}
+    {% endblock %}
 
-{% block app_content %}
+    {% block app_content %}
 
-<div class="row">
-    <div class="col-md-5 d-none d-md-block">
-        {% if stream %}
-        {% include 'game/x01/scoreboard_stream.html' %}
-        {% else %}
-        {% include 'game/x01/scoreboard_webcam.html' %}
-        {% endif %}
-
-        {% if game.closest_to_bull %}
-        <div class="row text-light  text-center mt-2" id="closest_to_bull_notification_div">
-            <div class="col-12">
-                <h3 id="closest_to_bull_notification">{{ _('Closest to bull begins. Please throw three darts at bull.') }}</h3>
-                {% if game.player1 == game.player2 %}<h5>{{ _('Local game. Player 1 throws all three darts first.') }}</h5>{% endif %}
-            </div>
-        </div>
-        {% endif %}
-                
-        <div class="row justify-content-center text-center text-white">
-            {% if game.bo_sets == 1 %}
-            <div class="col-6">Best of {{ game.bo_legs }} Legs</div>
+    <div class="row">
+        <div class="col-md-5 d-none d-md-block">
+            {% if stream %}
+            {% include 'game/x01/scoreboard_stream.html' %}
             {% else %}
-            <div class="col-6">Best of {{ game.bo_sets }} Sets</div>
+            {% include 'game/x01/scoreboard_webcam.html' %}
             {% endif %}
-        </div>
 
-        <div class="row justify-content-center align-items-start text-center mt-2">
-            <!-- LEG AND SET COUNT SMALL -->
-            <div class="col-6">
-                <div class="card bg-info text-light">
-                    <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
-                        <div class="row justify-content-center">
-                            {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p1_sets">{{ game.p1_sets }}</strong></div>{% endif %}
-                            <div class="col-6">Legs: <strong class="p1_legs">{{ game.p1_legs }}</strong></div>
+            {% if game.closest_to_bull %}
+            <div class="row text-light  text-center mt-2" id="closest_to_bull_notification_div">
+                <div class="col-12">
+                    <h3 id="closest_to_bull_notification">
+                        {{ _('Closest to bull begins. Please throw three darts at bull.') }}</h3>
+                    {% if game.player1 == game.player2 %}<h5>{{ _('Local game. Player 1 throws all three darts first.')
+                        }}</h5>{% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="row justify-content-center text-center text-white">
+                {% if game.bo_sets == 1 %}
+                <div class="col-6">Best of {{ game.bo_legs }} Legs</div>
+                {% else %}
+                <div class="col-6">Best of {{ game.bo_sets }} Sets</div>
+                {% endif %}
+            </div>
+
+            <div class="row justify-content-center align-items-start text-center mt-2">
+                <!-- LEG AND SET COUNT SMALL -->
+                <div class="col-6">
+                    <div class="card bg-info text-light">
+                        <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
+                            <div class="row justify-content-center">
+                                {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p1_sets">{{
+                                        game.p1_sets }}</strong></div>{% endif %}
+                                <div class="col-6">Legs: <strong class="p1_legs">{{ game.p1_legs }}</strong></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-6">
-                <div class="card bg-info text-light">
-                    <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
-                        <div class="row justify-content-center">
-                            {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p2_sets">{{ game.p2_sets }}</strong></div>{% endif %}
-                            <div class="col-6">Legs: <strong class="p2_legs">{{ game.p2_legs }}</strong></div>
+                <div class="col-6">
+                    <div class="card bg-info text-light">
+                        <div class="card-body leg-set-card-small" style="padding-top: 0px; padding-bottom: 0px">
+                            <div class="row justify-content-center">
+                                {% if game.bo_sets > 1 %}<div class="col-6">Sets: <strong class="p2_sets">{{
+                                        game.p2_sets }}</strong></div>{% endif %}
+                                <div class="col-6">Legs: <strong class="p2_legs">{{ game.p2_legs }}</strong></div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-        </div>
-
-        <div class="row text-center text-light">
-            <div class="col-6" id="p1_last_round" style="height: 25px;">
-            </div>
-            <div class="col-6" id="p2_last_round" style="height: 25px;">
-            </div>
-        </div>
-
-        <div id="cricket_scoreboard">
-            {% for field in (20, 19, 18, 17, 16, 15, 25) %}
-            <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
-                <!-- SCOREBOARD PLAYER 1 {{ field }} -->
-                <div class="col-3 col-sm-3 col-xl-4" id="p1_current_leg_{{ field }}" style="padding-left: 0px; padding-right: 0px;">
-                    <div class="d-flex d-row justify-content-between">
-                        <div class="d-flex d-column"></div>
-                        <div class="d-flex d-column">
-                            <span class="fa-stack fa-1x" id="marks-p1-{{ field }}">
-                                <i class="fas fa-slash fa-stack-2x" id="marks-p1-{{ field }}-1" style="display: none"></i>
-                                <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-{{ field }}-2"  style="display: none"></i>
-                                <i class="far fa-circle fa-stack-2x" id="marks-p1-{{ field }}-3"  style="display: none"></i>
-                            </span>
-                        </div>
-                        <div class="d-flex d-column text-right" id="marks-p1-{{ field }}-score" style="width: 40px;"></div>
-                    </div>
+            <div class="row text-center text-light">
+                <div class="col-6" id="p1_last_round" style="height: 25px;">
                 </div>
-        
-                <div class="col-6 col-sm-6 col-xl-4 text-center" style="padding-left: 0px; padding-right: 0px;">
-                    <div class="btn-group btn-group-lg" role="group">
-                        <button type="button" id="score-button-D{{ field }}" class="btn btn-secondary btn-lg border border-dark">D</button>
-                        <button type="button" id="score-button-S{{ field }}" class="btn btn-secondary btn-lg border border-dark">{{ field }}</button>
-                        <button type="button" id="score-button-{% if field == 25 %}0{% else %}T{{ field }}{% endif %}" class="btn btn-secondary btn-lg border border-dark">{% if field == 25 %}0{% else %}T{% endif%}</button>
-                    </div>
-                </div>
-        
-                <!-- SCOREBOARD PLAYER 2 {{ field }} -->
-                <div class="col-3 col-sm-3 col-xl-4" id="p2_current_leg_{{ field }}" style="padding-left: 0px; padding-right: 0px;">
-                    <div class="d-flex d-row justify-content-between">
-                        <div class="d-flex d-column" id="marks-p2-{{ field }}-score" style="width: 40px;"></div>
-                        <div class="d-flex d-column">
-                            <span class="fa-stack fa-1x" id="marks-p2-{{ field }}">
-                                <i class="fas fa-slash fa-stack-2x" id="marks-p2-{{ field }}-1" style="display: none"></i>
-                                <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-{{ field }}-2"  style="display: none"></i>
-                                <i class="far fa-circle fa-stack-2x" id="marks-p2-{{ field }}-3"  style="display: none"></i>
-                            </span>
-                        </div>
-                        <div class="d-flex d-column"></div>
-                    </div>
+                <div class="col-6" id="p2_last_round" style="height: 25px;">
                 </div>
             </div>
-            {% endfor %}
 
-        </div>
-
-        <div class="row justify-content-center align-items-start">
-            <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
-            <div class="col-lg-6 col-md-4 mt-1 d-none d-md-block score-input">
-                <div {% if not (current_user.id == game.player1 or current_user.id == game.player2) %} style="display: none" {% endif %}>
-                    <form class="text-center score_input"
-                        id="score_input" method="POST" action="" autocomplete="off"
-                        {% if game.status == 'completed' or not (current_user.id == game.player1 or current_user.id == game.player2) %}
-                        style="display: none"
-                        {% endif %}>
-                    {{ form.hidden_tag() }}
-                    <div class="row justify-content-center">
-                        <div class="col-xl-4 col-lg-6 col-md-8 d-flex align-items-center mb-2">
-                            {{ form.score_value(class="bg-light text-center form-control form-control-lg border-secondary score_value",
-                            style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px;",
-                            readonly=true) }}
+            <div id="cricket_scoreboard">
+                {% for field in (20, 19, 18, 17, 16, 15, 25) %}
+                <div class="d-flex flex-row justify-content-center align-items-center text-center text-light">
+                    <!-- SCOREBOARD PLAYER 1 {{ field }} -->
+                    <div class="col-3 col-sm-3 col-xl-4" id="p1_current_leg_{{ field }}"
+                        style="padding-left: 0px; padding-right: 0px;">
+                        <div class="d-flex d-row justify-content-between">
+                            <div class="d-flex d-column"></div>
+                            <div class="d-flex d-column">
+                                <span class="fa-stack fa-1x" id="marks-p1-{{ field }}">
+                                    <i class="fas fa-slash fa-stack-2x" id="marks-p1-{{ field }}-1"
+                                        style="display: none"></i>
+                                    <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p1-{{ field }}-2"
+                                        style="display: none"></i>
+                                    <i class="far fa-circle fa-stack-2x" id="marks-p1-{{ field }}-3"
+                                        style="display: none"></i>
+                                </span>
+                            </div>
+                            <div class="d-flex d-column text-right" id="marks-p1-{{ field }}-score"
+                                style="width: 40px;"></div>
                         </div>
                     </div>
-                    <!-- UNDO BUTTON -->
-                    <!--
+
+                    <div class="col-6 col-sm-6 col-xl-4 text-center" style="padding-left: 0px; padding-right: 0px;">
+                        <div class="btn-group btn-group-lg" role="group">
+                            <button type="button" id="score-button-D{{ field }}"
+                                class="btn btn-secondary btn-lg border border-dark">D</button>
+                            <button type="button" id="score-button-S{{ field }}"
+                                class="btn btn-secondary btn-lg border border-dark">{{ field }}</button>
+                            <button type="button"
+                                id="score-button-{% if field == 25 %}0{% else %}T{{ field }}{% endif %}"
+                                class="btn btn-secondary btn-lg border border-dark">{% if field == 25 %}0{% else %}T{%
+                                endif%}</button>
+                        </div>
+                    </div>
+
+                    <!-- SCOREBOARD PLAYER 2 {{ field }} -->
+                    <div class="col-3 col-sm-3 col-xl-4" id="p2_current_leg_{{ field }}"
+                        style="padding-left: 0px; padding-right: 0px;">
+                        <div class="d-flex d-row justify-content-between">
+                            <div class="d-flex d-column" id="marks-p2-{{ field }}-score" style="width: 40px;"></div>
+                            <div class="d-flex d-column">
+                                <span class="fa-stack fa-1x" id="marks-p2-{{ field }}">
+                                    <i class="fas fa-slash fa-stack-2x" id="marks-p2-{{ field }}-1"
+                                        style="display: none"></i>
+                                    <i class="fas fa-slash fa-stack-2x fa-flip-horizontal" id="marks-p2-{{ field }}-2"
+                                        style="display: none"></i>
+                                    <i class="far fa-circle fa-stack-2x" id="marks-p2-{{ field }}-3"
+                                        style="display: none"></i>
+                                </span>
+                            </div>
+                            <div class="d-flex d-column"></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <div class="row justify-content-center align-items-start">
+                <!-- ONSCREEN KEYBOARD AND INPUT FIELD -->
+                <div class="col-lg-6 col-md-4 mt-1 d-none d-md-block score-input">
+                    <div {% if not (current_user.id==game.player1 or current_user.id==game.player2) %}
+                        style="display: none" {% endif %}>
+                        <form class="text-center score_input" id="score_input" method="POST" action=""
+                            autocomplete="off" {% if game.status=='completed' or not (current_user.id==game.player1 or
+                            current_user.id==game.player2) %} style="display: none" {% endif %}>
+                            {{ form.hidden_tag() }}
+                            <div class="row justify-content-center">
+                                <div class="col-xl-4 col-lg-6 col-md-8 d-flex align-items-center mb-2">
+                                    {{ form.score_value(class="bg-light text-center form-control form-control-lg
+                                    border-secondary score_value",
+                                    style="font-size: 35px; padding-top: 1px; padding-bottom: 1px; padding-left: 1px;
+                                    padding-right: 1px;",
+                                    readonly=true) }}
+                                </div>
+                            </div>
+                            <!-- UNDO BUTTON -->
+                            <!--
                     <div class="row justify-content-center">
                         <div class="col-12 col-lg-6">
                             <button type="button" id="undo-button" class="btn btn-lg btn-outline-info btn-block undo-button">{{ _('Undo last score') }}</button>
@@ -141,60 +160,68 @@
                         </div>
                     </div>
                     -->
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        <!-- GAME END CONFIRMATION -->
-        <div class="row justify-content-center align-items-start">
-            <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block score-input">
-                <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if game.status != 'completed' %} style="display: none" {% endif %}>
-                    <h4 class="text-light">{{ _('Game is completed.') }}</h4>
-                    <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a></p>
-                </form>
+            <!-- GAME END CONFIRMATION -->
+            <div class="row justify-content-center align-items-start">
+                <div class="col-lg-3 col-md-4 mt-3 d-none d-md-block score-input">
+                    <form class="text-center confirm_completion" id="confirm_completion" method="POST" action="" {% if
+                        game.status !='completed' %} style="display: none" {% endif %}>
+                        <h4 class="text-light">{{ _('Game is completed.') }}</h4>
+                        <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a></p>
+                    </form>
 
-                <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status != 'aborted' %} style="display: none" {% endif %}>
-                    <h4 class="text-light">{{ _('Game was aborted.') }}</h4>
-                    <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
-                </form>
-        </div>
+                    <form class="text-center game-aborted" id="game-aborted" method="POST" action="" {% if game.status
+                        !='aborted' %} style="display: none" {% endif %}>
+                        <h4 class="text-light">{{ _('Game was aborted.') }}</h4>
+                        <a href="{{ url_for('game.start', hashid=game.hashid) }}">{{ _('Game overview') }}</a>
+                    </form>
+                </div>
 
-            <!-- SCOREBOARD PLAYER 2 -->
-            <div class="col-3 mt-2" id="p2_current_leg_webcam" style="padding-left: 2px; padding-right: 5px">
+                <!-- SCOREBOARD PLAYER 2 -->
+                <div class="col-3 mt-2" id="p2_current_leg_webcam" style="padding-left: 2px; padding-right: 5px">
+                </div>
             </div>
+
+            {% include 'game/cricket/statistics.html' %}
+
         </div>
 
-        {% include 'game/cricket/statistics.html' %}
-
+        <div class="col-7" style="height: 75vh;" id="youtube_embed">
+            {% if channel_ids[0] %}
+            <iframe style="width: 100%; height: 35vh;"
+                src="https://www.youtube-nocookie.com/embed/live_stream?channel={{ channel_ids[0] }}&autoplay=1"
+                frameborder="0" allow="autoplay; encryped-media;" allowfullscreen></iframe>
+            {% endif %}
+            {% if channel_ids[1] %}
+            <iframe style="width: 100%; height: 35vh;"
+                src="https://www.youtube-nocookie.com/embed/live_stream?channel={{ channel_ids[1] }}&autoplay=1"
+                frameborder="0" allow="autoplay; encryped-media;" allowfullscreen></iframe>
+            {% endif %}
+        </div>
     </div>
 
-    <div class="col-7" style="height: 75vh;" id="youtube_embed">
-        {% if channel_ids[0] %}
-        <iframe style="width: 100%; height: 35vh;" src="https://www.youtube-nocookie.com/embed/live_stream?channel={{ channel_ids[0] }}&autoplay=1" frameborder="0" allow="autoplay; encryped-media;" allowfullscreen></iframe>
-        {% endif %}
-        {% if channel_ids[1] %}
-        <iframe style="width: 100%; height: 35vh;" src="https://www.youtube-nocookie.com/embed/live_stream?channel={{ channel_ids[1] }}&autoplay=1" frameborder="0" allow="autoplay; encryped-media;" allowfullscreen></iframe>
-        {% endif %}
-    </div>
-</div>
+    {% include 'game/modals.html' %}
 
-{% include 'game/modals.html' %}
+    {% endblock %}
 
-{% endblock %}
+    {% block footer %}
+    {% endblock %}
 
-{% block footer %}
-{% endblock %}
+    {% block scripts %}
+    <meta id="hash_id" data-hashid="{{ game.hashid }}">
+    <meta id="user_id" data-id="{{ current_user.id }}">
+    <meta id="player1_id" data-id="{{ game.player1 }}">
+    <meta id="player2_id" data-id="{{ game.player2 }}">
+    <meta id="caller" data-caller="{{ caller }}">
+    <meta id="caller_muted" data-caller_muted="{{ caller_muted }}">
+    <meta id="out_mode" data-out_mode="{{ game.out_mode }}">
+    <meta id="game_url" data-url="{{ url_for('game.start') }}">
 
-{% block scripts %}
-<meta id="hash_id" data-hashid="{{ game.hashid }}">
-<meta id="user_id" data-id="{{ current_user.id }}">
-<meta id="player1_id" data-id="{{ game.player1 }}">
-<meta id="player2_id" data-id="{{ game.player2 }}">
-<meta id="caller" data-caller="{{ caller }}">
-<meta id="out_mode" data-out_mode="{{ game.out_mode }}">
-<meta id="game_url" data-url="{{ url_for('game.start') }}">
-
-<script type="text/javascript" src="{{ url_for('static',filename='js/game/cricket/cricket_spectator_socket.js', version=config.VERSION) }}"></script>
-{% endblock %}
+    <script type="text/javascript"
+        src="{{ url_for('static',filename='js/game/cricket/cricket_spectator_socket.js', version=config.VERSION) }}"></script>
+    {% endblock %}
