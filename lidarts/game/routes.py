@@ -187,7 +187,12 @@ def statistics_set_leg(hashid, set_, leg):
     player_names = get_player_names(game)
 
     match_json = json.loads(game.match_json)
-    leg_data_json = match_json[set_][leg]
+
+    # Prevent logspamming from crawlers trying to access non-existing legs
+    try:
+        leg_data_json = match_json[set_][leg]
+    except KeyError:
+        return render_template('generic/404.html', title=lazy_gettext('Not found'))
     
     # calculate remaining_scores
     for player in ('1', '2'):
