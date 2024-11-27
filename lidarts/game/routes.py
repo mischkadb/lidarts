@@ -203,8 +203,12 @@ def statistics_set_leg(hashid, set_, leg):
             remaining_score -= score
             player_data['remaining_scores'].append(remaining_score)
         # Build double_attempts list from missed doubles
-        # Double attempt for successful finish needs to be added later    
-        player_data['double_attempts'] = ['I' * visit for visit in player_data['double_missed']]
+        # Double attempt for successful finish needs to be added later
+        # Very old games do not have double_missed key, so throw 404
+        try:
+            player_data['double_attempts'] = ['I' * visit for visit in player_data['double_missed']]
+        except TypeError:
+            return render_template('generic/404.html', title=lazy_gettext('Not found'))
         if 'to_finish' in player_data:
             player_data['scores'][-1] = '' # don't show score of last throw when finished
             player_data['remaining_scores'][-1] = 'x' + str(player_data['to_finish'])
