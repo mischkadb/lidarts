@@ -376,7 +376,6 @@ def start(hashid, theme=None):
             webcam_settings = None
 
     caller_muted = request.cookies.get('caller_muted', default=False, type=bool)
-    print(caller_muted)
 
     return render_template(f'game/{game.variant}/{template}.html', game=game_dict, form=form, match_json=match_json,
                             caller=caller, caller_muted=caller_muted, cpu_delay=cpu_delay, title=title,
