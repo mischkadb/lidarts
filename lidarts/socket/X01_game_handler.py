@@ -286,10 +286,11 @@ def send_score(message):
 
     try:
         score_value = int(message['score'])
-        impossible_numbers = [179, 178, 176, 175, 173, 172, 169]
-        if not 0 <= score_value <= 180 or score_value in impossible_numbers:
-            return
-    except:
+    except ValueError:
+        return
+    
+    impossible_numbers = [179, 178, 176, 175, 173, 172, 169]
+    if not 0 <= score_value <= 180 or score_value in impossible_numbers:
         return
 
     # Closest to bull handler to determine starting player
@@ -298,6 +299,8 @@ def send_score(message):
         if game.opponent_type.startswith('computer'):
             # computer's attempt at double bullseye
             score = get_computer_score(game.hashid)
+            if not isinstance(score, int):
+                return
             process_closest_to_bull(game, score, computer=True)
         return
 
