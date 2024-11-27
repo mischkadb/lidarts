@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
 
     <!-- Required meta tags -->
@@ -23,7 +24,7 @@
     <link href="{{ url_for('static',filename='css/custom.css', version=config.VERSION) }}" rel="stylesheet">
     <link href="{{ url_for('static',filename='css/sticky-footer.css', version=config.VERSION) }}" rel="stylesheet">
     {% endblock %}
-    
+
     <script src="{{ url_for('static',filename='js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/moment_with_locales.min.js') }}"></script>
     {{ moment.include_moment(no_js=True) }}
@@ -32,140 +33,168 @@
     {% block head %}
     {% endblock %}
 
-    <title>{% block title %}{% if title %}{{ title }} - lidarts.org{% else %}lidarts.org{% endif %}{% endblock %}</title>
+    <title>{% block title %}{% if title %}{{ title }} - lidarts.org{% else %}lidarts.org{% endif %}{% endblock %}
+    </title>
 
 </head>
 
 <body>
-{% block navbar %}
-<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="{{ url_for('generic.index') }}">
-            <img src="{{ url_for('static', filename='img/logo_white2.png') }}" width="39" height="20" alt="lidarts logo" class="mr-1"> Lidarts</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                {% if current_user.is_anonymous %}
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.index') }}">{{ _('Home') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.live_games_overview') }}">{{ _('Watch') }}</a></li>
-                <!--<li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Statistics') }}</a></li>-->
-                {% else %}
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Lobby') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('game.create') }}">{{ _('Play') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.live_games_overview') }}">{{ _('Watch') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('tournament.overview') }}">{{ _('Tournaments') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.chat') }}">{{ _('Chat') }}</a></li>
-                <!--<li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Statistics') }}</a></li>-->
-                {% endif %}
-
-            </ul>
-            <ul class="navbar-nav navbar-right">
-
-                {% if current_user.is_authenticated %}
-                <li class="nav-item dropdown">
-                    <h3 style="margin-bottom: 0px; margin-right: 15px; position: relative;">
-                        <a class="nav-link dropdown-toggle" href="#" id="notification-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-bell text-secondary"></i>
-                            <span class="badge badge-danger notification-badge" id="notification-badge"></span>
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="notification-dropdown-menu">
-                            <a class="dropdown-item" href="#" id="no-notifications-text">{{ _('No new notifications') }}</a>
-                        </div>
-
-                    </h3>
-                </li>
-                {% endif %}
-
-                <div class="btn-group" role="group" aria-label="Basic example">
+    {% block navbar %}
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('generic.index') }}">
+                <img src="{{ url_for('static', filename='img/logo_white2.png') }}" width="39" height="20"
+                    alt="lidarts logo" class="mr-1"> Lidarts</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
                     {% if current_user.is_anonymous %}
-                    <a href="{{ url_for_security('login') }}" class="btn btn-secondary" role="button"><i class="fas fa-sign-in-alt"></i> {{ _('Sign In') }}</a>
-                    <a href="{{ url_for_security('register') }}" class="btn btn-info" role="button"><i class="fas fa-user-plus"></i> {{ _('Register') }}</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.index') }}">{{ _('Home') }}</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.live_games_overview') }}">{{
+                            _('Watch') }}</a></li>
+                    <!--<li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Statistics') }}</a></li>-->
                     {% else %}
-
-                    <a href="{{ url_for('generic.private_messages') }}"  class="btn btn-secondary" role="button"><i class="fas fa-envelope"></i> {{ _('Inbox') }}</a>
-
-
-                    <div class="btn-group" role="group">
-                        <button id="statusDrop" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                            <i class="fas {% if current_user.is_backer %}fa-star{% else %}fa-circle{% endif %} status-indicator"></i> 
-                            {{ _('Status') }}</button>
-                        <div class="dropdown-menu" aria-labelledby="statusDrop">
-                            <a class="dropdown-item dropdown-status" id="dropdown-online" href="#"><i class="fas fa-circle status-online"></i> Online</a>
-                            <a class="dropdown-item dropdown-status" id="dropdown-lfg" href="#"><i class="fas fa-circle status-lfg"></i> {{ _('Looking for Game') }}</a>
-                            <a class="dropdown-item dropdown-status" id="dropdown-busy" href="#"><i class="fas fa-circle status-busy"></i> {{ _('Busy') }}</a>
-                        </div>
-                    </div>
-
-                    <a href="{{ url_for('profile.overview', username=current_user.username) | replace('%40', '@') }}"  class="btn btn-secondary" role="button"><i class="fas fa-user-circle"></i> {{ _('Profile') }}</a>
-                    <a href="{{ url_for_security('logout') }}" class="btn btn-secondary" role="button"><i class="fas fa-sign-out-alt"></i> {{ _('Logout') }}</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Lobby') }}</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('game.create') }}">{{ _('Play') }}</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.live_games_overview') }}">{{
+                            _('Watch') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('tournament.overview') }}">{{
+                            _('Tournaments') }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('generic.chat') }}">{{ _('Chat') }}</a>
+                    </li>
+                    <!--<li class="nav-item"><a class="nav-link" href="{{ url_for('generic.lobby') }}">{{ _('Statistics') }}</a></li>-->
                     {% endif %}
-                </div>
-            </ul>
+
+                </ul>
+                <ul class="navbar-nav navbar-right">
+
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <h3 style="margin-bottom: 0px; margin-right: 15px; position: relative;">
+                            <a class="nav-link dropdown-toggle" href="#" id="notification-dropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell text-secondary"></i>
+                                <span class="badge badge-danger notification-badge" id="notification-badge"></span>
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="notification-dropdown-menu">
+                                <a class="dropdown-item" href="#" id="no-notifications-text">{{ _('No new
+                                    notifications') }}</a>
+                            </div>
+
+                        </h3>
+                    </li>
+                    {% endif %}
+
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        {% if current_user.is_anonymous %}
+                        <a href="{{ url_for_security('login') }}" class="btn btn-secondary" role="button"><i
+                                class="fas fa-sign-in-alt"></i> {{ _('Sign In') }}</a>
+                        <a href="{{ url_for_security('register') }}" class="btn btn-info" role="button"><i
+                                class="fas fa-user-plus"></i> {{ _('Register') }}</a>
+                        {% else %}
+
+                        <a href="{{ url_for('generic.private_messages') }}" class="btn btn-secondary" role="button"><i
+                                class="fas fa-envelope"></i> {{ _('Inbox') }}</a>
+
+
+                        <div class="btn-group" role="group">
+                            <button id="statusDrop" type="button" class="btn btn-secondary dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i
+                                    class="fas {% if current_user.is_backer %}fa-star{% else %}fa-circle{% endif %} status-indicator"></i>
+                                {{ _('Status') }}</button>
+                            <div class="dropdown-menu" aria-labelledby="statusDrop">
+                                <a class="dropdown-item dropdown-status" id="dropdown-online" href="#"><i
+                                        class="fas fa-circle status-online"></i> Online</a>
+                                <a class="dropdown-item dropdown-status" id="dropdown-lfg" href="#"><i
+                                        class="fas fa-circle status-lfg"></i> {{ _('Looking for Game') }}</a>
+                                <a class="dropdown-item dropdown-status" id="dropdown-busy" href="#"><i
+                                        class="fas fa-circle status-busy"></i> {{ _('Busy') }}</a>
+                            </div>
+                        </div>
+
+                        <a href="{{ url_for('profile.overview', username=current_user.username) | replace('%40', '@') }}"
+                            class="btn btn-secondary" role="button"><i class="fas fa-user-circle"></i> {{ _('Profile')
+                            }}</a>
+                        <a href="{{ url_for_security('logout') }}" class="btn btn-secondary" role="button"><i
+                                class="fas fa-sign-out-alt"></i> {{ _('Logout') }}</a>
+                        {% endif %}
+                    </div>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-{% endblock %}
+    {% endblock %}
 
-{% block content %}
-{% block jumbotron %}{% endblock %}
+    {% block content %}
+    {% block jumbotron %}{% endblock %}
 
-{% block container %}
-<div class="container">
-{% endblock %}
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="alert alert-{% if category == 'message' %}info{% else %}{{ category }} {% endif %}" role="alert">{{ message }}</div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-
-    {# application content needs to be provided in the app_content block #}
-    {% block app_content %}{% endblock %}
-</div>
-{% endblock %}
-
-{% block footer %}
-<footer class="footer">
+    {% block container %}
     <div class="container">
-        <div class="text-secondary text-center">
-            <a href="{{ url_for('generic.about') }}" class="text-secondary">{{ _('About') }}</a> |
-            <a href="{{ url_for('generic.contact') }}" class="text-secondary">{{ _('Contact') }}</a> |
-            <a href="{{ url_for('generic.faq') }}" class="text-secondary">{{ _('FAQ') }}</a> |
-            <a href="{{ url_for('generic.contribute') }}" class="text-secondary">{{ _('Contribute') }}</a> |
-            <!--<a href="{{ url_for('generic.changelog') }}" class="text-secondary">{{ _('Changelog') }}</a> |-->
-            <a href="https://github.com/mischkadb/lidarts" class="text-secondary">{{ _('Source Code') }}</a> |
-            <a href="{{ url_for('legal.privacy') }}" class="text-secondary">{{ _('Privacy') }}</a> |
-            <a href="{{ url_for('legal.terms_and_conditions') }}" class="text-secondary">{{ _('Terms & Conditions') }}</a> |
-            <a href="{{ url_for('legal.disclaimer') }}" class="text-secondary">Disclaimer</a> |
-            <a href="{{ url_for('legal.legal_notice') }}" class="text-secondary">{{ _('Legal notice') }}</a>
-        </div>
+        {% endblock %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{% if category == 'message' %}info{% else %}{{ category }} {% endif %}" role="alert">{{
+            message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
     </div>
-</footer>
-{% endblock %}
+    {% endblock %}
+
+    {% block footer %}
+    <footer class="footer">
+        <div class="container">
+            <div class="text-secondary text-center">
+                <a href="{{ url_for('generic.about') }}" class="text-secondary">{{ _('About') }}</a> |
+                <a href="{{ url_for('generic.contact') }}" class="text-secondary">{{ _('Contact') }}</a> |
+                <a href="{{ url_for('generic.faq') }}" class="text-secondary">{{ _('FAQ') }}</a> |
+                <a href="{{ url_for('generic.contribute') }}" class="text-secondary">{{ _('Contribute') }}</a> |
+                <!--<a href="{{ url_for('generic.changelog') }}" class="text-secondary">{{ _('Changelog') }}</a> |-->
+                <a href="https://github.com/mischkadb/lidarts" class="text-secondary">{{ _('Source Code') }}</a> |
+                <a href="{{ url_for('legal.privacy') }}" class="text-secondary">{{ _('Privacy') }}</a> |
+                <a href="{{ url_for('legal.terms_and_conditions') }}" class="text-secondary">{{ _('Terms & Conditions')
+                    }}</a> |
+                <a href="{{ url_for('legal.disclaimer') }}" class="text-secondary">Disclaimer</a> |
+                <a href="{{ url_for('legal.legal_notice') }}" class="text-secondary">{{ _('Legal notice') }}</a>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
 
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="{{ url_for('static',filename='js/popper.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ url_for('static',filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
 
-<!-- socketio -->
-<script type="text/javascript" src="{{ url_for('static',filename='js/socket.io.js') }}"></script>
+    <!-- socketio -->
+    <script type="text/javascript"
+        src="{{ url_for('static',filename='js/socket.io.js', version=config.VERSION) }}"></script>
 
-<meta id="status_url" data-url="{{ url_for('profile.set_status') }}">
-<meta id="is_authenticated" data-auth="{{ current_user.is_authenticated }}">
-<meta id="user_id" data-id="{{ current_user.id }}">
-<script type="text/javascript" src="{{ url_for('static',filename='js/base_socket.js', version=config.VERSION) }}"></script>
+    <meta id="status_url" data-url="{{ url_for('profile.set_status') }}">
+    <meta id="is_authenticated" data-auth="{{ current_user.is_authenticated }}">
+    <meta id="user_id" data-id="{{ current_user.id }}">
+    <script type="text/javascript"
+        src="{{ url_for('static',filename='js/base_socket.js', version=config.VERSION) }}"></script>
 
 
 
-{% block scripts %}
-{% endblock %}
+    {% block scripts %}
+    {% endblock %}
 
 </body>
+
 </html>
