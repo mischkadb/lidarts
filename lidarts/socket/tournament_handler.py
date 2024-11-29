@@ -54,7 +54,7 @@ def ban_player(message):
 
 
 @socketio.on('unban_player', namespace='/chat')
-def ban_player(message):
+def unban_player(message):
     hashid = message['hashid']
     user_id = message['user_id']
     tournament = Tournament.query.filter_by(hashid=hashid).first()

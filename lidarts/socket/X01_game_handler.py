@@ -269,6 +269,9 @@ def send_score(message):
     hashid = message['hashid']
     game = Game.query.filter_by(hashid=hashid).first()
 
+    if current_user.id not in (game.player1, game.player2):
+        return
+
     if 'computer' in message and not game.p1_next_turn:
         # calculate computer's score
         message['score'], message['double_missed'], message['to_finish'] = get_computer_score(message['hashid'])
@@ -458,34 +461,37 @@ def undo_get_remaining_score(message):
         return
     hashid = message['hashid']
     game = Game.query.filter_by(hashid=hashid).first()
-    if current_user.is_authenticated:
-        match_json = json.loads(game.match_json)
-        current_set = str(game.p1_sets + game.p2_sets + 1)
-        current_leg = str(game.p1_legs + game.p2_legs + 1)
-        current_leg_json = match_json[current_set][current_leg]
-        if current_user.id == game.player1 and current_user.id == game.player2:
-            # local game, last entered score is undone
-            # check if there is score in current leg to undo
-            if (game.p1_next_turn and len(current_leg_json['2']['scores']) == 0) \
-                    or (not game.p1_next_turn and len(current_leg_json['1']['scores']) == 0):
-                return 'no score to undo'
-            # calculate remaining score without last entered score
-            remaining_score = game.type - sum(current_leg_json['2']['scores'][:-1]) \
-                if game.p1_next_turn else game.type - sum(current_leg_json['1']['scores'][:-1])
-        elif current_user.id == game.player1:
-            # check if there is score in current leg to undo
-            if len(current_leg_json['1']['scores']) == 0:
-                return 'no score to undo'
-            # get last remaining score from player 1
-            remaining_score = game.type - sum(current_leg_json['1']['scores'][:-1])
-        else:
-            # check if there is score in current leg to undo
-            if len(current_leg_json['2']['scores']) == 0:
-                return 'no score to undo'
-            # get last remaining score from player 2
-            remaining_score = game.type - sum(current_leg_json['2']['scores'][:-1])
-        emit('undo_remaining_score',
-             {'remaining_score': remaining_score, 'score_value': message['score_value']})
+
+    if current_user.id not in (game.player1, game.player2):
+        return
+    
+    match_json = json.loads(game.match_json)
+    current_set = str(game.p1_sets + game.p2_sets + 1)
+    current_leg = str(game.p1_legs + game.p2_legs + 1)
+    current_leg_json = match_json[current_set][current_leg]
+    if current_user.id == game.player1 and current_user.id == game.player2:
+        # local game, last entered score is undone
+        # check if there is score in current leg to undo
+        if (game.p1_next_turn and len(current_leg_json['2']['scores']) == 0) \
+                or (not game.p1_next_turn and len(current_leg_json['1']['scores']) == 0):
+            return 'no score to undo'
+        # calculate remaining score without last entered score
+        remaining_score = game.type - sum(current_leg_json['2']['scores'][:-1]) \
+            if game.p1_next_turn else game.type - sum(current_leg_json['1']['scores'][:-1])
+    elif current_user.id == game.player1:
+        # check if there is score in current leg to undo
+        if len(current_leg_json['1']['scores']) == 0:
+            return 'no score to undo'
+        # get last remaining score from player 1
+        remaining_score = game.type - sum(current_leg_json['1']['scores'][:-1])
+    else:
+        # check if there is score in current leg to undo
+        if len(current_leg_json['2']['scores']) == 0:
+            return 'no score to undo'
+        # get last remaining score from player 2
+        remaining_score = game.type - sum(current_leg_json['2']['scores'][:-1])
+    emit('undo_remaining_score',
+            {'remaining_score': remaining_score, 'score_value': message['score_value']})
 
 
 @socketio.on('disconnect', namespace='/game')

@@ -216,6 +216,9 @@ def confirm_score(message, computer=False):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
     if not game.confirmation_needed:
         return
+    
+    if current_user.id not in (game.player1, game.player2):
+        return
 
     match_json = json.loads(game.match_json)
     current_set = str(len(match_json))
@@ -248,6 +251,10 @@ def confirm_score(message, computer=False):
 @socketio.on('undo_score', namespace='/game/cricket')
 def undo_score(message):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
+
+    if current_user.id not in (game.player1, game.player2):
+        return
+
     if not game.undo_possible:
         return
     match_json = json.loads(game.match_json)
@@ -297,6 +304,9 @@ def undo_score(message):
 def send_score(message):
     hashid = message['hashid']
     game = CricketGame.query.filter_by(hashid=hashid).first()
+
+    if current_user.id not in (game.player1, game.player2):
+        return
 
     if 'computer' in message and not game.p1_next_turn:
         if game.confirmation_needed:

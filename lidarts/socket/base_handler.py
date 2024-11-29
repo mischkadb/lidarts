@@ -2,10 +2,9 @@
 from lidarts import socketio, db
 from flask import current_app
 from flask_login import current_user
-from flask_socketio import disconnect, emit, join_room, ConnectionRefusedError
+from flask_socketio import  emit, join_room
 from lidarts.socket.utils import send_notification
-from lidarts.models import Notification, SocketConnections, UserSettings
-from datetime import datetime
+from lidarts.models import Notification,  UserSettings
 
 
 @socketio.on('*')
