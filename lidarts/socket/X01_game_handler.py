@@ -4,7 +4,7 @@ from flask_login import current_user
 from lidarts import socketio, db
 from lidarts.game.checkout_suggestions import checkout_suggestions
 from lidarts.models import Game
-from lidarts.socket.utils import process_score, current_turn_user_id, process_closest_to_bull
+from lidarts.socket.utils import authenticated_only, process_score, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.computer import get_computer_score
 import json
 from datetime import datetime
@@ -265,6 +265,7 @@ def accept_rematch_offer(message):
 
 
 @socketio.on('send_score', namespace='/game')
+@authenticated_only
 def send_score(message):
     hashid = message['hashid']
     game = Game.query.filter_by(hashid=hashid).first()
@@ -456,6 +457,7 @@ def get_score_after_leg_win(message):
 
 
 @socketio.on('undo_request_remaining_score', namespace='/game')
+@authenticated_only
 def undo_get_remaining_score(message):
     if not message['hashid']:
         return

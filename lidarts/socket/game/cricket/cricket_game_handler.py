@@ -5,7 +5,7 @@ from lidarts import socketio, db
 from lidarts.game.utils import cricket_leg_default
 from lidarts.models import CricketGame, User
 from lidarts.socket.game.cricket.utils import process_score
-from lidarts.socket.utils import current_turn_user_id, process_closest_to_bull
+from lidarts.socket.utils import authenticated_only, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.game.cricket.computer import get_computer_score
 import json
 from datetime import datetime, timedelta
@@ -212,6 +212,7 @@ def create_rematch(hashid):
 
 
 @socketio.on('confirm_score', namespace='/game/cricket')
+@authenticated_only
 def confirm_score(message, computer=False):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
     if not game.confirmation_needed:
@@ -249,6 +250,7 @@ def confirm_score(message, computer=False):
 
 
 @socketio.on('undo_score', namespace='/game/cricket')
+@authenticated_only
 def undo_score(message):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
 
@@ -301,6 +303,7 @@ def undo_score(message):
 
 
 @socketio.on('send_score', namespace='/game/cricket')
+@authenticated_only
 def send_score(message):
     hashid = message['hashid']
     game = CricketGame.query.filter_by(hashid=hashid).first()
