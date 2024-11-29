@@ -3,13 +3,14 @@ from flask_socketio import emit, join_room
 from flask_login import current_user
 from lidarts import socketio, db
 from lidarts.models import User, Chatmessage, Privatemessage, Notification, Game, CricketGame, ChatmessageIngame, UserStatistic, UserSettings
-from lidarts.socket.utils import broadcast_online_players, send_notification
+from lidarts.socket.utils import authenticated_only, broadcast_online_players, send_notification
 from lidarts.utils.linker import linker
 from datetime import datetime
 import bleach
 
 
 @socketio.on('connect', namespace='/chat')
+@authenticated_only
 def connect_chat():
     # print('Client connected', request.sid)
     # broadcast_online_players(broadcast=False)
@@ -87,6 +88,8 @@ def init(message):
 
 @socketio.on('broadcast_game_chat_message', namespace='/game_chat')
 def send_game_chat_message(message):
+    if 'message' not in message or 'user_id' not in message or 'hash_id' not in message:
+        return
     message['message'] = bleach.clean(message['message'])
     message['message'] = linker.linkify(message['message'])
     hashid = message['hash_id']

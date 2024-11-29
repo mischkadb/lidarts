@@ -1,5 +1,6 @@
+import functools
 from flask import request
-from flask_socketio import emit
+from flask_socketio import ConnectionRefusedError, emit
 from flask_login import current_user
 from lidarts import db, avatars, socketio
 from lidarts.models import CricketGame, Game, Tournament, User, UserSettings, UserStatistic, WebcamSettings
@@ -7,6 +8,16 @@ import math
 import json
 from datetime import datetime, timedelta
 from sqlalchemy import or_
+
+
+def authenticated_only(f):
+    @functools.wraps(f)
+    def wrapped(*args, **kwargs):
+        if not current_user.is_authenticated:
+            raise ConnectionRefusedError('Unauthorized')
+        else:
+            return f(*args, **kwargs)
+    return wrapped
 
 
 def player1_started_leg(leg):
