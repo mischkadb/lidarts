@@ -20,35 +20,46 @@ def authenticated_only(f):
     return wrapped
 
 
-def limit_socketio(key='socketio', window=1, allowance=20):
+def limit_socketio(key='socketio', window=1, allowance=30):
     def wrapper(f):
         @functools.wraps(f)
         def func(*args, **kwargs):
             client_id = request.remote_addr
             rkey = f'{key}.{client_id}'
+
+            WINDOW = current_app.config.get('SOCKETIO_RATE_LIMIT_WINDOW_SECONDS', window)
+            ALLOWANCE = current_app.config.get('SOCKETIO_RATE_LIMIT_ALLOWANCE', allowance)
             
             count = current_app.redis.get(rkey)
             if count is None:
-                current_app.redis.setex(rkey, window, 1)
+                current_app.redis.setex(rkey, WINDOW, 1)
                 count = 1
             else:
                 count = current_app.redis.incr(rkey)
+                if current_app.redis.ttl(rkey) == -1:
+                    current_app.redis.expire(rkey, WINDOW)
                 
-            if count > allowance:
+            if int(count) > ALLOWANCE:
+                rkey_exceeded = f'{key}.count_exceeded.{client_id}'
                 count_exceeded = current_app.redis.get(f'{key}.count_exceeded.{client_id}')
                 if count_exceeded is None:
-                    current_app.redis.set(f'{key}.count_exceeded.{client_id}', 1)
+                    current_app.redis.setex(rkey_exceeded, 60, 1)
                 else:
-                    current_app.redis.incr(f'{key}.count_exceeded.{client_id}')
+                    current_app.redis.incr(rkey_exceeded)
+
+                    if current_app.redis.ttl(rkey_exceeded) == -1:
+                        current_app.redis.expire(rkey_exceeded, 60)
+
                     if int(count_exceeded) > 5:
-                        current_app.redis.delete(f'{key}.count_exceeded.{client_id}')
+                        current_app.redis.delete(rkey_exceeded)
+                        current_app.redis.delete(rkey)
                         if current_app.config.get('SOCKETIO_LOG_RATE_LIMIT_EXCEEDED', False):
-                            current_app.logger.warning(f'Rate limit exceeded too often for {client_id}')
+                            current_app.logger.warning(f'Rate limit exceeded too often for {client_id} {count}>{ALLOWANCE} {count_exceeded}>5')
                         emit('error', {'message': 'Rate limit exceeded too often. Disconnecting.'})
                         socketio_disconnect()
                         return None
                 if current_app.config.get('SOCKETIO_LOG_RATE_LIMIT_EXCEEDED', False):
-                    current_app.logger.warning(f'Rate limit exceeded for {client_id}')
+                    current_app.logger.warning(f'Rate limit exceeded for {client_id} {count}>{ALLOWANCE}')
                 emit('error', {'message': 'Rate limit exceeded'})
                 return None
                 
