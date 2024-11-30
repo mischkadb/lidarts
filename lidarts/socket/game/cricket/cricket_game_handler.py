@@ -133,6 +133,7 @@ def connect():
 
 
 @socketio.on('player_heartbeat', namespace='/game/cricket')
+@authenticated_only
 def player_heartbeat(message):
     if current_user.is_authenticated:
         game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
@@ -163,11 +164,13 @@ def init_waiting(message):
 
 
 @socketio.on('send_rematch_offer', namespace='/game/cricket')
+@authenticated_only
 def send_rematch_offer(message):
     emit('rematch_offer', room=message['hashid'], namespace='/game/cricket')
 
 
 @socketio.on('accept_rematch_offer', namespace='/game/cricket')
+@authenticated_only
 def accept_rematch_offer(message):
     hashid = create_rematch(message['hashid'])
     emit('start_rematch', {'hashid': hashid}, room=message['hashid'], namespace='/game/cricket')

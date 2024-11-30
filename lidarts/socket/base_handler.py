@@ -3,7 +3,7 @@ from lidarts import socketio, db
 from flask import current_app
 from flask_login import current_user
 from flask_socketio import  emit, join_room
-from lidarts.socket.utils import send_notification
+from lidarts.socket.utils import authenticated_only, send_notification
 from lidarts.models import Notification,  UserSettings
 
 
@@ -15,10 +15,8 @@ def catch_all(event, data):
 
 
 @socketio.on('connect', namespace='/base')
+@authenticated_only
 def connect_client():
-    if not current_user.is_authenticated:
-        return
-
     # current_user.ping()
     current_app.redis.sadd('last_seen_bulk_user_ids', current_user.id)
 
@@ -31,6 +29,7 @@ def connect_client():
 
 
 @socketio.on('init', namespace='/base')
+@authenticated_only
 def init(message):
     user_id = message['user_id']
     settings = (
@@ -49,16 +48,16 @@ def init(message):
 
 
 @socketio.on('user_heartbeat', namespace='/base')
+@authenticated_only
 def heartbeat(message):
-    user_id = message['user_id']
+    user_id = current_user.id
     # current_user.ping()
     current_app.redis.sadd('last_seen_bulk_user_ids', user_id)
 
 
 @socketio.on('disconnect', namespace='/base')
+@authenticated_only
 def disconnect_client():
-    if not current_user.is_authenticated:
-        return
     #current_user.last_seen = datetime.utcnow()
     #current_user.is_online = False
     #db.session.commit()

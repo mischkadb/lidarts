@@ -18,6 +18,7 @@ def connect_chat():
 
 
 @socketio.on('init', namespace='/chat')
+@authenticated_only
 def init(message):
     room = message['hashid'] if 'hashid' in message else 'public_chat'
     join_room(room)
@@ -25,6 +26,7 @@ def init(message):
 
 
 @socketio.on('broadcast_chat_message', namespace='/chat')
+@authenticated_only
 def broadcast_chat_message(message):
     room = message['hashid'] if 'hashid' in message else 'public_chat'
     tournament_hashid = message['hashid'] if 'hashid' in message else None
@@ -72,6 +74,7 @@ def broadcast_chat_message(message):
 
 
 @socketio.on('connect', namespace='/private_messages')
+@authenticated_only
 def connect_private_messages():
     # print('Client connected', request.sid)
     if current_user.is_authenticated:
@@ -79,6 +82,7 @@ def connect_private_messages():
 
 
 @socketio.on('init', namespace='/game_chat')
+@authenticated_only
 def init(message):
     game = Game.query.filter_by(hashid=message['hashid']).first()
     if not game:
@@ -87,13 +91,14 @@ def init(message):
 
 
 @socketio.on('broadcast_game_chat_message', namespace='/game_chat')
+@authenticated_only
 def send_game_chat_message(message):
     if 'message' not in message or 'user_id' not in message or 'hash_id' not in message:
         return
     message['message'] = bleach.clean(message['message'])
     message['message'] = linker.linkify(message['message'])
     hashid = message['hash_id']
-    new_message = ChatmessageIngame(message=message['message'], author=message['user_id'],
+    new_message = ChatmessageIngame(message=message['message'], author=current_user.id,
                                     timestamp=datetime.utcnow(), game_hashid=hashid)
     db.session.add(new_message)
     db.session.commit()
@@ -106,6 +111,7 @@ def send_game_chat_message(message):
 
 
 @socketio.on('broadcast_private_message', namespace='/private_messages')
+@authenticated_only
 def send_private_message(message):
     message['message'] = bleach.clean(message['message'])
     message['message'] = linker.linkify(message['message'])
@@ -142,6 +148,7 @@ def send_private_message(message):
 
 
 @socketio.on('disconnect', namespace='/chat')
+@authenticated_only
 def disconnect():
     # print('Client disconnected', request.sid)
     pass

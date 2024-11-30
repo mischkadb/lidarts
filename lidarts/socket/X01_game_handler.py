@@ -211,8 +211,9 @@ def connect():
 
 
 @socketio.on('player_heartbeat', namespace='/game')
+@authenticated_only
 def player_heartbeat(message):
-    user_id = message['user_id']
+    user_id = current_user.id
     current_app.redis.sadd('last_seen_ingame_bulk_user_ids', user_id)
     #current_user.last_seen_ingame = datetime.utcnow()
     #db.session.commit()
@@ -253,11 +254,13 @@ def start_game(hashid):
 
 
 @socketio.on('send_rematch_offer', namespace='/game')
+@authenticated_only
 def send_rematch_offer(message):
     emit('rematch_offer', room=message['hashid'], namespace='/game')
 
 
 @socketio.on('accept_rematch_offer', namespace='/game')
+@authenticated_only
 def accept_rematch_offer(message):
     hashid = create_rematch(message['hashid'])
     if hashid:
