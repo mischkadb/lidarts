@@ -5,7 +5,7 @@ from lidarts import socketio, db
 from lidarts.game.utils import cricket_leg_default
 from lidarts.models import CricketGame, User
 from lidarts.socket.game.cricket.utils import process_score
-from lidarts.socket.utils import authenticated_only, current_turn_user_id, process_closest_to_bull
+from lidarts.socket.utils import authenticated_only, current_turn_user_id, limit_socketio, process_closest_to_bull
 from lidarts.socket.game.cricket.computer import get_computer_score
 import json
 from datetime import datetime, timedelta
@@ -128,11 +128,13 @@ def send_score_response(game, p1_old_score=0, p2_old_score=0, broadcast=False, c
 
 
 @socketio.on('connect', namespace='/game/cricket')
+@limit_socketio()
 def connect():
     print('Client connected', request.sid)
 
 
 @socketio.on('player_heartbeat', namespace='/game/cricket')
+@limit_socketio()
 @authenticated_only
 def player_heartbeat(message):
     if current_user.is_authenticated:
@@ -147,6 +149,7 @@ def player_heartbeat(message):
 
 
 @socketio.on('init', namespace='/game/cricket')
+@limit_socketio()
 def init(message):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
     if not game:
@@ -158,18 +161,21 @@ def init(message):
 
 
 @socketio.on('init_waiting', namespace='/game/cricket')
+@limit_socketio()
 def init_waiting(message):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
     join_room(game.hashid)
 
 
 @socketio.on('send_rematch_offer', namespace='/game/cricket')
+@limit_socketio()
 @authenticated_only
 def send_rematch_offer(message):
     emit('rematch_offer', room=message['hashid'], namespace='/game/cricket')
 
 
 @socketio.on('accept_rematch_offer', namespace='/game/cricket')
+@limit_socketio()
 @authenticated_only
 def accept_rematch_offer(message):
     hashid = create_rematch(message['hashid'])
@@ -215,6 +221,7 @@ def create_rematch(hashid):
 
 
 @socketio.on('confirm_score', namespace='/game/cricket')
+@limit_socketio()
 @authenticated_only
 def confirm_score(message, computer=False):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
@@ -253,6 +260,7 @@ def confirm_score(message, computer=False):
 
 
 @socketio.on('undo_score', namespace='/game/cricket')
+@limit_socketio()
 @authenticated_only
 def undo_score(message):
     game = CricketGame.query.filter_by(hashid=message['hashid']).first_or_404()
@@ -306,6 +314,7 @@ def undo_score(message):
 
 
 @socketio.on('send_score', namespace='/game/cricket')
+@limit_socketio()
 @authenticated_only
 def send_score(message):
     hashid = message['hashid']
@@ -425,6 +434,7 @@ def send_score(message):
 
 
 @socketio.on('get_score_after_leg_win', namespace='/game/cricket')
+@limit_socketio()
 def get_score_after_leg_win(message):
     if not message['hashid']:
         return

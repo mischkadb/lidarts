@@ -1,6 +1,6 @@
 import functools
-from flask import request
-from flask_socketio import ConnectionRefusedError, emit
+from flask import current_app, request
+from flask_socketio import ConnectionRefusedError, disconnect as socketio_disconnect, emit
 from flask_login import current_user
 from lidarts import db, avatars, socketio
 from lidarts.models import CricketGame, Game, Tournament, User, UserSettings, UserStatistic, WebcamSettings
@@ -18,6 +18,43 @@ def authenticated_only(f):
         else:
             return f(*args, **kwargs)
     return wrapped
+
+
+def limit_socketio(key='socketio', window=1, allowance=20):
+    def wrapper(f):
+        @functools.wraps(f)
+        def func(*args, **kwargs):
+            client_id = request.remote_addr
+            rkey = f'{key}.{client_id}'
+            
+            count = current_app.redis.get(rkey)
+            if count is None:
+                current_app.redis.setex(rkey, window, 1)
+                count = 1
+            else:
+                count = current_app.redis.incr(rkey)
+                
+            if count > allowance:
+                count_exceeded = current_app.redis.get(f'{key}.count_exceeded.{client_id}')
+                if count_exceeded is None:
+                    current_app.redis.set(f'{key}.count_exceeded.{client_id}', 1)
+                else:
+                    current_app.redis.incr(f'{key}.count_exceeded.{client_id}')
+                    if int(count_exceeded) > 5:
+                        current_app.redis.delete(f'{key}.count_exceeded.{client_id}')
+                        if current_app.config.get('SOCKETIO_LOG_RATE_LIMIT_EXCEEDED', False):
+                            current_app.logger.warning(f'Rate limit exceeded too often for {client_id}')
+                        emit('error', {'message': 'Rate limit exceeded too often. Disconnecting.'})
+                        socketio_disconnect()
+                        return None
+                if current_app.config.get('SOCKETIO_LOG_RATE_LIMIT_EXCEEDED', False):
+                    current_app.logger.warning(f'Rate limit exceeded for {client_id}')
+                emit('error', {'message': 'Rate limit exceeded'})
+                return None
+                
+            return f(*args, **kwargs)
+        return func
+    return wrapper
 
 
 def player1_started_leg(leg):

@@ -3,13 +3,14 @@ from flask_socketio import emit, join_room
 from flask_login import current_user
 from lidarts import socketio, db
 from lidarts.models import User, Chatmessage, Privatemessage, Notification, Game, CricketGame, ChatmessageIngame, UserStatistic, UserSettings
-from lidarts.socket.utils import authenticated_only, broadcast_online_players, send_notification
+from lidarts.socket.utils import authenticated_only, broadcast_online_players, limit_socketio, send_notification
 from lidarts.utils.linker import linker
 from datetime import datetime
 import bleach
 
 
 @socketio.on('connect', namespace='/chat')
+@limit_socketio()
 @authenticated_only
 def connect_chat():
     # print('Client connected', request.sid)
@@ -18,6 +19,7 @@ def connect_chat():
 
 
 @socketio.on('init', namespace='/chat')
+@limit_socketio()
 @authenticated_only
 def init(message):
     room = message['hashid'] if 'hashid' in message else 'public_chat'
@@ -26,6 +28,7 @@ def init(message):
 
 
 @socketio.on('broadcast_chat_message', namespace='/chat')
+@limit_socketio()
 @authenticated_only
 def broadcast_chat_message(message):
     room = message['hashid'] if 'hashid' in message else 'public_chat'
@@ -74,6 +77,7 @@ def broadcast_chat_message(message):
 
 
 @socketio.on('connect', namespace='/private_messages')
+@limit_socketio()
 @authenticated_only
 def connect_private_messages():
     # print('Client connected', request.sid)
@@ -82,6 +86,7 @@ def connect_private_messages():
 
 
 @socketio.on('init', namespace='/game_chat')
+@limit_socketio()
 @authenticated_only
 def init(message):
     game = Game.query.filter_by(hashid=message['hashid']).first()
@@ -91,6 +96,7 @@ def init(message):
 
 
 @socketio.on('broadcast_game_chat_message', namespace='/game_chat')
+@limit_socketio()
 @authenticated_only
 def send_game_chat_message(message):
     if 'message' not in message or 'user_id' not in message or 'hash_id' not in message:
@@ -111,6 +117,7 @@ def send_game_chat_message(message):
 
 
 @socketio.on('broadcast_private_message', namespace='/private_messages')
+@limit_socketio()
 @authenticated_only
 def send_private_message(message):
     message['message'] = bleach.clean(message['message'])

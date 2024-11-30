@@ -36,6 +36,8 @@ from sqlalchemy import MetaData
 from redis import Redis, StrictRedis
 import rq
 
+from werkzeug.middleware.proxy_fix import ProxyFix
+
 # disable false positive pylint warning - https://github.com/PyCQA/pylint/issues/414
 class JSONEncoder(BaseEncoder):
     def default(self, o):  # pylint: disable=E0202
@@ -140,6 +142,9 @@ def create_app(test_config=None):
     app.json_encoder = JSONEncoder
     # Fixes bug: url_for generates http endpoints instead of https which causes mixed-content-errors
     app.wsgi_app = ReverseProxied(app.wsgi_app)
+
+    # Add middleware to get real client IPs in Socketio
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
     # filter for jinja
     app.jinja_env.filters['datetime'] = format_datetime

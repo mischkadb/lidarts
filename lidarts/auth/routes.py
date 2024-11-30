@@ -1,5 +1,5 @@
 from flask import render_template, flash
-from flask_login import current_user
+from flask_login import current_user, login_required
 from flask_babelex import lazy_gettext
 from lidarts import db
 from lidarts.auth import bp
@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 
 
 @bp.route('/change_username', methods=['GET', 'POST'])
+@login_required
 def change_username():
     # logged in users do not need the index page
     form = ChangeUsernameForm()

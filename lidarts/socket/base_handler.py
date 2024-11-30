@@ -3,18 +3,19 @@ from lidarts import socketio, db
 from flask import current_app
 from flask_login import current_user
 from flask_socketio import  emit, join_room
-from lidarts.socket.utils import authenticated_only, send_notification
+from lidarts.socket.utils import authenticated_only, limit_socketio, send_notification
 from lidarts.models import Notification,  UserSettings
 
 
 @socketio.on('*')
-def catch_all(event, data):
-    catch_all = current_app.config['SOCKETIO_LOG_CATCH_ALL'] if 'SOCKETIO_LOG_CATCH_ALL' in current_app.config else False
+def catch_all_events(event, data):
+    catch_all = current_app.config.get('SOCKETIO_LOG_CATCH_ALL', False)
     if catch_all:
         print(event, data)
 
 
 @socketio.on('connect', namespace='/base')
+@limit_socketio()
 @authenticated_only
 def connect_client():
     # current_user.ping()
@@ -29,6 +30,7 @@ def connect_client():
 
 
 @socketio.on('init', namespace='/base')
+@limit_socketio()
 @authenticated_only
 def init(message):
     user_id = message['user_id']
@@ -48,6 +50,7 @@ def init(message):
 
 
 @socketio.on('user_heartbeat', namespace='/base')
+@limit_socketio()
 @authenticated_only
 def heartbeat(message):
     user_id = current_user.id

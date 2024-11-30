@@ -4,7 +4,7 @@ from flask_login import current_user
 from lidarts import socketio, db
 from lidarts.game.checkout_suggestions import checkout_suggestions
 from lidarts.models import Game
-from lidarts.socket.utils import authenticated_only, process_score, current_turn_user_id, process_closest_to_bull
+from lidarts.socket.utils import authenticated_only, limit_socketio, process_score, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.computer import get_computer_score
 import json
 from datetime import datetime
@@ -205,12 +205,14 @@ def create_rematch(hashid):
 
 
 @socketio.on('connect', namespace='/game')
+@limit_socketio()
 def connect():
     # print('Client connected', request.sid)
     pass
 
 
 @socketio.on('player_heartbeat', namespace='/game')
+@limit_socketio()
 @authenticated_only
 def player_heartbeat(message):
     user_id = current_user.id
@@ -221,6 +223,7 @@ def player_heartbeat(message):
 
 
 @socketio.on('init', namespace='/game')
+@limit_socketio()
 def init(message):
     game = Game.query.filter_by(hashid=message['hashid']).first()
     join_room(message['hashid'])
@@ -236,11 +239,13 @@ def init(message):
 
 
 @socketio.on('listen_new_games', namespace='/game')
+@limit_socketio()
 def init(message):
     join_room('new_games')
 
 
 @socketio.on('init_waiting', namespace='/game')
+@limit_socketio()
 def init_waiting(message):
     game = Game.query.filter_by(hashid=message['hashid']).first()
     if not game:
@@ -249,17 +254,20 @@ def init_waiting(message):
 
 
 @socketio.on('start_game', namespace='/game')
+@limit_socketio()
 def start_game(hashid):
     emit('start_game', room=hashid, broadcast=True, namespace='/game')
 
 
 @socketio.on('send_rematch_offer', namespace='/game')
+@limit_socketio()
 @authenticated_only
 def send_rematch_offer(message):
     emit('rematch_offer', room=message['hashid'], namespace='/game')
 
 
 @socketio.on('accept_rematch_offer', namespace='/game')
+@limit_socketio()
 @authenticated_only
 def accept_rematch_offer(message):
     hashid = create_rematch(message['hashid'])
@@ -268,6 +276,7 @@ def accept_rematch_offer(message):
 
 
 @socketio.on('send_score', namespace='/game')
+@limit_socketio()
 @authenticated_only
 def send_score(message):
     hashid = message['hashid']
@@ -448,6 +457,7 @@ def send_score(message):
 
 
 @socketio.on('get_score_after_leg_win', namespace='/game')
+@limit_socketio()
 def get_score_after_leg_win(message):
     if not message['hashid']:
         return
@@ -460,6 +470,7 @@ def get_score_after_leg_win(message):
 
 
 @socketio.on('undo_request_remaining_score', namespace='/game')
+@limit_socketio()
 @authenticated_only
 def undo_get_remaining_score(message):
     if not message['hashid']:
