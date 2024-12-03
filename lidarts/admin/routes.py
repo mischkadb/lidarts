@@ -8,11 +8,6 @@ from lidarts.tournament.forms import ConfirmStreamGameForm
 from sqlalchemy import desc
 
 
-@bp.route('/admin/panel', methods=['GET'])
-def admin_panel():
-    pass
-
-
 @bp.route('/<api_key>/game/stream-games', methods=['GET', 'POST'])
 @bp.route('/<api_key>/game/stream-games/<tournament_hashid>', methods=['GET', 'POST'])
 @login_required

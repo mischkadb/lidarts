@@ -196,7 +196,7 @@ class ChatmessageIngame(db.Model):
     __tablename__ = 'chatmessages_ingame'
     id = db.Column(db.Integer, primary_key=True)
     game_hashid = db.Column(db.String(10), index=True)
-    author = db.Column(db.Integer, db.ForeignKey('users.id'))
+    author = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     message = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime)
 
@@ -204,8 +204,8 @@ class ChatmessageIngame(db.Model):
 class Privatemessage(db.Model):
     __tablename__ = 'privatemessages'
     id = db.Column(db.Integer, primary_key=True)
-    sender = db.Column(db.Integer, db.ForeignKey('users.id'))
-    receiver = db.Column(db.Integer, db.ForeignKey('users.id'))
+    sender = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+    receiver = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     message = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime)
 
@@ -326,7 +326,7 @@ class UsernameChange(db.Model):
 class Tournament(db.Model):
     __tablename__ = 'tournaments'
     id = db.Column(db.Integer, primary_key=True)
-    creator = db.Column(db.Integer, db.ForeignKey('users.id'))
+    creator = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     hashid = db.Column(db.String(10), unique=True)
     name = db.Column(db.String(50), nullable=False)
     public = db.Column(db.Boolean, default=False)
@@ -364,7 +364,7 @@ class Tournament(db.Model):
 class TournamentStage(db.Model):
     __tablename__ = 'tournament_stages'
     id = db.Column(db.Integer, primary_key=True)
-    tournament_id = db.Column(db.Integer, db.ForeignKey('tournaments.id'))
+    tournament_id = db.Column(db.Integer, db.ForeignKey('tournaments.id'), index=True)
     tournament = db.relationship("Tournament", back_populates="stages")
     format = db.Column(db.String(20), nullable=False)
     rounds = db.relationship("TournamentStageRound", back_populates="stage")
