@@ -6,6 +6,8 @@
                     <div class="card-body outer-scoreboard-body">
                         <div class="card bg-secondary text-center mb-1 p1_turn_name_card" id="p1_turn_name_card">
                             <div class="card-body scoreboard-name-body">
+                                {% if game.player1_country %}<img src="{{ url_for('static', filename='img/flags/') }}{{ game.player1_country }}.png" style="margin-right: 5px" class="
+                                {% if game.player1_country != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
                                 <h3>{{ game.player1_name }}</h3>
                             </div>
                         </div>
@@ -36,6 +38,8 @@
                     <div class="card-body outer-scoreboard-body">
                         <div class="card bg-secondary text-center text-light mb-1 p2_turn_name_card" id="p2_turn_name_card">
                             <div class="card-body scoreboard-name-body">
+                                {% if game.player2_country %}<img src="{{ url_for('static', filename='img/flags/') }}{{ game.player2_country }}.png" style="margin-right: 5px" class="
+                                {% if game.player2_country != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
                                 <h3>{{ game.player2_name }}</h3>
                             </div>
                         </div>

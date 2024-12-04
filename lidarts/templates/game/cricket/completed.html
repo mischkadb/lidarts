@@ -37,13 +37,13 @@
                                 <div class="card bg-dark">
                                     <div class="card-body player_name_card">
                                         <h1 class="d-none d-md-block">
-                                            {% if countries[0] %}<img src="{{ url_for('static', filename='img/flags/') }}{{ countries[0] }}.png" style="margin-right: 5px" class="
-                                            {% if countries[0] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            {% if game.player1_country %}<img src="{{ url_for('static', filename='img/flags/') }}{{ game.player1_country }}.png" style="margin-right: 5px" class="
+                                            {% if game.player1_country != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
                                             <a href="{{ url_for('profile.overview', username= game.player1_name) }}" class="text-light">{{ game.player1_name }}</a>
                                         </h1>
                                         <h3 class="d-block d-md-none">
-                                            {% if countries[0] %}<img src="{{ url_for('static', filename='img/flags/') }}{{ countries[0] }}.png" style="margin-right: 5px" class="
-                                            {% if countries[0] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            {% if game.player1_country %}<img src="{{ url_for('static', filename='img/flags/') }}{{ game.player1_country }}.png" style="margin-right: 5px" class="
+                                            {% if game.player1_country != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
                                             <a href="{{ url_for('profile.overview', username= game.player1_name) }}" class="text-light">{{ game.player1_name }}</a>
                                         </h3>
                                     </div>
@@ -60,8 +60,8 @@
                                 <div class="card bg-dark">
                                     <div class="card-body player_name_card">
                                         <h1 class="d-none d-md-block">
-                                            {% if countries[1] %}<img src="{{ url_for('static', filename='img/flags/') }}{{ countries[1] }}.png" style="margin-right: 5px" class="
-                                            {% if countries[1] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            {% if game.player2_country %}<img src="{{ url_for('static', filename='img/flags/') }}{{ game.player2_country }}.png" style="margin-right: 5px" class="
+                                            {% if game.player2_country != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
                                             {% if game.player2 and game.player1 != game.player2 -%}
                                             <a href="{{ url_for('profile.overview', username= game.player2_name) }}" class="text-light">
                                             {% endif -%}
@@ -71,8 +71,8 @@
                                             {% endif -%}                                            
                                         </h1>
                                         <h3 class="d-block d-md-none">
-                                            {% if countries[1] %}<img src="{{ url_for('static', filename='img/flags/') }}{{ countries[1] }}.png" style="margin-right: 5px" class="
-                                            {% if countries[1] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
+                                            {% if game.player2_country %}<img src="{{ url_for('static', filename='img/flags/') }}{{ game.player2_country }}.png" style="margin-right: 5px" class="
+                                            {% if game.player2_country != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
                                             {% if game.player2 and game.player1 != game.player2 -%}
                                             <a href="{{ url_for('profile.overview', username= game.player2_name) }}" class="text-light">
                                             {% endif -%}
