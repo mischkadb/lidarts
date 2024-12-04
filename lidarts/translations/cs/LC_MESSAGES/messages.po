@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-02-24 13:59+0100\n"
-"PO-Revision-Date: 2022-02-24 13:07\n"
+"POT-Creation-Date: 2024-12-04 11:33+0100\n"
+"PO-Revision-Date: 2024-12-04 10:43\n"
 "Last-Translator: \n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.16.0\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 3;\n"
 "X-Crowdin-Project: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "X-Crowdin-Project-ID: 8\n"
@@ -24,7 +24,7 @@ msgstr "Hra byla vybrána jako hra ke streamovaní."
 
 #: admin/routes.py:80 templates/admin/stream.html:11
 msgid "Streaming"
-msgstr ""
+msgstr "Streamování"
 
 #: auth/forms.py:21
 msgid "Password must have at least 8 characters"
@@ -74,15 +74,15 @@ msgstr "Uživatelské jméno nebo e-mailová adresa"
 msgid "Accept"
 msgstr "Přijmout"
 
-#: auth/routes.py:19 auth/routes.py:31 auth/routes.py:44
+#: auth/routes.py:20 auth/routes.py:32 auth/routes.py:45
 msgid "Change username"
 msgstr "Změnit uživatelské jméno"
 
-#: auth/routes.py:30
+#: auth/routes.py:31
 msgid "You can only change your username once per month. You need to wait until: "
 msgstr "Své uživatelské jméno můžete změnit pouze jednou za měsíc. Počkejte do: "
 
-#: auth/routes.py:33
+#: auth/routes.py:34
 msgid "Username changed."
 msgstr "Uživatelské jméno bylo změněno."
 
@@ -94,7 +94,7 @@ msgstr "Lokální"
 msgid "Me"
 msgstr "Já"
 
-#: game/forms.py:9 game/forms.py:41 statistics/forms.py:28
+#: game/forms.py:9 game/forms.py:42 statistics/forms.py:28
 msgid "Opponent"
 msgstr "Soupeř"
 
@@ -127,107 +127,119 @@ msgid "Two Clear Legs"
 msgstr "Rozdíl 2 legů"
 
 #: game/forms.py:40
+msgid "World Championship Mode"
+msgstr ""
+
+#: game/forms.py:41
 msgid "First to throw"
 msgstr "Kdo začína"
 
-#: game/forms.py:42 statistics/forms.py:32
+#: game/forms.py:43 statistics/forms.py:32
 msgid "Opponent name"
 msgstr "Jméno soupeře"
 
-#: game/forms.py:43 statistics/forms.py:30
+#: game/forms.py:44 statistics/forms.py:30
 msgid "Level"
 msgstr "Úroveň"
 
-#: game/forms.py:44
+#: game/forms.py:45
 msgid "Public challenge"
 msgstr "Veřejná výzva"
 
-#: game/forms.py:45 templates/game/cricket/completed.html:149
+#: game/forms.py:46 templates/game/cricket/completed.html:149
 #: templates/game/x01/completed.html:151
 #: templates/game/x01/scoreboard_normal.html:37
 #: templates/profile/game_history.html:38 templates/profile/overview.html:82
 msgid "Webcam game"
 msgstr "Hrát přes webovou kameru"
 
-#: game/forms.py:46
+#: game/forms.py:47
 msgid "Score input block"
 msgstr "Blokování při zadávání skóre"
 
-#: game/forms.py:47 tournament/forms.py:38
+#: game/forms.py:48 tournament/forms.py:38
 msgid "Save settings"
 msgstr "Uložit nastavení"
 
-#: game/forms.py:48
+#: game/forms.py:49
 msgid "Tournament"
 msgstr "Turnaj"
 
-#: game/forms.py:49
+#: game/forms.py:50
 msgid "Start game"
 msgstr "Začít hru"
 
-#: game/forms.py:53 statistics/forms.py:27
+#: game/forms.py:54 statistics/forms.py:27
 msgid "Game type"
 msgstr "Typ hry"
 
-#: game/forms.py:54 statistics/forms.py:33
+#: game/forms.py:55 statistics/forms.py:33
 msgid "Mode In"
 msgstr "Otevření hry"
 
-#: game/forms.py:55 statistics/forms.py:34
+#: game/forms.py:56 statistics/forms.py:34
 msgid "Mode Out"
 msgstr "Zavření hry"
 
-#: game/forms.py:64 generic/forms.py:9
+#: game/forms.py:65 generic/forms.py:9
 msgid "Submit message"
 msgstr "Odeslat zprávu"
 
-#: game/forms.py:68
+#: game/forms.py:69
 msgid "I have read the text above, understand the limitations and have a webcam setup to play."
 msgstr "Přečetl jsem si výše uvedený text, chápu omezení a mám nastavenou webovou kameru pro hraní."
 
-#: game/forms.py:69
+#: game/forms.py:70
 msgid "(Optional) I allow my opponents to stream and record our game including my webcam video and audio."
 msgstr "(Volitelné) Dovolím svým soupeřům streamovat a nahrávat naši hru včetně videa a zvuku z mé webové kamery."
 
-#: game/forms.py:70 templates/game/cricket/stream_overlay.html:428
-#: templates/game/modals.html:51 templates/game/x01/stream_overlay.html:410
+#: game/forms.py:71 templates/game/cricket/stream_overlay.html:524
+#: templates/game/modals.html:51 templates/game/x01/stream_overlay.html:479
 msgid "Confirm"
 msgstr "Potvrdit"
 
-#: game/routes.py:50
-msgid "Public challenges must be created without an opponent name."
-msgstr "Veřejné výzvy musí být vytvořeny bez jména soupeře."
+#: game/routes.py:48
+msgid "You have too many active games. Please finish some games before creating new ones."
+msgstr ""
 
-#: game/routes.py:52 game/routes.py:65 game/routes.py:86 game/routes.py:171
-#: templates/game/create_game.html:9
+#: game/routes.py:50 game/routes.py:61 game/routes.py:74 game/routes.py:95
+#: game/routes.py:185 templates/game/create_game.html:9
 msgid "Create Game"
 msgstr "Vytvořit hru"
 
-#: game/routes.py:63
+#: game/routes.py:59
+msgid "Public challenges must be created without an opponent name."
+msgstr "Veřejné výzvy musí být vytvořeny bez jména soupeře."
+
+#: game/routes.py:72
 msgid "Player does not allow challenges"
 msgstr "Hráč nepovoluje výzvy"
 
-#: game/routes.py:67
+#: game/routes.py:76
 msgid "New challenge"
 msgstr "Nová výzva"
 
-#: game/routes.py:84
+#: game/routes.py:93
 msgid "Player 2 does not have webcam games enabled."
 msgstr "Druhý hráč nemá aktivovanou hru přes webovou kameru."
 
-#: game/routes.py:226 game/routes.py:234
+#: game/routes.py:200 game/routes.py:216
+msgid "Not found"
+msgstr ""
+
+#: game/routes.py:265 game/routes.py:273
 msgid "Waiting..."
 msgstr "Čekejte..."
 
-#: game/routes.py:267
+#: game/routes.py:306
 msgid "Match overview"
 msgstr "Přehled hry"
 
-#: game/routes.py:304
+#: game/routes.py:343
 msgid "Stream overlay"
 msgstr "Stream overlay"
 
-#: game/routes.py:306
+#: game/routes.py:345
 msgid "Live Match"
 msgstr "Zápas živě"
 
@@ -251,14 +263,14 @@ msgstr "Vyhledat"
 msgid "Live Games"
 msgstr "Hry živě"
 
-#: generic/routes.py:180 templates/base.html:55
+#: generic/routes.py:180 templates/base.html:61
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:251 templates/base.html:59
-#: templates/game/cricket/stream_overlay.html:136
-#: templates/game/x01/game.html:98 templates/game/x01/stream_overlay.html:107
-#: templates/game/x01/webcam.html:111
+#: generic/routes.py:251 templates/base.html:69
+#: templates/game/cricket/stream_overlay.html:186
+#: templates/game/x01/game.html:116 templates/game/x01/stream_overlay.html:128
+#: templates/game/x01/webcam.html:129
 msgid "Chat"
 msgstr "Chat"
 
@@ -342,7 +354,7 @@ msgstr "Zobrazit zadávání skóre jen na hlavním zařízení"
 
 #: profile/forms.py:109
 msgid "Use public Jitsi server"
-msgstr ""
+msgstr "Používat veřejný Jitsi server"
 
 #: profile/forms.py:115
 msgid "Channel ID"
@@ -350,17 +362,17 @@ msgstr "ID kanálu"
 
 #: profile/forms.py:120
 msgid "Enter Password"
-msgstr ""
+msgstr "Zadejte heslo"
 
 #: profile/forms.py:121
 msgid "Close account permanently"
-msgstr ""
+msgstr "Trvale zrušit účet"
 
 #: profile/routes.py:51
 msgid "Match History"
 msgstr "Historie zápasu"
 
-#: profile/routes.py:132 templates/base.html:102
+#: profile/routes.py:132 templates/base.html:124
 msgid "Profile"
 msgstr "Profil"
 
@@ -426,12 +438,12 @@ msgstr "Nastavení livestreamu"
 
 #: profile/routes.py:394
 msgid "Wrong password"
-msgstr ""
+msgstr "Změnit heslo"
 
 #: profile/routes.py:396 templates/profile/close_account.html:13
 #: templates/profile/settings.html:19
 msgid "Close account"
-msgstr ""
+msgstr "Zrušit účet"
 
 #: statistics/forms.py:9 statistics/forms.py:12
 msgid "All"
@@ -461,94 +473,95 @@ msgstr "Filtrovat"
 msgid "Apply"
 msgstr "Použít"
 
-#: templates/base.html:51
+#: templates/base.html:55
 msgid "Home"
 msgstr "Domů"
 
-#: templates/base.html:52 templates/base.html:57 templates/generic/chat.html:44
+#: templates/base.html:58 templates/base.html:66 templates/generic/chat.html:44
 msgid "Watch"
 msgstr "Živě"
 
-#: templates/base.html:53 templates/base.html:60
+#: templates/base.html:59 templates/base.html:71
 msgid "Statistics"
 msgstr "Statistiky"
 
-#: templates/base.html:56 templates/generic/lobby.html:41
+#: templates/base.html:63 templates/generic/lobby.html:44
 msgid "Play"
 msgstr "Hrát"
 
-#: templates/base.html:58 tournament/routes.py:87
+#: templates/base.html:68 tournament/routes.py:87
 msgid "Tournaments"
 msgstr "Turnaje"
 
-#: templates/base.html:75
-msgid "No new notifications"
-msgstr "Žádné nové notifikace"
+#: templates/base.html:87
+msgid "No new\n"
+"                                    notifications"
+msgstr ""
 
-#: templates/base.html:84 templates/security/login_user.html:9
+#: templates/base.html:98 templates/security/login_user.html:9
 #: templates/security/login_user.html:18
 #: templates/security/register_user.html:29
 msgid "Sign In"
 msgstr "Přihlásit se"
 
-#: templates/base.html:85 templates/security/register_user.html:10
+#: templates/base.html:100 templates/security/register_user.html:10
 #: templates/security/register_user.html:22
 msgid "Register"
 msgstr "Registrovat se"
 
-#: templates/base.html:88
+#: templates/base.html:104
 msgid "Inbox"
 msgstr "Doručená pošta"
 
-#: templates/base.html:94
+#: templates/base.html:112
 msgid "Status"
 msgstr "Status"
 
-#: templates/base.html:97
+#: templates/base.html:117
 msgid "Looking for Game"
 msgstr "Chci hrát"
 
-#: templates/base.html:98
+#: templates/base.html:119
 msgid "Busy"
 msgstr "Zaneprázdněný"
 
-#: templates/base.html:103
+#: templates/base.html:127
 msgid "Logout"
 msgstr "Odhlásit se"
 
-#: templates/base.html:136
+#: templates/base.html:161
 msgid "About"
 msgstr "O nás"
 
-#: templates/base.html:137 templates/generic/contact.html:10
+#: templates/base.html:162 templates/generic/contact.html:10
 msgid "Contact"
 msgstr "Kontakt"
 
-#: templates/base.html:138
+#: templates/base.html:163
 msgid "FAQ"
 msgstr "Nejčastější dotazy"
 
-#: templates/base.html:139
+#: templates/base.html:164
 msgid "Contribute"
 msgstr "Pomozte nám"
 
-#: templates/base.html:140
+#: templates/base.html:165
 msgid "Changelog"
 msgstr "Historie změn"
 
-#: templates/base.html:141
+#: templates/base.html:166
 msgid "Source Code"
 msgstr "Zdrojový kód"
 
-#: templates/base.html:142
+#: templates/base.html:167
 msgid "Privacy"
 msgstr "Ochrana osobních údajů"
 
-#: templates/base.html:143
+#: templates/base.html:168
 msgid "Terms & Conditions"
 msgstr "Obchodní podmínky"
 
-#: templates/base.html:145
+#: templates/base.html:171
 msgid "Legal notice"
 msgstr "Právní ujednání"
 
@@ -573,73 +586,78 @@ msgstr "Momentálně žádné streamovatelné hry."
 msgid "Game Mode"
 msgstr "Typ hry"
 
-#: templates/game/create_game.html:98
-msgid "You have to activate webcam games first."
-msgstr "Nejdříve musíte aktivovat hru přes webovou kameru."
+#: templates/game/create_game.html:105
+msgid "Two-clear-legs only in the final set. Sudden death at 5:5 legs."
+msgstr ""
 
-#: templates/game/create_game.html:129
+#: templates/game/create_game.html:117
+msgid "You have to activate webcam games\n"
+"                            first."
+msgstr ""
+
+#: templates/game/create_game.html:150
 msgid "Blocks score input after new score. In seconds."
 msgstr "Zpoždění při zadávání skóre mezi každým kolem v sekundách."
 
-#: templates/game/cricket/navbar.html:10
-#: templates/game/cricket/stream_overlay.html:7
-#: templates/game/game_navbar.html:10 templates/game/x01/stream_overlay.html:7
+#: templates/game/cricket/navbar.html:11
+#: templates/game/cricket/stream_overlay.html:8
+#: templates/game/game_navbar.html:11 templates/game/x01/stream_overlay.html:8
 msgid "Leave game"
 msgstr "Opustit hru"
 
-#: templates/game/cricket/navbar.html:12
-#: templates/game/cricket/stream_overlay.html:8
-#: templates/game/game_navbar.html:12 templates/game/x01/stream_overlay.html:8
+#: templates/game/cricket/navbar.html:13
+#: templates/game/cricket/stream_overlay.html:9
+#: templates/game/game_navbar.html:13 templates/game/x01/stream_overlay.html:9
 msgid "Abort game"
 msgstr "Zrušit hru"
 
-#: templates/game/cricket/stream_overlay.html:9
-#: templates/game/game_navbar.html:13 templates/game/x01/stream_overlay.html:9
+#: templates/game/cricket/stream_overlay.html:10
+#: templates/game/game_navbar.html:14 templates/game/x01/stream_overlay.html:10
 msgid "Toggle Keypad visibility"
 msgstr "Přepnout viditelnost klávesnice"
 
-#: templates/game/cricket/stream_overlay.html:10
-#: templates/game/game_navbar.html:14 templates/game/x01/stream_overlay.html:10
+#: templates/game/cricket/stream_overlay.html:11
+#: templates/game/game_navbar.html:15 templates/game/x01/stream_overlay.html:11
 msgid "Change keypad position"
 msgstr "Změnit pozici klávesnice"
 
-#: templates/game/cricket/navbar.html:14
-#: templates/game/cricket/stream_overlay.html:11
-#: templates/game/game_navbar.html:16 templates/game/x01/stream_overlay.html:11
+#: templates/game/cricket/navbar.html:15
+#: templates/game/cricket/stream_overlay.html:12
+#: templates/game/game_navbar.html:17 templates/game/x01/stream_overlay.html:12
 msgid "Toggle statistics"
 msgstr "Přepnout viditelnost statistik"
 
-#: templates/game/cricket/navbar.html:16
-#: templates/game/cricket/stream_overlay.html:12
-#: templates/game/game_navbar.html:18 templates/game/x01/stream_overlay.html:12
+#: templates/game/cricket/navbar.html:17
+#: templates/game/cricket/stream_overlay.html:13
+#: templates/game/game_navbar.html:19 templates/game/x01/stream_overlay.html:13
 msgid "Normal theme"
 msgstr "Normální pohled"
 
-#: templates/game/cricket/navbar.html:18 templates/game/game_navbar.html:20
+#: templates/game/cricket/navbar.html:21 templates/game/game_navbar.html:23
 msgid "Streamoverlay"
 msgstr "Televizní pohled"
 
-#: templates/game/cricket/navbar.html:20
-#: templates/game/cricket/stream_overlay.html:13
-#: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
+#: templates/game/cricket/navbar.html:25
+#: templates/game/cricket/stream_overlay.html:14
+#: templates/game/game_navbar.html:26 templates/game/x01/stream_overlay.html:14
 msgid "Mute caller"
 msgstr "Ztlumit hlasatele"
 
-#: templates/game/cricket/navbar.html:20
-#: templates/game/cricket/stream_overlay.html:13
-#: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
+#: templates/game/cricket/navbar.html:28
+#: templates/game/cricket/stream_overlay.html:15
+#: templates/game/game_navbar.html:29 templates/game/x01/stream_overlay.html:15
 msgid "Unmute caller"
 msgstr "Odtlumit hlasatele"
 
-#: templates/game/cricket/navbar.html:21 templates/game/game_navbar.html:23
+#: templates/game/cricket/navbar.html:29 templates/game/game_navbar.html:30
 msgid "Activate Sound (Apple)"
 msgstr "Aktivovat zvuk (Apple)"
 
-#: templates/game/cricket/navbar.html:23 templates/game/game_navbar.html:25
+#: templates/game/cricket/navbar.html:34 templates/game/game_navbar.html:35
 msgid "Summon webcam"
 msgstr "Připojit webkameru"
 
-#: templates/game/cricket/navbar.html:26 templates/game/game_navbar.html:28
+#: templates/game/cricket/navbar.html:38 templates/game/game_navbar.html:39
 msgid "At least one player does not allow streaming."
 msgstr "Jeden z hráčů nedovoluje streamování."
 
@@ -647,23 +665,23 @@ msgstr "Jeden z hráčů nedovoluje streamování."
 msgid "Check dart:"
 msgstr "Zkontrolovat šipku:"
 
-#: templates/game/cricket/stream_overlay.html:402 templates/game/modals.html:25
-#: templates/game/x01/stream_overlay.html:384
+#: templates/game/cricket/stream_overlay.html:492 templates/game/modals.html:25
+#: templates/game/x01/stream_overlay.html:445
 msgid "How many darts missed at double?"
 msgstr "Kolik šipek jste netrefili při zavírání?"
 
-#: templates/game/cricket/stream_overlay.html:415 templates/game/modals.html:38
-#: templates/game/x01/stream_overlay.html:397
+#: templates/game/cricket/stream_overlay.html:510 templates/game/modals.html:38
+#: templates/game/x01/stream_overlay.html:463
 msgid "How many darts to finish?"
 msgstr "Na kolik šipek jste zavřeli?"
 
-#: templates/game/cricket/stream_overlay.html:427 templates/game/modals.html:50
-#: templates/game/x01/stream_overlay.html:409
+#: templates/game/cricket/stream_overlay.html:523 templates/game/modals.html:50
+#: templates/game/x01/stream_overlay.html:477
 msgid "Abort game?"
 msgstr "Zrušit hru?"
 
-#: templates/game/cricket/stream_overlay.html:429 templates/game/modals.html:52
-#: templates/game/x01/stream_overlay.html:411
+#: templates/game/cricket/stream_overlay.html:526 templates/game/modals.html:52
+#: templates/game/x01/stream_overlay.html:481
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -735,12 +753,12 @@ msgid "We need feedback in order to improve webcam play in the future. We encour
 msgstr "Potřebujeme zpětnou vazbu, abychom mohli v budoucnu vylepšit hru přes webkameru. Vyzýváme vás poslat vaše zkušenosti e-mailem na contact@lidarts.org"
 
 #: templates/game/cricket/completed.html:12
-#: templates/game/cricket/game.html:147 templates/game/cricket/game.html:168
-#: templates/game/cricket/stream_overlay.html:114
-#: templates/game/cricket/watch_webcam.html:159
-#: templates/game/cricket/webcam.html:171 templates/game/x01/completed.html:14
-#: templates/game/x01/game.html:76 templates/game/x01/stream_overlay.html:85
-#: templates/game/x01/watch_webcam.html:81 templates/game/x01/webcam.html:92
+#: templates/game/cricket/game.html:164 templates/game/cricket/game.html:187
+#: templates/game/cricket/stream_overlay.html:153
+#: templates/game/cricket/watch_webcam.html:180
+#: templates/game/cricket/webcam.html:195 templates/game/x01/completed.html:14
+#: templates/game/x01/game.html:83 templates/game/x01/stream_overlay.html:95
+#: templates/game/x01/watch_webcam.html:87 templates/game/x01/webcam.html:99
 msgid "Game was aborted."
 msgstr "Hra byla zrušena."
 
@@ -784,115 +802,124 @@ msgstr " Hra přes webovou kameru"
 msgid "Mark distribution - absolute (%% of total)"
 msgstr "Distribuce bodů - absolutní (%% z celkového počtu)"
 
-#: templates/game/cricket/game.html:14
-#: templates/game/cricket/stream_overlay.html:57
-#: templates/game/cricket/watch_webcam.html:27
-#: templates/game/cricket/webcam.html:28 templates/game/x01/game.html:19
-#: templates/game/x01/stream_overlay.html:24
-#: templates/game/x01/watch_webcam.html:27 templates/game/x01/webcam.html:28
+#: templates/game/cricket/game.html:15
+#: templates/game/cricket/stream_overlay.html:92
+#: templates/game/cricket/watch_webcam.html:28
+#: templates/game/cricket/webcam.html:29 templates/game/x01/game.html:20
+#: templates/game/x01/stream_overlay.html:26
+#: templates/game/x01/watch_webcam.html:28 templates/game/x01/webcam.html:29
 msgid "Closest to bull begins. Please throw three darts at bull."
 msgstr "Nejbližší ke středu začína. Vhodte tři šipky do středu terče."
 
-#: templates/game/cricket/game.html:15
-#: templates/game/cricket/stream_overlay.html:58
-#: templates/game/cricket/watch_webcam.html:28
-#: templates/game/cricket/webcam.html:29 templates/game/x01/game.html:20
-#: templates/game/x01/stream_overlay.html:25
-#: templates/game/x01/watch_webcam.html:28 templates/game/x01/webcam.html:29
+#: templates/game/cricket/game.html:16
+#: templates/game/cricket/stream_overlay.html:93
+#: templates/game/cricket/watch_webcam.html:29
+#: templates/game/cricket/webcam.html:30 templates/game/x01/game.html:21
+#: templates/game/x01/stream_overlay.html:27
+#: templates/game/x01/watch_webcam.html:29 templates/game/x01/webcam.html:30
 msgid "Local game. Player 1 throws all three darts first."
 msgstr "Lokální hra. Hráč 1 hodí všechny tři šipky."
 
-#: templates/game/cricket/game.html:132 templates/game/cricket/game.html:154
-#: templates/game/cricket/stream_overlay.html:99
-#: templates/game/cricket/stream_overlay.html:195
-#: templates/game/cricket/watch_webcam.html:154
-#: templates/game/cricket/webcam.html:156 templates/game/x01/game.html:61
-#: templates/game/x01/game.html:157 templates/game/x01/stream_overlay.html:70
-#: templates/game/x01/stream_overlay.html:167
-#: templates/game/x01/watch_webcam.html:76 templates/game/x01/webcam.html:77
+#: templates/game/cricket/game.html:147 templates/game/cricket/game.html:172
+#: templates/game/cricket/stream_overlay.html:136
+#: templates/game/cricket/stream_overlay.html:257
+#: templates/game/cricket/watch_webcam.html:174
+#: templates/game/cricket/webcam.html:178 templates/game/x01/game.html:66
+#: templates/game/x01/game.html:187 templates/game/x01/stream_overlay.html:78
+#: templates/game/x01/stream_overlay.html:200
+#: templates/game/x01/watch_webcam.html:81 templates/game/x01/webcam.html:82
 msgid "Game is completed."
 msgstr "Hra je dokončena."
 
-#: templates/game/cricket/game.html:133 templates/game/cricket/game.html:148
-#: templates/game/cricket/game.html:155 templates/game/cricket/game.html:169
-#: templates/game/cricket/stream_overlay.html:100
-#: templates/game/cricket/stream_overlay.html:115
-#: templates/game/cricket/stream_overlay.html:196
-#: templates/game/cricket/watch_webcam.html:155
-#: templates/game/cricket/watch_webcam.html:160
-#: templates/game/cricket/webcam.html:157
-#: templates/game/cricket/webcam.html:172 templates/game/x01/game.html:62
-#: templates/game/x01/game.html:77 templates/game/x01/game.html:158
-#: templates/game/x01/stream_overlay.html:71
-#: templates/game/x01/stream_overlay.html:86
-#: templates/game/x01/stream_overlay.html:168
-#: templates/game/x01/watch_webcam.html:77
-#: templates/game/x01/watch_webcam.html:82 templates/game/x01/webcam.html:78
-#: templates/game/x01/webcam.html:93
+#: templates/game/cricket/game.html:148 templates/game/cricket/game.html:165
+#: templates/game/cricket/game.html:173 templates/game/cricket/game.html:188
+#: templates/game/cricket/stream_overlay.html:137
+#: templates/game/cricket/stream_overlay.html:154
+#: templates/game/cricket/stream_overlay.html:258
+#: templates/game/cricket/watch_webcam.html:175
+#: templates/game/cricket/watch_webcam.html:181
+#: templates/game/cricket/webcam.html:179
+#: templates/game/cricket/webcam.html:196 templates/game/x01/game.html:67
+#: templates/game/x01/game.html:84 templates/game/x01/game.html:188
+#: templates/game/x01/stream_overlay.html:79
+#: templates/game/x01/stream_overlay.html:96
+#: templates/game/x01/stream_overlay.html:201
+#: templates/game/x01/watch_webcam.html:82
+#: templates/game/x01/watch_webcam.html:88 templates/game/x01/webcam.html:83
+#: templates/game/x01/webcam.html:100
 msgid "Game overview"
 msgstr "Přehled hry"
 
-#: templates/game/cricket/game.html:136 templates/game/cricket/game.html:158
-#: templates/game/cricket/stream_overlay.html:103
-#: templates/game/cricket/webcam.html:160 templates/game/x01/game.html:65
-#: templates/game/x01/game.html:161 templates/game/x01/stream_overlay.html:74
-#: templates/game/x01/stream_overlay.html:171 templates/game/x01/webcam.html:81
+#: templates/game/cricket/game.html:151 templates/game/cricket/game.html:176
+#: templates/game/cricket/stream_overlay.html:140
+#: templates/game/cricket/webcam.html:182 templates/game/x01/game.html:70
+#: templates/game/x01/game.html:191 templates/game/x01/stream_overlay.html:82
+#: templates/game/x01/stream_overlay.html:204 templates/game/x01/webcam.html:86
 msgid "Offer rematch"
 msgstr "Nabídnout odvetu"
 
-#: templates/game/cricket/game.html:137 templates/game/cricket/game.html:159
-#: templates/game/cricket/stream_overlay.html:104
-#: templates/game/cricket/webcam.html:161 templates/game/x01/game.html:66
-#: templates/game/x01/game.html:162 templates/game/x01/stream_overlay.html:75
-#: templates/game/x01/stream_overlay.html:172 templates/game/x01/webcam.html:82
+#: templates/game/cricket/game.html:152 templates/game/cricket/game.html:177
+#: templates/game/cricket/stream_overlay.html:141
+#: templates/game/cricket/webcam.html:183 templates/game/x01/game.html:71
+#: templates/game/x01/game.html:192 templates/game/x01/stream_overlay.html:83
+#: templates/game/x01/stream_overlay.html:205 templates/game/x01/webcam.html:87
 msgid "Accept rematch"
 msgstr "Přijmout odvetu"
 
-#: templates/game/cricket/game.html:139 templates/game/cricket/game.html:161
-#: templates/game/cricket/stream_overlay.html:106
-#: templates/game/cricket/webcam.html:163 templates/game/x01/game.html:68
-#: templates/game/x01/game.html:164 templates/game/x01/stream_overlay.html:77
-#: templates/game/x01/stream_overlay.html:174 templates/game/x01/webcam.html:84
+#: templates/game/cricket/game.html:154 templates/game/cricket/game.html:179
+#: templates/game/cricket/stream_overlay.html:143
+#: templates/game/cricket/webcam.html:185 templates/game/x01/game.html:73
+#: templates/game/x01/game.html:194 templates/game/x01/stream_overlay.html:85
+#: templates/game/x01/stream_overlay.html:207 templates/game/x01/webcam.html:89
 msgid "Rematch offer sent"
 msgstr "Nabídka odvety odeslána"
 
-#: templates/game/cricket/game.html:142 templates/game/cricket/game.html:164
-#: templates/game/cricket/stream_overlay.html:109
-#: templates/game/cricket/webcam.html:166 templates/game/x01/game.html:71
-#: templates/game/x01/game.html:167 templates/game/x01/stream_overlay.html:80
-#: templates/game/x01/stream_overlay.html:177 templates/game/x01/webcam.html:87
+#: templates/game/cricket/game.html:157 templates/game/cricket/game.html:182
+#: templates/game/cricket/stream_overlay.html:146
+#: templates/game/x01/game.html:76 templates/game/x01/game.html:197
+#: templates/game/x01/stream_overlay.html:88
+#: templates/game/x01/stream_overlay.html:210
 #: templates/tournament/settings.html:68
 msgid "Back to tournament"
 msgstr "Zpět na turnaj"
 
-#: templates/game/cricket/navbar.html:31
+#: templates/game/cricket/navbar.html:43
 msgid "Toggle chat"
 msgstr "Zapnout/vypnout chat"
 
-#: templates/game/cricket/stream_overlay.html:126
-#: templates/game/cricket/stream_overlay.html:313
-#: templates/game/cricket/watch_webcam.html:139
-#: templates/game/cricket/webcam.html:187 templates/game/x01/game.html:88
-#: templates/game/x01/game.html:182 templates/game/x01/stream_overlay.html:97
-#: templates/game/x01/stream_overlay.html:295
-#: templates/game/x01/webcam.html:104
+#: templates/game/cricket/stream_overlay.html:172
+#: templates/game/cricket/stream_overlay.html:381
+#: templates/game/cricket/watch_webcam.html:158
+#: templates/game/cricket/webcam.html:217 templates/game/x01/game.html:102
+#: templates/game/x01/game.html:216 templates/game/x01/stream_overlay.html:114
+#: templates/game/x01/stream_overlay.html:334
+#: templates/game/x01/webcam.html:118
 msgid "Undo last score"
 msgstr "Opravit poslední skóre"
 
-#: templates/game/cricket/stream_overlay.html:127
-#: templates/game/cricket/stream_overlay.html:314
-#: templates/game/cricket/watch_webcam.html:140
-#: templates/game/cricket/webcam.html:188 templates/game/x01/game.html:89
-#: templates/game/x01/game.html:183 templates/game/x01/stream_overlay.html:98
-#: templates/game/x01/stream_overlay.html:296
-#: templates/game/x01/webcam.html:105
+#: templates/game/cricket/stream_overlay.html:174
+#: templates/game/cricket/stream_overlay.html:383
+#: templates/game/x01/game.html:104 templates/game/x01/game.html:218
+#: templates/game/x01/stream_overlay.html:116
+#: templates/game/x01/stream_overlay.html:336
+msgid "Enter\n"
+"                    correct score"
+msgstr ""
+
+#: templates/game/cricket/stream_overlay.html:182
+#: templates/game/x01/game.html:112 templates/game/x01/stream_overlay.html:124
+msgid "Keypad"
+msgstr "Klávesnice"
+
+#: templates/game/cricket/watch_webcam.html:159
+#: templates/game/cricket/webcam.html:221 templates/game/x01/webcam.html:122
 msgid "Enter correct score"
 msgstr "Zadejte platné skóre"
 
-#: templates/game/cricket/stream_overlay.html:133
-#: templates/game/x01/game.html:95 templates/game/x01/stream_overlay.html:104
-msgid "Keypad"
-msgstr "Klávesnice"
+#: templates/game/cricket/webcam.html:188 templates/game/x01/webcam.html:92
+msgid "Back to\n"
+"                                tournament"
+msgstr ""
 
 #: templates/game/x01/completed.html:180
 #: templates/statistics/x01_detail_element.html:66
@@ -968,7 +995,7 @@ msgstr "DartCall 2007 hlasový balíček vytvořený Horstem Girtewem."
 msgid "Sound effects obtained from"
 msgstr "Zvukové efekty získané z"
 
-#: templates/generic/chat.html:18 templates/generic/lobby.html:64
+#: templates/generic/chat.html:18 templates/generic/lobby.html:67
 msgid "Public challenges"
 msgstr "Veřejné výzvy"
 
@@ -1337,70 +1364,70 @@ msgstr "Zjistit více"
 msgid "Sign Up now"
 msgstr "Zaregistrujte se teď"
 
-#: templates/generic/lobby.html:10
+#: templates/generic/lobby.html:11
 msgid "Welcome back"
 msgstr "Vítejte zpět"
 
-#: templates/generic/lobby.html:30
+#: templates/generic/lobby.html:31
 msgid "New on Lidarts:"
 msgstr "Nově na Lidarts:"
 
-#: templates/generic/lobby.html:30
-msgid "Cricket"
-msgstr "Kriket"
+#: templates/generic/lobby.html:32
+msgid "World Championship mode"
+msgstr ""
 
-#: templates/generic/lobby.html:30 templates/generic/webcam_tutorial_en.html:10
-#: templates/profile/webcam_settings.html:15
-msgid "Webcam tutorial"
-msgstr "Jak nastavit webovou kameru"
-
-#: templates/generic/lobby.html:30
+#: templates/generic/lobby.html:33
 msgid "Help translating Lidarts"
 msgstr "Pomozte s překladem Lidarts"
 
-#: templates/generic/lobby.html:46
+#: templates/generic/lobby.html:49
 msgid "Create a game"
 msgstr "Vytvořit hru"
 
-#: templates/generic/lobby.html:57
+#: templates/generic/lobby.html:60
 msgid "Webcam follow page"
 msgstr "Sledovací stránka webkamery"
 
-#: templates/generic/lobby.html:65
+#: templates/generic/lobby.html:68
 msgid "Click to accept and play"
 msgstr "Kliknutím přijměte a spustíte hru"
 
-#: templates/generic/lobby.html:73
+#: templates/generic/lobby.html:76
 msgid "Notifications"
 msgstr "Notifikace"
 
-#: templates/generic/lobby.html:77
+#: templates/generic/lobby.html:80
 msgid "Challenges:"
 msgstr "Výzvy:"
 
-#: templates/generic/lobby.html:90
+#: templates/generic/lobby.html:97
 msgid "Games in progress:"
 msgstr "Probíhající hry:"
 
-#: templates/generic/lobby.html:95
+#: templates/generic/lobby.html:102
 msgid "local guest"
 msgstr "lokální host"
 
-#: templates/generic/lobby.html:106
+#: templates/generic/lobby.html:113
 msgid "New friend requests"
 msgstr "Nové žádosti o přátelství"
 
-#: templates/generic/lobby.html:123
+#: templates/generic/lobby.html:136
 msgid "Friends online"
 msgstr "Přátelé online"
 
-#: templates/generic/lobby.html:125
+#: templates/generic/lobby.html:138
 msgid "None"
 msgstr "Žádné"
 
 #: templates/generic/watch.html:16
 msgid "There are no live games at the moment."
 msgstr "V tuto chvíli se nehrají žádné hry."
+
+#: templates/generic/webcam_tutorial_en.html:10
+#: templates/profile/webcam_settings.html:15
+msgid "Webcam tutorial"
+msgstr "Jak nastavit webovou kameru"
 
 #: templates/generic/webcam_tutorial_en.html:14
 msgid "In order to play with a webcam you need a modern browser (Chrome or Firefox, latest version) and a camera. We highly recommend a USB-webcam, but a smartphone will likely also work."
@@ -1584,11 +1611,11 @@ msgstr "Poznámka: Základní zpoždění je v délce ~ 3 sekundy. Vaše zpožd�
 
 #: templates/profile/close_account.html:15
 msgid "Closing your account is a permanent decision."
-msgstr ""
+msgstr "Zrušení účtu je trvalé rozhodnutí."
 
 #: templates/profile/close_account.html:15
 msgid "You will not be able to use your account again."
-msgstr ""
+msgstr "Nebudete moci svůj účet znovu použít."
 
 #: templates/profile/edit_profile.html:13
 msgid "Change profile text"
@@ -1767,7 +1794,7 @@ msgstr "Načte pouze skóre bez videa z webkamery ve vaší hře. Užitečně, k
 
 #: templates/profile/webcam_settings.html:52
 msgid "Try enabling this option if you experience connection problems in your video conferences."
-msgstr ""
+msgstr "Zkuste povolit tuto možnost, pokud narazíte na problémy s připojením ve vašich videohovorech."
 
 #: templates/security/change_password.html:20
 #: templates/security/change_username.html:27
@@ -1814,7 +1841,7 @@ msgstr "Máte již účet?"
 
 #: templates/statistics/x01.html:59
 msgid "X01 Statistics"
-msgstr ""
+msgstr "X01 Statistiky"
 
 #: templates/statistics/x01.html:103
 msgid "Overview"

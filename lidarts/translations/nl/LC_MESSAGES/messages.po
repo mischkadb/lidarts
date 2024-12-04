@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-02-24 13:59+0100\n"
-"PO-Revision-Date: 2022-02-24 13:07\n"
+"POT-Creation-Date: 2024-12-04 11:33+0100\n"
+"PO-Revision-Date: 2024-12-04 10:43\n"
 "Last-Translator: \n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.16.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "X-Crowdin-Project-ID: 8\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 #: admin/routes.py:73 tournament/routes.py:248
 msgid "Game selected as stream game."
-msgstr ""
+msgstr "Spel geselecteerd als stream game."
 
 #: admin/routes.py:80 templates/admin/stream.html:11
 msgid "Streaming"
-msgstr ""
+msgstr "streamen"
 
 #: auth/forms.py:21
 msgid "Password must have at least 8 characters"
@@ -74,15 +74,15 @@ msgstr "Gebruikersnaam of e-mailadres"
 msgid "Accept"
 msgstr "Accepteren"
 
-#: auth/routes.py:19 auth/routes.py:31 auth/routes.py:44
+#: auth/routes.py:20 auth/routes.py:32 auth/routes.py:45
 msgid "Change username"
 msgstr "Gebruikersnaam wijzigen"
 
-#: auth/routes.py:30
+#: auth/routes.py:31
 msgid "You can only change your username once per month. You need to wait until: "
 msgstr "Je kunt je gebruikersnaam slechts één keer per maand wijzigen. Je moet wachten tot: "
 
-#: auth/routes.py:33
+#: auth/routes.py:34
 msgid "Username changed."
 msgstr "Gebruikersnaam gewijzigd."
 
@@ -94,7 +94,7 @@ msgstr "Lokaal"
 msgid "Me"
 msgstr "Ik"
 
-#: game/forms.py:9 game/forms.py:41 statistics/forms.py:28
+#: game/forms.py:9 game/forms.py:42 statistics/forms.py:28
 msgid "Opponent"
 msgstr "Tegenstander"
 
@@ -127,107 +127,119 @@ msgid "Two Clear Legs"
 msgstr "Twee legs verschil"
 
 #: game/forms.py:40
+msgid "World Championship Mode"
+msgstr ""
+
+#: game/forms.py:41
 msgid "First to throw"
 msgstr "Wie mag beginnen"
 
-#: game/forms.py:42 statistics/forms.py:32
+#: game/forms.py:43 statistics/forms.py:32
 msgid "Opponent name"
 msgstr "Naam van tegenstander"
 
-#: game/forms.py:43 statistics/forms.py:30
+#: game/forms.py:44 statistics/forms.py:30
 msgid "Level"
 msgstr "Niveau"
 
-#: game/forms.py:44
+#: game/forms.py:45
 msgid "Public challenge"
 msgstr "Openbare uitdaging"
 
-#: game/forms.py:45 templates/game/cricket/completed.html:149
+#: game/forms.py:46 templates/game/cricket/completed.html:149
 #: templates/game/x01/completed.html:151
 #: templates/game/x01/scoreboard_normal.html:37
 #: templates/profile/game_history.html:38 templates/profile/overview.html:82
 msgid "Webcam game"
 msgstr "Webcam wedstrijd"
 
-#: game/forms.py:46
+#: game/forms.py:47
 msgid "Score input block"
 msgstr "Blokkade invoeren score"
 
-#: game/forms.py:47 tournament/forms.py:38
+#: game/forms.py:48 tournament/forms.py:38
 msgid "Save settings"
 msgstr "Instellingen opslaan"
 
-#: game/forms.py:48
+#: game/forms.py:49
 msgid "Tournament"
 msgstr "Toernooi"
 
-#: game/forms.py:49
+#: game/forms.py:50
 msgid "Start game"
 msgstr "Start wedstrijd"
 
-#: game/forms.py:53 statistics/forms.py:27
+#: game/forms.py:54 statistics/forms.py:27
 msgid "Game type"
 msgstr "Soort wedstrijd"
 
-#: game/forms.py:54 statistics/forms.py:33
+#: game/forms.py:55 statistics/forms.py:33
 msgid "Mode In"
 msgstr "Modus In"
 
-#: game/forms.py:55 statistics/forms.py:34
+#: game/forms.py:56 statistics/forms.py:34
 msgid "Mode Out"
 msgstr "Modus Uit"
 
-#: game/forms.py:64 generic/forms.py:9
+#: game/forms.py:65 generic/forms.py:9
 msgid "Submit message"
 msgstr "Bericht versturen"
 
-#: game/forms.py:68
+#: game/forms.py:69
 msgid "I have read the text above, understand the limitations and have a webcam setup to play."
 msgstr "Ik heb de bovenstaande tekst gelezen, begrijp de beperkingen en heb een webcam ingesteld om te spelen."
 
-#: game/forms.py:69
+#: game/forms.py:70
 msgid "(Optional) I allow my opponents to stream and record our game including my webcam video and audio."
 msgstr "(Optioneel) Ik sta mijn tegenstanders toe om onze wedstrijd te streamen en op te nemen inclusief mijn webcam video en audio."
 
-#: game/forms.py:70 templates/game/cricket/stream_overlay.html:428
-#: templates/game/modals.html:51 templates/game/x01/stream_overlay.html:410
+#: game/forms.py:71 templates/game/cricket/stream_overlay.html:524
+#: templates/game/modals.html:51 templates/game/x01/stream_overlay.html:479
 msgid "Confirm"
 msgstr "Bevestigen"
 
-#: game/routes.py:50
-msgid "Public challenges must be created without an opponent name."
-msgstr "Openbare uitdagingen moeten worden gecreëerd zonder de naam van een tegenstander te gebruiken."
+#: game/routes.py:48
+msgid "You have too many active games. Please finish some games before creating new ones."
+msgstr ""
 
-#: game/routes.py:52 game/routes.py:65 game/routes.py:86 game/routes.py:171
-#: templates/game/create_game.html:9
+#: game/routes.py:50 game/routes.py:61 game/routes.py:74 game/routes.py:95
+#: game/routes.py:185 templates/game/create_game.html:9
 msgid "Create Game"
 msgstr "Maak wedstrijd"
 
-#: game/routes.py:63
+#: game/routes.py:59
+msgid "Public challenges must be created without an opponent name."
+msgstr "Openbare uitdagingen moeten worden gecreëerd zonder de naam van een tegenstander te gebruiken."
+
+#: game/routes.py:72
 msgid "Player does not allow challenges"
 msgstr "Speler staat geen uitdagingen toe"
 
-#: game/routes.py:67
+#: game/routes.py:76
 msgid "New challenge"
 msgstr "Nieuwe uitdaging"
 
-#: game/routes.py:84
+#: game/routes.py:93
 msgid "Player 2 does not have webcam games enabled."
 msgstr "Speler 2 heeft geen webcam partijen ingeschakeld."
 
-#: game/routes.py:226 game/routes.py:234
+#: game/routes.py:200 game/routes.py:216
+msgid "Not found"
+msgstr ""
+
+#: game/routes.py:265 game/routes.py:273
 msgid "Waiting..."
 msgstr "Even geduld..."
 
-#: game/routes.py:267
+#: game/routes.py:306
 msgid "Match overview"
 msgstr "Wedstrijdoverzicht"
 
-#: game/routes.py:304
+#: game/routes.py:343
 msgid "Stream overlay"
 msgstr "Stream overlay"
 
-#: game/routes.py:306
+#: game/routes.py:345
 msgid "Live Match"
 msgstr "Live Wedstrijd"
 
@@ -251,14 +263,14 @@ msgstr "Zoeken"
 msgid "Live Games"
 msgstr "Live Wedstrijden"
 
-#: generic/routes.py:180 templates/base.html:55
+#: generic/routes.py:180 templates/base.html:61
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:251 templates/base.html:59
-#: templates/game/cricket/stream_overlay.html:136
-#: templates/game/x01/game.html:98 templates/game/x01/stream_overlay.html:107
-#: templates/game/x01/webcam.html:111
+#: generic/routes.py:251 templates/base.html:69
+#: templates/game/cricket/stream_overlay.html:186
+#: templates/game/x01/game.html:116 templates/game/x01/stream_overlay.html:128
+#: templates/game/x01/webcam.html:129
 msgid "Chat"
 msgstr "Chat"
 
@@ -342,7 +354,7 @@ msgstr "Alleen scorebord weergeven op hoofdapparaat"
 
 #: profile/forms.py:109
 msgid "Use public Jitsi server"
-msgstr ""
+msgstr "Gebruik publiek Jitsi server"
 
 #: profile/forms.py:115
 msgid "Channel ID"
@@ -350,17 +362,17 @@ msgstr "Kanaal ID"
 
 #: profile/forms.py:120
 msgid "Enter Password"
-msgstr ""
+msgstr "paswoord invoeren"
 
 #: profile/forms.py:121
 msgid "Close account permanently"
-msgstr ""
+msgstr "Account permanent verwijderen"
 
 #: profile/routes.py:51
 msgid "Match History"
 msgstr "Wedstrijd geschiedenis"
 
-#: profile/routes.py:132 templates/base.html:102
+#: profile/routes.py:132 templates/base.html:124
 msgid "Profile"
 msgstr "Profiel"
 
@@ -426,12 +438,12 @@ msgstr "Livestream instellingen"
 
 #: profile/routes.py:394
 msgid "Wrong password"
-msgstr ""
+msgstr "Verkeerd wachtwoord"
 
 #: profile/routes.py:396 templates/profile/close_account.html:13
 #: templates/profile/settings.html:19
 msgid "Close account"
-msgstr ""
+msgstr "Account verwijderen"
 
 #: statistics/forms.py:9 statistics/forms.py:12
 msgid "All"
@@ -461,185 +473,191 @@ msgstr "Filteren"
 msgid "Apply"
 msgstr "Toepassen"
 
-#: templates/base.html:51
+#: templates/base.html:55
 msgid "Home"
 msgstr "Startpagina"
 
-#: templates/base.html:52 templates/base.html:57 templates/generic/chat.html:44
+#: templates/base.html:58 templates/base.html:66 templates/generic/chat.html:44
 msgid "Watch"
 msgstr "Bekijken"
 
-#: templates/base.html:53 templates/base.html:60
+#: templates/base.html:59 templates/base.html:71
 msgid "Statistics"
 msgstr "Statistieken"
 
-#: templates/base.html:56 templates/generic/lobby.html:41
+#: templates/base.html:63 templates/generic/lobby.html:44
 msgid "Play"
 msgstr "Spelen"
 
-#: templates/base.html:58 tournament/routes.py:87
+#: templates/base.html:68 tournament/routes.py:87
 msgid "Tournaments"
 msgstr "Toernooien"
 
-#: templates/base.html:75
-msgid "No new notifications"
-msgstr "Geen nieuwe notificaties"
+#: templates/base.html:87
+msgid "No new\n"
+"                                    notifications"
+msgstr ""
 
-#: templates/base.html:84 templates/security/login_user.html:9
+#: templates/base.html:98 templates/security/login_user.html:9
 #: templates/security/login_user.html:18
 #: templates/security/register_user.html:29
 msgid "Sign In"
 msgstr "Log in"
 
-#: templates/base.html:85 templates/security/register_user.html:10
+#: templates/base.html:100 templates/security/register_user.html:10
 #: templates/security/register_user.html:22
 msgid "Register"
 msgstr "Registreer"
 
-#: templates/base.html:88
+#: templates/base.html:104
 msgid "Inbox"
 msgstr "Postvak"
 
-#: templates/base.html:94
+#: templates/base.html:112
 msgid "Status"
 msgstr "Status"
 
-#: templates/base.html:97
+#: templates/base.html:117
 msgid "Looking for Game"
 msgstr "Op zoek naar een wedstrijd"
 
-#: templates/base.html:98
+#: templates/base.html:119
 msgid "Busy"
 msgstr "Bezig"
 
-#: templates/base.html:103
+#: templates/base.html:127
 msgid "Logout"
 msgstr "Uitloggen"
 
-#: templates/base.html:136
+#: templates/base.html:161
 msgid "About"
 msgstr "Over"
 
-#: templates/base.html:137 templates/generic/contact.html:10
+#: templates/base.html:162 templates/generic/contact.html:10
 msgid "Contact"
 msgstr "Contact"
 
-#: templates/base.html:138
+#: templates/base.html:163
 msgid "FAQ"
 msgstr "FAQ"
 
-#: templates/base.html:139
+#: templates/base.html:164
 msgid "Contribute"
 msgstr "Meewerken"
 
-#: templates/base.html:140
+#: templates/base.html:165
 msgid "Changelog"
 msgstr "Wijzigingslogboek"
 
-#: templates/base.html:141
+#: templates/base.html:166
 msgid "Source Code"
 msgstr "Bron code"
 
-#: templates/base.html:142
+#: templates/base.html:167
 msgid "Privacy"
 msgstr "Privacy"
 
-#: templates/base.html:143
+#: templates/base.html:168
 msgid "Terms & Conditions"
 msgstr "Algemene Voorwaarden"
 
-#: templates/base.html:145
+#: templates/base.html:171
 msgid "Legal notice"
 msgstr "Juridische Kennisgeving"
 
 #: templates/admin/stream.html:14 templates/tournament/stream.html:28
 msgid "Game score URL:"
-msgstr ""
+msgstr "URL van de spelscore"
 
 #: templates/admin/stream.html:19 templates/tournament/stream.html:33
 msgid "Jitsi URL:"
-msgstr ""
+msgstr "Jitsi URL:"
 
 #: templates/admin/stream.html:29 templates/tournament/stream.html:43
 #: tournament/forms.py:42
 msgid "Streamable games"
-msgstr ""
+msgstr "Spellen dat je kunt streamen"
 
 #: templates/admin/stream.html:46 templates/tournament/stream.html:60
 msgid "Currently no streamable games."
-msgstr ""
+msgstr "Momenteel geen uitzendbare spellen"
 
 #: templates/game/create_game.html:16
 msgid "Game Mode"
 msgstr "Spel Modus"
 
-#: templates/game/create_game.html:98
-msgid "You have to activate webcam games first."
-msgstr "U moet eerst uw webcam activeren."
+#: templates/game/create_game.html:105
+msgid "Two-clear-legs only in the final set. Sudden death at 5:5 legs."
+msgstr ""
 
-#: templates/game/create_game.html:129
+#: templates/game/create_game.html:117
+msgid "You have to activate webcam games\n"
+"                            first."
+msgstr ""
+
+#: templates/game/create_game.html:150
 msgid "Blocks score input after new score. In seconds."
 msgstr "Blokkeert het ingeven van een nieuwe score in secondes."
 
-#: templates/game/cricket/navbar.html:10
-#: templates/game/cricket/stream_overlay.html:7
-#: templates/game/game_navbar.html:10 templates/game/x01/stream_overlay.html:7
+#: templates/game/cricket/navbar.html:11
+#: templates/game/cricket/stream_overlay.html:8
+#: templates/game/game_navbar.html:11 templates/game/x01/stream_overlay.html:8
 msgid "Leave game"
 msgstr "Wedstrijd verlaten"
 
-#: templates/game/cricket/navbar.html:12
-#: templates/game/cricket/stream_overlay.html:8
-#: templates/game/game_navbar.html:12 templates/game/x01/stream_overlay.html:8
+#: templates/game/cricket/navbar.html:13
+#: templates/game/cricket/stream_overlay.html:9
+#: templates/game/game_navbar.html:13 templates/game/x01/stream_overlay.html:9
 msgid "Abort game"
 msgstr "Wedstrijd afbreken"
 
-#: templates/game/cricket/stream_overlay.html:9
-#: templates/game/game_navbar.html:13 templates/game/x01/stream_overlay.html:9
+#: templates/game/cricket/stream_overlay.html:10
+#: templates/game/game_navbar.html:14 templates/game/x01/stream_overlay.html:10
 msgid "Toggle Keypad visibility"
 msgstr "Toetsenbord zichtbaarheid aan/uit"
 
-#: templates/game/cricket/stream_overlay.html:10
-#: templates/game/game_navbar.html:14 templates/game/x01/stream_overlay.html:10
+#: templates/game/cricket/stream_overlay.html:11
+#: templates/game/game_navbar.html:15 templates/game/x01/stream_overlay.html:11
 msgid "Change keypad position"
 msgstr "Positie toetsenbord wijzigen"
 
-#: templates/game/cricket/navbar.html:14
-#: templates/game/cricket/stream_overlay.html:11
-#: templates/game/game_navbar.html:16 templates/game/x01/stream_overlay.html:11
+#: templates/game/cricket/navbar.html:15
+#: templates/game/cricket/stream_overlay.html:12
+#: templates/game/game_navbar.html:17 templates/game/x01/stream_overlay.html:12
 msgid "Toggle statistics"
 msgstr "Statistieken aan/uit"
 
-#: templates/game/cricket/navbar.html:16
-#: templates/game/cricket/stream_overlay.html:12
-#: templates/game/game_navbar.html:18 templates/game/x01/stream_overlay.html:12
+#: templates/game/cricket/navbar.html:17
+#: templates/game/cricket/stream_overlay.html:13
+#: templates/game/game_navbar.html:19 templates/game/x01/stream_overlay.html:13
 msgid "Normal theme"
 msgstr "Normaal thema"
 
-#: templates/game/cricket/navbar.html:18 templates/game/game_navbar.html:20
+#: templates/game/cricket/navbar.html:21 templates/game/game_navbar.html:23
 msgid "Streamoverlay"
 msgstr "Streamoverlay"
 
-#: templates/game/cricket/navbar.html:20
-#: templates/game/cricket/stream_overlay.html:13
-#: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
+#: templates/game/cricket/navbar.html:25
+#: templates/game/cricket/stream_overlay.html:14
+#: templates/game/game_navbar.html:26 templates/game/x01/stream_overlay.html:14
 msgid "Mute caller"
 msgstr "Caller dempen"
 
-#: templates/game/cricket/navbar.html:20
-#: templates/game/cricket/stream_overlay.html:13
-#: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
+#: templates/game/cricket/navbar.html:28
+#: templates/game/cricket/stream_overlay.html:15
+#: templates/game/game_navbar.html:29 templates/game/x01/stream_overlay.html:15
 msgid "Unmute caller"
 msgstr "Caller inschakelen"
 
-#: templates/game/cricket/navbar.html:21 templates/game/game_navbar.html:23
+#: templates/game/cricket/navbar.html:29 templates/game/game_navbar.html:30
 msgid "Activate Sound (Apple)"
 msgstr "Activeer Geluid (Apple)"
 
-#: templates/game/cricket/navbar.html:23 templates/game/game_navbar.html:25
+#: templates/game/cricket/navbar.html:34 templates/game/game_navbar.html:35
 msgid "Summon webcam"
 msgstr "Roep webcam op"
 
-#: templates/game/cricket/navbar.html:26 templates/game/game_navbar.html:28
+#: templates/game/cricket/navbar.html:38 templates/game/game_navbar.html:39
 msgid "At least one player does not allow streaming."
 msgstr "Ten minste één speler staat streamen niet toe."
 
@@ -647,23 +665,23 @@ msgstr "Ten minste één speler staat streamen niet toe."
 msgid "Check dart:"
 msgstr "Check dart:"
 
-#: templates/game/cricket/stream_overlay.html:402 templates/game/modals.html:25
-#: templates/game/x01/stream_overlay.html:384
+#: templates/game/cricket/stream_overlay.html:492 templates/game/modals.html:25
+#: templates/game/x01/stream_overlay.html:445
 msgid "How many darts missed at double?"
 msgstr "Hoeveel darts gemist bij dubbel?"
 
-#: templates/game/cricket/stream_overlay.html:415 templates/game/modals.html:38
-#: templates/game/x01/stream_overlay.html:397
+#: templates/game/cricket/stream_overlay.html:510 templates/game/modals.html:38
+#: templates/game/x01/stream_overlay.html:463
 msgid "How many darts to finish?"
 msgstr "Hoeveel darts om te eindigen?"
 
-#: templates/game/cricket/stream_overlay.html:427 templates/game/modals.html:50
-#: templates/game/x01/stream_overlay.html:409
+#: templates/game/cricket/stream_overlay.html:523 templates/game/modals.html:50
+#: templates/game/x01/stream_overlay.html:477
 msgid "Abort game?"
 msgstr "Wedstrijd afbreken?"
 
-#: templates/game/cricket/stream_overlay.html:429 templates/game/modals.html:52
-#: templates/game/x01/stream_overlay.html:411
+#: templates/game/cricket/stream_overlay.html:526 templates/game/modals.html:52
+#: templates/game/x01/stream_overlay.html:481
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -734,12 +752,12 @@ msgid "We need feedback in order to improve webcam play in the future. We encour
 msgstr "We hebben feedback nodig om webcam wedstrijden in de toekomst te verbeteren. We moedigen je aan om je ervaring via e-mail te verzenden naar contact@lidarts.org"
 
 #: templates/game/cricket/completed.html:12
-#: templates/game/cricket/game.html:147 templates/game/cricket/game.html:168
-#: templates/game/cricket/stream_overlay.html:114
-#: templates/game/cricket/watch_webcam.html:159
-#: templates/game/cricket/webcam.html:171 templates/game/x01/completed.html:14
-#: templates/game/x01/game.html:76 templates/game/x01/stream_overlay.html:85
-#: templates/game/x01/watch_webcam.html:81 templates/game/x01/webcam.html:92
+#: templates/game/cricket/game.html:164 templates/game/cricket/game.html:187
+#: templates/game/cricket/stream_overlay.html:153
+#: templates/game/cricket/watch_webcam.html:180
+#: templates/game/cricket/webcam.html:195 templates/game/x01/completed.html:14
+#: templates/game/x01/game.html:83 templates/game/x01/stream_overlay.html:95
+#: templates/game/x01/watch_webcam.html:87 templates/game/x01/webcam.html:99
 msgid "Game was aborted."
 msgstr "Wedstrijd werd afgebroken."
 
@@ -783,115 +801,124 @@ msgstr " Webcam wedstrijd"
 msgid "Mark distribution - absolute (%% of total)"
 msgstr "Puntenverdeling - absoluut (%% van het totaal)"
 
-#: templates/game/cricket/game.html:14
-#: templates/game/cricket/stream_overlay.html:57
-#: templates/game/cricket/watch_webcam.html:27
-#: templates/game/cricket/webcam.html:28 templates/game/x01/game.html:19
-#: templates/game/x01/stream_overlay.html:24
-#: templates/game/x01/watch_webcam.html:27 templates/game/x01/webcam.html:28
+#: templates/game/cricket/game.html:15
+#: templates/game/cricket/stream_overlay.html:92
+#: templates/game/cricket/watch_webcam.html:28
+#: templates/game/cricket/webcam.html:29 templates/game/x01/game.html:20
+#: templates/game/x01/stream_overlay.html:26
+#: templates/game/x01/watch_webcam.html:28 templates/game/x01/webcam.html:29
 msgid "Closest to bull begins. Please throw three darts at bull."
 msgstr "Dichtsbij de bull mag beginnen. Gooi drie pijlen op de bull."
 
-#: templates/game/cricket/game.html:15
-#: templates/game/cricket/stream_overlay.html:58
-#: templates/game/cricket/watch_webcam.html:28
-#: templates/game/cricket/webcam.html:29 templates/game/x01/game.html:20
-#: templates/game/x01/stream_overlay.html:25
-#: templates/game/x01/watch_webcam.html:28 templates/game/x01/webcam.html:29
+#: templates/game/cricket/game.html:16
+#: templates/game/cricket/stream_overlay.html:93
+#: templates/game/cricket/watch_webcam.html:29
+#: templates/game/cricket/webcam.html:30 templates/game/x01/game.html:21
+#: templates/game/x01/stream_overlay.html:27
+#: templates/game/x01/watch_webcam.html:29 templates/game/x01/webcam.html:30
 msgid "Local game. Player 1 throws all three darts first."
 msgstr "Lokale wedstrijd. Speler 1 gooit als eerste drie pijlen."
 
-#: templates/game/cricket/game.html:132 templates/game/cricket/game.html:154
-#: templates/game/cricket/stream_overlay.html:99
-#: templates/game/cricket/stream_overlay.html:195
-#: templates/game/cricket/watch_webcam.html:154
-#: templates/game/cricket/webcam.html:156 templates/game/x01/game.html:61
-#: templates/game/x01/game.html:157 templates/game/x01/stream_overlay.html:70
-#: templates/game/x01/stream_overlay.html:167
-#: templates/game/x01/watch_webcam.html:76 templates/game/x01/webcam.html:77
+#: templates/game/cricket/game.html:147 templates/game/cricket/game.html:172
+#: templates/game/cricket/stream_overlay.html:136
+#: templates/game/cricket/stream_overlay.html:257
+#: templates/game/cricket/watch_webcam.html:174
+#: templates/game/cricket/webcam.html:178 templates/game/x01/game.html:66
+#: templates/game/x01/game.html:187 templates/game/x01/stream_overlay.html:78
+#: templates/game/x01/stream_overlay.html:200
+#: templates/game/x01/watch_webcam.html:81 templates/game/x01/webcam.html:82
 msgid "Game is completed."
 msgstr "Wedstrijd is klaar."
 
-#: templates/game/cricket/game.html:133 templates/game/cricket/game.html:148
-#: templates/game/cricket/game.html:155 templates/game/cricket/game.html:169
-#: templates/game/cricket/stream_overlay.html:100
-#: templates/game/cricket/stream_overlay.html:115
-#: templates/game/cricket/stream_overlay.html:196
-#: templates/game/cricket/watch_webcam.html:155
-#: templates/game/cricket/watch_webcam.html:160
-#: templates/game/cricket/webcam.html:157
-#: templates/game/cricket/webcam.html:172 templates/game/x01/game.html:62
-#: templates/game/x01/game.html:77 templates/game/x01/game.html:158
-#: templates/game/x01/stream_overlay.html:71
-#: templates/game/x01/stream_overlay.html:86
-#: templates/game/x01/stream_overlay.html:168
-#: templates/game/x01/watch_webcam.html:77
-#: templates/game/x01/watch_webcam.html:82 templates/game/x01/webcam.html:78
-#: templates/game/x01/webcam.html:93
+#: templates/game/cricket/game.html:148 templates/game/cricket/game.html:165
+#: templates/game/cricket/game.html:173 templates/game/cricket/game.html:188
+#: templates/game/cricket/stream_overlay.html:137
+#: templates/game/cricket/stream_overlay.html:154
+#: templates/game/cricket/stream_overlay.html:258
+#: templates/game/cricket/watch_webcam.html:175
+#: templates/game/cricket/watch_webcam.html:181
+#: templates/game/cricket/webcam.html:179
+#: templates/game/cricket/webcam.html:196 templates/game/x01/game.html:67
+#: templates/game/x01/game.html:84 templates/game/x01/game.html:188
+#: templates/game/x01/stream_overlay.html:79
+#: templates/game/x01/stream_overlay.html:96
+#: templates/game/x01/stream_overlay.html:201
+#: templates/game/x01/watch_webcam.html:82
+#: templates/game/x01/watch_webcam.html:88 templates/game/x01/webcam.html:83
+#: templates/game/x01/webcam.html:100
 msgid "Game overview"
 msgstr "Wedstrijdoverzicht"
 
-#: templates/game/cricket/game.html:136 templates/game/cricket/game.html:158
-#: templates/game/cricket/stream_overlay.html:103
-#: templates/game/cricket/webcam.html:160 templates/game/x01/game.html:65
-#: templates/game/x01/game.html:161 templates/game/x01/stream_overlay.html:74
-#: templates/game/x01/stream_overlay.html:171 templates/game/x01/webcam.html:81
+#: templates/game/cricket/game.html:151 templates/game/cricket/game.html:176
+#: templates/game/cricket/stream_overlay.html:140
+#: templates/game/cricket/webcam.html:182 templates/game/x01/game.html:70
+#: templates/game/x01/game.html:191 templates/game/x01/stream_overlay.html:82
+#: templates/game/x01/stream_overlay.html:204 templates/game/x01/webcam.html:86
 msgid "Offer rematch"
 msgstr "Herkansing aanbieden"
 
-#: templates/game/cricket/game.html:137 templates/game/cricket/game.html:159
-#: templates/game/cricket/stream_overlay.html:104
-#: templates/game/cricket/webcam.html:161 templates/game/x01/game.html:66
-#: templates/game/x01/game.html:162 templates/game/x01/stream_overlay.html:75
-#: templates/game/x01/stream_overlay.html:172 templates/game/x01/webcam.html:82
+#: templates/game/cricket/game.html:152 templates/game/cricket/game.html:177
+#: templates/game/cricket/stream_overlay.html:141
+#: templates/game/cricket/webcam.html:183 templates/game/x01/game.html:71
+#: templates/game/x01/game.html:192 templates/game/x01/stream_overlay.html:83
+#: templates/game/x01/stream_overlay.html:205 templates/game/x01/webcam.html:87
 msgid "Accept rematch"
 msgstr "Herkansing accepteren"
 
-#: templates/game/cricket/game.html:139 templates/game/cricket/game.html:161
-#: templates/game/cricket/stream_overlay.html:106
-#: templates/game/cricket/webcam.html:163 templates/game/x01/game.html:68
-#: templates/game/x01/game.html:164 templates/game/x01/stream_overlay.html:77
-#: templates/game/x01/stream_overlay.html:174 templates/game/x01/webcam.html:84
+#: templates/game/cricket/game.html:154 templates/game/cricket/game.html:179
+#: templates/game/cricket/stream_overlay.html:143
+#: templates/game/cricket/webcam.html:185 templates/game/x01/game.html:73
+#: templates/game/x01/game.html:194 templates/game/x01/stream_overlay.html:85
+#: templates/game/x01/stream_overlay.html:207 templates/game/x01/webcam.html:89
 msgid "Rematch offer sent"
 msgstr "Herkansaanbod verzonden"
 
-#: templates/game/cricket/game.html:142 templates/game/cricket/game.html:164
-#: templates/game/cricket/stream_overlay.html:109
-#: templates/game/cricket/webcam.html:166 templates/game/x01/game.html:71
-#: templates/game/x01/game.html:167 templates/game/x01/stream_overlay.html:80
-#: templates/game/x01/stream_overlay.html:177 templates/game/x01/webcam.html:87
+#: templates/game/cricket/game.html:157 templates/game/cricket/game.html:182
+#: templates/game/cricket/stream_overlay.html:146
+#: templates/game/x01/game.html:76 templates/game/x01/game.html:197
+#: templates/game/x01/stream_overlay.html:88
+#: templates/game/x01/stream_overlay.html:210
 #: templates/tournament/settings.html:68
 msgid "Back to tournament"
 msgstr "Terug naar het toernooi"
 
-#: templates/game/cricket/navbar.html:31
+#: templates/game/cricket/navbar.html:43
 msgid "Toggle chat"
 msgstr "Chat in-/uitschakelen"
 
-#: templates/game/cricket/stream_overlay.html:126
-#: templates/game/cricket/stream_overlay.html:313
-#: templates/game/cricket/watch_webcam.html:139
-#: templates/game/cricket/webcam.html:187 templates/game/x01/game.html:88
-#: templates/game/x01/game.html:182 templates/game/x01/stream_overlay.html:97
-#: templates/game/x01/stream_overlay.html:295
-#: templates/game/x01/webcam.html:104
+#: templates/game/cricket/stream_overlay.html:172
+#: templates/game/cricket/stream_overlay.html:381
+#: templates/game/cricket/watch_webcam.html:158
+#: templates/game/cricket/webcam.html:217 templates/game/x01/game.html:102
+#: templates/game/x01/game.html:216 templates/game/x01/stream_overlay.html:114
+#: templates/game/x01/stream_overlay.html:334
+#: templates/game/x01/webcam.html:118
 msgid "Undo last score"
 msgstr "Ongedaan maken"
 
-#: templates/game/cricket/stream_overlay.html:127
-#: templates/game/cricket/stream_overlay.html:314
-#: templates/game/cricket/watch_webcam.html:140
-#: templates/game/cricket/webcam.html:188 templates/game/x01/game.html:89
-#: templates/game/x01/game.html:183 templates/game/x01/stream_overlay.html:98
-#: templates/game/x01/stream_overlay.html:296
-#: templates/game/x01/webcam.html:105
+#: templates/game/cricket/stream_overlay.html:174
+#: templates/game/cricket/stream_overlay.html:383
+#: templates/game/x01/game.html:104 templates/game/x01/game.html:218
+#: templates/game/x01/stream_overlay.html:116
+#: templates/game/x01/stream_overlay.html:336
+msgid "Enter\n"
+"                    correct score"
+msgstr ""
+
+#: templates/game/cricket/stream_overlay.html:182
+#: templates/game/x01/game.html:112 templates/game/x01/stream_overlay.html:124
+msgid "Keypad"
+msgstr "Toetsenbord"
+
+#: templates/game/cricket/watch_webcam.html:159
+#: templates/game/cricket/webcam.html:221 templates/game/x01/webcam.html:122
 msgid "Enter correct score"
 msgstr "Voer de juiste score in"
 
-#: templates/game/cricket/stream_overlay.html:133
-#: templates/game/x01/game.html:95 templates/game/x01/stream_overlay.html:104
-msgid "Keypad"
-msgstr "Toetsenbord"
+#: templates/game/cricket/webcam.html:188 templates/game/x01/webcam.html:92
+msgid "Back to\n"
+"                                tournament"
+msgstr ""
 
 #: templates/game/x01/completed.html:180
 #: templates/statistics/x01_detail_element.html:66
@@ -967,7 +994,7 @@ msgstr "DartCall 2007 callerpakket gemaakt door Horst Girtew."
 msgid "Sound effects obtained from"
 msgstr "Geluidseffecten verkregen van"
 
-#: templates/generic/chat.html:18 templates/generic/lobby.html:64
+#: templates/generic/chat.html:18 templates/generic/lobby.html:67
 msgid "Public challenges"
 msgstr "Openbare uitdagingen"
 
@@ -1336,70 +1363,70 @@ msgstr "Meer informatie"
 msgid "Sign Up now"
 msgstr "Nu aanmelden"
 
-#: templates/generic/lobby.html:10
+#: templates/generic/lobby.html:11
 msgid "Welcome back"
 msgstr "Welkom terug"
 
-#: templates/generic/lobby.html:30
+#: templates/generic/lobby.html:31
 msgid "New on Lidarts:"
 msgstr "Nieuw op Lidarts:"
 
-#: templates/generic/lobby.html:30
-msgid "Cricket"
-msgstr "Cricket"
+#: templates/generic/lobby.html:32
+msgid "World Championship mode"
+msgstr ""
 
-#: templates/generic/lobby.html:30 templates/generic/webcam_tutorial_en.html:10
-#: templates/profile/webcam_settings.html:15
-msgid "Webcam tutorial"
-msgstr "Webcam handleiding"
-
-#: templates/generic/lobby.html:30
+#: templates/generic/lobby.html:33
 msgid "Help translating Lidarts"
 msgstr "Help met het vertalen van Lidarts"
 
-#: templates/generic/lobby.html:46
+#: templates/generic/lobby.html:49
 msgid "Create a game"
 msgstr "Maak een wedstrijd aan"
 
-#: templates/generic/lobby.html:57
+#: templates/generic/lobby.html:60
 msgid "Webcam follow page"
 msgstr "Webcam volg pagina"
 
-#: templates/generic/lobby.html:65
+#: templates/generic/lobby.html:68
 msgid "Click to accept and play"
 msgstr "Klik om te accepteren en te spelen"
 
-#: templates/generic/lobby.html:73
+#: templates/generic/lobby.html:76
 msgid "Notifications"
 msgstr "Meldingen"
 
-#: templates/generic/lobby.html:77
+#: templates/generic/lobby.html:80
 msgid "Challenges:"
 msgstr "Uitdagingen:"
 
-#: templates/generic/lobby.html:90
+#: templates/generic/lobby.html:97
 msgid "Games in progress:"
 msgstr "Wedstrijden bezig:"
 
-#: templates/generic/lobby.html:95
+#: templates/generic/lobby.html:102
 msgid "local guest"
 msgstr "lokale gast"
 
-#: templates/generic/lobby.html:106
+#: templates/generic/lobby.html:113
 msgid "New friend requests"
 msgstr "Nieuwe vriendschapsverzoeken"
 
-#: templates/generic/lobby.html:123
+#: templates/generic/lobby.html:136
 msgid "Friends online"
 msgstr "Vrienden online"
 
-#: templates/generic/lobby.html:125
+#: templates/generic/lobby.html:138
 msgid "None"
 msgstr "Geen"
 
 #: templates/generic/watch.html:16
 msgid "There are no live games at the moment."
 msgstr "Er zijn momenteel geen live wedstrijden."
+
+#: templates/generic/webcam_tutorial_en.html:10
+#: templates/profile/webcam_settings.html:15
+msgid "Webcam tutorial"
+msgstr "Webcam handleiding"
 
 #: templates/generic/webcam_tutorial_en.html:14
 msgid "In order to play with a webcam you need a modern browser (Chrome or Firefox, latest version) and a camera. We highly recommend a USB-webcam, but a smartphone will likely also work."
@@ -1583,11 +1610,11 @@ msgstr "Opmerking: Er is een basisvertraging van ~3 seconden. De aangepaste vert
 
 #: templates/profile/close_account.html:15
 msgid "Closing your account is a permanent decision."
-msgstr ""
+msgstr "uw account verwijderen is permanent"
 
 #: templates/profile/close_account.html:15
 msgid "You will not be able to use your account again."
-msgstr ""
+msgstr "U zult uw account niet meer kunnen gebruiken"
 
 #: templates/profile/edit_profile.html:13
 msgid "Change profile text"
@@ -1766,7 +1793,7 @@ msgstr "Laad alleen het scorebord zonder beeld van je webcam in je webcam wedstr
 
 #: templates/profile/webcam_settings.html:52
 msgid "Try enabling this option if you experience connection problems in your video conferences."
-msgstr ""
+msgstr "Probeer deze optie indien u last ondervind met connectie problemen."
 
 #: templates/security/change_password.html:20
 #: templates/security/change_username.html:27
@@ -1813,7 +1840,7 @@ msgstr "Heb je al een account?"
 
 #: templates/statistics/x01.html:59
 msgid "X01 Statistics"
-msgstr ""
+msgstr "X01 Statistieken"
 
 #: templates/statistics/x01.html:103
 msgid "Overview"
@@ -1905,7 +1932,7 @@ msgstr "Toernooiwedstrijd aanmaken"
 
 #: templates/tournament/details.html:31
 msgid "Stream tournament games"
-msgstr ""
+msgstr "Zend toernooi matchen uit"
 
 #: templates/tournament/details.html:37
 msgid "Creator"
@@ -2049,7 +2076,7 @@ msgstr "Toernooi streaming"
 
 #: templates/tournament/stream.html:13
 msgid "As a tournament creator you can get access to the video feeds of the webcam games if both players consent to streaming."
-msgstr ""
+msgstr "Als toernooimaker kun je toegang krijgen tot de videofeeds van de webcam spellen als beide spelers instemmen met streamen."
 
 #: templates/tournament/stream.html:14
 msgid "Select a game you want to stream. The links below redirect you to the game's score page and video call. You should set these up in a streaming software for custom display."

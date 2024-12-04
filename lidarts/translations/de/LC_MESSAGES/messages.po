@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-02-24 13:59+0100\n"
-"PO-Revision-Date: 2022-02-24 13:07\n"
+"POT-Creation-Date: 2024-12-04 11:33+0100\n"
+"PO-Revision-Date: 2024-12-04 10:43\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.16.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: 6ce48f6a7a40c72ca9e14cd008d6a7b2\n"
 "X-Crowdin-Project-ID: 8\n"
@@ -74,15 +74,15 @@ msgstr "Benutzername oder E-Mail-Adresse"
 msgid "Accept"
 msgstr "Bestätigen"
 
-#: auth/routes.py:19 auth/routes.py:31 auth/routes.py:44
+#: auth/routes.py:20 auth/routes.py:32 auth/routes.py:45
 msgid "Change username"
 msgstr "Benutzername ändern"
 
-#: auth/routes.py:30
+#: auth/routes.py:31
 msgid "You can only change your username once per month. You need to wait until: "
 msgstr "Du kannst deinen Benutzernamen nur einmal pro Monat ändern. Bitte warte bis: "
 
-#: auth/routes.py:33
+#: auth/routes.py:34
 msgid "Username changed."
 msgstr "Benutzername geändert."
 
@@ -94,7 +94,7 @@ msgstr "Lokal"
 msgid "Me"
 msgstr "Ich"
 
-#: game/forms.py:9 game/forms.py:41 statistics/forms.py:28
+#: game/forms.py:9 game/forms.py:42 statistics/forms.py:28
 msgid "Opponent"
 msgstr "Gegner"
 
@@ -124,110 +124,122 @@ msgstr "Best of Legs"
 
 #: game/forms.py:39
 msgid "Two Clear Legs"
-msgstr "2 Sätze Abstand"
+msgstr "Zwei Legs Abstand"
 
 #: game/forms.py:40
+msgid "World Championship Mode"
+msgstr "WM-Modus"
+
+#: game/forms.py:41
 msgid "First to throw"
 msgstr "Erster Wurf"
 
-#: game/forms.py:42 statistics/forms.py:32
+#: game/forms.py:43 statistics/forms.py:32
 msgid "Opponent name"
 msgstr "Name des Gegners"
 
-#: game/forms.py:43 statistics/forms.py:30
+#: game/forms.py:44 statistics/forms.py:30
 msgid "Level"
 msgstr "Level"
 
-#: game/forms.py:44
+#: game/forms.py:45
 msgid "Public challenge"
 msgstr "Herausforderung öffentlich"
 
-#: game/forms.py:45 templates/game/cricket/completed.html:149
+#: game/forms.py:46 templates/game/cricket/completed.html:149
 #: templates/game/x01/completed.html:151
 #: templates/game/x01/scoreboard_normal.html:37
 #: templates/profile/game_history.html:38 templates/profile/overview.html:82
 msgid "Webcam game"
 msgstr "Webcam-Spiel"
 
-#: game/forms.py:46
+#: game/forms.py:47
 msgid "Score input block"
 msgstr "Eingabe blockieren"
 
-#: game/forms.py:47 tournament/forms.py:38
+#: game/forms.py:48 tournament/forms.py:38
 msgid "Save settings"
 msgstr "Einstellungen speichern"
 
-#: game/forms.py:48
+#: game/forms.py:49
 msgid "Tournament"
 msgstr "Turnier"
 
-#: game/forms.py:49
+#: game/forms.py:50
 msgid "Start game"
 msgstr "Spiel beginnen"
 
-#: game/forms.py:53 statistics/forms.py:27
+#: game/forms.py:54 statistics/forms.py:27
 msgid "Game type"
 msgstr "Spieltyp"
 
-#: game/forms.py:54 statistics/forms.py:33
+#: game/forms.py:55 statistics/forms.py:33
 msgid "Mode In"
 msgstr "Modus In"
 
-#: game/forms.py:55 statistics/forms.py:34
+#: game/forms.py:56 statistics/forms.py:34
 msgid "Mode Out"
 msgstr "Modus Out"
 
-#: game/forms.py:64 generic/forms.py:9
+#: game/forms.py:65 generic/forms.py:9
 msgid "Submit message"
 msgstr "Nachricht senden"
 
-#: game/forms.py:68
+#: game/forms.py:69
 msgid "I have read the text above, understand the limitations and have a webcam setup to play."
 msgstr "Ich habe obigen Text gelesen, verstehe die Limitierungen und habe eine aufgebaute Webcam zum Spielen."
 
-#: game/forms.py:69
+#: game/forms.py:70
 msgid "(Optional) I allow my opponents to stream and record our game including my webcam video and audio."
 msgstr "(Optional) Ich erlaube meinen Gegnern unser Spiel, inklusive meinem Bild und Ton, aufzunehmen oder zu streamen."
 
-#: game/forms.py:70 templates/game/cricket/stream_overlay.html:428
-#: templates/game/modals.html:51 templates/game/x01/stream_overlay.html:410
+#: game/forms.py:71 templates/game/cricket/stream_overlay.html:524
+#: templates/game/modals.html:51 templates/game/x01/stream_overlay.html:479
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: game/routes.py:50
-msgid "Public challenges must be created without an opponent name."
-msgstr "Öffentliche Herausforderungen müssen ohne Gegnernamen erstellt werden."
+#: game/routes.py:48
+msgid "You have too many active games. Please finish some games before creating new ones."
+msgstr "Du hast zu viele offene Spiele. Bitte beende ein paar Spiele, bevor du neue erstellst."
 
-#: game/routes.py:52 game/routes.py:65 game/routes.py:86 game/routes.py:171
-#: templates/game/create_game.html:9
+#: game/routes.py:50 game/routes.py:61 game/routes.py:74 game/routes.py:95
+#: game/routes.py:185 templates/game/create_game.html:9
 msgid "Create Game"
 msgstr "Spiel erstellen"
 
-#: game/routes.py:63
+#: game/routes.py:59
+msgid "Public challenges must be created without an opponent name."
+msgstr "Öffentliche Herausforderungen müssen ohne Gegnernamen erstellt werden."
+
+#: game/routes.py:72
 msgid "Player does not allow challenges"
 msgstr "Spieler lässt keine Herausforderungen zu"
 
-#: game/routes.py:67
+#: game/routes.py:76
 msgid "New challenge"
 msgstr "Neue Herausforderung"
 
-#: game/routes.py:84
+#: game/routes.py:93
 msgid "Player 2 does not have webcam games enabled."
 msgstr "Spieler 2 hat Webcamspiele nicht aktiviert."
 
-#: game/routes.py:226 game/routes.py:234
+#: game/routes.py:200 game/routes.py:216
+msgid "Not found"
+msgstr "Nicht gefunden"
+
+#: game/routes.py:265 game/routes.py:273
 msgid "Waiting..."
 msgstr "Warte..."
 
-#: game/routes.py:267
+#: game/routes.py:306
 msgid "Match overview"
 msgstr "Spielübersicht"
 
-#: game/routes.py:304
+#: game/routes.py:343
 msgid "Stream overlay"
 msgstr "Stream overlay"
 
-#: game/routes.py:306
+#: game/routes.py:345
 msgid "Live Match"
 msgstr "Livespiel"
 
@@ -251,14 +263,14 @@ msgstr "Suchen"
 msgid "Live Games"
 msgstr "Live Spiele"
 
-#: generic/routes.py:180 templates/base.html:55
+#: generic/routes.py:180 templates/base.html:61
 msgid "Lobby"
 msgstr "Lobby"
 
-#: generic/routes.py:251 templates/base.html:59
-#: templates/game/cricket/stream_overlay.html:136
-#: templates/game/x01/game.html:98 templates/game/x01/stream_overlay.html:107
-#: templates/game/x01/webcam.html:111
+#: generic/routes.py:251 templates/base.html:69
+#: templates/game/cricket/stream_overlay.html:186
+#: templates/game/x01/game.html:116 templates/game/x01/stream_overlay.html:128
+#: templates/game/x01/webcam.html:129
 msgid "Chat"
 msgstr "Chat"
 
@@ -360,7 +372,7 @@ msgstr "Account dauerhaft schließen"
 msgid "Match History"
 msgstr "Spielverlauf"
 
-#: profile/routes.py:132 templates/base.html:102
+#: profile/routes.py:132 templates/base.html:124
 msgid "Profile"
 msgstr "Profil"
 
@@ -461,94 +473,95 @@ msgstr "Filter"
 msgid "Apply"
 msgstr "Übernehmen"
 
-#: templates/base.html:51
+#: templates/base.html:55
 msgid "Home"
 msgstr "Startseite"
 
-#: templates/base.html:52 templates/base.html:57 templates/generic/chat.html:44
+#: templates/base.html:58 templates/base.html:66 templates/generic/chat.html:44
 msgid "Watch"
 msgstr "Zuschauen"
 
-#: templates/base.html:53 templates/base.html:60
+#: templates/base.html:59 templates/base.html:71
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/base.html:56 templates/generic/lobby.html:41
+#: templates/base.html:63 templates/generic/lobby.html:44
 msgid "Play"
 msgstr "Spielen"
 
-#: templates/base.html:58 tournament/routes.py:87
+#: templates/base.html:68 tournament/routes.py:87
 msgid "Tournaments"
 msgstr "Turniere"
 
-#: templates/base.html:75
-msgid "No new notifications"
+#: templates/base.html:87
+msgid "No new\n"
+"                                    notifications"
 msgstr "Keine neuen Benachrichtigungen"
 
-#: templates/base.html:84 templates/security/login_user.html:9
+#: templates/base.html:98 templates/security/login_user.html:9
 #: templates/security/login_user.html:18
 #: templates/security/register_user.html:29
 msgid "Sign In"
 msgstr "Einloggen"
 
-#: templates/base.html:85 templates/security/register_user.html:10
+#: templates/base.html:100 templates/security/register_user.html:10
 #: templates/security/register_user.html:22
 msgid "Register"
 msgstr "Registrieren"
 
-#: templates/base.html:88
+#: templates/base.html:104
 msgid "Inbox"
 msgstr "Posteingang"
 
-#: templates/base.html:94
+#: templates/base.html:112
 msgid "Status"
 msgstr "Status"
 
-#: templates/base.html:97
+#: templates/base.html:117
 msgid "Looking for Game"
 msgstr "Suche nach Spiel"
 
-#: templates/base.html:98
+#: templates/base.html:119
 msgid "Busy"
 msgstr "Beschäftigt"
 
-#: templates/base.html:103
+#: templates/base.html:127
 msgid "Logout"
 msgstr "Abmelden"
 
-#: templates/base.html:136
+#: templates/base.html:161
 msgid "About"
 msgstr "Über"
 
-#: templates/base.html:137 templates/generic/contact.html:10
+#: templates/base.html:162 templates/generic/contact.html:10
 msgid "Contact"
 msgstr "Kontakt"
 
-#: templates/base.html:138
+#: templates/base.html:163
 msgid "FAQ"
 msgstr "FAQ"
 
-#: templates/base.html:139
+#: templates/base.html:164
 msgid "Contribute"
 msgstr "Mitmachen"
 
-#: templates/base.html:140
+#: templates/base.html:165
 msgid "Changelog"
 msgstr "Changelog"
 
-#: templates/base.html:141
+#: templates/base.html:166
 msgid "Source Code"
 msgstr "Quellcode"
 
-#: templates/base.html:142
+#: templates/base.html:167
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: templates/base.html:143
+#: templates/base.html:168
 msgid "Terms & Conditions"
 msgstr "AGB"
 
-#: templates/base.html:145
+#: templates/base.html:171
 msgid "Legal notice"
 msgstr "Impressum"
 
@@ -573,73 +586,78 @@ msgstr "Derzeit keine Spiele zum Streamen."
 msgid "Game Mode"
 msgstr "Spielmodus"
 
-#: templates/game/create_game.html:98
-msgid "You have to activate webcam games first."
+#: templates/game/create_game.html:105
+msgid "Two-clear-legs only in the final set. Sudden death at 5:5 legs."
+msgstr "Two-clear-legs nur im letzten Satz. Sudden death bei 5:5 Legs."
+
+#: templates/game/create_game.html:117
+msgid "You have to activate webcam games\n"
+"                            first."
 msgstr "Du musst Webcam-Spiele zuerst aktivieren."
 
-#: templates/game/create_game.html:129
+#: templates/game/create_game.html:150
 msgid "Blocks score input after new score. In seconds."
 msgstr "Blockiert Punkteeingabe nach jedem Score. In Sekunden."
 
-#: templates/game/cricket/navbar.html:10
-#: templates/game/cricket/stream_overlay.html:7
-#: templates/game/game_navbar.html:10 templates/game/x01/stream_overlay.html:7
+#: templates/game/cricket/navbar.html:11
+#: templates/game/cricket/stream_overlay.html:8
+#: templates/game/game_navbar.html:11 templates/game/x01/stream_overlay.html:8
 msgid "Leave game"
 msgstr "Spiel verlassen"
 
-#: templates/game/cricket/navbar.html:12
-#: templates/game/cricket/stream_overlay.html:8
-#: templates/game/game_navbar.html:12 templates/game/x01/stream_overlay.html:8
+#: templates/game/cricket/navbar.html:13
+#: templates/game/cricket/stream_overlay.html:9
+#: templates/game/game_navbar.html:13 templates/game/x01/stream_overlay.html:9
 msgid "Abort game"
 msgstr "Spiel abbrechen"
 
-#: templates/game/cricket/stream_overlay.html:9
-#: templates/game/game_navbar.html:13 templates/game/x01/stream_overlay.html:9
+#: templates/game/cricket/stream_overlay.html:10
+#: templates/game/game_navbar.html:14 templates/game/x01/stream_overlay.html:10
 msgid "Toggle Keypad visibility"
 msgstr "Tastatur ein/ausblenden"
 
-#: templates/game/cricket/stream_overlay.html:10
-#: templates/game/game_navbar.html:14 templates/game/x01/stream_overlay.html:10
+#: templates/game/cricket/stream_overlay.html:11
+#: templates/game/game_navbar.html:15 templates/game/x01/stream_overlay.html:11
 msgid "Change keypad position"
 msgstr "Tastaturposition umschalten"
 
-#: templates/game/cricket/navbar.html:14
-#: templates/game/cricket/stream_overlay.html:11
-#: templates/game/game_navbar.html:16 templates/game/x01/stream_overlay.html:11
+#: templates/game/cricket/navbar.html:15
+#: templates/game/cricket/stream_overlay.html:12
+#: templates/game/game_navbar.html:17 templates/game/x01/stream_overlay.html:12
 msgid "Toggle statistics"
 msgstr "Statistiken ein/ausblenden"
 
-#: templates/game/cricket/navbar.html:16
-#: templates/game/cricket/stream_overlay.html:12
-#: templates/game/game_navbar.html:18 templates/game/x01/stream_overlay.html:12
+#: templates/game/cricket/navbar.html:17
+#: templates/game/cricket/stream_overlay.html:13
+#: templates/game/game_navbar.html:19 templates/game/x01/stream_overlay.html:13
 msgid "Normal theme"
 msgstr "Normales Theme"
 
-#: templates/game/cricket/navbar.html:18 templates/game/game_navbar.html:20
+#: templates/game/cricket/navbar.html:21 templates/game/game_navbar.html:23
 msgid "Streamoverlay"
 msgstr "Streamoverlay"
 
-#: templates/game/cricket/navbar.html:20
-#: templates/game/cricket/stream_overlay.html:13
-#: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
+#: templates/game/cricket/navbar.html:25
+#: templates/game/cricket/stream_overlay.html:14
+#: templates/game/game_navbar.html:26 templates/game/x01/stream_overlay.html:14
 msgid "Mute caller"
 msgstr "Caller stumm"
 
-#: templates/game/cricket/navbar.html:20
-#: templates/game/cricket/stream_overlay.html:13
-#: templates/game/game_navbar.html:22 templates/game/x01/stream_overlay.html:13
+#: templates/game/cricket/navbar.html:28
+#: templates/game/cricket/stream_overlay.html:15
+#: templates/game/game_navbar.html:29 templates/game/x01/stream_overlay.html:15
 msgid "Unmute caller"
 msgstr "Caller aktivieren"
 
-#: templates/game/cricket/navbar.html:21 templates/game/game_navbar.html:23
+#: templates/game/cricket/navbar.html:29 templates/game/game_navbar.html:30
 msgid "Activate Sound (Apple)"
 msgstr "Sound aktivieren (Apple)"
 
-#: templates/game/cricket/navbar.html:23 templates/game/game_navbar.html:25
+#: templates/game/cricket/navbar.html:34 templates/game/game_navbar.html:35
 msgid "Summon webcam"
 msgstr "Webcam herbeirufen"
 
-#: templates/game/cricket/navbar.html:26 templates/game/game_navbar.html:28
+#: templates/game/cricket/navbar.html:38 templates/game/game_navbar.html:39
 msgid "At least one player does not allow streaming."
 msgstr "Mindestens ein Spieler gestattet kein Streaming."
 
@@ -647,23 +665,23 @@ msgstr "Mindestens ein Spieler gestattet kein Streaming."
 msgid "Check dart:"
 msgstr "Check dart:"
 
-#: templates/game/cricket/stream_overlay.html:402 templates/game/modals.html:25
-#: templates/game/x01/stream_overlay.html:384
+#: templates/game/cricket/stream_overlay.html:492 templates/game/modals.html:25
+#: templates/game/x01/stream_overlay.html:445
 msgid "How many darts missed at double?"
 msgstr "Wieviele Darts auf Doppel verfehlt?"
 
-#: templates/game/cricket/stream_overlay.html:415 templates/game/modals.html:38
-#: templates/game/x01/stream_overlay.html:397
+#: templates/game/cricket/stream_overlay.html:510 templates/game/modals.html:38
+#: templates/game/x01/stream_overlay.html:463
 msgid "How many darts to finish?"
 msgstr "Wieviele Darts für den Checkout?"
 
-#: templates/game/cricket/stream_overlay.html:427 templates/game/modals.html:50
-#: templates/game/x01/stream_overlay.html:409
+#: templates/game/cricket/stream_overlay.html:523 templates/game/modals.html:50
+#: templates/game/x01/stream_overlay.html:477
 msgid "Abort game?"
 msgstr "Spiel abbrechen?"
 
-#: templates/game/cricket/stream_overlay.html:429 templates/game/modals.html:52
-#: templates/game/x01/stream_overlay.html:411
+#: templates/game/cricket/stream_overlay.html:526 templates/game/modals.html:52
+#: templates/game/x01/stream_overlay.html:481
 msgid "Cancel"
 msgstr "Zurück"
 
@@ -734,12 +752,12 @@ msgid "We need feedback in order to improve webcam play in the future. We encour
 msgstr "Wir brauchen Rückmeldungen, um das Spielen mit Webcams in Zukunft zu verbessern. Gerne kannst du uns deine Erfahrungen per E-Mail an contact@lidarts.org schicken"
 
 #: templates/game/cricket/completed.html:12
-#: templates/game/cricket/game.html:147 templates/game/cricket/game.html:168
-#: templates/game/cricket/stream_overlay.html:114
-#: templates/game/cricket/watch_webcam.html:159
-#: templates/game/cricket/webcam.html:171 templates/game/x01/completed.html:14
-#: templates/game/x01/game.html:76 templates/game/x01/stream_overlay.html:85
-#: templates/game/x01/watch_webcam.html:81 templates/game/x01/webcam.html:92
+#: templates/game/cricket/game.html:164 templates/game/cricket/game.html:187
+#: templates/game/cricket/stream_overlay.html:153
+#: templates/game/cricket/watch_webcam.html:180
+#: templates/game/cricket/webcam.html:195 templates/game/x01/completed.html:14
+#: templates/game/x01/game.html:83 templates/game/x01/stream_overlay.html:95
+#: templates/game/x01/watch_webcam.html:87 templates/game/x01/webcam.html:99
 msgid "Game was aborted."
 msgstr "Spiel wurde abgebrochen."
 
@@ -783,115 +801,124 @@ msgstr " Webcam-Spiel"
 msgid "Mark distribution - absolute (%% of total)"
 msgstr "Marks-Verteilung - absolut (%% total)"
 
-#: templates/game/cricket/game.html:14
-#: templates/game/cricket/stream_overlay.html:57
-#: templates/game/cricket/watch_webcam.html:27
-#: templates/game/cricket/webcam.html:28 templates/game/x01/game.html:19
-#: templates/game/x01/stream_overlay.html:24
-#: templates/game/x01/watch_webcam.html:27 templates/game/x01/webcam.html:28
+#: templates/game/cricket/game.html:15
+#: templates/game/cricket/stream_overlay.html:92
+#: templates/game/cricket/watch_webcam.html:28
+#: templates/game/cricket/webcam.html:29 templates/game/x01/game.html:20
+#: templates/game/x01/stream_overlay.html:26
+#: templates/game/x01/watch_webcam.html:28 templates/game/x01/webcam.html:29
 msgid "Closest to bull begins. Please throw three darts at bull."
 msgstr "Ausbullen. Bitte drei Darts auf Bull werfen."
 
-#: templates/game/cricket/game.html:15
-#: templates/game/cricket/stream_overlay.html:58
-#: templates/game/cricket/watch_webcam.html:28
-#: templates/game/cricket/webcam.html:29 templates/game/x01/game.html:20
-#: templates/game/x01/stream_overlay.html:25
-#: templates/game/x01/watch_webcam.html:28 templates/game/x01/webcam.html:29
+#: templates/game/cricket/game.html:16
+#: templates/game/cricket/stream_overlay.html:93
+#: templates/game/cricket/watch_webcam.html:29
+#: templates/game/cricket/webcam.html:30 templates/game/x01/game.html:21
+#: templates/game/x01/stream_overlay.html:27
+#: templates/game/x01/watch_webcam.html:29 templates/game/x01/webcam.html:30
 msgid "Local game. Player 1 throws all three darts first."
 msgstr "Lokales Spiel. Spieler 1 wirft zuerst alle drei Darts."
 
-#: templates/game/cricket/game.html:132 templates/game/cricket/game.html:154
-#: templates/game/cricket/stream_overlay.html:99
-#: templates/game/cricket/stream_overlay.html:195
-#: templates/game/cricket/watch_webcam.html:154
-#: templates/game/cricket/webcam.html:156 templates/game/x01/game.html:61
-#: templates/game/x01/game.html:157 templates/game/x01/stream_overlay.html:70
-#: templates/game/x01/stream_overlay.html:167
-#: templates/game/x01/watch_webcam.html:76 templates/game/x01/webcam.html:77
+#: templates/game/cricket/game.html:147 templates/game/cricket/game.html:172
+#: templates/game/cricket/stream_overlay.html:136
+#: templates/game/cricket/stream_overlay.html:257
+#: templates/game/cricket/watch_webcam.html:174
+#: templates/game/cricket/webcam.html:178 templates/game/x01/game.html:66
+#: templates/game/x01/game.html:187 templates/game/x01/stream_overlay.html:78
+#: templates/game/x01/stream_overlay.html:200
+#: templates/game/x01/watch_webcam.html:81 templates/game/x01/webcam.html:82
 msgid "Game is completed."
 msgstr "Spiel ist beendet."
 
-#: templates/game/cricket/game.html:133 templates/game/cricket/game.html:148
-#: templates/game/cricket/game.html:155 templates/game/cricket/game.html:169
-#: templates/game/cricket/stream_overlay.html:100
-#: templates/game/cricket/stream_overlay.html:115
-#: templates/game/cricket/stream_overlay.html:196
-#: templates/game/cricket/watch_webcam.html:155
-#: templates/game/cricket/watch_webcam.html:160
-#: templates/game/cricket/webcam.html:157
-#: templates/game/cricket/webcam.html:172 templates/game/x01/game.html:62
-#: templates/game/x01/game.html:77 templates/game/x01/game.html:158
-#: templates/game/x01/stream_overlay.html:71
-#: templates/game/x01/stream_overlay.html:86
-#: templates/game/x01/stream_overlay.html:168
-#: templates/game/x01/watch_webcam.html:77
-#: templates/game/x01/watch_webcam.html:82 templates/game/x01/webcam.html:78
-#: templates/game/x01/webcam.html:93
+#: templates/game/cricket/game.html:148 templates/game/cricket/game.html:165
+#: templates/game/cricket/game.html:173 templates/game/cricket/game.html:188
+#: templates/game/cricket/stream_overlay.html:137
+#: templates/game/cricket/stream_overlay.html:154
+#: templates/game/cricket/stream_overlay.html:258
+#: templates/game/cricket/watch_webcam.html:175
+#: templates/game/cricket/watch_webcam.html:181
+#: templates/game/cricket/webcam.html:179
+#: templates/game/cricket/webcam.html:196 templates/game/x01/game.html:67
+#: templates/game/x01/game.html:84 templates/game/x01/game.html:188
+#: templates/game/x01/stream_overlay.html:79
+#: templates/game/x01/stream_overlay.html:96
+#: templates/game/x01/stream_overlay.html:201
+#: templates/game/x01/watch_webcam.html:82
+#: templates/game/x01/watch_webcam.html:88 templates/game/x01/webcam.html:83
+#: templates/game/x01/webcam.html:100
 msgid "Game overview"
 msgstr "Spielübersicht"
 
-#: templates/game/cricket/game.html:136 templates/game/cricket/game.html:158
-#: templates/game/cricket/stream_overlay.html:103
-#: templates/game/cricket/webcam.html:160 templates/game/x01/game.html:65
-#: templates/game/x01/game.html:161 templates/game/x01/stream_overlay.html:74
-#: templates/game/x01/stream_overlay.html:171 templates/game/x01/webcam.html:81
+#: templates/game/cricket/game.html:151 templates/game/cricket/game.html:176
+#: templates/game/cricket/stream_overlay.html:140
+#: templates/game/cricket/webcam.html:182 templates/game/x01/game.html:70
+#: templates/game/x01/game.html:191 templates/game/x01/stream_overlay.html:82
+#: templates/game/x01/stream_overlay.html:204 templates/game/x01/webcam.html:86
 msgid "Offer rematch"
 msgstr "Revanche anbieten"
 
-#: templates/game/cricket/game.html:137 templates/game/cricket/game.html:159
-#: templates/game/cricket/stream_overlay.html:104
-#: templates/game/cricket/webcam.html:161 templates/game/x01/game.html:66
-#: templates/game/x01/game.html:162 templates/game/x01/stream_overlay.html:75
-#: templates/game/x01/stream_overlay.html:172 templates/game/x01/webcam.html:82
+#: templates/game/cricket/game.html:152 templates/game/cricket/game.html:177
+#: templates/game/cricket/stream_overlay.html:141
+#: templates/game/cricket/webcam.html:183 templates/game/x01/game.html:71
+#: templates/game/x01/game.html:192 templates/game/x01/stream_overlay.html:83
+#: templates/game/x01/stream_overlay.html:205 templates/game/x01/webcam.html:87
 msgid "Accept rematch"
 msgstr "Revanche annehmen"
 
-#: templates/game/cricket/game.html:139 templates/game/cricket/game.html:161
-#: templates/game/cricket/stream_overlay.html:106
-#: templates/game/cricket/webcam.html:163 templates/game/x01/game.html:68
-#: templates/game/x01/game.html:164 templates/game/x01/stream_overlay.html:77
-#: templates/game/x01/stream_overlay.html:174 templates/game/x01/webcam.html:84
+#: templates/game/cricket/game.html:154 templates/game/cricket/game.html:179
+#: templates/game/cricket/stream_overlay.html:143
+#: templates/game/cricket/webcam.html:185 templates/game/x01/game.html:73
+#: templates/game/x01/game.html:194 templates/game/x01/stream_overlay.html:85
+#: templates/game/x01/stream_overlay.html:207 templates/game/x01/webcam.html:89
 msgid "Rematch offer sent"
 msgstr "Revanche gesendet"
 
-#: templates/game/cricket/game.html:142 templates/game/cricket/game.html:164
-#: templates/game/cricket/stream_overlay.html:109
-#: templates/game/cricket/webcam.html:166 templates/game/x01/game.html:71
-#: templates/game/x01/game.html:167 templates/game/x01/stream_overlay.html:80
-#: templates/game/x01/stream_overlay.html:177 templates/game/x01/webcam.html:87
+#: templates/game/cricket/game.html:157 templates/game/cricket/game.html:182
+#: templates/game/cricket/stream_overlay.html:146
+#: templates/game/x01/game.html:76 templates/game/x01/game.html:197
+#: templates/game/x01/stream_overlay.html:88
+#: templates/game/x01/stream_overlay.html:210
 #: templates/tournament/settings.html:68
 msgid "Back to tournament"
 msgstr "Zurück zum Turnier"
 
-#: templates/game/cricket/navbar.html:31
+#: templates/game/cricket/navbar.html:43
 msgid "Toggle chat"
 msgstr "Chat ein/aus"
 
-#: templates/game/cricket/stream_overlay.html:126
-#: templates/game/cricket/stream_overlay.html:313
-#: templates/game/cricket/watch_webcam.html:139
-#: templates/game/cricket/webcam.html:187 templates/game/x01/game.html:88
-#: templates/game/x01/game.html:182 templates/game/x01/stream_overlay.html:97
-#: templates/game/x01/stream_overlay.html:295
-#: templates/game/x01/webcam.html:104
+#: templates/game/cricket/stream_overlay.html:172
+#: templates/game/cricket/stream_overlay.html:381
+#: templates/game/cricket/watch_webcam.html:158
+#: templates/game/cricket/webcam.html:217 templates/game/x01/game.html:102
+#: templates/game/x01/game.html:216 templates/game/x01/stream_overlay.html:114
+#: templates/game/x01/stream_overlay.html:334
+#: templates/game/x01/webcam.html:118
 msgid "Undo last score"
 msgstr "Score rückgängig"
 
-#: templates/game/cricket/stream_overlay.html:127
-#: templates/game/cricket/stream_overlay.html:314
-#: templates/game/cricket/watch_webcam.html:140
-#: templates/game/cricket/webcam.html:188 templates/game/x01/game.html:89
-#: templates/game/x01/game.html:183 templates/game/x01/stream_overlay.html:98
-#: templates/game/x01/stream_overlay.html:296
-#: templates/game/x01/webcam.html:105
+#: templates/game/cricket/stream_overlay.html:174
+#: templates/game/cricket/stream_overlay.html:383
+#: templates/game/x01/game.html:104 templates/game/x01/game.html:218
+#: templates/game/x01/stream_overlay.html:116
+#: templates/game/x01/stream_overlay.html:336
+msgid "Enter\n"
+"                    correct score"
+msgstr "Korrekten Score eingeben"
+
+#: templates/game/cricket/stream_overlay.html:182
+#: templates/game/x01/game.html:112 templates/game/x01/stream_overlay.html:124
+msgid "Keypad"
+msgstr "Tastatur"
+
+#: templates/game/cricket/watch_webcam.html:159
+#: templates/game/cricket/webcam.html:221 templates/game/x01/webcam.html:122
 msgid "Enter correct score"
 msgstr "Korrektur eingeben"
 
-#: templates/game/cricket/stream_overlay.html:133
-#: templates/game/x01/game.html:95 templates/game/x01/stream_overlay.html:104
-msgid "Keypad"
-msgstr "Tastatur"
+#: templates/game/cricket/webcam.html:188 templates/game/x01/webcam.html:92
+msgid "Back to\n"
+"                                tournament"
+msgstr "Zurück zum Turnier"
 
 #: templates/game/x01/completed.html:180
 #: templates/statistics/x01_detail_element.html:66
@@ -967,7 +994,7 @@ msgstr "DartCall 2007 Callerpaket wurde erstellt von Horst Girtew."
 msgid "Sound effects obtained from"
 msgstr "Soundeffekte erhalten von"
 
-#: templates/generic/chat.html:18 templates/generic/lobby.html:64
+#: templates/generic/chat.html:18 templates/generic/lobby.html:67
 msgid "Public challenges"
 msgstr "Öffentliche Herausforderungen"
 
@@ -1336,70 +1363,70 @@ msgstr "Mehr"
 msgid "Sign Up now"
 msgstr "Jetzt registrieren"
 
-#: templates/generic/lobby.html:10
+#: templates/generic/lobby.html:11
 msgid "Welcome back"
 msgstr "Willkommen zurück"
 
-#: templates/generic/lobby.html:30
+#: templates/generic/lobby.html:31
 msgid "New on Lidarts:"
 msgstr "Neu auf Lidarts:"
 
-#: templates/generic/lobby.html:30
-msgid "Cricket"
-msgstr "Cricket"
+#: templates/generic/lobby.html:32
+msgid "World Championship mode"
+msgstr "WM-Modus"
 
-#: templates/generic/lobby.html:30 templates/generic/webcam_tutorial_en.html:10
-#: templates/profile/webcam_settings.html:15
-msgid "Webcam tutorial"
-msgstr "Webcam-Anleitung"
-
-#: templates/generic/lobby.html:30
+#: templates/generic/lobby.html:33
 msgid "Help translating Lidarts"
 msgstr "Hilf aus, um Lidarts zu übersetzen"
 
-#: templates/generic/lobby.html:46
+#: templates/generic/lobby.html:49
 msgid "Create a game"
 msgstr "Spiel erstellen"
 
-#: templates/generic/lobby.html:57
+#: templates/generic/lobby.html:60
 msgid "Webcam follow page"
 msgstr "Webcam-Folgeseite"
 
-#: templates/generic/lobby.html:65
+#: templates/generic/lobby.html:68
 msgid "Click to accept and play"
 msgstr "Klicken, um anzunehmen und zu spielen"
 
-#: templates/generic/lobby.html:73
+#: templates/generic/lobby.html:76
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: templates/generic/lobby.html:77
+#: templates/generic/lobby.html:80
 msgid "Challenges:"
 msgstr "Herausforderungen:"
 
-#: templates/generic/lobby.html:90
+#: templates/generic/lobby.html:97
 msgid "Games in progress:"
 msgstr "Laufende Spiele:"
 
-#: templates/generic/lobby.html:95
+#: templates/generic/lobby.html:102
 msgid "local guest"
 msgstr "lokaler Gast"
 
-#: templates/generic/lobby.html:106
+#: templates/generic/lobby.html:113
 msgid "New friend requests"
 msgstr "Neue Freundschaftsanfragen"
 
-#: templates/generic/lobby.html:123
+#: templates/generic/lobby.html:136
 msgid "Friends online"
 msgstr "Freunde online"
 
-#: templates/generic/lobby.html:125
+#: templates/generic/lobby.html:138
 msgid "None"
 msgstr "Keine"
 
 #: templates/generic/watch.html:16
 msgid "There are no live games at the moment."
 msgstr "Es gibt gerade keine Livespiele."
+
+#: templates/generic/webcam_tutorial_en.html:10
+#: templates/profile/webcam_settings.html:15
+msgid "Webcam tutorial"
+msgstr "Webcam-Anleitung"
 
 #: templates/generic/webcam_tutorial_en.html:14
 msgid "In order to play with a webcam you need a modern browser (Chrome or Firefox, latest version) and a camera. We highly recommend a USB-webcam, but a smartphone will likely also work."
@@ -1584,7 +1611,7 @@ msgstr "Hinweis: Es gibt eine Grundverzögerung von ~3 Sekunden. Die benutzerdef
 
 #: templates/profile/close_account.html:15
 msgid "Closing your account is a permanent decision."
-msgstr "Das Konto zu schließen ist eine dauerhafte Entscheidung."
+msgstr "Die Kontoschließung ist permanent."
 
 #: templates/profile/close_account.html:15
 msgid "You will not be able to use your account again."
@@ -1767,7 +1794,7 @@ msgstr "Lädt nur das Scoreboard ohne Webcambild in deinen Spielen. Nützlich f�
 
 #: templates/profile/webcam_settings.html:52
 msgid "Try enabling this option if you experience connection problems in your video conferences."
-msgstr "Verwende diese Einstellung, wenn du Verbindungsprobleme mit den Videokonferenzen hast."
+msgstr "Aktiviere diese Option, wenn Verbindungsprobleme in deinen Videokonferenzen auftreten."
 
 #: templates/security/change_password.html:20
 #: templates/security/change_username.html:27
