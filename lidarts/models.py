@@ -54,12 +54,16 @@ class User(db.Model, UserMixin):
     requested_friend_reqs = db.relationship(
         'FriendshipRequest',
         foreign_keys='FriendshipRequest.requesting_user_id',
-        backref='requesting_user'
+        backref='requesting_user',
+        passive_deletes=True,  # Enable passive deletes
+        cascade='all, delete-orphan'
     )
     received_friend_reqs = db.relationship(
         'FriendshipRequest',
         foreign_keys='FriendshipRequest.receiving_user_id',
-        backref='receiving_user'
+        backref='receiving_user',
+        passive_deletes=True,  # Enable passive deletes
+        cascade='all, delete-orphan'
     )
     aspiring_friends = association_proxy('received_friend_reqs', 'requesting_user')
     desired_friends = association_proxy('requested_friend_reqs', 'receiving_user')
@@ -67,12 +71,16 @@ class User(db.Model, UserMixin):
     requested_friend_confs = db.relationship(
         'Friendship',
         foreign_keys='Friendship.user1_id',
-        backref='requesting_friend'
+        backref='requesting_friend',
+        passive_deletes=True,  # Enable passive deletes
+        cascade='all, delete-orphan'
     )
     received_friend_confs = db.relationship(
         'Friendship',
         foreign_keys='Friendship.user2_id',
-        backref='receiving_friend'
+        backref='receiving_friend',
+        passive_deletes=True,  # Enable passive deletes
+        cascade='all, delete-orphan'
     )
     friends_requested = association_proxy('received_friend_confs', 'requesting_friend')
     friends_received = association_proxy('requested_friend_confs', 'receiving_friend')
@@ -89,14 +97,14 @@ class User(db.Model, UserMixin):
 
 class FriendshipRequest(db.Model):
     __tablename__ = 'friendship_requests'
-    requesting_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    receiving_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    requesting_user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True, index=True)
+    receiving_user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True, index=True)
 
 
 class Friendship(db.Model):
     __tablename__ = 'friendships'
-    user1_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    user2_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user1_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True, index=True)
+    user2_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True, index=True)
 
 
 class Role(db.Model, RoleMixin):
@@ -117,6 +125,7 @@ class GameBase(db.Model):
     bo_sets = db.Column(db.Integer, nullable=False)
     bo_legs = db.Column(db.Integer, nullable=False)
     two_clear_legs = db.Column(db.Boolean)
+    two_clear_legs_wc_mode = db.Column(db.Boolean)
     p1_sets = db.Column(db.Integer)
     p2_sets = db.Column(db.Integer)
     p1_legs = db.Column(db.Integer)
@@ -153,11 +162,11 @@ class GameBase(db.Model):
 
     @declared_attr
     def player1(cls):
-        return db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+        return db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), index=True)
 
     @declared_attr
     def player2(cls):
-        return db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+        return db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), index=True)
 
     def set_hashid(self):
         self.hashid = secrets.token_urlsafe(8)[:8]
@@ -169,7 +178,7 @@ class GameBase(db.Model):
 class Game(GameBase):
     __tablename__ = 'games_x01'
     __mapper_args__ = {'polymorphic_identity': 'x01'}
-    id = db.Column(db.Integer, db.ForeignKey('games_all.id'), primary_key=True)
+    id = db.Column(db.Integer, db.ForeignKey('games_all.id', ondelete='CASCADE'), primary_key=True)
     type = db.Column(db.Integer)
     in_mode = db.Column(db.String(15))
     out_mode = db.Column(db.String(15))
@@ -178,7 +187,7 @@ class Game(GameBase):
 class CricketGame(GameBase):
     __tablename__ = 'games_cricket_new'
     __mapper_args__ = {'polymorphic_identity': 'cricket'}
-    id = db.Column(db.Integer, db.ForeignKey('games_all.id'), primary_key=True)
+    id = db.Column(db.Integer, db.ForeignKey('games_all.id', ondelete='CASCADE'), primary_key=True)
     confirmation_needed = db.Column(db.Boolean, default=False)
     undo_possible = db.Column(db.Boolean, default=False)
 
@@ -186,7 +195,7 @@ class CricketGame(GameBase):
 class Chatmessage(db.Model):
     __tablename__ = 'chatmessages'
     id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.Integer, db.ForeignKey('users.id'))
+    author = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), index=True)
     message = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime, index=True)
     tournament_hashid = db.Column(db.String(10), db.ForeignKey('tournaments.hashid'), default=None)
@@ -196,7 +205,7 @@ class ChatmessageIngame(db.Model):
     __tablename__ = 'chatmessages_ingame'
     id = db.Column(db.Integer, primary_key=True)
     game_hashid = db.Column(db.String(10), index=True)
-    author = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+    author = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), index=True)
     message = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime)
 
@@ -204,8 +213,8 @@ class ChatmessageIngame(db.Model):
 class Privatemessage(db.Model):
     __tablename__ = 'privatemessages'
     id = db.Column(db.Integer, primary_key=True)
-    sender = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
-    receiver = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+    sender = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), index=True)
+    receiver = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), index=True)
     message = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime)
 
@@ -213,7 +222,7 @@ class Privatemessage(db.Model):
 class Notification(db.Model):
     __tablename__ = 'notifications'
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), index=True)
     message = db.Column(db.String(500))
     author = db.Column(db.String(30))
     type = db.Column(db.String(30))
@@ -222,7 +231,7 @@ class Notification(db.Model):
 class BoardCoordinates(db.Model):
     __tablename__ = 'boardcoordinates'
     id = db.Column(db.Integer(), primary_key=True)
-    user = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), index=True)
     x1 = db.Column(db.Integer)
     y1 = db.Column(db.Integer)
     x2 = db.Column(db.Integer)
@@ -233,7 +242,7 @@ class BoardCoordinates(db.Model):
 
 class UserSettings(db.Model):
     __tablename__ = 'user_settings'
-    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True)
     match_alerts = db.Column(db.Boolean, default=True)
     allow_challenges = db.Column(db.Boolean, default=True)
     allow_private_messages = db.Column(db.Boolean, default=True)
@@ -250,10 +259,11 @@ class UserSettings(db.Model):
 
 class X01Presetting(db.Model):
     __tablename__ = 'x01_presettings'
-    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True, index=True)
     bo_sets = db.Column(db.Integer)
     bo_legs = db.Column(db.Integer)
     two_clear_legs = db.Column(db.Boolean)
+    two_clear_legs_wc_mode = db.Column(db.Boolean)
     starter = db.Column(db.String(25))
     type = db.Column(db.Integer)
     in_mode = db.Column(db.String(15))
@@ -267,10 +277,11 @@ class X01Presetting(db.Model):
 
 class CricketPresetting(db.Model):
     __tablename__ = 'cricket_presettings'
-    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True)
     bo_sets = db.Column(db.Integer)
     bo_legs = db.Column(db.Integer)
     two_clear_legs = db.Column(db.Boolean)
+    two_clear_legs_wc_mode = db.Column(db.Boolean)
     starter = db.Column(db.String(25))
     opponent_type = db.Column(db.String(10))
     level = db.Column(db.Integer)
@@ -282,7 +293,7 @@ class CricketPresetting(db.Model):
 class UserStatistic(db.Model):
     __tablename__ = 'user_statistic'
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True, index=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), unique=True, index=True)
     average = db.Column(db.Float, default=0)
     first9 = db.Column(db.Float, default=0)
     doubles = db.Column(db.Float, default=0)
@@ -326,7 +337,7 @@ class UsernameChange(db.Model):
 class Tournament(db.Model):
     __tablename__ = 'tournaments'
     id = db.Column(db.Integer, primary_key=True)
-    creator = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
+    creator = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), index=True)
     hashid = db.Column(db.String(10), unique=True)
     name = db.Column(db.String(50), nullable=False)
     public = db.Column(db.Boolean, default=False)
@@ -380,13 +391,14 @@ class TournamentStageRound(db.Model):
     bo_sets = db.Column(db.Integer, nullable=False)
     bo_legs = db.Column(db.Integer, nullable=False)
     two_clear_legs = db.Column(db.Boolean)
+    two_clear_legs_wc_mode = db.Column(db.Boolean)
     starter = db.Column(db.String(30))
     score_input_delay = db.Column(db.Integer, default=0)
 
 
 class WebcamSettings(db.Model):
     __tablename__ = 'webcam_settings'
-    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True)
     user_object = relationship("User", back_populates="webcam_settings")
     activated = db.Column(db.Boolean, default=False)
     stream_consent = db.Column(db.Boolean, default=False)
@@ -405,6 +417,6 @@ class Caller(db.Model):
 
 class StreamGame(db.Model):
     __tablename__ = 'stream_game'
-    user = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True)
     hashid = db.Column(db.String(10), primary_key=True)
     jitsi_hashid = db.Column(db.String(10))

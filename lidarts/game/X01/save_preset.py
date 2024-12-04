@@ -10,6 +10,7 @@ def save_x01_preset(form):
     preset.bo_sets = form.bo_sets.data
     preset.bo_legs = form.bo_legs.data
     preset.two_clear_legs = form.two_clear_legs.data
+    preset.two_clear_legs_wc_mode = form.two_clear_legs_wc_mode.data
     preset.starter = form.starter.data
     preset.type = form.type.data
     preset.in_mode = form.in_mode.data

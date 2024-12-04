@@ -60,6 +60,13 @@ def prepare_x01_form(opponent_name, tournament_hashid):
     else:
         two_clear_legs = False
 
+    if request.args.get('two_clear_legs_wc_mode'):
+        two_clear_legs_wc_mode = request.args.get('two_clear_legs_wc_mode')
+    elif preset.two_clear_legs_wc_mode:
+        two_clear_legs_wc_mode = preset.two_clear_legs_wc_mode
+    else:
+        two_clear_legs_wc_mode = False
+
     if request.args.get('delay'):
         score_input_delay = request.args.get('delay')
     elif preset.score_input_delay:
@@ -96,6 +103,7 @@ def prepare_x01_form(opponent_name, tournament_hashid):
         bo_sets=bo_sets,
         bo_legs=bo_legs,
         two_clear_legs=two_clear_legs,
+        two_clear_legs_wc_mode=two_clear_legs_wc_mode,
         level=level,
         in_mode=in_mode,
         out_mode=out_mode,

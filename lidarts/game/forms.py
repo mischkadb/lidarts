@@ -10,7 +10,7 @@ starter = [('me', lazy_gettext('Me')), ('opponent', lazy_gettext('Opponent')),
            ('closest_to_bull', lazy_gettext('Closest to Bull'))]
 bo_choice = [(str(x), str(x)) for x in range(1, 30)]
 in_choice = [('si', 'Straight In'), ('di', 'Double In')]
-out_choice = [('do', 'Double Out'), ('so', 'Single Out'), ('mo', 'Master Out')]
+out_choice = [('do', 'Double Out'), ('so', 'Straight Out'), ('mo', 'Master Out')]
 
 
 def impossible_numbers_check(form, field):
@@ -37,6 +37,7 @@ class CreateGameForm(FlaskForm):
     bo_sets = SelectField(lazy_gettext('Best of Sets'), choices=bo_choice, validators=[DataRequired()])
     bo_legs = SelectField(lazy_gettext('Best of Legs'), choices=bo_choice, validators=[DataRequired()])
     two_clear_legs = BooleanField(lazy_gettext('Two Clear Legs'))
+    two_clear_legs_wc_mode = BooleanField(lazy_gettext('World Championship Mode'))
     starter = SelectField(lazy_gettext('First to throw'), choices=starter, validators=[DataRequired()])
     opponent = SelectField(lazy_gettext('Opponent'), default='online', choices=opponents, validators=[DataRequired()])
     opponent_name = StringField(lazy_gettext('Opponent name'))

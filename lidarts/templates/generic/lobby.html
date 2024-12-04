@@ -7,7 +7,8 @@
     <div class="col-auto">
         <div class="card bg-light text-dark">
             <div class="card-body">
-                <h2 class="card-text"><img src="{{ url_for('static', filename='img/logo.png') }}" width="76" height="38" alt="lidarts logo" class=""> {{ _('Welcome back') }} {{ current_user.username }}!</h2>
+                <h2 class="card-text"><img src="{{ url_for('static', filename='img/logo.png') }}" width="76" height="38"
+                        alt="lidarts logo" class=""> {{ _('Welcome back') }} {{ current_user.username }}!</h2>
             </div>
         </div>
     </div>
@@ -17,7 +18,7 @@
 <div class="row">
     <div class="col-auto">
         <div class="alert alert-info">
-                {{ announcement }}
+            {{ announcement }}
         </div>
     </div>
 </div>
@@ -27,7 +28,9 @@
     <div class="col-12">
         <div class="card bg-light text-dark">
             <div class="card-body">
-                <h4 class="card-text">{{ _('New on Lidarts:') }} <a href="{{ url_for('game.create', mode='cricket') }}">{{ _('Cricket') }}</a> | <a href="{{ url_for('generic.webcam_tutorial_en') }}">{{ _('Webcam tutorial') }}</a> | <a href="{{ url_for('generic.help_translate') }}">{{ _('Help translating Lidarts') }}</a></h4>
+                <h4 class="card-text">{{ _('New on Lidarts:') }} <a href="{{ url_for('game.create', mode='x01') }}">{{
+                        _('World Championship mode') }}</a> | <a href="{{ url_for('generic.help_translate') }}">{{
+                        _('Help translating Lidarts') }}</a></h4>
             </div>
         </div>
     </div>
@@ -47,7 +50,7 @@
                         </div>
                     </div>
                 </a>
-                
+
                 <hr>
 
                 {% if mobile_follower_mode %}
@@ -79,10 +82,14 @@
                 <p id="element-decline-challenge-{{ game.hashid }}">
                     <a href="{{ url_for('game.start', hashid=game.hashid) }}">
                         {{ player_names[game.player1] }}:
-                        {% if game.variant == 'x01' %}{{ game.type }} {{ game.in_mode }}/{{ game.out_mode }}{% else %}Cricket{% endif %} {% if game.bo_sets > 1 %}bo{{ game.bo_sets }} sets,{% endif %} bo{{ game.bo_legs }} legs
+                        {% if game.variant == 'x01' %}{{ game.type }} {{ game.in_mode }}/{{ game.out_mode }}{% else
+                        %}Cricket{% endif %} {% if game.bo_sets > 1 %}bo{{ game.bo_sets }} sets,{% endif %} bo{{
+                        game.bo_legs }} legs
                         {% if game.webcam %}<i class="fas fa-camera" title="Webcam"></i>{% endif %}
-                </a>
-                    <a href="#" style="color: #cc4444" ><i class="fas fa-times-circle decline-challenge" id="decline-challenge-{{ game.hashid }}"></i></a></p>
+                    </a>
+                    <a href="#" style="color: #cc4444"><i class="fas fa-times-circle decline-challenge"
+                            id="decline-challenge-{{ game.hashid }}"></i></a>
+                </p>
                 {% endfor %}
                 {% endif %}
                 <!-- GAMES IN PROGRESS -->
@@ -90,10 +97,10 @@
                 <p>{{ _('Games in progress:') }}</p>
                 {% for game in games_in_progress %}
                 <p><a href="{{ url_for('game.start', hashid=game.hashid) }}">vs.
-                    {%- if game.player1 != current_user.id %} {{ player_names[game.player1] }}
-                    {%- elif game.player2 != current_user.id %} {{ player_names[game.player2] }}
-                    {%- else %} {{ _('local guest') }}{% endif %}
-                    - [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
+                        {%- if game.player1 != current_user.id %} {{ player_names[game.player1] }}
+                        {%- elif game.player2 != current_user.id %} {{ player_names[game.player2] }}
+                        {%- else %} {{ _('local guest') }}{% endif %}
+                        - [{{ game.p1_sets }}:{{ game.p2_sets }}, {{ game.p1_legs }}:{{ game.p2_legs }}]</a></p>
                 {% endfor %}
                 <hr>
                 {% endif %}
@@ -105,14 +112,20 @@
                 {% if friend_requests %}
                 <p>{{ _('New friend requests') }}</p>
                 {% for friend_request in friend_requests %}
-                <p id="element-friend-request-{{friend_request.requesting_user_id}}"><strong>{{ player_names[friend_request.requesting_user_id] }}</strong>
-                    <span class="btn-group btn-group-sm text-right" role="group" aria-label="Accept or decline friend request" style="float: right">
-                    <button class="btn btn-success button-accept-friend-request" id="button-accept-friend-request-{{friend_request.requesting_user_id}}" role="button"><i class="fas fa-check-circle"></i></button>
-                    <button class="btn btn-danger button-decline-friend-request" id="button-decline-friend-request-{{friend_request.requesting_user_id}}" role="button"><i class="fas fa-times-circle"></i></button>
-                </span>
+                <p id="element-friend-request-{{friend_request.requesting_user_id}}"><strong>{{
+                        player_names[friend_request.requesting_user_id] }}</strong>
+                    <span class="btn-group btn-group-sm text-right" role="group"
+                        aria-label="Accept or decline friend request" style="float: right">
+                        <button class="btn btn-success button-accept-friend-request"
+                            id="button-accept-friend-request-{{friend_request.requesting_user_id}}" role="button"><i
+                                class="fas fa-check-circle"></i></button>
+                        <button class="btn btn-danger button-decline-friend-request"
+                            id="button-decline-friend-request-{{friend_request.requesting_user_id}}" role="button"><i
+                                class="fas fa-times-circle"></i></button>
+                    </span>
                     {% endfor %}
-                <hr>
-                {% endif %}
+                    <hr>
+                    {% endif %}
 
             </div>
         </div>
@@ -126,8 +139,8 @@
                 {% else %}
                 {% for friend in online_friend_list %}
                 <p><a href="{{ url_for('profile.overview', username=player_names[friend]) | replace('%40', '@') }}">
-                    <strong>{{ player_names[friend] }}</strong>
-                </a></p>
+                        <strong>{{ player_names[friend] }}</strong>
+                    </a></p>
                 {% endfor %}
                 {% endif %}
 
@@ -139,9 +152,9 @@
                         {{ form.username(class="form-control") }}</p>
                     {% if form.errors %}
                     {% for error in form.username.errors %}
-                      <p class="font-weight-bold text-danger">{{ error }}</p>
+                    <p class="font-weight-bold text-danger">{{ error }}</p>
                     {% endfor %}
-                  {% endif %}
+                    {% endif %}
 
                     <p>{{ form.submit(class="btn btn-lg btn-info") }}</p>
                 </form>
@@ -159,6 +172,8 @@
 <meta id="decline_challenge_url" data-url="{{ url_for('game.decline_challenge') }}">
 <meta id="user_name" data-username="{{ current_user.username }}">
 
-<script type="text/javascript" src="{{ url_for('static',filename='js/public_challenge_socket.js', version=config.VERSION) }}"></script>
-<script type="text/javascript" src="{{ url_for('static',filename='js/friend_requests.js', version=config.VERSION) }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static',filename='js/public_challenge_socket.js', version=config.VERSION) }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static',filename='js/friend_requests.js', version=config.VERSION) }}"></script>
 {% endblock %}

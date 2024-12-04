@@ -180,6 +180,7 @@ def create_rematch(hashid):
         player1=game.player1, player2=game.player2, type=game.type,
         bo_sets=game.bo_sets, bo_legs=game.bo_legs,
         two_clear_legs=game.two_clear_legs,
+        two_clear_legs_wc_mode=game.two_clear_legs_wc_mode,
         p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
         p1_score=int(game.type), p2_score=int(game.type),
         in_mode=game.in_mode, out_mode=game.out_mode,

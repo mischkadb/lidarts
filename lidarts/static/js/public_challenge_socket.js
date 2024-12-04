@@ -1,10 +1,10 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // namespace for the game handling
     namespace = '/public_challenge';
     // Connect to the Socket.IO server.
     // The connection URL has the following format:
     //     http[s]://<domain>:<port>[/<namespace>]
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {transports: ['websocket']});
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, { transports: ['websocket'] });
     // Event handler for new connections.
     // The callback function is invoked when a connection with the
     // server is established.
@@ -12,21 +12,27 @@ $(document).ready(function() {
     var game_url = $('#game_url').data()['url'];
     console.log(username);
 
-    socket.on('broadcast_public_challenges', function(msg) {
+    socket.on('broadcast_public_challenges', function (msg) {
         $('#public_challenge_list').text('');
         if (msg['public_challenges'].length == 0) {
             $('#public_challenge_list').html('<center>------</center>');
-        } 
+        }
 
-        for(i in msg['public_challenges']) {
+        for (i in msg['public_challenges']) {
             public_challenge = msg['public_challenges'][i]
 
-            if (public_challenge['username'] == username){
+            if (public_challenge['username'] == username) {
                 continue;
             }
 
             if (public_challenge['two_clear_legs'] == true) {
                 two_clear_legs = ' | Two clear legs'
+            } else {
+                two_clear_legs = ''
+            }
+
+            if (public_challenge['two_clear_legs_wc_mode'] == true) {
+                two_clear_legs = ' | World Champ. mode'
             } else {
                 two_clear_legs = ''
             }
@@ -63,15 +69,16 @@ $(document).ready(function() {
                 mode = '';
             }
 
-            
+
             $('#public_challenge_list').append(
                 '<p><a href="' + game_url + public_challenge['hashid'] + '" class="text-dark mt-2"><strong>' + public_challenge['username'] + '</strong> | '
                 + 'Avg.: ' + public_challenge['average'] + '<br>'
-                + type 
+                + type
                 + mode
                 + 'bo' + public_challenge['bo_legs'] + ' legs'
                 + bo_sets
                 + two_clear_legs
+                + two_clear_legs_wc_mode
                 + closest_to_bull
                 + score_input_delay
                 + webcam
@@ -79,7 +86,7 @@ $(document).ready(function() {
                 + '<hr>'
             );
         }
-        
+
     });
 
 });

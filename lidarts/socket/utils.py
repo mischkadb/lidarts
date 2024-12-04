@@ -81,6 +81,7 @@ def player_to_dict(game, player1):
         'bo_legs': game.bo_legs,
         'bo_sets': game.bo_sets,
         'two_clear_legs': game.two_clear_legs,
+        'two_clear_legs_wc_mode': game.two_clear_legs_wc_mode,
         'type': game.type,
         'status': game.status
     }
@@ -128,23 +129,42 @@ def process_leg_win(player_dict, match_json, current_values):
     # leg count increase with check for set win
     if player_dict['two_clear_legs']:
         player_dict['p_legs'] += 1
+    # world champs mode: two clear legs only in last set. sudden death at 5:5  legs
+    elif player_dict['two_clear_legs_wc_mode'] and player_dict['p_sets'] == player_dict['o_sets'] == (sets_for_match - 1):
+        player_dict['p_legs'] += 1
     else:
         player_dict['p_legs'] = (player_dict['p_legs'] + 1) % legs_for_set
     # reset score to default value
     player_dict['p_score'] = player_dict['type']
 
     # check if player won set
-    if player_dict['p_legs'] == 0 or \
-            (player_dict['two_clear_legs'] and
-             player_dict['p_legs'] >= legs_for_set and
-             player_dict['p_legs'] >= player_dict['o_legs'] + 2):
+    if (
+        player_dict['p_legs'] == 0 
+        or (
+            player_dict['two_clear_legs']
+            and player_dict['p_legs'] >= legs_for_set 
+            and player_dict['p_legs'] >= player_dict['o_legs'] + 2
+        )
+        or (
+            # world champs mode: two clear legs only in last set. sudden death at 5:5 legs
+            player_dict['two_clear_legs_wc_mode']
+            and player_dict['p_legs'] >= legs_for_set
+            and player_dict['p_sets'] == player_dict['o_sets'] == (sets_for_match - 1)
+            and ((
+                player_dict['p_legs'] >= player_dict['o_legs'] + 2
+            ) or (
+                # edge case: wc mode and large bo_legs: opponent might have more legs than 5
+                player_dict['p_legs'] > player_dict['o_legs'] and player_dict['o_legs'] >= 5
+            ))
+        )
+    ):
         player_dict['p_sets'] += 1
 
         # check if player won match or match drawn
         if player_dict['p_sets'] == sets_for_match or \
                 (set_draw_possible and (player_dict['p_sets'] == player_dict['o_sets'] == (player_dict['bo_sets'] / 2))):
             # leg score is needed if best of 1 set
-            if player_dict['bo_sets'] == 1 and not player_dict['two_clear_legs']:
+            if player_dict['bo_sets'] == 1 and player_dict['p_legs'] == 0:
                 player_dict['p_legs'] = math.ceil((player_dict['bo_legs'] + 0.5) / 2)
             player_dict['status'] = 'completed'
             player_dict['p_score'] = 0  # end score 0 looks nicer

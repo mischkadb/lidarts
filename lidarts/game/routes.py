@@ -109,6 +109,9 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         except AttributeError:
             player2_id = player2
 
+        if form.two_clear_legs_wc_mode.data:
+            form.two_clear_legs.data = False
+
         if mode == 'x01':
             match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
                                          2: {'scores': [], 'double_missed': []}}}})
@@ -117,6 +120,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 variant='x01',
                 bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
                 two_clear_legs=form.two_clear_legs.data,
+                two_clear_legs_wc_mode=form.two_clear_legs_wc_mode.data,
                 p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
                 p1_score=int(form.type.data), p2_score=int(form.type.data),
                 in_mode=form.in_mode.data, out_mode=form.out_mode.data,
@@ -140,6 +144,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 player1=player1, player2=player2_id, variant='cricket',
                 bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
                 two_clear_legs=form.two_clear_legs.data,
+                two_clear_legs_wc_mode=form.two_clear_legs_wc_mode.data,
                 p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
                 p1_score=0, p2_score=0,
                 begin=datetime.utcnow(), match_json=match_json,

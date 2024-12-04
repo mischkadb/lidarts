@@ -40,6 +40,7 @@ def start(hashid):
         'player2',
         'type',
         'two_clear_legs',
+        'two_clear_legs_wc_mode',
         'status',
         'in_mode',
         'out_mode',

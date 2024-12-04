@@ -17,7 +17,8 @@
                     </div>
                     <div class="col-6 align-self-center text-left">
                         <div class="dropdown show">
-                            <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {% if 'cricket' in request.path %}
                                 Cricket
                                 {% else %}
@@ -51,22 +52,25 @@
                         {{ form.opponent(class="custom-select", onchange="computercheck(this);") }}
                     </p>
 
-                    <p {% if form.opponent.data != 'computer' %}style="display: none;"{% endif %} id="levels">{{ form.level.label(class="col-form-label") }}:
+                    <p {% if form.opponent.data !='computer' %}style="display: none;" {% endif %} id="levels">{{
+                        form.level.label(class="col-form-label") }}:
                         {{ form.level(class="custom-select") }}
                     </p>
 
-                    <p {% if form.opponent.data != 'online' %}style="display: none;"{% endif %}id="opponent_name">{{ form.opponent_name.label(class="col-form-label") }}:
+                    <p {% if form.opponent.data !='online' %}style="display: none;" {% endif %}id="opponent_name">{{
+                        form.opponent_name.label(class="col-form-label") }}:
                         {{ form.opponent_name(class="form-control") }}
                     </p>
 
                     <p>
-                        <div class="custom-control custom-checkbox" {% if form.opponent.data != 'online' %}style="display: none;"{% endif %} id="public_challenge_div">
+                    <div class="custom-control custom-checkbox" {% if form.opponent.data !='online'
+                        %}style="display: none;" {% endif %} id="public_challenge_div">
                         {{ form.public_challenge(class="custom-control-input") }}
                         {{ form.public_challenge.label(class="custom-control-label") }}
-                        </div>
+                    </div>
                     </p>
 
-                    <p {% if form.opponent.data != 'online' %}style="display: none;"{% endif %} id="tournaments">
+                    <p {% if form.opponent.data !='online' %}style="display: none;" {% endif %} id="tournaments">
                         {{ form.tournament.label(class="col-form-label") }}:
                         {{ form.tournament(class="custom-select") }}
                     </p>
@@ -84,25 +88,42 @@
                     <p>{{ form.bo_legs.label(class="col-form-label") }}:
                         {{ form.bo_legs(class="custom-select") }}</p>
 
-                    <p><div class="custom-control custom-checkbox">
+                    <p>
+                    <div class="custom-control custom-checkbox">
                         {{ form.two_clear_legs(class="custom-control-input") }}
                         {{ form.two_clear_legs.label(class="custom-control-label") }}
-                        </div>
+                    </div>
                     </p>
 
-                    <p><div class="custom-control custom-checkbox">
+
+                    <p>
+                    <div class="custom-control custom-checkbox">
+                        {{ form.two_clear_legs_wc_mode(class="custom-control-input") }}
+                        {{ form.two_clear_legs_wc_mode.label(class="custom-control-label") }}
+                        <i class="far fa-question-circle" tabindex="0" type="button" data-container="body"
+                            data-toggle="popover" data-placement="right" data-trigger="focus"
+                            data-content="{{ _('Two-clear-legs only in the final set. Sudden death at 5:5 legs.') }}"></i>
+                    </div>
+                    </p>
+
+
+
+                    <p>
+                    <div class="custom-control custom-checkbox">
                         {{ form.webcam(class="custom-control-input") }}
                         {{ form.webcam.label(class="custom-control-label") }}
-                        </div>
-                        {% if form.webcam.render_kw and 'disabled' in form.webcam.render_kw %}
-                        <small><a href="{{ url_for('game.webcam_consent') }}">{{ _('You have to activate webcam games first.') }}</a></small>
-                        {% endif %}
+                    </div>
+                    {% if form.webcam.render_kw and 'disabled' in form.webcam.render_kw %}
+                    <small><a href="{{ url_for('game.webcam_consent') }}">{{ _('You have to activate webcam games
+                            first.') }}</a></small>
+                    {% endif %}
                     </p>
 
-                    <p><div class="custom-control custom-checkbox">
+                    <p>
+                    <div class="custom-control custom-checkbox">
                         {{ form.save_preset(class="custom-control-input") }}
                         {{ form.save_preset.label(class="custom-control-label") }}
-                        </div>
+                    </div>
                     </p>
                 </div>
             </div>
@@ -148,12 +169,12 @@
             document.getElementById("levels").style.display = "block";
             document.getElementById("public_challenge_div").style.display = "none";
             document.getElementById("opponent_name").style.display = "none";
-            document.getElementById("tournaments").style.display = "none";          
+            document.getElementById("tournaments").style.display = "none";
         } else if (that.value == 'online') {
             document.getElementById("levels").style.display = "none";
             document.getElementById("public_challenge_div").style.display = "block";
-            document.getElementById("opponent_name").style.display = "block";    
-            document.getElementById("tournaments").style.display = "block";        
+            document.getElementById("opponent_name").style.display = "block";
+            document.getElementById("tournaments").style.display = "block";
         } else {
             document.getElementById("levels").style.display = "none";
             document.getElementById("public_challenge_div").style.display = "none";
