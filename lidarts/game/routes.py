@@ -7,6 +7,7 @@ from lidarts.models import CricketGame, Game, GameBase, User, Notification, Chat
 from lidarts import db
 from lidarts.socket.public_challenge_handler import broadcast_public_challenges
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
+from lidarts.game.consts import ACTIVE_GAME_LIMIT
 from lidarts.game.cricket.prepare_form import prepare_cricket_form
 from lidarts.game.cricket.save_preset import save_cricket_preset
 from lidarts.game.X01.prepare_form import prepare_x01_form
@@ -18,6 +19,8 @@ from datetime import datetime
 import json
 import secrets
 from sqlalchemy import func
+
+
 
 
 @bp.route('/create', methods=['GET', 'POST'])
@@ -41,9 +44,8 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
     if form.validate_on_submit():
         player1 = current_user.id if current_user.is_authenticated else None
 
-        # check if player1 created too many games to prevent spamming
-        ACTIVE_GAME_LIMIT = 10
-        active_games = Game.query.filter_by(player1=player1).filter(Game.status.in_(['started', 'challenged'])).count()
+        # check if player1 created too many games to prevent spamming    
+        active_games = GameBase.query.filter_by(player1=player1).filter(GameBase.status.in_(['started', 'challenged'])).count()
         if active_games >= ACTIVE_GAME_LIMIT:
             flash(gettext('You have too many active games. Please finish some games before creating new ones.'), 'danger')
             return render_template('game/create_game.html', form=form, opponent_name=opponent_name,

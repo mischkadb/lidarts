@@ -2,8 +2,9 @@ from flask import request
 from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
+from lidarts.game.consts import ACTIVE_GAME_LIMIT
 from lidarts.game.utils import cricket_leg_default
-from lidarts.models import CricketGame, User
+from lidarts.models import GameBase, CricketGame, User
 from lidarts.socket.game.cricket.utils import process_score
 from lidarts.socket.utils import authenticated_only, current_turn_user_id, limit_socketio, process_closest_to_bull
 from lidarts.socket.game.cricket.computer import get_computer_score
@@ -184,6 +185,14 @@ def accept_rematch_offer(message):
 
 def create_rematch(hashid):
     game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
+
+    if game.status != 'completed':
+        return    
+
+    # check if player1 created too many games to prevent spamming    
+    active_games = GameBase.query.filter_by(player1=game.player1).filter(GameBase.status.in_(['started', 'challenged'])).count()
+    if active_games >= ACTIVE_GAME_LIMIT:
+        return
 
     match_json = json.dumps(
         {

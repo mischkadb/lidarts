@@ -3,7 +3,8 @@ from flask_socketio import emit, join_room, leave_room
 from flask_login import current_user
 from lidarts import socketio, db
 from lidarts.game.checkout_suggestions import checkout_suggestions
-from lidarts.models import Game
+from lidarts.game.consts import ACTIVE_GAME_LIMIT
+from lidarts.models import Game, GameBase, CricketGame
 from lidarts.socket.utils import authenticated_only, limit_socketio, process_score, current_turn_user_id, process_closest_to_bull
 from lidarts.socket.computer import get_computer_score
 import json
@@ -157,6 +158,11 @@ def create_rematch(hashid):
     game = Game.query.filter_by(hashid=hashid).first_or_404()
 
     if game.status != 'completed':
+        return    
+
+    # check if player1 created too many games to prevent spamming    
+    active_games = GameBase.query.filter_by(player1=game.player1).filter(GameBase.status.in_(['started', 'challenged'])).count()
+    if active_games >= ACTIVE_GAME_LIMIT:
         return
 
     match_json = json.dumps(
