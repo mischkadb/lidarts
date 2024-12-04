@@ -7,7 +7,7 @@ from lidarts.models import CricketGame, Game, GameBase, User, Notification, Chat
 from lidarts import db
 from lidarts.socket.public_challenge_handler import broadcast_public_challenges
 from lidarts.socket.utils import broadcast_game_aborted, broadcast_new_game, send_notification
-from lidarts.game.consts import ACTIVE_GAME_LIMIT
+from lidarts.game.consts import ACTIVE_GAME_LIMIT, GAME_CREATION_TIME_COOLDOWN_SECONDS
 from lidarts.game.cricket.prepare_form import prepare_cricket_form
 from lidarts.game.cricket.save_preset import save_cricket_preset
 from lidarts.game.X01.prepare_form import prepare_x01_form
@@ -15,7 +15,7 @@ from lidarts.game.X01.save_preset import save_x01_preset
 from lidarts.game.utils import get_name_by_id, collect_statistics, get_player_names, cricket_leg_default
 from lidarts.socket.X01_game_handler import start_game
 from flask_login import current_user, login_required
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import secrets
 from sqlalchemy import func
@@ -48,6 +48,13 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         active_games = GameBase.query.filter_by(player1=player1).filter(GameBase.status.in_(['started', 'challenged'])).count()
         if active_games >= ACTIVE_GAME_LIMIT:
             flash(gettext('You have too many active games. Please finish some games before creating new ones.'), 'danger')
+            return render_template('game/create_game.html', form=form, opponent_name=opponent_name,
+                                   title=lazy_gettext('Create Game'))
+        
+        # check if player1 created a game too recently to prevent spamming
+        last_game = GameBase.query.filter_by(player1=player1).order_by(GameBase.begin.desc()).first()
+        if last_game and last_game.begin > datetime.utcnow() - timedelta(seconds=GAME_CREATION_TIME_COOLDOWN_SECONDS):
+            flash(gettext('You have created a game too recently. Please wait a bit before creating a new one.'), 'danger')
             return render_template('game/create_game.html', form=form, opponent_name=opponent_name,
                                    title=lazy_gettext('Create Game'))
 
