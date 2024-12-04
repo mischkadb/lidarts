@@ -112,124 +112,88 @@ def collect_statistics(game, match_json):
         return collect_statistics_cricket(game, match_json)
 
     stats = defaultdict(int)
-    p1_scores = []
-    p2_scores = []
-    p1_first9_scores = []
-    p2_first9_scores = []
-    stats['p1_short_leg'] = 0
-    stats['p2_short_leg'] = 0
+    scores = ([], [])
+    first9_scores = ([], [])
+    short_leg = [0, 0]
+    short_legs = ([], [])
+    high_finish = [0, 0]
+    high_finishes = ([], [])
 
-    p1_darts_thrown = 0
-    p1_darts_thrown_double = 0
-    p1_legs_won = 0
-    p2_darts_thrown = 0
-    p2_darts_thrown_double = 0
-    p2_legs_won = 0
+    darts_thrown = [0, 0]
+    darts_thrown_double = [0, 0]
+    legs_won = [0, 0]
 
     for set_ in match_json:
         for leg in match_json[set_]:
             if isinstance(match_json[set_][leg]['1']['double_missed'], (list,)):
-                p1_darts_thrown_double += sum(match_json[set_][leg]['1']['double_missed'])
-                p2_darts_thrown_double += sum(match_json[set_][leg]['2']['double_missed'])
+                darts_thrown_double[0] += sum(match_json[set_][leg]['1']['double_missed'])
+                darts_thrown_double[1] += sum(match_json[set_][leg]['2']['double_missed'])
             else:
                 # legacy: double_missed as int
-                p1_darts_thrown_double += match_json[set_][leg]['1']['double_missed']
-                p2_darts_thrown_double += match_json[set_][leg]['2']['double_missed']
+                darts_thrown_double[0] += match_json[set_][leg]['1']['double_missed']
+                darts_thrown_double[1] += match_json[set_][leg]['2']['double_missed']
 
-            p1_darts_thrown_this_leg = len(match_json[set_][leg]['1']['scores']) * 3
-            p2_darts_thrown_this_leg = len(match_json[set_][leg]['2']['scores']) * 3
+            darts_thrown_this_leg = [
+                len(match_json[set_][leg]['1']['scores']) * 3,
+                len(match_json[set_][leg]['2']['scores']) * 3,
+            ]
 
-            if sum(match_json[set_][leg]['1']['scores']) == game.type:
-                if 'to_finish' in match_json[set_][leg]['1']:
-                    p1_darts_thrown_this_leg -= (3 - match_json[set_][leg]['1']['to_finish'])
+            player = 0 if sum(match_json[set_][leg]['1']['scores']) == game.type else 1
+            player_string = '1' if player == 0 else '2'
+                
+            if 'to_finish' in match_json[set_][leg][player_string]:
+                darts_thrown_this_leg[player] -= (3 - match_json[set_][leg][player_string]['to_finish'])
 
-                p1_darts_thrown_double += 1
-                p1_legs_won += 1
+            darts_thrown_double[player] += 1
+            legs_won[player] += 1
 
-                stats['p1_short_leg'] = p1_darts_thrown_this_leg \
-                    if stats['p1_short_leg'] == 0 else stats['p1_short_leg']
-                stats['p1_short_leg'] = p1_darts_thrown_this_leg \
-                    if p1_darts_thrown_this_leg < stats['p1_short_leg'] else stats['p1_short_leg']
-                stats['p1_high_finish'] = match_json[set_][leg]['1']['scores'][-1] \
-                    if match_json[set_][leg]['1']['scores'][-1] > stats['p1_high_finish'] else stats['p1_high_finish']
+            short_leg[player] = darts_thrown_this_leg[player] \
+                if short_leg[player] == 0 else short_leg[player]
+            short_leg[player] = min(darts_thrown_this_leg[player], short_leg[player])
+            if darts_thrown_this_leg[player] <= 18:
+                short_legs[player].append(darts_thrown_this_leg[player])
+            finish_score = match_json[set_][leg][player_string]['scores'][-1]
+            high_finish[player] = max(finish_score, high_finish[player])
+            if finish_score > 100:
+                high_finishes[player].append(finish_score)               
 
-            if sum(match_json[set_][leg]['2']['scores']) == game.type:
-                if 'to_finish' in match_json[set_][leg]['2']:
-                    p2_darts_thrown_this_leg -= (3 - match_json[set_][leg]['2']['to_finish'])
+            darts_thrown[0] += darts_thrown_this_leg[0]
+            darts_thrown[1] += darts_thrown_this_leg[1]
 
-                p2_darts_thrown_double += 1
-                p2_legs_won += 1
+            for player in (0, 1):
+                player_string = '1' if player == 0 else '2'
+                for i, score in enumerate(match_json[set_][leg][player_string]['scores']):
+                    scores[player].append(score)
+                    if i <= 2:
+                        first9_scores[player].append(score)
+                    if score == 180:
+                        stats[f'p{player_string}_180'] += 1
+                    elif score >= 171:
+                        stats[f'p{player_string}_171'] += 1
+                    elif score >= 140:
+                        stats[f'p{player_string}_140'] += 1
+                    elif score >= 100:
+                        stats[f'p{player_string}_100'] += 1
+                    elif score >= 80:
+                        stats[f'p{player_string}_80'] += 1
+                    elif score >= 60:
+                        stats[f'p{player_string}_60'] += 1
+                    elif score >= 40:
+                        stats[f'p{player_string}_40'] += 1
+                    elif score >= 20:
+                        stats[f'p{player_string}_20'] += 1
+                    else:
+                        stats[f'p{player_string}_0'] += 1
 
-                stats['p2_short_leg'] = p2_darts_thrown_this_leg \
-                    if stats['p2_short_leg'] == 0 else stats['p2_short_leg']
-                stats['p2_short_leg'] = p2_darts_thrown_this_leg \
-                    if p2_darts_thrown_this_leg < stats['p2_short_leg'] else stats['p2_short_leg']
-                stats['p2_high_finish'] = match_json[set_][leg]['2']['scores'][-1] \
-                    if match_json[set_][leg]['2']['scores'][-1] > stats['p2_high_finish'] else stats['p2_high_finish']
-
-            p1_darts_thrown += p1_darts_thrown_this_leg
-            p2_darts_thrown += p2_darts_thrown_this_leg
-
-            for i, score in enumerate(match_json[set_][leg]['1']['scores']):
-                p1_scores.append(score)
-                if i <= 2:
-                    p1_first9_scores.append(score)
-                if score == 180:
-                    stats['p1_180'] += 1
-                elif score >= 171:
-                    stats['p1_171'] += 1
-                elif score >= 140:
-                    stats['p1_140'] += 1
-                elif score >= 100:
-                    stats['p1_100'] += 1
-                elif score >= 80:
-                    stats['p1_80'] += 1
-                elif score >= 60:
-                    stats['p1_60'] += 1
-                elif score >= 40:
-                    stats['p1_40'] += 1
-                elif score >= 20:
-                    stats['p1_20'] += 1
-                else:
-                    stats['p1_0'] += 1
-
-            for i, score in enumerate(match_json[set_][leg]['2']['scores']):
-                p2_scores.append(score)
-                if i <= 2:
-                    p2_first9_scores.append(score)
-                if score == 180:
-                    stats['p2_180'] += 1
-                elif score >= 171:
-                    stats['p2_171'] += 1
-                elif score >= 140:
-                    stats['p2_140'] += 1
-                elif score >= 100:
-                    stats['p2_100'] += 1
-                elif score >= 80:
-                    stats['p2_80'] += 1
-                elif score >= 60:
-                    stats['p2_60'] += 1
-                elif score >= 40:
-                    stats['p2_40'] += 1
-                elif score >= 20:
-                    stats['p2_20'] += 1
-                else:
-                    stats['p2_0'] += 1
-
-    stats['p1_match_avg'] = round(sum(p1_scores) / (p1_darts_thrown / 3), 2) if p1_scores else 0
-    stats['p2_match_avg'] = round(sum(p2_scores) / (p2_darts_thrown / 3), 2) if p2_scores else 0
-    stats['p1_first9_avg'] = round(sum(p1_first9_scores)/len(p1_first9_scores), 2) if p1_first9_scores else 0
-    stats['p2_first9_avg'] = round(sum(p2_first9_scores)/len(p2_first9_scores), 2) if p2_first9_scores else 0
-
-    stats['p1_doubles'] = int(p1_legs_won / p1_darts_thrown_double * 10000) / 100 if p1_legs_won else 0
-    stats['p2_doubles'] = int(p2_legs_won / p2_darts_thrown_double * 10000) / 100 if p2_legs_won else 0
-
-    stats['p1_legs_won'] = p1_legs_won
-    stats['p2_legs_won'] = p2_legs_won
-
-    stats['p1_darts_thrown_double'] = p1_darts_thrown_double
-    stats['p2_darts_thrown_double'] = p2_darts_thrown_double
-
+                stats[f'p{player_string}_match_avg'] = round(sum(scores[player]) / (darts_thrown[player] / 3), 2) if scores[player] else 0
+                stats[f'p{player_string}_first9_avg'] = round(sum(first9_scores[player])/len(first9_scores[player]), 2) if first9_scores[player] else 0
+                stats[f'p{player_string}_doubles'] = int(legs_won[player] / darts_thrown_double[player] * 10000) / 100 if legs_won[player] else 0
+                stats[f'p{player_string}_legs_won'] = legs_won[player]
+                stats[f'p{player_string}_darts_thrown_double'] = darts_thrown_double[player]
+                stats[f'p{player_string}_short_leg'] = short_leg[player]                
+                stats[f'p{player_string}_short_legs'] = sorted(short_legs[player])
+                stats[f'p{player_string}_high_finish'] = high_finish[player]
+                stats[f'p{player_string}_high_finishes'] = sorted(high_finishes[player], reverse=True)
     return stats
 
 cricket_leg_default = {
