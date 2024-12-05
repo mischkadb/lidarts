@@ -143,6 +143,10 @@ def collect_statistics(game, match_json):
                 
             if 'to_finish' in match_json[set_][leg][player_string]:
                 darts_thrown_this_leg[player] -= (3 - match_json[set_][leg][player_string]['to_finish'])
+                finish_score = match_json[set_][leg][player_string]['scores'][-1]
+                high_finish[player] = max(finish_score, high_finish[player])
+                if finish_score > 100:
+                    high_finishes[player].append(finish_score)               
 
             darts_thrown_double[player] += 1
             legs_won[player] += 1
@@ -152,11 +156,7 @@ def collect_statistics(game, match_json):
             short_leg[player] = min(darts_thrown_this_leg[player], short_leg[player])
             if darts_thrown_this_leg[player] <= 18:
                 short_legs[player].append(darts_thrown_this_leg[player])
-            finish_score = match_json[set_][leg][player_string]['scores'][-1]
-            high_finish[player] = max(finish_score, high_finish[player])
-            if finish_score > 100:
-                high_finishes[player].append(finish_score)               
-
+            
             darts_thrown[0] += darts_thrown_this_leg[0]
             darts_thrown[1] += darts_thrown_this_leg[1]
 
