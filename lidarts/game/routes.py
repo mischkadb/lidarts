@@ -454,12 +454,10 @@ def cancel_challenge(hashid):
 @bp.route('/abort_game/<hashid>', methods=['POST'])
 @login_required
 def abort_game(hashid):
-    game = Game.query.filter_by(hashid=hashid).first()
+    game = GameBase.query.filter_by(hashid=hashid).first_or_404()
     
     if current_user.id not in (game.player1, game.player2):
         return jsonify('Unauthorized')
-    if not game:
-        game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
     if game.status == 'completed':
         return redirect(url_for('generic.lobby'))
     game.status = "aborted"
