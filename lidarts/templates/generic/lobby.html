@@ -102,6 +102,27 @@
                 </p>
                 {% endfor %}
                 {% endif %}
+                <!-- OWN CHALLENGES -->
+                {% if own_challenges %}
+                <p>{{ _('Your challenges:') }}</p>
+                {% for game in own_challenges %}
+                <p id="element-cancel-challenge-{{ game.hashid }}">
+                    <a href="{{ url_for('game.start', hashid=game.hashid) }}">
+                        {% if player_names[game.player2] %}
+                        vs. {{ player_names[game.player2] }}:
+                        {% else %}
+                        {{ _('Public') }}:
+                        {% endif %}
+                        {% if game.variant == 'x01' %}{{ game.type }} {{ game.in_mode }}/{{ game.out_mode }}{% else
+                        %}Cricket{% endif %} {% if game.bo_sets > 1 %}bo{{ game.bo_sets }} sets,{% endif %} bo{{
+                        game.bo_legs }} legs
+                        {% if game.webcam %}<i class="fas fa-camera" title="Webcam"></i>{% endif %}
+                    </a>
+                    <a href="#" style="color: #cc4444"><i class="fas fa-times-circle cancel-challenge"
+                            id="cancel-challenge-{{ game.hashid }}"></i></a>
+                </p>
+                {% endfor %}
+                {% endif %}
                 <!-- GAMES IN PROGRESS -->
                 {% if games_in_progress %}
                 <p>{{ _('Games in progress:') }}</p>
@@ -180,6 +201,7 @@
 <meta id="game_url" data-url="{{ url_for('game.start') }}">
 <meta id="decline_url" data-url="{{ url_for('generic.decline_friend_request') }}">
 <meta id="decline_challenge_url" data-url="{{ url_for('game.decline_challenge') }}">
+<meta id="cancel_challenge_url" data-url="{{ url_for('game.cancel_challenge') }}">
 <meta id="user_name" data-username="{{ current_user.username }}">
 
 <script type="text/javascript"

@@ -9,10 +9,14 @@
             <div class="card-body">
                 <h3 class="card-text">
                     <img src="{{ avatar_url }}" height="60px" width="60px" class="avatar border">
-                    <i class="fas {% if user.is_backer %}fa-star{% else %}fa-circle{% endif %} {% if recently_online %}status-{{ user.status }}" title="User is {{ user.status }}"{% else %}text-secondary" title="User is offline"{% endif %} style="font-size: 20px;"></i>
-                    {{ user.username }} {% if user.id in friend_list %}<i class="fas fa-user-friends" title="User is your friend."></i>{% endif %}
-                    {% if country %}<img src="{{ url_for('static', filename='img/flags/') }}{{ country }}.png" class="{% if country != 'lidarts' -%}country-flag{% endif -%}">{% endif %}
-                    
+                    <i class="fas {% if user.is_backer %}fa-star{% else %}fa-circle{% endif %} {% if recently_online %}status-{{ user.status }}"
+                        title="User is {{ user.status }}" {% else %}text-secondary" title="User is offline" {% endif %}
+                        style="font-size: 20px;"></i>
+                    {{ user.username }} {% if user.id in friend_list %}<i class="fas fa-user-friends"
+                        title="User is your friend."></i>{% endif %}
+                    {% if country %}<img src="{{ url_for('static', filename='img/flags/') }}{{ country }}.png"
+                        class="{% if country != 'lidarts' -%}country-flag{% endif -%}">{% endif %}
+
                 </h3>
             </div>
         </div>
@@ -23,12 +27,14 @@
             <div class="card-body">
                 <h3 class="card-text">
                     {% if current_user.id == user.id %}
-                    <a href="{{ url_for('profile.general_settings') }}" class="btn btn-secondary" role="button"><i class="fas fa-cog"></i> {{ _('Preferences') }}</a>       
+                    <a href="{{ url_for('profile.general_settings') }}" class="btn btn-secondary" role="button"><i
+                            class="fas fa-cog"></i> {{ _('Preferences') }}</a>
                     {% else %}
                     <button class="btn btn-secondary" role="button" id="send_friend_request">
                         <i class="fas fa-user-friends"></i> {{ _('Friend request') }}
-                    </button>       
-                    <a href="{{ url_for('game.create', opponent_name=user.username) }}" class="btn btn-secondary" role="button"><i class="fas fa-dice"></i> {{ _('Challenge to game') }}</a>
+                    </button>
+                    <a href="{{ url_for('game.create', opponent_name=user.username) }}" class="btn btn-secondary"
+                        role="button"><i class="fas fa-dice"></i> {{ _('Challenge to game') }}</a>
                     {% endif %}
                 </h3>
             </div>
@@ -59,8 +65,7 @@
                 {% for game, player1_name, player2_name in games %}
 
                 <p class="text-secondary">
-                    <a href="{{ url_for('game.start', hashid=game.hashid) }}"
-                                             class="
+                    <a href="{{ url_for('game.start', hashid=game.hashid) }}" class="
                                              {%- if game.status == 'started' %}text-started
                                              {%- elif game.player1 != game.player2 and
                                                     ((game.player1 == user.id and game.p1_sets > game.p2_sets)
@@ -74,16 +79,19 @@
                                              {%- else %}text-secondary
                                              {%- endif %}
                                                 ">vs.
-                    {%- if game.opponent_type.startswith('computer') %} Trainer {{ game.opponent_type[8:] }}
-                    {%- elif game.player1 != user.id %} {{ player1_name }}
-                    {%- elif game.player2 != user.id %} {{ player2_name }}
-                    {%- else %} local guest{% endif %}
-                    | {% if game.variant == 'x01' %}{{ game.type }} {{ game.in_mode }}/{{ game.out_mode }}{% else %}Cricket{% endif %} | {% if game.bo_sets > 1 %}{{ game.p1_sets }}:{{ game.p2_sets }}{% else %}{{ game.p1_legs }}:{{ game.p2_legs }}{% endif %}
-                    {% if game.webcam %} <i title="{{ _('Webcam game') }}" class="fas fa-camera"></i>{% endif %}
+                        {%- if game.opponent_type.startswith('computer') %} Trainer {{ game.opponent_type[8:] }}
+                        {%- elif game.player1 != user.id %} {{ player1_name }}
+                        {%- elif game.player2 != user.id %} {{ player2_name }}
+                        {%- else %} local guest{% endif %}
+                        | {% if game.variant == 'x01' %}{{ game.type }} {{ game.in_mode }}/{{ game.out_mode }}{% else
+                        %}Cricket{% endif %} | {% if game.bo_sets > 1 %}{{ game.p1_sets }}:{{ game.p2_sets }}{% else
+                        %}{{ game.p1_legs }}:{{ game.p2_legs }}{% endif %}
+                        {% if game.webcam %} <i title="{{ _('Webcam game') }}" class="fas fa-camera"></i>{% endif %}
                     </a>
                 </p>
                 {% endfor %}
-                <a href="{{ url_for('profile.game_history', username=user.username) | replace('%40', '@') }}" class="text-secondary">{{ _('Full match list') }}</a>
+                <a href="{{ url_for('profile.game_history', username=user.username) | replace('%40', '@') }}"
+                    class="text-secondary">{{ _('Full match list') }}</a>
 
             </div>
         </div>
@@ -93,14 +101,16 @@
     <div class="col-12 mt-2 col-md-6 col-xl-4 mt-xl-0">
         <div class="card bg-light bs-callout bs-callout-danger text-secondary">
             <div class="card-body">
-                <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Recent statistics (501 SI/DO)') }}</h5>
+                <h5 class="card-title text-dark"><i class="fas fa-chart-bar"></i> {{ _('Recent statistics (501 SI/DO)')
+                    }}</h5>
                 <hr>
                 <p>{{ _('Number of games:') }} {{ stats.total_games }}</p>
                 <p>{{ _('Darts thrown:') }} {{ stats.darts_thrown }}</p>
                 <p>Average: {{ stats.average}}</p>
                 <p>First 9: {{ stats.first9 }}</p>
                 <p>Doubles: {{ stats.doubles }}%</p>
-                <p><a href="{{ url_for('statistics.x01', username=user.username) }}">{{ _('Detailed statistics') }}</a></p>
+                <p><a href="{{ url_for('statistics.x01', username=user.username) }}">{{ _('Detailed statistics') }}</a>
+                </p>
 
             </div>
         </div>
@@ -111,28 +121,36 @@
                 <small>{{ _('(grouped by opponent average)') }}</small>
                 <hr>
                 <p>
-                    &lt;30: {% if stats.matches_u30 > 0 %}{{ ((stats.wins_u30 / stats.matches_u30)*100)|round|int }}% ({{ stats.wins_u30 }}/{{ stats.matches_u30 }}) {% else %}-{% endif %}
+                    &lt;30: {% if stats.matches_u30 > 0 %}{{ ((stats.wins_u30 / stats.matches_u30)*100)|round|int }}%
+                    ({{ stats.wins_u30 }}/{{ stats.matches_u30 }}) {% else %}-{% endif %}
                 </p>
                 <p>
-                    30-40: {% if stats.matches30_40 > 0 %}{{ ((stats.wins30_40 / stats.matches30_40)*100)|round|int }}% ({{ stats.wins30_40 }}/{{ stats.matches30_40 }}) {% else %}-{% endif %}
+                    30-40: {% if stats.matches30_40 > 0 %}{{ ((stats.wins30_40 / stats.matches30_40)*100)|round|int }}%
+                    ({{ stats.wins30_40 }}/{{ stats.matches30_40 }}) {% else %}-{% endif %}
                 </p>
                 <p>
-                    40-50: {% if stats.matches40_50 > 0 %}{{ ((stats.wins40_50 / stats.matches40_50)*100)|round|int }}% ({{ stats.wins40_50 }}/{{ stats.matches40_50 }}) {% else %}-{% endif %}
+                    40-50: {% if stats.matches40_50 > 0 %}{{ ((stats.wins40_50 / stats.matches40_50)*100)|round|int }}%
+                    ({{ stats.wins40_50 }}/{{ stats.matches40_50 }}) {% else %}-{% endif %}
                 </p>
                 <p>
-                    50-60: {% if stats.matches50_60 > 0 %}{{ ((stats.wins50_60 / stats.matches50_60)*100)|round|int }}% ({{ stats.wins50_60 }}/{{ stats.matches50_60 }}) {% else %}-{% endif %}
+                    50-60: {% if stats.matches50_60 > 0 %}{{ ((stats.wins50_60 / stats.matches50_60)*100)|round|int }}%
+                    ({{ stats.wins50_60 }}/{{ stats.matches50_60 }}) {% else %}-{% endif %}
                 </p>
                 <p>
-                    60-70: {% if stats.matches60_70 > 0 %}{{ ((stats.wins60_70 / stats.matches60_70)*100)|round|int }}% ({{ stats.wins60_70 }}/{{ stats.matches60_70 }}) {% else %}-{% endif %}
+                    60-70: {% if stats.matches60_70 > 0 %}{{ ((stats.wins60_70 / stats.matches60_70)*100)|round|int }}%
+                    ({{ stats.wins60_70 }}/{{ stats.matches60_70 }}) {% else %}-{% endif %}
                 </p>
                 <p>
-                    70-80: {% if stats.matches70_80 > 0 %}{{ ((stats.wins70_80 / stats.matches70_80)*100)|round|int }}% ({{ stats.wins70_80 }}/{{ stats.matches70_80 }}) {% else %}-{% endif %}
-                </p> 
-                <p>
-                    80-90: {% if stats.matches80_90 > 0 %}{{ ((stats.wins80_90 / stats.matches80_90)*100)|round|int }}% ({{ stats.wins80_90 }}/{{ stats.matches80_90 }}) {% else %}-{% endif %}
+                    70-80: {% if stats.matches70_80 > 0 %}{{ ((stats.wins70_80 / stats.matches70_80)*100)|round|int }}%
+                    ({{ stats.wins70_80 }}/{{ stats.matches70_80 }}) {% else %}-{% endif %}
                 </p>
                 <p>
-                    &gt;90: {% if stats.matches_o90 > 0 %}{{ ((stats.wins_o90 / stats.matches_o90)*100)|round|int }}% ({{ stats.wins_o90 }}/{{ stats.matches_o90 }}) {% else %}-{% endif %}
+                    80-90: {% if stats.matches80_90 > 0 %}{{ ((stats.wins80_90 / stats.matches80_90)*100)|round|int }}%
+                    ({{ stats.wins80_90 }}/{{ stats.matches80_90 }}) {% else %}-{% endif %}
+                </p>
+                <p>
+                    &gt;90: {% if stats.matches_o90 > 0 %}{{ ((stats.wins_o90 / stats.matches_o90)*100)|round|int }}%
+                    ({{ stats.wins_o90 }}/{{ stats.matches_o90 }}) {% else %}-{% endif %}
                 </p>
 
 
@@ -152,8 +170,10 @@
 <meta id="accept_url" data-url="{{ url_for('generic.accept_friend_request') }}">
 <meta id="decline_url" data-url="{{ url_for('generic.decline_friend_request') }}">
 <meta id="decline_challenge_url" data-url="{{ url_for('game.decline_challenge') }}">
+<meta id="cancel_challenge_url" data-url="{{ url_for('game.cancel_challenge') }}">
 <meta id="profile_user_id" data-id="{{ user.id }}">
 
 
-<script type="text/javascript" src="{{ url_for('static',filename='js/friend_requests.js', version=config.VERSION) }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static',filename='js/friend_requests.js', version=config.VERSION) }}"></script>
 {% endblock %}

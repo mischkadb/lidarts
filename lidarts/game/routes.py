@@ -420,9 +420,7 @@ def start(hashid, theme=None):
 @bp.route('/decline_challenge/<hashid>', methods=['POST'])
 @login_required
 def decline_challenge(hashid):
-    game = Game.query.filter_by(hashid=hashid).first()
-    if not game:
-        game = CricketGame.query.filter_by(hashid=hashid).first_or_404()
+    game = GameBase.query.filter_by(hashid=hashid).first_or_404()
     
     if current_user.id != game.player2:
         return jsonify('Unauthorized')
@@ -435,12 +433,11 @@ def decline_challenge(hashid):
     return jsonify('success')
 
 
-@bp.route('/cancel_challenge/<hashid>')
+@bp.route('/cancel_challenge/')
+@bp.route('/cancel_challenge/<hashid>', methods=['GET', 'POST'])
 @login_required
 def cancel_challenge(hashid):
-    game = Game.query.filter_by(hashid=hashid).first()
-    if not game:
-        CricketGame = Game.query.filter_by(hashid=hashid).first_or_404()
+    game = GameBase.query.filter_by(hashid=hashid).first_or_404()
     if game.status != 'challenged':
         return redirect(url_for('generic.lobby'))
 

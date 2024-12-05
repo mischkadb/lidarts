@@ -119,10 +119,17 @@ def lobby():
             player_names[game.player2] = User.query.with_entities(User.username) \
                 .filter_by(id=game.player2).first_or_404()[0]
 
+    # get own challenges
+    own_challenges = GameBase.query.filter_by(status='challenged', player1=current_user.id).all()
+    for game in own_challenges:
+        opponent_name = User.query.with_entities(User.username) \
+            .filter_by(id=game.player2).first()
+        if opponent_name:
+            player_names[game.player2] = opponent_name[0]
+    own_challenges = [r.__dict__ for r in own_challenges]
+
     # get challenges
-    challenges = Game.query.filter_by(status='challenged', player2=current_user.id).all()
-    cricket_challenges = CricketGame.query.filter_by(status='challenged', player2=current_user.id).all()
-    challenges.extend(cricket_challenges)
+    challenges = GameBase.query.filter_by(status='challenged', player2=current_user.id).all()
     for game in challenges:
         player_names[game.player1] = User.query.with_entities(User.username) \
             .filter_by(id=game.player1).first_or_404()[0]
@@ -176,7 +183,7 @@ def lobby():
     return render_template('generic/lobby.html', games_in_progress=games_in_progress, player_names=player_names,
                            friend_requests=friend_requests, online_friend_list=online_friend_list, form=form,
                            mobile_follower_mode=mobile_follower_mode,
-                           challenges=challenges, announcement=announcement,
+                           challenges=challenges, own_challenges=own_challenges, announcement=announcement,
                            title=lazy_gettext('Lobby'))
 
 
