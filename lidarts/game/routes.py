@@ -121,10 +121,12 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         if form.two_clear_legs_wc_mode.data:
             form.two_clear_legs.data = False
 
+        print(form.first_to_sets.data)
+        print(form.first_to_legs.data)
         # Convert "first to" to "best of" for consistency
         if form.goal_mode.data == 'first_to':
-            form.bo_sets.data = (2 * form.first_to_sets.data) - 1
-            form.bo_legs.data = (2 * form.first_to_legs.data) - 1
+            form.bo_sets.data = (2 * int(form.first_to_sets.data)) - 1
+            form.bo_legs.data = (2 * int(form.first_to_legs.data)) - 1
         elif form.goal_mode.data == 'x_legs':
             form.bo_sets.data = 1
             form.bo_legs.data = 1
