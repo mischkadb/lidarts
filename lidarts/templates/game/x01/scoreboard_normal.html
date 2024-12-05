@@ -11,19 +11,22 @@
                 </div>
 
                 <div class="card bg-danger text-center p1_turn_score_card" id="p1_turn_score_card">
-                    <div class="card-body padding-small">                                              
+                    <div class="card-body padding-small">
                         <p class="card-text">
-                            <div class="d-flex d-row justify-content-between">
-                                <div class="d-flex d-column h4 align-self-center" style="width: 30px;">
-                                    <i class="fas fa-play-circle  p1_leg_start_indicator" style="display:none"></i>
-                                </div>
-                                <div class="d-flex d-column" style="height: 84px;">
-                                    <span id="p1_score" class="h1 p1_score text-center font-weight-bold d-flex d-column h-100" >-</span>
-                                </div>
-                                <div clas="d-flex d-column" style="width: 30px;"></div>
+                        <div class="d-flex d-row justify-content-between">
+                            <div class="d-flex d-column h4 align-self-center" style="width: 30px;">
+                                <i class="fas fa-play-circle  p1_leg_start_indicator" style="display:none"></i>
                             </div>
+                            <div class="d-flex d-column" style="height: 84px;">
+                                <span id="p1_score"
+                                    class="h1 p1_score text-center font-weight-bold d-flex d-column h-100">-</span>
+                            </div>
+                            <div clas="d-flex d-column" style="width: 30px;"></div>
+                        </div>
                         </p>
-                        <p><span class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
+                        <p><span
+                                class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -33,31 +36,49 @@
     <!-- TOP LEG AND SET COUNTER -->
     <div class="col-lg-2 text-center bg-dark d-none d-lg-block" style="padding-left: 0px; padding-right: 0px;">
         <div class="row text-danger justify-content-center">
-            <div class="col-4"><h3 id="p1_ingame"><i class="fas fa-plug"></i></h3></div>
-            {% if game.webcam %}<div class="col-4 text-secondary"><h3 id="p1_ingame"><i class="fas fa-camera"  title="{{ _('Webcam game') }}"></i></h3></div>{% endif %}
-            <div class="col-4"><h3 id="p2_ingame"><i class="fas fa-plug"></i></h3></div>
+            <div class="col-4">
+                <h3 id="p1_ingame"><i class="fas fa-plug"></i></h3>
+            </div>
+            {% if game.webcam %}<div class="col-4 text-secondary">
+                <h3 id="p1_ingame"><i class="fas fa-camera" title="{{ _('Webcam game') }}"></i></h3>
+            </div>{% endif %}
+            <div class="col-4">
+                <h3 id="p2_ingame"><i class="fas fa-plug"></i></h3>
+            </div>
         </div>
 
         <div class="row mb-3">
+            {% if game.fixed_legs %}
+            <div class="col">{{ _('Total of') }} {{ game.fixed_legs_amount }} Legs</div>
+            {% else %}
             {% if game.bo_sets == 1 %}
             <div class="col">Best of {{ game.bo_legs }} Legs</div>
             {% else %}
             <div class="col">Best of {{ game.bo_sets }} Sets</div>
+            {% endif %}
             {% endif %}
         </div>
         <div class="card bg-info">
             <div class="card-body" style="padding-top: 10px; padding-bottom: 10px;">
                 {% if game.bo_sets > 1 %}
                 <div class="row align-items-center mb-3">
-                    <div class="col-sm-3"><h4 class="card-text p1_sets" style="font-weight:bold"></h4></div>
+                    <div class="col-sm-3">
+                        <h4 class="card-text p1_sets" style="font-weight:bold"></h4>
+                    </div>
                     <div class="col-sm-6">Sets</div>
-                    <div class="col-sm-3"><h4 class="card-text p2_sets" style="font-weight:bold"></h4></div>
+                    <div class="col-sm-3">
+                        <h4 class="card-text p2_sets" style="font-weight:bold"></h4>
+                    </div>
                 </div>
                 {% endif %}
                 <div class="row align-items-center">
-                    <div class="col-sm-3"><h4 class="card-text p1_legs" style="font-weight:bold"></h4></div>
+                    <div class="col-sm-3">
+                        <h4 class="card-text p1_legs" style="font-weight:bold"></h4>
+                    </div>
                     <div class="col-sm-6">Legs</div>
-                    <div class="col-sm-3"><h4 class="card-text p2_legs" style="font-weight:bold"></h4></div>
+                    <div class="col-sm-3">
+                        <h4 class="card-text p2_legs" style="font-weight:bold"></h4>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,17 +95,20 @@
                 <div class="card bg-danger text-center p2_turn_score_card" id="p2_turn_score_card">
                     <div class="card-body padding-small">
                         <p class="card-text">
-                            <div class="d-flex d-row justify-content-between">
-                                <div class="d-flex d-column h4 align-self-center" style="width: 30px;">
-                                    <i class="fas fa-play-circle p2_leg_start_indicator" style="display:none"></i>
-                                </div>
-                                <div class="d-flex d-column" style="height: 84px;">
-                                    <span id="p2_score" class="h1 p2_score text-center font-weight-bold d-flex d-column h-100" >-</span>
-                                </div>
-                                <div clas="d-flex d-column" style="width: 30px;"></div>
+                        <div class="d-flex d-row justify-content-between">
+                            <div class="d-flex d-column h4 align-self-center" style="width: 30px;">
+                                <i class="fas fa-play-circle p2_leg_start_indicator" style="display:none"></i>
                             </div>
+                            <div class="d-flex d-column" style="height: 84px;">
+                                <span id="p2_score"
+                                    class="h1 p2_score text-center font-weight-bold d-flex d-column h-100">-</span>
+                            </div>
+                            <div clas="d-flex d-column" style="width: 30px;"></div>
+                        </div>
                         </p>
-                        <p><span class="p2_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
+                        <p><span
+                                class="p2_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -103,16 +127,19 @@
             <div class="card-body score_card_body_small">
                 <!--<h2 id="p1_score_small" class="card-text p1_score" style="font-weight: bold"></h2>-->
                 <p class="card-text d-flex h-100">
-                    <div class="d-flex d-row justify-content-between">
-                        <div class="d-flex d-column h4 align-self-center" style="width: 20px;">
-                            <i class="fas fa-play-circle  p1_leg_start_indicator fa-xs" style="display:none"></i>
-                        </div>
-                        <div class="d-flex d-column" style="height: 60px;">
-                            <span id="p1_score_small" class="h2 p1_score text-center font-weight-bold d-flex d-column h-100" >-</span>
-                        </div>
-                        <div clas="d-flex d-column" style="width: 24px;"></div>
+                <div class="d-flex d-row justify-content-between">
+                    <div class="d-flex d-column h4 align-self-center" style="width: 20px;">
+                        <i class="fas fa-play-circle  p1_leg_start_indicator fa-xs" style="display:none"></i>
                     </div>
-                    <p><span class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
+                    <div class="d-flex d-column" style="height: 60px;">
+                        <span id="p1_score_small"
+                            class="h2 p1_score text-center font-weight-bold d-flex d-column h-100">-</span>
+                    </div>
+                    <div clas="d-flex d-column" style="width: 24px;"></div>
+                </div>
+                <p><span
+                        class="p1_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span>
+                </p>
                 </p>
             </div>
         </div>
@@ -129,16 +156,19 @@
         <div class="card text-center bg-danger p2_turn_score_card" id="p2_turn_score_card_small">
             <div class="card-body score_card_body_small">
                 <p class="card-text d-flex h-100">
-                    <div class="d-flex d-row justify-content-between">
-                        <div class="d-flex d-column h4 align-self-center" style="width: 20px;">
-                            <i class="fas fa-play-circle  p2_leg_start_indicator fa-xs" style="display:none"></i>
-                        </div>
-                        <div class="d-flex d-column" style="height: 60px;">
-                            <span id="p2_score_small" class="h2 p2_score text-center font-weight-bold d-flex d-column h-100" >-</span>
-                        </div>
-                        <div clas="d-flex d-column" style="width: 24px;"></div>
+                <div class="d-flex d-row justify-content-between">
+                    <div class="d-flex d-column h4 align-self-center" style="width: 20px;">
+                        <i class="fas fa-play-circle  p2_leg_start_indicator fa-xs" style="display:none"></i>
                     </div>
-                    <p><span class="p2_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span></p>
+                    <div class="d-flex d-column" style="height: 60px;">
+                        <span id="p2_score_small"
+                            class="h2 p2_score text-center font-weight-bold d-flex d-column h-100">-</span>
+                    </div>
+                    <div clas="d-flex d-column" style="width: 24px;"></div>
+                </div>
+                <p><span
+                        class="p2_checkout_suggestion {% if not settings.checkout_suggestions %}d-none{% endif %}"></span>
+                </p>
                 </p>
             </div>
         </div>

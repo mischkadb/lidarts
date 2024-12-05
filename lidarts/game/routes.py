@@ -121,6 +121,14 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
         if form.two_clear_legs_wc_mode.data:
             form.two_clear_legs.data = False
 
+        # Convert "first to" to "best of" for consistency
+        if form.goal_mode.data == 'first_to':
+            form.bo_sets.data = (2 * form.first_to_sets.data) - 1
+            form.bo_legs.data = (2 * form.first_to_legs.data) - 1
+        elif form.goal_mode.data == 'x_legs':
+            form.bo_sets.data = 1
+            form.bo_legs.data = 1
+
         if mode == 'x01':
             match_json = json.dumps({1: {1: {1: {'scores': [], 'double_missed': []},
                                          2: {'scores': [], 'double_missed': []}}}})
@@ -128,6 +136,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
                 player1=player1, player2=player2_id, type=form.type.data,
                 variant='x01',
                 bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
+                fixed_legs=form.goal_mode.data == 'x_legs', fixed_legs_amount=form.x_legs.data,
                 two_clear_legs=form.two_clear_legs.data,
                 two_clear_legs_wc_mode=form.two_clear_legs_wc_mode.data,
                 p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
@@ -152,6 +161,7 @@ def create(mode='x01', opponent_name=None, tournament_hashid=None):
             game = CricketGame(
                 player1=player1, player2=player2_id, variant='cricket',
                 bo_sets=form.bo_sets.data, bo_legs=form.bo_legs.data,
+                fixed_legs=form.goal_mode.data == 'x_legs', fixed_legs_amount=form.x_legs.data,
                 two_clear_legs=form.two_clear_legs.data,
                 two_clear_legs_wc_mode=form.two_clear_legs_wc_mode.data,
                 p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,

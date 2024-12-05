@@ -28,9 +28,19 @@
     <div class="col-12">
         <div class="card bg-light text-dark">
             <div class="card-body">
-                <h4 class="card-text">{{ _('New on Lidarts:') }} <a href="{{ url_for('game.create', mode='x01') }}">{{
-                        _('World Championship mode') }}</a> | <a href="{{ url_for('generic.help_translate') }}">{{
-                        _('Help translating Lidarts') }}</a></h4>
+                <h4 class="card-text">{{ _('New on Lidarts:') }}
+                    <a href="{{ url_for('game.create', mode='x01') }}">
+                        {{ _('World Championship mode') }}
+                    </a>
+                    |
+                    <a href="{{ url_for('game.create', mode='x01') }}">
+                        {{ _('Play exactly X legs') }}
+                    </a>
+                    |
+                    <a href="{{ url_for('generic.help_translate') }}">
+                        {{ _('Help translating Lidarts') }}
+                    </a>
+                </h4>
             </div>
         </div>
     </div>

@@ -9,6 +9,8 @@ level = [(str(x), str(x)) for x in range(1, 10)]
 starter = [('me', lazy_gettext('Me')), ('opponent', lazy_gettext('Opponent')),
            ('closest_to_bull', lazy_gettext('Closest to Bull'))]
 bo_choice = [(str(x), str(x)) for x in range(1, 30)]
+first_to_choice = [(str(x), str(x)) for x in range(1, 30)]
+x_legs_choice = [(str(x), str(x)) for x in range(1, 50)]
 in_choice = [('si', 'Straight In'), ('di', 'Double In')]
 out_choice = [('do', 'Double Out'), ('so', 'Straight Out'), ('mo', 'Master Out')]
 
@@ -34,8 +36,12 @@ class CricketScoreForm(FlaskForm):
 
 
 class CreateGameForm(FlaskForm):
+    goal_mode = SelectField(lazy_gettext('Goal mode'), choices=[('best_of', 'Best of'), ('first_to', 'First to'), ('x_legs', 'X Legs')], validators=[DataRequired()])
     bo_sets = SelectField(lazy_gettext('Best of Sets'), choices=bo_choice, validators=[DataRequired()])
     bo_legs = SelectField(lazy_gettext('Best of Legs'), choices=bo_choice, validators=[DataRequired()])
+    first_to_sets = SelectField(lazy_gettext('First to Sets'), choices=first_to_choice, validators=[DataRequired()])
+    first_to_legs = SelectField(lazy_gettext('First to Legs'), choices=first_to_choice, validators=[DataRequired()])
+    x_legs = SelectField(lazy_gettext('How many legs?'), choices=x_legs_choice, validators=[DataRequired()])
     two_clear_legs = BooleanField(lazy_gettext('Two Clear Legs'))
     two_clear_legs_wc_mode = BooleanField(lazy_gettext('World Championship Mode'))
     starter = SelectField(lazy_gettext('First to throw'), choices=starter, validators=[DataRequired()])

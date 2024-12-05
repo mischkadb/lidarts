@@ -82,22 +82,71 @@
         <div class="col-lg-4 col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <p>{{ form.bo_sets.label(class="col-form-label") }}:
-                        {{ form.bo_sets(class="custom-select") }}</p>
+                    <ul class="nav nav-tabs" id="goal-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {% if form.goal_mode.data == 'best_of' %}active{% endif %}"
+                                id="best_of-tab" data-toggle="tab" data-target="#best-of" type="button" role="tab"
+                                aria-controls="best of" aria-selected="true">Best of</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {% if form.goal_mode.data == 'first_to' %}active{% endif %}"
+                                id="first_to-tab" data-toggle="tab" data-target="#first-to" type="button" role="tab"
+                                aria-controls="first to" aria-selected="false">First
+                                to</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {% if form.goal_mode.data == 'x_legs' %}active{% endif %}"
+                                id="x_legs-tab" data-toggle="tab" data-target="#x-legs" type="button" role="tab"
+                                aria-controls="x legs" aria-selected="false">X Legs</button>
+                        </li>
+                    </ul>
 
-                    <p>{{ form.bo_legs.label(class="col-form-label") }}:
-                        {{ form.bo_legs(class="custom-select") }}</p>
+                    <div class="d-none">
+                        {{ form.goal_mode(class="custom-select", id="goal_mode") }}
+                    </div>
+
+                    <div class="tab-content" id="distanceTabContent">
+                        <div class="tab-pane fade {% if form.goal_mode.data == 'best_of' %}show active{% endif %}"
+                            id="best-of" role="tabpanel" aria-labelledby="best_of-tab">
+                            <p>{{ form.bo_sets.label(class="col-form-label") }}
+                                {{ form.bo_sets(class="custom-select") }}</p>
+
+                            <p>{{ form.bo_legs.label(class="col-form-label") }}
+                                {{ form.bo_legs(class="custom-select") }}</p>
+
+                        </div>
+
+                        <div class="tab-pane fade {% if form.goal_mode.data == 'first_to' %}show active{% endif %}"
+                            id="first-to" role="tabpanel" aria-labelledby="first_to-tab">
+                            <p>
+                                {{ form.first_to_sets.label(class="col-form-label") }}
+                                {{ form.first_to_sets(class="custom-select") }}
+                            </p>
+
+                            <p>
+                                {{ form.first_to_legs.label(class="col-form-label") }}
+                                {{ form.first_to_legs(class="custom-select") }}
+                            </p>
+                        </div>
+
+                        <div class="tab-pane fade {% if form.goal_mode.data == 'x_legs' %}show active{% endif %}"
+                            id="x-legs" role="tabpanel" aria-labelledby="x_legs-tab">
+                            <p>
+                                {{ form.x_legs.label(class="col-form-label") }}
+                                {{ form.x_legs(class="custom-select") }}
+                            </p>
+                        </div>
+                    </div>
 
                     <p>
-                    <div class="custom-control custom-checkbox">
+                    <div id="twoClearLegsForm" class="custom-control custom-checkbox">
                         {{ form.two_clear_legs(class="custom-control-input") }}
                         {{ form.two_clear_legs.label(class="custom-control-label") }}
                     </div>
                     </p>
 
-
                     <p>
-                    <div class="custom-control custom-checkbox">
+                    <div id="wcModeForm" class="custom-control custom-checkbox">
                         {{ form.two_clear_legs_wc_mode(class="custom-control-input") }}
                         {{ form.two_clear_legs_wc_mode.label(class="custom-control-label") }}
                         <i class="far fa-question-circle" tabindex="0" type="button" data-container="body"
@@ -105,8 +154,6 @@
                             data-content="{{ _('Two-clear-legs only in the final set. Sudden death at 5:5 legs.') }}"></i>
                     </div>
                     </p>
-
-
 
                     <p>
                     <div class="custom-control custom-checkbox">
@@ -183,4 +230,7 @@
         }
     }
 </script>
+
+<script type="text/javascript"
+    src="{{ url_for('static',filename='js/game/create.js', version=config.VERSION) }}"></script>
 {% endblock %}

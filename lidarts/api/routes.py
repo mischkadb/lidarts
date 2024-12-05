@@ -30,6 +30,8 @@ def start(hashid):
         'end',
         'bo_legs',
         'bo_sets',
+        'fixed_legs',
+        'fixed_legs_amount',
         'hashid',
         'match_json',
         'p1_legs',

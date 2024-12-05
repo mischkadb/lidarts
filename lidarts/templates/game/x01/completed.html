@@ -1,23 +1,25 @@
 {% extends "base.html" %}
 {% block container %}
 <div class="container-fluid">
-{% endblock %}
+    {% endblock %}
 
-{% block app_content %}
+    {% block app_content %}
 
-<div class="row justify-content-center mb-2">
-    <div class="col-xl-10 col-12">
-        <div class="card bg-light">
+    <div class="row justify-content-center mb-2">
+        <div class="col-xl-10 col-12">
+            <div class="card bg-light">
 
-            <div class="card-body">
-                {% if game.status == 'aborted' %}
-                <h2 class="card-title text-center bg-danger text-light font-weight-bold">{{ _('Game was aborted.') }}</h2>
-                {% endif %}
-                {% if game.status == 'declined' %}
-                <h2 class="card-title text-center bg-danger text-light font-weight-bold">{{ _('Challenge was declined or withdrawn.') }}</h2>
-                {% endif %}
+                <div class="card-body">
+                    {% if game.status == 'aborted' %}
+                    <h2 class="card-title text-center bg-danger text-light font-weight-bold">{{ _('Game was aborted.')
+                        }}</h2>
+                    {% endif %}
+                    {% if game.status == 'declined' %}
+                    <h2 class="card-title text-center bg-danger text-light font-weight-bold">{{ _('Challenge was
+                        declined or withdrawn.') }}</h2>
+                    {% endif %}
 
-                <!--
+                    <!--
                 <div class="card-title text-center">
                     {% if game.p1_sets == game.p2_sets %}<h1>Draw.</h1>
                     {% else %}<h1>Winner: {% if game.p1_sets > game.p2_sets %}{{ game.player1_name }} {% else %} {{ game.player2_name }}{% endif %}</h1>
@@ -34,91 +36,116 @@
                     </div>
                 </div>-->
 
-                <div class="row justify-content-center align-items-center mb-2">
-                    <div class="col-6 text-center text-light">
-                                <div class="card bg-dark">
-                                    <div class="card-body player_name_card">
-                                        <h1 class="d-none d-md-block">
-                                            {% if countries[0] %}<img src="{{ url_for('static', filename='img/flags/') }}{{ countries[0] }}.png" style="margin-right: 5px" class="
+                    <div class="row justify-content-center align-items-center mb-2">
+                        <div class="col-6 text-center text-light">
+                            <div class="card bg-dark">
+                                <div class="card-body player_name_card">
+                                    <h1 class="d-none d-md-block">
+                                        {% if countries[0] %}<img
+                                            src="{{ url_for('static', filename='img/flags/') }}{{ countries[0] }}.png"
+                                            style="margin-right: 5px" class="
                                             {% if countries[0] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
-                                            <a href="{{ url_for('profile.overview', username= game.player1_name) }}" class="text-light">{{ game.player1_name }}</a>
-                                        </h1>
-                                        <h3 class="d-block d-md-none">
-                                            {% if countries[0] %}<img src="{{ url_for('static', filename='img/flags/') }}{{ countries[0] }}.png" style="margin-right: 5px" class="
+                                        <a href="{{ url_for('profile.overview', username= game.player1_name) }}"
+                                            class="text-light">{{ game.player1_name }}</a>
+                                    </h1>
+                                    <h3 class="d-block d-md-none">
+                                        {% if countries[0] %}<img
+                                            src="{{ url_for('static', filename='img/flags/') }}{{ countries[0] }}.png"
+                                            style="margin-right: 5px" class="
                                             {% if countries[0] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
-                                            <a href="{{ url_for('profile.overview', username= game.player1_name) }}" class="text-light">{{ game.player1_name }}</a>
-                                        </h3>
-                                    </div>
-                                    <div class="card-footer
+                                        <a href="{{ url_for('profile.overview', username= game.player1_name) }}"
+                                            class="text-light">{{ game.player1_name }}</a>
+                                    </h3>
+                                </div>
+                                <div class="card-footer
                                     {% if game.p1_sets > game.p2_sets %}bg-success border-success
                                     {% elif game.p1_sets < game.p2_sets %}bg-danger border-danger
                                     {% else %}bg-warning border-warning{% endif %}"></div>
-                                </div>
+                            </div>
                         </div>
 
 
 
-                    <div class="col-6 text-center text-light">
-                                <div class="card bg-dark">
-                                    <div class="card-body player_name_card">
-                                        <h1 class="d-none d-md-block">
-                                            {% if countries[1] %}<img src="{{ url_for('static', filename='img/flags/') }}{{ countries[1] }}.png" style="margin-right: 5px" class="
+                        <div class="col-6 text-center text-light">
+                            <div class="card bg-dark">
+                                <div class="card-body player_name_card">
+                                    <h1 class="d-none d-md-block">
+                                        {% if countries[1] %}<img
+                                            src="{{ url_for('static', filename='img/flags/') }}{{ countries[1] }}.png"
+                                            style="margin-right: 5px" class="
                                             {% if countries[1] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
-                                            {% if game.player2 and game.player1 != game.player2 -%}
-                                            <a href="{{ url_for('profile.overview', username= game.player2_name) }}" class="text-light">
+                                        {% if game.player2 and game.player1 != game.player2 -%}
+                                        <a href="{{ url_for('profile.overview', username= game.player2_name) }}"
+                                            class="text-light">
                                             {% endif -%}
                                             {{ game.player2_name }}
                                             {% if game.player2 and game.player1 != game.player2 -%}
-                                            </a>
-                                            {% endif -%}                                            
-                                        </h1>
-                                        <h3 class="d-block d-md-none">
-                                            {% if countries[1] %}<img src="{{ url_for('static', filename='img/flags/') }}{{ countries[1] }}.png" style="margin-right: 5px" class="
+                                        </a>
+                                        {% endif -%}
+                                    </h1>
+                                    <h3 class="d-block d-md-none">
+                                        {% if countries[1] %}<img
+                                            src="{{ url_for('static', filename='img/flags/') }}{{ countries[1] }}.png"
+                                            style="margin-right: 5px" class="
                                             {% if countries[1] != 'lidarts' -%}country-flag{% endif -%}">{% endif -%}
-                                            {% if game.player2 and game.player1 != game.player2 -%}
-                                            <a href="{{ url_for('profile.overview', username= game.player2_name) }}" class="text-light">
+                                        {% if game.player2 and game.player1 != game.player2 -%}
+                                        <a href="{{ url_for('profile.overview', username= game.player2_name) }}"
+                                            class="text-light">
                                             {% endif -%}
                                             {{ game.player2_name }}
                                             {% if game.player2 and game.player1 != game.player2 -%}
-                                            </a>
-                                            {% endif -%}                                            
-                                        </h3>
-                                    </div>
-                                    <div class="card-footer
-                                    {% if game.p1_sets < game.p2_sets %}bg-success border-success
-                                    {% elif game.p1_sets > game.p2_sets %}bg-danger border-danger
-                                    {% else %}bg-warning border-warning{% endif %}"></div>
+                                        </a>
+                                        {% endif -%}
+                                    </h3>
                                 </div>
-                    </div>
-                </div>
-
-
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-xl-4 col-lg-6 col-8 text-center text-light">
-                        <div class="card bg-info">
-                            <div class="card-body player_name_card">
-                                <div class="row justify-content-center align-items-center text-center">
-                                    {% if game.bo_sets > 1 %}
-                                    <div class="col-3">
-                                        <h3>{{ game.p1_sets }}</h3>
-                                    </div>
-
-                                    <div class="col-6"><h3>Sets</h3></div>
-
-                                    <div class="col-3">
-                                        <h3>{{ game.p2_sets }}</h3>
-                                    </div>
+                                <div class="card-footer
+                                    {% if game.fixed_legs %}
+                                        {% if game.p1_legs > game.p2_legs %}bg-success border-success
+                                        {% elif game.p1_legs < game.p2_legs %}bg-danger border-danger
+                                        {% else %}bg-warning border-warning{% endif %}
                                     {% else %}
-                                    <div class="col-3">
-                                        <h3>{{ game.p1_legs }}</h3>
-                                    </div>
-
-                                    <div class="col-6"><h5>Legs</h5></div>
-
-                                    <div class="col-3">
-                                        <h3>{{ game.p2_legs }}</h3>
-                                    </div>
+                                        {% if game.p1_sets < game.p2_sets %}bg-success border-success
+                                        {% elif game.p1_sets > game.p2_sets %}bg-danger border-danger
+                                        {% else %}bg-warning border-warning{% endif %}
                                     {% endif %}
+                                ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class=" row justify-content-center align-items-center">
+                        <div class="col-xl-4 col-lg-6 col-8 text-center text-light">
+                            <div class="card bg-info">
+                                <div class="card-body player_name_card">
+                                    <div class="row justify-content-center align-items-center text-center">
+                                        {% if not game.fixed_legs and game.bo_sets > 1 %}
+                                        <div class="col-3">
+                                            <h3>{{ game.p1_sets }}</h3>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <h3>Sets</h3>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <h3>{{ game.p2_sets }}</h3>
+                                        </div>
+                                        {% else %}
+                                        <div class="col-3">
+                                            <h3>{{ game.p1_legs }}</h3>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <h3>Legs</h3>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <h3>{{ game.p2_legs }}</h3>
+                                        </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -127,182 +154,302 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="row justify-content-center mb-2">
-    <div class="col-xl-6 col-lg-8 col-sm-12">
-        <div class="card bg-light">
-            <div class="card-body">
+    <div class="row justify-content-center mb-2">
+        <div class="col-xl-6 col-lg-8 col-sm-12">
+            <div class="card bg-light">
+                <div class="card-body">
 
-                {% if game.end and game.begin %}
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-sm-8 text-center text-secondary">
-                        <p>{{ _('Match start')}}: {{ moment(game.begin).format('DD.MM.YYYY HH:mm') }}</p>
-                        <p>{{ _('Match duration') }}: {{ ((game.end - game.begin).seconds // 3600)}} {{ _('hours') }},
-                            {{ ((game.end - game.begin).seconds % 3600) // 60}} {{ _('minutes') }},
-                            {{ ((game.end - game.begin).seconds % 60)}} {{ _('seconds') }}</p>
+                    {% if game.end and game.begin %}
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-sm-8 text-center text-secondary">
+                            <p>{{ _('Match start')}}: {{ moment(game.begin).format('DD.MM.YYYY HH:mm') }}
+                            </p>
+                            <p>{{ _('Match duration') }}: {{ ((game.end - game.begin).seconds // 3600)}} {{
+                                _('hours')
+                                }},
+                                {{ ((game.end - game.begin).seconds % 3600) // 60}} {{ _('minutes') }},
+                                {{ ((game.end - game.begin).seconds % 60)}} {{ _('seconds') }}</p>
+                        </div>
                     </div>
-                </div>
-                {% endif %}
+                    {% endif %}
 
-                {% if game.webcam %}      
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-sm-8 text-center text-secondary">
-                        <p><i title="{{ _('Webcam game') }}" class="fas fa-camera"></i> {{ _(' Webcam game') }}</p>
+                    {% if game.webcam %}
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-sm-8 text-center text-secondary">
+                            <p><i title="{{ _('Webcam game') }}" class="fas fa-camera"></i> {{ _(' Webcam
+                                game') }}</p>
+                        </div>
                     </div>
-                </div>
-                {% endif %}
+                    {% endif %}
 
 
-                <div class="row justify-content-center align-items-center mb-2 text-center text-secondary">
-                    <div class="col-12">
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_match_avg']|string }}</p></div>
-                            <div class="col-4"><p>Avg.</p></div>
-                            <div class="col-3"><p>{{ stats['p2_match_avg']|string }}</p></div>
+                    <div class="row justify-content-center align-items-center mb-2 text-center text-secondary">
+                        <div class="col-12">
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_match_avg']|string }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>Avg.</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_match_avg']|string }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_first9_avg']|string }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>First 9 Avg.</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_first9_avg']|string }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_doubles']|string}}% ({{ stats['p1_legs_won'] }}/{{
+                                        stats['p1_darts_thrown_double'] }})</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>Doubles</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_doubles']|string}}% ({{ stats['p2_legs_won'] }}/{{
+                                        stats['p2_darts_thrown_double'] }})</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_high_finish'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>{{ _('Highest Finish') }}</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_high_finish'] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_short_leg'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>{{ _('Shortest Leg') }}</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_short_leg'] }}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_180'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>180</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_180'] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_171'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>171+</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_171'] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_140'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>140+</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_140'] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_100'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>100+</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_100'] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_80'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>80+</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_80'] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_60'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>60+</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_60'] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_40'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>40+</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_40'] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_20'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>20+</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_20'] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+                                    <p>{{ stats['p1_0'] }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>20-</p>
+                                </div>
+                                <div class="col-3">
+                                    <p>{{ stats['p2_0'] }}</p>
+                                </div>
+                            </div>
+
+
                         </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_first9_avg']|string }}</p></div>
-                            <div class="col-4"><p>First 9 Avg.</p></div>
-                            <div class="col-3"><p>{{ stats['p2_first9_avg']|string }}</p></div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_doubles']|string}}% ({{ stats['p1_legs_won'] }}/{{ stats['p1_darts_thrown_double'] }})</p></div>
-                            <div class="col-4"><p>Doubles</p></div>
-                            <div class="col-3"><p>{{ stats['p2_doubles']|string}}% ({{ stats['p2_legs_won'] }}/{{ stats['p2_darts_thrown_double'] }})</p></div>
-                        </div>
-
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_high_finish'] }}</p></div>
-                            <div class="col-4"><p>{{ _('Highest Finish') }}</p></div>
-                            <div class="col-3"><p>{{ stats['p2_high_finish'] }}</p></div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_short_leg'] }}</p></div>
-                            <div class="col-4"><p>{{ _('Shortest Leg') }}</p></div>
-                            <div class="col-3"><p>{{ stats['p2_short_leg'] }}</p></div>
-                        </div>
-
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_180'] }}</p></div>
-                            <div class="col-4"><p>180</p></div>
-                            <div class="col-3"><p>{{ stats['p2_180'] }}</p></div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_171'] }}</p></div>
-                            <div class="col-4"><p>171+</p></div>
-                            <div class="col-3"><p>{{ stats['p2_171'] }}</p></div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_140'] }}</p></div>
-                            <div class="col-4"><p>140+</p></div>
-                            <div class="col-3"><p>{{ stats['p2_140'] }}</p></div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_100'] }}</p></div>
-                            <div class="col-4"><p>100+</p></div>
-                            <div class="col-3"><p>{{ stats['p2_100'] }}</p></div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_80'] }}</p></div>
-                            <div class="col-4"><p>80+</p></div>
-                            <div class="col-3"><p>{{ stats['p2_80'] }}</p></div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_60'] }}</p></div>
-                            <div class="col-4"><p>60+</p></div>
-                            <div class="col-3"><p>{{ stats['p2_60'] }}</p></div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_40'] }}</p></div>
-                            <div class="col-4"><p>40+</p></div>
-                            <div class="col-3"><p>{{ stats['p2_40'] }}</p></div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_20'] }}</p></div>
-                            <div class="col-4"><p>20+</p></div>
-                            <div class="col-3"><p>{{ stats['p2_20'] }}</p></div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-3"><p>{{ stats['p1_0'] }}</p></div>
-                            <div class="col-4"><p>20-</p></div>
-                            <div class="col-3"><p>{{ stats['p2_0'] }}</p></div>
-                        </div>                                  
-                                    
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row justify-content-center">
-    <div class="col-sm-12 col-xl-10">
-        <div class="card bg-light text-dark">
-            <div class="card-body">
-                <div class="row justify-content-center">
-                    <div class="col-sm-12 text-center">
-                        <table class="table d-flex border-0 table-responsive">
-                            <tr>
-                                <td class="border-0"></td>
-                                {% for set_ in range(1, match_json|length + 1) %}
-                                {% for leg in range(1, match_json[set_|string]|length + 1) %}
-                                <td class="border">
-                                    <a href="{{ url_for('game.statistics_set_leg', hashid=game.hashid, set_=set_, leg=leg) }}">S{{ set_ }}|L{{ leg }}</a>
-                                </td>
-                                {% endfor %}
-                                {% endfor %}
-                            </tr>
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-xl-10">
+            <div class="card bg-light text-dark">
+                <div class="card-body">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-12 text-center">
+                            <table class="table d-flex border-0 table-responsive">
+                                <tr>
+                                    <td class="border-0"></td>
+                                    {% for set_ in range(1, match_json|length + 1) %}
+                                    {% for leg in range(1, match_json[set_|string]|length + 1) %}
+                                    <td class="border">
+                                        <a
+                                            href="{{ url_for('game.statistics_set_leg', hashid=game.hashid, set_=set_, leg=leg) }}">S{{
+                                            set_ }}|L{{ leg }}</a>
+                                    </td>
+                                    {% endfor %}
+                                    {% endfor %}
+                                </tr>
 
-                            {% for player in match_json['1']['1'] %}
-                            <tr>
-                                <td class="border"><strong>{% if player == '1' %}{{ game.player1_name }}
-                                    {% else %}{{ game.player2_name }}{% endif %}</strong></td>
-                                {% for set in range(1, match_json|length + 1) %}
-                                {% for leg in range(1, match_json[set|string]|length + 1) %}
-                                <td class="border td-leg-overview {% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}bg-leg-win text-light{% else %}text-secondary{% endif %}">
-                                    <div style="position: relative">
-                                    <span class="leg-average">{% if (match_json[set|string][leg|string][player]['scores']|length > 0) %}
-                                        {% if 'to_finish' in match_json[set|string][leg|string][player] %}
-                                        {{ (match_json[set|string][leg|string][player]['scores']|sum / ((match_json[set|string][leg|string][player]['scores']|length * 3) - (3-match_json[set|string][leg|string][player]['to_finish'])) * 3)|round(2)|string }}
-                                        {% else %}
-                                        {{ (match_json[set|string][leg|string][player]['scores']|sum / (match_json[set|string][leg|string][player]['scores']|length))|round(2)|string }}
-                                        {% endif %}
-                                        {% else %}0{% endif %}
-                                    </span>
-                                        <span class="dart-count">{% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}{{ match_json[set|string][leg|string][player]['scores']|length*3 - (3 - match_json[set|string][leg|string][player]['to_finish']) }}
-                                    {% else %} {{ match_json[set|string][leg|string][player]['scores']|length*3 }} {% endif %}
-                                    </span>
-                                        <span class="score-remain">{% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}{{ game.type - match_json[set|string][leg|string][player]['scores'][:-1]|sum }}
-                                            {% else %} {{ game.type - match_json[set|string][leg|string][player]['scores']|sum }}
-                                            {% endif %}
-                                    </span>
-                                    </div>
-                                </td>
-                                {% endfor %}
-                                {% endfor %}
-                                {% endfor %}
-                            </tr>
-                        </table>
+                                {% for player in match_json['1']['1'] %}
+                                <tr>
+                                    <td class="border"><strong>{% if player == '1' %}{{ game.player1_name }}
+                                            {% else %}{{ game.player2_name }}{% endif %}</strong></td>
+                                    {% for set in range(1, match_json|length + 1) %}
+                                    {% for leg in range(1, match_json[set|string]|length + 1) %}
+                                    <td
+                                        class="border td-leg-overview {% if (match_json[set|string][leg|string][player]['scores']|sum == game.type) %}bg-leg-win text-light{% else %}text-secondary{% endif %}">
+                                        <div style="position: relative">
+                                            <span class="leg-average">{% if
+                                                (match_json[set|string][leg|string][player]['scores']|length
+                                                > 0) %}
+                                                {% if 'to_finish' in
+                                                match_json[set|string][leg|string][player] %}
+                                                {{ (match_json[set|string][leg|string][player]['scores']|sum
+                                                /
+                                                ((match_json[set|string][leg|string][player]['scores']|length
+                                                * 3) -
+                                                (3-match_json[set|string][leg|string][player]['to_finish']))
+                                                *
+                                                3)|round(2)|string }}
+                                                {% else %}
+                                                {{ (match_json[set|string][leg|string][player]['scores']|sum
+                                                /
+                                                (match_json[set|string][leg|string][player]['scores']|length))|round(2)|string
+                                                }}
+                                                {% endif %}
+                                                {% else %}0{% endif %}
+                                            </span>
+                                            <span class="dart-count">{% if
+                                                (match_json[set|string][leg|string][player]['scores']|sum ==
+                                                game.type)
+                                                %}{{
+                                                match_json[set|string][leg|string][player]['scores']|length*3
+                                                - (3
+                                                - match_json[set|string][leg|string][player]['to_finish'])
+                                                }}
+                                                {% else %} {{
+                                                match_json[set|string][leg|string][player]['scores']|length*3
+                                                }} {%
+                                                endif %}
+                                            </span>
+                                            <span class="score-remain">{% if
+                                                (match_json[set|string][leg|string][player]['scores']|sum ==
+                                                game.type)
+                                                %}{{ game.type -
+                                                match_json[set|string][leg|string][player]['scores'][:-1]|sum
+                                                }}
+                                                {% else %} {{ game.type -
+                                                match_json[set|string][leg|string][player]['scores']|sum }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    {% endfor %}
+                                    {% endfor %}
+                                    {% endfor %}
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-{% endblock %}
+    {% endblock %}

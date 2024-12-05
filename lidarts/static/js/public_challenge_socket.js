@@ -49,6 +49,16 @@ $(document).ready(function () {
                 bo_sets = ''
             }
 
+            bo_legs = 'bo' + public_challenge['bo_legs'] + ' legs'
+
+            if (public_challenge['goal_mode'] == 'x_legs') {
+                x_legs = ' | ' + public_challenge['x_legs'] + ' legs'
+                bo_sets = ''
+                bo_legs = ''
+            } else {
+                x_legs = ''
+            }
+
             if (public_challenge['score_input_delay'] > 0) {
                 score_input_delay = ' | Input block: ' + public_challenge['score_input_delay'] + 's'
             } else {
@@ -75,8 +85,9 @@ $(document).ready(function () {
                 + 'Avg.: ' + public_challenge['average'] + '<br>'
                 + type
                 + mode
-                + 'bo' + public_challenge['bo_legs'] + ' legs'
+                + bo_legs
                 + bo_sets
+                + x_legs
                 + two_clear_legs
                 + two_clear_legs_wc_mode
                 + closest_to_bull

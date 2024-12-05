@@ -9,6 +9,8 @@ def save_cricket_preset(form):
         db.session.add(preset)
     preset.bo_sets = form.bo_sets.data
     preset.bo_legs = form.bo_legs.data
+    preset.goal_mode = form.goal_mode.data
+    preset.x_legs = form.x_legs.data
     preset.two_clear_legs = form.two_clear_legs.data
     preset.two_clear_legs_wc_mode = form.two_clear_legs_wc_mode.data
     preset.starter = form.starter.data

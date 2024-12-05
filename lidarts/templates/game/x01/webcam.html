@@ -34,10 +34,14 @@
             {% endif %}
 
             <div class="row justify-content-center text-center text-white">
+                {% if game.fixed_legs %}
+                <div class="col-6">{{ _('Total of') }} {{ game.fixed_legs_amount }} Legs</div>
+                {% else %}
                 {% if game.bo_sets == 1 %}
                 <div class="col-6">Best of {{ game.bo_legs }} Legs</div>
                 {% else %}
                 <div class="col-6">Best of {{ game.bo_sets }} Sets</div>
+                {% endif %}
                 {% endif %}
             </div>
 

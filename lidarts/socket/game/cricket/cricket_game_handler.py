@@ -131,7 +131,8 @@ def send_score_response(game, p1_old_score=0, p2_old_score=0, broadcast=False, c
 @socketio.on('connect', namespace='/game/cricket')
 @limit_socketio()
 def connect():
-    print('Client connected', request.sid)
+    # print('Client connected', request.sid)
+    pass
 
 
 @socketio.on('player_heartbeat', namespace='/game/cricket')
@@ -212,6 +213,7 @@ def create_rematch(hashid):
         bo_sets=game.bo_sets, bo_legs=game.bo_legs,
         two_clear_legs=game.two_clear_legs,
         two_clear_legs_wc_mode=game.two_clear_legs_wc_mode,
+        fixed_legs=game.fixed_legs, fixed_legs_amount=game.fixed_legs_amount,
         p1_sets=0, p2_sets=0, p1_legs=0, p2_legs=0,
         p1_score=0, p2_score=0,
         begin=datetime.utcnow(), match_json=match_json,
@@ -463,4 +465,5 @@ def get_score_after_leg_win(message):
 
 @socketio.on('disconnect', namespace='/game/cricket')
 def disconnect():
-    print('Client disconnected', request.sid)
+    # print('Client disconnected', request.sid)
+    pass

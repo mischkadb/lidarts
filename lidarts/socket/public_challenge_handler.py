@@ -47,6 +47,8 @@ def broadcast_public_challenges():
             'out_mode': out_mode,
             'two_clear_legs': game.two_clear_legs,
             'two_clear_legs_wc_mode': game.two_clear_legs_wc_mode,
+            'goal_mode': 'x_legs' if  game.fixed_legs else 'best_of',
+            'x_legs': game.fixed_legs_total,
             'closest_to_bull': game.closest_to_bull,
             'score_input_delay': game.score_input_delay,
             'webcam': game.webcam,

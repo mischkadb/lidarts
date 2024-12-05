@@ -1,30 +1,67 @@
 <div class="row justify-content-center align-items-center mb-3">
     <div class="col-12">
-        <table class="table table-sm bg-dark text-light stats-table text-center" style="table-layout: fixed; width: 500px">
+        <table class="table table-sm bg-dark text-light stats-table text-center"
+            style="table-layout: fixed; width: 500px">
             <tr class="">
                 <td class="" style="width: 50px;"></td>
-                <td class="text-left border border-right-0 border-secondary" style="{% if game.bo_sets > 1 %}width: 210px;{% else %}width: 280px;{% endif %}"><h4>Best of {% if game.bo_sets == 1 %}{{ game.bo_legs }}
-                    {% else %}{{ game.bo_sets }}{% endif %}</h4></td>
-                <td class="border border-right-0 border-secondary" style="width: 70px; {% if game.bo_sets == 1 %}display:none;{% endif %}"><h4>Sets</h4></td>
-                <td class="border border-secondary" style="width: 70px;"><h4>Legs</h4></td>
+                <td class="text-left border border-right-0 border-secondary"
+                    style="{% if game.bo_sets > 1 %}width: 210px;{% else %}width: 280px;{% endif %}">
+                    <h4>
+                        {% if game.fixed_legs %}Total of {{ game.fixed_legs_amount }}
+                        {% else %}Best best_of-tab{% if game.bo_sets == 1 %}{{
+                        game.bo_legs }}
+                        {% else %}{{ game.bo_sets }}{% endif %}{% endif%}
+                    </h4>
+                </td>
+                <td class="border border-right-0 border-secondary"
+                    style="width: 70px; {% if game.bo_sets == 1 %}display:none;{% endif %}">
+                    <h4>Sets</h4>
+                </td>
+                <td class="border border-secondary" style="width: 70px;">
+                    <h4>Legs</h4>
+                </td>
                 <td style="width: 70px;"></td>
                 <td style="width: 30px;"></td>
             </tr>
             <tr class="">
-                <td class="font-weight-bold text-secondary align-middle"><h5 class="p1_darts_this_leg"></h5></td>
-                <td class="bg-light text-dark border border-secondary text-left player_name"><h3><span>{{ game.player1_name }}</span></h3></td>
-                <td class="bg-danger border border-secondary" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h3 class="p1_sets"></h3></td>
-                <td class="bg-danger border border-secondary"><h3 class="p1_legs"></h3></td>
-                <td class="bg-danger border border-secondary"><h3 class="p1_score" id="p1_score"></h3></td>
-                <td class=""><h3 class="p1_turn_incidator"></h3></td>
+                <td class="font-weight-bold text-secondary align-middle">
+                    <h5 class="p1_darts_this_leg"></h5>
+                </td>
+                <td class="bg-light text-dark border border-secondary text-left player_name">
+                    <h3><span>{{ game.player1_name }}</span></h3>
+                </td>
+                <td class="bg-danger border border-secondary" {% if game.bo_sets==1 %}style="display:none;" {% endif %}>
+                    <h3 class="p1_sets"></h3>
+                </td>
+                <td class="bg-danger border border-secondary">
+                    <h3 class="p1_legs"></h3>
+                </td>
+                <td class="bg-danger border border-secondary">
+                    <h3 class="p1_score" id="p1_score"></h3>
+                </td>
+                <td class="">
+                    <h3 class="p1_turn_incidator"></h3>
+                </td>
             </tr>
             <tr class="">
-                <td class="font-weight-bold text-secondary align-middle"><h5 class="p2_darts_this_leg"></h5></td>
-                <td class="bg-light text-dark border border-secondary text-left player_name"><h3><span>{{ game.player2_name }}</span></h3></td>
-                <td class="bg-danger border border-secondary" {% if game.bo_sets == 1 %}style="display:none;"{% endif %}><h3 class="p2_sets"></h3></td>
-                <td class="bg-danger border border-secondary"><h3 class="p2_legs"></h3></td>
-                <td class="bg-danger border border-secondary"><h3 class="p2_score" id="p2_score"></h3></td>
-                <td class=""><h3 class="p2_turn_incidator"></h3></td>
+                <td class="font-weight-bold text-secondary align-middle">
+                    <h5 class="p2_darts_this_leg"></h5>
+                </td>
+                <td class="bg-light text-dark border border-secondary text-left player_name">
+                    <h3><span>{{ game.player2_name }}</span></h3>
+                </td>
+                <td class="bg-danger border border-secondary" {% if game.bo_sets==1 %}style="display:none;" {% endif %}>
+                    <h3 class="p2_sets"></h3>
+                </td>
+                <td class="bg-danger border border-secondary">
+                    <h3 class="p2_legs"></h3>
+                </td>
+                <td class="bg-danger border border-secondary">
+                    <h3 class="p2_score" id="p2_score"></h3>
+                </td>
+                <td class="">
+                    <h3 class="p2_turn_incidator"></h3>
+                </td>
             </tr>
         </table>
     </div>

@@ -25,6 +25,8 @@ def player_to_dict(game, player1):
         'bo_sets': game.bo_sets,
         'two_clear_legs': game.two_clear_legs,
         'two_clear_legs_wc_mode': game.two_clear_legs_wc_mode,
+        'fixed_legs_amount': game.fixed_legs_amount,
+        'fixed_legs': game.fixed_legs,
         'status': game.status,
     }
     if player1:
@@ -62,6 +64,21 @@ def game_from_dict(game, player_dict):
 
 
 def process_leg_win(player_dict, match_json, current_values):
+    if player_dict['fixed_legs']:
+        player_dict['p_legs'] += 1
+        if player_dict['p_legs'] + player_dict['o_legs'] == player_dict['fixed_legs_amount']: # match over
+            if player_dict['p_legs'] > player_dict['o_legs']:
+                player_dict['p_sets'] += 1
+            player_dict['status'] = 'completed'
+        else: # just new leg
+            # reset score to default value
+            player_dict['p_score'] = 0
+
+            current_values['leg'] = str(int(current_values['leg']) + 1)
+            match_json[current_values['set']][current_values['leg']] = cricket_leg_default.copy()
+
+        return player_dict, match_json, current_values
+
     # check if draws are possible
     set_draw_possible = (player_dict['bo_sets'] % 2) == 0
     leg_draw_possible = (player_dict['bo_legs'] % 2) == 0
