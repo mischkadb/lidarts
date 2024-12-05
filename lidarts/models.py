@@ -284,6 +284,8 @@ class CricketPresetting(db.Model):
     user = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), primary_key=True)
     bo_sets = db.Column(db.Integer)
     bo_legs = db.Column(db.Integer)
+    x_legs = db.Column(db.Integer)
+    goal_mode = db.Column(db.String(30))
     two_clear_legs = db.Column(db.Boolean)
     two_clear_legs_wc_mode = db.Column(db.Boolean)
     starter = db.Column(db.String(25))
