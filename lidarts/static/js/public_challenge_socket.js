@@ -32,9 +32,9 @@ $(document).ready(function () {
             }
 
             if (public_challenge['two_clear_legs_wc_mode'] == true) {
-                two_clear_legs = ' | World Champ. mode'
+                two_clear_legs_wc_mode = ' | World Champ. mode'
             } else {
-                two_clear_legs = ''
+                two_clear_legs_wc_mode = ''
             }
 
             if (public_challenge['closest_to_bull'] == true) {
