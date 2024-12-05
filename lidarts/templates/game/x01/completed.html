@@ -58,9 +58,21 @@
                                     </h3>
                                 </div>
                                 <div class="card-footer
-                                    {% if game.p1_sets > game.p2_sets %}bg-success border-success
-                                    {% elif game.p1_sets < game.p2_sets %}bg-danger border-danger
-                                    {% else %}bg-warning border-warning{% endif %}"></div>
+                                    {% if game.status != 'completed' %}
+                                    bg-warning border-warning
+                                    {% else %}
+                                        {% if game.fixed_legs %}
+                                            {% if game.p1_legs > game.p2_legs %}bg-success border-success
+                                            {% elif game.p1_legs < game.p2_legs %}bg-danger border-danger
+                                            {% else %}bg-warning border-warning{% endif %}
+                                        {% else %}
+                                            {% if game.p1_sets > game.p2_sets %}bg-success border-success
+                                            {% elif game.p1_sets < game.p2_sets %}bg-danger border-danger
+                                            {% else %}bg-warning border-warning{% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                    ">
+                                </div>
                             </div>
                         </div>
 
@@ -99,16 +111,20 @@
                                     </h3>
                                 </div>
                                 <div class="card-footer
-                                    {% if game.fixed_legs %}
-                                        {% if game.p1_legs > game.p2_legs %}bg-success border-success
-                                        {% elif game.p1_legs < game.p2_legs %}bg-danger border-danger
-                                        {% else %}bg-warning border-warning{% endif %}
+                                    {% if game.status != 'completed' %}
+                                    bg-warning border-warning
                                     {% else %}
-                                        {% if game.p1_sets < game.p2_sets %}bg-success border-success
-                                        {% elif game.p1_sets > game.p2_sets %}bg-danger border-danger
-                                        {% else %}bg-warning border-warning{% endif %}
+                                        {% if game.fixed_legs %}
+                                            {% if game.p1_legs < game.p2_legs %}bg-success border-success
+                                            {% elif game.p1_legs > game.p2_legs %}bg-danger border-danger
+                                            {% else %}bg-warning border-warning{% endif %}
+                                        {% else %}
+                                            {% if game.p1_sets < game.p2_sets %}bg-success border-success
+                                            {% elif game.p1_sets > game.p2_sets %}bg-danger border-danger
+                                            {% else %}bg-warning border-warning{% endif %}
+                                        {% endif %}
                                     {% endif %}
-                                ">
+                                    ">
                                 </div>
                             </div>
                         </div>
