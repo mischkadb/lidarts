@@ -1,9 +1,13 @@
-from flask import jsonify, current_app, redirect, url_for
+from datetime import datetime
+
+from flask import jsonify, current_app, redirect, url_for, request
 from flask_login import current_user, login_required
 from lidarts import db
 from lidarts.api import bp
-from lidarts.models import Game, CricketGame, User, StreamGame, Tournament
 from lidarts.game.utils import collect_statistics
+from lidarts.models import Game, CricketGame, User, StreamGame, Tournament
+from lidarts.statistics.utils import create_statistics, convert_stats_dict_to_serializable
+from lidarts.statistics.forms import StatisticsForm
 import json
 from sqlalchemy.orm import aliased
 
@@ -110,3 +114,42 @@ def get_jitsi():
     hashid = stream_game.jitsi_hashid    
 
     return redirect(f'https://{jitsi_server}/lidarts-{hashid}', code=302)
+
+
+@bp.route('/user/<username>/statistics')
+def get_user_statistics(username):
+    user = User.query.filter_by(username=username).first_or_404()
+
+    # Get query parameters with defaults
+    filter_type = request.args.get('filter_type', 'lastgames')  # lastgames or daterange
+    number_of_games = request.args.get('number_of_games', 50, type=int)
+    date_from = request.args.get('date_from', '1901-01-01')
+    date_to = request.args.get('date_to', '2099-12-31')
+    game_type = request.args.get('game_type', '501')
+    opponent = request.args.get('opponent', 'all')
+    computer_level = request.args.get('computer_level', 'all')
+    opponent_name = request.args.get('opponent_name', '')
+    in_mode = request.args.get('in_mode', 'si')
+    out_mode = request.args.get('out_mode', 'do')
+
+    # Create form object with query parameters
+    form = StatisticsForm(
+        select_game_range_filter=filter_type,
+        number_of_games=number_of_games,
+        date_from=datetime.strptime(date_from, '%Y-%m-%d').date(),
+        date_to=datetime.strptime(date_to, '%Y-%m-%d').date(),
+        game_types=game_type,
+        opponents=opponent,
+        computer_level=computer_level,
+        opponent_name=opponent_name,
+        in_mode=in_mode,
+        out_mode=out_mode
+    )
+
+    # check which custom filter is active
+    use_custom_filter_last_games = filter_type == 'lastgames'
+    use_custom_filter_date_range = filter_type == 'daterange'
+
+    statistics = create_statistics(user, form, use_custom_filter_last_games, use_custom_filter_date_range)
+
+    return jsonify(convert_stats_dict_to_serializable(statistics))

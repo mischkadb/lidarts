@@ -97,3 +97,39 @@ class Statistics:
         self.legs_lost_percent = 0
         self.number_of_rounds = 0
         self.highest_finish = 0
+        
+
+    def to_dict(self):
+        return {
+            'scoring': self.scoring,
+            'finishing': self.finishing,
+            'games': self.games,
+            'first': {
+                'scores': {
+                    'first3': list(self.first['scores']['first3']),
+                    'first6': list(self.first['scores']['first6']),
+                    'first9': list(self.first['scores']['first9']),
+                },
+                'averages': self.first['averages']
+            },
+            'darts_thrown': self.darts_thrown,
+            'double_thrown': self.double_thrown,
+            'legs_won': self.legs_won,
+            'total_score': self.total_score,
+            'average': self.average,
+            'first9_scores': list(self.first9_scores),
+            'first9_average': self.first9_average,
+            'doubles': self.doubles,
+            'number_of_games': self.number_of_games,
+            'shortest_leg': self.shortest_leg,
+            'number_of_legs': self.number_of_legs,
+            'legs_lost': self.legs_lost,
+            'first6_scores': list(self.first6_scores),
+            'first6_average': self.first6_average,
+            'first3_scores': list(self.first3_scores),
+            'first3_average': self.first3_average,
+            'legs_won_percent': self.legs_won_percent,
+            'legs_lost_percent': self.legs_lost_percent,
+            'number_of_rounds': self.number_of_rounds,
+            'highest_finish': self.highest_finish
+        }

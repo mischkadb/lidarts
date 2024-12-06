@@ -357,3 +357,18 @@ def create_statistics(user, form, use_custom_filter_last_games, use_custom_filte
     stats['averagepergame'].reverse()
 
     return stats
+
+
+def convert_stats_dict_to_serializable(stats_dict):
+    serializable_stats = {}
+    
+    # Convert all statistics objects
+    for key, value in stats_dict.items():
+        if isinstance(value, Statistics):
+            serializable_stats[key] = value.to_dict()
+        elif key == 'averagepergame':
+            serializable_stats[key] = list(value)  # Make sure that the list is serializable
+        else:
+            serializable_stats[key] = value
+            
+    return serializable_stats
