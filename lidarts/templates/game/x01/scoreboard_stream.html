@@ -8,7 +8,7 @@
                     style="{% if game.bo_sets > 1 %}width: 210px;{% else %}width: 280px;{% endif %}">
                     <h4>
                         {% if game.fixed_legs %}Total of {{ game.fixed_legs_amount }}
-                        {% else %}Best best_of-tab{% if game.bo_sets == 1 %}{{
+                        {% else %}Best of {% if game.bo_sets == 1 %}{{
                         game.bo_legs }}
                         {% else %}{{ game.bo_sets }}{% endif %}{% endif%}
                     </h4>
