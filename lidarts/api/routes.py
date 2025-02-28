@@ -5,7 +5,7 @@ from flask_login import current_user, login_required
 from lidarts import db
 from lidarts.api import bp
 from lidarts.game.utils import collect_statistics
-from lidarts.models import Game, CricketGame, User, StreamGame, Tournament
+from lidarts.models import Game, GameBase, CricketGame, User, StreamGame, Tournament
 from lidarts.statistics.utils import create_statistics, convert_stats_dict_to_serializable
 from lidarts.statistics.forms import StatisticsForm
 import json
@@ -16,8 +16,17 @@ from sqlalchemy.orm import aliased
 def start(hashid):
     player1 = aliased(User)
     player2 = aliased(User)
+
+    game_type = (
+        GameBase.query
+        .filter_by(hashid=hashid)
+        .first_or_404()
+    )
+
+    game_model = type(game_type)
+
     game, p1_name, p2_name = (
-        Game.query
+        game_model.query
         .join()
         .filter_by(hashid=hashid)
         .join(player1, Game.player1 == player1.id).add_columns(player1.username)
@@ -29,7 +38,9 @@ def start(hashid):
     statistics = collect_statistics(game, match_json)
 
     game_dict = game.__dict__
-    keys = (
+
+    keys = [
+        'mode',
         'begin',
         'end',
         'bo_legs',
@@ -44,13 +55,23 @@ def start(hashid):
         'p2_sets',
         'player1',
         'player2',
-        'type',
         'two_clear_legs',
         'two_clear_legs_wc_mode',
         'status',
-        'in_mode',
-        'out_mode',
-    )
+    ]
+
+    if isinstance(game, Game):
+        game_dict['mode'] = 'x01'
+        x01_keys = [
+            'in_mode',
+            'out_mode',
+            'type',
+        ]
+        keys += x01_keys
+    elif isinstance(game, CricketGame):
+        game_dict['mode'] = 'cricket'
+
+
 
     return_dict = {}
     for key in keys:
