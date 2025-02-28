@@ -107,7 +107,7 @@ def create_app(test_config=None):
 
     from lidarts.models import User, Role
     from lidarts.auth.forms import ExtendedLoginForm, ExtendedRegisterForm, \
-        ExtendedChangePasswordForm, ExtendedResetPasswordForm
+        ExtendedChangePasswordForm, ExtendedResetPasswordForm, ExtendedConfirmRegisterForm
 
     # Initialize Flask extensions
     db.init_app(app)
@@ -119,7 +119,8 @@ def create_app(test_config=None):
                       login_form=ExtendedLoginForm,
                       register_form=ExtendedRegisterForm,
                       change_password_form=ExtendedChangePasswordForm,
-                      reset_password_form=ExtendedResetPasswordForm)
+                      reset_password_form=ExtendedResetPasswordForm,
+                      confirm_register_form=ExtendedConfirmRegisterForm)
 
     origins = app.config['CORS_ALLOWED_ORIGINS'] if 'CORS_ALLOWED_ORIGINS' in app.config else '*'
     

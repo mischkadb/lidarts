@@ -4,7 +4,7 @@ from lidarts.models import User
 from flask_security import LoginForm
 from flask_security.forms import Form, PasswordConfirmFormMixin, NextFormMixin, \
     RegisterFormMixin, UniqueEmailFormMixin, NewPasswordFormMixin, ValidatorMixin, \
-    ChangePasswordForm, ResetPasswordForm
+    ChangePasswordForm, ResetPasswordForm, ConfirmRegisterForm
 from flask_babelex import _, lazy_gettext
 from sqlalchemy import func
 

@@ -50,6 +50,12 @@ class User(db.Model, UserMixin):
     backer_until = db.Column(db.DateTime, default=None)
     webcam_settings = relationship("WebcamSettings", uselist=False, back_populates="user_object")
     api_key = db.Column(db.String(16), default=None)
+    confirmed_at = db.Column(db.DateTime, default=None)
+    last_login_at = db.Column(db.DateTime, default=None)
+    current_login_at = db.Column(db.DateTime, default=None)
+    last_login_ip = db.Column(db.String(15), default=None)
+    current_login_ip = db.Column(db.String(15), default=None)
+    login_count = db.Column(db.Integer, default=0)
 
     requested_friend_reqs = db.relationship(
         'FriendshipRequest',
