@@ -40,24 +40,25 @@ def start(hashid):
     game_dict = game.__dict__
 
     keys = [
-        'mode',
         'begin',
-        'end',
         'bo_legs',
         'bo_sets',
+        'end',
         'fixed_legs',
         'fixed_legs_amount',
         'hashid',
         'match_json',
+        'mode',
         'p1_legs',
         'p2_legs',
         'p1_sets',
         'p2_sets',
         'player1',
         'player2',
+        'status',
         'two_clear_legs',
         'two_clear_legs_wc_mode',
-        'status',
+        'webcam',
     ]
 
     if isinstance(game, Game):
