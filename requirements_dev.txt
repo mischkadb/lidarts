@@ -43,7 +43,7 @@ packaging==21.3
 passlib==1.7.4
 Pillow==9.0.0
 psutil==5.9.0
-pyparsing==3.0.6
+pyparsing==3.0.9
 python-dotenv==0.19.2
 python-engineio==3.12.1
 python-socketio==4.5.1
