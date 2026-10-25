@@ -31,6 +31,7 @@ $(document).ready(function() {
 
     socket.on('game_aborted', function(msg) {
         $('.score_input').hide();
+        $('.keypad').hide();
         $('.game-aborted').show();
     });
 
@@ -388,6 +389,7 @@ $(document).ready(function() {
         }
 
         $('.score_input').hide();
+        $('.keypad').hide();
         $('.confirm_completion').show();
 
         game_completed = true

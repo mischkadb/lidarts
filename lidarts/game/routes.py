@@ -344,7 +344,7 @@ def start(hashid, theme=None):
         if not settings:
             settings = UserSettings(user=user)
             db.session.add(settings)
-            db.session.commit(settings)
+            db.session.commit()
         caller = settings.caller
     else:
         settings = {'checkout_suggestions': False}

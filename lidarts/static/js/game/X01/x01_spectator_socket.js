@@ -31,6 +31,7 @@ $(document).ready(function() {
 
     socket.on('game_aborted', function(msg) {
         $('.score_input').hide();
+        $('.keypad').hide();
         $('.game-aborted').show();
     });
 
@@ -449,6 +450,7 @@ $(document).ready(function() {
             $('.p2_score').html(msg.p2_score);
         }
         $('.score_input').hide();
+        $('.keypad').hide();
         $('.confirm_completion').show();
     });
 
